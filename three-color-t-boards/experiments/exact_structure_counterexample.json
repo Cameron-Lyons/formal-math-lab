@@ -1,0 +1,39 @@
+{
+  "rows": [
+    "1",
+    "000",
+    "01001",
+    "2102001",
+    "010000221",
+    "22102110022",
+    "0012011101121",
+    "220201221200220",
+    "21121111012122222",
+    "2021201011220210200"
+  ],
+  "valid_T_board": false,
+  "all_three_coordinate_marginals_uniform": true,
+  "distinct_quadruples": 73,
+  "missing": [
+    "1112",
+    "1121",
+    "1211",
+    "1222",
+    "2111",
+    "2122",
+    "2212",
+    "2221"
+  ],
+  "doubled": [
+    "1111",
+    "1122",
+    "1212",
+    "1221",
+    "2112",
+    "2121",
+    "2211",
+    "2222"
+  ],
+  "method": "Prescribed binary-cube count trade on palette {1,2}: odd parity absent, even parity doubled; all other counts one. Search fixed first six rows from splice_extension.json group 6, cap 1.",
+  "independent_coordinate_audit": "PASS"
+}

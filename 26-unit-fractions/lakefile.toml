@@ -1,0 +1,6 @@
+name = "unit_fractions"
+version = "0.1.0"
+defaultTargets = ["UnitFractions"]
+
+[[lean_lib]]
+name = "UnitFractions"

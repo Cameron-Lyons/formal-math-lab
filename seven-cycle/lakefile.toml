@@ -1,0 +1,7 @@
+name = "seven-cycle"
+version = "1.0.0"
+defaultTargets = ["SevenCycle"]
+
+[[lean_lib]]
+name = "SevenCycle"
+precompileModules = true

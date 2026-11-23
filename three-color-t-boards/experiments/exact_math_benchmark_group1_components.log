@@ -1,0 +1,8 @@
+group=1 prefix=000000100002011001202102210110211112 mode=components
+component row=6 calls=1 disconnected=0 pruned=0
+component row=7 calls=22814 disconnected=0 pruned=0
+component row=8 calls=34001614 disconnected=238574 pruned=238574
+component row=9 calls=51486 disconnected=10296 pruned=10296
+component_prune=1 elapsed_seconds=20.8576
+138 boards (prefix exhausted)
+Saved complete ordered tail list matches PASS

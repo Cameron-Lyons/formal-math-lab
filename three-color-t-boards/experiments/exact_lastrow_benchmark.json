@@ -1,0 +1,510 @@
+[
+  {
+    "group": 1,
+    "arguments": [
+      "000000100002011001202102210110211112",
+      "0",
+      "1000000"
+    ],
+    "summary": {
+      "status": "COMPLETE",
+      "count": "138",
+      "memo_depth": "0",
+      "memo_capacity": "1000000",
+      "entries": "0",
+      "requests": "52132",
+      "elapsed": "21.3516"
+    },
+    "depth_stats": [
+      {
+        "remaining": "0",
+        "calls": "138",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "1",
+        "calls": "204",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "2",
+        "calls": "404",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "3",
+        "calls": "756",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "4",
+        "calls": "1434",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "5",
+        "calls": "2606",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "6",
+        "calls": "4789",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "7",
+        "calls": "8267",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "8",
+        "calls": "13377",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "9",
+        "calls": "20683",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "10",
+        "calls": "28854",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "11",
+        "calls": "38318",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "12",
+        "calls": "47860",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "13",
+        "calls": "56114",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "14",
+        "calls": "63469",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "15",
+        "calls": "57773",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "16",
+        "calls": "56729",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "17",
+        "calls": "67140",
+        "lookups": "0",
+        "hits": "0"
+      }
+    ]
+  },
+  {
+    "group": 1,
+    "arguments": [
+      "000000100002011001202102210110211112",
+      "4",
+      "1000000"
+    ],
+    "summary": {
+      "status": "COMPLETE",
+      "count": "138",
+      "memo_depth": "4",
+      "memo_capacity": "1000000",
+      "entries": "42",
+      "requests": "52132",
+      "elapsed": "19.1035"
+    },
+    "depth_stats": [
+      {
+        "remaining": "0",
+        "calls": "134",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "1",
+        "calls": "199",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "2",
+        "calls": "393",
+        "lookups": "4",
+        "hits": "0"
+      },
+      {
+        "remaining": "3",
+        "calls": "750",
+        "lookups": "9",
+        "hits": "3"
+      },
+      {
+        "remaining": "4",
+        "calls": "1434",
+        "lookups": "35",
+        "hits": "3"
+      },
+      {
+        "remaining": "5",
+        "calls": "2606",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "6",
+        "calls": "4789",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "7",
+        "calls": "8267",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "8",
+        "calls": "13377",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "9",
+        "calls": "20683",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "10",
+        "calls": "28854",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "11",
+        "calls": "38318",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "12",
+        "calls": "47860",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "13",
+        "calls": "56114",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "14",
+        "calls": "63469",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "15",
+        "calls": "57773",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "16",
+        "calls": "56729",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "17",
+        "calls": "67140",
+        "lookups": "0",
+        "hits": "0"
+      }
+    ]
+  },
+  {
+    "group": 1,
+    "arguments": [
+      "000000100002011001202102210110211112",
+      "8",
+      "1000000"
+    ],
+    "summary": {
+      "status": "COMPLETE",
+      "count": "138",
+      "memo_depth": "8",
+      "memo_capacity": "1000000",
+      "entries": "2185",
+      "requests": "52132",
+      "elapsed": "21.7662"
+    },
+    "depth_stats": [
+      {
+        "remaining": "0",
+        "calls": "127",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "1",
+        "calls": "191",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "2",
+        "calls": "377",
+        "lookups": "4",
+        "hits": "0"
+      },
+      {
+        "remaining": "3",
+        "calls": "718",
+        "lookups": "9",
+        "hits": "3"
+      },
+      {
+        "remaining": "4",
+        "calls": "1368",
+        "lookups": "34",
+        "hits": "2"
+      },
+      {
+        "remaining": "5",
+        "calls": "2525",
+        "lookups": "131",
+        "hits": "10"
+      },
+      {
+        "remaining": "6",
+        "calls": "4675",
+        "lookups": "253",
+        "hits": "11"
+      },
+      {
+        "remaining": "7",
+        "calls": "8183",
+        "lookups": "611",
+        "hits": "26"
+      },
+      {
+        "remaining": "8",
+        "calls": "13377",
+        "lookups": "1237",
+        "hits": "42"
+      },
+      {
+        "remaining": "9",
+        "calls": "20683",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "10",
+        "calls": "28854",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "11",
+        "calls": "38318",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "12",
+        "calls": "47860",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "13",
+        "calls": "56114",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "14",
+        "calls": "63469",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "15",
+        "calls": "57773",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "16",
+        "calls": "56729",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "17",
+        "calls": "67140",
+        "lookups": "0",
+        "hits": "0"
+      }
+    ]
+  },
+  {
+    "group": 1,
+    "arguments": [
+      "000000100002011001202102210110211112",
+      "17",
+      "1000000"
+    ],
+    "summary": {
+      "status": "COMPLETE",
+      "count": "138",
+      "memo_depth": "17",
+      "memo_capacity": "1000000",
+      "entries": "92893",
+      "requests": "52132",
+      "elapsed": "20.5082"
+    },
+    "depth_stats": [
+      {
+        "remaining": "0",
+        "calls": "126",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "1",
+        "calls": "190",
+        "lookups": "0",
+        "hits": "0"
+      },
+      {
+        "remaining": "2",
+        "calls": "374",
+        "lookups": "4",
+        "hits": "0"
+      },
+      {
+        "remaining": "3",
+        "calls": "711",
+        "lookups": "9",
+        "hits": "3"
+      },
+      {
+        "remaining": "4",
+        "calls": "1354",
+        "lookups": "33",
+        "hits": "1"
+      },
+      {
+        "remaining": "5",
+        "calls": "2496",
+        "lookups": "128",
+        "hits": "7"
+      },
+      {
+        "remaining": "6",
+        "calls": "4605",
+        "lookups": "246",
+        "hits": "4"
+      },
+      {
+        "remaining": "7",
+        "calls": "8011",
+        "lookups": "594",
+        "hits": "9"
+      },
+      {
+        "remaining": "8",
+        "calls": "12986",
+        "lookups": "1205",
+        "hits": "10"
+      },
+      {
+        "remaining": "9",
+        "calls": "20151",
+        "lookups": "2173",
+        "hits": "25"
+      },
+      {
+        "remaining": "10",
+        "calls": "28156",
+        "lookups": "3799",
+        "hits": "31"
+      },
+      {
+        "remaining": "11",
+        "calls": "37470",
+        "lookups": "5962",
+        "hits": "38"
+      },
+      {
+        "remaining": "12",
+        "calls": "46904",
+        "lookups": "8541",
+        "hits": "36"
+      },
+      {
+        "remaining": "13",
+        "calls": "54943",
+        "lookups": "11274",
+        "hits": "19"
+      },
+      {
+        "remaining": "14",
+        "calls": "62193",
+        "lookups": "14483",
+        "hits": "59"
+      },
+      {
+        "remaining": "15",
+        "calls": "56881",
+        "lookups": "18857",
+        "hits": "120"
+      },
+      {
+        "remaining": "16",
+        "calls": "56325",
+        "lookups": "14753",
+        "hits": "217"
+      },
+      {
+        "remaining": "17",
+        "calls": "67140",
+        "lookups": "11604",
+        "hits": "193"
+      }
+    ]
+  }
+]

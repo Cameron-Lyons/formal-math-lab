@@ -1,0 +1,12 @@
+.lake/
+.venv/
+__pycache__/
+*.olean
+*.ilean
+search_prefix
+prefix_search
+search_local
+search_local_rows
+extended_search
+more_search
+splice_search

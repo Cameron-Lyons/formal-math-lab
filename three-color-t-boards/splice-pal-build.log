@@ -1,0 +1,45 @@
+Complete Lean project build with lake build
+8122eb43a11ac86772a31a0921414c6ce86b8bb2a64e3ec793940de5a2507350  splice_sixth.json
+28a5b4e10c2f674ff30a9e597d6fe6061a9eb36410bcdb67c837f991616adb7c  splice_pal.json
+
+ℹ [8/365] Replayed ColorSymmetry
+info: ColorSymmetry.lean:129:0: 'TBoards.valid_transform_colors' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ColorSymmetry.lean:131:0: 'TBoards.orbit_valid_of_valid_and_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [10/365] Replayed SimpleProof
+info: SimpleProof.lean:114:0: 'TBoards.Simple.at_least_72' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SimpleProof.lean:115:0: 'TBoards.Simple.more_than_60' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SimpleProof.lean:116:0: 'TBoards.Simple.problem_solved' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [13/365] Replayed Certificates
+info: Certificates.lean:62:0: 'TBoards.at_least_72' depends on axioms: [propext, Quot.sound]
+info: Certificates.lean:63:0: 'TBoards.more_than_60' depends on axioms: [propext, Quot.sound]
+info: Certificates.lean:64:0: 'TBoards.new_board_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [114/365] Replayed ExtendedCertificates
+info: ExtendedCertificates.lean:36:0: 'TBoards.at_least_17160' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [493/572] Replayed SpliceCertificates
+info: SpliceCertificates.lean:22:0: 'TBoards.at_least_348960' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [626/813] Replayed SpliceExtensionCertificates
+info: SpliceExtensionCertificates.lean:29:0: 'TBoards.at_least_10485708' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1808/1849] Built SpliceSixthData.Template034 (573ms)
+✔ [1810/1849] Built SpliceSixthData.Template035 (576ms)
+✔ [1812/1849] Built SpliceSixthData.Template036 (675ms)
+✔ [1814/1849] Built SpliceSixthData.Group034Part000 (24s)
+✔ [1816/1849] Built SpliceSixthData.Group036Part000 (30s)
+✔ [1818/1849] Built SpliceSixthData.Group035Part000 (38s)
+✔ [1820/1849] Built SpliceSixthData.Group034Part001 (16s)
+✔ [1822/1849] Built SpliceSixthData.Group035Part001 (15s)
+✔ [1824/1849] Built SpliceSixthData.Group036Part001 (28s)
+✔ [1826/1849] Built SpliceSixthData.Group035Part002 (9.6s)
+✔ [1828/1849] Built SpliceSixthData.Group036Part002 (8.7s)
+✔ [1830/1849] Built SpliceSixthData (59s)
+✔ [1832/1849] Built SplicePrefixData (164s)
+✔ [1834/1849] Built SpliceNextPrefixData (167s)
+ℹ [1836/1849] Built SpliceFurtherCertificates (39s)
+info: SpliceFurtherCertificates.lean:33:0: 'TBoards.at_least_21158736' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [1839/1849] Built SpliceNextCertificates (50s)
+info: SpliceNextCertificates.lean:41:0: 'TBoards.at_least_32155680' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1842/1849] Built SpliceSixthPrefixData (171s)
+ℹ [1844/1849] Built SpliceSixthCertificates (76s)
+info: SpliceSixthCertificates.lean:50:0: 'TBoards.at_least_44831016' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [1847/1849] Built SplicePalCertificates (4.6s)
+info: SplicePalCertificates.lean:27:0: 'TBoards.at_least_45083592' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (1849 jobs).

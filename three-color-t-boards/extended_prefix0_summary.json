@@ -1,0 +1,19 @@
+{
+  "prefix_rows": [
+    "0",
+    "000",
+    "00100",
+    "0020110",
+    "012021022",
+    "10110211112"
+  ],
+  "exhaustive": true,
+  "method": "Independent C++ DFS with pattern uniqueness and four color-position marginals",
+  "nodes": 10744033875,
+  "completions": 138,
+  "additional_orbits": 136,
+  "previous_known_orbits": 6,
+  "total_certifiable_labelled_lower_bound": 1704,
+  "elapsed_seconds": 116.57,
+  "validation": "All 136 representatives pass independent Python and published coordinate-based checker; their 12-element orbits are mutually disjoint and disjoint from prior 72. Enumeration completeness is not Lean-proved."
+}

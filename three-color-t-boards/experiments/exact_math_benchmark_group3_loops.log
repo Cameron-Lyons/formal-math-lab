@@ -1,0 +1,9 @@
+group=3 prefix=000000100011210120112122000122221202 mode=loops
+component row=6 calls=1 disconnected=0 pruned=0
+component row=7 calls=26104 disconnected=0 pruned=0
+component row=8 calls=42059981 disconnected=187702 pruned=187702
+component row=9 calls=21294 disconnected=5074 pruned=5074
+component_prune=1 connectivity_lookup=0 loops_only=1 prepare_seconds=1.4618e-05 elapsed_seconds=27.4013
+36 boards (prefix exhausted)
+child_cpu_seconds=21.356523
+Saved complete ordered tail list matches PASS

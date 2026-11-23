@@ -1,0 +1,90 @@
+Compiling: objs/Main.o
+Compiling: objs/MinCutPartitioner.o
+In file included from ../boost/usr/include/boost/multiprecision/gmp.hpp:10,
+                 from core/../modelCounters/ModelCounter.hh:55,
+                 from core/Main.cc:23:
+../boost/usr/include/boost/multiprecision/detail/standalone_config.hpp:36:7: warning: #warning "The minimum language standard to use Boost.Math will be C++14 starting in July 2023 (Boost 1.82 release)" [-Wcpp]
+   36 |  #    warning "The minimum language standard to use Boost.Math will be C++14 starting in July 2023 (Boost 1.82 release)"
+      |       ^~~~~~~
+In file included from ../boost/usr/include/boost/math/cstdfloat/cstdfloat_types.hpp:17,
+                 from ../boost/usr/include/boost/cstdfloat.hpp:18,
+                 from ../boost/usr/include/boost/multiprecision/detail/float128_functions.hpp:15,
+                 from ../boost/usr/include/boost/multiprecision/detail/fpclassify.hpp:13,
+                 from ../boost/usr/include/boost/multiprecision/detail/default_ops.hpp:15,
+                 from ../boost/usr/include/boost/multiprecision/detail/generic_interconvert.hpp:12,
+                 from ../boost/usr/include/boost/multiprecision/number.hpp:12,
+                 from ../boost/usr/include/boost/multiprecision/gmp.hpp:11:
+../boost/usr/include/boost/math/tools/config.hpp:23:6: warning: #warning "The minimum language standard to use Boost.Math will be C++14 starting in July 2023 (Boost 1.82 release)" [-Wcpp]
+   23 | #    warning "The minimum language standard to use Boost.Math will be C++14 starting in July 2023 (Boost 1.82 release)"
+      |      ^~~~~~~
+Makefile:83: warning: pattern recipe did not update peer target 'objs/MinCutPartitioner.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/MinCutPartitioner.op'.
+Compiling: objs/VarBipartiteGraphPartitioner.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/VarBipartiteGraphPartitioner.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/VarBipartiteGraphPartitioner.op'.
+Compiling: objs/PartitionerInterface.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/PartitionerInterface.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/PartitionerInterface.op'.
+Compiling: objs/VariableHeuristicInterface.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/VariableHeuristicInterface.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/VariableHeuristicInterface.op'.
+Compiling: objs/CnfOccurrenceManager.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/CnfOccurrenceManager.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/CnfOccurrenceManager.op'.
+Compiling: objs/ParserProblem.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/ParserProblem.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/ParserProblem.op'.
+Compiling: objs/dynamicOccurrenceManager.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/dynamicOccurrenceManager.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/dynamicOccurrenceManager.op'.
+Compiling: objs/formulaManager.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/formulaManager.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/formulaManager.op'.
+Compiling: objs/greedyOccurrenceManager.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/greedyOccurrenceManager.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/greedyOccurrenceManager.op'.
+Compiling: objs/Backbone.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Backbone.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Backbone.op'.
+Compiling: objs/EquivClauseSimplification.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/EquivClauseSimplification.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/EquivClauseSimplification.op'.
+Compiling: objs/Forgetting.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Forgetting.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Forgetting.op'.
+Compiling: objs/OccurrenceLitElimination.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/OccurrenceLitElimination.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/OccurrenceLitElimination.op'.
+Compiling: objs/Preproc.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Preproc.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Preproc.op'.
+Compiling: objs/PreprocSolver.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/PreprocSolver.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/PreprocSolver.op'.
+Compiling: objs/Vivification.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Vivification.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Vivification.op'.
+Compiling: objs/HittingSet.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/HittingSet.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/HittingSet.op'.
+Compiling: objs/InterpretationRefiner.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/InterpretationRefiner.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/InterpretationRefiner.op'.
+Compiling: objs/Options.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Options.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Options.op'.
+Compiling: objs/RenamableHorn.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/RenamableHorn.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/RenamableHorn.op'.
+Compiling: objs/ResidualNotPC.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/ResidualNotPC.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/ResidualNotPC.op'.
+Compiling: objs/Solver.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Solver.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Solver.op'.
+Compiling: objs/System.o
+Makefile:83: warning: pattern recipe did not update peer target 'objs/System.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/System.op'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Main.od'.
+Makefile:83: warning: pattern recipe did not update peer target 'objs/Main.op'.
+Linking: d4 ( objs/Main.o objs/ClauseBipartiteGraphPartitioner.o objs/MinCutPartitioner.o objs/VarBipartiteGraphPartitioner.o objs/PartitionerInterface.o objs/VariableHeuristicInterface.o objs/CnfOccurrenceManager.o objs/ParserProblem.o objs/dynamicOccurrenceManager.o objs/formulaManager.o objs/greedyOccurrenceManager.o objs/Backbone.o objs/EquivClauseSimplification.o objs/Forgetting.o objs/OccurrenceLitElimination.o objs/Preproc.o objs/PreprocSolver.o objs/Vivification.o objs/HittingSet.o objs/InterpretationRefiner.o objs/Options.o objs/RenamableHorn.o objs/ResidualNotPC.o objs/Solver.o objs/System.o )

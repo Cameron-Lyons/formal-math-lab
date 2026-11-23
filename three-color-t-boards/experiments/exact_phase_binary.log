@@ -1,0 +1,86 @@
+c o Ganak SHA1: f262be5374f312b4bf7c99c6cca26e51182158e5
+c o Arjun SHA1: c86963a05108092cba6fa10e35403053bd175e4d
+c o SBVA SHA1: bf157b1fea71c155251d2991b5fe0de37c57efba
+c o CMS SHA1: 97c6efeae45d93c45d2ebc3e4e83c2014c79513d
+c o CaDiCaL SHA1: 818c9562f114b315a9246ced943b66b60b38e8fb
+c o CadiBack SHA1: 802e1f6d34b6e613828e591a8359298cd99e6429
+c o ApproxMC SHA1: aae0b47038d9ab52f2e4cc7f466cafb7219d8812
+c o TreeDecomp SHA1: 0495b40c220b0b97a0d7c8e8d86480b4060476a8
+c o Using ideas by JM Lagniez, and Pierre Marquis
+c o     from paper: Improving Model Counting [..] IJCAI 2016
+c o Using ideas by M. Janota and J. Marques-Silva
+c o     from paper: Abstraction-Based Algorithm for 2QBF, SAT 2011
+c o Using ideas by J. Brauer, A. King, and J. Kriener
+c o     from paper: Existential Quantification as Incremental SAT, CAV 2011
+c o Using VMTF, picosat, CaDiCaL, and CadiBack code by Armin Biere
+c o CMS is MIT licensed
+c o Using code from 'When Boolean Satisfiability Meets Gauss-E. in a Simplex Way'
+c o       by C.-S. Han and J.-H. Roland Jiang in CAV 2012. Fixes by M. Soos
+c o Using CCAnr from 'CCAnr: A Conf. Checking Based Local Search Solver [...]'
+c o       by Shaowei Cai, Chuan Luo, and Kaile Su, SAT 2015
+c o Using Oracle code from 'Integrating Tree Decompositions [...]'
+c o       by Tuukka Korhonen and Matti Jarvisalo, CP 2021
+c o Using xnfSAT by @Vtec234 from 'XOR Local Search for
+c o       Boolean Brent Equations' by W. Nawrocki, et al, SAT 2021
+c o Using code extensively lifted via LLMs from CaDiCaL, originally by Armin Biere et al.
+c o Using Graph library by Tuukka Korhonen and Matti Jarvisalo
+c o Using Flowcutter by Ben Strasser
+c o Ganak compilation env CMAKE_CXX_COMPILER = /usr/bin/c++ | CMAKE_CXX_FLAGS =  -fno-stack-protector -mpopcnt -msse4.2 -mpclmul -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wrestrict -Wnull-dereference -Wdouble-promotion -Wshadow -Wformat=2 -Wextra-semi -pedantic | COMPILE_DEFINES =  -DNDEBUG -D_FORTIFY_SOURCE=0 -DUSE_ZLIB | BUILD_SHARED_LIBS = OFF | ZLIB_FOUND = TRUE | ENABLE_ASSERTIONS = OFF | 
+c o called with: experiments/exact_count_tools/ganak --prob 0 --arjun 0 --puura 0 --td 0 --maxcache 256 experiments/exact_phase_binary.cnf
+c o CNF projection set size: 572
+c o Found 1 disconnected component(s)
+c o [par] Using non-parallel counting
+c o ind size: 572 nvars: 572
+c o opt ind size: 572 ind size: 572 nvars: 572
+c o Sampling set size: 572
+c o Opt sampling set size: 572
+c o Bin irred/red            1818          0
+c o Long irred cls/tri        326        321
+c o Long red cls/tri            0          0
+c o [bce] blk vars from: 573 cls: 2465 bins: 1818 triples: 0 cand entries: 0 tracked cls: 0 skipped lits: 0 T: 2.4e-05
+c o [rst-cube] Num restarts: 0 orig cubes this rst: 1 final cubes this rst: 1 total orig cubes: 1 total final cubes: 1
+c o total time so far: 0.060089
+c o count time: 0.057856
+c o decisions K                    1         -- Kdec/s:     30.38    
+c o conflicts                      1699         -- confl/s:    29363.47 
+c o rem lits triedK/rem lits remK  1         0         
+c o shrink tried/useful%/lits rem  1697      93.5180   34390     
+c o avg clsz/rem lits avg/finalavg 38.4756   14.4597   14.0288  
+c o rdbs/low lbd/rem               0     0      0     
+c o looks/look-computes            0/0
+c o sat call/sat/unsat/confl/rst  0     0     0     0     0     
+c o zero branch SAT checks/unsat   0     / 0    
+c o buddy called /unsat ratio           0     / 0.0000 
+c o buddy avg num bin/long cls/vs  0.0000 / 0.0000 / 0.0000
+c o buddy max num bin/long cls/vs  0     / 0     / 0    
+c o orig cubes/lit-r avg/exten avg 1     / 0.00  / 0.00 
+c o cubes orig/symm/final          1     / 0     / 1    
+c o cubes resolved/flp-removed     0     / 0    
+c o tot restarts                   0    
+c o comp sortsK/avg sz             1     / 1.00000000
+c o comps recordK/non-reset ratio  1 / 0.57
+c o br splitsK/multi%/none%/comps  1         0.00      5.38      0.95     
+c o br avg sup vars/largest%/kept% 262.56    78.25     78.25    
+c o br top(lev<=3) splits/sup/lrg% 15        506.67    92.97    
+c o br cache-hit vars % of childr  0.00     
+c o br dec avg lev/cands/td-ties   9.74      217.13    0.00     
+c o br td obeyed%/td flat%         0.00      0.00     
+c o br score share td/act/freq %   0.00      98.70     1.30     
+c o vivif: try/cls/clviv/litsravg  0         0         0         0.00      
+c o toplev subs runs/bins/long-cls 0         0         0         0         0         
+c o toplevel probes/fail/bprop     0         0         0         
+c o Mem used                       0.01 GB
+c o cache pollutions call/removed  3988/1644
+c o cache entries K                0
+c o MB cache                       4.064
+c o cache K (lookup/ stores/ hits/ dels) 1      1      0      0       -- Klookup/s:  30.34    
+c o cache miss rate                1.000
+c o avg hit/store num vars 0.000 / 217.531
+c o 
+c o intermediate count: 42
+c o Total time [Arjun+GANAK]: 0.06
+s SATISFIABLE
+c s type mc
+c s log10-estimate 1.62324929e+00
+c s exact arb int 42
+c s pac guarantees epsilon: 0 delta: 0

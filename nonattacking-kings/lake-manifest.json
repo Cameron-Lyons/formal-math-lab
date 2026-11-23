@@ -1,0 +1,6 @@
+{"version": "1.3.0",
+ "packagesDir": ".lake/packages",
+ "packages": [],
+ "name": "«nonattacking-kings»",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

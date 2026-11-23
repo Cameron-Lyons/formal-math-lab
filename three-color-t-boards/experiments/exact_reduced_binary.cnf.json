@@ -1,0 +1,22 @@
+{
+  "colors": 2,
+  "prefix": [],
+  "palette_canonical": true,
+  "orbit_canonical": true,
+  "cardinality": "sequential",
+  "drop_one_line": false,
+  "quadruple_constraints": 1,
+  "triple_constraints": 15,
+  "variables": 1119,
+  "clauses": 3807,
+  "phase_seed": 0,
+  "phase_board": [
+    "0",
+    "000",
+    "00111",
+    "1100111",
+    "110101000"
+  ],
+  "all_false_verified": true,
+  "complemented": 403
+}

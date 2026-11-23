@@ -1,0 +1,62 @@
+{
+  "input_representatives": 1430,
+  "distinct_symmetry_orbits": 1430,
+  "duplicate_orbit_inputs_removed": 0,
+  "orbit_size": 12,
+  "distinct_labelled_boards": 17160,
+  "published_boards": 60,
+  "additional_boards_beyond_publication": 17100,
+  "sources": {
+    "published_seed_count": 5,
+    "original_novel_seed_count": 1,
+    "extended_prefix0_seed_count": 136,
+    "more_results_seed_count": 1288
+  },
+  "validation": {
+    "every_full_orbit_member_checked": true,
+    "method": "independent Cartesian-coordinate enumeration of every translated T",
+    "cells_per_board": 100,
+    "placements_per_board": 81,
+    "every_ordered_pattern_occurs_exactly_once": true,
+    "family_order": "strictly increasing 100-digit flattened ternary integer",
+    "lean_formalization": "not asserted by this Python collector"
+  },
+  "scope": {
+    "global_result": "certified computational lower bound; exact unrestricted count not determined",
+    "prefix0": {
+      "fixed_upper_rows": [
+        "0",
+        "000",
+        "00100",
+        "0020110",
+        "012021022",
+        "10110211112"
+      ],
+      "reported_exhaustive": true,
+      "completions": 138,
+      "completeness_lean_proved": false,
+      "nodes": 10744033875,
+      "elapsed_seconds": 116.57
+    },
+    "prefix1": {
+      "fixed_upper_rows": [
+        "0",
+        "000",
+        "21121",
+        "2102221",
+        "010122001",
+        "22111212222"
+      ],
+      "reported_exhaustive": false,
+      "solution_leaves_before_timeout": 1290,
+      "additional_orbits_before_timeout": 1288,
+      "nodes": 14459863040,
+      "elapsed_seconds": 180.002,
+      "exact_prefix_count": null
+    }
+  },
+  "sha256": {
+    "extended_seeds.json": "1b40a1cbbd5f869ab9622a97f3892b34378d05dc343112ea08e3397c5e7c07bc",
+    "extended_family.json": "58a427629f52071be50c7a1dc1cdba4bf557076aed0df64dd4c5bffdfb522c5b"
+  }
+}

@@ -1,0 +1,18 @@
+# Independent tool repository; linked from the collection README.
+/lake-compat/
+
+# Lean build caches and local environments.
+.lake/
+.venv/
+__pycache__/
+*.pyc
+*.olean
+*.ilean
+*.o
+*.a
+*.so
+.DS_Store
+
+# Downloaded counting solvers and their build trees.
+/three-color-t-boards/experiments/exact_count_tools/
+/three-color-t-boards/experiments/exact_backend_tools/

@@ -1,0 +1,80 @@
+c [33mBenchmark Information[0m
+c Number of variables: 546
+c Number of clauses: 2322
+c Number of literals: 6100
+c Preproc options: 
+c Integer mode 
+c
+c [1m[32mOption list [0m
+c Caching: 1
+c Reduce cache procedure level: 20
+c Strategy for Reducing the cache: 0
+c Cache representation: CL
+c Part of the formula that is cached: NT
+c Variable heuristic: VSADS
+c Phase heuristic: TRUE
+c Partitioning heuristic: CB + graph reduction + equivalence simplication
+c
+c Strategy: 2
+c ---------------------------------------------------------------------------------------------------------------------------------
+c   #compile |       time |    #posHit |    #negHit |     #split |    Mem(MB) | #equivCall | #Dec. Node |  #partioner |   limitDyn |
+c ---------------------------------------------------------------------------------------------------------------------------------
+c exact_backend_trace decision=1 literal=-13 component=546 priority=135 calls=1 splits=0 partitions=1 hits=0 misses=1 conflicts=0 cpu=0.034
+c exact_backend_trace decision=2 literal=-25 component=492 priority=120 calls=2 splits=0 partitions=1 hits=0 misses=2 conflicts=47 cpu=0.035
+c exact_backend_trace decision=3 literal=-45 component=456 priority=103 calls=3 splits=0 partitions=1 hits=0 misses=3 conflicts=47 cpu=0.035
+c exact_backend_trace decision=4 literal=-27 component=421 priority=89 calls=4 splits=0 partitions=1 hits=0 misses=4 conflicts=47 cpu=0.035
+c exact_backend_trace decision=5 literal=-51 component=397 priority=80 calls=5 splits=0 partitions=1 hits=0 misses=5 conflicts=178 cpu=0.037
+c exact_backend_trace decision=6 literal=-43 component=316 priority=64 calls=6 splits=0 partitions=1 hits=0 misses=6 conflicts=178 cpu=0.037
+c exact_backend_trace decision=7 literal=-194 component=260 priority=46 calls=8 splits=0 partitions=1 hits=0 misses=7 conflicts=206 cpu=0.037
+c exact_backend_trace decision=8 literal=-11 component=223 priority=39 calls=10 splits=0 partitions=1 hits=0 misses=8 conflicts=212 cpu=0.037
+c exact_backend_trace decision=9 literal=-191 component=148 priority=22 calls=11 splits=0 partitions=1 hits=0 misses=9 conflicts=212 cpu=0.038
+c exact_backend_trace decision=10 literal=-43 component=393 priority=78 calls=15 splits=0 partitions=1 hits=0 misses=10 conflicts=247 cpu=0.038
+c exact_backend_trace decision=11 literal=-98 component=321 priority=57 calls=16 splits=0 partitions=1 hits=0 misses=11 conflicts=261 cpu=0.039
+c exact_backend_trace decision=12 literal=-82 component=320 priority=56 calls=17 splits=0 partitions=1 hits=0 misses=12 conflicts=261 cpu=0.039
+c exact_backend_trace decision=13 literal=-194 component=319 priority=55 calls=18 splits=0 partitions=1 hits=0 misses=13 conflicts=261 cpu=0.039
+c exact_backend_trace decision=14 literal=-66 component=318 priority=54 calls=20 splits=0 partitions=1 hits=0 misses=14 conflicts=269 cpu=0.039
+c exact_backend_trace decision=15 literal=-11 component=316 priority=53 calls=21 splits=0 partitions=1 hits=0 misses=15 conflicts=269 cpu=0.040
+c exact_backend_trace decision=16 literal=-114 component=306 priority=47 calls=22 splits=0 partitions=1 hits=0 misses=16 conflicts=269 cpu=0.040
+c exact_backend_trace decision=17 literal=-191 component=265 priority=38 calls=23 splits=0 partitions=1 hits=0 misses=17 conflicts=271 cpu=0.040
+c exact_backend_trace decision=18 literal=-111 component=262 priority=37 calls=24 splits=0 partitions=1 hits=0 misses=18 conflicts=271 cpu=0.040
+c exact_backend_trace decision=19 literal=-54 component=260 priority=36 calls=25 splits=0 partitions=1 hits=0 misses=19 conflicts=271 cpu=0.040
+c exact_backend_trace decision=20 literal=-103 component=258 priority=35 calls=26 splits=0 partitions=1 hits=0 misses=20 conflicts=271 cpu=0.040
+c exact_backend_trace decision=21 literal=-106 component=256 priority=34 calls=27 splits=0 partitions=1 hits=0 misses=21 conflicts=271 cpu=0.040
+c exact_backend_trace decision=22 literal=-248 component=209 priority=27 calls=28 splits=0 partitions=1 hits=0 misses=22 conflicts=271 cpu=0.041
+c exact_backend_trace decision=23 literal=-191 component=147 priority=21 calls=36 splits=0 partitions=1 hits=0 misses=23 conflicts=286 cpu=0.041
+c exact_backend_trace decision=24 literal=-54 component=105 priority=14 calls=38 splits=0 partitions=1 hits=0 misses=24 conflicts=287 cpu=0.041
+c exact_backend_trace decision=25 literal=-232 component=103 priority=13 calls=39 splits=0 partitions=1 hits=0 misses=25 conflicts=287 cpu=0.041
+c exact_backend_trace decision=26 literal=-86 component=102 priority=12 calls=40 splits=0 partitions=1 hits=0 misses=26 conflicts=287 cpu=0.041
+c exact_backend_trace decision=27 literal=-114 component=300 priority=49 calls=45 splits=0 partitions=1 hits=0 misses=27 conflicts=292 cpu=0.042
+c exact_backend_trace decision=28 literal=-191 component=206 priority=31 calls=48 splits=0 partitions=1 hits=0 misses=28 conflicts=308 cpu=0.042
+c exact_backend_trace decision=29 literal=-291 component=49 priority=7 calls=50 splits=0 partitions=1 hits=0 misses=29 conflicts=315 cpu=0.042
+c exact_backend_trace decision=30 literal=-248 component=34 priority=6 calls=51 splits=0 partitions=1 hits=0 misses=30 conflicts=315 cpu=0.042
+c exact_backend_trace decision=31 literal=-82 component=365 priority=72 calls=57 splits=0 partitions=1 hits=0 misses=31 conflicts=369 cpu=0.043
+c exact_backend_trace decision=32 literal=-194 component=364 priority=71 calls=58 splits=0 partitions=1 hits=0 misses=32 conflicts=369 cpu=0.043
+c exact_backend_trace decision=64 literal=-123 component=187 priority=22 calls=116 splits=0 partitions=2 hits=0 misses=65 conflicts=565 cpu=0.051
+c exact_backend_trace decision=128 literal=-66 component=363 priority=72 calls=249 splits=0 partitions=2 hits=0 misses=129 conflicts=780 cpu=0.064
+c        256 |       0.06 |          0 |        136 |          0 |        551 |          0 |        135 |           2 |        546 |
+c exact_backend_trace decision=256 literal=-45 component=318 priority=54 calls=502 splits=0 partitions=2 hits=0 misses=257 conflicts=1661 cpu=0.098
+c        512 |       0.10 |          0 |        266 |          0 |        551 |          0 |        265 |           2 |        546 |
+c        768 |       0.13 |          0 |        389 |          0 |        551 |          0 |        388 |           2 |        546 |
+c exact_backend_trace decision=512 literal=-45 component=185 priority=33 calls=1018 splits=0 partitions=2 hits=1 misses=513 conflicts=3606 cpu=0.175
+c       1024 |       0.18 |          1 |        515 |          0 |        551 |          0 |        514 |           2 |        546 |
+c ---------------------------------------------------------------------------------------------------------------------------------
+c
+c [1m[31mStatistics [0m
+c [33mCompilation Information[0m
+c Number of recursive call: 1231
+c Number of split formula: 0
+c Number of decision: 615
+c Number of paritioner calls: 2
+c 
+c [1m[34mCache Information[0m
+c Memory used: 551 MB
+c
+c Number of positive hit: 2
+c Number of negative hit: 616
+c Number of reduceCall: 0
+c
+c Final time: 0.205685
+c 
+s 168

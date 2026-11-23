@@ -1,0 +1,5 @@
+binary complete count=168; nodes=119665; duplicate_prunes=119330 PASS
+ternary prefix C: completions=2 COMPLETE; nodes=5660859; duplicate_prunes=11321713; elapsed=2.264629s PASS
+ternary prefix P: completions=2 COMPLETE; nodes=17425743; duplicate_prunes=34851481; elapsed=6.986238s PASS
+ternary unrestricted total: NOT COMPUTED
+ALL COUNTS PASS; elapsed=9.298976s

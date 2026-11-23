@@ -1,0 +1,21 @@
+{
+  "scope": "unrestricted ternary, all color permutations and reflection normalized",
+  "command": [
+    "experiments/exact_count_tools/ganak",
+    "--prob",
+    "0",
+    "--arjun",
+    "0",
+    "--puura",
+    "0",
+    "--td",
+    "0",
+    "--maxcache",
+    "512",
+    "experiments/exact_count_ternary_orbit.cnf"
+  ],
+  "status": "timeout",
+  "exit_code": null,
+  "wall_seconds": 60.007,
+  "labeled_count_multiplier": 12
+}

@@ -1,0 +1,25 @@
+{
+  "colors": 3,
+  "prefix": [],
+  "normalization": "orbit",
+  "variables": 13543,
+  "clauses": 62090,
+  "complemented": 6133,
+  "board": [
+    "0",
+    "000",
+    "00100",
+    "0020110",
+    "012021022",
+    "10110211112",
+    "0121222022001",
+    "122101020222001",
+    "22211121210122112",
+    "1201100021201000200"
+  ],
+  "all_false_verified": true,
+  "count_preserved": true,
+  "full_count_computed": false,
+  "occurrence_amo": "tree",
+  "independent_support": true
+}

@@ -1,0 +1,6 @@
+ℹ [12/18] Replayed ColorSymmetry
+info: ColorSymmetry.lean:129:0: 'TBoards.valid_transform_colors' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ColorSymmetry.lean:131:0: 'TBoards.orbit_valid_of_valid_and_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [16/18] Built ExactSymmetry (2.5s)
+info: ExactSymmetry.lean:160:0: 'TBoards.ExactSymmetry.stabilizer_trivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (18 jobs).

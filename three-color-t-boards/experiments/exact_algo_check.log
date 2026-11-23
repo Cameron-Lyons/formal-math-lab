@@ -1,0 +1,13 @@
+coordinate brute force: colors=2 rows=3 count=360 PASS
+coordinate brute force: colors=2 rows=4 count=5756 PASS
+coordinate brute force: colors=3 rows=3 count=18342 PASS
+reflection fixed-point counter agrees with coordinate brute force PASS
+unrestricted binary complete count=168 PASS
+all 16 first-two-row prefix shards sum to 168 PASS
+all 81 first-two-row prefix shards sum to 18342 PASS
+prefix orbit images checked independently: 87 of size6, 1485 of size12 PASS
+prefix with repeated T pattern has no completions PASS
+published seven-row ternary prefix C: exact count=2 PASS
+published seven-row ternary prefix P: exact count=2 PASS
+all five completely fixed 100-cell ternary boards count exactly once PASS
+timeout discards unfinished shard and reports resumable boundary PASS

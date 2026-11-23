@@ -1,0 +1,13 @@
+{
+  "status": "UNSAT",
+  "colors": 2,
+  "prefix_rows": 0,
+  "seed": 0,
+  "seconds": 0.7690912850011955,
+  "stats": {
+    "restarts": 131,
+    "conflicts": 3909,
+    "decisions": 4932,
+    "propagations": 2224771
+  }
+}

@@ -1,0 +1,8 @@
+group=3 prefix=000000100011210120112122000122221202 mode=baseline
+component row=6 calls=0 disconnected=0 pruned=0
+component row=7 calls=0 disconnected=0 pruned=0
+component row=8 calls=0 disconnected=0 pruned=0
+component row=9 calls=0 disconnected=0 pruned=0
+component_prune=0 elapsed_seconds=23.6688
+36 boards (prefix exhausted)
+Saved complete ordered tail list matches PASS

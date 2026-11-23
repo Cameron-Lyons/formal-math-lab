@@ -1,0 +1,23 @@
+Copyright (c) 2026 Qiyuan Ma (马启渊).
+
+The manuscript (PDF and main.tex), figures, color tables, JSON/CSV
+certificate data, documentation, recorded computational outputs and
+checksums are licensed under the Creative Commons Attribution 4.0
+International license (SPDX identifier: CC-BY-4.0).
+Full terms: LICENSES/CC-BY-4.0.txt
+https://creativecommons.org/licenses/by/4.0/
+
+The Python source files below are licensed under the MIT License:
+    anc/verify.py
+    anc/count_extensions.py
+    anc/search_model.py
+    anc/search_n3.py
+Full terms and copyright notice: LICENSES/MIT.txt
+
+The two licenses apply to the stated file categories, respectively;
+they are not alternatives offered for every file. License texts are
+reproduced as standard terms and retain their own notices.
+The separately uploaded t_tetrominoes_preprint_v1.pdf and README.txt
+are covered by CC-BY-4.0. Attribution: Qiyuan Ma, "Explicit Three- and
+Four-Color Prismatic T-Tetrominoes", Shanghai Jiao Tong University, 2026.
+Use the Zenodo record DOI in citations once published.

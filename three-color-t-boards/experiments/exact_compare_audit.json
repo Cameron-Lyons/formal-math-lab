@@ -1,0 +1,12 @@
+{
+  "sha256": {
+    "experiments/exact_compare_cnf.py": "dbe210ad6e3923f28f79ee923d751fa31af50ed66588f0c08afced81725e1652",
+    "experiments/exact_compare_check.py": "bec6688b0beb0e7885288bcff5c9c73ff47c7fca6e65b6180a287107e4080004",
+    "experiments/exact_compare_ternary.cnf": "27858bf7046c68922a1f7f2f711cf4581f0fe730935c14450f9c8037f7436742",
+    "experiments/exact_compare_prefix_C.cnf": "b0c1695787141e94061a7cf228627926005988bf1be93394dd6aad908b0f172c",
+    "experiments/exact_compare_check.log": "229c8d217a86c471950d62b14c6d64b3f4cf2e0db70162824206238c2037caac",
+    "experiments/exact_compare_benchmark.json": "1f5f3f6c5e6a56f93a7e0d83d33edbb04e573d86066a6d3f82c4f2c0eefe6d47"
+  },
+  "unrestricted_exact_count": null,
+  "both_benchmarks_terminal_timeout": true
+}

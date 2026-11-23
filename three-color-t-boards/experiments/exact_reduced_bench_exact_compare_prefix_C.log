@@ -1,0 +1,70 @@
+c o Ganak SHA1: f262be5374f312b4bf7c99c6cca26e51182158e5
+c o Arjun SHA1: c86963a05108092cba6fa10e35403053bd175e4d
+c o SBVA SHA1: bf157b1fea71c155251d2991b5fe0de37c57efba
+c o CMS SHA1: 97c6efeae45d93c45d2ebc3e4e83c2014c79513d
+c o CaDiCaL SHA1: 818c9562f114b315a9246ced943b66b60b38e8fb
+c o CadiBack SHA1: 802e1f6d34b6e613828e591a8359298cd99e6429
+c o ApproxMC SHA1: aae0b47038d9ab52f2e4cc7f466cafb7219d8812
+c o TreeDecomp SHA1: 0495b40c220b0b97a0d7c8e8d86480b4060476a8
+c o Using ideas by JM Lagniez, and Pierre Marquis
+c o     from paper: Improving Model Counting [..] IJCAI 2016
+c o Using ideas by M. Janota and J. Marques-Silva
+c o     from paper: Abstraction-Based Algorithm for 2QBF, SAT 2011
+c o Using ideas by J. Brauer, A. King, and J. Kriener
+c o     from paper: Existential Quantification as Incremental SAT, CAV 2011
+c o Using VMTF, picosat, CaDiCaL, and CadiBack code by Armin Biere
+c o CMS is MIT licensed
+c o Using code from 'When Boolean Satisfiability Meets Gauss-E. in a Simplex Way'
+c o       by C.-S. Han and J.-H. Roland Jiang in CAV 2012. Fixes by M. Soos
+c o Using CCAnr from 'CCAnr: A Conf. Checking Based Local Search Solver [...]'
+c o       by Shaowei Cai, Chuan Luo, and Kaile Su, SAT 2015
+c o Using Oracle code from 'Integrating Tree Decompositions [...]'
+c o       by Tuukka Korhonen and Matti Jarvisalo, CP 2021
+c o Using xnfSAT by @Vtec234 from 'XOR Local Search for
+c o       Boolean Brent Equations' by W. Nawrocki, et al, SAT 2021
+c o Using code extensively lifted via LLMs from CaDiCaL, originally by Armin Biere et al.
+c o Using Graph library by Tuukka Korhonen and Matti Jarvisalo
+c o Using Flowcutter by Ben Strasser
+c o Ganak compilation env CMAKE_CXX_COMPILER = /usr/bin/c++ | CMAKE_CXX_FLAGS =  -fno-stack-protector -mpopcnt -msse4.2 -mpclmul -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wrestrict -Wnull-dereference -Wdouble-promotion -Wshadow -Wformat=2 -Wextra-semi -pedantic | COMPILE_DEFINES =  -DNDEBUG -D_FORTIFY_SOURCE=0 -DUSE_ZLIB | BUILD_SHARED_LIBS = OFF | ZLIB_FOUND = TRUE | ENABLE_ASSERTIONS = OFF | 
+c o called with: /home/cam/three-color-t-boards/experiments/exact_count_tools/ganak --prob 0 --arjun 0 --puura 0 --td 0 --maxcache 512 --polar 3 --verb 2 /home/cam/three-color-t-boards/experiments/exact_compare_prefix_C.cnf
+c o CNF projection set size: 102
+c o sampl_vars: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 
+c o opt sampl_vars: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 
+c o Found 1 disconnected component(s)
+c o Counting component with 1413 vars, 13786 irredundant clauses, 0 redundant clauses, 102 independent vars, 102 optional independent vars
+c o [par] bits_jobs: 10
+c o [par] num_threads: 1
+c o [par] TD: disabled
+c o [par] Number of variables: 1413
+c o [par] Independent support size: 102
+c o [par] TD variable limit: 150000
+c o [par] AppMC timeout: -1
+c o [par] Using non-parallel counting
+c o ind size: 102 nvars: 1413
+c o opt ind size: 102 ind size: 102 nvars: 1413
+c o Sampling set size: 102
+c o Opt sampling set size: 102
+c o Bin irred/red             153          0
+c o Long irred cls/tri       2064      11569
+c o Long red cls/tri            0          0
+c o [simple-preproc] Running.
+c o [simple-preproc] propagating.
+c o [simple-preproc] finished.
+c o [bce] blk vars from: 103 cls: 13786 bins: 153 triples: 24484 cand entries: 84534 tracked cls: 13540 skipped lits: 0 T: 0.000909
+c o ana.get_max_var(): 1413, ana.get_max_clid(): 13634
+c o Max cache size set: 5.1e+02 MB
+c o [rdb] cls before: 9987 after: 9987 low lbd: 103 lbd cutoff: 2 target computed: 30000 cannot be del : 26 used: 9884 rdb: 1
+c o Time until now: 3.8
+c o [rdb] cls before: 19988 after: 13910 low lbd: 169 lbd cutoff: 2 target computed: 30000 cannot be del : 25 used: 11424 rdb: 2
+c o Time until now: 7.3
+c o [rdb] cls before: 23907 after: 17142 low lbd: 249 lbd cutoff: 2 target computed: 30000 cannot be del : 26 used: 12224 rdb: 3
+c o Time until now: 10
+c o [rdb] cls before: 27142 after: 21866 low lbd: 318 lbd cutoff: 2 target computed: 30000 cannot be del : 44 used: 12781 rdb: 4
+c o Time until now: 14
+c o [rdb] cls before: 31866 after: 25204 low lbd: 387 lbd cutoff: 2 target computed: 30000 cannot be del : 37 used: 13582 rdb: 5
+c o Time until now: 18
+c o [rdb] cls before: 35203 after: 29133 low lbd: 434 lbd cutoff: 2 target computed: 30000 cannot be del : 30 used: 13909 rdb: 6
+c o Time until now: 21
+c o [mem] consolidate  old-sz: 4793K new-sz: 2297K new bits offs: 19 T: 0.00
+c o [rdb] cls before: 39112 after: 31972 low lbd: 489 lbd cutoff: 2 target computed: 30000 cannot be del : 24 used: 14466 rdb: 7
+c o Time until now: 24.80

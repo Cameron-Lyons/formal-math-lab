@@ -1,0 +1,1708 @@
+c o Ganak SHA1: f262be5374f312b4bf7c99c6cca26e51182158e5
+c o Arjun SHA1: c86963a05108092cba6fa10e35403053bd175e4d
+c o SBVA SHA1: bf157b1fea71c155251d2991b5fe0de37c57efba
+c o CMS SHA1: 97c6efeae45d93c45d2ebc3e4e83c2014c79513d
+c o CaDiCaL SHA1: 818c9562f114b315a9246ced943b66b60b38e8fb
+c o CadiBack SHA1: 802e1f6d34b6e613828e591a8359298cd99e6429
+c o ApproxMC SHA1: aae0b47038d9ab52f2e4cc7f466cafb7219d8812
+c o TreeDecomp SHA1: 0495b40c220b0b97a0d7c8e8d86480b4060476a8
+c o Using ideas by JM Lagniez, and Pierre Marquis
+c o     from paper: Improving Model Counting [..] IJCAI 2016
+c o Using ideas by M. Janota and J. Marques-Silva
+c o     from paper: Abstraction-Based Algorithm for 2QBF, SAT 2011
+c o Using ideas by J. Brauer, A. King, and J. Kriener
+c o     from paper: Existential Quantification as Incremental SAT, CAV 2011
+c o Using VMTF, picosat, CaDiCaL, and CadiBack code by Armin Biere
+c o CMS is MIT licensed
+c o Using code from 'When Boolean Satisfiability Meets Gauss-E. in a Simplex Way'
+c o       by C.-S. Han and J.-H. Roland Jiang in CAV 2012. Fixes by M. Soos
+c o Using CCAnr from 'CCAnr: A Conf. Checking Based Local Search Solver [...]'
+c o       by Shaowei Cai, Chuan Luo, and Kaile Su, SAT 2015
+c o Using Oracle code from 'Integrating Tree Decompositions [...]'
+c o       by Tuukka Korhonen and Matti Jarvisalo, CP 2021
+c o Using xnfSAT by @Vtec234 from 'XOR Local Search for
+c o       Boolean Brent Equations' by W. Nawrocki, et al, SAT 2021
+c o Using code extensively lifted via LLMs from CaDiCaL, originally by Armin Biere et al.
+c o Using Graph library by Tuukka Korhonen and Matti Jarvisalo
+c o Using Flowcutter by Ben Strasser
+c o Ganak compilation env CMAKE_CXX_COMPILER = /usr/bin/c++ | CMAKE_CXX_FLAGS =  -fno-stack-protector -mpopcnt -msse4.2 -mpclmul -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wrestrict -Wnull-dereference -Wdouble-promotion -Wshadow -Wformat=2 -Wextra-semi -pedantic | COMPILE_DEFINES =  -DNDEBUG -D_FORTIFY_SOURCE=0 -DUSE_ZLIB | BUILD_SHARED_LIBS = OFF | ZLIB_FOUND = TRUE | ENABLE_ASSERTIONS = OFF | 
+c o called with: /home/cam/three-color-t-boards/experiments/exact_count_tools/ganak --prob 0 --maxcache 512 --polar 3 --verb 2 --fast --allindep 1 --arjunprobe 0 --arjunsimplev 0 --arjunbackwmaxc 0 --arjunoraclefindbins 0 --arjunextend 0 --coverdrop 0 --puurabackbone 0 --puuraautarky 0 --puuraoraclevivif 0 --puuraoraclesparsify 0 --extraoracle 0 --tditers 50 /home/cam/three-color-t-boards/experiments/exact_config_binary.cnf
+c o CNF projection set size: 25
+c o [0m[arjun] Duplicating CNF...[0m
+c o [0m[arjun] Duplicated CNF. T: 0[0m
+c o [0m[arjun] Adding fixed clauses time: 0[0m
+c o [0m[backward FAST] Start unknown size: 25[0m
+c o [0m[31m[arjun] backward round finished. U:  I: 24 T: 0.00[0m
+c o [0m[arjun] run_minimize finished T: 0.00[0m
+c o [0m[puura-cnf] in                 vars:     572 cls:    2511 bin:    1820 tern:     326 long:     365 lits:     6904 avg-sz: 2.75 max-sz: 25 sampl: 24[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1768 irred_long_cls 631 irred_long_lits 2819 units 12
+c o [simp-stats]                            free_vars 560 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.002 depth 0
+c o [scc] new: 32 BP 0M T: 0.00
+c o [vrep] vars 32 lits 1937 rem-bin-cls 128 rem-long-cls 12 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins [32m1704[0m irred_long_cls [32m619[0m irred_long_lits [32m2783[0m units 12
+c o [simp-stats]                            free_vars [32m528[0m elimed_vars 0 replaced_vars [91m32[0m mem_MB 7 T: 0.002 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mfull-probe[0m
+c o [simp-stats] bef [95mfull-probe            [0m irred_bins 1704 irred_long_cls 619 irred_long_lits 2783 units 12
+c o [simp-stats]                            free_vars 528 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.002 depth 0
+c o [full-probe] bin_only: 0 set: 20 repl: 0 T: 0.00 T-out: N T-r: 90.17%
+c o [simp-stats] aft [32mfull-probe            [0m irred_bins [91m1710[0m irred_long_cls 619 irred_long_lits 2783 units [91m32[0m
+c o [simp-stats]                            free_vars [32m508[0m elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.003 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1710 irred_long_cls 619 irred_long_lits 2783 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.003 depth 0
+c o [impl-sub] bin: 3 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins [32m1707[0m irred_long_cls 619 irred_long_lits 2783 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.003 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-cls-with-bin[0m
+c o [simp-stats] bef [95msub-cls-with-bin      [0m irred_bins 1707 irred_long_cls 619 irred_long_lits 2783 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.003 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 4
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 91.89%
+c o [distill] watch-based irred-- cl tried      599 cl-sh     0 cl-rem    4 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-cls-with-bin      [0m irred_bins [32m1673[0m irred_long_cls [32m595[0m irred_long_lits [32m2699[0m units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.003 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1673 irred_long_cls 595 irred_long_lits 2699 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.003 depth 0
+c o [distill-long-irred] cls tried: 595/595 cl-rem: 496 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.13 T: 0.00 T-out: N T-r: 99.71%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1673 irred_long_cls [32m99[0m irred_long_lits [32m727[0m units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub,occ-resolv-subs,occ-rem-with-orgates,occ-ternary-res[0m
+c o [occ] Linked in IRRED BIN by default: 1673
+c o [occ] Linked in RED   BIN by default: 0
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1673 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 99/99 (100.0%) T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1673 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-resolv-subs[0m
+c o [simp-stats] bef [95mocc-resolv-subs       [0m irred_bins 1673 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 depth 0
+c o [occ-resolv-subs] removed: 77 checked: 17207 T: 0.00
+c o [simp-stats] aft [32mocc-resolv-subs       [0m irred_bins [32m1596[0m irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-rem-with-orgates[0m
+c o [simp-stats] bef [95mocc-rem-with-orgates  [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 depth 0
+c o [occ-gates] found:     0 avg-s: 0.0 T: 0.00 T-out: N T-r: 98.90%
+c o [occ-gate-based-lit-rem] lit-rem: 0 cl-rem: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-rem-with-orgates  [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-ternary-res[0m
+c o [simp-stats] bef [95mocc-ternary-res       [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 depth 0
+c o [occ-ternary-res] Ternary res-tri: 2 res-bin: 0 sub: 0 str: 0 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mocc-ternary-res       [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.005 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.006 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.006 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1596 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 508 elimed_vars 0 replaced_vars 32 mem_MB 7 T: 0.006 depth 0
+c o [scc] new: 20 BP 0M T: 0.00
+c o [vrep] vars 20 lits 270 rem-bin-cls 83 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins [32m1553[0m irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars [32m488[0m elimed_vars 0 replaced_vars [91m52[0m mem_MB 7 T: 0.006 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve[0m
+c o [occ] Linked in IRRED BIN by default: 1553
+c o [occ] Linked in RED   BIN by default: 0
+c o Executing OCC strategy token: [93mocc-bve[0m
+c o [simp-stats] bef [95mocc-bve               [0m irred_bins 1553 irred_long_cls 99 irred_long_lits 727 units 32
+c o [simp-stats]                            free_vars 488 elimed_vars 0 replaced_vars 52 mem_MB 7 T: 0.006 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 1 T: 0.00 T-out: N
+c o [occ-bve] turning off kitten-based irreg gate detection, added lits: 7035
+c o [occ-bve-wave] 1 tried 463 elimed 130 touched 449 re-added 297 heap 297
+c o [occ-bve-wave] 2 tried 297 elimed 2 touched 13 re-added 3 heap 3
+c o [occ-bve-wave] 3 tried 3 elimed 0 touched 0 re-added 0 heap 0
+c o [occ-bve] grow 0 v-elim 132 -> 355 vars 1547 cls cl_inc_rate: 0.94 var_dec_rate: 1.37
+c o [occ-bve-round] 1 grow 0 tried   763 elimed 132 (tot 132) cls 1649->1547 (init 1649, d -102) vars 487->355 T: 0.00
+c o [occ-bve-why] sched: seen 572 added 463 skip-cannot-elim 109 skip-not-cand 0
+c o [occ-bve-why] test: entered 763 ok-gate 5 ok-nogate 127 pure 0
+c o [occ-bve-why] rej: occ-lim 0 (avg max/min occ 0.0/0.0) cls-too-long 0 too-many-res 177 (avg lim 6.4) res-too-large 454 (avg sz 15.2) t-out 0 gate-unit 0 unit-res 0
+c o [occ-bve-why] gates: eq 0 or 1 ite 0 xor 0 irreg 4
+c o [occ-bve-round] stop: grow 0 reached min_bva_gain 0
+c o [occ-bve] tried:   763 v-elim:   132 free-vars: 355 T: 0.00 T-out: N T-r: 99.97%
+c o [occur] link-in T: 0.00 cleanup T: 0.00 overhead T: 0.00
+c o [occ-xor-bve] elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve               [0m irred_bins [32m1474[0m irred_long_cls [32m73[0m irred_long_lits [32m635[0m units 32
+c o [simp-stats]                            free_vars [32m355[0m elimed_vars [91m133[0m replaced_vars 52 mem_MB 7 T: 0.008 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1474 irred_long_cls 73 irred_long_lits 635 units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.008 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1474 irred_long_cls 73 irred_long_lits 635 units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.008 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1474 irred_long_cls 73 irred_long_lits 635 units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.008 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1474 irred_long_cls 73 irred_long_lits 635 units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.008 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1474 irred_long_cls 73 irred_long_lits 635 units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.008 depth 0
+c o [distill-long-irred] cls tried: 73/73 cl-rem: 1 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1474 irred_long_cls [32m72[0m irred_long_lits [32m632[0m units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.009 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mintree-probe[0m
+c o [simp-stats] bef [95mintree-probe          [0m irred_bins 1474 irred_long_cls 72 irred_long_lits 632 units 32
+c o [simp-stats]                            free_vars 355 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.009 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [intree] Set 1 vars hyper-added: 25 trans-irred: 0 trans-red: 0 budget(M): 49.25 used(M): 0.60 T: 0.00 T-out: N T-r: 98.79%
+c o [simp-stats] aft [32mintree-probe          [0m irred_bins 1474 irred_long_cls 72 irred_long_lits 632 units [91m33[0m
+c o [simp-stats]                            free_vars [32m354[0m elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub-str[0m
+c o [occ] Linked in IRRED BIN by default: 1467
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub-str[0m
+c o [simp-stats] bef [95mocc-backw-sub-str     [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 630 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 depth 0
+c o [occ-backw-sub-str-long-w-bins] subs: 0 str: 0 tried: 5092 0-depth-assigns: 0 T: 0.00 T-out: N T-r: 94.05%
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [occ-backw-sub-str-long-w-long] sub: 0 str: 2 tried: 216/72 (300.0%) T: 0.00 T-out: N T-r: 99.78%
+c o [simp-stats] aft [32mocc-backw-sub-str     [0m irred_bins 1467 irred_long_cls 72 irred_long_lits [32m628[0m units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-str-cls-with-bin[0m
+c o [simp-stats] bef [95msub-str-cls-with-bin  [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 99.31%
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.63%
+c o [distill] watch-based irred-- cl tried      144 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-str-cls-with-bin  [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mclean-cls[0m
+c o [simp-stats] bef [95mclean-cls             [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 depth 0
+c o [simp-stats] aft [32mclean-cls             [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls[0m
+c o [simp-stats] bef [95mdistill-cls           [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 628 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 2 lit-rem: 2 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 8 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 40.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [simp-stats] aft [32mdistill-cls           [0m irred_bins 1467 irred_long_cls 72 irred_long_lits [32m626[0m units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-bins[0m
+c o [simp-stats] bef [95mdistill-bins          [0m irred_bins 1467 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.010 depth 0
+c o [distill-bin] useful/checked/potential: 1/1467/1467 lits-rem: 0 cl-rem: 1 0-depth-assigns: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mdistill-bins          [0m irred_bins [32m1466[0m irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.012 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] iter1-0            vars:     354/572 elimed:     133 to-define-left:       0/0 T: 0.01[0m
+c o [0m[puura-stage] iter1-0            cls:    1571 bin:    1466 tern:      24 long:      81 lits:     3591 avg-sz: 2.29 max-sz: 16[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.012 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.012 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mfull-probe[0m
+c o [simp-stats] bef [95mfull-probe            [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 depth 0
+c o [full-probe] bin_only: 0 set: 0 repl: 0 T: 0.00 T-out: N T-r: 96.14%
+c o [simp-stats] aft [32mfull-probe            [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-cls-with-bin[0m
+c o [simp-stats] bef [95msub-cls-with-bin      [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.64%
+c o [distill] watch-based irred-- cl tried       72 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-cls-with-bin      [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub,occ-resolv-subs,occ-rem-with-orgates,occ-ternary-res[0m
+c o [occ] Linked in IRRED BIN by default: 1466
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-resolv-subs[0m
+c o [simp-stats] bef [95mocc-resolv-subs       [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.013 depth 0
+c o [occ-resolv-subs] removed: 0 checked: 16289 T: 0.00
+c o [simp-stats] aft [32mocc-resolv-subs       [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-rem-with-orgates[0m
+c o [simp-stats] bef [95mocc-rem-with-orgates  [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 depth 0
+c o [occ-gates] found:     0 avg-s: 0.0 T: 0.00 T-out: N T-r: 98.99%
+c o [occ-gate-based-lit-rem] lit-rem: 0 cl-rem: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-rem-with-orgates  [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-ternary-res[0m
+c o [simp-stats] bef [95mocc-ternary-res       [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 depth 0
+c o [occ-ternary-res] Ternary res-tri: 0 res-bin: 0 sub: 0 str: 0 T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-ternary-res       [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve[0m
+c o [occ] Linked in IRRED BIN by default: 1466
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve[0m
+c o [simp-stats] bef [95mocc-bve               [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 354 elimed_vars 133 replaced_vars 52 mem_MB 7 T: 0.014 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [occ-bve] turning off kitten-based irreg gate detection, added lits: 7007
+c o [occ-bve-wave] 1 tried 330 elimed 1 touched 5 re-added 4 heap 4
+c o [occ-bve-wave] 2 tried 4 elimed 0 touched 0 re-added 0 heap 0
+c o [occ-bve] grow 0 v-elim 1 -> 353 vars 1538 cls cl_inc_rate: 1.00 var_dec_rate: 1.00
+c o [occ-bve-round] 1 grow 0 tried   334 elimed 1 (tot 1) cls 1538->1538 (init 1538, d 0) vars 354->353 T: 0.00
+c o [occ-bve-why] sched: seen 572 added 330 skip-cannot-elim 242 skip-not-cand 0
+c o [occ-bve-why] test: entered 334 ok-gate 0 ok-nogate 1 pure 0
+c o [occ-bve-why] rej: occ-lim 0 (avg max/min occ 0.0/0.0) cls-too-long 0 too-many-res 88 (avg lim 6.5) res-too-large 245 (avg sz 15.1) t-out 0 gate-unit 0 unit-res 0
+c o [occ-bve-why] gates: eq 0 or 0 ite 0 xor 0 irreg 0
+c o [occ-bve-round] stop: grow 0 reached min_bva_gain 0
+c o [occ-bve] tried:   334 v-elim:     1 free-vars: 353 T: 0.00 T-out: N T-r: 99.99%
+c o [occur] link-in T: 0.00 cleanup T: 0.00 overhead T: 0.00
+c o [occ-xor-bve] elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve               [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars [32m353[0m elimed_vars [91m134[0m replaced_vars 52 mem_MB 7 T: 0.015 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.015 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.015 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.015 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.016 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.016 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.016 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mintree-probe[0m
+c o [simp-stats] bef [95mintree-probe          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.016 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [hyper-bin-clean] removed: 25 of: 61 red-bins now: 0 T: 0.00
+c o [intree] Set 0 vars hyper-added: 25 trans-irred: 0 trans-red: 0 budget(M): 55.62 used(M): 0.59 T: 0.00 T-out: N T-r: 98.93%
+c o [simp-stats] aft [32mintree-probe          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub-str[0m
+c o [occ] Linked in IRRED BIN by default: 1466
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub-str[0m
+c o [simp-stats] bef [95mocc-backw-sub-str     [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 depth 0
+c o [occ-backw-sub-str-long-w-bins] subs: 0 str: 0 tried: 6610 0-depth-assigns: 0 T: 0.00 T-out: N T-r: 94.06%
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [occ-backw-sub-str-long-w-long] sub: 0 str: 0 tried: 216/72 (300.0%) T: 0.00 T-out: N T-r: 99.78%
+c o [simp-stats] aft [32mocc-backw-sub-str     [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-str-cls-with-bin[0m
+c o [simp-stats] bef [95msub-str-cls-with-bin  [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.65%
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 97.29%
+c o [distill] watch-based irred-- cl tried      144 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-str-cls-with-bin  [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mclean-cls[0m
+c o [simp-stats] bef [95mclean-cls             [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 depth 0
+c o [simp-stats] aft [32mclean-cls             [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls[0m
+c o [simp-stats] bef [95mdistill-cls           [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 7 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 40.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mdistill-cls           [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-bins[0m
+c o [simp-stats] bef [95mdistill-bins          [0m irred_bins 1466 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.017 depth 0
+c o [distill-bin] useful/checked/potential: 1/1466/1466 lits-rem: 0 cl-rem: 1 0-depth-assigns: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mdistill-bins          [0m irred_bins [32m1465[0m irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.019 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] iter1-1            vars:     353/572 elimed:     134 to-define-left:       0/0 T: 0.01[0m
+c o [0m[puura-stage] iter1-1            cls:    1570 bin:    1465 tern:      24 long:      81 lits:     3589 avg-sz: 2.29 max-sz: 16[0m
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] oracle             vars:     353/572 elimed:     134 to-define-left:       0/0 T: 0.00[0m
+c o [0m[puura-stage] oracle             cls:    1570 bin:    1465 tern:      24 long:      81 lits:     3589 avg-sz: 2.29 max-sz: 16[0m
+c o [0m[puura] vars left before iter2: 353 threshold: 10000 iter2 grow: 0[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mfull-probe[0m
+c o [simp-stats] bef [95mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 depth 0
+c o [full-probe] bin_only: 0 set: 0 repl: 0 T: 0.00 T-out: N T-r: 96.11%
+c o [simp-stats] aft [32mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-cls-with-bin[0m
+c o [simp-stats] bef [95msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.64%
+c o [distill] watch-based irred-- cl tried       72 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.020 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub,occ-resolv-subs,occ-rem-with-orgates,occ-ternary-res[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-resolv-subs[0m
+c o [simp-stats] bef [95mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 depth 0
+c o [occ-resolv-subs] removed: 0 checked: 16283 T: 0.00
+c o [simp-stats] aft [32mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-rem-with-orgates[0m
+c o [simp-stats] bef [95mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 depth 0
+c o [occ-gates] found:     0 avg-s: 0.0 T: 0.00 T-out: N T-r: 98.99%
+c o [occ-gate-based-lit-rem] lit-rem: 0 cl-rem: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-ternary-res[0m
+c o [simp-stats] bef [95mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 depth 0
+c o [occ-ternary-res] Ternary res-tri: 0 res-bin: 0 sub: 0 str: 0 T: 0.00 T-out: N T-r: 99.98%
+c o [simp-stats] aft [32mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.021 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve[0m
+c o [simp-stats] bef [95mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.022 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [occ-bve] turning off kitten-based irreg gate detection, added lits: 7006
+c o [occ-bve-wave] 1 tried 329 elimed 0 touched 0 re-added 0 heap 0
+c o [occ-bve-round] 1 grow 0 tried   329 elimed 0 (tot 0) cls 1537->1537 (init 1537, d 0) vars 353->353 T: 0.00
+c o [occ-bve-why] sched: seen 572 added 329 skip-cannot-elim 243 skip-not-cand 0
+c o [occ-bve-why] test: entered 329 ok-gate 0 ok-nogate 0 pure 0
+c o [occ-bve-why] rej: occ-lim 0 (avg max/min occ 0.0/0.0) cls-too-long 0 too-many-res 86 (avg lim 6.5) res-too-large 243 (avg sz 15.1) t-out 0 gate-unit 0 unit-res 0
+c o [occ-bve-why] gates: eq 0 or 0 ite 0 xor 0 irreg 0
+c o [occ-bve-round] stop: grow 0 reached min_bva_gain 0
+c o [occ-bve] tried:   329 v-elim:     0 free-vars: 353 T: 0.00 T-out: N T-r: 99.99%
+c o [occur] link-in T: 0.00 cleanup T: 0.00 overhead T: 0.00
+c o [occ-xor-bve] elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.024 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.024 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.024 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.024 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.024 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.024 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.025 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mintree-probe[0m
+c o [simp-stats] bef [95mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.025 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [hyper-bin-clean] removed: 25 of: 57 red-bins now: 0 T: 0.00
+c o [intree] Set 0 vars hyper-added: 25 trans-irred: 0 trans-red: 0 budget(M): 60.63 used(M): 0.60 T: 0.00 T-out: N T-r: 99.02%
+c o [simp-stats] aft [32mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub-str[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub-str[0m
+c o [simp-stats] bef [95mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 depth 0
+c o [occ-backw-sub-str-long-w-bins] subs: 0 str: 0 tried: 8100 0-depth-assigns: 0 T: 0.00 T-out: N T-r: 94.06%
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [occ-backw-sub-str-long-w-long] sub: 0 str: 0 tried: 216/72 (300.0%) T: 0.00 T-out: N T-r: 99.78%
+c o [simp-stats] aft [32mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-str-cls-with-bin[0m
+c o [simp-stats] bef [95msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.65%
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 97.30%
+c o [distill] watch-based irred-- cl tried      144 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mclean-cls[0m
+c o [simp-stats] bef [95mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 depth 0
+c o [simp-stats] aft [32mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls[0m
+c o [simp-stats] bef [95mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 5 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 40.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-bins[0m
+c o [simp-stats] bef [95mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.026 depth 0
+c o [distill-bin] useful/checked/potential: 0/1465/1465 lits-rem: 0 cl-rem: 0 0-depth-assigns: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] iter2-0            vars:     353/572 elimed:     134 to-define-left:       0/0 T: 0.01[0m
+c o [0m[puura-stage] iter2-0            cls:    1570 bin:    1465 tern:      24 long:      81 lits:     3589 avg-sz: 2.29 max-sz: 16[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mfull-probe[0m
+c o [simp-stats] bef [95mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.028 depth 0
+c o [full-probe] bin_only: 0 set: 0 repl: 0 T: 0.00 T-out: N T-r: 96.05%
+c o [simp-stats] aft [32mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-cls-with-bin[0m
+c o [simp-stats] bef [95msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.64%
+c o [distill] watch-based irred-- cl tried       72 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub,occ-resolv-subs,occ-rem-with-orgates,occ-ternary-res[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-resolv-subs[0m
+c o [simp-stats] bef [95mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.029 depth 0
+c o [occ-resolv-subs] removed: 0 checked: 16283 T: 0.00
+c o [simp-stats] aft [32mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-rem-with-orgates[0m
+c o [simp-stats] bef [95mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 depth 0
+c o [occ-gates] found:     0 avg-s: 0.0 T: 0.00 T-out: N T-r: 98.99%
+c o [occ-gate-based-lit-rem] lit-rem: 0 cl-rem: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-ternary-res[0m
+c o [simp-stats] bef [95mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 depth 0
+c o [occ-ternary-res] Ternary res-tri: 0 res-bin: 0 sub: 0 str: 0 T: 0.00 T-out: N T-r: 99.98%
+c o [simp-stats] aft [32mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve[0m
+c o [simp-stats] bef [95mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.030 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [occ-bve-wave] 1 tried 329 elimed 0 touched 0 re-added 0 heap 0
+c o [occ-bve-round] 1 grow 0 tried   329 elimed 0 (tot 0) cls 1537->1537 (init 1537, d 0) vars 353->353 T: 0.00
+c o [occ-bve-why] sched: seen 572 added 329 skip-cannot-elim 243 skip-not-cand 0
+c o [occ-bve-why] test: entered 329 ok-gate 0 ok-nogate 0 pure 0
+c o [occ-bve-why] rej: occ-lim 0 (avg max/min occ 0.0/0.0) cls-too-long 0 too-many-res 86 (avg lim 6.5) res-too-large 243 (avg sz 15.1) t-out 0 gate-unit 0 unit-res 0
+c o [occ-bve-why] gates: eq 0 or 0 ite 0 xor 0 irreg 4
+c o [occ-bve-round] stop: grow 0 reached min_bva_gain 0
+c o [occ-bve] tried:   329 v-elim:     0 free-vars: 353 T: 0.00 T-out: N T-r: 99.98%
+c o [occur] link-in T: 0.00 cleanup T: 0.00 overhead T: 0.00
+c o [occ-xor-bve] elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 1144
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mintree-probe[0m
+c o [simp-stats] bef [95mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.033 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [hyper-bin-clean] removed: 25 of: 57 red-bins now: 0 T: 0.00
+c o [intree] Set 0 vars hyper-added: 25 trans-irred: 0 trans-red: 0 budget(M): 64.83 used(M): 0.60 T: 0.00 T-out: N T-r: 99.08%
+c o [simp-stats] aft [32mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub-str[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub-str[0m
+c o [simp-stats] bef [95mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 depth 0
+c o [occ-backw-sub-str-long-w-bins] subs: 0 str: 0 tried: 9590 0-depth-assigns: 0 T: 0.00 T-out: N T-r: 94.06%
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [occ-backw-sub-str-long-w-long] sub: 0 str: 0 tried: 216/72 (300.0%) T: 0.00 T-out: N T-r: 99.78%
+c o [simp-stats] aft [32mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-str-cls-with-bin[0m
+c o [simp-stats] bef [95msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.65%
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 97.30%
+c o [distill] watch-based irred-- cl tried      144 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mclean-cls[0m
+c o [simp-stats] bef [95mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 depth 0
+c o [simp-stats] aft [32mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls[0m
+c o [simp-stats] bef [95mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 5 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 40.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-bins[0m
+c o [simp-stats] bef [95mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.034 depth 0
+c o [distill-bin] useful/checked/potential: 0/1465/1465 lits-rem: 0 cl-rem: 0 0-depth-assigns: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.036 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.036 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] iter2-1            vars:     353/572 elimed:     134 to-define-left:       0/0 T: 0.01[0m
+c o [0m[puura-stage] iter2-1            cls:    1570 bin:    1465 tern:      24 long:      81 lits:     3589 avg-sz: 2.29 max-sz: 16[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-renumber[0m
+c o [simp-stats] bef [95mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [renumber] T: 0.00
+c o [simp-stats] aft [32mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o [empty] empty_occ: 0 T: 0.00
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve-empty[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve-empty[0m
+c o [simp-stats] bef [95mocc-bve-empty         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve-empty         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-renumber[0m
+c o [simp-stats] bef [95mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 depth 0
+c o [renumber] T: 0.00
+c o [simp-stats] aft [32mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 33
+c o [simp-stats]                            free_vars 353 elimed_vars 134 replaced_vars 52 mem_MB 7 T: 0.037 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura] new_empty_sampl_vars size: 0[0m
+c o [get-cnf] Checking for variables mapping to same new var to set AIG definitions...
+c o solver orig num vars: 572 solver simp num vars: 353
+c o [0m[puura-cnf] out                vars:     353 cls:    1537 bin:    1465 tern:      24 long:      48 lits:     3556 avg-sz: 2.31 max-sz: 16 sampl: 24[0m
+c o [0m[31m[puura] Done. final vars: 353 final cls: 1537 T: 0.04[0m
+c o [0m[puura-cnf] in                 vars:     353 cls:    1537 bin:    1465 tern:      24 long:      48 lits:     3556 avg-sz: 2.31 max-sz: 16 sampl: 24[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.038 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.038 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mfull-probe[0m
+c o [simp-stats] bef [95mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.038 depth 0
+c o [full-probe] bin_only: 0 set: 0 repl: 0 T: 0.00 T-out: N T-r: 96.05%
+c o [simp-stats] aft [32mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 706
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-cls-with-bin[0m
+c o [simp-stats] bef [95msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 99.32%
+c o [distill] watch-based irred-- cl tried       72 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub,occ-resolv-subs,occ-rem-with-orgates,occ-ternary-res[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-resolv-subs[0m
+c o [simp-stats] bef [95mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.039 depth 0
+c o [occ-resolv-subs] removed: 0 checked: 16283 T: 0.00
+c o [simp-stats] aft [32mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-rem-with-orgates[0m
+c o [simp-stats] bef [95mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 depth 0
+c o [occ-gates] found:     0 avg-s: 0.0 T: 0.00 T-out: N T-r: 98.99%
+c o [occ-gate-based-lit-rem] lit-rem: 0 cl-rem: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-ternary-res[0m
+c o [simp-stats] bef [95mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 depth 0
+c o [occ-ternary-res] Ternary res-tri: 0 res-bin: 0 sub: 0 str: 0 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve[0m
+c o [simp-stats] bef [95mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.040 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [occ-bve] turning off kitten-based irreg gate detection, added lits: 7002
+c o [occ-bve-wave] 1 tried 329 elimed 0 touched 0 re-added 0 heap 0
+c o [occ-bve-round] 1 grow 0 tried   329 elimed 0 (tot 0) cls 1537->1537 (init 1537, d 0) vars 353->353 T: 0.00
+c o [occ-bve-why] sched: seen 353 added 329 skip-cannot-elim 24 skip-not-cand 0
+c o [occ-bve-why] test: entered 329 ok-gate 0 ok-nogate 0 pure 0
+c o [occ-bve-why] rej: occ-lim 0 (avg max/min occ 0.0/0.0) cls-too-long 0 too-many-res 81 (avg lim 6.2) res-too-large 248 (avg sz 14.7) t-out 0 gate-unit 0 unit-res 0
+c o [occ-bve-why] gates: eq 0 or 0 ite 0 xor 0 irreg 0
+c o [occ-bve-round] stop: grow 0 reached min_bva_gain 0
+c o [occ-bve] tried:   329 v-elim:     0 free-vars: 353 T: 0.00 T-out: N T-r: 99.99%
+c o [occur] link-in T: 0.00 cleanup T: 0.00 overhead T: 0.00
+c o [occ-xor-bve] elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 706
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mintree-probe[0m
+c o [simp-stats] bef [95mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.041 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [intree] Set 0 vars hyper-added: 0 trans-irred: 0 trans-red: 0 budget(M): 49.25 used(M): 0.59 T: 0.00 T-out: N T-r: 98.80%
+c o [simp-stats] aft [32mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub-str[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub-str[0m
+c o [simp-stats] bef [95mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 depth 0
+c o [occ-backw-sub-str-long-w-bins] subs: 0 str: 0 tried: 1490 0-depth-assigns: 0 T: 0.00 T-out: N T-r: 94.21%
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [occ-backw-sub-str-long-w-long] sub: 0 str: 0 tried: 216/72 (300.0%) T: 0.00 T-out: N T-r: 99.78%
+c o [simp-stats] aft [32mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-str-cls-with-bin[0m
+c o [simp-stats] bef [95msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 99.32%
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.65%
+c o [distill] watch-based irred-- cl tried      144 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mclean-cls[0m
+c o [simp-stats] bef [95mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 depth 0
+c o [simp-stats] aft [32mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls[0m
+c o [simp-stats] bef [95mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.042 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 5 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 40.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.043 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-bins[0m
+c o [simp-stats] bef [95mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.043 depth 0
+c o [distill-bin] useful/checked/potential: 0/1465/1465 lits-rem: 0 cl-rem: 0 0-depth-assigns: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.045 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] iter1-0            vars:     353/353 elimed:       0 to-define-left:       0/0 T: 0.01[0m
+c o [0m[puura-stage] iter1-0            cls:    1537 bin:    1465 tern:      24 long:      48 lits:     3556 avg-sz: 2.31 max-sz: 16[0m
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] oracle             vars:     353/353 elimed:       0 to-define-left:       0/0 T: 0.00[0m
+c o [0m[puura-stage] oracle             cls:    1537 bin:    1465 tern:      24 long:      48 lits:     3556 avg-sz: 2.31 max-sz: 16[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.045 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.045 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mfull-probe[0m
+c o [simp-stats] bef [95mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.045 depth 0
+c o [full-probe] bin_only: 0 set: 0 repl: 0 T: 0.00 T-out: N T-r: 96.11%
+c o [simp-stats] aft [32mfull-probe            [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 706
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-cls-with-bin[0m
+c o [simp-stats] bef [95msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.64%
+c o [distill] watch-based irred-- cl tried       72 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-cls-with-bin      [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub,occ-resolv-subs,occ-rem-with-orgates,occ-ternary-res[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-resolv-subs[0m
+c o [simp-stats] bef [95mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.046 depth 0
+c o [occ-resolv-subs] removed: 0 checked: 16283 T: 0.00
+c o [simp-stats] aft [32mocc-resolv-subs       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-rem-with-orgates[0m
+c o [simp-stats] bef [95mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 depth 0
+c o [occ-gates] found:     0 avg-s: 0.0 T: 0.00 T-out: N T-r: 98.99%
+c o [occ-gate-based-lit-rem] lit-rem: 0 cl-rem: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-rem-with-orgates  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 T-step: 0.00 depth 0
+c o Executing OCC strategy token: [93mocc-ternary-res[0m
+c o [simp-stats] bef [95mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 depth 0
+c o [occ-ternary-res] Ternary res-tri: 0 res-bin: 0 sub: 0 str: 0 T: 0.00 T-out: N T-r: 99.98%
+c o [simp-stats] aft [32mocc-ternary-res       [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve[0m
+c o [simp-stats] bef [95mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.047 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [occ-bve] turning off kitten-based irreg gate detection, added lits: 7002
+c o [occ-bve-wave] 1 tried 329 elimed 0 touched 0 re-added 0 heap 0
+c o [occ-bve-round] 1 grow 0 tried   329 elimed 0 (tot 0) cls 1537->1537 (init 1537, d 0) vars 353->353 T: 0.00
+c o [occ-bve-why] sched: seen 353 added 329 skip-cannot-elim 24 skip-not-cand 0
+c o [occ-bve-why] test: entered 329 ok-gate 0 ok-nogate 0 pure 0
+c o [occ-bve-why] rej: occ-lim 0 (avg max/min occ 0.0/0.0) cls-too-long 0 too-many-res 81 (avg lim 6.2) res-too-large 248 (avg sz 14.7) t-out 0 gate-unit 0 unit-res 0
+c o [occ-bve-why] gates: eq 0 or 0 ite 0 xor 0 irreg 0
+c o [occ-bve-round] stop: grow 0 reached min_bva_gain 0
+c o [occ-bve] tried:   329 v-elim:     0 free-vars: 353 T: 0.00 T-out: N T-r: 99.98%
+c o [occur] link-in T: 0.00 cleanup T: 0.00 overhead T: 0.00
+c o [occ-xor-bve] elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve               [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-impl[0m
+c o [simp-stats] bef [95msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 depth 0
+c o [impl-sub] bin: 0 T: 0.00 T-out: N w-visit: 706
+c o [simp-stats] aft [32msub-impl              [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls-onlyrem[0m
+c o [simp-stats] bef [95mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.01 T: 0.00 T-out: N T-r: 99.97%
+c o [simp-stats] aft [32mdistill-cls-onlyrem   [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mintree-probe[0m
+c o [simp-stats] bef [95mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.050 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [intree] Set 0 vars hyper-added: 0 trans-irred: 0 trans-red: 0 budget(M): 55.62 used(M): 0.59 T: 0.00 T-out: N T-r: 98.94%
+c o [simp-stats] aft [32mintree-probe          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub-str[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub-str[0m
+c o [simp-stats] bef [95mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 depth 0
+c o [occ-backw-sub-str-long-w-bins] subs: 0 str: 0 tried: 2980 0-depth-assigns: 0 T: 0.00 T-out: N T-r: 94.21%
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [occ-backw-sub-str-long-w-long] sub: 0 str: 0 tried: 216/72 (300.0%) T: 0.00 T-out: N T-r: 99.78%
+c o [simp-stats] aft [32mocc-backw-sub-str     [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93msub-str-cls-with-bin[0m
+c o [simp-stats] bef [95msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 depth 0
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 98.65%
+c o [distill-with-bin-ext] bin-based lit-rem: 0 cl-sub: 0
+c o [distill-with-bin-ext] T: 0.00 T-out: N T-r: 97.30%
+c o [distill] watch-based irred-- cl tried      144 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [distill] watch-based   red-- cl tried        0 cl-sh     0 cl-rem    0 lit-rem      0 T: 0.00 T-out: N
+c o [simp-stats] aft [32msub-str-cls-with-bin  [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mclean-cls[0m
+c o [simp-stats] bef [95mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 depth 0
+c o [simp-stats] aft [32mclean-cls             [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-cls[0m
+c o [simp-stats] bef [95mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.051 depth 0
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 0 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 48.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.95%
+c o [distill-long-irred] cls tried: 72/72 cl-rem: 0 cl-sh: 5 lit-rem: 0 0-depth-ass: 0
+c o [distill-long-irred] budget(M): 40.00 used(M): 0.02 T: 0.00 T-out: N T-r: 99.94%
+c o [simp-stats] aft [32mdistill-cls           [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.052 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mdistill-bins[0m
+c o [simp-stats] bef [95mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.052 depth 0
+c o [distill-bin] useful/checked/potential: 0/1465/1465 lits-rem: 0 cl-rem: 0 0-depth-assigns: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mdistill-bins          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.053 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-backw-sub[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-backw-sub[0m
+c o [simp-stats] bef [95mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [occ-backw-sub-long-w-long] rem cl: 0 tried: 72/72 (100.0%) T: 0.00 T-out: N T-r: 99.96%
+c o [simp-stats] aft [32mocc-backw-sub         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura-stage] iter2-0            vars:     353/353 elimed:       0 to-define-left:       0/0 T: 0.01[0m
+c o [0m[puura-stage] iter2-0            cls:    1537 bin:    1465 tern:      24 long:      48 lits:     3556 avg-sz: 2.31 max-sz: 16[0m
+c o --> Executing strategy token: [93mmust-scc-vrepl[0m
+c o [simp-stats] bef [95mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [scc] new: 0 BP 0M T: 0.00
+c o [vrep] vars 0 lits 0 rem-bin-cls 0 rem-long-cls 0 BP 0M T: 0.00
+c o [simp-stats] aft [32mmust-scc-vrepl        [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-renumber[0m
+c o [simp-stats] bef [95mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [renumber] T: 0.00
+c o [simp-stats] aft [32mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o [empty] empty_occ: 0 T: 0.00
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o Executing OCC strategy token(s): [93mocc-bve-empty[0m
+c o [occ] Linked in IRRED BIN by default: 1465
+c o [occ] Linked in RED   BIN by default: 25
+c o Executing OCC strategy token: [93mocc-bve-empty[0m
+c o [simp-stats] bef [95mocc-bve-empty         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [occ-empty-res] Empty resolvent elimed: 0 T: 0.00 T-out: N
+c o [simp-stats] aft [32mocc-bve-empty         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o [simp-stats] bef [95mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [simp-stats] aft [32mocc-finishup          [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o --> Executing strategy token: [93mmust-renumber[0m
+c o [simp-stats] bef [95mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 depth 0
+c o [renumber] T: 0.00
+c o [simp-stats] aft [32mmust-renumber         [0m irred_bins 1465 irred_long_cls 72 irred_long_lits 626 units 0
+c o [simp-stats]                            free_vars 353 elimed_vars 0 replaced_vars 0 mem_MB 7 T: 0.054 T-step: 0.00 depth 0
+c o [mem] consolidate mini T: 0.00
+c o [timeout] global_timeout_multiplier: 0.1100
+c o [branch] rebuilding order heap for all branchings. Current branching: vsids
+c o [0m[puura] new_empty_sampl_vars size: 0[0m
+c o [get-cnf] Checking for variables mapping to same new var to set AIG definitions...
+c o solver orig num vars: 353 solver simp num vars: 353
+c o [0m[puura-cnf] out                vars:     353 cls:    1537 bin:    1465 tern:      24 long:      48 lits:     3556 avg-sz: 2.31 max-sz: 16 sampl: 24[0m
+c o [0m[31m[puura] Done. final vars: 353 final cls: 1537 T: 0.02[0m
+c o [0m[arjun-sbva] entering SBVA with     vars: 353     cls:   1537 opt sampl: 353[0m
+c o [0m[arjun-sbva] exited SBVA with       vars: 382     cls:   1417[0m
+c o [0m[arjun-sbva] K steps remaining: 629.48 T-out: No T: 0.01[0m
+c o Arjun T: 0.06
+c o sampl_vars: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 
+c o opt sampl_vars: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321 322 323 324 325 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381 382 
+c o Found 1 disconnected component(s)
+c o Counting component with 382 vars, 1417 irredundant clauses, 25 redundant clauses, 24 independent vars, 382 optional independent vars
+c o [par] bits_jobs: 10
+c o [par] num_threads: 1
+c o [par] TD: enabled
+c o [par] Number of variables: 382
+c o [par] Independent support size: 24
+c o [par] TD variable limit: 150000
+c o [par] AppMC timeout: -1.00
+c o [par] Using non-parallel counting
+c o ind size: 24 nvars: 382
+c o opt ind size: 382 ind size: 24 nvars: 382
+c o Sampling set size: 24
+c o Opt sampling set size: 382
+c o Bin irred/red      1319       25        
+c o Long irred cls/tri 48         50        
+c o Long red cls/tri   0          0         
+c o [simple-preproc] Running.
+c o [simple-preproc] propagating.
+c o [simple-preproc] finished.
+c o [bce] blk vars from: 383 cls: 1417 bins: 1319 triples: 0 cand entries: 0 tracked cls: 0 skipped lits: 0 T: 0.00
+c o ana.get_max_var(): 382, ana.get_max_clid(): 99
+c o Max cache size set: 512.00 MB
+c o [td] nodes: 382 nvars: 382 edges: 4770
+c o [td] Primal graph   nodes: 382 edges: 4770 density: 0.033 edge/var: 12.487
+c o [td] FlowCutter is running...
+c o [td] min degree heuristic
+c o [td] accepted TD, bags: 150 tw: 176 largest comp after centroid bag: 103/382 narrowest tw seen: 176 src: min-degree elapsed 0.008 s
+c o [td] accepted TD, bags: 148 tw: 173 largest comp after centroid bag: 104/382 narrowest tw seen: 173 src: min-degree-rnd elapsed 0.023 s
+c o [td] accepted TD, bags: 151 tw: 172 largest comp after centroid bag: 130/382 narrowest tw seen: 172 src: min-degree-rnd elapsed 0.059 s
+c o [td] accepted TD, bags: 151 tw: 169 largest comp after centroid bag: 134/382 narrowest tw seen: 169 src: min-degree-rnd elapsed 0.084 s
+c o [td] random min degree runs: 32 work: 2903021 tw 176 -> 169 T: 0.181
+c o [td] min shortcut heuristic
+c o [td] run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o [td] accepted TD, bags: 11 tw: 167 largest comp after centroid bag: 127/382 narrowest tw seen: 167 src: flowcutter elapsed 1.656 s
+c o [td] accepted TD, bags: 11 tw: 165 largest comp after centroid bag: 131/382 narrowest tw seen: 165 src: flowcutter elapsed 1.784 s
+c o [td] final TD: tw 165 split 131/382 bags 11 src flowcutter band off narrowest tw seen 165 cands 36 accepted 6 T: 1.835
+c o [td] Calculated TD width: 164
+c o [td] soft width (log2 sum 2^bag): 167.02 max bag: 165 bags: 11 bags within 2 of max: 2
+c o [td] soft ~ max bag, few near-max: one wide bag, rest cheap -> easier than width says. soft ~ max bag+log2(bags), many near-max: worst case paid over and over -> harder
+c o [td] centroid bag id: 0 bag size: 131
+c o max_dist: 2 td_width: 165
+c o [td] centroid bag id: 0 bag size: 131
+c o [td] weight: 9.20 nodes: 382 rt/width(=rt): 2.32 rt*conf.td_exp_mult: 2.55 conf.td_exp_mult: 1.10 conf.td_divider: 1000.00 max ord diff: 2 td split: 0.34
+c o [td] indep vars: 24 on TD levels: 3 top level holds: 6 pct: 25.0 TD weight: 9.2
+c o [td] sep score: top level vars: 131 of which separate nothing: 0 below 25% of best: 0 children of centroid: 2 best sep: 3.3
+c o [td] var: 2 tdscore: 0.0
+c o [td] var: 3 tdscore: 0.0
+c o [td] var: 4 tdscore: 0.5
+c o [td] var: 5 tdscore: 0.5
+c o [td] var: 6 tdscore: 0.5
+c o [td] var: 7 tdscore: 0.5
+c o [td] var: 8 tdscore: 1.0
+c o [td] var: 9 tdscore: 1.0
+c o [td] var: 10 tdscore: 1.0
+c o [td] var: 11 tdscore: 1.0
+c o [td] var: 12 tdscore: 1.0
+c o [td] var: 13 tdscore: 1.0
+c o [td] var: 14 tdscore: 0.5
+c o [td] var: 15 tdscore: 0.5
+c o [td] var: 16 tdscore: 0.5
+c o [td] var: 17 tdscore: 0.5
+c o [td] var: 18 tdscore: 0.5
+c o [td] var: 19 tdscore: 0.5
+c o [td] var: 20 tdscore: 0.5
+c o [td] var: 21 tdscore: 0.0
+c o [td] var: 22 tdscore: 0.0
+c o [td] var: 23 tdscore: 0.0
+c o [td] var: 24 tdscore: 0.0
+c o [td] var: 25 tdscore: 0.0
+c o [td] var: 26 tdscore: 0.0
+c o [td] var: 27 tdscore: 0.0
+c o [td] var: 28 tdscore: 0.5
+c o [td] var: 29 tdscore: 1.0
+c o [td] var: 30 tdscore: 1.0
+c o [td] var: 31 tdscore: 0.0
+c o [td] var: 32 tdscore: 0.0
+c o [td] var: 33 tdscore: 0.5
+c o [td] var: 34 tdscore: 0.0
+c o [td] var: 35 tdscore: 1.0
+c o [td] var: 36 tdscore: 0.5
+c o [td] var: 37 tdscore: 1.0
+c o [td] var: 38 tdscore: 1.0
+c o [td] var: 39 tdscore: 0.5
+c o [td] var: 40 tdscore: 0.5
+c o [td] var: 41 tdscore: 0.0
+c o [td] var: 42 tdscore: 0.0
+c o [td] var: 43 tdscore: 0.0
+c o [td] var: 44 tdscore: 0.0
+c o [td] var: 45 tdscore: 0.0
+c o [td] var: 46 tdscore: 0.0
+c o [td] var: 47 tdscore: 0.0
+c o [td] var: 48 tdscore: 0.0
+c o [td] var: 49 tdscore: 0.0
+c o [td] var: 50 tdscore: 0.0
+c o [td] var: 51 tdscore: 0.0
+c o [td] var: 52 tdscore: 0.0
+c o [td] var: 53 tdscore: 0.0
+c o [td] var: 54 tdscore: 0.0
+c o [td] var: 55 tdscore: 0.0
+c o [td] var: 56 tdscore: 0.0
+c o [td] var: 57 tdscore: 0.0
+c o [td] var: 58 tdscore: 0.0
+c o [td] var: 59 tdscore: 0.0
+c o [td] var: 60 tdscore: 0.0
+c o [td] var: 61 tdscore: 0.0
+c o [td] var: 62 tdscore: 0.0
+c o [td] var: 63 tdscore: 0.0
+c o [td] var: 64 tdscore: 0.0
+c o [td] var: 65 tdscore: 0.0
+c o [td] var: 66 tdscore: 0.0
+c o [td] var: 67 tdscore: 0.0
+c o [td] var: 68 tdscore: 0.0
+c o [td] var: 69 tdscore: 0.0
+c o [td] var: 70 tdscore: 0.0
+c o [td] var: 71 tdscore: 0.0
+c o [td] var: 72 tdscore: 0.0
+c o [td] var: 73 tdscore: 0.0
+c o [td] var: 74 tdscore: 0.0
+c o [td] var: 75 tdscore: 0.0
+c o [td] var: 76 tdscore: 0.0
+c o [td] var: 77 tdscore: 0.0
+c o [td] var: 78 tdscore: 0.0
+c o [td] var: 79 tdscore: 0.0
+c o [td] var: 80 tdscore: 0.0
+c o [td] var: 81 tdscore: 0.0
+c o [td] var: 82 tdscore: 0.0
+c o [td] var: 83 tdscore: 0.0
+c o [td] var: 84 tdscore: 0.0
+c o [td] var: 85 tdscore: 0.0
+c o [td] var: 86 tdscore: 0.0
+c o [td] var: 87 tdscore: 0.0
+c o [td] var: 88 tdscore: 0.0
+c o [td] var: 89 tdscore: 0.0
+c o [td] var: 90 tdscore: 0.0
+c o [td] var: 91 tdscore: 0.0
+c o [td] var: 92 tdscore: 0.0
+c o [td] var: 93 tdscore: 0.0
+c o [td] var: 94 tdscore: 0.0
+c o [td] var: 95 tdscore: 0.0
+c o [td] var: 96 tdscore: 0.0
+c o [td] var: 97 tdscore: 0.0
+c o [td] var: 98 tdscore: 0.0
+c o [td] var: 99 tdscore: 0.0
+c o [td] var: 100 tdscore: 0.0
+c o [td] var: 101 tdscore: 0.0
+c o [td] var: 102 tdscore: 0.0
+c o [td] var: 103 tdscore: 0.0
+c o [td] var: 104 tdscore: 0.0
+c o [td] var: 105 tdscore: 0.0
+c o [td] var: 106 tdscore: 0.0
+c o [td] var: 107 tdscore: 0.0
+c o [td] var: 108 tdscore: 0.0
+c o [td] var: 109 tdscore: 0.0
+c o [td] var: 110 tdscore: 0.0
+c o [td] var: 111 tdscore: 0.0
+c o [td] var: 112 tdscore: 0.0
+c o [td] var: 113 tdscore: 0.0
+c o [td] var: 114 tdscore: 0.0
+c o [td] var: 115 tdscore: 0.0
+c o [td] var: 116 tdscore: 0.0
+c o [td] var: 117 tdscore: 0.0
+c o [td] var: 118 tdscore: 0.0
+c o [td] var: 119 tdscore: 0.0
+c o [td] var: 120 tdscore: 0.0
+c o [td] var: 121 tdscore: 0.0
+c o [td] var: 122 tdscore: 1.0
+c o [td] var: 123 tdscore: 0.0
+c o [td] var: 124 tdscore: 0.0
+c o [td] var: 125 tdscore: 0.0
+c o [td] var: 126 tdscore: 0.0
+c o [td] var: 127 tdscore: 1.0
+c o [td] var: 128 tdscore: 0.0
+c o [td] var: 129 tdscore: 0.0
+c o [td] var: 130 tdscore: 0.5
+c o [td] var: 131 tdscore: 0.0
+c o [td] var: 132 tdscore: 1.0
+c o [td] var: 133 tdscore: 0.0
+c o [td] var: 134 tdscore: 0.0
+c o [td] var: 135 tdscore: 0.5
+c o [td] var: 136 tdscore: 0.0
+c o [td] var: 137 tdscore: 1.0
+c o [td] var: 138 tdscore: 0.0
+c o [td] var: 139 tdscore: 1.0
+c o [td] var: 140 tdscore: 0.5
+c o [td] var: 141 tdscore: 1.0
+c o [td] var: 142 tdscore: 0.5
+c o [td] var: 143 tdscore: 0.5
+c o [td] var: 144 tdscore: 0.5
+c o [td] var: 145 tdscore: 1.0
+c o [td] var: 146 tdscore: 0.5
+c o [td] var: 147 tdscore: 1.0
+c o [td] var: 148 tdscore: 1.0
+c o [td] var: 149 tdscore: 0.0
+c o [td] var: 150 tdscore: 0.0
+c o [td] var: 151 tdscore: 1.0
+c o [td] var: 152 tdscore: 0.0
+c o [td] var: 153 tdscore: 1.0
+c o [td] var: 154 tdscore: 1.0
+c o [td] var: 155 tdscore: 0.5
+c o [td] var: 156 tdscore: 0.5
+c o [td] var: 157 tdscore: 0.5
+c o [td] var: 158 tdscore: 1.0
+c o [td] var: 159 tdscore: 0.5
+c o [td] var: 160 tdscore: 1.0
+c o [td] var: 161 tdscore: 1.0
+c o [td] var: 162 tdscore: 0.5
+c o [td] var: 163 tdscore: 0.5
+c o [td] var: 164 tdscore: 1.0
+c o [td] var: 165 tdscore: 0.5
+c o [td] var: 166 tdscore: 1.0
+c o [td] var: 167 tdscore: 0.5
+c o [td] var: 168 tdscore: 0.0
+c o [td] var: 169 tdscore: 1.0
+c o [td] var: 170 tdscore: 0.0
+c o [td] var: 171 tdscore: 0.0
+c o [td] var: 172 tdscore: 0.0
+c o [td] var: 173 tdscore: 1.0
+c o [td] var: 174 tdscore: 0.0
+c o [td] var: 175 tdscore: 1.0
+c o [td] var: 176 tdscore: 1.0
+c o [td] var: 177 tdscore: 0.5
+c o [td] var: 178 tdscore: 0.5
+c o [td] var: 179 tdscore: 1.0
+c o [td] var: 180 tdscore: 0.5
+c o [td] var: 181 tdscore: 0.5
+c o [td] var: 182 tdscore: 1.0
+c o [td] var: 183 tdscore: 0.0
+c o [td] var: 184 tdscore: 1.0
+c o [td] var: 185 tdscore: 0.0
+c o [td] var: 186 tdscore: 0.0
+c o [td] var: 187 tdscore: 0.0
+c o [td] var: 188 tdscore: 1.0
+c o [td] var: 189 tdscore: 0.0
+c o [td] var: 190 tdscore: 1.0
+c o [td] var: 191 tdscore: 1.0
+c o [td] var: 192 tdscore: 0.5
+c o [td] var: 193 tdscore: 0.5
+c o [td] var: 194 tdscore: 1.0
+c o [td] var: 195 tdscore: 0.5
+c o [td] var: 196 tdscore: 1.0
+c o [td] var: 197 tdscore: 0.5
+c o [td] var: 198 tdscore: 1.0
+c o [td] var: 199 tdscore: 0.0
+c o [td] var: 200 tdscore: 1.0
+c o [td] var: 201 tdscore: 0.0
+c o [td] var: 202 tdscore: 0.0
+c o [td] var: 203 tdscore: 1.0
+c o [td] var: 204 tdscore: 0.0
+c o [td] var: 205 tdscore: 1.0
+c o [td] var: 206 tdscore: 1.0
+c o [td] var: 207 tdscore: 1.0
+c o [td] var: 208 tdscore: 0.5
+c o [td] var: 209 tdscore: 1.0
+c o [td] var: 210 tdscore: 0.5
+c o [td] var: 211 tdscore: 1.0
+c o [td] var: 212 tdscore: 0.5
+c o [td] var: 213 tdscore: 1.0
+c o [td] var: 214 tdscore: 0.0
+c o [td] var: 215 tdscore: 1.0
+c o [td] var: 216 tdscore: 0.0
+c o [td] var: 217 tdscore: 0.0
+c o [td] var: 218 tdscore: 1.0
+c o [td] var: 219 tdscore: 0.0
+c o [td] var: 220 tdscore: 1.0
+c o [td] var: 221 tdscore: 1.0
+c o [td] var: 222 tdscore: 1.0
+c o [td] var: 223 tdscore: 1.0
+c o [td] var: 224 tdscore: 0.5
+c o [td] var: 225 tdscore: 1.0
+c o [td] var: 226 tdscore: 0.0
+c o [td] var: 227 tdscore: 1.0
+c o [td] var: 228 tdscore: 0.5
+c o [td] var: 229 tdscore: 1.0
+c o [td] var: 230 tdscore: 0.0
+c o [td] var: 231 tdscore: 1.0
+c o [td] var: 232 tdscore: 1.0
+c o [td] var: 233 tdscore: 1.0
+c o [td] var: 234 tdscore: 0.0
+c o [td] var: 235 tdscore: 1.0
+c o [td] var: 236 tdscore: 0.0
+c o [td] var: 237 tdscore: 1.0
+c o [td] var: 238 tdscore: 1.0
+c o [td] var: 239 tdscore: 0.5
+c o [td] var: 240 tdscore: 1.0
+c o [td] var: 241 tdscore: 0.0
+c o [td] var: 242 tdscore: 1.0
+c o [td] var: 243 tdscore: 0.5
+c o [td] var: 244 tdscore: 1.0
+c o [td] var: 245 tdscore: 0.0
+c o [td] var: 246 tdscore: 1.0
+c o [td] var: 247 tdscore: 1.0
+c o [td] var: 248 tdscore: 1.0
+c o [td] var: 249 tdscore: 0.0
+c o [td] var: 250 tdscore: 1.0
+c o [td] var: 251 tdscore: 0.5
+c o [td] var: 252 tdscore: 1.0
+c o [td] var: 253 tdscore: 1.0
+c o [td] var: 254 tdscore: 0.5
+c o [td] var: 255 tdscore: 1.0
+c o [td] var: 256 tdscore: 0.0
+c o [td] var: 257 tdscore: 1.0
+c o [td] var: 258 tdscore: 0.5
+c o [td] var: 259 tdscore: 1.0
+c o [td] var: 260 tdscore: 0.0
+c o [td] var: 261 tdscore: 1.0
+c o [td] var: 262 tdscore: 1.0
+c o [td] var: 263 tdscore: 1.0
+c o [td] var: 264 tdscore: 0.0
+c o [td] var: 265 tdscore: 0.0
+c o [td] var: 266 tdscore: 0.5
+c o [td] var: 267 tdscore: 1.0
+c o [td] var: 268 tdscore: 1.0
+c o [td] var: 269 tdscore: 1.0
+c o [td] var: 270 tdscore: 0.0
+c o [td] var: 271 tdscore: 1.0
+c o [td] var: 272 tdscore: 0.5
+c o [td] var: 273 tdscore: 1.0
+c o [td] var: 274 tdscore: 0.0
+c o [td] var: 275 tdscore: 1.0
+c o [td] var: 276 tdscore: 1.0
+c o [td] var: 277 tdscore: 1.0
+c o [td] var: 278 tdscore: 0.0
+c o [td] var: 279 tdscore: 1.0
+c o [td] var: 280 tdscore: 0.0
+c o [td] var: 281 tdscore: 0.5
+c o [td] var: 282 tdscore: 1.0
+c o [td] var: 283 tdscore: 1.0
+c o [td] var: 284 tdscore: 0.0
+c o [td] var: 285 tdscore: 1.0
+c o [td] var: 286 tdscore: 0.5
+c o [td] var: 287 tdscore: 0.0
+c o [td] var: 288 tdscore: 1.0
+c o [td] var: 289 tdscore: 0.5
+c o [td] var: 290 tdscore: 1.0
+c o [td] var: 291 tdscore: 1.0
+c o [td] var: 292 tdscore: 1.0
+c o [td] var: 293 tdscore: 0.5
+c o [td] var: 294 tdscore: 1.0
+c o [td] var: 295 tdscore: 0.5
+c o [td] var: 296 tdscore: 0.0
+c o [td] var: 297 tdscore: 1.0
+c o [td] var: 298 tdscore: 1.0
+c o [td] var: 299 tdscore: 0.0
+c o [td] var: 300 tdscore: 1.0
+c o [td] var: 301 tdscore: 0.5
+c o [td] var: 302 tdscore: 1.0
+c o [td] var: 303 tdscore: 0.0
+c o [td] var: 304 tdscore: 1.0
+c o [td] var: 305 tdscore: 0.5
+c o [td] var: 306 tdscore: 1.0
+c o [td] var: 307 tdscore: 1.0
+c o [td] var: 308 tdscore: 0.5
+c o [td] var: 309 tdscore: 1.0
+c o [td] var: 310 tdscore: 0.5
+c o [td] var: 311 tdscore: 0.0
+c o [td] var: 312 tdscore: 1.0
+c o [td] var: 313 tdscore: 1.0
+c o [td] var: 314 tdscore: 0.0
+c o [td] var: 315 tdscore: 1.0
+c o [td] var: 316 tdscore: 0.5
+c o [td] var: 317 tdscore: 1.0
+c o [td] var: 318 tdscore: 0.0
+c o [td] var: 319 tdscore: 1.0
+c o [td] var: 320 tdscore: 0.5
+c o [td] var: 321 tdscore: 1.0
+c o [td] var: 322 tdscore: 1.0
+c o [td] var: 323 tdscore: 1.0
+c o [td] var: 324 tdscore: 1.0
+c o [td] var: 325 tdscore: 0.5
+c o [td] var: 326 tdscore: 0.0
+c o [td] var: 327 tdscore: 1.0
+c o [td] var: 328 tdscore: 1.0
+c o [td] var: 329 tdscore: 0.0
+c o [td] var: 330 tdscore: 1.0
+c o [td] var: 331 tdscore: 0.5
+c o [td] var: 332 tdscore: 1.0
+c o [td] var: 333 tdscore: 0.0
+c o [td] var: 334 tdscore: 1.0
+c o [td] var: 335 tdscore: 1.0
+c o [td] var: 336 tdscore: 1.0
+c o [td] var: 337 tdscore: 1.0
+c o [td] var: 338 tdscore: 0.5
+c o [td] var: 339 tdscore: 1.0
+c o [td] var: 340 tdscore: 0.5
+c o [td] var: 341 tdscore: 0.0
+c o [td] var: 342 tdscore: 0.0
+c o [td] var: 343 tdscore: 1.0
+c o [td] var: 344 tdscore: 1.0
+c o [td] var: 345 tdscore: 1.0
+c o [td] var: 346 tdscore: 1.0
+c o [td] var: 347 tdscore: 0.5
+c o [td] var: 348 tdscore: 0.5
+c o [td] var: 349 tdscore: 0.5
+c o [td] var: 350 tdscore: 1.0
+c o [td] var: 351 tdscore: 0.5
+c o [td] var: 352 tdscore: 1.0
+c o [td] var: 353 tdscore: 0.0
+c o [td] var: 354 tdscore: 0.0
+c o [td] var: 355 tdscore: 1.0
+c o [td] var: 356 tdscore: 0.0
+c o [td] var: 357 tdscore: 0.0
+c o [td] var: 358 tdscore: 1.0
+c o [td] var: 359 tdscore: 0.0
+c o [td] var: 360 tdscore: 0.0
+c o [td] var: 361 tdscore: 0.0
+c o [td] var: 362 tdscore: 0.0
+c o [td] var: 363 tdscore: 0.0
+c o [td] var: 364 tdscore: 0.0
+c o [td] var: 365 tdscore: 0.0
+c o [td] var: 366 tdscore: 0.0
+c o [td] var: 367 tdscore: 0.0
+c o [td] var: 368 tdscore: 0.0
+c o [td] var: 369 tdscore: 0.0
+c o [td] var: 370 tdscore: 0.0
+c o [td] var: 371 tdscore: 0.0
+c o [td] var: 372 tdscore: 0.0
+c o [td] var: 373 tdscore: 0.0
+c o [td] var: 374 tdscore: 0.0
+c o [td] var: 375 tdscore: 0.0
+c o [td] var: 376 tdscore: 1.0
+c o [td] var: 377 tdscore: 0.0
+c o [td] var: 378 tdscore: 0.0
+c o [td] var: 379 tdscore: 0.0
+c o [td] var: 380 tdscore: 0.0
+c o [td] var: 381 tdscore: 0.0
+c o [td] var: 382 tdscore: 0.0
+c o [td] decompose time: 1.8
+c o cubes     : 
+c o -> CNF:  enabled: 1 symm: 0 lbd: 100
+c o [rst-cube] Disabled 0 small cubes.
+c o [rst-cube] Num restarts: 0 orig cubes this rst: 1 final cubes this rst: 1 total orig cubes: 1 total final cubes: 1
+c o [rst-cube] added cube CL to GANAK:  -- symm: 0
+c o total time so far: 2.0
+c o count time: 1.9
+c o decisions K                    2         -- Kdec/s:     1.24     
+c o conflicts                      2282         -- confl/s:    1196.46  
+c o rem lits triedK/rem lits remK  2         1         
+c o shrink tried/useful%/lits rem  2282      94.9606   60537     
+c o avg clsz/rem lits avg/finalavg 48.1573   15.9387   15.2840  
+c o rdbs/low lbd/rem               0     0      0     
+c o looks/look-computes            0/0
+c o sat call/sat/unsat/confl/rst  0     0     0     0     0     
+c o zero branch SAT checks/unsat   0     / 0    
+c o buddy called /unsat ratio           0     / 0.0000 
+c o buddy avg num bin/long cls/vs  0.0000 / 0.0000 / 0.0000
+c o buddy max num bin/long cls/vs  0     / 0     / 0    
+c o orig cubes/lit-r avg/exten avg 1     / 0.00  / 0.00 
+c o cubes orig/symm/final          1     / 0     / 1    
+c o cubes resolved/flp-removed     0     / 0    
+c o tot restarts                   0    
+c o comp sortsK/avg sz             2     / 1.00000000
+c o comps recordK/non-reset ratio  2 / 0.57
+c o br splitsK/multi%/none%/comps  2         0.00      3.63      0.96     
+c o br avg sup vars/largest%/kept% 193.00    79.20     79.20    
+c o br top(lev<=3) splits/sup/lrg% 15        341.47    93.73    
+c o br cache-hit vars % of childr  0.00     
+c o br dec avg lev/cands/td-ties   9.78      158.62    32.03    
+c o br td obeyed%/td flat%         17.10     0.00     
+c o br score share td/act/freq %   7.08      91.82     1.10     
+c o vivif: try/cls/clviv/litsravg  0         0         0         0.00      
+c o toplev subs runs/bins/long-cls 0         0         0         0         0         
+c o toplevel probes/fail/bprop     0         0         0         
+c o Mem used                       0.01 GB
+c o cache pollutions call/removed  5488/2263
+c o cache entries K                0
+c o MB cache                       4.031
+c o cache K (lookup/ stores/ hits/ dels) 2      2      0      0       -- Klookup/s:  1.24     
+c o cache miss rate                1.000
+c o avg hit/store num vars 0.000 / 158.804
+c o sizeof (CacheableComp<T> + CacheEntryID) 64, 4
+c o table (size/capa) M                 1.049/1.049
+c o entry_base (size/capa) M            0.000/0.000
+c o free_entry_base_slots (size/capa) M 0.000/0.000
+c o table mem use MB:                   4.000
+c o entry_base mem use MB:              0.008
+c o free_entry_base_slots mem use MB    0.000
+c o bignum(+packed comp if used) uses MB 0.023
+c o Total process MB : 12.754 Total process vm MB: 30.297
+c o 
+c o intermediate count: 42
+c o Total time [Arjun+GANAK]: 1.97
+s SATISFIABLE
+c s type mc
+c s log10-estimate 1.62324929e+00
+c s exact arb int 42
+c s pac guarantees epsilon: 0 delta: 0

@@ -1,0 +1,10 @@
+ternary counterexample: four uniform 3-marginals; 65 singleton, 8 doubled, 8 absent quadruples PASS
+same local quadruple at same position has different next state PASS
+ternary same-position quadruple also has different next state PASS
+same boundary and all last outputs; original succeeds, non-last swap fails PASS
+same boundary and bottom; two valid boards have opposite rotor-permutation signs PASS
+binary parity=0: all 512 bottoms rejected; maximum-multiplicity histogram {3: 252, 4: 142, 5: 52, 6: 42, 8: 2, 9: 16, 12: 4, 16: 2} PASS
+binary parity=1: all 512 bottoms rejected; maximum-multiplicity histogram {3: 164, 4: 250, 5: 54, 6: 36, 8: 4, 10: 4} PASS
+all 12 Latin squares and all 24 ternary quasigroups of order 3 are affine PASS
+CA log covers every one of the 24 affine rules with COMPLETE zero results PASS
+universal local boundary divergences: dimension 10, bulk rank 71 PASS

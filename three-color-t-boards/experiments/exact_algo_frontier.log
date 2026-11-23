@@ -1,0 +1,10 @@
+q=3 rows=3 apex=0 nodes=9306 prefixes=6114 states=6114 max_multiplicity=1 repeated_states=0 elapsed=0.000435241
+multiplicity 1 states 6114
+q=3 rows=4 apex=0 nodes=14754246 prefixes=9391598 states=9379134 max_multiplicity=3 repeated_states=12446 elapsed=1.4306
+multiplicity 1 states 9366688
+multiplicity 2 states 12428
+multiplicity 3 states 18
+q=2 rows=5 apex=0 nodes=59832 prefixes=84 states=67 max_multiplicity=3 repeated_states=13 elapsed=0.000719217
+multiplicity 1 states 54
+multiplicity 2 states 9
+multiplicity 3 states 4

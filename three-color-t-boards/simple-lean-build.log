@@ -1,0 +1,23 @@
+Fresh isolated build of the five local modules, with no copied .olean files.
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+info: tboards_simple_audit: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+✔ [2/12] Built TBoards (1.0s)
+✔ [4/12] Built BoardData (328ms)
+✔ [6/12] Built EfficientCheck (638ms)
+ℹ [8/12] Built ColorSymmetry (317ms)
+info: ColorSymmetry.lean:129:0: 'TBoards.valid_transform_colors' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ColorSymmetry.lean:131:0: 'TBoards.orbit_valid_of_valid_and_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [10/12] Built SimpleProof (2.2s)
+info: SimpleProof.lean:114:0: 'TBoards.Simple.at_least_72' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SimpleProof.lean:115:0: 'TBoards.Simple.more_than_60' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SimpleProof.lean:116:0: 'TBoards.Simple.problem_solved' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (12 jobs).
+
+Source SHA-256:
+495ae8dc7218f5c1c3fee1be1f82cdb72bb9f0372db1b255f945408ef7817b3d  TBoards.lean
+08449621b0fdf12a25478ce1607793420fb8a877d889fba69663eac680a77f00  BoardData.lean
+87c7f3a9051969680dd401b4db42265abd3294f5fd4f498f30b664f737fd3448  EfficientCheck.lean
+bcc23b88992b8f69bc2501109c6cef57f05d66070df518639d80b4c5a9b9ed4b  ColorSymmetry.lean
+848f775edef6f135192cf89a2ebb1c5d4907436dc655b091c3284cb0b14c64d3  SimpleProof.lean
+582a63f8f9c5128067b688778c1051cf1464c3ca9d57b9325025c051c29b774a  lean-toolchain

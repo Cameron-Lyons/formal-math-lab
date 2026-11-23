@@ -1,0 +1,90 @@
+All 65,536 binary prefixes agree independently; cache depth 0; total 168 PASS
+requests=5756 entries=0
+remaining=0 calls=168 lookups=0 hits=0
+remaining=1 calls=1272 lookups=0 hits=0
+remaining=2 calls=3518 lookups=0 hits=0
+remaining=3 calls=6986 lookups=0 hits=0
+remaining=4 calls=12216 lookups=0 hits=0
+remaining=5 calls=17240 lookups=0 hits=0
+remaining=6 calls=20446 lookups=0 hits=0
+remaining=7 calls=23024 lookups=0 hits=0
+All 65,536 binary prefixes agree independently; cache depth 4; total 168 PASS
+requests=5756 entries=782
+remaining=0 calls=152 lookups=0 hits=0
+remaining=1 calls=1088 lookups=0 hits=0
+remaining=2 calls=3140 lookups=56 hits=40
+remaining=3 calls=6770 lookups=294 hits=134
+remaining=4 calls=12216 lookups=714 hits=108
+remaining=5 calls=17240 lookups=0 hits=0
+remaining=6 calls=20446 lookups=0 hits=0
+remaining=7 calls=23024 lookups=0 hits=0
+All 65,536 binary prefixes agree independently; cache depth 7; total 168 PASS
+requests=5756 entries=9330
+remaining=0 calls=132 lookups=0 hits=0
+remaining=1 calls=1012 lookups=0 hits=0
+remaining=2 calls=2988 lookups=46 hits=30
+remaining=3 calls=6460 lookups=278 hits=118
+remaining=4 calls=11594 lookups=682 hits=76
+remaining=5 calls=16684 lookups=1620 hits=120
+remaining=6 calls=20214 lookups=3312 hits=168
+remaining=7 calls=23024 lookups=4020 hits=116
+31 ternary prefixes, repeated to exercise reuse, agree with independent counter; cache depth 0; max count 6 PASS
+requests=62 entries=0
+remaining=0 calls=72 lookups=0 hits=0
+remaining=1 calls=82 lookups=0 hits=0
+remaining=2 calls=82 lookups=0 hits=0
+remaining=3 calls=90 lookups=0 hits=0
+remaining=4 calls=110 lookups=0 hits=0
+remaining=5 calls=116 lookups=0 hits=0
+remaining=6 calls=122 lookups=0 hits=0
+remaining=7 calls=166 lookups=0 hits=0
+remaining=8 calls=182 lookups=0 hits=0
+remaining=9 calls=234 lookups=0 hits=0
+remaining=10 calls=242 lookups=0 hits=0
+remaining=11 calls=258 lookups=0 hits=0
+remaining=12 calls=316 lookups=0 hits=0
+remaining=13 calls=352 lookups=0 hits=0
+remaining=14 calls=410 lookups=0 hits=0
+remaining=15 calls=424 lookups=0 hits=0
+remaining=16 calls=428 lookups=0 hits=0
+remaining=17 calls=558 lookups=0 hits=0
+31 ternary prefixes, repeated to exercise reuse, agree with independent counter; cache depth 8; max count 6 PASS
+requests=62 entries=25
+remaining=0 calls=54 lookups=0 hits=0
+remaining=1 calls=59 lookups=0 hits=0
+remaining=2 calls=60 lookups=2 hits=1
+remaining=3 calls=70 lookups=4 hits=3
+remaining=4 calls=91 lookups=8 hits=4
+remaining=5 calls=101 lookups=5 hits=2
+remaining=6 calls=109 lookups=6 hits=2
+remaining=7 calls=150 lookups=7 hits=3
+remaining=8 calls=182 lookups=16 hits=8
+remaining=9 calls=234 lookups=0 hits=0
+remaining=10 calls=242 lookups=0 hits=0
+remaining=11 calls=258 lookups=0 hits=0
+remaining=12 calls=316 lookups=0 hits=0
+remaining=13 calls=352 lookups=0 hits=0
+remaining=14 calls=410 lookups=0 hits=0
+remaining=15 calls=424 lookups=0 hits=0
+remaining=16 calls=428 lookups=0 hits=0
+remaining=17 calls=558 lookups=0 hits=0
+31 ternary prefixes, repeated to exercise reuse, agree with independent counter; cache depth 17; max count 6 PASS
+requests=62 entries=282
+remaining=0 calls=35 lookups=0 hits=0
+remaining=1 calls=39 lookups=0 hits=0
+remaining=2 calls=39 lookups=1 hits=0
+remaining=3 calls=45 lookups=2 hits=1
+remaining=4 calls=55 lookups=4 hits=0
+remaining=5 calls=58 lookups=3 hits=0
+remaining=6 calls=61 lookups=4 hits=0
+remaining=7 calls=85 lookups=6 hits=2
+remaining=8 calls=93 lookups=8 hits=0
+remaining=9 calls=119 lookups=8 hits=0
+remaining=10 calls=124 lookups=18 hits=0
+remaining=11 calls=136 lookups=19 hits=0
+remaining=12 calls=171 lookups=22 hits=3
+remaining=13 calls=202 lookups=38 hits=7
+remaining=14 calls=244 lookups=35 hits=4
+remaining=15 calls=283 lookups=62 hits=16
+remaining=16 calls=342 lookups=70 hits=27
+remaining=17 calls=558 lookups=84 hits=42

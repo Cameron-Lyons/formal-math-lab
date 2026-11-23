@@ -1,0 +1,35 @@
+{
+  "colors": 3,
+  "prefix": [
+    "0",
+    "000",
+    "21121",
+    "2102221",
+    "010122001",
+    "22111212222",
+    "0201201111202"
+  ],
+  "palette_canonical": false,
+  "orbit_canonical": false,
+  "cardinality": "sequential",
+  "drop_one_line": false,
+  "quadruple_constraints": 16,
+  "triple_constraints": 65,
+  "variables": 10152,
+  "clauses": 35324,
+  "phase_seed": 1,
+  "phase_board": [
+    "0",
+    "000",
+    "21121",
+    "2102221",
+    "010122001",
+    "22111212222",
+    "0201201111202",
+    "101202122000101",
+    "01100211022002010",
+    "2021022121000110020"
+  ],
+  "all_false_verified": true,
+  "complemented": 3224
+}

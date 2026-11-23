@@ -1,0 +1,8 @@
+binary168 inbothdirections, with/withoutflow, apex84x2 PASS
+all16 binaryprefixes and20arbitraryfixedmasks agreewith independentenumeration PASS
+ternaryprefix C direction 0 exact2 PASS {"status": "COMPLETE", "colors": "3", "reverse": "0", "prefix": "0000211212102221010122001221112122220201201111202", "fixed": "", "flow": "1", "steps": "64", "nodes": "90886692", "flow_prunes": "6", "exact_count": "2", "elapsed": "1.60622"}
+ternaryprefix C direction 1 exact2 PASS {"status": "COMPLETE", "colors": "3", "reverse": "1", "prefix": "0000211212102221010122001221112122220201201111202", "fixed": "", "flow": "1", "steps": "64", "nodes": "82006977", "flow_prunes": "8", "exact_count": "2", "elapsed": "2.02937"}
+ternaryprefix P direction 0 exact2 PASS {"status": "COMPLETE", "colors": "3", "reverse": "0", "prefix": "0000001000112101201121220001222212022121122111110", "fixed": "", "flow": "1", "steps": "64", "nodes": "10588630", "flow_prunes": "8139", "exact_count": "2", "elapsed": "0.208922"}
+ternaryprefix P direction 1 exact2 PASS {"status": "COMPLETE", "colors": "3", "reverse": "1", "prefix": "0000001000112101201121220001222212022121122111110", "fixed": "", "flow": "1", "steps": "64", "nodes": "7327140", "flow_prunes": "6484", "exact_count": "2", "elapsed": "0.155804"}
+arbitraryternarymask agreeswith independent81-assignmentcheck: 4 PASS
+timeout reports onlycompletedleaves; noexacttotal PASS

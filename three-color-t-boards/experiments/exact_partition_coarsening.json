@@ -1,0 +1,143 @@
+{
+  "selected_placements": [
+    {
+      "index": 0,
+      "row": 1,
+      "column": 0
+    },
+    {
+      "index": 4,
+      "row": 3,
+      "column": 0
+    },
+    {
+      "index": 7,
+      "row": 3,
+      "column": 3
+    },
+    {
+      "index": 16,
+      "row": 5,
+      "column": 0
+    },
+    {
+      "index": 19,
+      "row": 5,
+      "column": 3
+    },
+    {
+      "index": 22,
+      "row": 5,
+      "column": 6
+    },
+    {
+      "index": 36,
+      "row": 7,
+      "column": 0
+    },
+    {
+      "index": 39,
+      "row": 7,
+      "column": 3
+    },
+    {
+      "index": 42,
+      "row": 7,
+      "column": 6
+    },
+    {
+      "index": 45,
+      "row": 7,
+      "column": 9
+    },
+    {
+      "index": 48,
+      "row": 7,
+      "column": 12
+    },
+    {
+      "index": 64,
+      "row": 9,
+      "column": 0
+    },
+    {
+      "index": 67,
+      "row": 9,
+      "column": 3
+    },
+    {
+      "index": 70,
+      "row": 9,
+      "column": 6
+    },
+    {
+      "index": 73,
+      "row": 9,
+      "column": 9
+    },
+    {
+      "index": 76,
+      "row": 9,
+      "column": 12
+    },
+    {
+      "index": 79,
+      "row": 9,
+      "column": 15
+    }
+  ],
+  "future_collision": {
+    "indices": [
+      0,
+      1
+    ],
+    "coordinates": [
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ]
+    ]
+  },
+  "initial_cell_class_count": 96,
+  "same_selected_partition_blocks": 16,
+  "examples": [
+    {
+      "initial_collision": [
+        0,
+        4
+      ],
+      "initial_coordinates": [
+        [
+          1,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "cell_classes_after_future_collision": 93
+    },
+    {
+      "initial_collision": [
+        0,
+        7
+      ],
+      "initial_coordinates": [
+        [
+          1,
+          0
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "cell_classes_after_future_collision": 92
+    }
+  ]
+}

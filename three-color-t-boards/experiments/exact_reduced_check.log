@@ -1,0 +1,9 @@
+{"case": "binary", "orbit": false, "drop_one_line": false, "cardinality": "sequential", "count": 168, "variables": 1093, "clauses": 3630}
+{"case": "binary", "orbit": true, "drop_one_line": false, "cardinality": "sequential", "count": 42, "variables": 1119, "clauses": 3807}
+{"case": "binary", "orbit": false, "drop_one_line": true, "cardinality": "sequential", "count": 168, "variables": 1033, "clauses": 3421}
+{"case": "binary", "orbit": true, "drop_one_line": true, "cardinality": "sequential", "count": 42, "variables": 1059, "clauses": 3598}
+{"case": "binary", "orbit": false, "drop_one_line": false, "cardinality": "network", "count": 168, "variables": 2323, "clauses": 6915}
+{"case": "binary", "orbit": true, "drop_one_line": false, "cardinality": "network", "count": 42, "variables": 2349, "clauses": 7092}
+{"case": "binary", "orbit": false, "drop_one_line": true, "cardinality": "network", "count": 168, "variables": 2181, "clauses": 6487}
+{"case": "binary", "orbit": true, "drop_one_line": true, "cardinality": "network", "count": 42, "variables": 2207, "clauses": 6664}
+{"exact_count_checks_passed": 16, "triangular_layout_palettes": [1, 2, 3], "counterexample_satisfies_all_selected_triples": true, "counterexample_excluded_by_base_quadruples": true}

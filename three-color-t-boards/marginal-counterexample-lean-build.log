@@ -1,0 +1,3 @@
+ℹ [4/6] Built MarginalCounterexample (5.4s)
+info: MarginalCounterexample.lean:63:0: 'TBoards.MarginalCounterexample.triple_marginals_insufficient' depends on axioms: [propext]
+Build completed successfully (6 jobs).

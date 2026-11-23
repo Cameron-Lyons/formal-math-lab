@@ -1,0 +1,5 @@
+ℹ [7/9] Built Certificates (46s)
+info: Certificates.lean:62:0: 'TBoards.at_least_72' depends on axioms: [propext, Quot.sound]
+info: Certificates.lean:63:0: 'TBoards.more_than_60' depends on axioms: [propext, Quot.sound]
+info: Certificates.lean:64:0: 'TBoards.new_board_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9 jobs).

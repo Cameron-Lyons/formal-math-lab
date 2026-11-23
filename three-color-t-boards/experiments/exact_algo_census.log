@@ -1,0 +1,17 @@
+prefix_orbits=1572 labeled_valid_prefixes=18342 rejected_prefixes=1341
+completed=100/1572 partial_count=12360562584 elapsed=11.45
+completed=200/1572 partial_count=25534218396 elapsed=23.21
+completed=300/1572 partial_count=38570373504 elapsed=34.96
+completed=400/1572 partial_count=50944282620 elapsed=49.04
+completed=500/1572 partial_count=63549932952 elapsed=61.81
+completed=600/1572 partial_count=76708526136 elapsed=75.86
+completed=700/1572 partial_count=89398633656 elapsed=89.54
+completed=800/1572 partial_count=102361659648 elapsed=101.52
+completed=900/1572 partial_count=114970511112 elapsed=112.97
+completed=1000/1572 partial_count=127077375966 elapsed=123.97
+completed=1100/1572 partial_count=139782737514 elapsed=135.48
+completed=1200/1572 partial_count=152288574504 elapsed=146.70
+completed=1300/1572 partial_count=164856004068 elapsed=158.24
+completed=1400/1572 partial_count=177599096388 elapsed=169.85
+completed=1500/1572 partial_count=190237429224 elapsed=181.23
+status=COMPLETE count_completed_orbits=198649032096 elapsed=188.957 output=/home/cam/three-color-t-boards/experiments/exact_algo_census_results.json

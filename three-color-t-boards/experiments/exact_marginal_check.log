@@ -1,0 +1,25 @@
+{"case": "binary", "method": "sequential", "orbit": false, "pairs": [], "marginal_system": "roles", "count": 168, "wall_seconds": 0.272, "variables": 1402, "clauses": 5578}
+{"case": "binary", "method": "sequential", "orbit": false, "pairs": [], "marginal_system": "boundary", "count": 168, "wall_seconds": 0.39, "variables": 1042, "clauses": 4192}
+{"case": "binary", "method": "sequential", "orbit": false, "pairs": [], "marginal_system": "both", "count": 168, "wall_seconds": 0.41, "variables": 1676, "clauses": 6610}
+{"case": "binary", "method": "sequential", "orbit": false, "pairs": ["LM", "MR", "TM"], "marginal_system": "roles", "count": 168, "wall_seconds": 0.451, "variables": 2374, "clauses": 9118}
+{"case": "binary", "method": "sequential", "orbit": false, "pairs": ["LM", "MR", "TM"], "marginal_system": "boundary", "count": 168, "wall_seconds": 0.371, "variables": 2012, "clauses": 7726}
+{"case": "binary", "method": "sequential", "orbit": false, "pairs": ["LM", "MR", "TM"], "marginal_system": "both", "count": 168, "wall_seconds": 0.396, "variables": 2646, "clauses": 10144}
+{"case": "binary", "method": "sequential", "orbit": true, "pairs": [], "marginal_system": "roles", "count": 42, "wall_seconds": 0.187, "variables": 1428, "clauses": 5755}
+{"case": "binary", "method": "sequential", "orbit": true, "pairs": [], "marginal_system": "boundary", "count": 42, "wall_seconds": 0.119, "variables": 1068, "clauses": 4369}
+{"case": "binary", "method": "sequential", "orbit": true, "pairs": [], "marginal_system": "both", "count": 42, "wall_seconds": 0.216, "variables": 1702, "clauses": 6787}
+{"case": "binary", "method": "sequential", "orbit": true, "pairs": ["LM", "MR", "TM"], "marginal_system": "roles", "count": 42, "wall_seconds": 0.296, "variables": 2400, "clauses": 9295}
+{"case": "binary", "method": "sequential", "orbit": true, "pairs": ["LM", "MR", "TM"], "marginal_system": "boundary", "count": 42, "wall_seconds": 0.233, "variables": 2038, "clauses": 7903}
+{"case": "binary", "method": "sequential", "orbit": true, "pairs": ["LM", "MR", "TM"], "marginal_system": "both", "count": 42, "wall_seconds": 0.316, "variables": 2672, "clauses": 10321}
+{"case": "binary", "method": "network", "orbit": false, "pairs": [], "marginal_system": "roles", "count": 168, "wall_seconds": 0.224, "variables": 1530, "clauses": 5290}
+{"case": "binary", "method": "network", "orbit": false, "pairs": [], "marginal_system": "boundary", "count": 168, "wall_seconds": 0.218, "variables": 1162, "clauses": 4186}
+{"case": "binary", "method": "network", "orbit": false, "pairs": [], "marginal_system": "both", "count": 168, "wall_seconds": 0.304, "variables": 1886, "clauses": 6370}
+{"case": "binary", "method": "network", "orbit": false, "pairs": ["LM", "MR", "TM"], "marginal_system": "roles", "count": 168, "wall_seconds": 0.857, "variables": 3150, "clauses": 10174}
+{"case": "binary", "method": "network", "orbit": false, "pairs": ["LM", "MR", "TM"], "marginal_system": "boundary", "count": 168, "wall_seconds": 1.018, "variables": 2800, "clauses": 9124}
+{"case": "binary", "method": "network", "orbit": false, "pairs": ["LM", "MR", "TM"], "marginal_system": "both", "count": 168, "wall_seconds": 0.409, "variables": 3500, "clauses": 11236}
+{"case": "binary", "method": "network", "orbit": true, "pairs": [], "marginal_system": "roles", "count": 42, "wall_seconds": 0.186, "variables": 1556, "clauses": 5467}
+{"case": "binary", "method": "network", "orbit": true, "pairs": [], "marginal_system": "boundary", "count": 42, "wall_seconds": 0.207, "variables": 1188, "clauses": 4363}
+{"case": "binary", "method": "network", "orbit": true, "pairs": [], "marginal_system": "both", "count": 42, "wall_seconds": 0.306, "variables": 1912, "clauses": 6547}
+{"case": "binary", "method": "network", "orbit": true, "pairs": ["LM", "MR", "TM"], "marginal_system": "roles", "count": 42, "wall_seconds": 0.607, "variables": 3176, "clauses": 10351}
+{"case": "binary", "method": "network", "orbit": true, "pairs": ["LM", "MR", "TM"], "marginal_system": "boundary", "count": 42, "wall_seconds": 0.387, "variables": 2826, "clauses": 9301}
+{"case": "binary", "method": "network", "orbit": true, "pairs": ["LM", "MR", "TM"], "marginal_system": "both", "count": 42, "wall_seconds": 0.351, "variables": 3526, "clauses": 11413}
+{"exact_count_checks_passed": 102}

@@ -8,13 +8,15 @@ def main():
  p.add_argument('--output',type=Path,required=True)
  p.add_argument('--outer-seconds',type=float,default=180)
  p.add_argument('--outer-memory-mb',type=int,default=2048)
+ p.add_argument('--backend',choices=['singular','msolve'],default='singular')
  p.add_argument('backend_arguments',nargs=argparse.REMAINDER)
  a=p.parse_args()
  args=a.backend_arguments
  if args and args[0]=='--':args=args[1:]
  if '--output'in args:raise ValueError('pass the output path only to the guard')
  if a.outer_seconds<=0 or a.outer_memory_mb<=0:raise ValueError('positive outer limits required')
- command=[sys.executable,str(Path(__file__).with_name('exact_algebra_backend.py')),*args,'--output',str(a.output)]
+ script='exact_algebra_backend.py'if a.backend=='singular'else'exact_msolve_backend.py'
+ command=[sys.executable,str(Path(__file__).with_name(script)),*args,'--output',str(a.output)]
  def limits():resource.setrlimit(resource.RLIMIT_AS,(a.outer_memory_mb*1024**2,)*2)
  start=time.monotonic();before=resource.getrusage(resource.RUSAGE_CHILDREN)
  child=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True,preexec_fn=limits)

@@ -1,0 +1,6 @@
+name = "grid75"
+defaultTargets = ["Grid75Results"]
+
+[[lean_lib]]
+name = "Grid75Results"
+roots = ["Grid75", "HalfTurn", "PolynomialGeometry", "PolynomialObstructions", "PolynomialCRTTable", "PolynomialCRT", "Grid75Results", "StripSearch", "StripCertificates", "StripBounds"]

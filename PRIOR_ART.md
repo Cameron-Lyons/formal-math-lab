@@ -218,6 +218,21 @@ the local Lean theorem proves that the unrestricted 40-vertex SAT instance is
 satisfiable exactly when a counterexample exists. Its satisfiability remains
 undecided. [Li et al. (2025)](https://ijcai.org/proceedings/2025/292)
 
+## No three in line on the 75 × 75 grid
+
+Checked **23 November 2026**. Thomas Prellberg found a 148-point configuration
+on the 74 × 74 grid on 20 July 2026. The same points fit the 75 × 75 grid.
+Flammenkamp’s table of 28 October records full configurations for sizes 74,
+76, and 78 and leaves size 75 blank. [Flammenkamp’s discovery notes](https://wwwhomes.uni-bielefeld.de/achim/no3in/readme.html#C) ·
+[74 × 74 configuration data](https://wwwhomes.uni-bielefeld.de/achim/no3in/download/configurations/n74_rot4.few) ·
+[28 October table](https://wwwhomes.uni-bielefeld.de/achim/no3in/table.html)
+
+Lean verifies the first 148-point configuration in the data file. At most
+two points can occupy each row, giving the upper bound of 150. The local
+proof also shows that every 150-point solution must omit two points of this
+particular configuration whose row indices differ by at least 32. Whether
+150 points are achievable remains open in this project. [Local proofs](no-three-in-line-75/)
+
 ## Three-color prismatic T-tetromino boards
 
 **Audited statements:** more than 60, and at least 45,083,592, labeled

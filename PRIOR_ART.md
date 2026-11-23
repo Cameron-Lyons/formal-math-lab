@@ -17,6 +17,10 @@ The Erdős #708 project formalizes C. Bergström’s previously proved value $g(
 and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
+## Three integer cubes summing to 114
+
+Checked **23 November 2026**. Booker and Sutherland report a search for 114 using cube roots modulo the pair sum. Grantham and Walsh describe a related number-field search, and Welsh gives the general correspondence between cubic ideals and pairs of roots. The local lemma gives an elementary family outside the absolute norms of $\mathbb Z[\sqrt[3]{114}]$. Its historical priority is unverified. [Booker–Sutherland, §5.2](https://arxiv.org/pdf/2007.01209#page=14) · [Grantham–Walsh](https://arxiv.org/abs/2211.12149) · [Welsh, Theorem 3](https://arxiv.org/abs/2008.00538) · [Local proof](three-cubes-114/TernaryFamily.lean)
+
 ## E677 implies E255 at order nine
 
 Checked **23 November 2026**. On 10 December 2024, José Brox reported that an exhaustive Mace4 search excluded nine-element magmas satisfying E677 and failing E255. The local Lean proof independently checks this case using an LRAT certificate. [Brox’s search report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#487358914) · [Lean proof](E677-E255-order-9/Nine.lean)

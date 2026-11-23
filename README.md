@@ -18,6 +18,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. | No earlier proof located; order 15 remains open in the inspected Equational Theories catalogue. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
 | [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
+| [Three integer cubes summing to 114](three-cubes-114/) | Arbitrarily large moduli admit a cube root of 114 and lie outside the full norm family. | Booker–Sutherland and Grantham–Walsh give earlier search methods. The local searches found no triple. |
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [Erdős #556, three-color nine-cycle Ramsey number](erdos-556-cycle-ramsey/) | Any three-coloring of $K_{33}$ with a 15-vertex set missing one color contains a monochromatic $C_9$. | The lower bound of 33 is known. The unrestricted upper bound remains open. |
 | [Erdős #677, equal LCMs of six consecutive integers](erdos-677-equal-lcms/) | The only equal-LCM pairs at length six have parameters $(3,4)$, $(5,6)$ and $(13,15)$. All overlap. Lean checks the reduction and finite cases. External elliptic-curve arithmetic proves completeness. | The three overlaps and four-cubic reduction were recorded previously. The arbitrary-length problem remains open. |
@@ -38,7 +39,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 Each proof has its own Lake project. The Erdős #677, #708, and #835 projects use Lean **4.35.0-rc2**.
 The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
-The E17260, integer cubic, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
+The E17260, integer cubic, three cubes, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
 E1486's SAT checks and the large T-board
 families can require substantial computation.
@@ -50,6 +51,7 @@ families can require substantial computation.
 | `E1486-order-15` | `lake build +Simple.NoTable` | `E1486.Simple.noTable` |
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |
 | `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |
+| `three-cubes-114` | `lake build` | `ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
 | `erdos-556-cycle-ramsey` | `lake build` | `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases` |
 | `erdos-677-equal-lcms` | `lake exe cache get` then `lake build`. [Arithmetic checks](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction) | `Erdos677.six_collision_iff_three_of_affine_cover` |

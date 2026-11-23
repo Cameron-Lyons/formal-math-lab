@@ -1,0 +1,6 @@
+name = "magmaNine"
+version = "1.0.0"
+defaultTargets = ["Nine"]
+
+[[lean_lib]]
+name = "Nine"

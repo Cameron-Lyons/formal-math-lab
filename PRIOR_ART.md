@@ -17,6 +17,10 @@ The Erdős #708 project formalizes C. Bergström’s previously proved value $g(
 and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
+## E677 implies E255 at order nine
+
+Checked **23 November 2026**. On 10 December 2024, José Brox reported that an exhaustive Mace4 search excluded nine-element magmas satisfying E677 and failing E255. The local Lean proof independently checks this case using an LRAT certificate. [Brox’s search report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#487358914) · [Lean proof](E677-E255-order-9/Nine.lean)
+
 ## E1486 at order 15
 
 **Audited statement:** no 15-element magma satisfies

@@ -1,0 +1,83 @@
+{
+  "status": "ANALYSIS_ONLY_NO_SOLVER",
+  "source_reduced_json_sha256": "66e18148d574178bfdc09296635e43ebe327646beff90ab8c5a6d43e88729c78",
+  "export_matches_fresh_reconstruction": true,
+  "all80_independently_substituted_from_geometry": true,
+  "vanishing_unary_and_squared_unary_equations": 8,
+  "pivot_substitution_lengths": {
+    "0": 80,
+    "81": 17,
+    "90": 80,
+    "99": 17
+  },
+  "selected40": {
+    "variables": 96,
+    "free_cubic_domains": 96,
+    "remaining_equations": 40,
+    "generators": 136,
+    "non_domain_terms": 25070,
+    "moment_terms": 11884,
+    "pivot_domain_terms": {
+      "pivot_domain:0": 6321,
+      "pivot_domain:81": 272,
+      "pivot_domain:90": 6321,
+      "pivot_domain:99": 272
+    },
+    "all_polynomial_terms": 25262,
+    "distinct_nondomain_monomials": 18522,
+    "largest_equation_terms": 6321,
+    "maximum_term_total_degree": 7,
+    "non_domain_degree_histogram": {
+      "0": 4,
+      "1": 34,
+      "2": 1536,
+      "3": 16082,
+      "4": 3141,
+      "5": 2605,
+      "6": 1253,
+      "7": 415
+    },
+    "input_utf8_bytes": 292372,
+    "input_sha256": "31593fc001f038705340532d6eaefc1ab59bb11578dee6edafae970befb6f456",
+    "maximum_line_bytes": 62570
+  },
+  "all80": {
+    "variables": 96,
+    "free_cubic_domains": 96,
+    "remaining_equations": 76,
+    "generators": 172,
+    "non_domain_terms": 36954,
+    "moment_terms": 23768,
+    "pivot_domain_terms": {
+      "pivot_domain:0": 6321,
+      "pivot_domain:81": 272,
+      "pivot_domain:90": 6321,
+      "pivot_domain:99": 272
+    },
+    "all_polynomial_terms": 37146,
+    "distinct_nondomain_monomials": 28247,
+    "largest_equation_terms": 6321,
+    "maximum_term_total_degree": 8,
+    "non_domain_degree_histogram": {
+      "0": 6,
+      "1": 66,
+      "2": 1598,
+      "3": 17650,
+      "4": 6005,
+      "5": 5718,
+      "6": 3836,
+      "7": 1660,
+      "8": 415
+    },
+    "input_utf8_bytes": 477211,
+    "input_sha256": "a65f4a1c05e8eb6f5d2d911aeec90b50e63fde96421c1caed1e7ef0aee24f590",
+    "maximum_line_bytes": 62570
+  },
+  "memory": {
+    "exponent_bytes_per_hash_slot_100_variables": 202,
+    "exponent_bytes_per_hash_slot_96_variables": 194,
+    "bytes_saved_per_hash_at_2_pow_22": 33554432,
+    "MiB_saved_per_hash_at_2_pow_22": 32,
+    "MiB_saved_two_hashes_at_2_pow_22": 64
+  }
+}

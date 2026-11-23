@@ -1,0 +1,485 @@
+{
+  "status": "READ_ONLY_SOURCE_ANALYSIS",
+  "source_commit": "cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "source_hash_c_sha256": "7aa5d271c4a2923dca5a321810e0d13a1ba9e666178e5199c1719d352263db70",
+  "direct_esz_use_count": 84,
+  "uses_per_file": {
+    "src/neogb/f4.c": 2,
+    "src/neogb/f4sat.c": 5,
+    "src/neogb/hash.c": 42,
+    "src/neogb/io.c": 1,
+    "src/neogb/modular.c": 18,
+    "src/neogb/sba.c": 4,
+    "src/neogb/symbol.c": 11,
+    "src/neogb/update.c": 1
+  },
+  "uses": [
+    {
+      "file": "src/neogb/f4.c",
+      "line": 705,
+      "text": "md->max_bht_size = md->max_bht_size > bs->ht->esz ?"
+    },
+    {
+      "file": "src/neogb/f4.c",
+      "line": 706,
+      "text": "md->max_bht_size : bs->ht->esz;"
+    },
+    {
+      "file": "src/neogb/f4sat.c",
+      "line": 254,
+      "text": "while (ht->esz - ht->eld < oqb_dim-ind[nv-i]) {"
+    },
+    {
+      "file": "src/neogb/f4sat.c",
+      "line": 475,
+      "text": "while (sht->esz - sht->eld < sat->hm[i][LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/f4sat.c",
+      "line": 571,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/f4sat.c",
+      "line": 572,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/f4sat.c",
+      "line": 701,
+      "text": "while (bht->esz - bht->eld < sat->hm[i][LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 68,
+      "text": "ht->esz   = ht->hsz / 2;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 110,
+      "text": "ht->hd  = (hd_t *)calloc(ht->esz, sizeof(hd_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 111,
+      "text": "ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 115,
+      "text": "fprintf(ERRSTREAM, \"esz = %lu, segmentation fault will follow.\\n\", (unsigned long)ht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 118,
+      "text": "(unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 121,
+      "text": "fprintf(ERRSTREAM, \"initialization failed, esz = %lu,\\n\", (unsigned long)ht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 124,
+      "text": "const hl_t esz  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 128,
+      "text": "st->max_bht_size  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 145,
+      "text": "ht->esz   = bht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 158,
+      "text": "ht->hd  = (hd_t *)calloc(ht->esz, sizeof(hd_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 160,
+      "text": "memcpy(ht->hd, bht->hd, (unsigned long)ht->esz * sizeof(hd_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 161,
+      "text": "ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 165,
+      "text": "fprintf(ERRSTREAM, \"esz = %lu, segmentation fault will follow.\\n\", (unsigned long)ht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 168,
+      "text": "(unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 171,
+      "text": "fprintf(ERRSTREAM, \"initialization failed, esz = %lu,\\n\", (unsigned long)ht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 174,
+      "text": "memcpy(tmp, bht->ev[0], (unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 176,
+      "text": "const hl_t esz  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 200,
+      "text": "ht->esz   = ht->hsz / 2;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 213,
+      "text": "ht->hd  = (hd_t *)calloc(ht->esz, sizeof(hd_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 214,
+      "text": "ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 218,
+      "text": "fprintf(ERRSTREAM, \"esz = %lu, segmentation fault will follow.\\n\", (unsigned long)ht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 221,
+      "text": "(unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 224,
+      "text": "fprintf(ERRSTREAM, \"initialization failed, esz = %lu,\\n\", (unsigned long)ht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 227,
+      "text": "const hl_t esz  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 326,
+      "text": "ht->esz = 2 * ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 327,
+      "text": "const hl_t esz  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 888,
+      "text": "if (size >= (ht->esz)) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 889,
+      "text": "while (size >= ht->esz) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 890,
+      "text": "ht->esz = 2 * ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 893,
+      "text": "const hl_t esz  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 918,
+      "text": "memset(ht->hd, 0, ht->esz * sizeof(hd_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 928,
+      "text": "memset(ht->hd, 0, ht->esz * sizeof(hd_t));"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1050,
+      "text": "while (bht->esz - bht->eld < mat->ncr) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1074,
+      "text": "(mat->np > 0 && mat->tr == NULL) || bht->eld > bht->esz ||"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1139,
+      "text": "(unsigned long)bht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1142,
+      "text": "while (bht->esz - bht->eld < missing) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1149,
+      "text": "if (bht->eld >= bht->esz) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1164,
+      "text": "(unsigned long)bht->esz);"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1179,
+      "text": "/* while (bht->esz - bht->eld < row[LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1360,
+      "text": "const hl_t esz  = ht->esz;"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1467,
+      "text": "while (sht->eld+poly[LENGTH] >= sht->esz) {"
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "line": 1489,
+      "text": "while (sht->eld+poly[LENGTH] >= sht->esz) {"
+    },
+    {
+      "file": "src/neogb/io.c",
+      "line": 296,
+      "text": "while (lens[i] >= ht->esz-ht->eld) {"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 260,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 261,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 463,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 464,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 586,
+      "text": "while (bht->esz - bht->eld < sat->hm[i][LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 745,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 746,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 880,
+      "text": "while (bht->esz - bht->eld < sat->hm[i][LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1023,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1024,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1232,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1233,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1364,
+      "text": "while (bht->esz - bht->eld < sat->hm[i][LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1566,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1567,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1687,
+      "text": "while (bht->esz - bht->eld < sat->hm[i][LENGTH]) {"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1986,
+      "text": "st->max_bht_size  = st->max_bht_size > bht->esz ?"
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "line": 1987,
+      "text": "st->max_bht_size : bht->esz;"
+    },
+    {
+      "file": "src/neogb/sba.c",
+      "line": 328,
+      "text": "while (ht->esz - ht->eld < smat->pr[idx][SM_LEN]+SM_OFFSET + 1) {"
+    },
+    {
+      "file": "src/neogb/sba.c",
+      "line": 372,
+      "text": "while (ht->esz - ht->eld < nv) {"
+    },
+    {
+      "file": "src/neogb/sba.c",
+      "line": 693,
+      "text": "st->max_bht_size = st->max_bht_size > ht->esz ?"
+    },
+    {
+      "file": "src/neogb/sba.c",
+      "line": 694,
+      "text": "st->max_bht_size : ht->esz;"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 126,
+      "text": "if (tht->eld == tht->esz-1) {"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 162,
+      "text": "if (tht->eld == tht->esz-1) {"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 331,
+      "text": "if (bs->ht->eld == bs->ht->esz-1) {"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 366,
+      "text": "if (bs->ht->eld == bs->ht->esz-1) {"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 544,
+      "text": "if (bht->eld == bht->esz-1) {"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 632,
+      "text": "md->max_sht_size  = md->max_sht_size > sht->esz ?"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 633,
+      "text": "md->max_sht_size : sht->esz;"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 705,
+      "text": "md->max_sht_size  = md->max_sht_size > sht->esz ?"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 706,
+      "text": "md->max_sht_size : sht->esz;"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 758,
+      "text": "st->max_sht_size  = st->max_sht_size > sht->esz ?"
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "line": 759,
+      "text": "st->max_sht_size : sht->esz;"
+    },
+    {
+      "file": "src/neogb/update.c",
+      "line": 92,
+      "text": "while (bht->esz - bht->eld < bl) {"
+    }
+  ],
+  "observed_basis_load": 2078104,
+  "observed_missing": 55218,
+  "required_next_free_id": 2133322,
+  "capacity_scenarios": [
+    {
+      "name": "old_capacity",
+      "slots": 2097152,
+      "buckets": 4194304,
+      "exponent_bytes": 423624704,
+      "principal_arrays_bytes": 490733568,
+      "principal_arrays_MiB": 468.0
+    },
+    {
+      "name": "legacy_double",
+      "slots": 4194304,
+      "buckets": 8388608,
+      "exponent_bytes": 847249408,
+      "principal_arrays_bytes": 981467136,
+      "principal_arrays_MiB": 936.0
+    },
+    {
+      "name": "exact_required",
+      "slots": 2133322,
+      "buckets": 8388608,
+      "exponent_bytes": 430931044,
+      "principal_arrays_bytes": 515685204,
+      "principal_arrays_MiB": 491.7957344055176
+    },
+    {
+      "name": "round64K",
+      "slots": 2162688,
+      "buckets": 8388608,
+      "exponent_bytes": 436862976,
+      "principal_arrays_bytes": 522321920,
+      "principal_arrays_MiB": 498.125
+    },
+    {
+      "name": "one_eighth_slack_round64K",
+      "slots": 2359296,
+      "buckets": 8388608,
+      "exponent_bytes": 476577792,
+      "principal_arrays_bytes": 566755328,
+      "principal_arrays_MiB": 540.5
+    }
+  ],
+  "no_source_patch": true,
+  "no_solver_run": true
+}

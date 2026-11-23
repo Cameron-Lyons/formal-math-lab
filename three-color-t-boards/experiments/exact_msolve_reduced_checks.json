@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "modes": {
+    "40": {
+      "variables": 96,
+      "generators": 136,
+      "terms_outside_free_domains": 25070,
+      "input_sha256": "4418d18828dc6406951d17bcc75e68d9048be8dfc37c9947c9061b9b55f60f9e"
+    },
+    "80": {
+      "variables": 96,
+      "generators": 172,
+      "terms_outside_free_domains": 36954,
+      "input_sha256": "95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f"
+    }
+  },
+  "strict_rejections": [
+    "exponent-three",
+    "highest-exponent-three",
+    "overflow",
+    "negative",
+    "missing-prefix",
+    "invalid-hex",
+    "whitespace",
+    "empty",
+    "integer",
+    "boolean",
+    "duplicate-word",
+    "duplicate-numeric-alias",
+    "duplicate-constant",
+    "zero-polynomial",
+    "nonboolean-mode",
+    "duplicate-json-key",
+    "missing-pivot-domain",
+    "duplicate-equation",
+    "wrong-field",
+    "wrong-variables",
+    "missing-free-domains",
+    "wrong-free-map",
+    "missing-pivot-substitution",
+    "duplicate-substitution-term",
+    "lost-term"
+  ],
+  "frobenius_small_monomial_checks": 243,
+  "all_default_polynomials_preserved": true,
+  "pivot_domains_retained": 4,
+  "count_divisor": 1,
+  "fixed_prefix": "",
+  "source_sha256": "66e18148d574178bfdc09296635e43ebe327646beff90ab8c5a6d43e88729c78",
+  "solver_processes_started": 0
+}

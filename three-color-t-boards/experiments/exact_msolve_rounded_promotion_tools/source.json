@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/algebraic-solving/msolve",
+  "tag": "v0.11.0",
+  "commit": "cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "archive_sha256": "0f53c278ce2c3d46600348e945313e467314d296d275f2978f92c6b6b8e2224a",
+  "source_archive": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve-v0.11.0-source.tar.gz",
+  "source_directory": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_rounded_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "predecessor_patches": [
+    {
+      "path": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_patched_tools/leading-export-only.patch",
+      "sha256": "2b109358fc7a77dc70c1570f194c376df68605caa1f4afbce116fa74bfeb99fd"
+    },
+    {
+      "path": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_sparse_promotion_tools/retained-column-promotion.patch",
+      "sha256": "3955ca519da0b32a5e000792d7d36000d45a8971eea8fb56d1e793cd40a0edeb"
+    },
+    {
+      "path": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/missing-column-reservation.patch",
+      "sha256": "c0940b59cd8b6a62d22ee6a7072d6614a9532d82a3b16ca2403fe631fd8b9022"
+    }
+  ],
+  "baseline_executable": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/msolve",
+  "baseline_executable_sha256": "1e2111b5e1ef28201f3b2da6bc727d4563569e96b3468ab241433e7d2238a202"
+}

@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "solver_invoked": false,
+  "full_count_evaluated": false,
+  "adapter_sha256": "e7ec3127a4c7671edd57b4c74707502e95faa1564a992614d16da9ecd199cb22",
+  "cases": [
+    {
+      "prime": 2,
+      "prefix": "",
+      "variables": 100,
+      "free_board_variables": 100,
+      "generators": 180,
+      "ordinary_cubic_domains": 100,
+      "all80_moments_match_centered_geometry": true,
+      "natural_and_reordered_polynomials_identical_after_inverse_renaming": true,
+      "extension_variable": false,
+      "extension_variable_remains_last": true,
+      "count_divisor_unchanged": true,
+      "first_original_cells": [
+        0,
+        81,
+        90,
+        99
+      ],
+      "input_file": "exact_parity_math_pivot_p2_full.ms",
+      "input_sha256": "a219416c206e31a2547155c62d5df1f3ef4050a303f5a90dde0d460c01e9768f",
+      "natural_unary_pivots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "dispersed_unary_pivots": [
+        0,
+        81,
+        90,
+        99
+      ]
+    },
+    {
+      "prime": 2,
+      "prefix": "0012",
+      "variables": 97,
+      "free_board_variables": 96,
+      "generators": 177,
+      "ordinary_cubic_domains": 96,
+      "all80_moments_match_centered_geometry": true,
+      "natural_and_reordered_polynomials_identical_after_inverse_renaming": true,
+      "extension_variable": true,
+      "extension_variable_remains_last": true,
+      "count_divisor_unchanged": true,
+      "first_original_cells": [
+        81,
+        90,
+        99,
+        4
+      ],
+      "input_file": "exact_parity_math_pivot_p2_prefix0012.ms",
+      "input_sha256": "1af0143e268243134675ba4802e6dcefad4a015a9e825750b8b0d52064a00ffa"
+    },
+    {
+      "prime": 29,
+      "prefix": "",
+      "variables": 100,
+      "free_board_variables": 100,
+      "generators": 180,
+      "ordinary_cubic_domains": 100,
+      "all80_moments_match_centered_geometry": true,
+      "natural_and_reordered_polynomials_identical_after_inverse_renaming": true,
+      "extension_variable": false,
+      "extension_variable_remains_last": true,
+      "count_divisor_unchanged": true,
+      "first_original_cells": [
+        0,
+        81,
+        90,
+        99
+      ],
+      "input_file": "exact_parity_math_pivot_p29_full.ms",
+      "input_sha256": "699e6a81b2f4c1b113a448dc17e5b81f5962a365729204ae32802c857fd9944d",
+      "natural_unary_pivots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "dispersed_unary_pivots": [
+        0,
+        81,
+        90,
+        99
+      ]
+    },
+    {
+      "prime": 29,
+      "prefix": "0012",
+      "variables": 97,
+      "free_board_variables": 96,
+      "generators": 177,
+      "ordinary_cubic_domains": 96,
+      "all80_moments_match_centered_geometry": true,
+      "natural_and_reordered_polynomials_identical_after_inverse_renaming": true,
+      "extension_variable": true,
+      "extension_variable_remains_last": true,
+      "count_divisor_unchanged": true,
+      "first_original_cells": [
+        81,
+        90,
+        99,
+        4
+      ],
+      "input_file": "exact_parity_math_pivot_p29_prefix0012.ms",
+      "input_sha256": "6c6a1b5b77755960f30405e16c623ee2d38697a8757f05e1f3b4fe63eeb1f9f5"
+    }
+  ],
+  "maximum_pivot_cells_per_T": {
+    "natural": 4,
+    "dispersed": 1
+  }
+}

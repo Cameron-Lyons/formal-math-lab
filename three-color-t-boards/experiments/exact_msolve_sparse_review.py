@@ -123,8 +123,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--baseline', type=Path, default=ROOT/'experiments/exact_msolve_patched_tools/msolve')
     parser.add_argument('--candidate', type=Path, default=ROOT/'experiments/exact_msolve_sparse_promotion_tools/msolve')
+    parser.add_argument('--artifact-prefix', default='exact_msolve_sparse_review')
     args = parser.parse_args()
-    result_dir = ROOT/'experiments/exact_msolve_sparse_review_runs'
+    assert re.fullmatch(r'exact_msolve_[a-z_]+', args.artifact_prefix)
+    result_dir = ROOT/'experiments'/(args.artifact_prefix+'_runs')
     result_dir.mkdir(exist_ok=True)
     local_lib = ROOT/'experiments/exact_algebra_backend_root/usr/lib'
     env = dict(os.environ, LD_LIBRARY_PATH=str(local_lib))
@@ -194,7 +196,7 @@ def main():
                   baseline_sha256=hashlib.sha256(args.baseline.read_bytes()).hexdigest(),
                   candidate_sha256=hashlib.sha256(args.candidate.read_bytes()).hexdigest(),
                   full_t_board_runs=0, results=results)
-    (ROOT/'experiments/exact_msolve_sparse_review_results.json').write_text(json.dumps(report, indent=2)+'\n')
+    (ROOT/'experiments'/(args.artifact_prefix+'_results.json')).write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps({key: value for key, value in report.items() if key != 'results'}, indent=2))
 
 

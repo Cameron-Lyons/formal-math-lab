@@ -1,0 +1,99 @@
+--- a/src/neogb/hash.c
++++ b/src/neogb/hash.c
+@@ -1071,7 +1071,8 @@
+     )
+ {
+     if (mat->ncl > mat->nc || mat->ncr != mat->nc-mat->ncl ||
+-            (mat->np > 0 && mat->tr == NULL) || bht->eld > bht->esz) {
++            (mat->np > 0 && mat->tr == NULL) || bht->eld > bht->esz ||
++            bht == sht || bht->evl != sht->evl) {
+         fprintf(ERRSTREAM, "Error: invalid retained-column promotion dimensions.\n");
+         exit(EXIT_FAILURE);
+     }
+@@ -1080,7 +1081,7 @@
+         fprintf(ERRSTREAM, "Error: cannot allocate retained-column support mask.\n");
+         exit(EXIT_FAILURE);
+     }
+-    len_t needed = 0;
++    len_t referenced = 0;
+     for (len_t i = 0; i < mat->np; ++i) {
+         const hm_t *row = mat->tr[i];
+         if (row == NULL || row[LENGTH] == 0 || row[LENGTH] > mat->ncr) {
+@@ -1095,15 +1096,12 @@
+             }
+             if (used[column-mat->ncl] == 0) {
+                 used[column-mat->ncl] = 1;
+-                ++needed;
++                ++referenced;
+             }
+         }
+     }
+     const hl_t before = bht->eld;
+-    while (bht->esz - bht->eld < needed) {
+-        enlarge_hash_table(bht);
+-    }
+-    /* Ascending column order preserves the order of retained insertions. */
++    len_t missing = 0;
+     for (len_t column = mat->ncl; column < mat->nc; ++column) {
+         if (used[column-mat->ncl]) {
+             const hi_t symbolic_hash = hcm[column];
+@@ -1111,13 +1109,58 @@
+                 fprintf(ERRSTREAM, "Error: invalid symbolic hash in column promotion.\n");
+                 exit(EXIT_FAILURE);
+             }
++            const exp_t * const exponent = sht->ev[symbolic_hash];
++            val_t hash = 0;
++            for (len_t j = 0; j < bht->evl; ++j) {
++                hash += bht->rn[j] * exponent[j];
++            }
++            hi_t position = 0;
++            const int32_t contained = is_contained_in_hash_table(
++                    exponent, bht, hash, &position);
++            if (contained == 1) {
++                if (position == 0 || position >= bht->eld) {
++                    fprintf(ERRSTREAM, "Error: invalid existing hash in column promotion.\n");
++                    exit(EXIT_FAILURE);
++                }
++                /* Existing entry IDs survive enlargement; bucket indices do not. */
++                hcm[column] = position;
++                used[column-mat->ncl] = 2;
++            } else if (contained == 0) {
++                ++missing;
++            } else {
++                fprintf(ERRSTREAM, "Error: basis hash lookup failed in column promotion.\n");
++                exit(EXIT_FAILURE);
++            }
++        }
++    }
++    if (info_level > 1) {
++        fprintf(VERBSTREAM, "\nMSOLVE_PROMOTION_RESERVATION nonpivot=%u referenced=%u missing=%u basis_load=%lu basis_capacity=%lu\n",
++                mat->ncr, referenced, missing, (unsigned long)bht->eld,
++                (unsigned long)bht->esz);
++        fflush(VERBSTREAM);
++    }
++    while (bht->esz - bht->eld < missing) {
++        enlarge_hash_table(bht);
++    }
++    /* Ascending column order preserves the order of retained insertions. */
++    for (len_t column = mat->ncl; column < mat->nc; ++column) {
++        if (used[column-mat->ncl] == 1) {
++            const hi_t symbolic_hash = hcm[column];
++            if (bht->eld >= bht->esz) {
++                fprintf(ERRSTREAM, "Error: insufficient reserved capacity in column promotion.\n");
++                exit(EXIT_FAILURE);
++            }
+             hcm[column] = insert_in_hash_table(sht->ev[symbolic_hash], bht);
+         }
++    }
++    if (bht->eld-before != missing) {
++        fprintf(ERRSTREAM, "Error: missing-column count disagrees with hash insertions.\n");
++        exit(EXIT_FAILURE);
+     }
+     free(used);
+     if (info_level > 1) {
+         fprintf(VERBSTREAM, "\nMSOLVE_PROMOTION_COLUMNS nonpivot=%u referenced=%u inserted=%lu basis_capacity=%lu\n",
+-                mat->ncr, needed, (unsigned long)(bht->eld-before),
++                mat->ncr, referenced, (unsigned long)(bht->eld-before),
+                 (unsigned long)bht->esz);
+         fflush(VERBSTREAM);
+     }

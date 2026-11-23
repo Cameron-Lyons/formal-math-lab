@@ -40,7 +40,15 @@ def poly_text(terms, prime):
     return '+'.join(pieces) or '0'
 
 
-def definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=False):
+def definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=False,
+                ternary_reduced=None):
+    if ternary_reduced is not None:
+        if ternary_reduced not in ('representatives', 'all'):
+            raise ValueError('unknown reduced Fourier generator selection')
+        if prime != 2 or prefix or binary or fixture or pivot_order:
+            raise ValueError('reduced Fourier export requires F2 and no other model options')
+        from exact_msolve_reduced import reduced_definitions
+        return reduced_definitions(all_moments=ternary_reduced == 'all')
     if pivot_order and (binary or fixture):
         raise ValueError('dispersed variable order is supported only for ternary models')
     metadata = dict(prime=prime, prefix=prefix, count_divisor=1)
@@ -180,11 +188,12 @@ def parse_leading(output, variables, prime):
 
 def run(output, *, prime=29, prefix='', binary=False, fixture=None,
         seconds=90, memory_mb=2048, prepare_only=False, executable=EXECUTABLE,
-        library_dir=None, max_pairs=0, require_export_marker=False, pivot_order=False):
+        library_dir=None, max_pairs=0, require_export_marker=False, pivot_order=False,
+        ternary_reduced=None):
     if seconds <= 0 or memory_mb <= 0 or max_pairs < 0:
         raise ValueError('invalid resource limit or pair batch size')
     output = Path(output)
-    source, metadata = definitions(prime,prefix,binary,fixture,pivot_order)
+    source, metadata = definitions(prime,prefix,binary,fixture,pivot_order,ternary_reduced)
     input_path = output.with_suffix('.ms')
     basis_path = output.with_suffix('.basis')
     if any(output.with_suffix(suffix).exists() for suffix in
@@ -196,6 +205,7 @@ def run(output, *, prime=29, prefix='', binary=False, fixture=None,
                '-m', str(max_pairs),
                '-f', str(input_path), '-o', str(basis_path)]
     metadata.update(command=command, source_sha256=sha256(source.encode()),
+                    adapter_sha256=sha256(Path(__file__).read_bytes()),
                     input_file=str(input_path), linear_algebra='exact sparse (-l 2)',
                     threads=1, timeout_seconds=seconds, memory_mb=memory_mb,
                     require_export_marker=require_export_marker,
@@ -282,6 +292,7 @@ def main():
     parser.add_argument('--max-pairs',type=int,default=0)
     parser.add_argument('--require-export-marker',action='store_true')
     parser.add_argument('--pivot-order',action='store_true')
+    parser.add_argument('--ternary-reduced',choices=['representatives','all'])
     args = parser.parse_args()
     result = run(**vars(args))
     print(json.dumps(result,indent=2))

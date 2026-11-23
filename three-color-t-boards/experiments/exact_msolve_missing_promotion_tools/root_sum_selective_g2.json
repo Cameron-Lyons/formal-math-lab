@@ -1,0 +1,66 @@
+{
+  "name": "root_sum",
+  "kind": "selective",
+  "mode": 2,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/root_sum_selective_g2.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/root_sum_selective_g2.basis",
+    "-g",
+    "2",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 20,
+  "wall_seconds": 0.004482720003579743,
+  "cpu_seconds": 0.003584999999999998,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "9200a93c758f7d476895a9a0c80bf06664daf36f94fe453b74eee24b604198a8",
+  "input_sha256": "df27f85d9622ea777f3c2145b367d9dc66d82f15f35d958ef5d15e01219f88f2",
+  "executable_sha256": "1e2111b5e1ef28201f3b2da6bc727d4563569e96b3468ab241433e7d2238a202",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/root_sum_selective_g2.basis",
+  "promotion_events": [
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "inserted": 2,
+      "basis_capacity": 65536
+    },
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "inserted": 3,
+      "basis_capacity": 65536
+    }
+  ],
+  "reservation_events": [
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "missing": 2,
+      "basis_load": 13,
+      "basis_capacity": 65536
+    },
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "missing": 3,
+      "basis_load": 19,
+      "basis_capacity": 65536
+    }
+  ]
+}

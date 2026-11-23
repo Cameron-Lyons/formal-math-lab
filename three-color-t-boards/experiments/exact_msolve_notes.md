@@ -108,9 +108,111 @@ Source inspection located that allocation after linear algebra, when the
 implementation reserves and copies every nonpivot column into the separate
 basis hash. The advertised `-u` reset option is not read by ordinary
 `core_f4` in this pinned version, so a retry changing only that option would
-not address the failure. A separate support-only column-import change is
-being checked; the original export-only binary and all run artifacts are
-preserved.
+not address the failure.
+
+A separate [support-only column-import build](exact_msolve_sparse_promotion_tools/README.md)
+preserves the original binary and imports only columns used by retained
+rows. Its [independent review](exact_msolve_sparse_review_notes.md) compared
+25 completed bases with both the previous executable and an independent
+Buchberger implementation, including cases that actually skip columns.
+The mapping helper also passed 5,000 randomized cases and 12 failure cases
+under address and undefined-behavior sanitizers.
+
+The unrestricted retry `exact_msolve_full_prime2_sparse_promotion.*` still
+failed while growing the basis hash, after 74.761294 CPU / 91.023190 wall
+seconds. It used the byte-identical characteristic-two input, the same
+2 GiB cap and pair-batch target 16. Earlier rounds imported fewer columns,
+but the degree-four round again exhausted memory before exporting a basis.
+There is no completion marker or count.
+
+## Dispersed elimination order
+
+The default variable order makes the four unary linear equations pivot on
+original cells `0,1,2,3`, which all occur together in the top T. The new
+`--pivot-order` option puts cells `0,81,90,99` first. Every T contains at most
+one of these cells, so substituting the four linear expressions avoids
+products involving several eliminated cells in one placement.
+
+The [independent ordering audit](exact_parity_math_pivot_audit.md) parses
+the generated inputs at characteristics 2 and 29 and undoes the permutation.
+Every polynomial then agrees with both the original input and independently
+reconstructed geometry. All 100 ordinary cubic domains and all 80 moments
+remain present. This is a ring isomorphism, with no count multiplier or
+divisor. Metadata records the original cell for each variable. A coefficient
+extension variable, when required for a fixed prefix, stays last.
+
+The reordered known nine-row fiber, `exact_msolve_pivot_fiber_six.*`,
+completed in characteristic two: both counters returned quotient dimension
+12, hence six boards after the recorded coefficient-extension divisor two.
+This checks a fixed fiber and does not supply an unrestricted count.
+
+The unrestricted reordered trial, `exact_msolve_full_prime2_pivot_order.*`,
+completed a degree-four matrix of 45,045 rows by 2,656,383 columns and imported
+1,985,794 new monomials. It then failed while growing the basis hash after
+the next degree-four matrix (44,435 rows by 2,663,283 columns). Its solver
+used 66.809504 CPU / 91.955289 wall seconds, exited with signal 11, and left
+an empty basis file. The 2 GiB cap was unchanged. The input hash matches the
+independent audit exactly. This progressed further but still supplies no
+unrestricted count.
+
+The alternative `--prime 2 --ternary-reduced all` exports the four-variable
+elimination explicitly. It has 96 free ordinary cubic domains, 72 nonzero
+reduced moments and four substituted pivot domains, hence 172 generators.
+The `representatives` variant keeps 36 moments and has 136 generators.
+Both have the full labeled count as their quotient dimension, with divisor
+one. The [fresh geometric audit](exact_parity_math_reduced_input_audit.json)
+independently derives the four linear substitutions and checks every emitted
+polynomial, including every eliminated-cell cubic. It also checks the actual
+adapter path. Neither dropping pivot domains nor treating free variables as
+Boolean would preserve this count.
+
+The reduced source JSON is pinned by SHA256, retained separately from the
+hash of the emitted solver input. All model-option conflicts are rejected;
+in particular the reduced characteristic-two export cannot be relabeled as
+an odd-characteristic system or combined with a fixed prefix.
+
+## Reserving only missing monomials
+
+The support-only helper still reserved space for every referenced column,
+even if its monomial already existed in the persistent basis hash. A third
+[preserved build](exact_msolve_missing_promotion_tools/README.md) first checks
+which referenced monomials are absent and reserves space only for those.
+Existing entry IDs survive hash growth; absent entries are inserted in the
+same ascending column order as before. This changes allocation, not the
+retained polynomials, their coefficients or the critical-pair set.
+
+The [independent review](exact_msolve_missing_review_notes.md) compared 25
+completed bases with both the preceding binary and Python Buchberger. It
+also checked 5,000 randomized mapping/capacity cases and 18 failure cases
+under sanitizers. A separate 2,000-case harness used the actual upstream
+lookup and rehash routines, including forced collisions and real growth.
+The owner's 16 leading/full-basis comparisons were byte-identical, and the
+known six-completion fiber remained six.
+
+The third executable SHA256 is
+`1e2111b5e1ef28201f3b2da6bc727d4563569e96b3468ab241433e7d2238a202`.
+The old executables and all earlier run artifacts remain preserved.
+
+The full ordered retry, `exact_msolve_full_prime2_pivot_missing.*`, used the
+same input bytes and 2 GiB cap as the earlier ordered trial. It still failed
+after 66.415649 CPU / 87.811644 wall seconds, without a basis or count. The
+new diagnostic makes the second degree-four allocation precise: the basis
+held 2,078,104 entries, and 55,218 new entries were needed. Their total,
+2,133,322, exceeds the existing 2,097,152-entry array, so the upstream doubling
+rule attempted 4,194,304 entries. That growth failed. Counting only missing
+entries removes unnecessary reservations, but does not avoid this particular
+capacity boundary.
+
+The explicit reduced trial, `exact_msolve_full_prime2_reduced_all_missing.*`,
+used the independently audited 96-variable, 172-generator input. Its first
+degree-four matrix has 20,023 rows and 2,611,156 columns, fewer transient
+rows than the unreduced model. The next round reaches essentially the same
+capacity boundary: 2,080,795 existing entries plus 55,218 missing entries.
+The attempted doubling again fails. Solver time was 69.012211 CPU /
+99.694890 wall seconds; no completed basis or count was produced. The
+actual input SHA256 is
+`95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f`,
+identical to the independently audited export.
 
 ## Reproduction
 
@@ -119,10 +221,10 @@ prefix (existing artifacts are deliberately not overwritten):
 
 ```sh
 python3 experiments/exact_algebra_backend_guarded.py --backend msolve \
-  --output experiments/exact_msolve_full_prime29_fresh \
-  --outer-seconds 180 --outer-memory-mb 2048 -- \
-  --prime 29 --seconds 90 --memory-mb 2048 --max-pairs 256 \
-  --executable experiments/exact_msolve_patched_tools/msolve \
+  --output experiments/exact_msolve_full_prime2_reduced_fresh \
+  --outer-seconds 240 --outer-memory-mb 2048 -- \
+  --prime 2 --ternary-reduced all --seconds 180 --memory-mb 2048 --max-pairs 16 \
+  --executable experiments/exact_msolve_missing_promotion_tools/msolve \
   --library-dir experiments/exact_algebra_backend_root/usr/lib \
   --require-export-marker
 ```

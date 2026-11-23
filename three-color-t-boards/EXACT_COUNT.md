@@ -342,6 +342,22 @@ characteristic-29 trials timed out before exporting a basis. A
 characteristic-two trial finished one degree-four matrix but failed while
 allocating the subsequent basis hash. None produced an unrestricted count.
 
+A reviewed support-only import patch avoids retaining unused matrix
+columns. A further [audited variable permutation](experiments/exact_parity_math_pivot_audit.md)
+places the four dispersed linear pivots first; no T contains more than one
+of these pivots. The reordered input retains every equation and reproduces
+the known six-completion fiber. Its full trial completes one additional
+degree-four round, but again exhausts the 2 GiB memory allowance before
+exporting a basis. This is progress in the calculation, not an evaluated
+total; the [backend report](experiments/exact_msolve_notes.md) records the
+terminal results and exact input hashes.
+The explicit 96-variable export is also now supported by this backend, with
+either 36 representative moments or all 72 nonzero substituted moments.
+An [independent actual-input audit](experiments/exact_parity_math_reduced_input_audit.md)
+rederives the substitution geometrically and verifies that all four
+eliminated-cell cubic domains remain present. Both exports retain the full
+unrestricted count, with no symmetry or coefficient-extension factor.
+
 ## The remaining obstacle
 
 To obtain the unrestricted total, an algorithm must count extensions of

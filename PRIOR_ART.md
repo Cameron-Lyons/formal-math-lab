@@ -13,6 +13,8 @@ Georg Fischer’s January 2020 general recurrence. The E670 order-ten research t
 supplies no local proof.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
+The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
+and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
 ## E1486 at order 15
@@ -92,6 +94,28 @@ Rado values at smaller parameters and a general lower bound
 also treat smaller values; the general even-parameter mechanism is a sketch,
 not a proof covering 26. This collection does not claim the first Lean work
 on reciprocal Rado numbers.
+
+## Erdős #708, interval products for six integers
+
+Checked **23 November 2026**. Let $A$ be a set of six distinct integers at
+least two and set $M=\max A$. From every block of $M$ consecutive integers one
+can choose at most eight distinct entries whose product is divisible by
+$\prod_{a\in A}a$. Some blocks require eight. The general question whether
+$g(n)\le 2n$ remains open.
+[Problem statement](https://www.erdosproblems.com/708)
+
+C. Bergström’s manuscript of **19 November 2026** already gives $g(6)=8$.
+Proposition 3 supplies the lower-bound example. Theorem 12 proves the upper
+bound using a finite certificate through $M=3481$. The local Lean proof adapts
+that example and uses Bergström’s cumulative-gcd rule from Theorem 6. Its
+finite check over six-element sets stops at $M=69$.
+[Bergström, Proposition 3 and Theorems 6 and 12](https://doi.org/10.5281/zenodo.24366897) ·
+[Local proof and witness](erdos-708-six/README.md)
+
+John Tripodo proved $g(4)=5$ and $g(5)=6$ in Lean. The six-element proof
+imports those upper bounds from the revision cited in his preprint.
+[Tripodo’s preprint](https://hexagonmath.org/pdf/2611.00694v1) ·
+[Pinned Lean source](https://github.com/jjtripodo-lgtm/erdos-708-g4-g5/tree/00fbb23c3084daa88ea420aa9c74177127d5283f)
 
 <a id="seven-cycle"></a>
 

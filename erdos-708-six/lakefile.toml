@@ -1,0 +1,12 @@
+name = "intervalProductsSix"
+version = "0.1.0"
+defaultTargets = ["IntervalProductsSix"]
+
+[[require]]
+name = "erdos708_finite_palomar"
+git = "https://github.com/jjtripodo-lgtm/erdos-708-g4-g5"
+rev = "00fbb23c3084daa88ea420aa9c74177127d5283f"
+
+[[lean_lib]]
+name = "IntervalProductsSix"
+roots = ["Slots", "PrimeParts", "Exceptions", "PriorBounds", "SixStructure", "SixGroups", "SixLarge", "SixLower", "SixPrune", "SixFinite", "SixResidues", "Signed", "Six"]

@@ -20,5 +20,12 @@
     }
   ],
   "baseline_executable": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_missing_promotion_tools/msolve",
-  "baseline_executable_sha256": "1e2111b5e1ef28201f3b2da6bc727d4563569e96b3468ab241433e7d2238a202"
+  "baseline_executable_sha256": "1e2111b5e1ef28201f3b2da6bc727d4563569e96b3468ab241433e7d2238a202",
+  "rounded_capacity_patch_sha256": "d569538b42f58dbf7160621891918cddc9496347a8229f350350eb5977539461",
+  "modified_source_sha256": {
+    "src/neogb/hash.c": {
+      "before": "7aa5d271c4a2923dca5a321810e0d13a1ba9e666178e5199c1719d352263db70",
+      "after": "81104b9e535ff3cc057611238a9987c718099f0ba2431d38c734d667e662aefd"
+    }
+  }
 }

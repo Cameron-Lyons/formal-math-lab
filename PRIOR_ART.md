@@ -59,6 +59,17 @@ The novelty of the other partial obstructions and their first-formalization
 status have not been established. Local searches at orders 11–20 were
 inconclusive and do not improve the known finite exclusion bound.
 
+## Integer cubic $z^2+y^2z+x^3=2$
+
+Checked **23 November 2026**. Grechuk lists infinitude of integer triples as
+open in Table 6. Epoch reports polynomial families for related cubics.
+[Grechuk, §5](https://arxiv.org/html/2404.08518v11#S5) ·
+[Epoch’s two constructions](https://epoch.ai/files/open-problems/small-diophantine-two-families.pdf)
+
+The local project gives a degree bound for polynomial families through an
+integer triple and a family with $x,z$ integral and $y$ of reduced denominator
+13. Historical priority for these partial results is unverified. [Project proof and checker](integer-cubic/README.md)
+
 <a id="reciprocal-rado"></a>
 
 ## Reciprocal Rado number f₂(26) = 2028

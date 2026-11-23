@@ -15,6 +15,7 @@ it does not establish historical priority or imply that every lemma is new.
 | --- | --- | --- |
 | [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. | No earlier proof located; order 15 remains open in the inspected Equational Theories catalogue. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
+| [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
 | [Three-color prismatic T-tetromino ziggurats](three-color-t-boards/) | At least **45,083,592** labeled boards; also a small independent proof of **more than 60**. | No earlier proof of these stronger bounds located. Ma already proved existence of 60 boards. The unrestricted exact count remains unknown here. |
@@ -26,7 +27,7 @@ it does not establish historical priority or imply that every lemma is new.
 ## Find and check a theorem
 
 Each proof project below is an independent Lake project pinned to Lean **4.36.0**.
-The E17260, three-column matrix, A026019, and A176755 projects also use mathlib **v4.36.0**.
+The E17260, integer cubic, three-column matrix, A026019, and A176755 projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
 E1486's SAT checks and the large T-board
 families can require substantial computation.
@@ -35,6 +36,7 @@ families can require substantial computation.
 | --- | --- | --- |
 | `E1486-order-15` | `lake build +Simple.NoTable` | `E1486.Simple.noTable` |
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |
+| `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
 | `three-color-t-boards` | `lake build SplicePalCertificates` | `TBoards.at_least_45083592` |

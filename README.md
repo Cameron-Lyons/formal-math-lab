@@ -18,6 +18,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
+| [Book Ramsey number $R(B_{63},B_{64})$](book-ramsey/) | $253 \le R(B_{63},B_{64}) \le 255$. The 252-vertex witness has at most 62 pages on every spine in either color. | The bounds follow from Dai–Lin and Rousseau–Sheehan. Chung and Wesley list the 254-vertex construction as open. |
 | [Three-color prismatic T-tetromino ziggurats](three-color-t-boards/) | At least **45,083,592** labeled boards; also a small independent proof of **more than 60**. | No earlier proof of these stronger bounds located. Ma already proved existence of 60 boards. The unrestricted exact count remains unknown here. |
 | [Three-column binary matrices (OEIS A401159)](three-column-matrices/) | The number of labeled `n × 3` binary matrices with at most two ones per row and per column is `H³ − n⁴ + C(n,2)`, where `H = 1 + n + C(n,2)`. | Confirms Mathar’s stated polynomial. An inclusion–exclusion formula published in 2001 implies this case. |
 | [Manabe’s subtraction game with moves 3, 8, and 11k+7](manabe-residue-seven/) | For every `k ≥ 1`, exactly one heap has Grundy value 3, at size `11k+10`. | No earlier proof of the singleton statement for all positive `k` was located. REUF working notes anticipate the repeating block. |
@@ -40,6 +41,7 @@ families can require substantial computation.
 | `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
+| `book-ramsey` | `lake build` | `BookRamsey.Lower252.exists_252`, `BookRamsey.Upper255.upper` |
 | `three-color-t-boards` | `lake build SplicePalCertificates` | `TBoards.at_least_45083592` |
 | `three-color-t-boards` (small proof) | `lake build SimpleProof` | `TBoards.Simple.problem_solved` |
 | `three-column-matrices` | `lake build` | `ThreeColumnMatrices.card_validMatrices` |

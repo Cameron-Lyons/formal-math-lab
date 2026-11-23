@@ -1,0 +1,11 @@
+name = "bookramsey"
+version = "0.1.0"
+defaultTargets = ["BookRamsey", "verify"]
+
+[[lean_lib]]
+name = "BookRamsey"
+roots = ["BookRamsey", "DegreeObstruction", "Lower252", "CayleyObstruction", "Near254", "Upper255"]
+
+[[lean_exe]]
+name = "verify"
+root = "Verify"

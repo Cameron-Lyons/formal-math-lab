@@ -111,6 +111,24 @@ already present there; the local lower bound specializes it.
 No earlier proof of `R₃²(C₇) = 11`, or matching Lean formalization, was located.
 This result does not settle the full odd-cycle problem.
 
+## Book Ramsey number $R(B_{63},B_{64})$
+
+Checked **23 November 2026**. A book $B_k$ consists of $k$ triangles sharing an edge.
+Dai and Lin’s conference-matrix construction gives a graph on 252 vertices
+that avoids $B_{63}$ in both colors. The local Lean certificate checks the
+explicit graph. [Dai and Lin, Theorem 1.1](https://arxiv.org/html/2606.07214v1)
+
+Rousseau and Sheehan’s general upper bound $R(B_{n-1},B_n) \le 4n-1$ gives 255
+at $n=64$. Chung and Wesley list this case as open. A 254-vertex graph avoiding
+a red $B_{63}$ and a blue $B_{64}$ would establish equality.
+[Chung and Wesley, introduction and Appendix A](https://arxiv.org/html/2610.36522v1)
+
+Lean also rules out identical circulant layers joined by a circulant cross
+block. This covers both groups of order 254. The exclusion of every
+vertex-transitive graph at this order additionally uses McKay and Praeger’s
+classification for $2p$ with $p=127\equiv3\pmod4$.
+[Local obstruction](book-ramsey/CayleyObstruction.lean) · [McKay and Praeger, Theorem 1(b)](https://users.cecs.anu.edu.au/~bdm/papers/cheryl1.pdf)
+
 ## Three-color prismatic T-tetromino boards
 
 **Audited statements:** more than 60, and at least 45,083,592, labeled

@@ -4,8 +4,9 @@ Checked **22 November 2026** (America/Chicago; retrievals may carry
 23 November UTC timestamps). This audit compares the exact local statements
 with existing mathematical proofs and public formalizations.
 
-The four completed proof projects have no earlier proof of their exact
-headline results located in the sources searched. The E670 order-ten
+For E1486, unit fractions, seven-cycles, and T-tetromino boards, the search
+found no earlier proof of the exact headline results. The three-column matrix
+formula follows from an earlier inclusion–exclusion theorem. The E670 order-ten
 research target supplies no local proof.
 None of these searches proves the absence of an earlier or unpublished result.
 
@@ -85,6 +86,25 @@ No earlier proof of either stronger bound, or a matching Lean formalization,
 was located. Exclusion from Ma's supplied family proves only that particular
 comparison, not absolute priority. See the project's
 [detailed prior-art record](three-color-t-boards/PRIOR_ART.md).
+
+<a id="three-column-matrices"></a>
+
+## Three-column binary matrices (OEIS A401159)
+
+For every `n ≥ 0`, the count of labeled `n × 3` binary matrices with at most
+two ones in each row and each column is `(1 + n + C(n,2))³ − n⁴ + C(n,2)`.
+Mathar listed the expanded polynomial as a conjecture on 18 November 2026.
+[OEIS revision history](https://oeis.org/history?seq=A401159)
+
+Adler and Ross proved a formula for the probability that independent random
+subsets cover a finite set. Apply it to the zero positions of the three columns.
+They cover all rows exactly when the matrix meets the row bound. Substituting
+the allowed column choices gives the stated count.
+[Adler and Ross (2001), Corollary 1, equation (6)](https://adler.ieor.berkeley.edu/ilans_pubs/coupons_2001.pdf#page=2)
+
+Mathar derived a recurrence for rectangles in 2014 and tabulated the three-column
+counts for `n = 3,…,9`. The search found no earlier Lean formalization of this
+specific polynomial. [Mathar, §2 and Table 2](https://oeis.org/A247158/a247158.pdf#page=2)
 
 ## E670 on ten elements: no local proof
 

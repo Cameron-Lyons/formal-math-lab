@@ -17,12 +17,14 @@ it does not establish historical priority or imply that every lemma is new.
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
 | [Three-color prismatic T-tetromino ziggurats](three-color-t-boards/) | At least **45,083,592** labeled boards; also a small independent proof of **more than 60**. | No earlier proof of these stronger bounds located. Ma already proved existence of 60 boards. The unrestricted exact count remains unknown here. |
+| [Three-column binary matrices (OEIS A401159)](three-column-matrices/) | The number of labeled `n × 3` binary matrices with at most two ones per row and per column is `H³ − n⁴ + C(n,2)`, where `H = 1 + n + C(n,2)`. | Confirms Mathar’s stated polynomial. An inclusion–exclusion formula published in 2001 implies this case. |
 
 ## Find and check a theorem
 
-Each proof project below is an independent Lake project pinned to Lean **4.36.0** and
-using Lean's standard library. With Lean's toolchain manager installed, run the
-command in the corresponding directory. E1486's SAT checks and the large T-board
+Each proof project below is an independent Lake project pinned to Lean **4.36.0**.
+The three-column matrix project also uses mathlib **v4.36.0**. With Lean's
+toolchain manager installed, run the command in the corresponding directory.
+E1486's SAT checks and the large T-board
 families can require substantial computation.
 
 | Directory | Build command | Main Lean declaration |
@@ -32,6 +34,7 @@ families can require substantial computation.
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
 | `three-color-t-boards` | `lake build SplicePalCertificates` | `TBoards.at_least_45083592` |
 | `three-color-t-boards` (small proof) | `lake build SimpleProof` | `TBoards.Simple.problem_solved` |
+| `three-column-matrices` | `lake build` | `ThreeColumnMatrices.card_validMatrices` |
 
 The E1486 proof uses Lean's native certificate-checking machinery; see its
 [trust and reproduction notes](E1486-order-15/README.md#reproduce).

@@ -8,7 +8,8 @@ For E1486, unit fractions, seven-cycles, and T-tetromino boards, the search
 found no earlier proof of the exact headline results. The three-column matrix
 formula follows from an earlier inclusion–exclusion theorem. The A026019
 recurrence follows from a first-order recurrence already implemented in jOEIS;
-its first-proof status is unverified. The E670 order-ten research target
+its first-proof status is unverified. The A176755 recurrence is covered by
+Georg Fischer’s January 2020 general recurrence. The E670 order-ten research target
 supplies no local proof.
 None of these searches proves the absence of an earlier or unpublished result.
 
@@ -143,6 +144,27 @@ formalization was located. Historical priority and first-formalization status
 remain unverified; the contribution is a checked Lean proof. See the project's
 [detailed prior-art audit](a026019-binomial-recurrence/PRIOR_ART.md) for the
 algebraic comparison, established methods, sources, and search limits.
+
+## Nonlinear-to-linear recurrence (OEIS A176755)
+
+Checked **23 November 2026**. For the integer sequence `a₀ = 1`, `a₁ = 3`,
+`aₙ₊₁ = Σₚ₌₀ⁿ aₚaₙ₋ₚ − 2` for `n ≥ 1`, the theorem
+[`A176755.mathar`](a176755-linear-recurrence/A176755.lean) proves Mathar’s
+five-term recurrence for every `n ≥ 4`.
+
+[OEIS A176604](https://oeis.org/A176604) attributes a proof for 85 related
+sequences to Georg Fischer, dated **26 January 2020**, and links
+[the derivation](https://oeis.org/A176604/a176604_2.txt). That attachment returned
+HTTP 403 during this check; its proof attribution is recorded by OEIS.
+Fischer’s A176755 implementation was committed to jOEIS on **25 January 2020**:
+[dated source](https://github.com/archmageirvine/joeis/blob/e072e99444a75d6f2a1d48100932e999994d5a48/src/irvine/oeis/a176/A176755.java).
+
+The implemented six-term recurrence is exactly `Rₙ − Rₙ₋₁ = 0`, where `Rₙ`
+is Mathar’s five-term left-hand side. Since the defining initial values give
+`R₄ = 260 − 330 + 28 + 42 = 0`, the earlier recurrence implies the result here.
+The contribution is an independently developed Lean proof of a result covered
+by earlier work. No first-formalization claim is made. See the project’s
+[prior-work notes](a176755-linear-recurrence/README.md#prior-work-and-attribution).
 
 ## E670 on ten elements: no local proof
 

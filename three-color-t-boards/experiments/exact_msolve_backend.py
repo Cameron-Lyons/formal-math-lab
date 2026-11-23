@@ -40,7 +40,9 @@ def poly_text(terms, prime):
     return '+'.join(pieces) or '0'
 
 
-def definitions(prime=29, prefix='', binary=False, fixture=None):
+def definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=False):
+    if pivot_order and (binary or fixture):
+        raise ValueError('dispersed variable order is supported only for ternary models')
     metadata = dict(prime=prime, prefix=prefix, count_divisor=1)
     if fixture:
         if prefix or binary:
@@ -80,6 +82,11 @@ def definitions(prime=29, prefix='', binary=False, fixture=None):
         rows = [prefix[r*r:(r+1)**2] for r in range(height)]
         model = generate_model(prime, rows, all_moments=True)
         free = model['variables']
+        free_cells = model['free_original_cells']
+        preferred = [free_cells.index(cell) for cell in (0,81,90,99)
+                     if cell in free_cells] if pivot_order else []
+        variable_order = preferred + [i for i in range(free) if i not in preferred]
+        variable_index = {old:new for new,old in enumerate(variable_order)}
         extension = model['requires_quadratic_coefficients']
         n = max(1, free + int(extension))
         polynomials = [f'x{i+1}^3-1' for i in range(free)]
@@ -93,7 +100,7 @@ def definitions(prime=29, prefix='', binary=False, fixture=None):
                 u, v = term['coefficient']
                 powers = [0]*n
                 for i, e in term['monomial']:
-                    powers[i] = e
+                    powers[variable_index[i]] = e
                 key = tuple(powers)
                 terms[key] = (terms.get(key, 0) + u) % prime
                 if v:
@@ -107,6 +114,8 @@ def definitions(prime=29, prefix='', binary=False, fixture=None):
                 polynomials.append(text)
         metadata.update(scope=model['count_scope'], free_board_variables=free,
                         extension_variable=extension, count_divisor=2 if extension else 1,
+                        dispersed_variable_order=pivot_order,
+                        variable_original_cells=[free_cells[i] for i in variable_order],
                         model_data_sha256=sha256(json.dumps(model,sort_keys=True).encode()),
                         moment_equations=80,
                         generator_sha256=sha256((ROOT/'exact_prime_fourier.py').read_bytes()))
@@ -171,11 +180,11 @@ def parse_leading(output, variables, prime):
 
 def run(output, *, prime=29, prefix='', binary=False, fixture=None,
         seconds=90, memory_mb=2048, prepare_only=False, executable=EXECUTABLE,
-        library_dir=None, max_pairs=0, require_export_marker=False):
+        library_dir=None, max_pairs=0, require_export_marker=False, pivot_order=False):
     if seconds <= 0 or memory_mb <= 0 or max_pairs < 0:
         raise ValueError('invalid resource limit or pair batch size')
     output = Path(output)
-    source, metadata = definitions(prime,prefix,binary,fixture)
+    source, metadata = definitions(prime,prefix,binary,fixture,pivot_order)
     input_path = output.with_suffix('.ms')
     basis_path = output.with_suffix('.basis')
     if any(output.with_suffix(suffix).exists() for suffix in
@@ -272,6 +281,7 @@ def main():
     parser.add_argument('--library-dir',type=Path)
     parser.add_argument('--max-pairs',type=int,default=0)
     parser.add_argument('--require-export-marker',action='store_true')
+    parser.add_argument('--pivot-order',action='store_true')
     args = parser.parse_args()
     result = run(**vars(args))
     print(json.dumps(result,indent=2))

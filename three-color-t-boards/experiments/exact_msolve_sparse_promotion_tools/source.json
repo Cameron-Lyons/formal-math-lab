@@ -1,0 +1,62 @@
+{
+  "repository": "https://github.com/algebraic-solving/msolve",
+  "tag": "v0.11.0",
+  "commit": "cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "source_archive": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve-v0.11.0-source.tar.gz",
+  "archive_sha256": "0f53c278ce2c3d46600348e945313e467314d296d275f2978f92c6b6b8e2224a",
+  "base_export_patch": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_patched_tools/leading-export-only.patch",
+  "base_export_patch_sha256": "2b109358fc7a77dc70c1570f194c376df68605caa1f4afbce116fa74bfeb99fd",
+  "source_directory": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_sparse_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "baseline_executable": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve",
+  "baseline_executable_sha256": "2d3258dd099a34410b05eadd21dbb38db22b8be0962ab59115d01660652c355d",
+  "promotion_patch_sha256": "3955ca519da0b32a5e000792d7d36000d45a8971eea8fb56d1e793cd40a0edeb",
+  "modified_source_sha256": {
+    "src/neogb/hash.c": {
+      "before": "1cae7cab02e7a2ed35a997f391c087e6e3ff4150ec221181ff4209da2b8df3fe",
+      "after": "bfb631d3e3b0c0acb7bc3388711bc5d3ba95864fe7633d9b34eb4aa42d2f9098"
+    },
+    "src/neogb/convert.c": {
+      "before": "06a7447bddf5a6fba0f68f974f678481ed6a75739cdb27eea0480cea3913900e",
+      "after": "c47fad1f6b256f857e9acae630c00c6c5cb0d018f6d51a5d4324e8dd2a046b80"
+    },
+    "src/neogb/f4.c": {
+      "before": "a545ffd5e4117c4cc3cba421d64d7145fa295c0befc45d5fd5d0b735b5a031a5",
+      "after": "731c163d045be7b92a75b28abec00f10776ed68d83b8c3a0b2140fe8859edb01"
+    }
+  },
+  "build_environment": {
+    "CFLAGS": "-O2 -g0",
+    "CPPFLAGS": "-I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include",
+    "LDFLAGS": "-L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib",
+    "LD_LIBRARY_PATH": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib"
+  },
+  "build_commands": [
+    "./autogen.sh",
+    "./configure --disable-shared --enable-static --disable-openmp",
+    "make -j1"
+  ],
+  "configure": {
+    "returncode": 0,
+    "wall_seconds": 11.969508845999371
+  },
+  "make": {
+    "returncode": 0,
+    "wall_seconds": 24.56821999600288
+  },
+  "executable": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_sparse_promotion_tools/msolve",
+  "executable_sha256": "997199fc836584627dc1c6324fc2702a4d900f4cee84d4534acd89f29a068093",
+  "compiler_version": "gcc (GCC) 16.2.1 20260810",
+  "version_output": "0.11.0",
+  "runtime_library_sha256": {
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib/libflint.so.24": "124ae660e81b4f19006c517a02120efe4c0f50d46ade04ad221b8c09f65a9b8b",
+    "/usr/lib/libmpfr.so.6": "90043d803c6c205aa842f3e79a54f7c6151ef98ea4964729915d2f9fc584ea25",
+    "/usr/lib/libgmp.so.10": "0e263305fd34434c80b9af2ea34fc6131887418d8301e913b3220953dc9a6e49",
+    "/usr/lib/libm.so.6": "05ce19136f2bbf9c588abc4a747d09c3adb9a5a1216de344f2609cca50f262e8",
+    "/usr/lib/libc.so.6": "5884f2c5fdfcfca450fe536c1fba8c36d89d84fb0f851522078343b402bbccd9",
+    "/usr/lib/libcblas.so.3": "6496d7ae3b96e6a2326df00ba479cb6a9e4373354dabdbc6aab82c08546e7b11",
+    "/usr/lib64/ld-linux-x86-64.so.2": "0460a979877b7d7c1524d800b38205b70a7b27b294f933f05cbc92a77890b3ff",
+    "/usr/lib/libblas.so.3": "d78117662cf6673ca65bad3e64e45891b1fe007bf16fe8c4cf58ce02afe7c488",
+    "/usr/lib/libgfortran.so.5": "4a9cd191a0863e623d9877da4df52432412873ae9eebe0becc72cf8d18ef1c08",
+    "/usr/lib/libgcc_s.so.1": "e618cb9c90c2eb3a1dad1cfea5b6c1eebcf2e799ad805976f4ae47bdd61c716a"
+  }
+}

@@ -89,9 +89,28 @@ there is no quotient dimension. The terminal status is `INCOMPLETE_TIMEOUT`.
 The run artifacts are `exact_msolve_full_prime29_all.ms`, `.log`, `.json`,
 `.outer.log` and `.outer.json`. Input SHA256 is
 `4f3610b250e309bb1f5f722c6c621354f8078e0fc91df5e5e860edd323f60b55`.
-The later 16-pair trial uses the same complete ideal and is recorded
-separately as `exact_msolve_full_prime29_pairs16.*`; its terminal result must
-be inspected before any count is asserted.
+The later pair-batch-16 trial uses the byte-identical ideal and is recorded
+as `exact_msolve_full_prime29_pairs16.*`. It also timed out during degree-four
+matrix construction, after 69.161733 CPU / 90.259985 wall seconds, with an
+empty basis file and no count. The pair setting is a target, not a strict
+cap: boundary pairs sharing the same leading-monomial LCM are kept together.
+
+A characteristic-two trial, `exact_msolve_full_prime2_pairs16.*`, changes
+only the input field declaration. Its degree-four matrix had 23,221 rows and
+3,337,853 columns. Linear algebra reported 17 new polynomials, but subsequent
+growth of the basis monomial hash failed under the 2 GiB cap. The solver
+printed an exponent-vector allocation failure followed by a segmentation
+fault warning, then exited with signal 11 after 69.641591 CPU / 80.636474 wall
+seconds. Core dumps were disabled by the wrapper. The basis file remains
+empty; no completion marker or count was produced.
+
+Source inspection located that allocation after linear algebra, when the
+implementation reserves and copies every nonpivot column into the separate
+basis hash. The advertised `-u` reset option is not read by ordinary
+`core_f4` in this pinned version, so a retry changing only that option would
+not address the failure. A separate support-only column-import change is
+being checked; the original export-only binary and all run artifacts are
+preserved.
 
 ## Reproduction
 

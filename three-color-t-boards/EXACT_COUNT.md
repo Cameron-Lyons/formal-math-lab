@@ -332,6 +332,16 @@ input audits checked the full model; the
 [recorded prime-field results](experiments/exact_algebra_backend_prime_results.md)
 distinguish the completed fixed fiber from these failed unrestricted trials.
 
+An [independent msolve F4 backend](experiments/exact_msolve_notes.md) uses
+exact prime-field linear algebra and the same two arbitrary-precision
+monomial counters. Its narrowly patched export path avoids msolve's later
+machine-integer staircase enumeration; small basis exports match the stock
+solver exactly, including an arithmetic fixture of dimension 3^100. The
+known six-completion board fiber is also reproduced. Two unrestricted
+characteristic-29 trials timed out before exporting a basis. A
+characteristic-two trial finished one degree-four matrix but failed while
+allocating the subsequent basis hash. None produced an unrestricted count.
+
 ## The remaining obstacle
 
 To obtain the unrestricted total, an algorithm must count extensions of

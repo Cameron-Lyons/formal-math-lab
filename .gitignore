@@ -24,3 +24,6 @@ __pycache__/
 /three-color-t-boards/experiments/exact_msolve_patched_tools/msolve
 /three-color-t-boards/experiments/exact_msolve_patched_tools/msolve-*/
 /three-color-t-boards/experiments/exact_msolve_patched_tools/*.tar.gz
+/three-color-t-boards/experiments/exact_msolve_sparse_promotion_tools/msolve
+/three-color-t-boards/experiments/exact_msolve_sparse_promotion_tools/msolve-*/
+/three-color-t-boards/experiments/exact_msolve_sparse_helper_check

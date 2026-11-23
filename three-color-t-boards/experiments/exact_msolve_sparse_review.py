@@ -124,6 +124,7 @@ def main():
     parser.add_argument('--baseline', type=Path, default=ROOT/'experiments/exact_msolve_patched_tools/msolve')
     parser.add_argument('--candidate', type=Path, default=ROOT/'experiments/exact_msolve_sparse_promotion_tools/msolve')
     parser.add_argument('--artifact-prefix', default='exact_msolve_sparse_review')
+    parser.add_argument('--initial-hash-log2', type=int)
     args = parser.parse_args()
     assert re.fullmatch(r'exact_msolve_[a-z_]+', args.artifact_prefix)
     result_dir = ROOT/'experiments'/(args.artifact_prefix+'_runs')
@@ -157,6 +158,8 @@ def main():
                     output_path.unlink()  # Only this review's reproducible fixture artifacts.
                 command = [str(executable.resolve()), '-g', '2', '-l', '2', '-t', '1',
                            '-r', '1', '-c', '0', '-v', '2', '-f', str(input_path), '-o', str(output_path)]
+                if args.initial_hash_log2 is not None:
+                    command += ['-s', str(args.initial_hash_log2)]
                 def limits():
                     resource.setrlimit(resource.RLIMIT_AS, (2048*1024**2,)*2)
                     resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
@@ -192,6 +195,7 @@ def main():
     assert {entry['fixture'].split('_')[-1] for entry in selective_rounds} == {'2', '5', '29', '257', '65537'}
     report = dict(status='PASS', complete_basis_comparisons=len(results),
                   actual_unused_column_skipping_rounds=selective_rounds,
+                  initial_hash_log2=args.initial_hash_log2,
                   independent_algorithm='exact Python Buchberger, grevlex, prime-field arithmetic',
                   baseline_sha256=hashlib.sha256(args.baseline.read_bytes()).hexdigest(),
                   candidate_sha256=hashlib.sha256(args.candidate.read_bytes()).hexdigest(),

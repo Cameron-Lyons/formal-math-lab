@@ -6,8 +6,10 @@ with existing mathematical proofs and public formalizations.
 
 For E1486, unit fractions, seven-cycles, and T-tetromino boards, the search
 found no earlier proof of the exact headline results. The three-column matrix
-formula follows from an earlier inclusion–exclusion theorem. The E670 order-ten
-research target supplies no local proof.
+formula follows from an earlier inclusion–exclusion theorem. The A026019
+recurrence follows from a first-order recurrence already implemented in jOEIS;
+its first-proof status is unverified. The E670 order-ten research target
+supplies no local proof.
 None of these searches proves the absence of an earlier or unpublished result.
 
 ## E1486 at order 15
@@ -118,6 +120,29 @@ The REUF team's working notes give a proposed formula whose repeating block
 specializes to the same one here. The search found no earlier proof of the
 exact singleton statement for every positive `k`.
 [REUF working notes](https://github.com/ZacharyHenderson111/AIM2024/blob/main/CollectiveNotes/oldVerifiedCases/verifiedcases2023.tex#L374-L418)
+
+## Binomial recurrence (OEIS A026019)
+
+Checked **23 November 2026**. For `a(n) = C(3n,n) − C(3n,n−3)`, with negative
+lower binomial indices interpreted as zero, the theorem
+[`A026019.recurrence`](a026019-binomial-recurrence/A026019.lean) proves the exact
+three-term recurrence attributed to Mathar, 20 June 2013, for every `n ≥ 2`.
+The retrieved [OEIS entry](https://oeis.org/A026019) labels it a conjecture;
+the live revision history was inaccessible during the search.
+
+Georg Fischer’s first-order recurrence implementation entered jOEIS on
+**6 November 2026**, before this project.
+[Introducing commit](https://github.com/archmageirvine/joeis/commit/06f94740c2d0d4b0815dedce8d41dd008ef0c1b8) ·
+[Dated source](https://github.com/archmageirvine/joeis/blob/06f94740c2d0d4b0815dedce8d41dd008ef0c1b8/src/irvine/oeis/a026/A026019.java)
+An exact polynomial calculation in the audit verifies that this earlier
+recurrence implies the three-term recurrence. The inspected implementation
+contains no accompanying derivation or proof-assistant certificate.
+
+No earlier explicit proof of the exact recurrence or matching Lean
+formalization was located. Historical priority and first-formalization status
+remain unverified; the contribution is a checked Lean proof. See the project's
+[detailed prior-art audit](a026019-binomial-recurrence/PRIOR_ART.md) for the
+algebraic comparison, established methods, sources, and search limits.
 
 ## E670 on ten elements: no local proof
 

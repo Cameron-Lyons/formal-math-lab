@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "script": "experiments/exact_algebra_backend_full_prime29_all.sing",
+  "script_sha256": "268e1453615d9724bf42dd38802c6a1a970efbe2826805d649df1712f27afbfc",
+  "coefficient_field": "ordinary F29",
+  "variables": 100,
+  "fixed_prefix_rows": 0,
+  "domain_equations": 100,
+  "nonconstant_moment_equations": 80,
+  "geometric_placements": 81,
+  "all_input_polynomials_independently_regenerated": true,
+  "boolean_reduction": false,
+  "symmetry_normalization": false,
+  "count_multiplier": 1,
+  "count_status": "NO_COUNT_COMPUTED_BY_AUDIT"
+}

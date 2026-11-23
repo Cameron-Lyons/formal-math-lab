@@ -1,0 +1,33 @@
+{
+  "model": "ternary-prefix",
+  "field": "F4",
+  "prefix": "000000100002011001202102210110211112012122202200112210102022200122211121210122112",
+  "color_map": [
+    "1",
+    "a",
+    "a+1"
+  ],
+  "variables": 19,
+  "generators": 58,
+  "algorithm": "std",
+  "script_sha256": "c7367e8a64f67b3db5a6c557cd9da0a3138c31d6510b8352ccf71eaeba0c61d4",
+  "script": "experiments/exact_algebra_backend_ternary_prefix_one.sing",
+  "timeout_seconds": 90,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "basis_complete": true,
+  "leading_monomials_file": "experiments/exact_algebra_backend_ternary_prefix_one.leading.json",
+  "monomial_dimension": 1,
+  "monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "elapsed_seconds": 0.00010669500261428766
+  },
+  "krull_dimension": 0,
+  "basis_size": 19,
+  "status": "COMPLETE",
+  "quotient_dimension": 1,
+  "hilbert_dimension": 1,
+  "child_cpu_seconds": 7.193083000000001,
+  "elapsed_seconds": 9.085430023998924
+}

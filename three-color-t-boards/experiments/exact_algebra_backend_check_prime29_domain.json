@@ -1,0 +1,52 @@
+{
+  "model": "fixture:prime29_domain",
+  "variables": 1,
+  "generators": 1,
+  "field": "F29",
+  "algorithm": "std",
+  "ordering": "dp",
+  "ring_type": "ordinary polynomial ring",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/bin/Singular",
+    "-q"
+  ],
+  "script_sha256": "08052f258b3d6da7d109bb9c16040bb8be3adda52cbbd9999aa9896114859bf0",
+  "script": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_check_prime29_domain.sing",
+  "timeout_seconds": 10,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "wall_timeout_reached": false,
+  "basis_complete": true,
+  "leading_monomials_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_check_prime29_domain.leading.json",
+  "monomial_dimension": 3,
+  "monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "elapsed_seconds": 4.121999882045202e-05
+  },
+  "independent_monomial_dimension": 3,
+  "independent_monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "box_leaves": 1,
+    "zero_leaves": 0,
+    "component_factorizations": 0,
+    "interval_branches": 0,
+    "antichain_removed": 0,
+    "max_depth": 0,
+    "variables": 1,
+    "input_generators": 1,
+    "cached_states": 1,
+    "count_bit_length": 2,
+    "unit_ideal": false
+  },
+  "krull_dimension": 0,
+  "basis_size": 1,
+  "status": "COMPLETE",
+  "quotient_dimension": 3,
+  "dimension_decimal": "3",
+  "hilbert_dimension": 3,
+  "vdim_diagnostic": 3,
+  "child_cpu_seconds": 0.006388999999999999,
+  "elapsed_seconds": 0.012392601998726605
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "connected": false,
+    "native_equations": 81,
+    "coefficient_rank_GF2": 81,
+    "variables": 7063,
+    "ordinary_clauses": 36008
+  },
+  {
+    "connected": true,
+    "native_equations": 170,
+    "coefficient_rank_GF2": 169,
+    "variables": 7063,
+    "ordinary_clauses": 36008
+  }
+]

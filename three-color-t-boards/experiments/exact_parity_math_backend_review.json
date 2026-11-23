@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "randomized_direct_box_checks": 300,
+  "backend_cases": [
+    {
+      "case": "complete-valid",
+      "status": "COMPLETE",
+      "dimension": 1
+    },
+    {
+      "case": "complete-invalid",
+      "status": "COMPLETE",
+      "dimension": 0
+    },
+    {
+      "case": "hilbert-timeout",
+      "status": "COMPLETE_FROM_LEADING_IDEAL",
+      "dimension": 3
+    },
+    {
+      "case": "leading-export-timeout",
+      "status": "INCOMPLETE_STANDARD_BASIS_TIMEOUT",
+      "dimension": null
+    },
+    {
+      "case": "diagnostic",
+      "status": "BACKEND_ERROR",
+      "dimension": null
+    },
+    {
+      "case": "missing-leading-row",
+      "status": "POSTPROCESS_ERROR",
+      "dimension": null
+    }
+  ],
+  "unsupported_normalization_rejected": true,
+  "source_sha256": {
+    "exact_algebra_backend.py": "7ca9677fb144b027d12b1dfb7ef0d4d0aa3d98835ba6861250e8815b35509072",
+    "exact_standard_monomials.py": "40ed3985b5d776e4696005861c01a5af171d28d478efec70dc9eccf4408e66fa"
+  },
+  "scope": "Trusted completed Singular basis plus independently counted leading ideal; no independent Buchberger certificate check; no full-board run."
+}

@@ -1,0 +1,28 @@
+{
+  "model": "fixture:domain2",
+  "field": "F2",
+  "variables": 2,
+  "generators": 2,
+  "algorithm": "std",
+  "script_sha256": "72442349187675dda716a8c5328976d70c9541bb1aa64c4727072b92a62dcf30",
+  "script": "experiments/exact_algebra_backend_fixture_domain2.sing",
+  "timeout_seconds": 30,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "basis_complete": true,
+  "leading_monomials_file": "experiments/exact_algebra_backend_fixture_domain2.leading.json",
+  "monomial_dimension": 9,
+  "monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "elapsed_seconds": 6.8098001065664e-05
+  },
+  "krull_dimension": 0,
+  "basis_size": 2,
+  "status": "COMPLETE",
+  "quotient_dimension": 9,
+  "hilbert_dimension": 9,
+  "vdim_diagnostic": 9,
+  "child_cpu_seconds": 0.009349999999999999,
+  "elapsed_seconds": 0.01076007300071069
+}

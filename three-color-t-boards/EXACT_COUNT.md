@@ -49,6 +49,17 @@ cellwise recolorings, these give exactly the known twelve transformations.
 The result does not exclude transformations chosen after inspecting a board,
 or spatial permutations preserving solutions without preserving incidence.
 
+An [exhaustive symmetry split](experiments/exact_parity_math_symmetry.md)
+reduces the full count either to three times the apex-zero count or to a
+weighted sum of ten top-two-row fibers. The cap orbit weights sum to 81;
+they are not uniformly twelve. The
+[manifest and strict aggregation audit](experiments/exact_symmetry_split_notes.md)
+independently reproduce the binary total 168 and refuse to publish a ternary
+total until every required fiber has a matching, audited complete count.
+Global cubic homogeneity recovers the apex factor three and supplies no
+additional reduction. The characteristic-29 apex-zero algebra trial also
+exhausted its 2 GiB limit before producing a basis or count.
+
 ## Exact algorithms and their measured limits
 
 The [row-transfer census](experiments/exact_algo_frontier.cpp) merges prefixes
@@ -155,6 +166,20 @@ counting. None finishes the full ternary count within its recorded limit.
 Enabling tree decomposition alone does not resolve the problem: the full
 formulas exceed this solver build's graph-size threshold.
 
+The independent [d4 backend](experiments/exact_backend_notes.md) uses GMP
+integer arithmetic and reproduces the raw binary count 168, orbit count 42,
+and prefix-C count two. Both full ternary trials entered counting and ended
+at their 120-second wall limits without an exact count. Its recorded early
+decisions show no component splitting; the precise eventual bottleneck is
+not established by the logs.
+
+An [interleaved two-row recurrence](experiments/exact_tworow_results.md)
+consumes penultimate- and bottom-row patterns together, allowing bottom-row
+constraints to prune earlier. It passes every binary three-row prefix,
+84 repeated ternary symmetry images, and both complete C/P prefix fibers.
+Its six-row integration did not finish within a 90-second wall guard.
+Neither caching nor the different order demonstrates a general acceleration.
+
 ## An exact reduced system of pattern counts
 
 Let `N(a,b,c,d)` be a quadruple's number of occurrences. A valid board has
@@ -205,6 +230,108 @@ Local output permutations need additional compatibility conditions arising
 from neighboring rows; their acceptance cannot be replaced by last-exit or
 boundary-sign data alone.
 
+## Exact geometric inclusion–exclusion
+
+A [Möbius aggregation](experiments/exact_mobius_report.md) assigns each
+collision of two placements four cell-equality constraints. Grouping
+partitions that force the same cell equalities gives an exact polynomial
+`P_h(q)` for boards of height `h` with distinct T patterns. The desired
+number is `P_10(3)`. Two independent implementations evaluate the polynomials
+through height four and agree with the earlier board census.
+
+The full closure table is too large for straightforward materialization:
+17 disjoint T placements induce a partition-lattice interval containing
+82,864,869,804 nonzero Möbius states. This bound does not exclude symbolic
+summation: that interval alone has the compact sum `q^32 (q^4)_17`.
+However, explicit examples show that cell-component counts and size
+multisets lose geometric information needed for subsequent collisions.
+The report proves and checks these precise limitations rather than treating
+the finite sum as an evaluated answer.
+
+## Exact parity characterization
+
+There is also an exact parity formulation. If each of the 81 possible
+patterns occurs an odd number of times, every count is positive. The board
+has only 81 placements, so all counts must equal one. Conversely every valid
+board satisfies those parity equations.
+
+[ExactParity.lean](ExactParity.lean) proves
+`TBoards.ExactParity.valid_iff_odd` for the original validity predicate. It
+also proves the saturation argument using mere presence of every pattern.
+The more general `valid_iff_congruent_one` proves that every pattern count
+being congruent to one modulo any integer greater than one is also equivalent
+to validity; primality is unnecessary for this counting argument.
+The [build log](exact-parity-lean-build.log) records a successful kernel-checked
+build with only standard logical axioms.
+
+```sh
+lake build ExactParity
+```
+
+The [parity CNF implementation](experiments/exact_parity_notes.md) passes
+functional-gate and exact small-count checks. Both full ternary variants and
+both prefix-C trials timed out without a count. The installed counter rejects
+native XOR input; these were clause-circuit trials, so they do not establish
+the performance of a Gaussian or polynomial-algebra method.
+
+The [algebraic derivation](experiments/exact_parity_math.md) gives 80 Boolean
+moment equations of degree at most four. Four whole-cell eliminations leave
+192 Boolean variables; all reconstructed-cell palette conditions are retained.
+The binary analogue was exhausted over all 2^21 reduced assignments and agrees
+with geometric checking on every assignment, giving exactly 168 solutions.
+
+A Fourier change of coordinates gives a more compact ordinary polynomial
+ideal: encode colors by the three nonzero elements of F4, impose `z_i^3+1=0`,
+and require 40 representative nonconstant Fourier moments to vanish.
+Frobenius gives the other 40 moments. All coefficients lie in F2, so the ideal
+can be computed over F2 without restricting variables to Boolean values.
+After four linear eliminations it has 96 variables and 136 generators.
+
+Its quotient vector-space dimension is exactly the unrestricted labeled
+count: over F4 the squarefree domain quotient is a product of fields indexed
+by all ternary boards, and the moment equations retain exactly the valid
+factors. Extending scalars from F2 to F4 preserves that dimension. The
+[explicit original ideal](experiments/exact_parity_math_fourier_original.sing)
+and [reduced export](experiments/exact_parity_math_fourier_reduced.json) have
+passed checks on 322 valid boards and substitution checks. Their quotient
+dimension has not been evaluated. An
+[independent review](experiments/exact_parity_review_fourier.md) also verified
+every reduced polynomial symbolically, confirmed the retained domain
+conditions, and found no multiplicity or symmetry factor. The exact algebra
+[backend](experiments/exact_algebra_backend_results.md) reproduced known
+nine-row fibers with counts one and six. Singular's arbitrary-precision
+Hilbert calculation and two independent standard-monomial counters agreed,
+including an arithmetic fixture of dimension 10^20. The one full reduced
+trial exhausted its 2 GiB memory allowance before completing a standard basis;
+its 90-second wall guard subsequently expired. It produced no total.
+
+Completed bases are exported before Hilbert evaluation, so a slow Hilbert
+stage cannot lose an otherwise usable basis. The
+[independent monomial counter](experiments/exact_standard_monomials.md) uses
+arbitrary-precision arithmetic and requires a completed-standard-basis
+attestation. Leading terms of arbitrary polynomial generators are not accepted
+as an exact quotient count.
+
+The [prime-characteristic extension](experiments/exact_parity_math_prime.md)
+proves the same quotient-dimension identity for every prime `p = 2 mod 3`,
+using domains `z_i^3-1` and the original integer Fourier sums reduced modulo
+`p`. Characteristic 29 makes the unary equations alone enforce exact color
+histograms; characteristic five already enforces exact triple margins at the
+triple layer. These are stronger intermediate constraints, not a proof of
+faster counting. The [fresh geometric generator](experiments/exact_prime_fourier.py)
+avoids reusing characteristic-two substitutions and supports explicitly
+including all 80 nonconstant moments as redundant generators.
+
+This redundancy helped a known fixed-prefix problem: the six-completion
+nine-row fiber finished over characteristic 29 with all 80 moments, and the
+Hilbert calculation and both monomial counters returned six. However, neither
+unrestricted characteristic-29 run completed a basis: both `std` and `slimgb`
+exhausted the 2 GiB memory allowance. They used the same 100-variable ideal
+with all 180 generators and no fixed cells or normalization. Two independent
+input audits checked the full model; the
+[recorded prime-field results](experiments/exact_algebra_backend_prime_results.md)
+distinguish the completed fixed fiber from these failed unrestricted trials.
+
 ## The remaining obstacle
 
 To obtain the unrestricted total, an algorithm must count extensions of
@@ -213,3 +340,10 @@ evaluated formula. Neither more witnesses, nor an exact count for selected
 prefixes, nor a count of locally admissible caps establishes that total.
 The new tools make those distinctions explicit. No unrestricted ternary
 search has reported completion.
+
+A literature check also examined Condon, Dugan, Goldman and Williams,
+[Polyomino Density](https://arxiv.org/html/2608.29231v1) (August 2026).
+Its formulas concern minimum uncolored board sizes and its later sections
+give colored constructions; it supplies no enumeration formula for this
+ternary board. Those geometric density results do not evaluate the count
+investigated here.

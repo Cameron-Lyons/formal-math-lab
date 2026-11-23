@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/usr/bin/python",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend.py",
+    "--model",
+    "fixture:domain1",
+    "--algorithm",
+    "slimgb",
+    "--timeout",
+    "5",
+    "--memory-mb",
+    "2048",
+    "--output",
+    "experiments/exact_algebra_backend_guard_check"
+  ],
+  "outer_wall_limit_seconds": 10.0,
+  "outer_memory_mb": 2048,
+  "returncode": 0,
+  "outer_wall_limit_reached": false,
+  "elapsed_seconds": 0.17713111299963202,
+  "process_tree_cpu_seconds": 0.102973,
+  "status": "OUTER_PROCESS_FINISHED",
+  "backend_status": "COMPLETE"
+}

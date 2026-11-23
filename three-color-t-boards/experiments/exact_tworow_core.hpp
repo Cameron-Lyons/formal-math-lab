@@ -3,6 +3,7 @@
 #include <array>
 #include <bit>
 #include <chrono>
+#include <cmath>
 #include <cstdint>
 #include <stdexcept>
 #include <unordered_map>
@@ -53,9 +54,11 @@ public:
  uint64_t requests=0,nodes=0,terminal_calls=0,lookups=0,hits=0,initial_pairs=0;bool timeout=false;
  TwoRows(int depth=0,size_t capacity=0,bool endpoints=true):cache_depth(depth),cache_limit(capacity),endpoint_pruning(endpoints){if(depth<0||depth>32)throw std::invalid_argument("invalid memo depth");}
  uint64_t count(const int* fixed_top,const std::array<unsigned,3>&available,double budget=0){
+  if(budget<0||!std::isfinite(budget))throw std::invalid_argument("invalid time budget");
   ++requests;start=std::chrono::steady_clock::now();seconds=budget;timeout=false;edges=available;
   for(int i=0;i<L;++i){top[i]=fixed_top[i];if(top[i]<0||top[i]>=Q)throw std::invalid_argument("invalid top color");}
   int n=0;std::array<int,Q> target{};std::array<int,PAIRS> degree{};
+  for(int c=0;c<3;++c)if((c>=Q&&edges[c])||(edges[c]&~((1u<<T)-1)))throw std::invalid_argument("invalid residual edge mask");
   for(int c=0;c<Q;++c){target[c]=std::popcount(edges[c]);n+=target[c];unsigned bits=edges[c];while(bits){int triple=std::countr_zero(bits);bits&=bits-1;++degree[triple/Q];--degree[triple%PAIRS];}}
   if(n!=2*L+2)throw std::invalid_argument("wrong residual edge count");
   for(int c:top)--target[c];

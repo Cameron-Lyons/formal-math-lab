@@ -1,0 +1,28 @@
+{
+  "model": "fixture:fourier3-reduced",
+  "field": "F2",
+  "variables": 2,
+  "generators": 3,
+  "algorithm": "std",
+  "script_sha256": "677074b6b5da02444b0e82bf8c4b87562d5ddfbc237cbd09832ac0c2ae4371fc",
+  "script": "experiments/exact_algebra_backend_fixture_reduced.sing",
+  "timeout_seconds": 60,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "basis_complete": true,
+  "leading_monomials_file": "experiments/exact_algebra_backend_fixture_reduced.leading.json",
+  "monomial_dimension": 6,
+  "monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "elapsed_seconds": 4.2517000110819936e-05
+  },
+  "krull_dimension": 0,
+  "basis_size": 2,
+  "status": "COMPLETE",
+  "quotient_dimension": 6,
+  "hilbert_dimension": 6,
+  "vdim_diagnostic": 6,
+  "child_cpu_seconds": 0.009334,
+  "elapsed_seconds": 0.010569792000751477
+}

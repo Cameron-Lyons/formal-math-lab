@@ -1,0 +1,27 @@
+{
+  "format": "leading-monomial-ideal-v1",
+  "variables": 3,
+  "standard_basis_complete": true,
+  "leading_monomials": [
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      3
+    ]
+  ],
+  "provenance": {
+    "script_sha256": "23c6b5d8fd00ee6856993de5efc46d0c319f14a2aee208d80e18b78ddf9b73f2",
+    "algorithm": "std",
+    "field": "F2"
+  }
+}

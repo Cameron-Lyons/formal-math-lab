@@ -1,0 +1,14 @@
+{
+  "model": "fixture:huge-domains",
+  "field": "F2",
+  "variables": 100,
+  "generators": 100,
+  "algorithm": "std",
+  "script_sha256": "b53d5c4aebfc00c03ad5f828f72f77285bfbd051f5d5e82bc6a0656c5370dee0",
+  "script": "experiments/exact_algebra_backend_fixture_bigint.sing",
+  "timeout_seconds": 60,
+  "memory_mb": 2048,
+  "status": "INCOMPLETE_TIMEOUT",
+  "child_cpu_seconds": 59.369445999999996,
+  "elapsed_seconds": 60.063675552999484
+}

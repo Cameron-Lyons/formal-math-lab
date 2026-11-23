@@ -1,0 +1,42 @@
+[
+  {
+    "file": "main.c",
+    "url": "https://raw.githubusercontent.com/algebraic-solving/msolve/v0.11.0/src/msolve/main.c",
+    "sha256": "4d82001a1a2ed7597da0cc47e1bb5704f35dc2f0274bec9384da9cff506893c0"
+  },
+  {
+    "file": "libmsolve.c",
+    "url": "https://raw.githubusercontent.com/algebraic-solving/msolve/v0.11.0/src/msolve/libmsolve.c",
+    "sha256": "bec6f41ce71ed9a83d1b4f47bcfa65fb21fba649fb4276c2b85b7212ea2392b4"
+  },
+  {
+    "file": "msolve.c",
+    "url": "https://raw.githubusercontent.com/algebraic-solving/msolve/v0.11.0/src/msolve/msolve.c",
+    "sha256": "f892a2373f1751d68b2a1ecdce16a22577b77456b3dbbeb53c74ea8617f1aa15"
+  },
+  {
+    "file": "iofiles.c",
+    "url": "https://raw.githubusercontent.com/algebraic-solving/msolve/v0.11.0/src/msolve/iofiles.c",
+    "sha256": "3bb7edfc4a506ad3ec1247999b0a9ea052f0a7436414e3c8516b4ccc51b13ed4"
+  },
+  {
+    "file": "gb.c",
+    "url": "https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/neogb/gb.c",
+    "sha256": "391e1aea8d5f7375fd38fffe4197b8270cf2cb035c0256ffe82a2491c9dcaa19"
+  },
+  {
+    "file": "f4.c",
+    "url": "https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/neogb/f4.c",
+    "sha256": "a545ffd5e4117c4cc3cba421d64d7145fa295c0befc45d5fd5d0b735b5a031a5"
+  },
+  {
+    "file": "engine.c",
+    "url": "https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/neogb/engine.c",
+    "sha256": "80dac00c1236651c25a98571d952d8d532403e72708d8c51d0643fe3556fe311"
+  },
+  {
+    "file": "meta_data.c",
+    "url": "https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/neogb/meta_data.c",
+    "sha256": "d3fdd46dc530917104656f6410a784d4d6f12d99d5cc460504695e934b11e7a5"
+  }
+]

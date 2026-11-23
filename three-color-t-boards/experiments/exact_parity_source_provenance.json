@@ -1,0 +1,52 @@
+[
+  {
+    "path": "experiments/exact_parity_sources/arjun_arjun.h",
+    "url": "https://github.com/meelgroup/arjun/blob/c86963a05108092cba6fa10e35403053bd175e4d/src/arjun.h",
+    "sha256": "69e6610b465a82ef00df2faec3bc24b7836d871d6ef1708728ce45113600a1f2"
+  },
+  {
+    "path": "experiments/exact_parity_sources/arjun_file_read_helper.h",
+    "url": "https://github.com/meelgroup/arjun/blob/c86963a05108092cba6fa10e35403053bd175e4d/src/file_read_helper.h",
+    "sha256": "b2c5b31292c6bd9f3f64e05f10b3d7796e42956937080134d3a05d04057517cd"
+  },
+  {
+    "path": "experiments/exact_parity_sources/counter.cpp",
+    "url": "https://github.com/meelgroup/ganak/blob/f262be5374f312b4bf7c99c6cca26e51182158e5/src/counter.cpp",
+    "sha256": "4c36e2cec461c5b7bfafa388a15cab9398a25b75a948d61b914578e8f5ec4aa2"
+  },
+  {
+    "path": "experiments/exact_parity_sources/counter.hpp",
+    "url": "https://github.com/meelgroup/ganak/blob/f262be5374f312b4bf7c99c6cca26e51182158e5/src/counter.hpp",
+    "sha256": "e15e3a61a41a00c609c0e220acdeb1b48174a05f96f0e6954b0420c33c28244b"
+  },
+  {
+    "path": "experiments/exact_parity_sources/counter_config.hpp",
+    "url": "https://github.com/meelgroup/ganak/blob/f262be5374f312b4bf7c99c6cca26e51182158e5/src/counter_config.hpp",
+    "sha256": "7797da9a78a83fac8851ffea6c41980ba423cc41ba9e162f003b822e62078a86"
+  },
+  {
+    "path": "experiments/exact_parity_sources/cryptominisat_dimacsparser.h",
+    "url": "https://github.com/msoos/cryptominisat/blob/97c6efeae45d93c45d2ebc3e4e83c2014c79513d/src/dimacsparser.h",
+    "sha256": "40b53a0724f543c6b6955961436e3a169d6e37db822ece9929e1bc7dc14c578b"
+  },
+  {
+    "path": "experiments/exact_parity_sources/cryptominisat_solver.cpp",
+    "url": "https://github.com/msoos/cryptominisat/blob/97c6efeae45d93c45d2ebc3e4e83c2014c79513d/src/solver.cpp",
+    "sha256": "8ecb079df4e6978f9b2a4229f0101f78738ab39f538d8563240f641b6e2cf4d7"
+  },
+  {
+    "path": "experiments/exact_parity_sources/cryptominisat_solverconf.cpp",
+    "url": "https://github.com/msoos/cryptominisat/blob/97c6efeae45d93c45d2ebc3e4e83c2014c79513d/src/solverconf.cpp",
+    "sha256": "4846e142a4a3551e8129a094a208607aa762f5d2aa7975f9d9f73c386240da7b"
+  },
+  {
+    "path": "experiments/exact_parity_sources/cryptominisat_solverconf.h",
+    "url": "https://github.com/msoos/cryptominisat/blob/97c6efeae45d93c45d2ebc3e4e83c2014c79513d/src/solverconf.h",
+    "sha256": "9b30a4298de68089a2932b7ef8e7e9b34c14911e857d4f290c321dc2835af59f"
+  },
+  {
+    "path": "experiments/exact_parity_sources/main.cpp",
+    "url": "https://github.com/meelgroup/ganak/blob/f262be5374f312b4bf7c99c6cca26e51182158e5/src/main.cpp",
+    "sha256": "609d60d7f40376d2f5e16241d7767a77533728979846d1d805d049c6fc78d961"
+  }
+]

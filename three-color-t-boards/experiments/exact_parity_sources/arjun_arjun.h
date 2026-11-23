@@ -1,0 +1,2252 @@
+/******************************************
+Copyright (C) 2020 Mate Soos
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+***********************************************/
+
+#pragma once
+
+#include <algorithm>
+#include <cstdint>
+#include <cstdlib>
+#include <functional>
+#include <memory>
+#include <vector>
+#include <string>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <optional>
+#include <fstream>
+#include <gmpxx.h>
+#include <cryptominisat5/solvertypesmini.h>
+#include <cryptominisat5/cryptominisat.h>
+#include <mpfr.h>
+
+namespace ArjunInt { class Cegr; }
+
+namespace ArjunNS {
+
+class AIG;
+class AIGManager;
+class AIGRewriter;
+class SimplifiedCNF;
+template<class Solver> class AIGToCNF;
+
+// Underlying AIG node. Nodes are positive-output only — the complement of a
+// reference is carried on the referring edge (see aig_lit below), not on the
+// node (the AIGER convention).
+using aig_node_ptr = std::shared_ptr<AIG>;
+
+enum class AIGT {t_and, t_lit, t_const};
+inline std::ostream& operator<<(std::ostream& os, const AIGT& value) {
+    switch (value) {
+        case AIGT::t_and:  return os << "t_and";
+        case AIGT::t_lit:  return os << "t_lit";
+        case AIGT::t_const: return os << "t_const";
+        default: assert(false && "Unknown AIGT"); std::abort();
+    }
+}
+
+// Signed reference to an AIG node: the edge carries the complement bit. All
+// references (roots, AND fanins, defs[] values, map keys) use `aig_lit`, not a
+// bare shared_ptr — this is the only place complementation lives.
+struct aig_lit {
+    aig_node_ptr node;
+    bool neg;
+
+    explicit aig_lit() : node(nullptr), neg(false) {}
+    explicit aig_lit(std::nullptr_t) : node(nullptr), neg(false) {}
+    explicit aig_lit(aig_node_ptr n) : node(std::move(n)), neg(false) {}
+    explicit aig_lit(aig_node_ptr n, bool ng) : node(std::move(n)), neg(ng) {}
+
+    AIG* operator->() const { return node.get(); }
+    AIG& operator*() const { return *node; }
+    [[nodiscard]] AIG* get() const { return node.get(); }
+    explicit operator bool() const { return (bool)node; }
+
+    aig_lit operator~() const { return aig_lit(node, !neg); }
+
+    bool operator==(const aig_lit& o) const { return node == o.node && neg == o.neg; }
+    bool operator!=(const aig_lit& o) const { return !(*this == o); }
+    bool operator==(std::nullptr_t) const { return node == nullptr; }
+    bool operator!=(std::nullptr_t) const { return node != nullptr; }
+    // Out-of-line below AIG (body needs the complete AIG::nid). Orders on nid,
+    // not the raw pointer, for cross-run determinism (see CLAUDE.md).
+    bool operator<(const aig_lit& o) const;
+};
+
+class AIG {
+public:
+    AIG() : nid(next_nid()) {}
+    ~AIG() = default;
+    AIG(const AIG&) = delete;
+    AIG& operator=(const AIG&) = delete;
+
+    // Monotonic id assigned at construction. Deterministic ordering/hash key in
+    // place of the raw shared_ptr address, which ASLR randomises run-to-run.
+    uint64_t nid;
+
+    [[nodiscard]] bool invariants() const {
+        if (type == AIGT::t_lit) {
+            if (l != nullptr || r != nullptr) std::cout << "ERROR: AIG literal has children!" << std::endl;
+            if (var == none_var) std::cout << "ERROR: AIG var node doesn't have a var!" << std::endl;
+            return l == nullptr && r == nullptr && var != none_var;
+        }
+        if (type == AIGT::t_const) {
+            if (l != nullptr || r != nullptr) std::cout << "ERROR: AIG const has children!" << std::endl;
+            if (var != none_var) std::cout << "ERROR: AIG const node has var!" << std::endl;
+            return l == nullptr && r == nullptr && var == none_var;
+        }
+        if (type == AIGT::t_and) {
+            if (var != none_var) std::cout << "ERROR: AIG AND node has var!" << std::endl;
+            if (l == nullptr || r == nullptr) std::cout << "ERROR: AIG AND node missing children!" << std::endl;
+            return l != nullptr && r != nullptr && var == none_var;
+        }
+        assert(false && "Unknown AIG type"); std::abort();
+    }
+
+    // vals = input variable assignments
+    // aig = AIG to evaluate (signed edge; carries its own complement bit)
+    // defs = known definitions of variables (each def is a signed edge)
+    static CMSat::lbool evaluate(const std::vector<CMSat::lbool>& vals, const aig_lit& a, const std::vector<aig_lit>& defs, std::map<aig_lit, CMSat::lbool>& cache) {
+        std::function<CMSat::lbool(const aig_lit&)> sub_eval = [&](const aig_lit& aig) -> CMSat::lbool {
+            if (cache.count(aig)) return cache.at(aig);
+            assert(aig->invariants());
+            if (aig->type == AIGT::t_lit) {
+                CMSat::lbool ret;
+                if (defs[aig->var] != nullptr) {
+                    ret = sub_eval(defs.at(aig->var));
+                } else {
+                    assert(aig->var < vals.size());
+                    ret = vals[aig->var];
+                }
+                if (ret == CMSat::l_Undef) {
+                    cache[aig] = CMSat::l_Undef;
+                    return CMSat::l_Undef;
+                }
+                ret = ret ^ aig.neg;
+                cache[aig] = ret;
+                return ret;
+            }
+
+            if (aig->type == AIGT::t_const) {
+                const CMSat::lbool ret = CMSat::boolToLBool(!aig.neg);
+                cache[aig] = ret;
+                return ret;
+            }
+
+            if (aig->type == AIGT::t_and) {
+                const auto lv = sub_eval(aig->l);
+                const auto rv = sub_eval(aig->r);
+                CMSat::lbool ret;
+                if (lv == CMSat::l_False || rv == CMSat::l_False) ret = CMSat::l_False ^ aig.neg;
+                else if (lv == CMSat::l_Undef || rv == CMSat::l_Undef) ret = CMSat::l_Undef;
+                else ret = (lv && rv) ^ aig.neg;
+                cache[aig] = ret;
+                return ret;
+            }
+            assert(false && "Unknown AIG type"); std::abort();
+        };
+        return sub_eval(a);
+    }
+
+    static aig_lit new_lit(CMSat::Lit l) {
+        return new_lit(l.var(), l.sign());
+    }
+
+    // Creates a positive t_lit node for `var` and returns a signed edge to it.
+    // The node itself has no `neg`; the sign lives on the returned aig_lit.
+    static aig_lit new_lit(uint32_t v, bool neg = false) {
+        auto n = std::make_shared<AIG>();
+        n->type = AIGT::t_lit;
+        n->var = v;
+        return aig_lit(n, neg);
+    }
+
+    static aig_lit new_const(bool val) {
+        // Fresh positive t_const node meaning TRUE; FALSE is a complemented edge.
+        auto n = std::make_shared<AIG>();
+        n->type = AIGT::t_const;
+        return aig_lit(n, !val);
+    }
+
+    static aig_lit new_ite(const aig_lit& l, const aig_lit& r, CMSat::Lit b) {
+        assert(l != nullptr);
+        assert(r != nullptr);
+        // ITE(b, x, x) = x
+        if (l == r) return l;
+        auto branch = new_lit(b.var(), b.sign());
+        return new_or(new_and(branch, l), new_and(new_not(branch), r));
+    }
+
+    // Logical NOT is an edge-only operation in the new representation: flip
+    // the complement bit of the reference, don't create a new node.
+    static aig_lit new_not(const aig_lit& a) {
+        assert(a != nullptr);
+        return ~a;
+    }
+
+    static aig_lit new_and(const aig_lit& l, const aig_lit& r, bool neg = false) {
+        assert(l != nullptr && r != nullptr);
+
+        auto apply_out_neg = [&](const aig_lit& v) -> aig_lit {
+            return neg ? ~v : v;
+        };
+
+        // Identity: AND(x, x) = x
+        if (l == r) return apply_out_neg(l);
+
+        // Complement: AND(x, ~x) = FALSE
+        if (l.node == r.node && l.neg != r.neg) {
+            return apply_out_neg(new_const(false));
+        }
+
+        // Constant folding on the left input.
+        if (l->type == AIGT::t_const) {
+            // l.neg == true means the reference is FALSE.
+            if (l.neg) return apply_out_neg(new_const(false)); // AND(FALSE, x) = FALSE
+            return apply_out_neg(r); // AND(TRUE, x) = x
+        }
+        // ... and on the right input.
+        if (r->type == AIGT::t_const) {
+            if (r.neg) return apply_out_neg(new_const(false));
+            return apply_out_neg(l);
+        }
+
+        // Absorption: AND(a, AND(a, b)) = AND(a, b), where the inner AND is
+        // referenced positively.
+        if (r->type == AIGT::t_and && !r.neg && (r->l == l || r->r == l)) {
+            return apply_out_neg(r);
+        }
+        if (l->type == AIGT::t_and && !l.neg && (l->l == r || l->r == r)) {
+            return apply_out_neg(l);
+        }
+
+        // Absorption: AND(a, OR(a, b)) = a. OR(a, b) is encoded as a negative
+        // reference to an AND node whose children are the negations of the
+        // disjuncts (De Morgan): ~AND(~a, ~b).
+        if (r->type == AIGT::t_and && r.neg) {
+            // disjuncts of the OR are ~(r->l) and ~(r->r).
+            if ((r->l.node == l.node && r->l.neg != l.neg)
+             || (r->r.node == l.node && r->r.neg != l.neg)) {
+                return apply_out_neg(l);
+            }
+        }
+        if (l->type == AIGT::t_and && l.neg) {
+            if ((l->l.node == r.node && l->l.neg != r.neg)
+             || (l->r.node == r.node && l->r.neg != r.neg)) {
+                return apply_out_neg(r);
+            }
+        }
+
+        auto ret = std::make_shared<AIG>();
+        ret->type = AIGT::t_and;
+        ret->l = l;
+        ret->r = r;
+        return aig_lit(ret, neg);
+    }
+
+    static aig_lit new_or(const aig_lit& l, const aig_lit& r, bool neg = false) {
+        // OR(a, b) = ~AND(~a, ~b). The result's output complement collapses
+        // with the caller-provided `neg`.
+        return new_and(~l, ~r, !neg);
+    }
+
+    // Key for CSE: (type, var, left_signed_nid, right_signed_nid).
+    // Uses the deterministic nid stamped at construction time paired with the
+    // edge-sign of each child. Output-sign is never part of a node — it lives
+    // on the referencing edge.
+    using AIGKey = std::tuple<AIGT, uint32_t, uint64_t, bool, uint64_t, bool>;
+
+
+    static aig_lit new_ite(const aig_lit& l, const aig_lit& r, const aig_lit& b) {
+        assert(l != nullptr);
+        assert(r != nullptr);
+        assert(b != nullptr);
+        // ITE(TRUE, l, r) = l, ITE(FALSE, l, r) = r. The branch's value is
+        // (b.node is TRUE) XOR b.neg.
+        if (b->type == AIGT::t_const) return b.neg ? r : l;
+        // ITE(b, x, x) = x
+        if (l == r) return l;
+        return AIG::new_or(AIG::new_and(b, l), AIG::new_and(AIG::new_not(b), r));
+    }
+
+    static void get_dependent_vars(const aig_lit& aig_orig, std::set<uint32_t>& dep, uint32_t v) {
+        const uint64_t epoch = next_visit_epoch();
+        std::vector<const AIG*> stack;
+        const AIG* root = aig_orig.get();
+        root->visit_epoch = epoch;
+        stack.push_back(root);
+        while (!stack.empty()) {
+            const AIG* a = stack.back();
+            stack.pop_back();
+            if (a->type == AIGT::t_lit) {
+                assert(a->var != v && "Variable cannot depend on itself");
+                dep.insert(a->var);
+            } else if (a->type == AIGT::t_and) {
+                const AIG* la = a->l.get();
+                const AIG* ra = a->r.get();
+                if (la->visit_epoch != epoch) { la->visit_epoch = epoch; stack.push_back(la); }
+                if (ra->visit_epoch != epoch) { ra->visit_epoch = epoch; stack.push_back(ra); }
+            }
+        }
+    }
+
+    // Fast variant using caller-owned scratch buffers (no per-call alloc):
+    // is_dep bitmap by var id, dep_list gets newly-marked vars, stack for DFS
+    // (left dirty for reuse). Visited state via AIG::visit_epoch.
+    static void get_dependent_vars(const aig_lit& aig_orig,
+                                   std::vector<char>& is_dep,
+                                   std::vector<uint32_t>& dep_list,
+                                   std::vector<const AIG*>& stack,
+                                   uint32_t v) {
+        const uint64_t epoch = next_visit_epoch();
+        stack.clear();
+        const AIG* root = aig_orig.get();
+        root->visit_epoch = epoch;
+        stack.push_back(root);
+        while (!stack.empty()) {
+            const AIG* a = stack.back();
+            stack.pop_back();
+            if (a->type == AIGT::t_lit) {
+                assert(a->var != v && "Variable cannot depend on itself");
+                if (a->var >= is_dep.size()) is_dep.resize(a->var + 1, 0);
+                if (!is_dep[a->var]) {
+                    is_dep[a->var] = 1;
+                    dep_list.push_back(a->var);
+                }
+            } else if (a->type == AIGT::t_and) {
+                const AIG* la = a->l.get();
+                const AIG* ra = a->r.get();
+                if (la->visit_epoch != epoch) { la->visit_epoch = epoch; stack.push_back(la); }
+                if (ra->visit_epoch != epoch) { ra->visit_epoch = epoch; stack.push_back(ra); }
+            }
+        }
+    }
+
+    // Evaluate the AIG under an assignment supplied per t_lit var by
+    // `leaf_val` (must return 0/1). Iterative, lazy, short-circuiting.
+    // Nodes already visited under `epoch` reuse their cached
+    // value, so structure shared across many roots evaluates once per pass.
+    // Get a fresh epoch (next_visit_epoch()) once per assignment; `stack` is
+    // caller-owned scratch (left dirty for reuse).
+    template<typename F>
+    static bool evaluate_epoch(const aig_lit& root_e, const uint64_t epoch,
+                               std::vector<const AIG*>& stack, F&& leaf_val) {
+        const AIG* root = root_e.get();
+        if (root->visit_epoch != epoch) {
+            stack.clear();
+            stack.push_back(root);
+            while (!stack.empty()) {
+                const AIG* a = stack.back();
+                if (a->visit_epoch == epoch) { stack.pop_back(); continue; }
+                if (a->type != AIGT::t_and) {
+                    a->eval_val = (a->type == AIGT::t_const) ? 1 : leaf_val(a->var);
+                    a->visit_epoch = epoch;
+                    stack.pop_back();
+                    continue;
+                }
+                const AIG* la = a->l.get();
+                if (la->visit_epoch != epoch) { stack.push_back(la); continue; }
+                if (((la->eval_val != 0) != a->l.neg) == false) {
+                    a->eval_val = 0;
+                    a->visit_epoch = epoch;
+                    stack.pop_back();
+                    continue;
+                }
+                const AIG* ra = a->r.get();
+                if (ra->visit_epoch != epoch) { stack.push_back(ra); continue; }
+                a->eval_val = ((ra->eval_val != 0) != a->r.neg) ? 1 : 0;
+                a->visit_epoch = epoch;
+                stack.pop_back();
+            }
+        }
+        return (root->eval_val != 0) != root_e.neg;
+    }
+
+    static std::vector<aig_lit> deep_clone_vec(const std::vector<aig_lit>& aigs) {
+        std::vector<aig_lit> ret;
+        std::unordered_map<const AIG*, aig_node_ptr> cache;
+        ret.reserve(aigs.size());
+        for (const auto& aig : aigs) ret.push_back(deep_clone(aig, cache));
+        return ret;
+    }
+
+    static aig_lit deep_clone(const aig_lit& aig, std::unordered_map<const AIG*, aig_node_ptr>& cache) {
+        if (!aig) return aig_lit(nullptr);
+
+        // Clones nodes, not signed edges. Sign is carried on the returned edge.
+        std::function<aig_node_ptr(const AIG*)> clone_node =
+            [&](const AIG* src) -> aig_node_ptr {
+                auto it = cache.find(src);
+                if (it != cache.end()) return it->second;
+
+                auto cloned = std::make_shared<AIG>();
+                cloned->type = src->type;
+                cloned->var = src->var;
+                cache[src] = cloned;
+
+                if (src->type == AIGT::t_and) {
+                    cloned->l = aig_lit(clone_node(src->l.get()), src->l.neg);
+                    cloned->r = aig_lit(clone_node(src->r.get()), src->r.neg);
+                }
+                return cloned;
+            };
+
+        return aig_lit(clone_node(aig.get()), aig.neg);
+    }
+
+    // Apply `func` to each AIG edge (as aig_lit). De-dup is by signed-edge:
+    // opposite-sign references to one node are visited twice.
+    template<typename Func>
+    static void traverse(const aig_lit& aig, Func&& func) {
+        if (!aig) return;
+        std::set<aig_lit> visited;
+        traverse_helper(aig, std::forward<Func>(func), visited);
+    }
+
+    template<typename Func>
+    static void traverse_helper(const aig_lit& node, Func&& func, std::set<aig_lit>& visited) {
+        if (visited.count(node)) return;
+        visited.insert(node);
+
+        func(node);
+
+        if (node->type == AIGT::t_and) {
+            traverse_helper(node->l, std::forward<Func>(func), visited);
+            traverse_helper(node->r, std::forward<Func>(func), visited);
+        }
+    }
+
+    // Apply the outer edge sign to a transform result. `operator~` negates
+    // aig_lit and CMSat::Lit; for a plain `bool` result it would trigger a
+    // -Wbool-operation warning, so negate logically instead.
+    template<typename T>
+    static T negate_result(const T& x) {
+        if constexpr (std::is_same_v<T, bool>) return !x;
+        else return ~x;
+    }
+
+    // Post-order fold. Visitor(type, var, left_result*, right_result*) is
+    // always called as if the edge were positive; transform applies the outer
+    // sign itself by negating the result. Caching is per NODE (not signed
+    // edge) so a shared sub-AIG isn't visited twice, which would duplicate
+    // side effects (e.g. Tseitin clauses).
+    template<typename ResultType, typename Visitor>
+    static ResultType transform(
+        const aig_lit& aig,
+        Visitor&& visitor,
+        std::map<aig_lit, ResultType>& cache
+    ) {
+        assert(aig);
+
+        const aig_lit pos_key(aig.node, false);
+        auto it = cache.find(pos_key);
+        if (it != cache.end()) {
+            return aig.neg ? negate_result(it->second) : it->second;
+        }
+
+        ResultType result;
+        if (aig->type == AIGT::t_and) {
+            ResultType left_result = transform<ResultType>(aig->l, std::forward<Visitor>(visitor), cache);
+            ResultType right_result = transform<ResultType>(aig->r, std::forward<Visitor>(visitor), cache);
+            result = visitor(aig->type, aig->var, &left_result, &right_result);
+        } else {
+            result = visitor(aig->type, aig->var, nullptr, nullptr);
+        }
+
+        cache[pos_key] = result;
+        return aig.neg ? negate_result(result) : result;
+    }
+
+    // Tseitin-encode `aig` into `solver` (one helper per AND, cached so shared
+    // subgraphs encode once): (~h∨l), (~h∨r), (h∨~l∨~r). Leaves via
+    // `leaf_to_lit`; const-TRUE lazily via `true_lit_fn`. `Solver` needs
+    // new_var()/nVars()/add_clause(). visit_count / and_emit_count, if
+    // non-null, count visited nodes / emitted helpers.
+    template<typename Solver, typename TrueFn, typename LeafFn>
+    static CMSat::Lit tseitin_encode(
+        const aig_lit& aig,
+        Solver& solver,
+        TrueFn&& true_lit_fn,
+        LeafFn&& leaf_to_lit,
+        uint64_t* visit_count = nullptr,
+        uint64_t* and_emit_count = nullptr
+    ) {
+        std::vector<CMSat::Lit> tmp;
+        auto visit = [&](AIGT type, uint32_t var,
+                         const CMSat::Lit* left, const CMSat::Lit* right) -> CMSat::Lit {
+            if (visit_count) ++*visit_count;
+            if (type == AIGT::t_const) return true_lit_fn();
+            if (type == AIGT::t_lit)   return leaf_to_lit(var);
+            if (type == AIGT::t_and) {
+                if (and_emit_count) ++*and_emit_count;
+                solver.new_var();
+                const CMSat::Lit out(solver.nVars() - 1, false);
+                tmp = {~out, *left};          solver.add_clause(tmp);
+                tmp = {~out, *right};         solver.add_clause(tmp);
+                tmp = {~*left, ~*right, out}; solver.add_clause(tmp);
+                return out;
+            }
+            assert(false && "Unhandled AIG type in tseitin_encode");
+            std::abort();
+        };
+        std::map<aig_lit, CMSat::Lit> cache;
+        return transform<CMSat::Lit>(aig, visit, cache);
+    }
+
+    // Rebuild `aig` with each leaf var `v` replaced by `new_lit(lit_of_var(v))`,
+    // preserving structure. `out_negate` flips the top edge. Used to remap
+    // AIGs across var spaces (NEW↔ORIG, y→y_hat, etc.).
+    template<typename LitFn>
+    static aig_lit translate_leaves(
+        const aig_lit& aig,
+        LitFn&& lit_of_var,
+        bool out_negate = false
+    ) {
+        auto visit = [&](AIGT type, uint32_t var,
+                         const aig_lit* left, const aig_lit* right) -> aig_lit {
+            if (type == AIGT::t_const) return new_const(true);
+            if (type == AIGT::t_lit)   return new_lit(lit_of_var(var));
+            if (type == AIGT::t_and)   return new_and(*left, *right);
+            assert(false && "Unhandled AIG type in translate_leaves");
+            std::abort();
+        };
+        std::map<aig_lit, aig_lit> cache;
+        aig_lit ret = transform<aig_lit>(aig, visit, cache);
+        return out_negate ? ~ret : ret;
+    }
+
+    // Fast variant: iterative DFS with AIG::visit_epoch marking; shared
+    // structure counted once. For rewriter hot paths on large (500k+) AIGs.
+    static size_t count_aig_nodes_fast(const std::vector<aig_lit>& roots);
+    static size_t count_aig_nodes_fast(const aig_lit& root);
+    // Batch-count helper: marks nodes unseen this `epoch` and adds to `count`.
+    // Callers get `epoch` once, then call per root to union-count.
+    static void count_aig_nodes_batch(const AIG* aig, uint64_t epoch, size_t& count);
+    static void simplify_aigs(uint32_t verb, std::vector<aig_lit>& defs);
+    static aig_lit simplify_aig(aig_lit aig);
+    static aig_lit rewrite_aig(const aig_lit& aig);
+
+    friend std::ostream& operator<<(std::ostream& out, const aig_lit& aig);
+    friend class AIGManager;
+    friend class AIGRewriter;
+    friend class SimplifiedCNF;
+    friend class ArjunInt::Cegr;
+    template<class Solver> friend class AIGToCNF;
+
+    AIGT type = AIGT::t_const;
+    static constexpr uint32_t none_var = std::numeric_limits<uint32_t>::max();
+    uint32_t var = none_var;
+    // AND fanins. Each is a signed edge — the AND's two inputs can be
+    // independently complemented. AND nodes have no output-sign of their own.
+    aig_lit l;
+    aig_lit r;
+
+private:
+    static aig_lit simplify_cse(aig_lit aig, std::map<AIGKey, aig_node_ptr>& cse_map, std::unordered_map<const AIG*, aig_node_ptr>& cache);
+
+    // Epoch-based visited marker for DFS traversals (replaces
+    // unordered_set<const AIG*>): bump epoch once, mark by assignment, test
+    // membership by integer compare.
+    mutable uint64_t visit_epoch = 0;
+    // Value cache for evaluate_epoch, valid only under the epoch it was
+    // written with (the value of the POSITIVE node; edge signs applied by
+    // the reader).
+    mutable uint8_t eval_val = 0;
+    static uint64_t next_visit_epoch();
+
+    // Counter backing `nid`. A plain static counter suffices: construction is
+    // single-threaded, and each run starts from 0. Both counters are defined
+    // in arjun.cpp: inline here, a library built with -fvisibility=hidden and
+    // the program using it would each have one, and hand out the same nids
+    static uint64_t next_nid();
+};
+
+// Deterministic aig_lit ordering: keyed on the node's monotonic nid, not its
+// ASLR-randomised address, so std::map/std::set stay stable across runs.
+inline bool aig_lit::operator<(const aig_lit& o) const {
+    const uint64_t a = node ? node->nid : 0;
+    const uint64_t b = o.node ? o.node->nid : 0;
+    if (a != b) return a < b;
+    return (int)neg < (int)o.neg;
+}
+
+inline std::ostream& operator<<(std::ostream& out, const aig_lit& aig) {
+    if (!aig) {
+        out << "NULL_AIG";
+        return out;
+    }
+    assert(aig->invariants());
+
+    if (aig->type == AIGT::t_lit) {
+        out << (aig.neg ? "~" : "") << "x" << aig->var+1;
+        return out;
+    }
+    if (aig->type == AIGT::t_const) {
+        out << (aig.neg ? "FALSE" : "TRUE");
+        return out;
+    }
+    assert(aig->type == AIGT::t_and);
+    out << (aig.neg ? "~" : "") << "AND(";
+    out << (aig->l) << ", " << (aig->r) << ")";
+    return out;
+}
+
+class AIGManager {
+public:
+    ~AIGManager() = default;
+    AIGManager() {
+        // Single positive t_const node backing both TRUE (positive ref) and
+        // FALSE (complemented ref). In the new representation there is no
+        // dedicated FALSE node — it's just `~const_true_node`.
+        const_true_node = std::make_shared<AIG>();
+        const_true_node->type = AIGT::t_const;
+    }
+
+    AIGManager& operator=(const AIGManager& other) {
+        const_true_node = other.const_true_node;
+        return *this;
+    }
+
+    AIGManager(const AIGManager& other) {
+        const_true_node = other.const_true_node;
+    }
+
+    [[nodiscard]] aig_lit new_const(bool val) const {
+        return aig_lit(const_true_node, !val);
+    }
+
+
+private:
+    // Shared positive TRUE const node (copies share it, so comparisons stay
+    // pointer-equal). A convenience — AIG::new_const can make other TRUE nodes.
+    aig_node_ptr const_true_node = nullptr;
+};
+
+// What a malloc(n) really takes from the heap. The cache budgets memory with
+// bytes_used(), and a count is 1-5 tiny allocations, so ignoring the allocator's
+// header and minimum block size undercounts them by 2x.
+inline uint64_t heap_bytes(const uint64_t n) {
+    if (n == 0) return 0;
+    return std::max<uint64_t>(32, (n + 8 + 15) & ~15ULL);
+}
+
+inline uint64_t heap_bytes(const mpz_class& v) {
+    return heap_bytes(v.get_mpz_t()->_mp_alloc * sizeof(mp_limb_t));
+}
+
+class FMpz final : public CMSat::Field {
+public:
+    mpz_class val;
+    FMpz(const int _val) : val(_val) {}
+    FMpz(const mpz_class& _val) : val(_val) {}
+    FMpz(const FMpz& other) : val(other.val) {}
+
+    Field& operator=(const Field& other) final {
+        const auto& od = static_cast<const FMpz&>(other);
+        val = od.val;
+        return *this;
+    }
+
+    Field& operator+=(const Field& other) final {
+        const auto& od = static_cast<const FMpz&>(other);
+        val += od.val;
+        return *this;
+    }
+
+    std::unique_ptr<Field> add(const Field& other) final {
+        const auto& od = static_cast<const FMpz&>(other);
+        return std::make_unique<FMpz>(val + od.val);
+    }
+
+    Field& operator-=(const Field& other) final {
+        const auto& od = static_cast<const FMpz&>(other);
+        val -= od.val;
+        return *this;
+    }
+
+    Field& operator*=(const Field& other) final {
+        const auto& od = static_cast<const FMpz&>(other);
+        val *= od.val;
+        return *this;
+    }
+
+    Field& operator/=(const Field& other) final {
+        const auto& od = static_cast<const FMpz&>(other);
+        if (od.val == 0) throw std::runtime_error("Division by zero");
+        val /= od.val;
+        return *this;
+    }
+
+    bool operator==(const Field& other) const final {
+        const auto& od = static_cast<const FMpz&>(other);
+        return od.val == val;
+    }
+
+    std::ostream& display(std::ostream& os) const final {
+        os << val;
+        return os;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> dup() const final { return std::make_unique<FMpz>(val); }
+    [[nodiscard]] bool is_zero() const final { return val == 0; }
+    [[nodiscard]] bool is_one() const final { return val == 1; }
+    void set_zero() final { val = 0; }
+    void set_one() final { val = 1; }
+
+    bool parse(const std::string& str, const uint32_t line_no) final {
+        uint32_t at = 0;
+        skip_whitespace(str, at);
+        auto sign = parse_sign(str, at);
+        if (!parse_int(val, str, at, line_no)) return false;
+        val*=sign;
+        return check_end_of_weight(str, at, line_no);
+    }
+
+    [[nodiscard]] uint64_t bytes_used() const final {
+      return heap_bytes(sizeof(FMpz)) + heap_bytes(val);
+    }
+};
+
+class FGenMpz final : public CMSat::FieldGen {
+public:
+    ~FGenMpz() final = default;
+    [[nodiscard]] std::unique_ptr<CMSat::Field> zero() const final {
+        return std::make_unique<FMpz>(0);
+    }
+
+    [[nodiscard]] std::unique_ptr<CMSat::Field> one() const final {
+        return std::make_unique<FMpz>(1);
+    }
+
+    [[nodiscard]] std::unique_ptr<FieldGen> dup() const final {
+        return std::make_unique<FGenMpz>();
+    }
+
+    [[nodiscard]] bool larger_than(const CMSat::Field& a, const CMSat::Field& b) const final {
+        const auto& ad = static_cast<const FMpz&>(a);
+        const auto& bd = static_cast<const FMpz&>(b);
+        return ad.val > bd.val;
+    }
+
+    [[nodiscard]] bool weighted() const final { return false; }
+    [[nodiscard]] bool exact() const final { return true; }
+};
+
+class FMpq final : public CMSat::Field {
+public:
+    mpq_class val;
+    FMpq() : val(0) {}
+    FMpq(const int _val) : val(_val) {}
+    FMpq(const mpz_class& _val) : val(_val) {}
+    FMpq(const mpq_class& _val) : val(_val) {}
+    FMpq(const FMpq& other) : val(other.val) {}
+    [[nodiscard]] const mpq_class &get_val() const { return val; }
+
+    Field& operator=(const Field& other) final {
+        const auto& od = static_cast<const FMpq&>(other);
+        val = od.val;
+        return *this;
+    }
+
+    Field& operator+=(const Field& other) final {
+        const auto& od = static_cast<const FMpq&>(other);
+        val += od.val;
+        return *this;
+    }
+
+    std::unique_ptr<Field> add(const Field& other) final {
+        const auto& od = static_cast<const FMpq&>(other);
+        return std::make_unique<FMpq>(val + od.val);
+    }
+
+    Field& operator-=(const Field& other) final {
+        const auto& od = static_cast<const FMpq&>(other);
+        val -= od.val;
+        return *this;
+    }
+
+    Field& operator*=(const Field& other) final {
+        const auto& od = static_cast<const FMpq&>(other);
+        val *= od.val;
+        return *this;
+    }
+
+    Field& operator/=(const Field& other) final {
+        const auto& od = static_cast<const FMpq&>(other);
+        if (od.val == 0) throw std::runtime_error("Division by zero");
+        val /= od.val;
+        return *this;
+    }
+
+    bool operator==(const Field& other) const final {
+        const auto& od = static_cast<const FMpq&>(other);
+        return val == od.val;
+    }
+
+    std::ostream& display(std::ostream& os) const final {
+        os << val;
+        return os;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> dup() const final {
+        return std::make_unique<FMpq>(val);
+    }
+
+    [[nodiscard]] bool is_zero() const final {
+        return val == 0;
+    }
+
+    [[nodiscard]] bool is_one() const final {
+        return val == 1;
+    }
+
+    bool parse(const std::string& str, const uint32_t line_no) final {
+        uint32_t at = 0;
+        if (!parse_mpq(str, at, line_no)) return false;
+        return check_end_of_weight(str, at, line_no);
+    }
+
+    void set_zero() final { val = 0; }
+    void set_one() final { val = 1; }
+
+    [[nodiscard]] uint64_t bytes_used() const final {
+      return heap_bytes(sizeof(FMpq)) +
+          heap_bytes(val.get_num()) + heap_bytes(val.get_den());
+    }
+
+    bool parse_mpq(const std::string& str, uint32_t& at, const uint32_t line_no) {
+        skip_whitespace(str, at);
+        mpz_class head;
+        auto sign = parse_sign(str, at);
+        if (!parse_int(head, str, at, line_no)) return false;
+        bool rational = false;
+        if (str[at] == '.') {
+            at++;
+            mpz_class tail;
+            int len = 0;
+            if (!parse_int(tail, str, at, line_no, &len)) return false;
+            mpz_class ten(10);
+            mpz_ui_pow_ui(ten.get_mpz_t(), 10, len);
+            mpq_class tenq(ten);
+            mpq_class tailq(tail);
+            val = mpq_class(head) + tailq/tenq;
+        } else if (str[at] == '/') {
+            at++;
+            rational = true;
+            mpz_class tail;
+            if (!parse_int(tail, str, at, line_no)) return false;
+            val = mpq_class(head)/mpq_class(tail);
+        } else {
+            val = head;
+        }
+
+        if (str[at] == 'e' || str[at] == 'E') {
+            if (rational) {
+                std::cerr << "PARSE ERROR! You can't have BOTH rational AND exponent"
+                << " At line " << line_no << " Probably looks like 1/2e-4"
+                << std::endl;
+                return false;
+            }
+            at++;
+            mpz_class exp;
+            auto sign2 = parse_sign(str, at);
+            if (!parse_int(exp, str, at, line_no)) return false;
+            exp*=sign2;
+            if (!exp.fits_sint_p()) {
+                std::cerr << "PARSE ERROR! Exponent too large for int64_t"
+                << " At line " << line_no << " Probably looks like 1e100" << std::endl;
+                return false;
+            }
+            int64_t ex = exp.get_si();
+            mpz_class x(1);
+            if (ex < 0) {
+                ex *=-1;
+                mpz_pow_ui(x.get_mpz_t(), mpz_class(10).get_mpz_t(), ex);
+                val /= x;
+            } else {
+                mpz_pow_ui(x.get_mpz_t(), mpz_class(10).get_mpz_t(), ex);
+                val *=x;
+            }
+        }
+        val *= sign;
+        return true;
+    }
+};
+
+class FGenMpq final : public CMSat::FieldGen {
+public:
+    ~FGenMpq() final = default;
+    [[nodiscard]] std::unique_ptr<CMSat::Field> zero() const final {
+        return std::make_unique<FMpq>(0);
+    }
+
+    [[nodiscard]] std::unique_ptr<CMSat::Field> one() const final {
+        return std::make_unique<FMpq>(1);
+    }
+
+    [[nodiscard]] std::unique_ptr<FieldGen> dup() const final {
+        return std::make_unique<FGenMpq>();
+    }
+
+    [[nodiscard]] bool larger_than(const CMSat::Field& a, const CMSat::Field& b) const final {
+        const auto& ad = static_cast<const FMpq&>(a);
+        const auto& bd = static_cast<const FMpq&>(b);
+        return ad.val > bd.val;
+    }
+
+    [[nodiscard]] bool weighted() const final { return true; }
+    [[nodiscard]] bool exact() const final { return true; }
+};
+
+
+inline unsigned int mpfr_memory_usage(const mpfr_t& x) {
+    // Get the precision of the mpfr_t variable (in bits)
+    mpfr_prec_t precision = mpfr_get_prec(x);
+
+    // Determine the size of a limb (in bits)
+    size_t limb_size = mp_bits_per_limb;
+
+    // Calculate the number of limbs required for the significand
+    size_t num_limbs = (precision + limb_size - 1) / limb_size;
+
+    // The mpfr_t struct itself is a member of the Field object, only the
+    // significand is a separate allocation (with a one-limb header)
+    return heap_bytes((num_limbs + 1) * sizeof(mp_limb_t));
+}
+
+class FMpfr final : public CMSat::Field {
+public:
+    mpfr_t val;
+    ~FMpfr() final { mpfr_clear(val); }
+    FMpfr() = delete;
+    explicit FMpfr(mpfr_prec_t prec) {
+        mpfr_init2(val, prec);
+        mpfr_set_si(val, 0, MPFR_RNDN);
+    }
+    explicit FMpfr(const long _val, mpfr_prec_t prec) {
+        mpfr_init2(val, prec);
+        mpfr_set_si(val, _val, MPFR_RNDN);
+    }
+    explicit FMpfr(const double _val, mpfr_prec_t prec) {
+        mpfr_init2(val, prec);
+        mpfr_set_d(val, _val, MPFR_RNDN);
+    }
+    explicit FMpfr(const mpfr_t& _val) {
+        const auto prec = mpfr_get_prec(_val);
+        mpfr_init2(val, prec);
+        mpfr_set(val, _val, MPFR_RNDN);
+    }
+    explicit FMpfr(const FMpfr& other) {
+        const auto prec = mpfr_get_prec(other.val);
+        mpfr_init2(val, prec);
+        mpfr_set(val, other.val, MPFR_RNDN);
+    }
+    [[nodiscard]] const mpfr_t& get_val() const { return val; }
+
+    Field& operator=(const Field& other) final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        mpfr_set(val, od.val, MPFR_RNDN);
+        return *this;
+    }
+
+    Field& operator+=(const Field& other) final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        mpfr_add(val, val, od.val, MPFR_RNDN);
+        return *this;
+    }
+
+    std::unique_ptr<Field> add(const Field& other) final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        mpfr_t res;
+        const auto prec = mpfr_get_prec(val);
+        mpfr_init2(res, prec);
+        mpfr_add(res, val, od.val, MPFR_RNDN);
+        std::unique_ptr<FMpfr> ret = std::make_unique<FMpfr>(res);
+        mpfr_clear(res);
+        return ret;
+    }
+
+    Field& operator-=(const Field& other) final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        mpfr_sub(val, val, od.val, MPFR_RNDN);
+        return *this;
+    }
+
+    Field& operator*=(const Field& other) final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        mpfr_mul(val, val, od.val, MPFR_RNDN);
+        return *this;
+    }
+
+    Field& operator/=(const Field& other) final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        if (mpfr_cmp_si(od.val, 0) == 0)
+            throw std::runtime_error("Division by zero");
+        mpfr_div(val, val, od.val, MPFR_RNDN);
+        return *this;
+    }
+
+    bool operator==(const Field& other) const final {
+        const auto& od = static_cast<const FMpfr&>(other);
+        return mpfr_cmp(val, od.val) == 0;
+    }
+
+    std::ostream& display(std::ostream& os) const final {
+        char* tmp = nullptr;
+        mpfr_asprintf(&tmp, "%.8Re", val);
+        os << tmp;
+        mpfr_free_str(tmp);
+        return os;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> dup() const final {
+        return std::make_unique<FMpfr>(val);
+    }
+
+    [[nodiscard]] bool is_zero() const final {
+        return mpfr_cmp_si(val, 0) == 0;
+    }
+
+    [[nodiscard]] bool is_one() const final {
+        return mpfr_cmp_si(val, 1) == 0;
+    }
+
+    bool parse(const std::string& str, const uint32_t line_no) final {
+        uint32_t at = 0;
+        FMpq val_pre;
+        if (!val_pre.parse_mpq(str, at, line_no)) return false;
+        skip_whitespace(str, at);
+        mpfr_set_q(val, val_pre.get_val().get_mpq_t(), MPFR_RNDN);
+        return true;
+    }
+
+    void set_zero() final { mpfr_set_si(val, 0, MPFR_RNDN); }
+    void set_one() final { mpfr_set_si(val, 1, MPFR_RNDN); }
+
+
+    [[nodiscard]] uint64_t bytes_used() const final {
+      return heap_bytes(sizeof(FMpfr)) + mpfr_memory_usage(val);
+    }
+};
+
+class FGenMpfr final : public CMSat::FieldGen {
+public:
+    mpfr_prec_t prec;
+    ~FGenMpfr() final = default;
+    FGenMpfr(const FGenMpfr& other) : prec(other.prec) {}
+    FGenMpfr& operator=(const FGenMpfr& other) {
+        if (this != &other) {
+            prec = other.prec;
+        }
+        return *this;
+    }
+    FGenMpfr(mpfr_prec_t _prec) : prec(_prec) {}
+    [[nodiscard]] std::unique_ptr<CMSat::Field> zero() const final {
+        return std::make_unique<FMpfr>((long)0, prec);
+    }
+
+    [[nodiscard]] std::unique_ptr<CMSat::Field> one() const final {
+      return std::make_unique<FMpfr>((long)1, prec);
+    }
+
+    [[nodiscard]] std::unique_ptr<FieldGen> dup() const final {
+        return std::make_unique<FGenMpfr>(prec);
+    }
+
+    [[nodiscard]] bool larger_than(const CMSat::Field& a, const CMSat::Field& b) const final {
+        const auto& ad = static_cast<const FMpfr&>(a);
+        const auto& bd = static_cast<const FMpfr&>(b);
+        return mpfr_cmp(ad.val, bd.val) > 0;
+    }
+
+    [[nodiscard]] bool weighted() const final { return true; }
+    [[nodiscard]] bool exact() const final { return false; }
+};
+
+// Only accepted format: a+bi or a-bi (spaces around '+'/'-' are optional).
+// Both the real part and the imaginary part must always be present.
+// Examples: "1/2+4i", "1/2 + 4i", "1/2-4i", "-1/2+4i"
+// The weight string must end with the DIMACS terminator " 0".
+inline bool parse_complex_mpq(const std::string& str, FMpq& real_out,
+    FMpq& imag_out, const uint32_t line_no) {
+  uint32_t at = 0;
+  if (!real_out.parse_mpq(str, at, line_no)) return false;
+  FMpq::skip_whitespace(str, at);
+  if (at >= str.size() || (str[at] != '+' && str[at] != '-')) {
+    std::cerr << "ERROR: complex weight requires both real and imaginary parts (a+bi or a-bi),"
+              << " missing '+' or '-' at line " << line_no << std::endl;
+    return false;
+  }
+  bool pos = (str[at] == '+');
+  at++;
+  FMpq::skip_whitespace(str, at);
+  if (!imag_out.parse_mpq(str, at, line_no)) return false;
+  FMpq::skip_whitespace(str, at);
+  if (at >= str.size() || str[at] != 'i') {
+    std::cerr << "ERROR: Expected 'i' after imaginary part at line " << line_no << std::endl;
+    return false;
+  }
+  at++;
+  if (!pos) imag_out *= FMpq(-1);
+  return FMpq::check_end_of_weight(str, at, line_no);
+}
+
+class FComplex final : public CMSat::Field {
+public:
+    mpq_class real;
+    mpq_class imag;
+    FComplex() : real(0), imag(0) {}
+    FComplex(const mpq_class& _real, const mpq_class& _imag) : real(_real), imag(_imag) {}
+    FComplex(const FComplex& other) : real(other.real), imag(other.imag) {}
+
+    Field& operator=(const Field& other) final {
+        const auto& od = static_cast<const FComplex&>(other);
+        real = od.real;
+        imag = od.imag;
+        return *this;
+    }
+
+    Field& operator+=(const Field& other) final {
+        const auto& od = static_cast<const FComplex&>(other);
+        real += od.real;
+        imag += od.imag;
+        return *this;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> add(const Field& other) final {
+        const auto& od = static_cast<const FComplex&>(other);
+        return std::make_unique<FComplex>(real+od.real, imag+od.imag);
+    }
+
+    Field& operator-=(const Field& other) final {
+        const auto& od = static_cast<const FComplex&>(other);
+        real -= od.real;
+        imag -= od.imag;
+        return *this;
+    }
+
+    Field& operator*=(const Field& other) final {
+        const auto& od = static_cast<const FComplex&>(other);
+        mpq_class r = real;
+        mpq_class i = imag;
+        real = r*od.real-i*od.imag;
+        imag = r*od.imag+i*od.real;
+        return *this;
+    }
+
+    Field& operator/=(const Field& other) final {
+        const auto& od = static_cast<const FComplex&>(other);
+        if (od.is_zero()) throw std::runtime_error("Division by zero");
+        mpq_class div = od.imag*od.imag+od.real*od.real;
+        mpq_class r = real;
+        mpq_class i = imag;
+        real = r*od.real+i*od.imag;
+        real /= div;
+        imag = i*od.real-r*od.imag;
+        imag /= div;
+        return *this;
+    }
+
+    bool operator==(const Field& other) const final {
+        const auto& od = static_cast<const FComplex&>(other);
+        return real == od.real && imag == od.imag;
+    }
+
+    std::ostream& display(std::ostream& os) const final {
+        os << real << " + " << imag << "i";
+        return os;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> dup() const final {
+        return std::make_unique<FComplex>(real, imag);
+    }
+
+    [[nodiscard]] bool is_zero() const final { return real == 0 && imag == 0; }
+    [[nodiscard]] bool is_one() const final { return real == 1 && imag == 0; }
+    void set_zero() final { real = 0; imag = 0; }
+    void set_one() final { real = 1; imag = 0; }
+
+    [[nodiscard]] uint64_t bytes_used() const final {
+      return heap_bytes(sizeof(FComplex)) +
+          heap_bytes(imag.get_num()) + heap_bytes(imag.get_den()) +
+          heap_bytes(real.get_num()) + heap_bytes(real.get_den());
+    }
+
+    bool parse(const std::string& str, const uint32_t line_no) final {
+        FMpq _real, _imag;
+        if (!parse_complex_mpq(str, _real, _imag, line_no)) return false;
+        real = _real.get_val();
+        imag = _imag.get_val();
+        return true;
+   }
+};
+
+class FGenComplex final : public CMSat::FieldGen {
+public:
+    ~FGenComplex() final = default;
+    [[nodiscard]] std::unique_ptr<CMSat::Field> zero() const final {
+        return std::make_unique<FComplex>();
+    }
+
+    [[nodiscard]] std::unique_ptr<CMSat::Field> one() const final {
+        return std::make_unique<FComplex>(1, 0);
+    }
+
+    [[nodiscard]] std::unique_ptr<FieldGen> dup() const final {
+        return std::make_unique<FGenComplex>();
+    }
+
+    [[nodiscard]] bool larger_than(const CMSat::Field& a, const CMSat::Field& b) const final {
+      const auto& ad = static_cast<const FComplex&>(a);
+      const auto& bd = static_cast<const FComplex&>(b);
+      return ad.real > bd.real || (ad.real == bd.real && ad.imag > bd.imag);
+    }
+
+    [[nodiscard]] bool weighted() const final { return true; }
+    [[nodiscard]] bool exact() const final { return true; }
+};
+
+class MPFComplex final : public CMSat::Field {
+public:
+    mpfr_t real;
+    mpfr_t imag;
+
+    explicit MPFComplex(mpfr_prec_t prec) {
+      mpfr_init2(real, prec);
+      mpfr_init2(imag, prec);
+      mpfr_set_si(real, 0, MPFR_RNDN);
+      mpfr_set_si(imag, 0, MPFR_RNDN);
+    }
+    explicit MPFComplex(long r, long i, mpfr_prec_t prec) {
+      mpfr_init2(real, prec);
+      mpfr_init2(imag, prec);
+      mpfr_set_si(real, r, MPFR_RNDN);
+      mpfr_set_si(imag, i, MPFR_RNDN);
+    }
+    explicit MPFComplex(const mpfr_t& _real, const mpfr_t& _imag) {
+      assert(mpfr_get_prec(_real) == mpfr_get_prec(_imag));
+      const auto prec = mpfr_get_prec(_real);
+      mpfr_init2(real, prec);
+      mpfr_init2(imag, prec);
+      mpfr_set(real, _real, MPFR_RNDN);
+      mpfr_set(imag, _imag, MPFR_RNDN);
+    }
+    explicit MPFComplex(const MPFComplex& other) : MPFComplex(other.real, other.imag) {}
+    ~MPFComplex() final {
+      mpfr_clear(real);
+      mpfr_clear(imag);
+    }
+
+    Field& operator=(const Field& other) final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        mpfr_set(real, od.real, MPFR_RNDN);
+        mpfr_set(imag, od.imag, MPFR_RNDN);
+        return *this;
+    }
+
+    Field& operator+=(const Field& other) final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        mpfr_add(real, real, od.real, MPFR_RNDN);
+        mpfr_add(imag, imag, od.imag, MPFR_RNDN);
+        return *this;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> add(const Field& other) final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        const auto prec = mpfr_get_prec(real);
+        mpfr_t r;
+        mpfr_t i;
+        mpfr_init2(r, prec);
+        mpfr_init2(i, prec);
+        mpfr_add(r, real, od.real, MPFR_RNDN);
+        mpfr_add(i, imag, od.imag, MPFR_RNDN);
+        auto ret = std::make_unique<MPFComplex>(r, i);
+        mpfr_clear(r);
+        mpfr_clear(i);
+        return ret;
+    }
+
+    Field& operator-=(const Field& other) final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        mpfr_sub(real, real, od.real, MPFR_RNDN);
+        mpfr_sub(imag, imag, od.imag, MPFR_RNDN);
+        return *this;
+    }
+
+    Field& operator*=(const Field& other) final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        const auto prec = mpfr_get_prec(real);
+        mpfr_t r;
+        mpfr_init2(r, prec);
+        mpfr_t tmp;
+        mpfr_init2(tmp, prec);
+        mpfr_t tmp2;
+        mpfr_init2(tmp2, prec);
+
+        mpfr_mul(tmp, real, od.real, MPFR_RNDN);
+        mpfr_mul(tmp2, imag, od.imag, MPFR_RNDN);
+        mpfr_sub(r, tmp, tmp2, MPFR_RNDN);
+
+        mpfr_mul(tmp, real, od.imag, MPFR_RNDN);
+        mpfr_mul(tmp2, imag, od.real, MPFR_RNDN);
+        mpfr_add(imag, tmp, tmp2, MPFR_RNDN);
+
+        mpfr_set(real, r, MPFR_RNDN);
+        mpfr_clear(r);
+        mpfr_clear(tmp);
+        mpfr_clear(tmp2);
+        return *this;
+    }
+
+    Field& operator/=(const Field& other) final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        if (od.is_zero()) throw std::runtime_error("Division by zero");
+        const auto prec = mpfr_get_prec(real);
+        mpfr_t r;
+        mpfr_init2(r, prec);
+        mpfr_t tmp;
+        mpfr_init2(tmp, prec);
+        mpfr_t tmp2;
+        mpfr_init2(tmp2, prec);
+
+        mpfr_t div;
+        mpfr_init2(div, prec);
+        mpfr_mul(tmp, od.imag, od.imag, MPFR_RNDN);
+        mpfr_mul(tmp2, od.real, od.real, MPFR_RNDN);
+        mpfr_add(div, tmp, tmp2, MPFR_RNDN);
+
+        mpfr_mul(tmp, real, od.real, MPFR_RNDN);
+        mpfr_mul(tmp2, imag, od.imag, MPFR_RNDN);
+        mpfr_add(r, tmp, tmp2, MPFR_RNDN);
+        mpfr_div(r, r, div, MPFR_RNDN);
+
+        mpfr_mul(tmp, imag, od.real, MPFR_RNDN);
+        mpfr_mul(tmp2, real, od.imag, MPFR_RNDN);
+        mpfr_sub(imag, tmp, tmp2, MPFR_RNDN);
+        mpfr_div(imag, imag, div, MPFR_RNDN);
+        mpfr_set(real, r, MPFR_RNDN);
+
+        mpfr_clear(div);
+        mpfr_clear(r);
+        mpfr_clear(tmp);
+        mpfr_clear(tmp2);
+        return *this;
+    }
+
+    bool operator==(const Field& other) const final {
+        const auto& od = static_cast<const MPFComplex&>(other);
+        return mpfr_equal_p(real, od.real) && mpfr_equal_p(imag, od.imag);
+    }
+
+    std::ostream& display(std::ostream& os) const final {
+      char* tmp = nullptr;
+      mpfr_asprintf(&tmp, "%.8Re + %.8Rei", real, imag);
+      os << tmp;
+      mpfr_free_str(tmp);
+      return os;
+    }
+
+    [[nodiscard]] std::unique_ptr<Field> dup() const final {
+        return std::make_unique<MPFComplex>(real, imag);
+    }
+
+    [[nodiscard]] bool is_zero() const final {
+        return mpfr_zero_p(real) && mpfr_zero_p(imag);
+    }
+
+    [[nodiscard]] bool is_one() const final {
+        return mpfr_cmp_si(real, 1) == 0 && mpfr_zero_p(imag);
+    }
+
+    void set_zero() final {
+      mpfr_set_si(real, 0, MPFR_RNDN);
+      mpfr_set_si(imag, 0, MPFR_RNDN);
+    }
+
+    void set_one() final {
+      mpfr_set_si(real, 1, MPFR_RNDN);
+      mpfr_set_si(imag, 0, MPFR_RNDN);
+    }
+
+    [[nodiscard]] uint64_t bytes_used() const final {
+      return heap_bytes(sizeof(MPFComplex)) + mpfr_memory_usage(real) + mpfr_memory_usage(imag);
+    }
+
+    bool parse(const std::string& str, const uint32_t line_no) final {
+        FMpq _real, _imag;
+        if (!parse_complex_mpq(str, _real, _imag, line_no)) return false;
+        mpfr_set_q(real, _real.get_val().get_mpq_t(), MPFR_RNDN);
+        mpfr_set_q(imag, _imag.get_val().get_mpq_t(), MPFR_RNDN);
+        return true;
+   }
+};
+
+class FGenMPFComplex final : public CMSat::FieldGen {
+public:
+    mpfr_prec_t prec;
+    ~FGenMPFComplex() final = default;
+    explicit FGenMPFComplex(mpfr_prec_t _prec) : prec(_prec) {}
+    [[nodiscard]] std::unique_ptr<CMSat::Field> zero() const final {
+        return std::make_unique<MPFComplex>(prec);
+    }
+
+    [[nodiscard]] std::unique_ptr<CMSat::Field> one() const final {
+        return std::make_unique<MPFComplex>(1, 0, prec);
+    }
+
+    [[nodiscard]] std::unique_ptr<FieldGen> dup() const final {
+        return std::make_unique<FGenMPFComplex>(prec);
+    }
+
+    [[nodiscard]] bool larger_than(const CMSat::Field& a, const CMSat::Field& b) const final {
+      const auto& ad = static_cast<const MPFComplex&>(a);
+      const auto& bd = static_cast<const MPFComplex&>(b);
+      const int real_cmp = mpfr_cmp(ad.real, bd.real);
+      if (real_cmp != 0) return real_cmp > 0;
+      return mpfr_cmp(ad.imag, bd.imag) > 0;
+    }
+
+    [[nodiscard]] bool weighted() const final { return true; }
+    [[nodiscard]] bool exact() const final { return false; }
+};
+
+struct SimpConf {
+    bool oracle_extra = true;
+    bool oracle_vivify = true;
+    bool oracle_vivify_get_learnts = true;
+    bool oracle_sparsify = true;
+    double oracle_mult = 1.0;
+    int iter1 = 2;
+    int iter2 = 2;
+    int bve_grow_iter1 = 0;
+    int bve_grow_iter2 = 0;
+    // if >= 0, used instead of bve_grow_iter2 when more than
+    // bve_grow_iter2_large_vars vars are left at the start of iter2
+    int bve_grow_iter2_large = 16;
+    int bve_grow_iter2_large_vars = 10000;
+    bool do_bve = true;
+    bool appmc = false;
+    int bve_too_large_resolvent = 12;
+    int bve_too_large_resolvent2 = 4; // 2nd pass simplification
+    int do_subs_with_resolvent_clauses = 1;
+    bool do_backbone_puura = true;
+    int64_t backbone_max_confl = -1;
+    int weaken_limit = 8000;
+    int distill_rem_level = 2;
+    int puura_distill = 1;
+    int xor_gate_find_maxsize = 12;
+    int64_t bve_occ_cutoff = 0;
+    int64_t bve_occ_prod_cutoff = 10000;
+    int64_t bve_cls_max_size = 0;
+    int bve_sched_only_touched = 0;
+    int bve_tie_min_occ = 0;
+    int64_t backbone_ccnr_mems_limitM = 300;
+};
+
+struct VarTypes {
+    std::set<uint32_t> input;
+    std::set<uint32_t> to_define;
+    std::set<uint32_t> backward_defined;
+
+    void unpack_to(std::set<uint32_t>& i, std::set<uint32_t>& t, std::set<uint32_t>& b) {
+        i = std::move(input); t = std::move(to_define); b = std::move(backward_defined);
+    }
+};
+
+// Memo + scratch for get_dependent_vars_recursive. The scratch buffers are
+// sized to the number of orig vars, so re-allocating and re-zeroing them per
+// call dominates on large CNFs -- reuse one of these across calls instead.
+// epoch_counter must travel with merge_stamp, otherwise stale stamps collide.
+struct DepCache {
+    // std::map, not unordered_map: entry refs must stay stable across inserts.
+    std::map<uint32_t, std::vector<uint32_t>> cache;
+    std::vector<char> is_dep;
+    std::vector<uint64_t> merge_stamp;
+    std::vector<uint32_t> aig_dep_list;
+    std::vector<const AIG*> ag_stack;
+    uint64_t epoch_counter = 0;
+
+    void clear() { cache.clear(); }
+};
+
+// CMS elims the empties it finds, so hold `prot` out of the call entirely
+void clean_sampl_get_empties_prot(CMSat::SATSolver* solver,
+        std::vector<uint32_t>& sampl_vars, std::vector<uint32_t>& empty_vars,
+        std::set<uint32_t> prot);
+
+class SimplifiedCNF {
+public:
+    std::unique_ptr<CMSat::FieldGen> fg = nullptr;
+    SimplifiedCNF(const std::unique_ptr<CMSat::FieldGen>& _fg) : fg(_fg->dup()), multiplier_weight(fg->one()) {}
+    SimplifiedCNF(const CMSat::FieldGen* _fg) : fg(_fg->dup()), multiplier_weight(fg->one()) {}
+    ~SimplifiedCNF() = default;
+    SimplifiedCNF& operator=(const SimplifiedCNF& other) {
+        fg = other.fg->dup();
+        need_aig = other.need_aig;
+        clauses = other.clauses;
+        red_clauses = other.red_clauses;
+        proj = other.proj;
+        sampl_vars_set = other.sampl_vars_set;
+        opt_sampl_vars_set = other.opt_sampl_vars_set;
+        sampl_vars = other.sampl_vars;
+        opt_sampl_vars = other.opt_sampl_vars;
+        nvars = other.nvars;
+        multiplier_weight = other.multiplier_weight->dup();
+        weighted = other.weighted;
+        backbone_done = other.backbone_done;
+        weights = other.weights;
+        orig_to_new_var = other.orig_to_new_var;
+        n_no_touch = other.n_no_touch;
+        num_quant_blocks = other.num_quant_blocks;
+        exists_block_seen = other.exists_block_seen;
+        bad_quant_block = other.bad_quant_block;
+        quant_vars = other.quant_vars;
+        if (!other.need_aig) {
+            for(const auto& d: other.defs)
+                assert(d == nullptr);
+        }
+        defs = AIG::deep_clone_vec(other.defs);
+        if (!need_aig) {
+            assert(other.orig_sampl_vars.empty());
+            assert(other.orig_clauses.empty());
+        } else {
+            after_backward_round_synth = other.after_backward_round_synth;
+            aig_mng = other.aig_mng;
+            orig_clauses = other.orig_clauses;
+            orig_sampl_vars = other.orig_sampl_vars;
+            orig_sampl_vars_set = other.orig_sampl_vars_set;
+        }
+
+        return *this;
+    }
+    SimplifiedCNF(const SimplifiedCNF& other) {
+        *this = other;
+    }
+
+    [[nodiscard]] const auto& nVars() const { return nvars; }
+    [[nodiscard]] const auto& get_clauses() const { return clauses; }
+    [[nodiscard]] const auto& get_red_clauses() const { return red_clauses; }
+    [[nodiscard]] const auto& get_weights() const { return weights; }
+    [[nodiscard]] const auto& get_sampl_vars() const { return sampl_vars; }
+    [[nodiscard]] auto get_orig_num_vars() const {
+        assert(defs.size() >= nvars);
+        return defs.size();
+    }
+    [[nodiscard]] const auto& get_orig_sampl_vars() const { assert(orig_sampl_vars_set); return orig_sampl_vars; }
+    [[nodiscard]] const auto& get_orig_clauses() const { return orig_clauses; }
+    [[nodiscard]] const auto& get_opt_sampl_vars() const { return opt_sampl_vars; }
+    [[nodiscard]] const auto& get_backbone_done() const { return backbone_done; }
+
+    // ORIG vars 0..n_no_touch-1 must end up as CNF vars 0..n_no_touch-1
+    void set_no_touch_vars(const std::vector<uint32_t>& vars);
+    [[nodiscard]] uint32_t get_num_no_touch() const { return n_no_touch; }
+
+    // QDIMACS 'a'/'e' blocks, in file order. Called by the DIMACS parser
+    void add_quant_block(bool forall, const std::vector<uint32_t>& vars) {
+        num_quant_blocks++;
+        if (!forall) exists_block_seen = true;
+        else if (exists_block_seen && bad_quant_block == 0) bad_quant_block = num_quant_blocks;
+        quant_vars.insert(vars.begin(), vars.end());
+    }
+    [[nodiscard]] uint32_t get_num_quant_blocks() const { return num_quant_blocks; }
+    [[nodiscard]] uint32_t get_bad_quant_block() const { return bad_quant_block; }
+    [[nodiscard]] const auto& get_quant_vars() const { return quant_vars; }
+    // no-touch set in CNF numbering
+    [[nodiscard]] std::set<uint32_t> get_no_touch_cur() const {
+        std::set<uint32_t> ret;
+        for(uint32_t v = 0; v < n_no_touch; v++) {
+            auto it = orig_to_new_var.find(v);
+            if (it != orig_to_new_var.end()) ret.insert(it->second.var());
+        }
+        return ret;
+    }
+    void force_no_touch_in_sampl() {
+        if (n_no_touch == 0) return;
+        std::set<uint32_t> s(sampl_vars.begin(), sampl_vars.end());
+        std::set<uint32_t> o(opt_sampl_vars.begin(), opt_sampl_vars.end());
+        for(const auto& v: get_no_touch_cur()) { s.insert(v); o.insert(v); }
+        set_sampl_vars(s, true);
+        set_opt_sampl_vars(o);
+    }
+    void check_no_touch_sanity() const;
+    void check_no_touch_mapping() const;
+    void restore_no_touch(std::unique_ptr<CMSat::SATSolver>& solver, const SimplifiedCNF& prev);
+    [[nodiscard]] bool all_ys_defined() const;
+    [[nodiscard]] bool is_projected() const { return proj; }
+
+    template<class T>
+    void set_orig_sampl_vars(const T& vars) {
+        assert(need_aig);
+        assert(orig_sampl_vars.empty());
+        assert(!orig_sampl_vars_set);
+        orig_sampl_vars_set = true;
+        for(const auto& v: vars) orig_sampl_vars.insert(v);
+    }
+    void set_orig_clauses(const std::vector<std::vector<CMSat::Lit>>& cls) {
+        assert(need_aig);
+        assert(orig_clauses.empty());
+        orig_clauses = cls;
+    }
+
+    // ORIG variable
+    [[nodiscard]] bool defined(const uint32_t v) const {
+        assert(v < defs.size());
+        assert(need_aig);
+        return defs[v] != nullptr;
+    }
+    void set_need_aig() {
+        // should be the first thing to set
+        assert(!need_aig);
+        assert(nvars == 0);
+        assert(clauses.empty());
+        ;
+        assert(defs.empty());
+        assert(opt_sampl_vars.empty());
+        assert(sampl_vars.empty());
+        assert(orig_sampl_vars_set == false);
+        assert(orig_sampl_vars.empty());
+        assert(sampl_vars_set == false);
+        assert(opt_sampl_vars_set == false);
+        need_aig = true;
+    }
+    [[nodiscard]] bool get_need_aig() const { return need_aig; }
+    [[nodiscard]] uint32_t num_defs() const { return defs.size(); }
+
+    // Returns NEW vars, i.e. < nVars()
+    // It is checked that it is correct and total
+    VarTypes get_var_types([[maybe_unused]] uint32_t verb, const std::string& str = "") const;
+
+    [[nodiscard]] bool check_all_opt_sampl_vars_depend_only_on_orig_sampl_vars() const;
+    [[nodiscard]] bool check_orig_sampl_vars_undefined() const;
+    [[nodiscard]] bool defs_invariant() const;
+
+    // Orig vars this AIG depends on, recursively expanding defined vars. Unique
+    // but NOT sorted. The returned ref points into dc.cache; it stays valid
+    // until dc is cleared or destroyed.
+    const std::vector<uint32_t>& get_dependent_vars_recursive(const uint32_t orig_v, DepCache& dc) const;
+
+    [[nodiscard]] bool check_aig_cycles() const;
+    void check_self_dependency() const;
+    void check_cnf_vars() const;
+
+    // all vars are either: in orig_sampl_vars, defined, or in the cnf
+    void check_all_vars_accounted_for() const;
+
+    // this checks that NO unsat-define has been made yet
+    void check_pre_post_backward_round_synth() const;
+
+    void set_all_opt_indep();
+    void add_opt_sampl_var(const uint32_t v);
+    void clean_idiotic_mccomp_weights();
+    void check_cnf_sampl_sanity() const;
+
+    // Gives all the orig lits that map to this variable
+    [[nodiscard]] std::map<uint32_t, std::vector<CMSat::Lit>> get_new_to_orig_var_list() const;
+
+    // Gives an example lit, sometimes good enough
+    [[nodiscard]] std::map<uint32_t, CMSat::Lit> get_new_to_orig_var() const;
+
+    uint32_t new_vars(uint32_t vars);
+    uint32_t new_var();
+
+    void start_with_clean_sampl_vars();
+    void check_var(const uint32_t v) const;
+    void check_clause(const std::vector<CMSat::Lit>& cl) const;
+    void add_xor_clause(const std::vector<uint32_t>&, bool) const { exit(EXIT_FAILURE); }
+    void add_xor_clause(const std::vector<CMSat::Lit>&, bool) const { exit(EXIT_FAILURE); }
+    // Normalize: sort+unique to drop duplicate literals; return false if the
+    // clause is a tautology (x ∨ ¬x) and should be skipped.
+    static bool normalize_clause(std::vector<CMSat::Lit>& cl) {
+        std::sort(cl.begin(), cl.end());
+        cl.erase(std::unique(cl.begin(), cl.end()), cl.end());
+        for (size_t i = 1; i < cl.size(); i++) {
+            if (cl[i].var() == cl[i-1].var()) return false;
+        }
+        return true;
+    }
+    void add_clause(const std::vector<CMSat::Lit>& cl) {
+        check_clause(cl);
+        std::vector<CMSat::Lit> tmp(cl);
+        if (!normalize_clause(tmp)) return;
+        clauses.push_back(std::move(tmp));
+    }
+    void add_red_clause(const std::vector<CMSat::Lit>& cl) {
+        check_clause(cl);
+        std::vector<CMSat::Lit> tmp(cl);
+        if (!normalize_clause(tmp)) return;
+        red_clauses.push_back(std::move(tmp));
+    }
+    [[nodiscard]] bool get_sampl_vars_set() const { return sampl_vars_set; }
+    [[nodiscard]] bool get_opt_sampl_vars_set() const { return opt_sampl_vars_set; }
+
+    template<class T>
+    void set_sampl_vars(const T& vars, bool ignore = false) {
+        if (!ignore) {
+            if (sampl_vars_set) {
+              std::cout << "ERROR: Sampling variables have already been set, you can't set them twice!"
+                << std::endl;
+              std::cout << "       Maybe you have two 'c p show' lines in your file?" << std::endl;
+              exit(EXIT_FAILURE);
+            }
+            assert(sampl_vars.empty());
+            assert(opt_sampl_vars_set == false);
+            assert(opt_sampl_vars.empty());
+        }
+        sampl_vars.clear();
+        sampl_vars_set = true;
+        std::set<uint32_t> tmp(vars.begin(), vars.end());
+        sampl_vars.insert(sampl_vars.begin(), tmp.begin(), tmp.end());
+        if (!opt_sampl_vars_set) set_opt_sampl_vars(vars);
+    }
+    template<class T> void set_opt_sampl_vars(const T& vars) {
+        opt_sampl_vars.clear();
+        opt_sampl_vars_set = true;
+        std::set<uint32_t> tmp(vars.begin(), vars.end());
+        opt_sampl_vars.insert(opt_sampl_vars.begin(), tmp.begin(), tmp.end());
+    }
+
+    template<class T2>
+    void remove_sampling_vars(const T2& zero_assigned) {
+        std::set sampl_vars2(get_sampl_vars().begin(), get_sampl_vars().end());
+        std::set opt_sampl_vars2(get_opt_sampl_vars().begin(), get_opt_sampl_vars().end());
+        for(const auto& l: zero_assigned) {
+            assert(l.var() < nvars);
+            sampl_vars2.erase(l.var());
+            opt_sampl_vars2.erase(l.var());
+        }
+        set_sampl_vars(sampl_vars2, true);
+        set_opt_sampl_vars(opt_sampl_vars2);
+    }
+
+    void check_field_weighted() const {
+        if (fg->weighted()) return;
+        std::cout << "ERROR: Formula is weighted but the field is not weighted!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    void set_multiplier_weight(const std::unique_ptr<CMSat::Field>& m) {
+        *multiplier_weight = *m;
+    }
+    [[nodiscard]] const auto& get_multiplier_weight() const { return multiplier_weight; }
+    [[nodiscard]] auto get_lit_weight(CMSat::Lit lit) const {
+        assert(weighted);
+        check_field_weighted();
+        assert(lit.var() < nVars());
+        auto it = weights.find(lit.var());
+        if (it == weights.end()) return fg->one();
+        if (!lit.sign()) return it->second.pos->dup();
+        return it->second.neg->dup();
+    }
+    void unset_var_weight(uint32_t v) {
+        assert(v < nVars());
+        auto it = weights.find(v);
+        if (it != weights.end()) weights.erase(it);
+    }
+
+    void set_lit_weight(CMSat::Lit lit, const std::unique_ptr<CMSat::Field>& w) {
+        set_lit_weight(lit, *w);
+    }
+    void set_lit_weight(CMSat::Lit lit, const CMSat::Field& w) {
+        check_var(lit.var());
+        assert(weighted);
+        check_field_weighted();
+        assert(lit.var() < nVars());
+        auto it = weights.find(lit.var());
+        if (it == weights.end()) {
+            Weight weight(fg);
+            if (lit.sign()) {
+                *weight.neg = w;
+                *weight.pos = *fg->one();
+                *weight.pos -= w;}
+            else {
+                *weight.pos = w;
+                *weight.neg = *fg->one();
+                *weight.neg -= w;}
+            weights[lit.var()] = weight;
+            return;
+        }
+        if (!lit.sign())
+            *it->second.pos = w;
+        else
+            *it->second.neg = w;
+
+    }
+    void set_weighted(bool _weighted) { weighted = _weighted; }
+    void set_projected(bool _projected) { proj = _projected; }
+    [[nodiscard]] bool get_weighted() const { return weighted; }
+    [[nodiscard]] bool get_projected() const { return proj; }
+    void clear_weights_for_nonprojected_vars() {
+        if (!weighted) return;
+        std::set<uint32_t> tmp(sampl_vars.begin(), sampl_vars.end());
+        for(uint32_t i = 0; i < nVars(); i++) {
+            if (tmp.count(i) == 0) unset_var_weight(i);
+        }
+    }
+
+    void map_cl(std::vector<CMSat::Lit>& cl, const std::vector<uint32_t>& v_map) const {
+        for(auto& l: cl) l = CMSat::Lit(v_map[l.var()], l.sign());
+    }
+    void map_var(std::vector<uint32_t>& cl, const std::vector<uint32_t>& v_map) const {
+        for(auto& l: cl) l = v_map[l];
+    }
+    [[nodiscard]] std::set<uint32_t> map_var(const std::set<uint32_t>& cl, const std::vector<uint32_t>& v_map) const {
+        std::set<uint32_t> new_set;
+        for(const auto& l: cl) new_set.insert(v_map[l]);
+        return new_set;
+    }
+
+    void strip_opt_sampling_vars() {
+        std::set<uint32_t> tmp(sampl_vars.begin(), sampl_vars.end());
+        for(const auto& w: weights) tmp.insert(w.first);
+        sampl_vars.clear();
+        sampl_vars.insert(sampl_vars.begin(), tmp.begin(), tmp.end());
+        opt_sampl_vars = sampl_vars;
+    }
+
+    // renumber variables such that sampling set start from 0...N
+    void renumber_sampling_vars_for_ganak();
+    // Generic renumbering: map_here_to_there[v] is the new index of v, or
+    // UINT32_MAX for a var that no longer occurs anywhere.
+    void renumber_vars(const std::vector<uint32_t>& map_here_to_there, uint32_t new_nvars);
+    void set_all_clauses(std::vector<std::vector<CMSat::Lit>>&& cls,
+                         std::vector<std::vector<CMSat::Lit>>&& red);
+
+    void write_simpcnf(const std::string& fname, bool red = true) const;
+    // Removes the clauses blocked on an existential literal. Keeps, for every
+    // X, whether it has a Y, but not the Skolem functions. Returns the number removed
+    uint32_t bce_2qbf(std::vector<std::vector<CMSat::Lit>>& cls) const;
+
+    [[nodiscard]] bool weight_set(uint32_t v) const {
+        check_var(v);
+        check_field_weighted();
+        return weights.count(v) > 0;
+    }
+
+    void remove_equiv_weights() {
+        if (!weighted) return;
+
+        constexpr bool debug_w = false;
+        std::set<uint32_t> tmp(opt_sampl_vars.begin(), opt_sampl_vars.end());
+        for(uint32_t i = 0; i < nvars; i++) {
+            CMSat::Lit l(i, false);
+            if (tmp.count(i) == 0) continue;
+
+            if (weights.count(l.var()) && *get_lit_weight(l) == *get_lit_weight(~l)) {
+                if (debug_w)
+                    std::cout << __FUNCTION__ << " Removing equiv weight for " << l
+                        << " get_lit_weight(l): " << *get_lit_weight(l) << std::endl;
+                *multiplier_weight *= *get_lit_weight(l);
+                unset_var_weight(i);
+            }
+        }
+    }
+
+    void fix_weights(std::unique_ptr<CMSat::SATSolver>& solver,
+            const std::vector<uint32_t>& new_sampl_vars,
+            const std::vector<uint32_t>& empty_sampling_vars);
+
+    CMSat::lbool evaluate(const std::vector<CMSat::lbool>& vals, uint32_t var, std::map<aig_lit, CMSat::lbool>& cache ) const;
+
+    // returns in CNF (NEW VARS) the dependencies of each variable
+    // input is also NEW VARS
+    [[nodiscard]] std::map<uint32_t, std::set<uint32_t>> compute_dependencies(const std::set<uint32_t>& vars) const;
+
+    // Binary, packed writing
+    void write_aig_defs_to_file(const std::string& fname) const;
+    void read_aig_defs_from_file(const std::string& fname);
+    void write_aig_defs(std::ofstream& out) const;
+    void read_aig_defs(std::ifstream& in);
+
+    // human-readable writing
+    void write_aig_defs_to_file_txt(const std::string& fname) const;
+
+    // Verilog: only the functions over the orig sampl vars, no CNF
+    void write_aig_def_to_verilog(const std::string& fname) const;
+    void read_aig_defs_from_verilog(const std::string& fname);
+
+    [[nodiscard]] std::vector<CMSat::lbool> extend_sample(const std::vector<CMSat::lbool>& sample, const bool relaxed = false) const;
+
+    void map_aigs_to_orig(const std::vector<aig_lit>& aigs, const uint32_t max_num_vars,
+            std::optional<std::reference_wrapper<const std::map<uint32_t, CMSat::Lit>>> back_map = std::nullopt);
+
+    SimplifiedCNF get_cnf(
+            std::unique_ptr<CMSat::SATSolver>& solver,
+            const std::vector<uint32_t>& new_sampl_vars,
+            const std::vector<uint32_t>& empty_sampl_vars,
+            uint32_t verb
+    ) const;
+
+    // when 2 vars point to the same new var, we must set define one by the other.
+    // We must prefer orig_sampl_vars to remain undefined, and define the other by it.
+    void fix_mapping_after_renumber(SimplifiedCNF& scnf, const uint32_t verb) const;
+
+    void get_fixed_values(SimplifiedCNF& scnf, std::unique_ptr<CMSat::SATSolver>& solver) const;
+    void add_fixed_values(const std::vector<CMSat::Lit>& fixed);
+
+    // Get back BVE AIGs into scnf.defs
+    void get_bve_mapping(SimplifiedCNF& scnf, std::unique_ptr<CMSat::SATSolver>& solver, const uint32_t verb) const;
+
+    // SAT-based check that each def[v] is semantically correct against
+    // orig_clauses. Returns -1 if all correct, else the var index whose
+    // def is wrong. Expensive; intended for debugging BVE/synthesis issues.
+    [[nodiscard]] int check_synth_funs_sat() const;
+
+    // An X with ~F(X, defs(X)) for the clauses, or empty. Over orig vars
+    [[nodiscard]] std::vector<CMSat::lbool> get_2qbf_cex() const;
+    // No Y extends X to a model of the orig clauses. For debugging
+    [[nodiscard]] bool is_2qbf_cex(const std::vector<CMSat::lbool>& cex) const;
+    // cls, over the CNF's vars, over orig vars instead
+    [[nodiscard]] std::vector<std::vector<CMSat::Lit>> to_orig_cls(
+            const std::vector<std::vector<CMSat::Lit>>& cls) const;
+    // Simplification defines an orig sampl var only by what F implies: a unit,
+    // or an equivalence with another one. An X that breaks that def has no Y.
+    // Empty if no orig sampl var is defined: then the clauses are the 2QBF,
+    // and the orig sampl vars not in them are free
+    [[nodiscard]] std::vector<CMSat::lbool> get_2qbf_def_cex() const;
+
+    void set_backbone_done(const bool bb_done) {
+        backbone_done = bb_done;
+    }
+
+    [[nodiscard]] std::vector<std::vector<uint32_t>> find_disconnected() const;
+
+    // Used after SBVA to replace clauses
+    void replace_clauses_with(std::vector<int>& ret, uint32_t new_nvars, uint32_t new_nclauses);
+
+    void set_after_backward_round_synth() {
+        assert(!after_backward_round_synth && "Should only be set once");
+        after_backward_round_synth = true;
+    }
+    [[nodiscard]] const auto& get_orig_to_new_var() const {
+        return orig_to_new_var;
+    }
+
+    [[nodiscard]] CMSat::Lit orig_to_new_lit(const CMSat::Lit l) const {
+        assert(l.var() < defs.size());
+        assert(orig_to_new_var.count(l.var()));
+        CMSat::Lit k = orig_to_new_var.at(l.var());
+        return k ^ l.sign();
+    }
+
+    // Get AIG definition for a variable (in ORIG numbering)
+    [[nodiscard]] const aig_lit& get_def(uint32_t v) const {
+        assert(v < defs.size());
+        return defs[v];
+    }
+
+    void set_def(const uint32_t v_orig, const aig_lit& def);
+    void clear_orig_sampl_defs();
+    void simplify_aigs(const uint32_t verb = 0) {
+        assert(need_aig);
+        AIG::simplify_aigs(verb, defs);
+    }
+    void rewrite_aigs(const uint32_t verb = 0, bool balance = false);
+    [[nodiscard]] size_t num_def_nodes() const {
+        std::vector<aig_lit> roots;
+        for (const auto& d : defs) if (d != nullptr) roots.push_back(d);
+        return AIG::count_aig_nodes_fast(roots);
+    }
+    [[nodiscard]] const auto& get_aig_mng() const { return aig_mng; }
+    void check_red_cls_deriveable() const;
+
+private:
+    bool after_backward_round_synth = false;
+    bool need_aig = false;
+    std::vector<std::vector<CMSat::Lit>> clauses;
+    std::vector<std::vector<CMSat::Lit>> red_clauses;
+    bool proj = false;
+    bool sampl_vars_set = false;
+    bool opt_sampl_vars_set = false;
+    std::vector<uint32_t> sampl_vars;
+    std::vector<uint32_t> opt_sampl_vars; // During synthesis this is EXACTY the same as sampl_vars
+
+    uint32_t nvars = 0;
+    std::unique_ptr<CMSat::Field> multiplier_weight = nullptr;
+    bool weighted = false;
+    bool backbone_done = false;
+    struct Weight {
+        Weight() = default;
+        std::unique_ptr<CMSat::Field> pos;
+        std::unique_ptr<CMSat::Field> neg;
+        Weight(std::unique_ptr<CMSat::FieldGen>& fg) : pos(fg->one()), neg(fg->one()) {}
+
+        Weight(const Weight& other) :
+            pos (other.pos->dup()),
+            neg (other.neg->dup()) {}
+        Weight& operator=(const Weight& other) {
+            pos = other.pos->dup();
+            neg = other.neg->dup();
+            return *this;
+        }
+    };
+    std::map<uint32_t, Weight> weights;
+    std::map<uint32_t, CMSat::Lit> orig_to_new_var; // ONLY maps in the CNF
+                                                    // does NOT map to vars NOT in the CNF
+    uint32_t n_no_touch = 0; // 'c p no-touch': ORIG vars 0..n_no_touch-1 keep their numbers in the CNF
+    uint32_t num_quant_blocks = 0;
+    bool exists_block_seen = false;
+    uint32_t bad_quant_block = 0; // 1st 'a' block after an 'e' one, counted from 1. 0: forall-exists
+    std::set<uint32_t> quant_vars;
+    AIGManager aig_mng; // only for const true/false
+    std::vector<aig_lit> defs; //Definition of variables in terms of AIG. ORIGINAL number space.
+                               //Size is the original number of variables, ALWAYS
+                               //Full of nullptr-s in case synthesis is not needed
+
+    void check_synth_funs_randomly() const;
+    bool orig_sampl_vars_set = false;
+    std::set<uint32_t> orig_sampl_vars;
+    // debug
+    std::vector<std::vector<CMSat::Lit>> orig_clauses;
+};
+
+
+struct ArjPrivateData;
+#ifdef _WIN32
+class __declspec(dllexport) Arjun
+#else
+class Arjun
+#endif
+{
+public:
+    Arjun();
+    ~Arjun();
+    static std::string get_version_sha1();
+    static std::string get_thanks_info(const char* prefix = "c o ");
+    static std::string get_sbva_version_sha1();
+    static std::string get_compilation_env();
+    static std::string get_solver_version_sha1();
+    static std::string get_solver_thanks_info(const char* prefix);
+
+    struct ElimToFileConf {
+        bool all_indep = false;
+        bool do_extend_indep = true;
+        int num_sbva_steps = 1000;
+        uint32_t sbva_cls_cutoff = 4;
+        uint32_t sbva_lits_cutoff = 5;
+        int sbva_tiebreak = 1;
+        uint32_t sbva_max_new_vars = 1000;
+        bool do_renumber = true;
+        bool do_autarky = true;
+        double cover_drop_mticks = 0; // see standalone_cover_drop. 0 = off
+        uint32_t cover_drop_max_cubes = 0;
+        bool cover_drop_weighted_as_x = true;
+        bool cover_drop_sat_minim = true;
+        uint32_t cover_drop_sls_flips = 0;
+        uint32_t cover_drop_sls_stall = 30;
+        bool cover_drop_minim_cubes = true;
+    };
+    struct InterpConf {
+        uint32_t interp_rebuild_every = 50;
+        uint32_t interp_max_confl = 30000;
+        uint64_t interp_rebuild_max_confl = 500000;
+    };
+    struct CegrConf {
+        CegrConf() = default;
+        CegrConf(const CegrConf& other) = default;
+
+        // Learning a skolem function
+        int filter_samples = 1;
+        uint32_t samples = 5000;
+        uint32_t min_leaf_size = 10;
+        double min_gain_split = 0.001;
+        uint32_t max_depth = 0;
+        int learn_input_only = 0; // ML features are the input vars only, no already-defined y vars
+
+        uint32_t sampler_fixed_conflicts = 100;
+        int minimize_conflict = 1;
+        std::string write_cegr_cnf;
+        int maxsat_better_ctx = 0;
+        int do_unique_input_samples = 1;
+        int ctx_solver_type = 1;
+        int ctx_light_inproc = 2; // cex_solver: 1 = no lucky-under-assumptions, 2 = also no inprobing/congruence/sweep/factor
+        int repair_solver_type = 1;
+        int repair_cache_size = 1000;
+        int cegr_base = 0;
+        int seed = -1; // -1 = inherit the global --seed
+        int one_repair_per_loop = 0;
+        int force_bw_equal = 1;
+        int inv_guess = 0;
+        int32_t max_repairs = std::numeric_limits<int32_t>::max();
+        uint32_t restart = 10000;
+        int check_repair = 0;
+        std::string ganak_binary; // to check if count of error formula is strictly monotonic
+
+        // Hard-coded cutoffs now configurable
+        uint32_t stats_every = 40;          // print stats every N repair loops
+        uint32_t detailed_stats_every = 600;// print detailed stats every N repair loops
+        uint32_t conflict_drop_y_max = 25;  // max conflict size to try dropping y-vars
+        uint32_t batch_minim_min = 6;       // min conflict size for batch minimization
+        uint32_t minim_budget_threshold = 20; // conflict size above which budget is capped
+        uint32_t minim_budget_max = 150;    // max minimization solver calls
+        uint32_t minim_budget_mult = 4;     // budget = conflict.size * mult (up to max)
+        // Adaptive consecutive cost-zero break threshold
+        uint32_t cz_high_ratio = 3;         // cost_zero > tot_repaired * cz_high_ratio triggers tight threshold
+        uint32_t cz_low_ratio = 2;          // cost_zero > tot_repaired * cz_low_ratio triggers medium threshold
+        uint32_t cz_threshold_high = 1;     // consecutive cost-zero break threshold (high ratio)
+        uint32_t cz_threshold_mid = 2;      // consecutive cost-zero break threshold (medium ratio)
+        uint32_t cz_threshold_low = 3;      // consecutive cost-zero break threshold (low ratio)
+
+        // Brute-force synthesis (--bruteforcesynth 1). Max |orig_sampl_cnf|; each undet y allocates a 2^N table, so >~20 OOMs.
+        uint32_t brute_force_synth_threshold = 16;
+        int brute_force_synth_minim = 1;         // dry-run backward minim to shrink the enum domain before enumerating
+        uint32_t brute_force_synth_minim_max = 40; // only try the minim pre-pass when |orig_sampl_cnf| is at most this
+
+        std::string cegr_base_str() const {
+            switch (cegr_base) {
+                case 0: return "[LEARN]";
+                case 1: return "[CONST]";
+                case 2: return "[BVE]";
+                case 3: return "[RND]";
+                default: return "[UNKNOWN]";
+            }
+        }
+    };
+
+    // Model covering, see cover.h
+    struct CoverConf {
+        double budget = 100000; // a refinement naming fraction f of the helpers costs f^2: next to nothing while it converges
+        uint64_t max_ticks = 0; // of SAT solver work, 0 = no limit
+        bool stop_at_cex = false; // return the first X with no Y, instead of skipping its cube
+        bool need_funs = true; // false: l_True comes with no Skolem functions, only the verdict
+        bool sat_minim = true; // shorten a refinement: a model, of the same X, whose existentials satisfy more clauses
+        uint32_t max_minim_calls = 50; // per round, for sat_minim
+        uint32_t max_minim_wait = 7; // a helper that a core kept out of the model sits out 1, 3, 7.. of its next tries
+        uint32_t sls_flips = 0; // before sat_minim, per round: flips of a local search that keeps every clause true, for fewer helpers with a false y part
+        uint32_t sls_stall = 30; // sls stops after this many flips with no better model
+        uint32_t stats_every = 1000; // rounds
+    };
+
+    struct IndepInfo {
+        std::vector<std::pair<CMSat::Lit, CMSat::Lit>> eq_lits;
+        std::vector<CMSat::Lit> backbone;
+        std::vector<uint32_t> free_vars;
+    };
+
+    /// Standalone functions
+    ///
+    IndepInfo standalone_minimize_indep_info(SimplifiedCNF& cnf, const InterpConf& iconf, bool all_indep);
+    void standalone_minimize_indep(SimplifiedCNF& cnf, const InterpConf& iconf, bool all_indep);
+    void standalone_backward_round_synth(SimplifiedCNF& cnf, const InterpConf& iconf);
+    void standalone_extend_sampl_set(SimplifiedCNF& cnf, const InterpConf& iconf);
+    bool standalone_check_extend(const SimplifiedCNF& cnf, const InterpConf& iconf);
+    void standalone_extend_synth(SimplifiedCNF& cnf, const InterpConf& iconf);
+    void standalone_unate_def(SimplifiedCNF& cnf);
+    void standalone_elim_to_file(SimplifiedCNF& cnf,
+            const ElimToFileConf& etof_conf, const SimpConf& simp_conf, const InterpConf& iconf);
+    SimplifiedCNF standalone_get_simplified_cnf(const SimplifiedCNF& cnf, const SimpConf& simp_conf);
+    void standalone_backbone(SimplifiedCNF& cnf, int64_t max_confl = 20000);
+    void standalone_sbva(SimplifiedCNF& orig,
+        int64_t sbva_steps = 200, uint32_t sbva_cls_cutoff = 2,
+        uint32_t sbva_lits_cutoff = 2, int sbva_tiebreak = 1,
+        uint32_t sbva_max_new_vars = 0);
+    SimplifiedCNF standalone_cegr(SimplifiedCNF&& cnf, const CegrConf& cegr_conf);
+    SimplifiedCNF standalone_brute_force_synth(SimplifiedCNF&& cnf, const CegrConf& cegr_conf, const InterpConf& iconf);
+    void standalone_autarky(SimplifiedCNF& cnf);
+    CMSat::lbool standalone_cover(SimplifiedCNF& cnf, const CoverConf& cover_conf, std::vector<CMSat::lbool>& cex);
+    // Projected counting: removes the clauses over non-sampling vars that,
+    // together, have a model for every X the sampling-only clauses allow.
+    // max_cubes != 0: also replaces them by at most this many clauses over X
+    // that rule out the X with no model. weighted_as_x: the weighted opt
+    // sampling vars are taken as sampling ones. Returns the clauses removed, net
+    int64_t standalone_cover_drop(SimplifiedCNF& cnf, const ElimToFileConf& etof_conf);
+
+    //Set config
+    void set_verb(uint32_t verb);
+    void set_distill(bool distill);
+    void set_intree(bool intree);
+    void set_simp(int simp);
+    void set_bve_pre_simplify(bool bve_pre_simp);
+    void set_or_gate_based(bool or_gate_based);
+    void set_xor_gates_based(bool xor_gates_based);
+    void set_probe_based(bool probe_based);
+    void set_backward(bool backward);
+    void set_backw_max_confl(uint32_t backw_max_confl);
+    void set_gauss_jordan(bool gauss_jordan);
+    void set_find_xors(bool find_xors);
+    void set_ite_gate_based(bool ite_gate_based);
+    void set_irreg_gate_based(const bool irreg_gate_based);
+    void set_no_gates_below(double no_gates_below);
+    void set_specified_order_fname(std::string specified_order_fname);
+    void set_dump_restart_aig(std::string dump_restart_aig);
+    void set_weighted(const bool);
+    void set_extend_max_confl(uint32_t extend_max_confl);
+    void set_unate_def_max_confl(uint32_t unate_def_max_confl);
+    void set_unate_def_max_confl_total(uint32_t unate_def_max_confl_total);
+    void set_unate_def_eq(int unate_def_eq);
+    void set_unate_def_eq_max_per_var(uint32_t unate_def_eq_max_per_var);
+    void set_unate_def_eq_max_confl(uint32_t unate_def_eq_max_confl);
+    void set_unate_def_eq_dry_streak(uint32_t unate_def_eq_dry_streak);
+    void set_unate_def_eq_noninput(int unate_def_eq_noninput);
+    void set_oracle_find_bins(int oracle_find_bins);
+    void set_cms_glob_mult(double cms_glob_mult);
+    void set_cms_abs_budget(int cms_abs_budget);
+    void set_cms_sweep(int cms_sweep);
+    void set_extend_ccnr(int extend_ccnr);
+    void set_seed(uint32_t seed);
+
+    //Get config
+    [[nodiscard]] uint32_t get_verb() const;
+    [[nodiscard]] std::string get_specified_order_fname() const;
+    [[nodiscard]] std::string get_dump_restart_aig() const;
+    [[nodiscard]] double get_no_gates_below() const;
+    [[nodiscard]] int get_simp() const;
+    [[nodiscard]] bool get_distill() const;
+    [[nodiscard]] bool get_intree() const;
+    [[nodiscard]] bool get_bve_pre_simplify() const;
+    [[nodiscard]] bool get_or_gate_based() const;
+    [[nodiscard]] bool get_xor_gates_based() const;
+    [[nodiscard]] bool get_probe_based() const;
+    [[nodiscard]] bool get_backward() const;
+    [[nodiscard]] uint32_t get_backw_max_confl() const;
+    [[nodiscard]] bool get_gauss_jordan() const;
+    [[nodiscard]] bool get_find_xors() const;
+    [[nodiscard]] bool get_ite_gate_based() const;
+    [[nodiscard]] bool get_irreg_gate_based() const;
+    [[nodiscard]] uint32_t get_extend_max_confl() const;
+    [[nodiscard]] uint32_t get_unate_def_max_confl() const;
+    [[nodiscard]] uint32_t get_unate_def_max_confl_total() const;
+    [[nodiscard]] int get_unate_def_eq() const;
+    [[nodiscard]] uint32_t get_unate_def_eq_max_per_var() const;
+    [[nodiscard]] uint32_t get_unate_def_eq_max_confl() const;
+    [[nodiscard]] uint32_t get_unate_def_eq_dry_streak() const;
+    [[nodiscard]] int get_unate_def_eq_noninput() const;
+    [[nodiscard]] int get_oracle_find_bins() const;
+    [[nodiscard]] double get_cms_glob_mult() const;
+    [[nodiscard]] int get_cms_abs_budget() const;
+    [[nodiscard]] int get_cms_sweep() const;
+    [[nodiscard]] int get_extend_ccnr() const;
+    [[nodiscard]] uint32_t get_seed() const;
+
+private:
+    ArjPrivateData* arjdata = nullptr;
+};
+
+} // end namespace
+
+namespace std {
+template<> struct hash<ArjunNS::aig_lit> {
+    size_t operator()(const ArjunNS::aig_lit& a) const noexcept {
+        // Hash on monotonic nid + edge sign, not the raw pointer, whose
+        // ASLR-dependent buckets would leak non-determinism (see CLAUDE.md).
+        const uint64_t nid = a.node ? a.node->nid : 0;
+        return std::hash<uint64_t>{}(nid) ^ (a.neg ? 0x9e3779b97f4a7c15ULL : 0);
+    }
+};
+} // namespace std

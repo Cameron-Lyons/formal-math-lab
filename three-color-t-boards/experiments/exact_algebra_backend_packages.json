@@ -1,0 +1,42 @@
+[
+  {
+    "name": "cddlib",
+    "version": "1:0.94n-1",
+    "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/cddlib-1:0.94n-1-x86_64.pkg.tar.zst",
+    "sha256": "513a961646ec8feebca32b04c383eed9eb6c3f1a0b9b06d3cde25978a41df935",
+    "archive": "exact_algebra_backend_packages/cddlib-1:0.94n-1-x86_64.pkg.tar.zst",
+    "repository": "configured official Arch repository"
+  },
+  {
+    "name": "flint",
+    "version": "3.6.0-1",
+    "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/flint-3.6.0-1-x86_64.pkg.tar.zst",
+    "sha256": "0041b55642ec21a9259a801286b65dc7a878eff316f3c9163c4fd5a0fd56068d",
+    "archive": "exact_algebra_backend_packages/flint-3.6.0-1-x86_64.pkg.tar.zst",
+    "repository": "configured official Arch repository"
+  },
+  {
+    "name": "gf2x",
+    "version": "1.3.0-3",
+    "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/gf2x-1.3.0-3-x86_64.pkg.tar.zst",
+    "sha256": "ba1363c915f6ff42a81a2c33051a9e6b4f7397699d47df405bcff817ecb1e2d7",
+    "archive": "exact_algebra_backend_packages/gf2x-1.3.0-3-x86_64.pkg.tar.zst",
+    "repository": "configured official Arch repository"
+  },
+  {
+    "name": "ntl",
+    "version": "11.6.0-2",
+    "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/ntl-11.6.0-2-x86_64.pkg.tar.zst",
+    "sha256": "f0518cab7236d5bdc7eb9c3abc93859be288ae8254a094ecc4ad3469cd990dd2",
+    "archive": "exact_algebra_backend_packages/ntl-11.6.0-2-x86_64.pkg.tar.zst",
+    "repository": "configured official Arch repository"
+  },
+  {
+    "name": "singular",
+    "version": "4.4.1.p5-11",
+    "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/singular-4.4.1.p5-11-x86_64.pkg.tar.zst",
+    "sha256": "95cc47472741212cf8ad8df81f2a5837bd718fa9b0768a7c7ea8e97308286e07",
+    "archive": "exact_algebra_backend_packages/singular-4.4.1.p5-11-x86_64.pkg.tar.zst",
+    "repository": "configured official Arch repository"
+  }
+]

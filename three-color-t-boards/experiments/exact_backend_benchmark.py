@@ -69,15 +69,16 @@ def run(name, path, seconds, expected=None):
     traces = []
     for line in contents.splitlines():
         if line.startswith('c exact_backend_trace '):
-            traces.append({key: float(value) if key == 'cpu' else int(value)
+            traces.append({('solver_elapsed_seconds' if key == 'cpu' else key):
+                           float(value) if key == 'cpu' else int(value)
                            for key, value in re.findall(r'(\w+)=(-?[\d.]+)', line)})
     periodic = []
     for line in contents.splitlines():
         if re.match(r'^c\s+\d+\s+\|', line):
             values = [v.strip() for v in line[1:].split('|') if v.strip()]
             if len(values) == 10:
-                periodic.append(dict(zip(['calls', 'cpu', 'cache_hits', 'cache_misses',
-                                          'split_components', 'memory_mb', 'equiv_calls',
+                periodic.append(dict(zip(['calls', 'solver_elapsed_seconds', 'cache_hits', 'cache_misses',
+                                          'split_components', 'solver_virtual_peak_mb', 'equiv_calls',
                                           'decisions', 'partition_calls', 'cache_limit'],
                                          [float(x) if i == 1 else int(x)
                                           for i, x in enumerate(values)])))
@@ -97,6 +98,7 @@ def run(name, path, seconds, expected=None):
                   integer_mode=integer_mode, counting_all_variables=True,
                   limit_wall_seconds=seconds, wall_seconds=round(time.monotonic()-started, 3),
                   user_seconds=round(usage.ru_utime, 3), system_seconds=round(usage.ru_stime, 3),
+                  cpu_seconds=round(usage.ru_utime + usage.ru_stime, 3),
                   max_rss_kb=usage.ru_maxrss, decision_traces=traces,
                   last_periodic_stats=periodic[-1] if periodic else None,
                   final_stats=final_stats,

@@ -1,0 +1,52 @@
+{
+  "model": "fixture:domain1",
+  "field": "F2",
+  "variables": 1,
+  "generators": 1,
+  "algorithm": "slimgb",
+  "ordering": "dp",
+  "ring_type": "ordinary polynomial ring",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/bin/Singular",
+    "-q"
+  ],
+  "script_sha256": "f56e5a40178fe1f04b31de65fd4273c9d94b99c1f5ffe24f74d16f444bb3d7d3",
+  "script": "experiments/exact_algebra_backend_guard_check.sing",
+  "timeout_seconds": 5.0,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "wall_timeout_reached": false,
+  "basis_complete": true,
+  "leading_monomials_file": "experiments/exact_algebra_backend_guard_check.leading.json",
+  "monomial_dimension": 3,
+  "monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "elapsed_seconds": 0.001177643000119133
+  },
+  "independent_monomial_dimension": 3,
+  "independent_monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "box_leaves": 1,
+    "zero_leaves": 0,
+    "component_factorizations": 0,
+    "interval_branches": 0,
+    "antichain_removed": 0,
+    "max_depth": 0,
+    "variables": 1,
+    "input_generators": 1,
+    "cached_states": 1,
+    "count_bit_length": 2,
+    "unit_ideal": false
+  },
+  "krull_dimension": 0,
+  "basis_size": 1,
+  "status": "COMPLETE",
+  "quotient_dimension": 3,
+  "dimension_decimal": "3",
+  "hilbert_dimension": 3,
+  "vdim_diagnostic": 3,
+  "child_cpu_seconds": 0.012354,
+  "elapsed_seconds": 0.03209562800111598
+}

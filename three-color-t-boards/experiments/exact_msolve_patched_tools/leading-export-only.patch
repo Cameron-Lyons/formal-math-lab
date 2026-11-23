@@ -1,0 +1,29 @@
+--- a/src/msolve/msolve.c
++++ b/src/msolve/msolve.c
+@@ -1669,12 +1669,26 @@
+     int32_t empty_solution_set = 1;
+     bs_t *bs = core_gba(gbg, md, &error, fc);
+ 
++    if (error != 0 || bs == NULL) {
++        fprintf(ERRSTREAM, "Error: Groebner basis computation did not complete.\n");
++        exit(EXIT_FAILURE);
++    }
++
+     md->learning_rtime = realtime()-rt;
+     print_tracer_statistics(VERBSTREAM, rt, md);
+ 
+     get_leading_ideal_information(num_gb, leadmons, 0, bs);
+ 
+     print_groebner_basis(files, gens, bs, md, fc);
++
++    /* Prime-field -g output is complete here. Do not enumerate its staircase. */
++    if (print_gb > 0 && gens->field_char > 0) {
++        fprintf(VERBSTREAM, "MSOLVE_PRIME_GB_EXPORT_COMPLETE\n");
++        fflush(VERBSTREAM);
++        free_basis_without_hash_table(&(bs));
++        free(bs);
++        return NULL;
++    }
+ 
+     empty_solution_set = check_for_single_element_groebner_basis(dim, dquot_ori,
+                                                                  bs, leadmons, 0,

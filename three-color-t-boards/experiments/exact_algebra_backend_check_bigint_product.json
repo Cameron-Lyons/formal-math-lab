@@ -1,0 +1,51 @@
+{
+  "model": "fixture:bigint-product",
+  "field": "F2",
+  "variables": 10,
+  "generators": 10,
+  "algorithm": "std",
+  "ordering": "dp",
+  "ring_type": "ordinary polynomial ring",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/bin/Singular",
+    "-q"
+  ],
+  "script_sha256": "2e7843bbf1f7055377d19c4f9ee7a31495b59c4f3de0e7da598dc5e774a3413d",
+  "script": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_check_bigint_product.sing",
+  "timeout_seconds": 10,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "wall_timeout_reached": false,
+  "basis_complete": true,
+  "leading_monomials_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_check_bigint_product.leading.json",
+  "monomial_dimension": 100000000000000000000,
+  "monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "elapsed_seconds": 8.0647998402128e-05
+  },
+  "independent_monomial_dimension": 100000000000000000000,
+  "independent_monomial_counter": {
+    "states": 1,
+    "cache_hits": 0,
+    "box_leaves": 1,
+    "zero_leaves": 0,
+    "component_factorizations": 0,
+    "interval_branches": 0,
+    "antichain_removed": 0,
+    "max_depth": 0,
+    "variables": 10,
+    "input_generators": 10,
+    "cached_states": 1,
+    "count_bit_length": 67,
+    "unit_ideal": false
+  },
+  "krull_dimension": 0,
+  "basis_size": 10,
+  "status": "COMPLETE",
+  "quotient_dimension": 100000000000000000000,
+  "dimension_decimal": "100000000000000000000",
+  "hilbert_dimension": 100000000000000000000,
+  "child_cpu_seconds": 0.012708,
+  "elapsed_seconds": 0.01847039999847766
+}

@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "scope": "apex color0 fixed; all other99 cells free",
+  "variables": 99,
+  "cubic_domains": 99,
+  "fourier_moments": 80,
+  "generators": 179,
+  "raw_fiber_multiplier": 1,
+  "unrestricted_conversion_if_fiber_completed": 3,
+  "script_sha256": "e8643cfd6a046f24f3ba32a23ffb1011f78abef06015e6ce0a178b6e8dbf4a5e",
+  "model_data_sha256": "cf45b7feaab85e5aee07394c3426e6e4eba41b9cc3922cb14e48c35f8abcfeb2",
+  "backend_status": "BACKEND_ERROR",
+  "returncode": 14,
+  "standard_basis_complete": false,
+  "count_status": "NO_EXACT_COUNT",
+  "child_cpu_seconds": 15.973701,
+  "elapsed_seconds": 22.020047119000083,
+  "no_basis_computation_performed_by_this_audit": true
+}

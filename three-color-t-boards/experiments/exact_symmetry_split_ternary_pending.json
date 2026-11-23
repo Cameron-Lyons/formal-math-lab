@@ -1,0 +1,5 @@
+{
+  "status": "REFUSED",
+  "reason": "missing COMPLETE prefixes: 0000, 0001, 0010, 0011, 0012, 0101, 0102, 0111, 0112, 0121",
+  "exact_total_available": false
+}

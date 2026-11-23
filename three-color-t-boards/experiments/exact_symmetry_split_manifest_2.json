@@ -1,0 +1,98 @@
+{
+  "format": "t-board-cap-orbits-v1",
+  "colors": 2,
+  "board_rows": 5,
+  "fixed_rows": 2,
+  "fixed_cells": 4,
+  "group": "global palette permutations and horizontal reflection",
+  "group_order": 4,
+  "cap_count": 16,
+  "representatives": 6,
+  "count_scope": "raw labeled fixed-prefix completions",
+  "aggregation": "sum(orbit_weight * raw_completion_count)",
+  "cases": [
+    {
+      "representative": "0000",
+      "prefix_rows": [
+        "0",
+        "000"
+      ],
+      "orbit_weight": 2,
+      "orbit_members": [
+        "0000",
+        "1111"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0001",
+      "prefix_rows": [
+        "0",
+        "001"
+      ],
+      "orbit_weight": 4,
+      "orbit_members": [
+        "0001",
+        "0100",
+        "1011",
+        "1110"
+      ],
+      "stabilizer_order": 1
+    },
+    {
+      "representative": "0010",
+      "prefix_rows": [
+        "0",
+        "010"
+      ],
+      "orbit_weight": 2,
+      "orbit_members": [
+        "0010",
+        "1101"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0011",
+      "prefix_rows": [
+        "0",
+        "011"
+      ],
+      "orbit_weight": 4,
+      "orbit_members": [
+        "0011",
+        "0110",
+        "1001",
+        "1100"
+      ],
+      "stabilizer_order": 1
+    },
+    {
+      "representative": "0101",
+      "prefix_rows": [
+        "0",
+        "101"
+      ],
+      "orbit_weight": 2,
+      "orbit_members": [
+        "0101",
+        "1010"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0111",
+      "prefix_rows": [
+        "0",
+        "111"
+      ],
+      "orbit_weight": 2,
+      "orbit_members": [
+        "0111",
+        "1000"
+      ],
+      "stabilizer_order": 2
+    }
+  ],
+  "manifest_sha256": "a80012227461cfffdf81a44544bd2951cce3b5ac2a49850f2a05eb7c4c9c77b4"
+}

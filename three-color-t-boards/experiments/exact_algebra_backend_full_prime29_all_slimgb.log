@@ -1,0 +1,6 @@
+GB_STARTED
+
+Singular error: no more memory
+System 2053716k:2053716k Appl 1759230k/67868k Malloc 138k/0k Valloc 1826960k/67868k Pages 456740/0 Regions 928:928 Internal: 111040
+
+halt 14

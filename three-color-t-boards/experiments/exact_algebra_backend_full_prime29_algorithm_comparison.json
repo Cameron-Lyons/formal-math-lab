@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "same_full_model": true,
+  "only_script_change": "std(I) -> slimgb(I)",
+  "variables": 100,
+  "generators": 180,
+  "model_sha256": "62fe4a4658fed394165eab3353f800c2cd22a446963dd9a6b4b4cd9aef6ed6db",
+  "std_script_sha256": "268e1453615d9724bf42dd38802c6a1a970efbe2826805d649df1712f27afbfc",
+  "slimgb_script_sha256": "12fbf974c6df0d8499348955dc14108e56294fd21c5f3194d713f40560589a38"
+}

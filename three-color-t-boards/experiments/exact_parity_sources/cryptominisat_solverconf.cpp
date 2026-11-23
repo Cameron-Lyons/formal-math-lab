@@ -1,0 +1,391 @@
+/******************************************
+Copyright (C) 2009-2020 Authors of CryptoMiniSat, see AUTHORS file
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+***********************************************/
+
+#include "constants.h"
+#include "solverconf.h"
+#include <limits>
+#include <iomanip>
+#include <sstream>
+using namespace CMSat;
+using std::numeric_limits;
+
+//UPDATEs for DEVEL
+//Fixing to:
+//1832701 out-9660847.wlm01-4        239 147 92 a54ed65   --simdrat 1 --bva 1 --slsgetphase 1 --slstype ccnr_yalsat --confbtwsimp 70000 --confbtwsimpinc 1.1 --modbranchstr 3
+//sat race 2019
+//2049104 out-9833438.wlm01-7-drat0  220 135 85 c975a55   --simdrat 1 --slseveryn 2 --slstype ccnr --bvalim 150000 --tern 1 --terncreate 1 --ternkeep 6 -m 3 --distillincconf 0.04 --distillminconf 20000
+
+
+//UPDATEs for MASTER
+//1830735 out-9839185.wlm01-8-drat0  243 148 95 2a30cfb
+//--simdrat 1 --bva 1 --slstype ccnr --slseveryn 2 --bvalim 250000 --tern 1 --terncreate 1 --ternkeep 6 -m 3 --distillincconf 0.02 --distillminconf 10000 --slsgetphase 1
+
+//Fixing to:
+//--simdrat 1 --bva 1 --slstype ccnr --slseveryn 2 --bvalim 250000 --tern 1 --terncreate 1 --ternkeep 6 -m 3 --distillincconf 0.02 --distillminconf 10000 --slsgetphase 1 --slstobump 100 --gluehist 60 --diffdeclevelchrono 20 --conftochrono 0
+
+//Fixing to:
+//1722973 out-9860239.wlm01-1-drat0 254 154 100 a6005cf   --simdrat 1 --gluehist 50 --moremoreminim 1 --lev1usewithin 70000 --bva2lit 1
+
+//Fixing to:
+//1838305 out-9882018.wlm01-1-drat0  241 145 96 16de7b4   --simdrat 1 --substimelimbinratio 0.1 --substimelimlongratio 0.9 --distilltier1ratio 0.03 --sublonggothrough 1.0 --varelimto 750 --bvaeveryn 7
+
+//Fixing to:
+//1706988 out-9885914.wlm01-6-drat0 253 153 100 def3339   --simdrat 1 --vsidsalternate 1 --vsidsalterval1 0.92 --vsidsalterval2 0.99 --maplealternate 1 --maplealterval1 0.70 --maplealterval2 0.90
+
+//NOTE: diffdeclevel 0 is not good
+//1813642 out-9896604.wlm01-0-drat0 242 146 96   6d8c7e2  _satcomp2020 --simdrat 1
+//1867880 out-9896604.wlm01-1-drat0 237 139 98   6d8c7e2  _satcomp2020 --simdrat 1 --diffdeclevelchrono 0
+
+//Tuning to
+//1684592 out-9915739.wlm01-3-drat0 256 149 107 b3b7cfb  _devel --printsol 0 --xorfindtout 400 --gaussusefulcutoff 0.2
+
+//Tuning to
+//1732414 out-9915739.wlm01-7-drat0 254 157 97 b3b7cfb  _devel --printsol 0 --simdrat 1 --polarstablen 4
+
+//Tuning to
+//1713867 out-175744.wlm01-11-drat0 252 154 98 de15a43  _devel --printsol 0 --simdrat 1 --slsbumptype 6 --polarbestinvmult 9 --lucky 20
+
+DLL_PUBLIC SolverConf::SolverConf() :
+        // Polarities
+        polarity_mode(PolarityMode::polarmode_automatic)
+
+        , every_pred_reduce(10000)
+        , dump_pred_distrib(0)
+        , clause_decay(0.999)
+
+        //Learnt clause DB reduction, as in CaDiCaL
+        , reduce(1)
+        , reduceint(1000)
+        , reducetarget(75)
+        , reducetier1glue(2)
+        , reducetier2glue(6)
+        , flush(0)
+        , flushfactor(3)
+        , flushint(100000)
+        //NOTE: The "Scavel" system's "usedt" does NOT speed up the solver
+        //test conducted: out-drat-check-8359337.wlm01-1-drat0
+
+        //Restarts, as in CaDiCaL
+        , do_restart(1)
+        , restartint(2)
+        , restartmargin(10)
+        , emagluefast(33)
+        , emaglueslow(1e5)
+        , do_stabilize(1)
+        , stabilizeint(1000)
+        , stabilizefactor(2.0)
+        , stabilizemaxint(2000000000ULL)
+        , reluctantint(1024)
+        , reluctantmax(1048576)
+
+        //Rephasing, as in CaDiCaL
+        , do_rephase(1)
+        , rephaseint(1000)
+        , phase(1) //positive, as in CaDiCaL
+        , lucky(1)
+        , target_phases(1)
+        , short_term_history_size (50)
+        , do_always_fminim(false)
+
+        //branch strategy
+        , branch_strategy_setup("vmtf+vsids")
+
+        //Clause minimisation
+        , do_recursive_minim (true)
+        , do_minim_red_more(true)
+        , do_minim_red_more_more(2)
+        , max_glue_more_minim(6)
+        , max_size_more_minim(30)
+        , more_red_minim_limit_binary(200)
+        , max_num_lits_more_more_red_min(1)
+
+        //Verbosity
+        , verbosity        (0)
+        , do_print_gate_dot   (false)
+        , print_full_restart_stat   (false)
+        , print_all_restarts (false)
+        , verb_stats        (1)
+        , do_print_times(1)
+        , print_restart_line_every_n_confl(8192)
+
+        //Limits
+        , max_time          (numeric_limits<double>::max())
+        , max_confl         (numeric_limits<uint64_t>::max())
+
+        //Glues
+        , bump_reason_depth(1)
+        , do_shrink_uip(1)
+        , do_otfs(1)
+
+        //Chono BT
+        , diff_declev_for_chrono (20)
+        , do_chrono_reuse_trail(1)
+        , do_restart_reuse_trail(1)
+
+        //decision-based clause generation. These values have been validated
+        //see 8099966.wlm01
+        , do_decision_based_cl(1)
+        , decision_based_cl_max_levels(9)
+        , decision_based_cl_min_learned_size(50)
+
+        //SQL
+        , dump_individual_restarts_and_clauses(true)
+        , dump_individual_cldata_ratio(0.01)
+        , sql_overwrite_file(0)
+        , lock_for_data_gen_ratio(0.1)
+
+        //Var-elim
+        , do_var_elim        (true)
+        , varelim_occ_cutoff(0)
+        , varelim_occ_prod_cutoff(10000)
+        , varelim_max_cls_size(0)
+        , varelim_sched_only_touched(0)
+        , varelim_tie_min_occ(0)
+        , do_empty_varelim (true)
+        , do_full_varelim(true)
+        , do_xor_varelim(true)
+        , empty_varelim_time_limitM(300LL)
+        , varelim_time_limitM(750)
+        , varelim_sub_str_limitM(600)
+        , var_elim_ratio_per_iter(1.60)
+        , velim_resolvent_too_large(100)
+        , varelim_score_prod(1)
+        , varelim_score_sum(1)
+        , var_linkin_limit_MB(1000)
+        , varelim_gate_find_limit(800)
+        , picosat_gate_limitK(70)
+        , varelim_irreg_gate_occ_cutoff(100)
+        , varelim_irreg_gate_confl_limit(300)
+        , varelim_irreg_gate_unit(true)
+        , xor_gate_find_maxsize(12)
+        , picosat_confl_limit(100)
+        , varelim_check_resolvent_subs(false)
+
+        //Backbone
+        , backbone_ccnr_mems_limitM(300)
+        , ccnr_neighbor_max_cl_size(256)
+
+        //Subs, str limits for simplifier
+        , subsumption_time_limitM(300)
+        , weaken_time_limitM(300)
+        , subsumption_time_limit_ratio_sub_str_w_bin(0.1)
+        , subsumption_time_limit_ratio_sub_w_long(0.9)
+        , strengthening_time_limitM(300)
+        , occ_based_lit_rem_time_limitM(50)
+        , occ_lit_rem_one_cl_limit(100LL*1000LL)
+        , weaken_max_cls_size(0)
+        , occ_relocate_lim(1000)
+
+
+        //Ternary resolution
+        , do_ternary(true)
+        , ternary_res_time_limitM(100)
+        , ternary_max_create(0.3)
+        , allow_ternary_bin_create(false)
+
+        //Bounded variable addition
+        , do_bva(false)
+        , min_bva_gain(16)
+        , non_stop_bve(false)
+
+        //Probing
+        , do_full_probe    (false)
+        , do_intree_probe    (true)
+        , do_trans_red       (true)
+        , full_probe_time_limitM(20ULL)
+        , intree_time_limitM(400ULL)
+        , intree_scc_varreplace_time_limitM(30ULL)
+        , do_hyperbin_and_transred(true)
+
+        //XOR
+        , do_find_xors       (true)
+        , max_xor_to_find     (MAX_XOR_RECOVER_SIZE)
+        , max_xor_to_find_slow (5)
+        , max_xor_matrix     (400ULL)
+        , xor_finder_time_limitM(400)
+        , allow_elim_xor_vars(1)
+
+        //Cardinality
+        , do_find_card(0)
+
+        //Var-replacer
+        , do_find_and_replace_eq_lits(true)
+        , max_scc_depth (30000)
+
+        //Iterative Alo Scheduling
+        , simplify_at_startup(false)
+        , simplify_at_every_startup(false)
+        , do_simplify_problem(true)
+        , full_simplify_at_startup(false)
+        , never_stop_search(false)
+        , num_conflicts_of_search(40ULL*1000ULL)
+        , num_conflicts_of_search_inc(1.4)
+        , num_conflicts_of_search_inc_max(10)
+        , max_num_simplify_per_solve_call(25)
+        , simplify_schedule_startup(
+            "sub-impl, occ-backw-sub,"
+            "scc-vrepl,"
+            "occ-sweep, occ-bve,occ-xor,"
+            "must-scc-vrepl"
+        )
+        //validated with run 8114195.wlm01
+        , simplify_schedule_nonstartup(
+            //"scc-vrepl,"
+            //"intree-probe,"
+            "scc-vrepl,sub-impl,"
+             //occurrence based
+            "occ-backw-sub-str,occ-clean-implicit,occ-sweep,occ-bve,"//occ-gates,"
+            "occ-ternary-res,occ-xor,"
+            //pick up the equivalences occ-sweep found
+            "must-scc-vrepl,card-find,"
+            //consolidate after OCC
+            "cl-consolidate,"
+            //strengthen again
+            "scc-vrepl,"
+            //renumber then it's time for SLS
+            "renumber,"
+        )
+
+        //Occur based simplification
+        , perform_occur_based_simp(true)
+        , do_strengthen_with_occur       (true)
+        , max_red_link_in_size (50)
+        , max_occur_irred_mb  (2500)
+        , max_occur_red_mb    (600)
+        , max_occur_red_lit_linked_m(50)
+        , subsume_gothrough_multip(1.0)
+
+        //Local search, as in CaDiCaL
+        , do_sls(true)
+        , walknonstable(1)
+        , walkseedphase(0)
+        , walkinitially(2)
+        , walkxorweight(500)
+        , walkmineff(1000000)
+        , walkmaxeff(100000000)
+        , walkreleff(20)
+        , sls_memoutMB(500)
+
+        //Distillation
+        , do_distill_clauses(true)
+        , do_distill_bin_clauses(true)
+        , distill_long_cls_time_limitM(200ULL)
+        , watch_based_str_time_limitM(20LL)
+        , distill_increase_conf_ratio(0.10)
+        , distill_min_confl(10000)
+        , distill_red_releff(70)
+        , distill_irred_releff(30)
+        , distill_min_effortM(10)
+        , distill_sched_max(20000)
+        , distill_instantiate(1)
+        , distill_rem_level(2)
+        , distill_irred_alsoremove_ratio(1.2)
+        , distill_irred_noremove_ratio(1.0) //from out-3946531.wlm01-15-drat0
+
+        //Memory savings
+        , do_renumber_vars   (true)
+        , must_renumber    (false)
+        , do_save_mem        (true)
+        , full_watch_consolidate_every_n_confl (4ULL*1000ULL*1000ULL) //validated in run 8113323.wlm01
+
+        //Misc optimisations
+        , do_str_sub_implicit (true)
+        , subsume_implicit_time_limitM(100LL)
+        , distill_implicit_with_implicit_time_limitM(200LL)
+        , do_subs_with_resolvent_clauses(true)
+
+        //Gates
+        , do_gate_find       (false)
+        , gatefinder_time_limitM(200)
+
+        //Timeouts
+        , global_next_multiplier(1.0)
+        , orig_global_timeout_multiplier(3.0)
+        , global_timeout_multiplier(1.0) // WILL BE UNSET, NOT RELEVANT
+        , global_timeout_multiplier_multiplier(1.1)
+        , global_multiplier_multiplier_max(3)
+        , var_and_mem_out_mult(1.0)
+        , oracle_mult(1.0)
+
+        //Multi-thread
+        , sync_every_confl(7000) //THREAD syncing
+        , thread_num(0)
+
+        // Oracle
+        , oracle_get_learnts(false) // get oracle learnt clauses
+        , oracle_removed_is_learnt(false) // clauses removed by Oracle should be learnt
+        , oracle_find_bins(0)
+
+        //misc
+        , orig_seed(0)
+        , prefix("c ")
+{
+}
+
+
+DLL_PUBLIC std::string SolverConf::print_times(
+    const double time_used
+    , const bool time_out
+    , const double time_remain
+) const {
+    if (do_print_times) {
+        std::stringstream ss;
+        ss
+        << " T: " << std::setprecision(2) << std::fixed << time_used
+        << " T-out: " << (time_out ? "Y" : "N")
+        << " T-r: " << time_remain*100.0  << "%";
+
+        return ss.str();
+    }
+
+    return std::string();
+}
+
+DLL_PUBLIC std::string SolverConf::print_times(
+    const double time_used
+    , const bool time_out
+) const {
+    if (do_print_times) {
+        std::stringstream ss;
+        ss
+        << " T: " << std::setprecision(2) << std::fixed << time_used
+        << " T-out: " << (time_out ? "Y" : "N");
+
+        return ss.str();
+    }
+
+    return std::string();
+}
+
+DLL_PUBLIC std::string SolverConf::print_times(
+    const double time_used
+) const {
+    if (do_print_times) {
+        std::stringstream ss;
+        ss
+        << " T: " << std::setprecision(2) << std::fixed << time_used;
+
+        return ss.str();
+    }
+
+    return std::string();
+}

@@ -1,0 +1,10 @@
+{
+  "region": "known six-row group1",
+  "arguments": [
+    "000000100002011001202102210110211112",
+    "0",
+    "0"
+  ],
+  "status": "INCOMPLETE",
+  "reason": "external90secondguard"
+}

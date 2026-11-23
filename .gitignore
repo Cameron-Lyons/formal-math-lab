@@ -16,3 +16,11 @@ __pycache__/
 # Downloaded counting solvers and their build trees.
 /three-color-t-boards/experiments/exact_count_tools/
 /three-color-t-boards/experiments/exact_backend_tools/
+/three-color-t-boards/experiments/exact_algebra_backend_packages/
+/three-color-t-boards/experiments/exact_algebra_backend_root/
+/three-color-t-boards/experiments/exact_msolve_tools/usr/
+/three-color-t-boards/experiments/exact_msolve_tools/msolve
+/three-color-t-boards/experiments/exact_msolve_tools/*.pkg.tar.zst
+/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve
+/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve-*/
+/three-color-t-boards/experiments/exact_msolve_patched_tools/*.tar.gz

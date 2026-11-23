@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "source_hashes": {
+    "experiments/exact_parity_math_fourier_original.json": "34a910ef8d4ec2dcf10af7d64c8ebb7f1196ebedd45eb4057880956c15fbb25b",
+    "experiments/exact_parity_math_fourier_reduced.json": "66e18148d574178bfdc09296635e43ebe327646beff90ab8c5a6d43e88729c78"
+  },
+  "original_moments_regenerated": 40,
+  "frobenius_pairs_verified": 40,
+  "linear_rank": 4,
+  "reduced_equations_symbolically_verified": 40,
+  "valid_board_images_checked": 60,
+  "counterexample": {
+    "valid": false,
+    "distinct_patterns": 73,
+    "original_failed_moments": 8,
+    "reduced_failed_equations": 8,
+    "pivots_recovered": true
+  },
+  "no_counting_trial_performed": true
+}

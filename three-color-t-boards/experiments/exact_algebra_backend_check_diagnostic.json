@@ -1,0 +1,27 @@
+{
+  "model": "fixture:diagnostic",
+  "variables": 1,
+  "generators": 1,
+  "field": "F2",
+  "algorithm": "std",
+  "ordering": "dp",
+  "ring_type": "ordinary polynomial ring",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/bin/Singular",
+    "-q"
+  ],
+  "script_sha256": "449ad78376bb0193dca504d5a78fb8a7cd29d04151253321bf93371691074955",
+  "script": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_check_diagnostic.sing",
+  "timeout_seconds": 10,
+  "memory_mb": 2048,
+  "returncode": 0,
+  "wall_timeout_reached": false,
+  "basis_complete": false,
+  "status": "BACKEND_ERROR",
+  "error_diagnostics": [
+    "   ? `thisProcedureDoesNotExist` is not defined",
+    "   ? error occurred in or before STDIN line 3: `thisProcedureDoesNotExist();`"
+  ],
+  "child_cpu_seconds": 0.007244999999999991,
+  "elapsed_seconds": 0.01244552800199017
+}

@@ -1,0 +1,29 @@
+{
+  "model": "ternary-reduced",
+  "field": "F2",
+  "source": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_parity_math_fourier_reduced.json",
+  "source_sha256": "66e18148d574178bfdc09296635e43ebe327646beff90ab8c5a6d43e88729c78",
+  "meaning": "ordinary F2 polynomial ring; 96 free cubic domains plus all40 exported equations",
+  "variables": 96,
+  "generators": 136,
+  "algorithm": "std",
+  "ordering": "dp",
+  "ring_type": "ordinary polynomial ring",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/bin/Singular",
+    "-q"
+  ],
+  "script_sha256": "6ed1e7cbbbe034ed8ee23961bbed2332ef2be7185207bb4379e7bb815a32204e",
+  "script": "experiments/exact_algebra_backend_full_reduced.sing",
+  "timeout_seconds": 90.0,
+  "memory_mb": 2048,
+  "basis_complete": false,
+  "status": "BACKEND_ERROR",
+  "error_diagnostics": [
+    "Singular error: no more memory"
+  ],
+  "child_cpu_seconds": 62.811871,
+  "elapsed_seconds": 90.35862193299909,
+  "wall_timeout_reached": true,
+  "failure_kind": "MEMORY_EXHAUSTION_DIAGNOSTIC_THEN_WALL_TIMEOUT"
+}

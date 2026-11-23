@@ -93,6 +93,9 @@ name = "MarginalCounterexample"
 name = "ExactMarginals"
 
 [[lean_lib]]
+name = "ExactParity"
+
+[[lean_lib]]
 name = "SpliceSixthData"
 
 [[lean_lib]]

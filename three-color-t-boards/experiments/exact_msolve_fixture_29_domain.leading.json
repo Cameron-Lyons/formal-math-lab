@@ -1,0 +1,17 @@
+{
+  "format": "leading-monomial-ideal-v1",
+  "variables": 1,
+  "standard_basis_complete": true,
+  "leading_monomials": [
+    [
+      3
+    ]
+  ],
+  "provenance": {
+    "backend": "msolve F4",
+    "input_sha256": "16a68a8c8b5a82a4f52fc61dd16c7762fb286b2000f76302f77858edc83900b2",
+    "executable_sha256": "6d577c94b3a36a83333b7dfa40409a4371301b495c1858d4f08e4f121ffbfb4a",
+    "field": "F29",
+    "linear_algebra": "exact sparse"
+  }
+}

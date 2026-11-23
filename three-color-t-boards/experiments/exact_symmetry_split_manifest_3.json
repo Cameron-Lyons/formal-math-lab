@@ -1,0 +1,207 @@
+{
+  "format": "t-board-cap-orbits-v1",
+  "colors": 3,
+  "board_rows": 10,
+  "fixed_rows": 2,
+  "fixed_cells": 4,
+  "group": "global palette permutations and horizontal reflection",
+  "group_order": 12,
+  "cap_count": 81,
+  "representatives": 10,
+  "count_scope": "raw labeled fixed-prefix completions",
+  "aggregation": "sum(orbit_weight * raw_completion_count)",
+  "cases": [
+    {
+      "representative": "0000",
+      "prefix_rows": [
+        "0",
+        "000"
+      ],
+      "orbit_weight": 3,
+      "orbit_members": [
+        "0000",
+        "1111",
+        "2222"
+      ],
+      "stabilizer_order": 4
+    },
+    {
+      "representative": "0001",
+      "prefix_rows": [
+        "0",
+        "001"
+      ],
+      "orbit_weight": 12,
+      "orbit_members": [
+        "0001",
+        "0002",
+        "0100",
+        "0200",
+        "1011",
+        "1110",
+        "1112",
+        "1211",
+        "2022",
+        "2122",
+        "2220",
+        "2221"
+      ],
+      "stabilizer_order": 1
+    },
+    {
+      "representative": "0010",
+      "prefix_rows": [
+        "0",
+        "010"
+      ],
+      "orbit_weight": 6,
+      "orbit_members": [
+        "0010",
+        "0020",
+        "1101",
+        "1121",
+        "2202",
+        "2212"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0011",
+      "prefix_rows": [
+        "0",
+        "011"
+      ],
+      "orbit_weight": 12,
+      "orbit_members": [
+        "0011",
+        "0022",
+        "0110",
+        "0220",
+        "1001",
+        "1100",
+        "1122",
+        "1221",
+        "2002",
+        "2112",
+        "2200",
+        "2211"
+      ],
+      "stabilizer_order": 1
+    },
+    {
+      "representative": "0012",
+      "prefix_rows": [
+        "0",
+        "012"
+      ],
+      "orbit_weight": 12,
+      "orbit_members": [
+        "0012",
+        "0021",
+        "0120",
+        "0210",
+        "1021",
+        "1102",
+        "1120",
+        "1201",
+        "2012",
+        "2102",
+        "2201",
+        "2210"
+      ],
+      "stabilizer_order": 1
+    },
+    {
+      "representative": "0101",
+      "prefix_rows": [
+        "0",
+        "101"
+      ],
+      "orbit_weight": 6,
+      "orbit_members": [
+        "0101",
+        "0202",
+        "1010",
+        "1212",
+        "2020",
+        "2121"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0102",
+      "prefix_rows": [
+        "0",
+        "102"
+      ],
+      "orbit_weight": 6,
+      "orbit_members": [
+        "0102",
+        "0201",
+        "1012",
+        "1210",
+        "2021",
+        "2120"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0111",
+      "prefix_rows": [
+        "0",
+        "111"
+      ],
+      "orbit_weight": 6,
+      "orbit_members": [
+        "0111",
+        "0222",
+        "1000",
+        "1222",
+        "2000",
+        "2111"
+      ],
+      "stabilizer_order": 2
+    },
+    {
+      "representative": "0112",
+      "prefix_rows": [
+        "0",
+        "112"
+      ],
+      "orbit_weight": 12,
+      "orbit_members": [
+        "0112",
+        "0122",
+        "0211",
+        "0221",
+        "1002",
+        "1022",
+        "1200",
+        "1220",
+        "2001",
+        "2011",
+        "2100",
+        "2110"
+      ],
+      "stabilizer_order": 1
+    },
+    {
+      "representative": "0121",
+      "prefix_rows": [
+        "0",
+        "121"
+      ],
+      "orbit_weight": 6,
+      "orbit_members": [
+        "0121",
+        "0212",
+        "1020",
+        "1202",
+        "2010",
+        "2101"
+      ],
+      "stabilizer_order": 2
+    }
+  ],
+  "manifest_sha256": "ba28310bd8bfb65ea1cc6f0c619c267ec595ebc5f2ba08de0ad524356b871af5"
+}

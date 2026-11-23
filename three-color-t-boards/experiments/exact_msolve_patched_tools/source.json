@@ -1,0 +1,37 @@
+{
+  "repository": "https://github.com/algebraic-solving/msolve",
+  "tag": "v0.11.0",
+  "commit": "cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "source_archive": "experiments/exact_msolve_patched_tools/msolve-v0.11.0-source.tar.gz",
+  "archive_url": "https://codeload.github.com/algebraic-solving/msolve/tar.gz/cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "archive_sha256": "0f53c278ce2c3d46600348e945313e467314d296d275f2978f92c6b6b8e2224a",
+  "source_directory": "experiments/exact_msolve_patched_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "patch_sha256": "2b109358fc7a77dc70c1570f194c376df68605caa1f4afbce116fa74bfeb99fd",
+  "original_msolve_c_sha256": "f892a2373f1751d68b2a1ecdce16a22577b77456b3dbbeb53c74ea8617f1aa15",
+  "patched_msolve_c_sha256": "22b51647d31b6e8c6b329a7425b14a54ffe578b0115376ba884dcb879644b2fa",
+  "build_commands": [
+    [
+      "./autogen.sh"
+    ],
+    [
+      "./configure",
+      "--disable-shared",
+      "--enable-static",
+      "--disable-openmp"
+    ],
+    [
+      "make",
+      "-j1"
+    ]
+  ],
+  "build_environment": {
+    "CFLAGS": "-O2 -g0",
+    "CPPFLAGS": "-I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include",
+    "LDFLAGS": "-L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib",
+    "LD_LIBRARY_PATH": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib"
+  },
+  "executable": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve",
+  "executable_sha256": "2d3258dd099a34410b05eadd21dbb38db22b8be0962ab59115d01660652c355d",
+  "version_output": "0.11.0",
+  "compiler_version": "gcc (GCC) 16.2.1 20260810"
+}

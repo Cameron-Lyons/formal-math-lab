@@ -1,0 +1,97 @@
+[
+  {
+    "test": "domain1",
+    "status": "PASS",
+    "dimension_decimal": "3"
+  },
+  {
+    "test": "domain2",
+    "status": "PASS",
+    "dimension_decimal": "9"
+  },
+  {
+    "test": "diagonal",
+    "status": "PASS",
+    "dimension_decimal": "3"
+  },
+  {
+    "test": "cyclotomic",
+    "status": "PASS",
+    "dimension_decimal": "2"
+  },
+  {
+    "test": "fourier3",
+    "status": "PASS",
+    "dimension_decimal": "6"
+  },
+  {
+    "test": "fourier3-reduced",
+    "status": "PASS",
+    "dimension_decimal": "6"
+  },
+  {
+    "test": "gf4-linear",
+    "status": "PASS",
+    "dimension_decimal": "1"
+  },
+  {
+    "test": "zero",
+    "status": "PASS",
+    "dimension_decimal": "0"
+  },
+  {
+    "test": "bigint-product",
+    "status": "PASS",
+    "dimension_decimal": "100000000000000000000"
+  },
+  {
+    "test": "ternary-original generator count",
+    "status": "PASS",
+    "generators": 140
+  },
+  {
+    "test": "ternary-reduced generator count",
+    "status": "PASS",
+    "generators": 136
+  },
+  {
+    "test": "binary-reduced generator count",
+    "status": "PASS",
+    "generators": 32
+  },
+  {
+    "test": "apex normalization is imposed and only supported for original model",
+    "status": "PASS"
+  },
+  {
+    "test": "actual Singular diagnostic rejects later completed-looking output",
+    "status": "PASS"
+  },
+  {
+    "test": "prime29_domain",
+    "status": "PASS",
+    "dimension_decimal": "3"
+  },
+  {
+    "test": "prime29_fourier3",
+    "status": "PASS",
+    "dimension_decimal": "6"
+  },
+  {
+    "test": "prime29_extension_color2",
+    "status": "PASS",
+    "dimension_decimal": "1"
+  },
+  {
+    "test": "ternary nine-row fiber one",
+    "status": "PASS",
+    "dimension_decimal": "1",
+    "basis_recomputed": false
+  },
+  {
+    "test": "ternary nine-row fiber six",
+    "status": "PASS",
+    "dimension_decimal": "6",
+    "basis_recomputed": false
+  }
+]

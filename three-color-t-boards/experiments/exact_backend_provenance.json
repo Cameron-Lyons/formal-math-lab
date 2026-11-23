@@ -32,5 +32,11 @@
   "sat_random_seed": 91648253,
   "patoh_seed": 1,
   "full_trial_limit_wall_seconds": 120,
-  "full_trials_maximum": 2
+  "full_trials_maximum": 2,
+  "resource_semantics": {
+    "actual_CPU": "os.wait4 ru_utime + ru_stime",
+    "actual_peak_RSS": "os.wait4 ru_maxrss in KB",
+    "d4_cpuTime_function": "Elapsed wall seconds using gettimeofday, despite function and raw trace label names",
+    "d4_memory_report": "VmPeak virtual address-space peak, not RSS"
+  }
 }

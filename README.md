@@ -17,6 +17,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
 | [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
+| [Erdős #677, equal LCMs of six consecutive integers](erdos-677-equal-lcms/) | The only equal-LCM pairs at length six have parameters $(3,4)$, $(5,6)$ and $(13,15)$. All overlap. Lean checks the reduction and finite cases. External elliptic-curve arithmetic proves completeness. | The three overlaps and four-cubic reduction were recorded previously. The arbitrary-length problem remains open. |
 | [Erdős #708, interval products for six integers](erdos-708-six/) | $g(6)=8$. For every six-element set $A$ of integers at least two, at most eight entries from any block of $\max A$ consecutive integers suffice for a product divisible by $\prod_{a\in A}a$. Some blocks require eight. | C. Bergström previously proved the value eight. The local Lean proof uses John Tripodo’s formalized bounds for four and five integers. |
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
 | [Book Ramsey number $R(B_{63},B_{64})$](book-ramsey/) | $253 \le R(B_{63},B_{64}) \le 255$. The 252-vertex witness has at most 62 pages on every spine in either color. | The bounds follow from Dai–Lin and Rousseau–Sheehan. Chung and Wesley list the 254-vertex construction as open. |
@@ -30,8 +31,8 @@ it does not establish historical priority or imply that every lemma is new.
 
 ## Find and check a theorem
 
-Each proof has its own Lake project. The Erdős #708 project uses Lean **4.35.0-rc2**
-with Tripodo’s pinned development. The other projects use Lean **4.36.0**.
+Each proof has its own Lake project. The Erdős #677 and #708 projects use Lean **4.35.0-rc2**.
+The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
 E1486's SAT checks and the large T-board
@@ -43,6 +44,7 @@ families can require substantial computation.
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |
 | `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
+| `erdos-677-equal-lcms` | `lake exe cache get` then `lake build`. [Arithmetic checks](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction) | `Erdos677.six_collision_iff_three_of_affine_cover` |
 | `erdos-708-six` | `lake exe cache get` then `lake build` | `Erdos708.isLeast_six`, `IntervalSix.six_integer` |
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
 | `book-ramsey` | `lake build` | `BookRamsey.Lower252.exists_252`, `BookRamsey.Upper255.upper` |
@@ -91,6 +93,7 @@ except material carrying separate license or attribution notices:
 
 - [E1486-order-15](E1486-order-15/LICENSE) retains its Apache-2.0 license and
   the copyright notice of the Equational Theories Project contributors.
+- The Formal Conjectures interval definition in [UpstreamInterval.lean](erdos-677-equal-lcms/UpstreamInterval.lean) retains its [Apache-2.0 license](erdos-677-equal-lcms/LICENSE-FormalConjectures) and copyright notice.
 - The four definitions from Formal Conjectures in
   [ArctanBridge.lean](arctangent-sum/ArctanBridge.lean) retain their Apache-2.0
   license and copyright notice.

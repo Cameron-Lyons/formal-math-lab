@@ -95,6 +95,26 @@ also treat smaller values; the general even-parameter mechanism is a sketch,
 not a proof covering 26. This collection does not claim the first Lean work
 on reciprocal Rado numbers.
 
+## Erdős #677, equal LCMs of six consecutive integers
+
+Checked **23 November 2026**. With $M(n,k)$ the LCM of $n+1$ through $n+k$,
+Erdős asked about separated blocks in 1979. The published Lean statement
+includes adjacent disjoint blocks and quantifies over all positive lengths.
+[Erdős, *Some Unconventional Problems in Number Theory*, p. 67, item 2](https://www.renyi.hu/~p_erdos/1979-22.pdf) · [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/78bc92237b4bcf5ec812a52d07364aa74773bfe2/FormalConjectures/ErdosProblems/677.lean)
+
+The July 2026 write-up records the overlapping pairs $(3,4),(5,6),(13,15)$
+and reduces the remaining length-six case to four cubic equations. Danesh and
+Bianchetti also exclude configurations with at most two active progression
+sites at lengths five and six. [July write-up](https://erdosproblemaday.com/day/677-lcm-bridge) · [Danesh and Bianchetti, *Prime-Power Transport and a Three-Site Reduction*](https://ijmttjournal.org/archive/IJMTT-V72I9P101)
+
+The project supplies the integral-point calculation on all four curves and
+checks the resulting classification in Lean under the explicit affine-point
+hypothesis. The global bound uses David’s theorem and external arithmetic.
+Searches under equal block LCMs, scaled products of six consecutive integers,
+scaled binomial coefficients, and the cubic $x(x-1)(x-3)$ located no earlier
+complete classification in the sources inspected. Historical priority remains
+unverified. [Proof and verification boundary](erdos-677-equal-lcms/cubic/LengthSix.md)
+
 ## Erdős #708, interval products for six integers
 
 Checked **23 November 2026**. Let $A$ be a set of six distinct integers at

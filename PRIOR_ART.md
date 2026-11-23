@@ -95,6 +95,17 @@ also treat smaller values; the general even-parameter mechanism is a sketch,
 not a proof covering 26. This collection does not claim the first Lean work
 on reciprocal Rado numbers.
 
+## Erdős #556, three-color nine-cycle Ramsey number
+
+Checked **23 November 2026**. Radziszowski’s survey lists $R_3(C_9)$ as the
+first open odd-cycle case and records the lower bound 33. Kohayakawa,
+Simonovits, and Skokan prove the exact formula for sufficiently large odd
+cycle lengths. The local result for $n=9$ assumes a set of 15 vertices in
+$K_{33}$ omits a color. Historical priority for that conditional result
+is unverified. [Ramsey survey, §6.3.1](https://www.cs.rit.edu/~spr/ElJC/ejcram18.pdf#page=61) ·
+[Kohayakawa, Simonovits, and Skokan](https://users.renyi.hu/~miki/KohaSimSkokGraco.pdf) ·
+[Local Lean project](erdos-556-cycle-ramsey/)
+
 ## Erdős #677, equal LCMs of six consecutive integers
 
 Checked **23 November 2026**. With $M(n,k)$ the LCM of $n+1$ through $n+k$,

@@ -1,0 +1,42 @@
+name = "arctanSum"
+version = "0.1.0"
+defaultTargets = ["ArctanSum"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+[[lean_lib]]
+name = "ArctanSum"
+roots = [
+  "ArctanAngles",
+  "ArctanApprox",
+  "ArctanBlock",
+  "ArctanBridge",
+  "ArctanCounting",
+  "ArctanEventLabels",
+  "ArctanRate",
+  "ArctanDeterminant",
+  "ArctanExponential",
+  "ArctanFactorial",
+  "ArctanFinite",
+  "ArctanInverse",
+  "ArctanLabelDensity",
+  "ArctanLabelGeometry",
+  "ArctanLargePrime",
+  "ArctanModular",
+  "ArctanNonzero",
+  "ArctanOverhead",
+  "ArctanPhase",
+  "ArctanPole",
+  "ArctanPolynomial",
+  "ArctanPrimeCover",
+  "ArctanPrimeInterval",
+  "ArctanPrimeMass",
+  "ArctanReflection",
+  "ArctanSparsity",
+  "ArctanSum",
+  "ArctanValuation",
+  "ArctanValueBound",
+]

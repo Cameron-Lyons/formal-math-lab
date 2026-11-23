@@ -205,6 +205,19 @@ The contribution is an independently developed Lean proof of a result covered
 by earlier work. No first-formalization claim is made. See the project’s
 [prior-work notes](a176755-linear-recurrence/README.md#prior-work-and-attribution).
 
+## Arctangent-sum conjecture
+
+Checked **23 November 2026**. Amdeberhan, Medina, and Moll conjectured that
+$x_n=\tan(\sum_{k=1}^n\arctan k)$ is nonintegral for every $n\geq5$.
+Ono proved that $O(\log N)$ positive indices through $N$ give integer values.
+Formal Conjectures links the earlier Lean formalization of Ono’s results and
+lists the conjecture as open. [Ono’s paper](https://arxiv.org/abs/2607.05739) ·
+[Formal Conjectures statement and proof references](https://google-deepmind.github.io/formal-conjectures/src/FormalConjectures/Arxiv/%C2%AB2607.05739%C2%BB/TanArctanSum/)
+
+The local Lean proof sharpens the count to $O((\log N)^{3/4})$ and verifies
+that only $n=1,2,3,4$ give integers among positive indices through $10^6$.
+[Project theorems](arctangent-sum/ArctanSum.lean)
+
 ## E670 on ten elements: no local proof
 
 The live [spectrum data](https://ohaithe.re/equational_theories/research/data/spectrum.json)

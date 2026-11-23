@@ -1,7 +1,7 @@
 # Formal Math Lab — Lean 4 proofs and mathematical experiments
 
 Formal proofs and reproducible computations in combinatorics, Ramsey theory,
-finite algebra, and discrete geometry. Each project gives an exact mathematical
+finite algebra, number theory, and discrete geometry. Each project gives an exact mathematical
 statement, Lean theorem names, build instructions, and original problem references.
 The collection focuses on precisely stated results with dated prior-art checks.
 
@@ -23,11 +23,12 @@ it does not establish historical priority or imply that every lemma is new.
 | [Manabe’s subtraction game with moves 3, 8, and 11k+7](manabe-residue-seven/) | For every `k ≥ 1`, exactly one heap has Grundy value 3, at size `11k+10`. | No earlier proof of the singleton statement for all positive `k` was located. REUF working notes anticipate the repeating block. |
 | [Binomial recurrence (OEIS A026019)](a026019-binomial-recurrence/) | Mathar’s three-term polynomial recurrence holds for `a(n) = C(3n,n) − C(3n,n−3)` at every `n ≥ 2`, with negative lower binomial indices interpreted as zero. | No earlier explicit proof located; a first-order recurrence implemented in jOEIS on 6 November 2026 implies it. Historical priority is unverified. |
 | [Nonlinear-to-linear recurrence (OEIS A176755)](a176755-linear-recurrence/) | Mathar’s five-term polynomial recurrence holds for every `n ≥ 4`, starting from `a₀ = 1`, `a₁ = 3`, and the nonlinear convolution recurrence. | Covered by Georg Fischer’s January 2020 general recurrence. This project supplies a Lean proof; first-formalization status is unverified. |
+| [Arctangent-sum conjecture (arXiv:2607.05739)](arctangent-sum/) | The number of integer-valued indices through $N$ is $O((\log N)^{3/4})$. Through $10^6$, only $n=1,2,3,4$ give integer values at positive indices. | Ono proved $O(\log N)$. Formal Conjectures lists the exclusion of every $n \geq 5$ as open. |
 
 ## Find and check a theorem
 
 Each proof project below is an independent Lake project pinned to Lean **4.36.0**.
-The E17260, integer cubic, three-column matrix, A026019, and A176755 projects also use mathlib **v4.36.0**.
+The E17260, integer cubic, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
 E1486's SAT checks and the large T-board
 families can require substantial computation.
@@ -45,6 +46,7 @@ families can require substantial computation.
 | `manabe-residue-seven` | `lake build` | `SubtractionGame.grundy_eq_three_iff` |
 | `a026019-binomial-recurrence` | `lake build` | `A026019.recurrence` |
 | `a176755-linear-recurrence` | `lake build` | `A176755.mathar` |
+| `arctangent-sum` | `lake build` | `Arxiv.«2607.05739».positive_integer_count_isBigO` |
 
 The E1486 proof uses Lean's native certificate-checking machinery; see its
 [trust and reproduction notes](E1486-order-15/README.md#reproduce).
@@ -82,6 +84,9 @@ except material carrying separate license or attribution notices:
 
 - [E1486-order-15](E1486-order-15/LICENSE) retains its Apache-2.0 license and
   the copyright notice of the Equational Theories Project contributors.
+- The four definitions from Formal Conjectures in
+  [ArctanBridge.lean](arctangent-sum/ArctanBridge.lean) retain their Apache-2.0
+  license and copyright notice.
 - Qiyuan Ma's manuscript, certificate data, documentation, and recorded
   outputs in [three-color-t-boards/sources](three-color-t-boards/sources/LICENSE_SCOPE.txt)
   retain CC-BY-4.0. The supplied Python programs retain their MIT license

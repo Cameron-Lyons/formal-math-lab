@@ -1,0 +1,547 @@
+{
+  "status": "PASS",
+  "claim": "rigorous unrestricted ternary upper bound, not the exact count and not a lower bound",
+  "upper_bound": "1185818059470602086065654202368",
+  "previous_documented_rotor_upper_bound": "1189563417824350846613100429312",
+  "improvement_integer": "3745358353748760547446226944",
+  "new_to_old_ratio": [
+    706357,
+    708588
+  ],
+  "relative_decrease": [
+    2231,
+    708588
+  ],
+  "relative_decrease_percent_approximate": 0.3148515075050664,
+  "formula": "U4=3^13*sum_apex0_four_row_caps(6^n0*2^n1)",
+  "weighted_apex0_four_row_cap_sum": "743775294887298299068416",
+  "full_boundary_cells": 19,
+  "known_boundary_cells": 7,
+  "unknown_boundary_cells": 12,
+  "apex_color_factor": 3,
+  "fiber_proof": "For every cap, the compatible full boundary/rotor parameter tuples number exactly3^12*product_g(3-k_g)!; complete valid boards inject into this cap fiber.",
+  "four_row_cap_count_apex0": 9391598,
+  "four_row_cap_count_labeled": 28174794,
+  "cap_censuses_and_bounds": [
+    {
+      "colors": 2,
+      "height": 1,
+      "apex_zero_caps": 1,
+      "full_boundary_cells": 9,
+      "known_boundary_cells": 1,
+      "remaining_boundary_cells": 8,
+      "apex_color_factor": 2,
+      "weighted_cap_sum": "256",
+      "boundary_and_apex_factor": "512",
+      "upper_bound": "131072",
+      "original_rotor_bound": "131072",
+      "ratio_to_original": [
+        1,
+        1
+      ],
+      "histogram": [
+        {
+          "n0": 8,
+          "n1": 0,
+          "n2": 0,
+          "n3": 0,
+          "caps": 1,
+          "rotor_suffixes_per_cap": "256",
+          "weighted_contribution": "256"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q2_h1.json"
+    },
+    {
+      "colors": 2,
+      "height": 2,
+      "apex_zero_caps": 8,
+      "full_boundary_cells": 9,
+      "known_boundary_cells": 3,
+      "remaining_boundary_cells": 6,
+      "apex_color_factor": 2,
+      "weighted_cap_sum": "1024",
+      "boundary_and_apex_factor": "128",
+      "upper_bound": "131072",
+      "original_rotor_bound": "131072",
+      "ratio_to_original": [
+        1,
+        1
+      ],
+      "histogram": [
+        {
+          "n0": 7,
+          "n1": 1,
+          "n2": 0,
+          "n3": 0,
+          "caps": 8,
+          "rotor_suffixes_per_cap": "128",
+          "weighted_contribution": "1024"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q2_h2.json"
+    },
+    {
+      "colors": 2,
+      "height": 3,
+      "apex_zero_caps": 180,
+      "full_boundary_cells": 9,
+      "known_boundary_cells": 5,
+      "remaining_boundary_cells": 4,
+      "apex_color_factor": 2,
+      "weighted_cap_sum": "3968",
+      "boundary_and_apex_factor": "32",
+      "upper_bound": "126976",
+      "original_rotor_bound": "131072",
+      "ratio_to_original": [
+        31,
+        32
+      ],
+      "histogram": [
+        {
+          "n0": 4,
+          "n1": 4,
+          "n2": 0,
+          "n3": 0,
+          "caps": 112,
+          "rotor_suffixes_per_cap": "16",
+          "weighted_contribution": "1792"
+        },
+        {
+          "n0": 5,
+          "n1": 2,
+          "n2": 1,
+          "n3": 0,
+          "caps": 68,
+          "rotor_suffixes_per_cap": "32",
+          "weighted_contribution": "2176"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q2_h3.json"
+    },
+    {
+      "colors": 2,
+      "height": 4,
+      "apex_zero_caps": 2878,
+      "full_boundary_cells": 9,
+      "known_boundary_cells": 7,
+      "remaining_boundary_cells": 2,
+      "apex_color_factor": 2,
+      "weighted_cap_sum": "8304",
+      "boundary_and_apex_factor": "8",
+      "upper_bound": "66432",
+      "original_rotor_bound": "131072",
+      "ratio_to_original": [
+        519,
+        1024
+      ],
+      "histogram": [
+        {
+          "n0": 0,
+          "n1": 7,
+          "n2": 1,
+          "n3": 0,
+          "caps": 276,
+          "rotor_suffixes_per_cap": "1",
+          "weighted_contribution": "276"
+        },
+        {
+          "n0": 1,
+          "n1": 5,
+          "n2": 2,
+          "n3": 0,
+          "caps": 1402,
+          "rotor_suffixes_per_cap": "2",
+          "weighted_contribution": "2804"
+        },
+        {
+          "n0": 2,
+          "n1": 3,
+          "n2": 3,
+          "n3": 0,
+          "caps": 1094,
+          "rotor_suffixes_per_cap": "4",
+          "weighted_contribution": "4376"
+        },
+        {
+          "n0": 3,
+          "n1": 1,
+          "n2": 4,
+          "n3": 0,
+          "caps": 106,
+          "rotor_suffixes_per_cap": "8",
+          "weighted_contribution": "848"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q2_h4.json"
+    },
+    {
+      "colors": 2,
+      "height": 5,
+      "apex_zero_caps": 84,
+      "full_boundary_cells": 9,
+      "known_boundary_cells": 9,
+      "remaining_boundary_cells": 0,
+      "apex_color_factor": 2,
+      "weighted_cap_sum": "84",
+      "boundary_and_apex_factor": "2",
+      "upper_bound": "168",
+      "original_rotor_bound": "131072",
+      "ratio_to_original": [
+        21,
+        16384
+      ],
+      "histogram": [
+        {
+          "n0": 0,
+          "n1": 0,
+          "n2": 8,
+          "n3": 0,
+          "caps": 84,
+          "rotor_suffixes_per_cap": "1",
+          "weighted_contribution": "84"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q2_h5.json"
+    },
+    {
+      "colors": 3,
+      "height": 1,
+      "apex_zero_caps": 1,
+      "full_boundary_cells": 19,
+      "known_boundary_cells": 1,
+      "remaining_boundary_cells": 18,
+      "apex_color_factor": 3,
+      "weighted_cap_sum": "1023490369077469249536",
+      "boundary_and_apex_factor": "1162261467",
+      "upper_bound": "1189563417824350846613100429312",
+      "original_rotor_bound": "1189563417824350846613100429312",
+      "ratio_to_original": [
+        1,
+        1
+      ],
+      "histogram": [
+        {
+          "n0": 27,
+          "n1": 0,
+          "n2": 0,
+          "n3": 0,
+          "caps": 1,
+          "rotor_suffixes_per_cap": "1023490369077469249536",
+          "weighted_contribution": "1023490369077469249536"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q3_h1.json"
+    },
+    {
+      "colors": 3,
+      "height": 2,
+      "apex_zero_caps": 27,
+      "full_boundary_cells": 19,
+      "known_boundary_cells": 3,
+      "remaining_boundary_cells": 16,
+      "apex_color_factor": 3,
+      "weighted_cap_sum": "9211413321697223245824",
+      "boundary_and_apex_factor": "129140163",
+      "upper_bound": "1189563417824350846613100429312",
+      "original_rotor_bound": "1189563417824350846613100429312",
+      "ratio_to_original": [
+        1,
+        1
+      ],
+      "histogram": [
+        {
+          "n0": 26,
+          "n1": 1,
+          "n2": 0,
+          "n3": 0,
+          "caps": 27,
+          "rotor_suffixes_per_cap": "341163456359156416512",
+          "weighted_contribution": "9211413321697223245824"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q3_h2.json"
+    },
+    {
+      "colors": 3,
+      "height": 3,
+      "apex_zero_caps": 6114,
+      "full_boundary_cells": 19,
+      "known_boundary_cells": 5,
+      "remaining_boundary_cells": 14,
+      "apex_color_factor": 3,
+      "weighted_cap_sum": "82902719895275009212416",
+      "boundary_and_apex_factor": "14348907",
+      "upper_bound": "1189563417824350846613100429312",
+      "original_rotor_bound": "1189563417824350846613100429312",
+      "ratio_to_original": [
+        1,
+        1
+      ],
+      "histogram": [
+        {
+          "n0": 23,
+          "n1": 4,
+          "n2": 0,
+          "n3": 0,
+          "caps": 5256,
+          "rotor_suffixes_per_cap": "12635683568857645056",
+          "weighted_contribution": "66413152837915782414336"
+        },
+        {
+          "n0": 24,
+          "n1": 2,
+          "n2": 1,
+          "n3": 0,
+          "caps": 852,
+          "rotor_suffixes_per_cap": "18953525353286467584",
+          "weighted_contribution": "16148403601000070381568"
+        },
+        {
+          "n0": 25,
+          "n1": 1,
+          "n2": 0,
+          "n3": 1,
+          "caps": 6,
+          "rotor_suffixes_per_cap": "56860576059859402752",
+          "weighted_contribution": "341163456359156416512"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_q3_h3.json"
+    },
+    {
+      "colors": 3,
+      "height": 4,
+      "apex_zero_caps": 9391598,
+      "full_boundary_cells": 19,
+      "known_boundary_cells": 7,
+      "remaining_boundary_cells": 12,
+      "apex_color_factor": 3,
+      "weighted_cap_sum": "743775294887298299068416",
+      "boundary_and_apex_factor": "1594323",
+      "upper_bound": "1185818059470602086065654202368",
+      "original_rotor_bound": "1189563417824350846613100429312",
+      "ratio_to_original": [
+        706357,
+        708588
+      ],
+      "histogram": [
+        {
+          "n0": 18,
+          "n1": 9,
+          "n2": 0,
+          "n3": 0,
+          "caps": 3514230,
+          "rotor_suffixes_per_cap": "51998697814228992",
+          "weighted_contribution": "182735383819697950556160"
+        },
+        {
+          "n0": 19,
+          "n1": 7,
+          "n2": 1,
+          "n3": 0,
+          "caps": 4203666,
+          "rotor_suffixes_per_cap": "77998046721343488",
+          "weighted_contribution": "327877737068923094827008"
+        },
+        {
+          "n0": 20,
+          "n1": 5,
+          "n2": 2,
+          "n3": 0,
+          "caps": 1352898,
+          "rotor_suffixes_per_cap": "116997070082015232",
+          "weighted_contribution": "158285102119818243342336"
+        },
+        {
+          "n0": 20,
+          "n1": 6,
+          "n2": 0,
+          "n3": 1,
+          "caps": 144392,
+          "rotor_suffixes_per_cap": "233994140164030464",
+          "weighted_contribution": "33786881886564686757888"
+        },
+        {
+          "n0": 21,
+          "n1": 3,
+          "n2": 3,
+          "n3": 0,
+          "caps": 121206,
+          "rotor_suffixes_per_cap": "175495605123022848",
+          "weighted_contribution": "21271120314541107314688"
+        },
+        {
+          "n0": 21,
+          "n1": 4,
+          "n2": 1,
+          "n3": 1,
+          "caps": 50178,
+          "rotor_suffixes_per_cap": "350991210246045696",
+          "weighted_contribution": "17612036947726080933888"
+        },
+        {
+          "n0": 22,
+          "n1": 1,
+          "n2": 4,
+          "n3": 0,
+          "caps": 2044,
+          "rotor_suffixes_per_cap": "263243407684534272",
+          "weighted_contribution": "538069525307188051968"
+        },
+        {
+          "n0": 22,
+          "n1": 2,
+          "n2": 2,
+          "n3": 1,
+          "caps": 2806,
+          "rotor_suffixes_per_cap": "526486815369068544",
+          "weighted_contribution": "1477322003925606334464"
+        },
+        {
+          "n0": 22,
+          "n1": 3,
+          "n2": 0,
+          "n3": 2,
+          "caps": 170,
+          "rotor_suffixes_per_cap": "1052973630738137088",
+          "weighted_contribution": "179005517225483304960"
+        },
+        {
+          "n0": 23,
+          "n1": 1,
+          "n2": 1,
+          "n3": 2,
+          "caps": 8,
+          "rotor_suffixes_per_cap": "1579460446107205632",
+          "weighted_contribution": "12635683568857645056"
+        }
+      ],
+      "raw_census_file": "exact_rotor_upper_ternary4_census.json"
+    }
+  ],
+  "independent_mobius_cap_count_checks": [
+    {
+      "height": 1,
+      "placement_partitions": 1,
+      "polynomial_coefficients": {
+        "1": 1
+      },
+      "binary_labeled_caps": 2,
+      "ternary_labeled_caps": 3
+    },
+    {
+      "height": 2,
+      "placement_partitions": 1,
+      "polynomial_coefficients": {
+        "4": 1
+      },
+      "binary_labeled_caps": 16,
+      "ternary_labeled_caps": 81
+    },
+    {
+      "height": 3,
+      "placement_partitions": 15,
+      "polynomial_coefficients": {
+        "9": 1,
+        "5": -6,
+        "3": 2,
+        "2": 9,
+        "1": -6
+      },
+      "binary_labeled_caps": 360,
+      "ternary_labeled_caps": 18342
+    },
+    {
+      "height": 4,
+      "placement_partitions": 21147,
+      "polynomial_coefficients": {
+        "16": 1,
+        "12": -36,
+        "10": 19,
+        "9": 88,
+        "8": 374,
+        "7": -220,
+        "6": -889,
+        "5": 449,
+        "4": -834,
+        "3": 1426,
+        "2": 400,
+        "1": -778
+      },
+      "binary_labeled_caps": 5756,
+      "ternary_labeled_caps": 28174794
+    }
+  ],
+  "independent_binary_all_parameter_check": {
+    "parameter_tuples": 131072,
+    "surviving_inputs_by_height": {
+      "1": 131072,
+      "2": 131072,
+      "3": 126976,
+      "4": 66432,
+      "5": 168
+    },
+    "exact_full_binary_boards": 168,
+    "accepted_board_geometry_and_tuple_roundtrips_checked": true
+  },
+  "independent_ternary_tiny_lazy_rotor_checks": [
+    {
+      "height": 1,
+      "known_apex_zero_boundary_words": 1,
+      "complete_lazy_rotor_leaves": 1,
+      "capacity_failure_nodes": 0,
+      "weighted_sum_of_full27_rotor_assignments": "1023490369077469249536"
+    },
+    {
+      "height": 2,
+      "known_apex_zero_boundary_words": 9,
+      "complete_lazy_rotor_leaves": 54,
+      "capacity_failure_nodes": 0,
+      "weighted_sum_of_full27_rotor_assignments": "9211413321697223245824"
+    },
+    {
+      "height": 3,
+      "known_apex_zero_boundary_words": 81,
+      "complete_lazy_rotor_leaves": 87516,
+      "capacity_failure_nodes": 0,
+      "weighted_sum_of_full27_rotor_assignments": "82902719895275009212416"
+    }
+  ],
+  "source_geometry": "one apex plus first two cells in each later row are boundary; right outputs decoded row-major from(T,L,M)",
+  "census_source_sha256": "7ed289a27377024cb522dd0c73d30c1d4490962a9de933010e2513f9565f867e",
+  "census_executable_sha256": "cde182120715f78e77f30931470ea67dbb8aad5391fe0e4951907e597b272956",
+  "compile_command": [
+    "c++",
+    "-O3",
+    "-std=c++20",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_rotor_upper_census.cpp",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_rotor_upper_census"
+  ],
+  "raw_census_sha256": {
+    "exact_rotor_upper_q2_h1.json": "3e44a7e09352e308fc5695205afcaf8a73a1e6bad241b318853822ec4f27f8d9",
+    "exact_rotor_upper_q2_h2.json": "010adef8ec7e7236924b057806e1e7d134766ec95582d5f1ccf241c99875f8db",
+    "exact_rotor_upper_q2_h3.json": "9019d5c9ae61d780dccab4b9012bba6f8b28c4321d264ae7097c7bf8f1e62ad8",
+    "exact_rotor_upper_q2_h4.json": "d0409278f190fcc597f840bc3c0d6db0a16e01685a9a8feef4e65e4127f7d2da",
+    "exact_rotor_upper_q2_h5.json": "d20d09bfc069c48ef3948edd486fcc842a5ef1b0732e20ea51ba031bf418bd15",
+    "exact_rotor_upper_q3_h1.json": "70108ce2f0e4123c339dd6c7b32ce76fa303ab96fd82d715b9c8f01ab4817e1b",
+    "exact_rotor_upper_q3_h2.json": "80bbe900222597728491906afe1ecd7d9b336987718d423f800a8765f23693f2",
+    "exact_rotor_upper_q3_h3.json": "9c75f782b7ec9e56508f288c6c26b87617a0f658c0b320afee7861bff930f1b4",
+    "exact_rotor_upper_ternary4_census.json": "e16b17674179ceff961daacba2da25173f4837eb2c2ed2a90e849696b23fc37d"
+  },
+  "python_checker_sha256": "ce29f8cd96f5f8a5df299b2d3c39ebd8ef4f20eb7b521fb1b733c9a1221ee0fd",
+  "independent_mobius_source_sha256": "4b5636fc50e5ee827f7036f448f33edb00f4f30f9d37d14be1178ce42c75530b",
+  "address_space_limit_bytes": 1073741824,
+  "native_census_workers": 1,
+  "five_row_scope_estimate": {
+    "existing_full_label_caps": 198649032096,
+    "apex0_caps": 66216344032,
+    "estimated_seconds_at_four_row_leaf_throughput": 699.4400715412326,
+    "estimate_is_not_a_run_or_guarantee": true,
+    "five_row_run_started": false,
+    "reflection_caveat": "Right-output rotor weight is not generally reflection-invariant; prefix orbit weighting requires both right and left weights, or a new proof."
+  },
+  "unrestricted_exact_count_status": "UNKNOWN",
+  "lower_bound_change": null
+}

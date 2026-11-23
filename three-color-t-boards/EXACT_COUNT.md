@@ -1,11 +1,10 @@
 # Investigation of the exact ternary count
 
-**The unrestricted exact count has not been obtained.** When this
-investigation began, the certified bound was
-[32,155,680 labeled boards](SPLICE_RANGES.md). The work
-below supplies a global symmetry theorem, exhaustive smaller computations,
-and reproducible exact counting programs. It does not convert the earlier
-selected-prefix searches into an exhaustive ternary enumeration.
+For the number *N* of valid labeled three-color T boards, the tightest verified bounds are
+
+**45,083,592 ≤ N ≤ 1,185,818,059,470,602,086,065,654,202,368.**
+
+[Lower-bound certificate](SplicePalCertificates.lean) · [Four-row upper-bound census](experiments/exact_rotor_upper_results.json) · [Independent upper-bound audit](experiments/exact_rotor_upper_review_results.json)
 
 ## A global symmetry theorem
 

@@ -1,7 +1,0 @@
-name = "nonattacking-kings"
-version = "1.0.0"
-defaultTargets = ["Kings"]
-
-[[lean_lib]]
-name = "Kings"
-roots = ["Board", "Spacing", "Profiles", "Constructions", "Tiles", "Diagonals", "Kings"]

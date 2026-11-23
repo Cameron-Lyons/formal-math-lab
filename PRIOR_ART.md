@@ -4,23 +4,10 @@ Checked **22 November 2026** (America/Chicago; retrievals may carry
 23 November UTC timestamps). This audit compares the exact local statements
 with existing mathematical proofs and public formalizations.
 
-**One completed project is already proved in the literature:** nonattacking
-kings. Four other exact results have no earlier proof located in the sources
-searched. The width-12 snake and E670 order-ten entries supply no local proof.
+The four completed proof projects have no earlier proof of their exact
+headline results located in the sources searched. The E670 order-ten
+research target supplies no local proof.
 None of these searches proves the absence of an earlier or unpublished result.
-
-## Nonattacking kings: existing proof found
-
-The local minimum-size and equality-classification claims are the square
-specialization of **Theorem 3** in Minevich, Cunningham, Karan, and Gyllinsky,
-[*Parks: A Doubly Infinite Family of NP-Complete Puzzles and Generalizations
-of A002464*](https://arxiv.org/html/2411.02251v1#S7.Thmtheorem3),
-submitted [4 November 2024](https://arxiv.org/abs/2411.02251).
-
-The [OEIS A387098 data](https://github.com/oeis/oeisdata/blob/main/seq/A387/A387098.seq)
-retains conjectural wording. That label does not supersede the published proof.
-The project is credited as a formalization of a known theorem. No earlier
-matching Lean formalization was located; no priority claim is made for it.
 
 ## E1486 at order 15
 
@@ -99,18 +86,6 @@ was located. Exclusion from Ma's supplied family proves only that particular
 comparison, not absolute priority. See the project's
 [detailed prior-art record](three-color-t-boards/PRIOR_ART.md).
 
-## Width-12 grid snakes: no local proof
-
-The indexed [OEIS A397153](https://oeis.org/A397153) entry labels its generating
-function conjectural. Direct OEIS retrievals were blocked with HTTP 403;
-this status was checked against indexed OEIS text, not a freshly fetched
-live entry. Its conjecture implies `s(n+6) = s(n) + 44` for `n ≥ 13`.
-
-[Blondin Massé–Goupil, arXiv:2606.13155v1](https://arxiv.org/html/2606.13155v1),
-submitted 11 June 2026, supplies an arbitrary-dimension generation algorithm
-and exact formulas at heights 1–5, not 12. No proof of this width-12 recurrence
-was located. The local directory is a research note, not a completed proof.
-
 ## E670 on ten elements: no local proof
 
 The live [spectrum data](https://ohaithe.re/equational_theories/research/data/spectrum.json)
@@ -127,12 +102,10 @@ equivalent terminology. Representative queries included:
 
 ```text
 E1486 order 15 proof; not_order_1486_15; E2126 spectrum
-nonattacking kings 4k exactly two; A387098; Parks Shuriken arrangements
 reciprocal Rado f_2(26) 2028; 2607.04373; Gaiser Ramezanpour 26
 R_3^2(C_7) 11; seven cycle two colour changes; 2607.03243
 prismatic T tetromino 45083592; ternary ziggurat more than 60
 de Bruijn polyominoes T L; 23631079
-A397153 proof; width 12 snake polyomino recurrence; 2606.13155
 ```
 
 The search did not include exhaustive subscription databases, private

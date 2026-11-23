@@ -106,6 +106,19 @@ Mathar derived a recurrence for rectangles in 2014 and tabulated the three-colum
 counts for `n = 3,…,9`. The search found no earlier Lean formalization of this
 specific polynomial. [Mathar, §2 and Table 2](https://oeis.org/A247158/a247158.pdf#page=2)
 
+## Manabe’s subtraction game
+
+Checked **23 November 2026**. For the moves `{3, 8, 11k+7}` with `k ≥ 1`,
+the only heap with Grundy value 3 has size `11k+10`. Manabe predicts a
+positive preperiod for this residue in Example 1. The singleton theorem
+proves that prediction for every member of this family.
+[Manabe, arXiv:2609.05358v2, Example 1](https://arxiv.org/html/2609.05358v2#S1)
+
+The REUF team's working notes give a proposed formula whose repeating block
+specializes to the same one here. The search found no earlier proof of the
+exact singleton statement for every positive `k`.
+[REUF working notes](https://github.com/ZacharyHenderson111/AIM2024/blob/main/CollectiveNotes/oldVerifiedCases/verifiedcases2023.tex#L374-L418)
+
 ## E670 on ten elements: no local proof
 
 The live [spectrum data](https://ohaithe.re/equational_theories/research/data/spectrum.json)

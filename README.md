@@ -7,7 +7,7 @@ The collection focuses on precisely stated results with dated prior-art checks.
 
 ## Proofs and results
 
-The [prior-art audit](PRIOR_ART.md), checked on **22 November 2026**, records
+The [prior-art audit](PRIOR_ART.md), updated **23 November 2026**, records
 the evidence for each result. “No earlier proof located” describes the sources searched;
 it does not establish historical priority or imply that every lemma is new.
 
@@ -18,6 +18,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
 | [Three-color prismatic T-tetromino ziggurats](three-color-t-boards/) | At least **45,083,592** labeled boards; also a small independent proof of **more than 60**. | No earlier proof of these stronger bounds located. Ma already proved existence of 60 boards. The unrestricted exact count remains unknown here. |
 | [Three-column binary matrices (OEIS A401159)](three-column-matrices/) | The number of labeled `n × 3` binary matrices with at most two ones per row and per column is `H³ − n⁴ + C(n,2)`, where `H = 1 + n + C(n,2)`. | Confirms Mathar’s stated polynomial. An inclusion–exclusion formula published in 2001 implies this case. |
+| [Manabe’s subtraction game with moves 3, 8, and 11k+7](manabe-residue-seven/) | For every `k ≥ 1`, exactly one heap has Grundy value 3, at size `11k+10`. | No earlier proof of the singleton statement for all positive `k` was located. REUF working notes anticipate the repeating block. |
 
 ## Find and check a theorem
 
@@ -35,6 +36,7 @@ families can require substantial computation.
 | `three-color-t-boards` | `lake build SplicePalCertificates` | `TBoards.at_least_45083592` |
 | `three-color-t-boards` (small proof) | `lake build SimpleProof` | `TBoards.Simple.problem_solved` |
 | `three-column-matrices` | `lake build` | `ThreeColumnMatrices.card_validMatrices` |
+| `manabe-residue-seven` | `lake build` | `SubtractionGame.grundy_eq_three_iff` |
 
 The E1486 proof uses Lean's native certificate-checking machinery; see its
 [trust and reproduction notes](E1486-order-15/README.md#reproduce).

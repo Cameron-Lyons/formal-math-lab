@@ -1,0 +1,7 @@
+name = "manabe-residue-seven"
+version = "0.1.0"
+defaultTargets = ["UniqueThree"]
+
+[[lean_lib]]
+name = "UniqueThree"
+roots = ["Game", "Pattern", "Window", "UniqueThree"]

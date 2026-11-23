@@ -1,0 +1,7 @@
+name = "ramsey310"
+version = "0.1.0"
+defaultTargets = ["Ramsey310"]
+
+[[lean_lib]]
+name = "Ramsey310"
+roots = ["Ramsey39", "RamseyNumber", "RamseySAT", "Extension", "Circulants", "TwoOrbits"]

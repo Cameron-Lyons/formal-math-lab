@@ -129,6 +129,32 @@ vertex-transitive graph at this order additionally uses McKay and Praeger’s
 classification for $2p$ with $p=127\equiv3\pmod4$.
 [Local obstruction](book-ramsey/CayleyObstruction.lean) · [McKay and Praeger, Theorem 1(b)](https://users.cecs.anu.edu.au/~bdm/papers/cheryl1.pdf)
 
+## Classical Ramsey number $R(3,10)$
+
+Checked **23 November 2026**. Geoffrey Exoo's 39-vertex triangle-free graph
+with no independent ten-set gives $R(3,10)\ge 40$. The local Lean proof
+checks Exoo's matrix and rules out extending that particular graph by one
+vertex. Vigleik Angeltveit proved $R(3,10)\le 41$ in a separate exhaustive
+computation. The unrestricted choice between 40 and 41 remains open.
+[Exoo (1989)](https://doi.org/10.1137/0402043) ·
+[Exoo's matrix](https://cs.indstate.edu/ge/RAMSEY/r3.10.39) ·
+[Angeltveit (2025), Theorem 1](https://doi.org/10.37236/12936)
+
+Harborth and Krause reported in 2003 that 38 is the largest order of a
+triangle-free circulant graph with no independent ten-set. Coniglio and
+coauthors reproduced this value in 2026. The local project verifies the
+order-40 circulant exclusion and also treats graphs admitting a simultaneous
+rotation of two 20-vertex cycles.
+[Harborth and Krause, Table 1](https://www.researchgate.net/profile/Heiko-Harborth/publication/265670071_Ramsey_numbers_for_circulant_colorings/links/617430c6eef53e51e1d63351/Ramsey-numbers-for-circulant-colorings.pdf) ·
+[Coniglio et al., Table 8](https://arxiv.org/html/2608.18769v1#S8.T8) ·
+[Local proofs](ramsey-3-10/)
+
+Li, Duggan, Bright, and Ganesh supplied independently checkable certificates
+for the exhaustive searches used for $R(3,8)$ and $R(3,9)$. For $R(3,10)$,
+the local Lean theorem proves that the unrestricted 40-vertex SAT instance is
+satisfiable exactly when a counterexample exists. Its satisfiability remains
+undecided. [Li et al. (2025)](https://ijcai.org/proceedings/2025/292)
+
 ## Three-color prismatic T-tetromino boards
 
 **Audited statements:** more than 60, and at least 45,083,592, labeled

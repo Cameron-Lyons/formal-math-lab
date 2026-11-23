@@ -11,6 +11,8 @@ recurrence follows from a first-order recurrence already implemented in jOEIS;
 its first-proof status is unverified. The A176755 recurrence is covered by
 Georg Fischer’s January 2020 general recurrence. The E670 order-ten research target
 supplies no local proof.
+The E17260 project supplies partial obstructions; finite nontrivial existence
+remains open in the sources checked on **23 November 2026**.
 None of these searches proves the absence of an earlier or unpublished result.
 
 ## E1486 at order 15
@@ -30,6 +32,32 @@ No earlier order-15 exclusion was located. The source law, square-row
 identities, and earlier spectrum results belong to the Equational Theories
 Project; the local claim is the specific order-15 exclusion, not the whole
 spectrum or the first formal study of E1486.
+
+## E17260: partial results, finite existence unresolved
+
+Checked **23 November 2026**. The law is
+`x = (y*x)*(z*(x*(z*z)))` for every `x,y,z`. The local Lean theorems show
+that a model has at most one element if it has an idempotent, surjective
+squaring, either cancellation law, or an affine operation on a commutative
+additive monoid. They also rule out square-map cycles of length two and
+establish finite counting bounds. **They do not settle finite nontrivial
+existence.** See the [project and theorem endpoints](E17260-partial-results/).
+
+The Equational Theories Project's
+[catalogue at the inspected 23 November 2026 revision](https://github.com/teorth/equational_theories/blob/02b063b67143a897f070803482691c820770501d/blueprint/src/chapter/order_5.tex#L99-L110)
+still lists finite existence for E17260 and its dual E28740 as unknown.
+[*Trace-Tree Magmas*, arXiv v3, revised 22 September 2026](https://arxiv.org/html/2609.05690v3#S7.SS2)
+provides Lean-certified infinite models and explicitly leaves the finite
+question open in Table 4 and [Section 9](https://arxiv.org/html/2609.05690v3#S9).
+These infinite models are prior work, not a result of this project.
+
+The 16 December 2024 discussion already reports
+[exhaustive exclusion through order 10](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/Some.20results.20from.20order.205.html#489163277)
+and [absence of finite linear models, including noncommutative coefficients](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/Some.20results.20from.20order.205.html#489207891).
+The local affine proof works without finiteness, but no novelty claim is made.
+The novelty of the other partial obstructions and their first-formalization
+status have not been established. Local searches at orders 11–20 were
+inconclusive and do not improve the known finite exclusion bound.
 
 <a id="reciprocal-rado"></a>
 

@@ -1,0 +1,12 @@
+name = "equation17260"
+version = "0.1.0"
+defaultTargets = ["Equation17260"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+[[lean_lib]]
+name = "Equation17260"
+roots = ["Equation17260", "Cancellation17260", "Affine17260", "Finite17260", "Squares17260", "Check"]

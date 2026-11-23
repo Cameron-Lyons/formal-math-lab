@@ -1,0 +1,20 @@
+{"order": 11, "vars": 4114, "clauses": 35619, "setup_seconds": 0.021060232000309043}
+{"order": 11, "result": "unknown", "seconds": 3.025005442999827, "stats": {"restarts": 2384, "conflicts": 50005, "decisions": 133291, "propagations": 13459530}}
+{"order": 12, "vars": 5328, "clauses": 49735, "setup_seconds": 0.026056000002427027}
+{"order": 12, "result": "unknown", "seconds": 2.9542897540013655, "stats": {"restarts": 2546, "conflicts": 50000, "decisions": 153988, "propagations": 15523973}}
+{"order": 13, "vars": 6760, "clauses": 67666, "setup_seconds": 0.08787536599993473}
+{"order": 13, "result": "unknown", "seconds": 4.042268792996765, "stats": {"restarts": 2134, "conflicts": 50000, "decisions": 163145, "propagations": 17983527}}
+{"order": 14, "vars": 8428, "clauses": 90042, "setup_seconds": 0.05321778699726565}
+{"order": 14, "result": "unknown", "seconds": 4.0726363099965965, "stats": {"restarts": 2071, "conflicts": 50002, "decisions": 173708, "propagations": 18172696}}
+{"order": 15, "vars": 10350, "clauses": 117541, "setup_seconds": 0.06347091099451063}
+{"order": 15, "result": "unknown", "seconds": 6.6428799189961865, "stats": {"restarts": 2162, "conflicts": 50000, "decisions": 205530, "propagations": 22338180}}
+{"order": 16, "vars": 12544, "clauses": 150889, "setup_seconds": 0.2023966670021764}
+{"order": 16, "result": "unknown", "seconds": 6.61738168100419, "stats": {"restarts": 1861, "conflicts": 50002, "decisions": 212069, "propagations": 22463467}}
+{"order": 17, "vars": 15028, "clauses": 190860, "setup_seconds": 0.10543553599563893}
+{"order": 17, "result": "unknown", "seconds": 3.7445479620000697, "stats": {"restarts": 1879, "conflicts": 50000, "decisions": 230077, "propagations": 23047913}}
+{"order": 18, "vars": 17820, "clauses": 238276, "setup_seconds": 0.2465200160004315}
+{"order": 18, "result": "unknown", "seconds": 6.831267486995785, "stats": {"restarts": 1482, "conflicts": 50000, "decisions": 217778, "propagations": 23360853}}
+{"order": 19, "vars": 20938, "clauses": 294007, "setup_seconds": 0.2579679570044391}
+{"order": 19, "result": "unknown", "seconds": 6.031736198005092, "stats": {"restarts": 1513, "conflicts": 50000, "decisions": 260519, "propagations": 23106268}}
+{"order": 20, "vars": 24400, "clauses": 358971, "setup_seconds": 0.23769136299961247}
+{"order": 20, "result": "unknown", "seconds": 8.29049767399556, "stats": {"restarts": 1285, "conflicts": 50000, "decisions": 252679, "propagations": 25940187}}

@@ -1,0 +1,8 @@
+{"order": 2, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "vars": 24, "clauses": 68, "setup_seconds": 0.0004195709989289753}
+{"order": 2, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "result": "unsat", "seconds": 0.0005763329972978681, "stats": {"restarts": 0, "conflicts": 6, "decisions": 6, "propagations": 58}}
+{"order": 3, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "vars": 108, "clauses": 334, "setup_seconds": 0.0005056190057075582}
+{"order": 3, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "result": "unsat", "seconds": 0.0007416580046992749, "stats": {"restarts": 0, "conflicts": 40, "decisions": 46, "propagations": 1030}}
+{"order": 4, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "vars": 256, "clauses": 947, "setup_seconds": 0.0009628520056139678}
+{"order": 4, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "result": "unsat", "seconds": 0.0021384470019256696, "stats": {"restarts": 0, "conflicts": 160, "decisions": 188, "propagations": 6595}}
+{"order": 5, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "vars": 500, "clauses": 2131, "setup_seconds": 0.0020145809976384044}
+{"order": 5, "cycle": 0, "prune_cycles": false, "conflict_budget": 10000, "result": "unsat", "seconds": 0.011173437000252306, "stats": {"restarts": 0, "conflicts": 779, "decisions": 930, "propagations": 50832}}

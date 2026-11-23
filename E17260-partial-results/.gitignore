@@ -1,0 +1,5 @@
+.lake/
+.venv/
+.search-venv/
+.tools/
+__pycache__/

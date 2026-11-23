@@ -137,6 +137,10 @@ imports those upper bounds from the revision cited in his preprint.
 [Tripodo’s preprint](https://hexagonmath.org/pdf/2611.00694v1) ·
 [Pinned Lean source](https://github.com/jjtripodo-lgtm/erdos-708-g4-g5/tree/00fbb23c3084daa88ea420aa9c74177127d5283f)
 
+## Erdős #835, coloring subsets
+
+Comparison updated **23 November 2026**. At $k=16$, the September 2026 discussion excludes point symmetries of orders 19, 23, 29, and 31. Separate computations exclude two groups acting on a single Steiner system. The local project proves restrictions on involutions, point symmetries of orders 11 and 13, and regular abelian groups acting on a coloring. An earlier result on automorphisms of $S(4,5,21)$ also implies the order-11 exclusion and the exclusion of a single 13-cycle. The unrestricted coloring problem remains open. [Kolotoğlu and Magliveras (2014)](https://onlinelibrary.wiley.com/doi/10.1002/jcd.21370) · [September 28 argument](https://www.erdosproblems.com/forum/thread/835#post-9219) · [Steiner-system computations](https://github.com/veljjanoski/erdos835) · [Local proofs and comparison with earlier work](erdos-835-coloring-subsets/README.md#relation-to-earlier-work)
+
 <a id="seven-cycle"></a>
 
 ## Seven-cycle threshold R₃²(C₇) = 11

@@ -19,6 +19,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [Erdős #677, equal LCMs of six consecutive integers](erdos-677-equal-lcms/) | The only equal-LCM pairs at length six have parameters $(3,4)$, $(5,6)$ and $(13,15)$. All overlap. Lean checks the reduction and finite cases. External elliptic-curve arithmetic proves completeness. | The three overlaps and four-cubic reduction were recorded previously. The arbitrary-length problem remains open. |
 | [Erdős #708, interval products for six integers](erdos-708-six/) | $g(6)=8$. For every six-element set $A$ of integers at least two, at most eight entries from any block of $\max A$ consecutive integers suffice for a product divisible by $\prod_{a\in A}a$. Some blocks require eight. | C. Bergström previously proved the value eight. The local Lean proof uses John Tripodo’s formalized bounds for four and five integers. |
+| [Erdős #835, coloring subsets](erdos-835-coloring-subsets/) | At $k=16$, any point involution preserving a rainbow coloring must move at least 30 of the 32 points. Lean also excludes symmetries of order 11 or 13 and regular abelian groups of order 32. | Earlier work excludes other symmetry classes. The existence of a coloring remains open. |
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
 | [Book Ramsey number $R(B_{63},B_{64})$](book-ramsey/) | $253 \le R(B_{63},B_{64}) \le 255$. The 252-vertex witness has at most 62 pages on every spine in either color. | The bounds follow from Dai–Lin and Rousseau–Sheehan. Chung and Wesley list the 254-vertex construction as open. |
 | [Ramsey number $R(3,10)$](ramsey-3-10/) | Exoo’s 39-vertex graph gives $R(3,10) \ge 40$. Every one-vertex extension contains a triangle or an independent ten-set. | Exoo proved the lower bound. Angeltveit proved $R(3,10) \le 41$. The exact value remains open. |
@@ -31,7 +32,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 ## Find and check a theorem
 
-Each proof has its own Lake project. The Erdős #677 and #708 projects use Lean **4.35.0-rc2**.
+Each proof has its own Lake project. The Erdős #677, #708, and #835 projects use Lean **4.35.0-rc2**.
 The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
@@ -46,6 +47,7 @@ families can require substantial computation.
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
 | `erdos-677-equal-lcms` | `lake exe cache get` then `lake build`. [Arithmetic checks](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction) | `Erdos677.six_collision_iff_three_of_affine_cover` |
 | `erdos-708-six` | `lake exe cache get` then `lake build` | `Erdos708.isLeast_six`, `IntervalSix.six_integer` |
+| `erdos-835-coloring-subsets` | `lake exe cache get` then `lake build` | `Erdos835.involution_moves_at_least_thirty`, `Erdos835.no_regular_abelian_symmetry` |
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
 | `book-ramsey` | `lake build` | `BookRamsey.Lower252.exists_252`, `BookRamsey.Upper255.upper` |
 | `ramsey-3-10` | `lake build` | `Ramsey310.ramsey_lower_bound`, `Ramsey310.exoo_no_one_vertex_extension` |

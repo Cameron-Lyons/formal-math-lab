@@ -4,6 +4,8 @@ Write $M(n,k)$ for the LCM of $n+1,\ldots,n+k$. Erdős #677 asks whether $M(m,k)
 
 ## Results
 
+At length two the LCM strictly increases with the start. At length five, Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3\cdot10^{12}$. [Length-two and length-five proofs](LengthTwoAndFive.md)
+
 **Length six is settled by a computer-assisted proof.** For arbitrary distinct starts, the only equalities are the three overlapping pairs with parameters $(3,4)$, $(5,6)$, and $(13,15)$. Lean verifies the reduction, the finite LCM checks, and the disjoint-block conclusion given the explicit affine bound. The proof of that bound uses elliptic logarithms and external arithmetic. [Proof, complete integral-point lists, and reproduction commands](cubic/LengthSix.md)
 
 | Range | Verification |

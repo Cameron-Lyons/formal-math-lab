@@ -1,3 +1,4 @@
+import BlockLCM
 import Bounded
 import Displacement
 import Gap

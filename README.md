@@ -54,10 +54,28 @@ checkout may sit beside these projects; it is not a mathematical result.
 Original problem references, known proofs, and the literature-search scope
 are recorded in [PRIOR_ART.md](PRIOR_ART.md). The T-board project's
 [source attribution](three-color-t-boards/README.md#source-and-attribution)
-preserves Qiyuan Ma's licenses and credits. Existing component license notices
-remain applicable; no collection-wide license replaces them.
+preserves Qiyuan Ma's licenses and credits. See [License](#license) for the
+collection's MIT license and the components with separate license notices.
 
 For each added result, record its assumptions, named proof endpoint,
 reproduction command, source problem identifier, and dated prior-art search.
 Check general theorems and equivalent terminology as well as the exact title;
 a conjecture label in a catalogue can be stale.
+
+## License
+
+Original collection material is licensed under the [MIT License](LICENSE),
+except material carrying separate license or attribution notices:
+
+- [E1486-order-15](E1486-order-15/LICENSE) retains its Apache-2.0 license and
+  the copyright notice of the Equational Theories Project contributors.
+- Qiyuan Ma's manuscript, certificate data, documentation, and recorded
+  outputs in [three-color-t-boards/sources](three-color-t-boards/sources/LICENSE_SCOPE.txt)
+  retain CC-BY-4.0. The supplied Python programs retain their MIT license
+  and original copyright notice.
+- Ma's attribution also applies to the first five representatives and their
+  symmetry images reused in the T-board data; see
+  [source and attribution](three-color-t-boards/README.md#source-and-attribution).
+
+The root MIT license does not replace these notices or relicense third-party
+material.

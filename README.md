@@ -13,6 +13,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 | Problem and identifiers | Result in this collection | Prior-art status |
 | --- | --- | --- |
+| [Triple covering design $C(61,25,3)$](covering-61-25-3/) | Any 26-group cover can retain at most 20 groups from the published construction. Lean checks all 296,010 choices of 21 retained groups. | Caleb Ashton published the 27-group construction. The unrestricted 26-group question remains open in this project. |
 | [E677 implies E255 at order 9](E677-E255-order-9/) | Every nine-element magma satisfying E677 also satisfies E255. | José Brox reported the order-nine exclusion in December 2024. |
 | [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. | No earlier proof located; order 15 remains open in the inspected Equational Theories catalogue. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
@@ -44,6 +45,7 @@ families can require substantial computation.
 
 | Directory | Build command | Main Lean declaration |
 | --- | --- | --- |
+| `covering-61-25-3` | `lake build` | `Covering61.RepairSearch.published_six_for_five_screen` |
 | `E677-E255-order-9` | `lake build` | `Nine.eq677_implies_eq255` |
 | `E1486-order-15` | `lake build +Simple.NoTable` | `E1486.Simple.noTable` |
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |

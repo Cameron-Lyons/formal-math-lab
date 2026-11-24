@@ -16,7 +16,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [Triple covering design $C(61,25,3)$](covering-61-25-3/) | Any 26-group cover can retain at most 20 groups from the published construction. Lean checks all 296,010 choices of 21 retained groups. | Caleb Ashton published the 27-group construction. The unrestricted 26-group question remains open in this project. |
 | [E677 implies E255 at order 9](E677-E255-order-9/) | Every nine-element magma satisfying E677 also satisfies E255. | José Brox reported the order-nine exclusion in December 2024. |
 | [E670, order 10: finite magma spectrum](E670-order-10/) | No 10-element binary operation satisfies `y*(x*((x*y)*y)) = x`. | No earlier proof located; order 10 remains open in the inspected Equational Theories catalogue. |
-| [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. A 17-element one does. | No earlier proof of either located; orders 15 and 17 remain open in the inspected Equational Theories catalogue. |
+| [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 12-element or 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. A 17-element one does. | No earlier proof of any of the three located; orders 12, 15 and 17 remain open in the inspected Equational Theories catalogue. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
 | [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
 | [Three integer cubes summing to 114](three-cubes-114/) | Arbitrarily large moduli admit a cube root of 114 and lie outside the full norm family. | Booker–Sutherland and Grantham–Walsh give earlier search methods. The local searches found no triple. |
@@ -52,6 +52,7 @@ families can require substantial computation.
 | `E677-E255-order-9` | `lake build` | `Nine.eq677_implies_eq255` |
 | `E670-order-10` | `lake build` | `E670.no_model_of_order_ten` |
 | `E1486-order-15` | `lake build +Simple.NoTable` | `E1486.Simple.noTable` |
+| `E1486-order-15` (order 12) | `lake build Simple.Order12.NoTable` | `E1486.Order12.noTable` |
 | `E1486-order-15` (order 17) | `lake build Simple.Order17` | `E1486.Order17.exists_table` |
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |
 | `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |

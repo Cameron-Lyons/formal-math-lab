@@ -12,6 +12,7 @@ its first-proof status is unverified. The A176755 recurrence is covered by
 Georg Fischer’s January 2020 general recurrence.
 For E670 at order 10, the search of **23 November 2026** likewise found no earlier proof.
 For the 17-element model of E1486, the search of the same date found no earlier model.
+For E1486 at order 12, the search of the same date found no earlier exclusion and no model.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
@@ -69,6 +70,34 @@ channel of the Lean Zulip. The
 [earlier discussion](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/Understanding.20Finite.201486.20Magmas.html)
 of sporadic models does not mention order 17. The local claim is this one model,
 not the spectrum. [Lean proof](E1486-order-15/Simple/Order17.lean)
+
+## E1486 at order 12
+
+**Audited statement:** no 12-element magma satisfies
+`(y*x)*(x*(z*z)) = x` universally.
+
+Checked **23 November 2026** (24 November UTC). The pinned research note and
+live spectrum data cited for order 15 also list 12 among E1486's unresolved
+orders. The live response is unchanged since **5 November 2026** and matches the
+hash in the [filtered retrieval record](research/prior-art/equational-spectrum-2026-11-22.json).
+The note is unchanged at the fork's latest research revision,
+[`199f75c2`](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/docs/1486_graph_spectrum.md).
+
+The recorded attempts at order 12 did not decide it. The note's
+[search data](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/data/spectrum/1486_search_followup.json)
+record three CaDiCaL runs, one unrestricted and two with a normalized row; each
+reached its 60-second limit with result `UNKNOWN`. A later
+[search campaign](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/docs/spectrum_search_campaign_20261011.md)
+ran four restricted cases for 900 seconds each. One returned `UNSAT` and three
+timed out; its report says "No order-12 existence or nonexistence claim follows
+from this partial search." On the Lean Zulip, Bruno Le Floch
+[reported](https://leanprover.zulipchat.com/#narrow/channel/458659-Equational/topic/Writing.20a.20paper.20on.20the.20spectrum.20of.20an.20equational.20law/near/627564683)
+on 28 September 2026 stopping a Mace4 search at size 12 after 14 hours.
+
+No earlier order-12 exclusion or 12-element model was located in the fork, in
+the main repository's issues and pull requests, or in the public Equational
+channel of the Lean Zulip. The local claim is this one exclusion, not the
+spectrum. [Lean proof](E1486-order-15/Simple/Order12/NoTable.lean)
 
 ## E17260: partial results, finite existence unresolved
 
@@ -421,6 +450,7 @@ Equation 670 magma spectrum order 10; not_order_670_10; exclude_670_10
 Zulip #Equational: 670; E670; 2937
 E1486 order 15 proof; not_order_1486_15; E2126 spectrum
 E1486 order 17 model; "1486" spectrum "order 17"; Zulip #Equational: 1486; 2126
+E1486 order 12; not_order_1486_12; exclude_1486_12; "1486" Mace4 "size 12"
 reciprocal Rado f_2(26) 2028; 2607.04373; Gaiser Ramezanpour 26
 R_3^2(C_7) 11; seven cycle two colour changes; 2607.03243
 prismatic T tetromino 45083592; ternary ziggurat more than 60

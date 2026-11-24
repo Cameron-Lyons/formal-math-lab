@@ -185,7 +185,7 @@ arrow graph in `Simple.Order`. -/
 noncomputable def bits (m : Operation) (x y : V) : Bool := by
   classical exact decide (Row m x y)
 
-theorem bits_pull (l : Label) (m : Operation) (x y : V) :
+theorem bits_pull (l : Label 15) (m : Operation) (x y : V) :
     bits (l.pull m) x y = bits m (l.old x) (l.old y) := by
   classical
   simp only [bits]

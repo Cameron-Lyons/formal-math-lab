@@ -9,7 +9,7 @@ open Encoding Symmetry
 private noncomputable def adj (m : Operation) (a b : V) : Bool :=
   (pack (arrows m)).getLsbD (15*a.val+b.val)
 
-private theorem adj_pull (l : Label) (m : Operation) (a b : V) :
+private theorem adj_pull (l : Label 15) (m : Operation) (a b : V) :
     adj (l.pull m) a b = adj m (l.old a) (l.old b) := by
   apply Bool.eq_iff_iff.mpr
   simp only [adj,pack_get,arrows,Pred,l.row]

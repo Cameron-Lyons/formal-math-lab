@@ -19,6 +19,22 @@ The Erdős #708 project formalizes C. Bergström’s previously proved value $g(
 and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
+## Nine-bit snake-in-the-box
+
+Checked **24 November 2026**. Orland et al. published 131 inequivalent induced
+paths of 191 edges in the nine-dimensional cube. They report that none admits
+a one-edge extension and ask whether a 192-step path exists. Kunt, Koch, and
+Park also identify dimension nine as the smallest open case.
+[Orland et al., §8](https://arxiv.org/html/2607.15270v3#S8) · [Published records at the pinned revision](https://github.com/Math-AI-Caltech/Snake-in-the-Box/blob/46c765399353a588ea50444a5d6610f53102b1c2/record_snakes.csv.zip) · [Kunt, Koch, and Park](https://arxiv.org/abs/2611.25268)
+
+The Lean project retains the first 156 steps of each published path in both
+orientations. Its `native_decide` checks exclude a 192-step completion and
+place every 191-step completion in one of the 131 classes. Kernel reduction
+also excludes 192 steps when the first 171 steps are retained. A separate
+kernel proof shows that a 191-step path is inequivalent to every published
+path if the distances back to its starting endpoint after steps 1 through 17
+agree in both orientations. [Prefix exclusion](nine-bit-snake/Results.lean) · [Kernel check](nine-bit-snake/KernelChecks.lean) · [Classification and endpoint test](nine-bit-snake/Closure.lean)
+
 ## Two squares of each side from 1 through 21
 
 Checked **24 November 2026**. Friedman’s table gives bounds of two through five

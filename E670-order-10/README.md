@@ -103,6 +103,8 @@ printf '%s\n' 'import E670' '#print axioms E670.no_model_of_order_ten' | lake en
 | [E670/Main.lean](E670/Main.lean) | The covering certificate and the theorem. |
 | [E670/Examples.lean](E670/Examples.lean) | Models of other sizes; not used in the proof. |
 
+The naming of the elements, the table encoding and the refutation by cases do not depend on the law, and neither does the lemma that a surjection of a finite set onto itself is injective. The [Equation 677 project](../E677-E255-order-9/) imports them from `E670/Basic.lean`, `E670/Normal.lean`, `E670/Encoding.lean` and `E670/Cubes.lean` for its own ten-element proof, and writes its part modules with `scripts/parts.sh`.
+
 ### An independent check
 
 [scripts/check.py](scripts/check.py) writes the formula directly from the law, sharing no code with the Lean development, and splits it in its own way: by the first row alone. In the naming above the first row is a permutation $r$ with $r(y)\le y+1$, and there are 512 of those. The script runs CaDiCaL once for each. It needs Python 3 and CaDiCaL, which it finds on `PATH` or in the Lean installation.

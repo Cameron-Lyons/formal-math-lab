@@ -88,40 +88,62 @@ def sideClauses : List Cl := R.map fun x => [neg 0 0 0, pos x x x]
 def formula : List Cl :=
   cellClauses ++ rowClauses ++ lawClauses ++ chainUnits ++ sideClauses
 
+theorem sat_cellClauses (op : Op) : ∀ c ∈ cellClauses, csat (assign op) c = true := by
+  intro cl hc
+  simp only [cellClauses, R, List.mem_flatMap, List.mem_map, List.mem_filter, List.mem_cons,
+    List.mem_finRange, decide_eq_true_eq, true_and] at hc
+  obtain ⟨x, y, rfl | ⟨z₁, z₂, hlt, rfl⟩⟩ := hc
+  · exact csat_of_mem (List.mem_map_of_mem (List.mem_finRange (op x y)))
+  · simp only [csat_neg, csat_nil]
+    exact fun h₁ h₂ => Fin.ne_of_lt hlt (h₁.symm.trans h₂)
+
+/-- The row clauses hold in a table whose rows are permutations. -/
+theorem sat_rowClauses {op : Op} (surj : ∀ x z, ∃ y, op x y = z)
+    (inj : ∀ {x a b}, op x a = op x b → a = b) : ∀ c ∈ rowClauses, csat (assign op) c = true := by
+  intro cl hc
+  simp only [rowClauses, R, List.mem_flatMap, List.mem_map, List.mem_filter, List.mem_cons,
+    List.mem_finRange, decide_eq_true_eq, true_and] at hc
+  obtain ⟨x, z, rfl | ⟨y₁, y₂, hlt, rfl⟩⟩ := hc
+  · obtain ⟨y, rfl⟩ := surj x z
+    exact csat_of_mem (List.mem_map_of_mem (List.mem_finRange y))
+  · simp only [csat_neg, csat_nil]
+    exact fun h₁ h₂ => Fin.ne_of_lt hlt (inj (h₁.trans h₂.symm))
+
+theorem sat_chainUnits {op : Op} (chain : ChainRow op) :
+    ∀ c ∈ chainUnits, csat (assign op) c = true := by
+  intro cl hc
+  simp only [chainUnits, R, List.mem_flatMap, List.mem_map, List.mem_filter,
+    List.mem_finRange, decide_eq_true_eq, true_and] at hc
+  obtain ⟨y, z, hlt, rfl⟩ := hc
+  simp only [csat_neg, csat_nil]
+  rintro rfl
+  exact Nat.not_le_of_gt hlt (chain y)
+
+theorem sat_sideClauses {op : Op} (side : op 0 0 = 0 → ∀ x, op x x = x) :
+    ∀ c ∈ sideClauses, csat (assign op) c = true := by
+  intro cl hc
+  simp only [sideClauses, R, List.mem_map, List.mem_finRange, true_and] at hc
+  obtain ⟨x, rfl⟩ := hc
+  simp only [csat_neg, csat_pos, csat_nil, or_false]
+  exact fun h0 => side h0 x
+
 theorem sat_formula {op : Op} (law : Law op) (chain : ChainRow op)
     (side : op 0 0 = 0 → ∀ x, op x x = x) : ∀ c ∈ formula, csat (assign op) c = true := by
   intro cl hc
   simp only [formula, List.mem_append] at hc
-  rcases hc with (((hc | hc) | hc) | hc) | hc <;>
-    simp only [cellClauses, rowClauses, lawClauses, chainUnits, sideClauses, R,
-      List.mem_flatMap, List.mem_map, List.mem_filter, List.mem_cons, List.mem_nil_iff,
-      List.mem_finRange, decide_eq_true_eq, true_and, or_false] at hc
-  · -- cells
-    obtain ⟨x, y, rfl | ⟨z₁, z₂, hlt, rfl⟩⟩ := hc
-    · exact csat_of_mem (List.mem_map_of_mem (List.mem_finRange (op x y)))
-    · simp only [csat_neg, csat_nil]
-      exact fun h₁ h₂ => Fin.ne_of_lt hlt (h₁.symm.trans h₂)
-  · -- rows
-    obtain ⟨x, z, rfl | ⟨y₁, y₂, hlt, rfl⟩⟩ := hc
-    · obtain ⟨y, rfl⟩ := left_surjective law x z
-      exact csat_of_mem (List.mem_map_of_mem (List.mem_finRange y))
-    · simp only [csat_neg, csat_nil]
-      exact fun h₁ h₂ => Fin.ne_of_lt hlt (left_injective law (h₁.trans h₂.symm))
+  rcases hc with (((hc | hc) | hc) | hc) | hc
+  · exact sat_cellClauses op cl hc
+  · exact sat_rowClauses (left_surjective law) (left_injective law) cl hc
   · -- the law
+    simp only [lawClauses, R, List.mem_flatMap, List.mem_cons, List.mem_nil_iff,
+      List.mem_finRange, true_and, or_false] at hc
     obtain ⟨x, y, a, b, c, rfl | rfl | rfl⟩ := hc <;>
       simp only [csat_neg, csat_pos, csat_nil, or_false]
     · exact law_entry law
     · exact law_entry_cancel law
     · exact law_entry_cancel₂ law
-  · -- chain form
-    obtain ⟨y, z, hlt, rfl⟩ := hc
-    simp only [csat_neg, csat_nil]
-    rintro rfl
-    exact Nat.not_le_of_gt hlt (chain y)
-  · -- idempotents
-    obtain ⟨x, rfl⟩ := hc
-    simp only [csat_neg, csat_pos, csat_nil, or_false]
-    exact fun h0 => side h0 x
+  · exact sat_chainUnits chain cl hc
+  · exact sat_sideClauses side cl hc
 
 /-- The formula with the given clauses, in the form the certificate checker takes. -/
 def toCNF (l : List Cl) : CNF Nat := ⟨(l.map CNF.Clause.ofLiterals).toArray⟩

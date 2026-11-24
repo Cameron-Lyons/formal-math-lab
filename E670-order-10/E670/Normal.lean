@@ -12,6 +12,9 @@ Names are exchanged two at a time.  First a non-idempotent element, if there is 
 names with `0`.  Then, for `k = 0, 1, 2, …` in turn, if `0 ◇ k` is larger than `k + 1` it
 exchanges names with `k + 1`.  Both are larger than `k`, so the entries `0 ◇ y` with `y < k`,
 which involve only names up to `k`, stay as they are.
+
+The argument uses the law only in that renaming preserves it.  It is therefore stated for any
+property of tables that renaming preserves (`exists_normal_of`), so that other laws can use it.
 -/
 
 namespace E670
@@ -47,23 +50,29 @@ theorem rename_idem {s : Fin 10 → Fin 10} (hs : ∀ x, s (s x) = x) {op : Op} 
 /-- The first row is in chain form. -/
 def ChainRow (op : Op) : Prop := ∀ y, (op 0 y).val ≤ y.val + 1
 
-/-- The normal form, with the chain condition required in the first `k` columns only. -/
-def NormalTo (k : Nat) (op : Op) : Prop :=
-  Law op ∧ (op 0 0 = 0 → ∀ x, op x x = x) ∧ ∀ y : Fin 10, y.val < k → (op 0 y).val ≤ y.val + 1
+/-- The normal form of a table with the property `P`, with the chain condition required in the
+first `k` columns only. -/
+def NormalTo (P : Op → Prop) (k : Nat) (op : Op) : Prop :=
+  P op ∧ (op 0 0 = 0 → ∀ x, op x x = x) ∧ ∀ y : Fin 10, y.val < k → (op 0 y).val ≤ y.val + 1
 
-theorem exists_normalTo_zero {op : Op} (h : Law op) : ∃ op', NormalTo 0 op' := by
+variable {P : Op → Prop}
+
+theorem exists_normalTo_zero
+    (keep : ∀ (s : Fin 10 → Fin 10) (op : Op), (∀ x, s (s x) = x) → P op → P (rename s op))
+    {op : Op} (h : P op) : ∃ op', NormalTo P 0 op' := by
   by_cases hex : ∃ a, op a a ≠ a
   · -- a non-idempotent element `a` exchanges names with `0`
     obtain ⟨a, ha⟩ := hex
-    refine ⟨rename (swap a 0) op, rename_law (swap_swap a 0) h, fun h0 => ?_,
+    refine ⟨rename (swap a 0) op, keep _ _ (swap_swap a 0) h, fun h0 => ?_,
       fun _ hy => absurd hy (Nat.not_lt_zero _)⟩
     rw [rename_idem (swap_swap a 0), swap_right] at h0
     exact absurd h0 ha
   · exact ⟨op, h, fun _ x => Decidable.byContradiction fun hx => hex ⟨x, hx⟩,
       fun _ hy => absurd hy (Nat.not_lt_zero _)⟩
 
-theorem exists_normalTo_succ {op : Op} {k : Nat} (h : NormalTo k op) :
-    ∃ op', NormalTo (k + 1) op' := by
+theorem exists_normalTo_succ
+    (keep : ∀ (s : Fin 10 → Fin 10) (op : Op), (∀ x, s (s x) = x) → P op → P (rename s op))
+    {op : Op} {k : Nat} (h : NormalTo P k op) : ∃ op', NormalTo P (k + 1) op' := by
   obtain ⟨law, side, chain⟩ := h
   by_cases hk : ∃ y : Fin 10, y.val = k ∧ k + 1 < (op 0 y).val
   · -- `0 ◇ k` exchanges names with `k + 1`; this leaves the names up to `k` alone
@@ -73,7 +82,7 @@ theorem exists_normalTo_succ {op : Op} {k : Nat} (h : NormalTo k op) :
     have fix : ∀ x : Fin 10, x.val ≤ y.val → swap i (op 0 y) x = x := fun x hx =>
       swap_of_ne (by rintro rfl; omega) (by rintro rfl; omega)
     have fix0 := fix 0 (Nat.zero_le _)
-    refine ⟨rename (swap i (op 0 y)) op, rename_law hs law, fun h0 x => ?_, fun z hz => ?_⟩
+    refine ⟨rename (swap i (op 0 y)) op, keep _ _ hs law, fun h0 x => ?_, fun z hz => ?_⟩
     · -- `0 ◇ 0 = 0` held before the exchange too, so every element was and is idempotent
       rw [rename_idem hs, fix0] at h0
       exact (rename_idem hs).mpr (side h0 _)
@@ -92,17 +101,24 @@ theorem exists_normalTo_succ {op : Op} {k : Nat} (h : NormalTo k op) :
     · exact chain y hyk
     · exact Nat.le_of_not_lt fun hlt => hk ⟨y, by omega, by omega⟩
 
-/-- Every model can be renamed into normal form. -/
-theorem exists_normal {op : Op} (h : Law op) :
-    ∃ op' : Op, Law op' ∧ ChainRow op' ∧ (op' 0 0 = 0 → ∀ x, op' x x = x) := by
-  have steps : ∀ k, ∃ op', NormalTo k op' := by
+/-- A table with a property that renaming preserves can be renamed into normal form. -/
+theorem exists_normal_of
+    (keep : ∀ (s : Fin 10 → Fin 10) (op : Op), (∀ x, s (s x) = x) → P op → P (rename s op))
+    {op : Op} (h : P op) :
+    ∃ op' : Op, P op' ∧ ChainRow op' ∧ (op' 0 0 = 0 → ∀ x, op' x x = x) := by
+  have steps : ∀ k, ∃ op', NormalTo P k op' := by
     intro k
     induction k with
-    | zero => exact exists_normalTo_zero h
+    | zero => exact exists_normalTo_zero keep h
     | succ k ih =>
       obtain ⟨op', h'⟩ := ih
-      exact exists_normalTo_succ h'
+      exact exists_normalTo_succ keep h'
   obtain ⟨op', law, side, chain⟩ := steps 10
   exact ⟨op', law, fun y => chain y y.isLt, side⟩
+
+/-- Every model can be renamed into normal form. -/
+theorem exists_normal {op : Op} (h : Law op) :
+    ∃ op' : Op, Law op' ∧ ChainRow op' ∧ (op' 0 0 = 0 → ∀ x, op' x x = x) :=
+  exists_normal_of (fun _ _ hs => rename_law hs) h
 
 end E670

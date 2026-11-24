@@ -1,6 +1,7 @@
 import Std.Sat.CNF
 import Std.Tactic.BVDecide.LRAT
 import Lean.Elab.Term
+import Laws
 
 /-! No nine-element multiplication table obeys Equation 677 and breaks Equation 255. -/
 
@@ -8,14 +9,6 @@ namespace Nine
 open Std.Sat
 abbrev Table (n : Nat) := Fin n → Fin n → Fin n
 abbrev Point := Fin 9
-
-section
-variable {α : Type} (op : α → α → α)
-local infixl:70 " ⋆ " => op
-
-def Eq677 : Prop := ∀ x y, x = y ⋆ (x ⋆ ((y ⋆ x) ⋆ y))
-def Eq255 : Prop := ∀ x, x = ((x ⋆ x) ⋆ x) ⋆ x
-end
 
 private def FailsAt (op : Table 9) (x : Point) := x ≠ op (op (op x x) x) x
 

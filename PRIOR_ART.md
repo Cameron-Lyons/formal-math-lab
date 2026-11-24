@@ -15,6 +15,7 @@ For the 17-element model of E1486, the search of the same date found no earlier 
 For E1486 at order 12, the search of the same date found no earlier exclusion and no model.
 For the 26-element model of E1486, the search of **24 November 2026** found no earlier model.
 For E1486 at order 14, the search of the same date found no earlier exclusion and no model.
+The E677 result at order ten formalizes José Brox’s January 2025 report; the search of **24 November 2026** found no earlier Lean proof.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
@@ -80,6 +81,42 @@ Checked **23 November 2026**. Booker and Sutherland report a search for 114 usin
 ## E677 implies E255 at order nine
 
 Checked **23 November 2026**. On 10 December 2024, José Brox reported that an exhaustive Mace4 search excluded nine-element magmas satisfying E677 and failing E255. The local Lean proof independently checks this case using an LRAT certificate. [Brox’s search report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#487358914) · [Lean proof](E677-E255-order-9/Nine.lean)
+
+## E677 at order ten
+
+**Audited statement:** no 10-element magma satisfies
+`x = y*(x*((y*x)*y))` universally. In particular E677 implies E255 at order
+ten.
+
+Checked **24 November 2026**. Both statements were reported earlier from
+searches that were not machine-checked. On 22 December 2024 José Brox wrote
+that size 10 was ruled out for E677 magmas failing E255. On 12 January 2025 he
+wrote: "There are no models whatsoever of 677 in size 10 (39h in Mace4)." Rudi
+Schneider reported on 21 November 2025 that his own search program enumerates
+all E677 magmas through size 11. Jihoon Hyun wrote the same day that CaDiCaL
+had given a negative result for size 10 in about six hours; the runs he
+describes elsewhere in the thread encode E677 together with a failure of E255.
+The ICARM Equation 677 database lists none of size 10, and its commentary cites
+Brox's search and a six-hour CaDiCaL run.
+[Brox, 22 December 2024](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#490346469) · [Brox, 12 January 2025](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#493229385) · [Schneider](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#558558838) · [Hyun](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#558568783) · [ICARM database](https://eq677.icarm.cloud/size/10)
+
+Two later reports describe SAT refutations of the weaker statement, with DRAT
+certificates accepted by drat-trim: an issue on the Equational Theories
+Project's main repository dated 22 July 2026, and a prove2.me mission page.
+Neither publishes its certificates, and neither is a Lean proof.
+[Issue 1464](https://github.com/teorth/equational_theories/issues/1464) · [Mission page](https://prove2.me/missions/Equational_Magmas%3A_E677_%E2%86%92_E255_(finite_case))
+
+No Lean proof of either statement was located in the main repository, in the
+fork `Timeroot/equational_theories`, in other public E677 repositories found by
+search, or in the public Equational channel of the Lean Zulip. The fork's live
+[spectrum data](https://ohaithe.re/equational_theories/research/data/spectrum.json),
+last modified **5 November 2026**, list Lean exclusions for E677 at orders 2,
+3, 4, 6 and 8 and give 10 as its smallest undecided order. Its
+[order-ten report](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/docs/order_ten_followup_20261007.md#what-remains-at-ten)
+records the E677 searches at ten as unfinished. The local contribution is a
+Lean-checked proof of Brox's January 2025 report, not a new mathematical
+result. First-formalization status is unverified.
+[Lean proof](E677-E255-order-9/Ten.lean)
 
 ## E1486 at order 15
 

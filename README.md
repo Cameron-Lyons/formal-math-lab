@@ -20,7 +20,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [42 consecutive-size squares, Friedman problem 10](consecutive-squares-21/) | With two squares of each side from 1 through 21, the only possible rectangle is 77 × 86, up to rotation. | Friedman lists this case as open. The search found no earlier proof excluding 43 × 154. |
 | [Five 30-sided Go First Dice](five-30-sided-dice/) | For all 120 rankings to have equal odds, each die must have a face at which two opponents’ counts of higher labels differ modulo four. Lean also excludes fifteen mirrored permutation blocks. | The unrestricted problem remains open. An earlier search excluded all column-grouped labelings, including the mirrored blocks. Priority of the modulo-four condition is unconfirmed. |
 | [Triple covering design $C(61,25,3)$](covering-61-25-3/) | Any 26-group cover can retain at most 20 groups from the published construction. Lean checks all 296,010 choices of 21 retained groups. | Caleb Ashton published the 27-group construction. The unrestricted 26-group question remains open in this project. |
-| [E677 implies E255 at order 9](E677-E255-order-9/) | Every nine-element magma satisfying E677 also satisfies E255. | José Brox reported the order-nine exclusion in December 2024. |
+| [E677 at orders 9 and 10](E677-E255-order-9/) | Every nine-element magma satisfying E677 also satisfies E255. No ten-element magma satisfies E677. | José Brox reported both from Mace4 searches, in December 2024 and January 2025. No earlier Lean proof of the order-ten result located. |
 | [E670, order 10: finite magma spectrum](E670-order-10/) | No 10-element binary operation satisfies `y*(x*((x*y)*y)) = x`. | No earlier proof located; order 10 remains open in the inspected Equational Theories catalogue. |
 | [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 12-, 14- or 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. A 17-element one and a 26-element one do. These are the five orders left open in the inspected Equational Theories catalogue, whose own results cover every other order. | No earlier proof of any of the five located. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
@@ -51,7 +51,7 @@ The Written on the Wall II #133 project uses Lean and mathlib **4.33.1**.
 The #708 project includes Tripodo’s pinned development. The queen domination project uses Lean **4.35.0**. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three cubes, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
-The E670 and E1486 SAT checks and the large T-board
+The E670, E677 and E1486 SAT checks and the large T-board
 families can require substantial computation.
 
 | Directory | Build command | Main Lean declaration |
@@ -63,7 +63,7 @@ families can require substantial computation.
 | `consecutive-squares-21` | `lake build` | `Squares42.exists_tiling_iff_77_by_86` |
 | `five-30-sided-dice` | `lake build` | `FiveDice.EqualCuts.needs_distinct_residues`, `FiveDice.Mirrored.no_fifteen_mirrored` |
 | `covering-61-25-3` | `lake build` | `Covering61.RepairSearch.published_six_for_five_screen` |
-| `E677-E255-order-9` | `lake build` | `Nine.eq677_implies_eq255` |
+| `E677-E255-order-9` | `lake build`, with `E670-order-10` beside it | `Nine.eq677_implies_eq255`, `Ten.no_model` |
 | `E670-order-10` | `lake build` | `E670.no_model_of_order_ten` |
 | `E1486-order-15` | `lake build +Simple.NoTable` | `E1486.Simple.noTable` |
 | `E1486-order-15` (order 12) | `lake build Simple.Order12.NoTable` | `E1486.Order12.noTable` |
@@ -93,9 +93,10 @@ families can require substantial computation.
 | `a176755-linear-recurrence` | `lake build` | `A176755.mathar` |
 | `arctangent-sum` | `lake build` | `Arxiv.«2607.05739».positive_integer_count_isBigO` |
 
-The E670 and E1486 proofs use Lean's native certificate-checking machinery; see
+The E670, E677 and E1486 proofs use Lean's native certificate-checking machinery; see
 the trust and reproduction notes for
-[E670](E670-order-10/README.md#reproduce) and
+[E670](E670-order-10/README.md#reproduce),
+[E677](E677-E255-order-9/README.md#verify) and
 [E1486](E1486-order-15/README.md#reproduce).
 Project documentation distinguishes mathematical proofs, verified finite
 certificates, and exploratory searches. A timed-out search is not a proof.

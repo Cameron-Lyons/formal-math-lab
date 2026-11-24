@@ -1,6 +1,6 @@
 name = "integer_cubic"
 version = "0.1.0"
-defaultTargets = ["IntegerCubic", "boundedSearch"]
+defaultTargets = ["IntegerCubic", "boundedSearch", "SmallCubic"]
 
 [[require]]
 name = "mathlib"
@@ -13,3 +13,22 @@ name = "IntegerCubic"
 [[lean_exe]]
 name = "boundedSearch"
 root = "BoundedSearch"
+
+[[lean_lib]]
+name = "SmallCubic"
+srcDir = "pell"
+roots = [
+  "SmallCubic", "AffineTangent", "QuarticRoots", "CubicRoots",
+  "CubicEliminantData", "CubicEliminant", "CubicLiftObstruction",
+  "SeedOneData", "SeedOneEliminant", "SeedOneDiscriminant", "CubicEndpoint",
+  "SeedDenominatorObstruction", "QuarticLift", "QuarticSparse",
+  "CubicSimplePole", "CubicSeed13Lift", "QuarticBadTwo", "QuarticFactorPencil", "Osculating", "CubicAnnulus", "PellAmplification", "PellConstantFiber",
+  "PoleOneDegree", "PoleOne", "PoleTwo", "PoleTwoReduction", "PoleTwoLifting", "Fibers", "MordellDescent",
+  "QuadraticIntegers", "TangentArithmetic", "PolynomialGraph", "PellDegreeRatio",
+  "QuarticReflection", "SexticBoundary", "WitnessSearch", "WitnessTangent",
+  "MixedPellAmplification", "TwoPointDegree", "TwoPointMarkedPolynomial",
+  "TwoPointPrimaryTwo", "TwoPointAlternateTwo", "two_point_alternate_two",
+  "two_point_alternate", "TwoPointHeight", "TwoPointBalanced",
+  "QuarticPullbackDescent", "OneMarkLocalTwo", "OneMarkLocalThree",
+  "ReflectedOrdinate", "SecantOrbit", "QuinticFactor", "QuinticSquareObstruction",
+]

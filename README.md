@@ -7,7 +7,7 @@ The collection focuses on precisely stated results with dated prior-art checks.
 
 ## Proofs and results
 
-The [prior-art audit](PRIOR_ART.md), updated **23 November 2026**, records
+The [prior-art audit](PRIOR_ART.md), updated **24 November 2026**, records
 the evidence for each result. “No earlier proof located” describes the sources searched;
 it does not establish historical priority or imply that every lemma is new.
 
@@ -18,7 +18,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [E670, order 10: finite magma spectrum](E670-order-10/) | No 10-element binary operation satisfies `y*(x*((x*y)*y)) = x`. | No earlier proof located; order 10 remains open in the inspected Equational Theories catalogue. |
 | [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 12-element or 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. A 17-element one does. | No earlier proof of any of the three located; orders 12, 15 and 17 remain open in the inspected Equational Theories catalogue. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
-| [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
+| [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. A rational quartic substitution on $u^2-3v^2=1$ with nonconstant $x$ and one integral seed would prove infinitude. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
 | [Three integer cubes summing to 114](three-cubes-114/) | Arbitrarily large moduli admit a cube root of 114 and lie outside the full norm family. | Booker–Sutherland and Grantham–Walsh give earlier search methods. The local searches found no triple. |
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [Erdős #556, three-color nine-cycle Ramsey number](erdos-556-cycle-ramsey/) | Any three-coloring of $K_{33}$ with a 15-vertex set missing one color contains a monochromatic $C_9$. | The lower bound of 33 is known. The unrestricted upper bound remains open. |
@@ -26,6 +26,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [Erdős #677, equal LCMs of six consecutive integers](erdos-677-equal-lcms/) | The only equal-LCM pairs at length six have parameters $(3,4)$, $(5,6)$ and $(13,15)$. All overlap. Lean checks the reduction and finite cases. External elliptic-curve arithmetic proves completeness. | The three overlaps and four-cubic reduction were recorded previously. The arbitrary-length problem remains open. |
 | [Erdős #708, interval products for six integers](erdos-708-six/) | $g(6)=8$. For every six-element set $A$ of integers at least two, at most eight entries from any block of $\max A$ consecutive integers suffice for a product divisible by $\prod_{a\in A}a$. Some blocks require eight. | C. Bergström previously proved the value eight. The local Lean proof uses John Tripodo’s formalized bounds for four and five integers. |
 | [Erdős #835, coloring subsets](erdos-835-coloring-subsets/) | At $k=16$, any point involution preserving a rainbow coloring must move at least 30 of the 32 points. Lean also excludes symmetries of order 11 or 13 and regular abelian groups of order 32. | Earlier work excludes other symmetry classes. The existence of a coloring remains open. |
+| [Written on the Wall II #133, floored formulation](written-on-the-wall-133/) | The inequality holds for all connected graphs on at most 29 vertices, at every order when $\lfloor l(G)\rfloor\le4$, and for all connected bipartite or regular graphs. | Chen previously treated floors through two. The general floored inequality remains unresolved here. |
 | [R₃²(C₇) = 11: seven-cycle Ramsey threshold](seven-cycle/) | Every 3-edge-coloring of `K₁₁` has a `C₇` with at most two cyclic color changes; a coloring of `K₁₀` avoids one. | No earlier proof of this exact threshold located. This is one finite case of Allen et al., Problem 22. |
 | [Book Ramsey number $R(B_{63},B_{64})$](book-ramsey/) | $253 \le R(B_{63},B_{64}) \le 255$. The 252-vertex witness has at most 62 pages on every spine in either color. | The bounds follow from Dai–Lin and Rousseau–Sheehan. Chung and Wesley list the 254-vertex construction as open. |
 | [Ramsey number $R(3,10)$](ramsey-3-10/) | Exoo’s 39-vertex graph gives $R(3,10) \ge 40$. Every one-vertex extension contains a triangle or an independent ten-set. | Exoo proved the lower bound. Angeltveit proved $R(3,10) \le 41$. The exact value remains open. |
@@ -40,6 +41,7 @@ it does not establish historical priority or imply that every lemma is new.
 ## Find and check a theorem
 
 Each proof has its own Lake project. The Erdős #617, #677, #708, and #835 projects use Lean **4.35.0-rc2**.
+The Written on the Wall II #133 project uses Lean and mathlib **4.33.1**.
 The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three cubes, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
@@ -56,6 +58,7 @@ families can require substantial computation.
 | `E1486-order-15` (order 17) | `lake build Simple.Order17` | `E1486.Order17.exists_table` |
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |
 | `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |
+| `integer-cubic` (Pell substitutions) | `lake build SmallCubic` | `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`, `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` |
 | `three-cubes-114` | `lake build` | `ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
 | `erdos-556-cycle-ramsey` | `lake build` | `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases` |
@@ -63,6 +66,7 @@ families can require substantial computation.
 | `erdos-677-equal-lcms` | `lake exe cache get` then `lake build`. [Arithmetic checks](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction) | `Erdos677.six_collision_iff_three_of_affine_cover` |
 | `erdos-708-six` | `lake exe cache get` then `lake build` | `Erdos708.isLeast_six`, `IntervalSix.six_integer` |
 | `erdos-835-coloring-subsets` | `lake exe cache get` then `lake build` | `Erdos835.involution_moves_at_least_thirty`, `Erdos835.no_regular_abelian_symmetry` |
+| `written-on-the-wall-133` | `lake exe cache get` then `lake build` | `Wall133.floored_of_order_le_29`, `Wall133.floored_of_floor_le_four` |
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
 | `book-ramsey` | `lake build` | `BookRamsey.Lower252.exists_252`, `BookRamsey.Upper255.upper` |
 | `ramsey-3-10` | `lake build` | `Ramsey310.ramsey_lower_bound`, `Ramsey310.exoo_no_one_vertex_extension` |
@@ -104,6 +108,7 @@ a conjecture label in a catalogue can be stale.
 Original collection material is licensed under the [MIT License](LICENSE),
 except material carrying separate license or attribution notices:
 
+- [Written on the Wall II #133](written-on-the-wall-133/LICENSE) retains its Apache-2.0 license, including the attribution in the [adapted radius bound](written-on-the-wall-133/Wall133/Chung.lean).
 - [E1486-order-15](E1486-order-15/LICENSE) retains its Apache-2.0 license and
   the copyright notice of the Equational Theories Project contributors.
 - The Formal Conjectures interval definition in [UpstreamInterval.lean](erdos-677-equal-lcms/UpstreamInterval.lean) retains its [Apache-2.0 license](erdos-677-equal-lcms/LICENSE-FormalConjectures) and copyright notice.

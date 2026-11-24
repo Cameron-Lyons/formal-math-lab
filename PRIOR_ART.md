@@ -127,14 +127,27 @@ inconclusive and do not improve the known finite exclusion bound.
 
 ## Integer cubic $z^2+y^2z+x^3=2$
 
-Checked **23 November 2026**. Grechuk lists infinitude of integer triples as
-open in Table 6. Epoch reports polynomial families for related cubics.
+Checked **24 November 2026**. Grechuk lists infinitude of integer triples as
+open in Table 6. Epoch reports polynomial families for related cubics and asks
+for three integer triples on this cubic with distinct $x$ and $|x|>10^{50}$.
 [Grechuk, §5](https://arxiv.org/html/2404.08518v11#S5) ·
+[Epoch’s challenge](https://epoch.ai/frontiermath/open-problems/small-diophantine) ·
 [Epoch’s two constructions](https://epoch.ai/files/open-problems/small-diophantine-two-families.pdf)
 
 The local project gives a degree bound for polynomial families through an
 integer triple and a family with $x,z$ integral and $y$ of reduced denominator
 13. Historical priority for these partial results is unverified. [Project proof and checker](integer-cubic/README.md)
+
+Lean proves that a rational quartic substitution on $u^2-3v^2=1$ with
+nonconstant $x$ and one integral seed would give infinitely many integer
+triples. The bounded coefficient searches found no such substitution in the
+classes tested. A separate Lean theorem excludes the quintic substitution
+$az=2-r^3$, $x=r-p^2z$ for nonzero rational $a$ when $r,p$ have simple poles
+at both conjugate ends of a nonsplit Pell conic and all coordinates are regular
+away from those ends. Priority for these results is unverified.
+[Quartic theorem](integer-cubic/pell/MixedPellAmplification.lean) ·
+[Search scope](integer-cubic/pell/QuarticFreeMark.md) ·
+[Quintic exclusion](integer-cubic/pell/QuinticSquareObstruction.lean)
 
 <a id="reciprocal-rado"></a>
 
@@ -221,6 +234,14 @@ imports those upper bounds from the revision cited in his preprint.
 Comparison updated **23 November 2026**. At $k=16$, the September 2026 discussion excludes point symmetries of orders 19, 23, 29, and 31. Separate computations exclude two groups acting on a single Steiner system. The local project proves restrictions on involutions, point symmetries of orders 11 and 13, and regular abelian groups acting on a coloring. An earlier result on automorphisms of $S(4,5,21)$ also implies the order-11 exclusion and the exclusion of a single 13-cycle. The unrestricted coloring problem remains open. [Kolotoğlu and Magliveras (2014)](https://onlinelibrary.wiley.com/doi/10.1002/jcd.21370) · [September 28 argument](https://www.erdosproblems.com/forum/thread/835#post-9219) · [Steiner-system computations](https://github.com/veljjanoski/erdos835) · [Local proofs and comparison with earlier work](erdos-835-coloring-subsets/README.md#relation-to-earlier-work)
 
 <a id="seven-cycle"></a>
+
+## Written on the Wall II, Graph Conjecture 133
+
+Checked **24 November 2026**. DeLaViña’s Graffiti.pc catalogue lists #133 as open. The local project proves partial results for the earlier floored formulation. Formal Conjectures removed the floor in September 2026 after interpreting the source brackets as grouping. [Catalogue, #133](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/wowiiaii.pdf#page=77) · [Upstream change](https://github.com/google-deepmind/formal-conjectures/commit/5faef0c4dc3d226f8f9a9fc8f581b6221283eb6e)
+
+Haoyu Chen treats graphs containing a four-cycle and all floors through two, and derives restrictions at floor three. Kuber Mehta’s Lean development treats further special classes and gives a conditional reduction for regular triangle-free graphs. The local project verifies all floors through four, every order through 29, and the bipartite and regular cases at arbitrary order. Priority of these partial results is unverified. [Chen’s report](https://doi.org/10.5281/zenodo.22054835) · [Mehta’s regular and low-average results](https://github.com/Kuberwastaken/c5-k4/blob/f0f912c17bde0aa1b1f4b59845cf018eea696452/results/expansion/method_v09_133_regular.md) · [Local theorems](written-on-the-wall-133/README.md)
+
+The radius estimate used here appears in Erdős, Saks and Sós, Theorem 2.2, with the proof credited to Fan Chung. The project adapts KitaKen1’s Lean formalization of that estimate. [Paper](https://www.renyi.hu/~p_erdos/1986-08.pdf) · [Formalization](https://github.com/KitaKen1/wowii-graph-conjecture-31-lean/blob/a948e9fc07e11b786aee8dadb1376b4d938454d6/lean/GraphConjecture31.lean)
 
 ## Seven-cycle threshold R₃²(C₇) = 11
 

@@ -26,6 +26,24 @@ $$
 $$
 Choose $k=2028n^3-2$ for $n=0,1,2,\ldots$. The first factor becomes $(6n)^3$, so $x=6n(13k-2)$ gives a solution. The $y$-coordinates strictly increase and each has reduced denominator 13.
 
+## Pell substitutions and integer witnesses
+
+On $u^2-3v^2=1$, put $L=1-3t^2$. Consider a rational polynomial identity
+
+$$
+A^3+B^2J+J^2=2L^{12},\qquad (x,y,z)=(A/L^4,B/L^3,J/L^6).
+$$
+
+Assume $\deg A\le8,\ \deg B\le6,\ \deg J\le12$. Lean proves that if $x$ is nonconstant and the triple at $t=0$ is integral, the Pell recurrence gives infinitely many integer solutions. The rational identity with those properties remains to be found. At the seed $(0,1,1)$, exact modular searches ruled out more than 21 million candidate first coordinates in each of two bases, within the specified reduction classes and height bound 171. [Lean recurrence and theorem](pell/MixedPellAmplification.lean) · [Search bounds, counts and commands](pell/QuarticFreeMark.md)
+
+Lean also rules out the quintic substitution $az=2-r^3,\ x=r-p^2z$ for every nonzero rational $a$ on a nonsplit Pell conic, when $r,p$ have simple poles at the two conjugate ends and all coordinates are regular away from them. This exclusion holds at every coefficient height. [Lean proof](pell/QuinticSquareObstruction.lean) · [Quintic substitutions and searches](pell/QuinticFactorSearch.md)
+
+Three explicit integer triples have distinct first coordinates with $|x|>30{,}000{,}000$. Lean checks each triple and inequality directly. Epoch's intermediate challenge asks for three distinct first coordinates with $|x|>10^{50}$, which remains open here. [Witnesses](pell/WitnessSearch.md) · [Lean proof](pell/WitnessSearch.lean) · [Epoch challenge](https://epoch.ai/frontiermath/open-problems/small-diophantine)
+
 ## Verification
 
 Run `lake build` and `lake exe boundedSearch`. `IntegerCubic.lean` contains the kernel-checked family, injectivity, and denominator proofs. The degree bound uses the executable `BoundedSearch.lean` together with the written reduction above.
+
+From this directory, `lake build SmallCubic` checks the Pell library on its own. The main declarations are `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`, `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` and `SmallCubic.WitnessSearch.three_large_solutions`.
+
+Run the search commands in the linked notes from the [pell directory](pell/). Most use Python with `python-flint==0.9.0` via `uv`. Individual notes specify when a C++17 compiler, PARI/GP or Z3 is needed.

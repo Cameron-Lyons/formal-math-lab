@@ -13,6 +13,7 @@ Georg Fischer’s January 2020 general recurrence.
 For E670 at order 10, the search of **23 November 2026** likewise found no earlier proof.
 For the 17-element model of E1486, the search of the same date found no earlier model.
 For E1486 at order 12, the search of the same date found no earlier exclusion and no model.
+For the 26-element model of E1486, the search of **24 November 2026** found no earlier model.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
@@ -138,6 +139,33 @@ No earlier order-12 exclusion or 12-element model was located in the fork, in
 the main repository's issues and pull requests, or in the public Equational
 channel of the Lean Zulip. The local claim is this one exclusion, not the
 spectrum. [Lean proof](E1486-order-15/Simple/Order12/NoTable.lean)
+
+## E1486 at order 26
+
+**Audited statement:** some 26-element magma satisfies
+`(y*x)*(x*(z*z)) = x` universally.
+
+Checked **24 November 2026**. The pinned research note and live spectrum data
+cited for order 15 also list 26 among E1486's unresolved orders. The live
+response is unchanged since **5 November 2026** and matches the hash in the
+[filtered retrieval record](research/prior-art/equational-spectrum-2026-11-22.json).
+The note is unchanged at the fork's latest research revision,
+[`199f75c2`](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/docs/1486_graph_spectrum.md).
+
+The recorded attempts at order 26 did not decide it. The note reports that a
+uniform two-fold lift of the known 13-element model is impossible, and that a
+solver refuted three nonuniform alternatives. It adds that these reports "do
+not imply that every 26-element model is impossible." The note's
+[search data](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/data/spectrum/1486_search_followup.json)
+record one CaDiCaL run on the full law at order 26, which reached its 60-second
+limit with result `UNKNOWN`.
+
+No earlier 26-element model or order-26 exclusion was located in the fork, by
+an issue and pull-request search of the fork and of the main repository, or by
+web search. The archived Zulip
+[discussion](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/Understanding.20Finite.201486.20Magmas.html)
+of sporadic models does not mention order 26. The local claim is this one
+model, not the spectrum. [Lean proof](E1486-order-15/Simple/Order26.lean)
 
 ## E17260: partial results, finite existence unresolved
 

@@ -2,8 +2,10 @@
 
     python3 Simple/check.py 9 11 13 15
     python3 Simple/check.py --verify-with /path/to/lrat-trim 15
+    python3 Simple/check.py --pattern 6:2 26
 
 The optional checker replays each UNSAT proof against its input CNF.
+A pattern K:J restricts the search to K squares, J of them fixed by squaring.
 """
 
 import argparse
@@ -126,12 +128,14 @@ def verify_model(model, edge):
         raise ValueError("the reconstructed table violates E1486")
 
 
-def solve(n, solver, checker):
+def solve(n, solver, checker, pattern=None):
     cases = 0
     with tempfile.TemporaryDirectory() as tmp:
         cnf, proof = (Path(tmp) / name for name in ("graph.cnf", "proof.lrat"))
         for k in range(1, n + 1):
             for j in range(k % 2, k + 1, 2):
+                if pattern and (k, j) != pattern:
+                    continue
                 cases += 1
                 formula, edges = graph_formula(n, k, j)
                 formula.write(cnf)
@@ -158,7 +162,17 @@ def main():
     parser.add_argument("orders", nargs="*", type=int, default=[15])
     parser.add_argument("--solver", help="CaDiCaL executable (defaults to PATH or Lean's copy)")
     parser.add_argument("--verify-with", metavar="EXECUTABLE", help="independently check binary RUP proofs using lrat-trim")
+    parser.add_argument("--pattern", metavar="K:J", help="check only K squares with J of them fixed by squaring")
     args = parser.parse_args()
+    pattern = None
+    if args.pattern:
+        try:
+            k, j = (int(part) for part in args.pattern.split(":"))
+        except ValueError:
+            parser.error("--pattern must have the form K:J")
+        if not 0 <= j <= k or (k - j) % 2:
+            parser.error("--pattern needs 0 <= J <= K with K - J even")
+        pattern = (k, j)
     solver = args.solver or shutil.which("cadical")
     if not solver:
         prefix = subprocess.check_output(["lean", "--print-prefix"], text=True).strip()
@@ -166,7 +180,9 @@ def main():
     for n in args.orders:
         if n < 1:
             parser.error("orders must be positive")
-        solve(n, solver, args.verify_with)
+        if pattern and not 1 <= pattern[0] <= n:
+            parser.error("--pattern needs 1 <= K <= order")
+        solve(n, solver, args.verify_with, pattern)
 
 
 if __name__ == "__main__":

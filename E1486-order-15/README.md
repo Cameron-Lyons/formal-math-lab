@@ -15,7 +15,7 @@ for all $x,y,z$.
 
 A binary operation on 15 elements is a $15\times15$ table whose entries are drawn from those same 15 elements. The entry in row $a$, column $b$ is $a\star b$. We assume no associativity or commutativity.
 
-The [E1486 research notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/1486_graph_spectrum.md#remaining-small-orders), at revision `6a653268`, list orders 12, 14, 15, 17, and 26 as unresolved. This computer-assisted proof settles the 15-element case. The same arrow rules [rule out order 12](#no-model-with-12-elements), and a [17-element model](#a-model-with-17-elements) settles order 17. Of the listed orders, 14 and 26 remain.
+The [E1486 research notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/1486_graph_spectrum.md#remaining-small-orders), at revision `6a653268`, list orders 12, 14, 15, 17, and 26 as unresolved. This computer-assisted proof settles the 15-element case. The same arrow rules [rule out order 12](#no-model-with-12-elements). A [17-element model](#a-model-with-17-elements) settles order 17, and a [26-element model](#a-model-with-26-elements) settles order 26. Of the listed orders, only 14 remains.
 
 Write $x^2=x\star x$, so a "square" is simply a value on the table's diagonal. Let $Q$ be the set of distinct squares. A counting argument reduces the problem to 36 families of graphs. Lean then checks a certificate ruling out every graph in each family. The argument below explains the reduction; the final exclusions depend on that computation.
 
@@ -111,6 +111,14 @@ Order 17 goes the other way: some binary operation on 17 elements satisfies the 
 
 **Prior-art status (23 November 2026):** no earlier 17-element model was located. The research notes and the live spectrum data list 17 as unresolved; their one recorded attempt at this order is a solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-17).
 
+## A model with 26 elements
+
+Order 26 also has a model. [Simple/Order26.lean](Simple/Order26.lean) lists its $26\times26$ table, and Lean checks all $26^3=17576$ instances of the law directly, again with no SAT certificate, no native evaluation, and no imports. The table has six squares, two of them fixed by squaring.
+
+The table came from the graph test above, run for 26 vertices with that pattern of squares. A satisfying graph gives a table: $a\star b$ is the middle vertex of the two-step route from $a$ to $b$ when there is one, and otherwise any square with an arrow to $b$.
+
+**Prior-art status (24 November 2026):** no earlier 26-element model was located, and no exclusion of order 26. The research notes and the live spectrum data list 26 as unresolved. The notes record three restricted searches for a 26-element model, each refuted, and one unrestricted solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-26).
+
 ## Reproduce
 
 The source bundle builds with the pinned Lean 4.36.0 toolchain and its bundled SAT solver. From its top directory run
@@ -145,9 +153,17 @@ lake build Simple.Order17
 
 Its endpoint is `E1486.Order17.exists_table`, which depends only on the axiom `propext`.
 
+The order-26 model is checked the same way:
+
+```sh
+lake build Simple.Order26
+```
+
+Its endpoint is `E1486.Order26.exists_table`, which also depends only on `propext`.
+
 To follow the formal argument for order 15, start with [Simple/NoTable.lean](Simple/NoTable.lean). It combines the graph reduction, the two counting bounds, and the finite exclusions. The three equalities are named `recover_source`, `return_to_square`, and `recover_target` in [E1486.lean](E1486.lean); [Simple/Graph.lean](Simple/Graph.lean) uses them to prove the arrow rules. [Simple/FiniteBase.lean](Simple/FiniteBase.lean) explains how each graph condition is encoded.
 
-Related results that the proof does not need are collected in [Simple/AdditionalResults.lean](Simple/AdditionalResults.lean): the converse graph constructions, extra square-row lemmas, and the older symmetry argument. Their declaration names are preserved; import `Simple.AdditionalResults` to use them. A plain `lake build` checks everything in this directory: the order-15 proof, the order-12 exclusion, the order-17 model, and this module.
+Related results that the proof does not need are collected in [Simple/AdditionalResults.lean](Simple/AdditionalResults.lean): the converse graph constructions, extra square-row lemmas, and the older symmetry argument. Their declaration names are preserved; import `Simple.AdditionalResults` to use them. A plain `lake build` checks everything in this directory: the order-15 proof, the order-12 exclusion, the order-17 and order-26 models, and this module.
 
 An independent Python implementation of the graph test is included as `Simple/check.py`. It needs Python 3 and CaDiCaL, which it finds on `PATH` or in the pinned Lean installation. From the same directory run
 
@@ -172,6 +188,14 @@ python3 Simple/check.py 17
 ```
 
 After about a minute it reports `order 17: model verified on all 4913 triples (k=6, j=4)`. Its model has six squares and differs from the table in Lean, which has eight.
+
+At order 26 the program needs to be told which pattern to try. Run in order, it reaches six squares with none fixed and stays there: a ten-minute run did not decide that pattern. With six squares and two of them fixed it finds a model in under a minute:
+
+```sh
+python3 Simple/check.py --pattern 6:2 26
+```
+
+It reports `order 26: model verified on all 17576 triples (k=6, j=2)`.
 
 By default, the Python program reports CaDiCaL's results. To also replay each refutation with a separate certificate checker, use `lrat-trim` **0.2.1-rc3**, pinned to [revision `423194927df747528d5b7364806b5b77b2660c12`](https://github.com/arminbiere/lrat-trim/tree/423194927df747528d5b7364806b5b77b2660c12). This revision passed all 71 order-15 certificates. The script requires its `--rup` option, which version 0.2.0 does not support. Supply the path to that executable:
 

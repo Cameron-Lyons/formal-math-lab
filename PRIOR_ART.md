@@ -19,6 +19,19 @@ The Erdős #708 project formalizes C. Bergström’s previously proved value $g(
 and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
+## Five 30-sided Go First Dice
+
+Checked **24 November 2026**. The Go First Dice team lists as open whether five
+30-sided dice labeled with 1 through 150 can give all 120 rankings equal odds.
+The October preprint by Gavenčiak, Haeupler, and Rozhoň credits Paul Meyer with a
+five-die construction using 60 faces per die. [Researchers’ open question](http://gofirstdice.ericharshbarger.org/doku.php?id=open_questions#d30) · [October preprint, §1.2](https://arxiv.org/html/2610.15421v1#S1.SS2)
+
+The team reports an exhaustive exclusion of every column-grouped labeling,
+where each consecutive group of five labels includes one face from each die.
+This covers the fifteen mirrored permutation blocks excluded by the local Lean proof.
+The search found no earlier statement of the local modulo-four condition. Its priority
+remains unconfirmed. [Researchers’ solution counts](http://gofirstdice.ericharshbarger.org/doku.php?id=homogeneous_solutions#column_paired) · [Mirrored-block proof](five-30-sided-dice/MirroredObstruction.lean) · [Modulo-four proof](five-30-sided-dice/EqualCuts.lean)
+
 ## Three integer cubes summing to 114
 
 Checked **23 November 2026**. Booker and Sutherland report a search for 114 using cube roots modulo the pair sum. Grantham and Walsh describe a related number-field search, and Welsh gives the general correspondence between cubic ideals and pairs of roots. The local lemma gives an elementary family outside the absolute norms of $\mathbb Z[\sqrt[3]{114}]$. Its historical priority is unverified. [Booker–Sutherland, §5.2](https://arxiv.org/pdf/2007.01209#page=14) · [Grantham–Walsh](https://arxiv.org/abs/2211.12149) · [Welsh, Theorem 3](https://arxiv.org/abs/2008.00538) · [Local proof](three-cubes-114/TernaryFamily.lean)

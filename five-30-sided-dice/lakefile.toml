@@ -1,0 +1,7 @@
+name = "order-fair-dice"
+version = "0.1.0"
+defaultTargets = ["FiveDice"]
+
+[[lean_lib]]
+name = "FiveDice"
+roots = ["FiveDice", "Marginal", "Meyer60", "EqualCuts", "MirroredBlocks", "MirroredObstruction"]

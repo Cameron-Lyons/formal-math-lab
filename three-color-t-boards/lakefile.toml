@@ -87,6 +87,9 @@ name = "SpliceNextCertificates"
 name = "ExactSymmetry"
 
 [[lean_lib]]
+name = "ExactOrbit"
+
+[[lean_lib]]
 name = "MarginalCounterexample"
 
 [[lean_lib]]

@@ -55,9 +55,12 @@ select precisely the lexicographic minimum of the full symmetry orbit.
 
 For ternary boards the unrestricted stabilizer theorem in
 [`ExactSymmetry.lean`](../ExactSymmetry.lean) proves that no nonidentity
-color-permutation/reflection symmetry fixes a valid board. The ordinary
-group-action corollary makes every orbit size 12, so multiply this normalized
-model count by **12** to obtain the unrestricted labeled count. The analogous
+color-permutation/reflection symmetry fixes a valid board. The group-action
+corollary, `twelve_distinct_images` in [`ExactOrbit.lean`](../ExactOrbit.lean),
+makes every orbit size 12, so multiply this normalized
+model count by **12** to obtain the unrestricted labeled count. Given that
+the clauses above keep exactly one board of each orbit, this multiplication is
+`length_eq_twelve_mul_canonical` in the same file. The analogous
 binary multiplier is **4**, checked by the complete binary enumeration below.
 For the degenerate one-color case the multiplier is 1. The ternary tree model
 with full orbit normalization has **13,543 variables and 62,090 clauses**.

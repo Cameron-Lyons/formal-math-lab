@@ -24,15 +24,26 @@ The orbit size 12 follows by composing and inverting these actions.
 [ExactSymmetry.lean](ExactSymmetry.lean) kernel-checks the unrestricted
 stabilizer theorem, `TBoards.ExactSymmetry.stabilizer_trivial`. Its hypothesis
 is `Valid b`, with no assumptions about the board's cap, pivot, or provenance.
-The twelve-image statement is the mathematical group-action corollary;
-the file's formal conclusion is the trivial-stabilizer statement.
+[ExactOrbit.lean](ExactOrbit.lean) kernel-checks the twelve-image corollary
+from the same hypothesis alone. `TBoards.ExactOrbit.twelve_distinct_images`
+states that the list `orbit b` of the twelve transforms of `b` has length 12,
+has no repeated entry, and contains only valid boards.
+The same file kernel-checks the counting step,
+`TBoards.ExactOrbit.length_eq_twelve_mul_canonical`: a duplicate-free list of
+valid boards that contains all twelve images of each of its boards is twelve
+times as long as its sublist chosen by any selector that picks exactly one of
+the twelve images of each board. A list of all valid boards is such a list.
+That a given encoding's canonical-form clauses are such a selector, and that
+its models are the valid boards, is not formalized.
 
 ```sh
-lake build ExactSymmetry
+lake build ExactSymmetry ExactOrbit
 ```
 
-The [build log](exact-symmetry-lean-build.log) records a successful build and
-only the standard axioms `propext`, `Classical.choice`, and `Quot.sound`.
+The build logs for the [stabilizer theorem](exact-symmetry-lean-build.log)
+and the [twelve-image corollary and counting step](exact-orbit-lean-build.log)
+record successful builds and only the standard axioms `propext`,
+`Classical.choice`, and `Quot.sound`.
 
 A further [finite-rank argument](experiments/exact_structure_gauge.md) rules
 out enlarging this reduction through fixed independent color permutations

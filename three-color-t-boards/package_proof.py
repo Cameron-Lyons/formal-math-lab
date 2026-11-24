@@ -45,6 +45,7 @@ def main():
         'prepare_splice_pal.py', 'find_palindromic_caps.py', 'splice-pal-build.log', 'splice-pal-audit.log',
         'splice-pal-census.log', 'expand_splice.cpp',
         'EXACT_COUNT.md', 'ExactSymmetry.lean', 'exact-symmetry-lean-build.log',
+        'ExactOrbit.lean', 'exact-orbit-lean-build.log',
     ]
     # Keep the README's exact-count companion and its small source and evidence files together.
     experiments = ROOT / 'experiments'

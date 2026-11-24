@@ -14,6 +14,7 @@ it does not establish historical priority or imply that every lemma is new.
 | Problem and identifiers | Result in this collection | Prior-art status |
 | --- | --- | --- |
 | [Box-free 6 × 7 grid, Genkin Question 8.1](box-free-6x7/) | The maximum height is 52. Lean checks an explicit 52-layer coloring and proves the upper bound. | Genkin constructed 50 layers and asked whether 52 was attainable. |
+| [Queen domination on the 48 × 48 board](queen-domination-48/) | The minimum is 25 queens. A compiled Lean enumeration excludes 24 and verifies a placement of 25. | Östergård and Weakley give the upper bound. Davies listed the 48 × 48 case as open on 21 November 2026. |
 | [Nine-bit snake-in-the-box](nine-bit-snake/) | Keep the first 156 steps of any published 191-step snake, read from either end. Every 191-step completion belongs to a published class, and none reaches 192 steps. | Orland et al. published the 131 classes. The unrestricted 192-step question remains open. |
 | [42 consecutive-size squares, Friedman problem 10](consecutive-squares-21/) | With two squares of each side from 1 through 21, the only possible rectangle is 77 × 86, up to rotation. | Friedman lists this case as open. The search found no earlier proof excluding 43 × 154. |
 | [Five 30-sided Go First Dice](five-30-sided-dice/) | For all 120 rankings to have equal odds, each die must have a face at which two opponents’ counts of higher labels differ modulo four. Lean also excludes fifteen mirrored permutation blocks. | The unrestricted problem remains open. An earlier search excluded all column-grouped labelings, including the mirrored blocks. Priority of the modulo-four condition is unconfirmed. |
@@ -46,7 +47,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 Each proof has its own Lake project. The Erdős #617, #677, #708, and #835 projects use Lean **4.35.0-rc2**.
 The Written on the Wall II #133 project uses Lean and mathlib **4.33.1**.
-The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
+The #708 project includes Tripodo’s pinned development. The queen domination project uses Lean **4.35.0**. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three cubes, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
 The E670 and E1486 SAT checks and the large T-board
@@ -55,6 +56,7 @@ families can require substantial computation.
 | Directory | Build command | Main Lean declaration |
 | --- | --- | --- |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |
+| `queen-domination-48` | `lake exe queens48` | `main` runs the exhaustive check and verifies the placement. |
 | `nine-bit-snake` | `lake build` | `Snake.bank_no_192`, `Snake.bank_no_new_191`, `Snake.outside_bank_of_end_profiles` |
 | `consecutive-squares-21` | `lake build` | `Squares42.exists_tiling_iff_77_by_86` |
 | `five-30-sided-dice` | `lake build` | `FiveDice.EqualCuts.needs_distinct_residues`, `FiveDice.Mirrored.no_fifteen_mirrored` |

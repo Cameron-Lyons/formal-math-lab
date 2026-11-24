@@ -24,6 +24,10 @@ None of these searches proves the absence of an earlier or unpublished result.
 
 Checked **24 November 2026**. Genkin’s version 2 constructs a box-free 6 × 7 × 50 coloring and gives 52 as the upper bound. Question 8.1 asks whether the bound can be attained. The local project supplies an explicit 52-layer coloring and a Lean proof of the exact maximum. [Genkin, Theorem 5.1 and Question 8.1](https://zenodo.org/records/24457907) · [Coloring](box-free-6x7/BoxFree/Construction.lean) · [Exact-height theorem](box-free-6x7/BoxFree.lean)
 
+## Queen domination on the 48 × 48 board
+
+Checked **24 November 2026**. Östergård and Weakley give a 25-queen placement. Davies identifies 48 as the next open even board in §9 of his 21 November preprint. The project verifies the published placement and excludes 24 by exhaustive enumeration in compiled Lean. [Published placement, pp. 10–11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/) · [Davies, §9](https://hexagonmath.org/pdf/2611.00830v1#page=19) · [Proof and checker](queen-domination-48/README.md)
+
 ## Nine-bit snake-in-the-box
 
 Checked **24 November 2026**. Orland et al. published 131 inequivalent induced

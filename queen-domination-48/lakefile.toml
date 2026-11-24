@@ -1,0 +1,13 @@
+name = "queens48short"
+version = "0.1.0"
+defaultTargets = ["queens48"]
+
+[[lean_lib]]
+name = "Local"
+
+[[lean_lib]]
+name = "Global"
+
+[[lean_exe]]
+name = "queens48"
+root = "Main"

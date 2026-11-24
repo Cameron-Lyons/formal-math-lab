@@ -275,6 +275,23 @@ scaled binomial coefficients, and the cubic $x(x-1)(x-3)$ located no earlier
 complete classification in the sources inspected. Historical priority remains
 unverified. [Proof and verification boundary](erdos-677-equal-lcms/cubic/LengthSix.md)
 
+Lengths three and four were checked on **24 November 2026**. The July write-up
+also reports both classifications. At length three it gives the single pair
+$(2,3)$, attributed to a unit equation in $\mathbb Z[\sqrt[3]{2}]$ and
+confirmed there by a search through $n\le200{,}000$. At length four it gives
+the single pair $(1,2)$, from a Pell equation with a congruence and
+quadratic-reciprocity certificate. Danesh and Bianchetti state that their
+method excludes lengths three and four. Ponnudurai solved
+$Y(Y+1)(Y+2)(Y+3)=3X(X+1)(X+2)(X+3)$ in 1975. The local contribution is a Lean
+proof of each classification with no external computation. The Formal
+Conjectures file leaves the general statement open and proves only a test lemma
+for Erdős's two mixed-length examples. An earlier public Lean toolkit, posted
+to the problem's forum thread on 31 March 2026, proves prime-power lemmas and
+finiteness for each fixed length and gap. It has no classification at a fixed
+length. A web search located no earlier Lean proof of either length.
+First-formalization status is unverified.
+[Ponnudurai (1975)](https://doi.org/10.1112/jlms/s2-10.2.232) · [Earlier Lean toolkit](https://github.com/qrdlgit/erdos677) · [Forum thread](https://www.erdosproblems.com/forum/thread/677) · [Local proofs](erdos-677-equal-lcms/LengthThreeAndFour.md)
+
 ## Erdős #708, interval products for six integers
 
 Checked **23 November 2026**. Let $A$ be a set of six distinct integers at

@@ -4,7 +4,9 @@ Write $M(n,k)$ for the LCM of $n+1,\ldots,n+k$. Erdős #677 asks whether $M(m,k)
 
 ## Results
 
-At length two the LCM strictly increases with the start. At length five, Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3\cdot10^{12}$. [Length-two and length-five proofs](LengthTwoAndFive.md)
+At length two the LCM strictly increases with the start. Lengths three and four are settled in Lean with no external computation: for distinct starts the only equalities are $M(2,3)=M(3,3)=60$ and $M(1,4)=M(2,4)=60$, and both pairs of blocks overlap. [Length-three and length-four proofs](LengthThreeAndFour.md)
+
+At length five, Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3\cdot10^{12}$. [Length-two and length-five proofs](LengthTwoAndFive.md)
 
 **Length six is settled by a computer-assisted proof.** For arbitrary distinct starts, the only equalities are the three overlapping pairs with parameters $(3,4)$, $(5,6)$, and $(13,15)$. Lean verifies the reduction, the finite LCM checks, and the disjoint-block conclusion given the explicit affine bound. The proof of that bound uses elliptic logarithms and external arithmetic. [Proof, complete integral-point lists, and reproduction commands](cubic/LengthSix.md)
 
@@ -23,11 +25,13 @@ Lean also proves the conjectured inequality for adjacent blocks of all lengths, 
 
 ## Lean declarations
 
+- `Erdos677.three_collision_iff` and `Erdos677.four_collision_iff` classify the equal LCMs at lengths three and four.
+- `Erdos677.erdos_677_two`, `Erdos677.erdos_677_three` and `Erdos677.erdos_677_four` are the conjectured inequality at lengths two, three and four.
 - `Erdos677.six_collision_on_cubics` sends a repeated length-six LCM to one of four plane cubics.
 - `Erdos677.six_collision_iff_three_of_affine_cover` gives the three pairs from the complete integral-point list.
 - `Erdos677.no_collision_six_of_affine_bound` excludes disjoint blocks from the analytic bound alone.
 
-The Lean sources specify both hypotheses explicitly. The arithmetic scripts verify the global bound and enumerate the integral points. [Lean declarations](SixCubics.lean) · [Reproduce the arithmetic](cubic/LengthSix.md#reproduction)
+For length six, the Lean sources specify both hypotheses explicitly. The arithmetic scripts verify the global bound and enumerate the integral points. [Lean declarations](SixCubics.lean) · [Reproduce the arithmetic](cubic/LengthSix.md#reproduction)
 
 ## Verification
 

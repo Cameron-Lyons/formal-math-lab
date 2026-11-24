@@ -141,6 +141,10 @@ is unverified. [Ramsey survey, §6.3.1](https://www.cs.rit.edu/~spr/ElJC/ejcram1
 [Kohayakawa, Simonovits, and Skokan](https://users.renyi.hu/~miki/KohaSimSkokGraco.pdf) ·
 [Local Lean project](erdos-556-cycle-ramsey/)
 
+## Erdős #617, missing colors in cliques
+
+Erdős and Gyárfás posed the unrestricted conjecture and proved the three- and four-color cases. The Formal Conjectures collection lists the general statement as open. A separate formal verification treats five colors. Priority for the additional results in this package is unverified. [Original paper](https://doi.org/10.1016/S0012-365X(98)00323-9) · [Formal Conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/617.lean) · [Five-color verification](https://github.com/RamazanKara/erdos-617-r5-formal-verification)
+
 ## Erdős #677, equal LCMs of six consecutive integers
 
 Checked **23 November 2026**. With $M(n,k)$ the LCM of $n+1$ through $n+k$,

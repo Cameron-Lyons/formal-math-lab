@@ -22,6 +22,7 @@ it does not establish historical priority or imply that every lemma is new.
 | [Three integer cubes summing to 114](three-cubes-114/) | Arbitrarily large moduli admit a cube root of 114 and lie outside the full norm family. | Booker–Sutherland and Grantham–Walsh give earlier search methods. The local searches found no triple. |
 | [26 unit fractions: reciprocal Rado number f₂(26)](26-unit-fractions/) | `f₂(26) = 2028 = 3·26²`, with repeated denominators allowed; Gaiser–Ramezanpour Conjecture 1.3 at 26. | No earlier proof of this exact case located. The lower bound and some proof ingredients were already published. |
 | [Erdős #556, three-color nine-cycle Ramsey number](erdos-556-cycle-ramsey/) | Any three-coloring of $K_{33}$ with a 15-vertex set missing one color contains a monochromatic $C_9$. | The lower bound of 33 is known. The unrestricted upper bound remains open. |
+| [Erdős #617, missing colors in cliques](erdos-617-missing-colors/) | The missing-color conclusion holds for $3\le r\le 10$, and for every $r\ge3$ if one color contains $r-2$ disjoint copies of $K_r$. | Erdős and Gyárfás posed the conjecture. The unrestricted case remains open. |
 | [Erdős #677, equal LCMs of six consecutive integers](erdos-677-equal-lcms/) | The only equal-LCM pairs at length six have parameters $(3,4)$, $(5,6)$ and $(13,15)$. All overlap. Lean checks the reduction and finite cases. External elliptic-curve arithmetic proves completeness. | The three overlaps and four-cubic reduction were recorded previously. The arbitrary-length problem remains open. |
 | [Erdős #708, interval products for six integers](erdos-708-six/) | $g(6)=8$. For every six-element set $A$ of integers at least two, at most eight entries from any block of $\max A$ consecutive integers suffice for a product divisible by $\prod_{a\in A}a$. Some blocks require eight. | C. Bergström previously proved the value eight. The local Lean proof uses John Tripodo’s formalized bounds for four and five integers. |
 | [Erdős #835, coloring subsets](erdos-835-coloring-subsets/) | At $k=16$, any point involution preserving a rainbow coloring must move at least 30 of the 32 points. Lean also excludes symmetries of order 11 or 13 and regular abelian groups of order 32. | Earlier work excludes other symmetry classes. The existence of a coloring remains open. |
@@ -38,7 +39,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 ## Find and check a theorem
 
-Each proof has its own Lake project. The Erdős #677, #708, and #835 projects use Lean **4.35.0-rc2**.
+Each proof has its own Lake project. The Erdős #617, #677, #708, and #835 projects use Lean **4.35.0-rc2**.
 The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three cubes, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
@@ -57,6 +58,7 @@ families can require substantial computation.
 | `three-cubes-114` | `lake build` | `ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
 | `erdos-556-cycle-ramsey` | `lake build` | `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases` |
+| `erdos-617-missing-colors` | `lake exe cache get` then `lake build` | `Erdos617.missing_of_at_most_ten_colors`, `Erdos617.missing_of_all_but_two_parallel_rows` |
 | `erdos-677-equal-lcms` | `lake exe cache get` then `lake build`. [Arithmetic checks](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction) | `Erdos677.six_collision_iff_three_of_affine_cover` |
 | `erdos-708-six` | `lake exe cache get` then `lake build` | `Erdos708.isLeast_six`, `IntervalSix.six_integer` |
 | `erdos-835-coloring-subsets` | `lake exe cache get` then `lake build` | `Erdos835.involution_moves_at_least_thirty`, `Erdos835.no_regular_abelian_symmetry` |

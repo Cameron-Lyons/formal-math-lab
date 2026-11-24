@@ -15,7 +15,7 @@ for all $x,y,z$.
 
 A binary operation on 15 elements is a $15\times15$ table whose entries are drawn from those same 15 elements. The entry in row $a$, column $b$ is $a\star b$. We assume no associativity or commutativity.
 
-The [E1486 research notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/1486_graph_spectrum.md#remaining-small-orders), at revision `6a653268`, list orders 12, 14, 15, 17, and 26 as unresolved. This computer-assisted proof settles the 15-element case.
+The [E1486 research notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/1486_graph_spectrum.md#remaining-small-orders), at revision `6a653268`, list orders 12, 14, 15, 17, and 26 as unresolved. This computer-assisted proof settles the 15-element case. A [17-element model](#a-model-with-17-elements) settles order 17, leaving 12, 14, and 26.
 
 Write $x^2=x\star x$, so a "square" is simply a value on the table's diagonal. Let $Q$ be the set of distinct squares. A counting argument reduces the problem to 36 families of graphs. Lean then checks a certificate ruling out every graph in each family. The argument below explains the reduction; the final exclusions depend on that computation.
 
@@ -86,6 +86,12 @@ The finite test imposes ordering conditions satisfied by this choice. Every hypo
 
 For each case, Lean's `bv_decide` tactic obtains a refutation from the bundled SAT solver and checks it with a verified proof checker. The checker runs by native evaluation, so Lean's compiler and runtime are part of the trusted computation. Together, the 36 checked refutations rule out every possible table.
 
+## A model with 17 elements
+
+Order 17 goes the other way: some binary operation on 17 elements satisfies the law. [Simple/Order17.lean](Simple/Order17.lean) lists its $17\times17$ table, and Lean checks all $17^3=4913$ instances of the law directly. This check uses no SAT certificate and no native evaluation, and the file imports nothing.
+
+**Prior-art status (23 November 2026):** no earlier 17-element model was located. The research notes and the live spectrum data list 17 as unresolved; their one recorded attempt at this order is a solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-17).
+
 ## Reproduce
 
 The source bundle builds with the pinned Lean 4.36.0 toolchain and its bundled SAT solver. From its top directory run
@@ -100,7 +106,15 @@ The endpoint is `E1486.Simple.noTable`. The build generates and checks all 36 fi
 printf '%s\n' 'import Simple.NoTable' '#print axioms E1486.Simple.noTable' | lake env lean --stdin
 ```
 
-To follow the formal argument, start with [Simple/NoTable.lean](Simple/NoTable.lean). It combines the graph reduction, the two counting bounds, and the finite exclusions. The three equalities are named `recover_source`, `return_to_square`, and `recover_target` in [E1486.lean](E1486.lean); [Simple/Graph.lean](Simple/Graph.lean) uses them to prove the arrow rules. [Simple/FiniteBase.lean](Simple/FiniteBase.lean) explains how each graph condition is encoded.
+The order-17 model is checked separately, in a few seconds:
+
+```sh
+lake build Simple.Order17
+```
+
+Its endpoint is `E1486.Order17.exists_table`, which depends only on the axiom `propext`.
+
+To follow the formal argument for order 15, start with [Simple/NoTable.lean](Simple/NoTable.lean). It combines the graph reduction, the two counting bounds, and the finite exclusions. The three equalities are named `recover_source`, `return_to_square`, and `recover_target` in [E1486.lean](E1486.lean); [Simple/Graph.lean](Simple/Graph.lean) uses them to prove the arrow rules. [Simple/FiniteBase.lean](Simple/FiniteBase.lean) explains how each graph condition is encoded.
 
 Related results that the proof does not need are collected in [Simple/AdditionalResults.lean](Simple/AdditionalResults.lean): the converse graph constructions, extra square-row lemmas, and the older symmetry argument. Their declaration names are preserved; import `Simple.AdditionalResults` to use them. A plain `lake build` checks this module as well as the main proof.
 
@@ -117,6 +131,14 @@ order 15: 71 cases, all UNSAT
 ```
 
 Here `UNSAT` means no graph satisfies the constraints. The Python program checks all 71 fixed-point/pair patterns for $1\le k\le15$. Lean uses the counting arguments to eliminate $k\le3$ and $k\ge12$, leaving 36 patterns to check computationally.
+
+The same program finds a 17-element model independently:
+
+```sh
+python3 Simple/check.py 17
+```
+
+After about a minute it reports `order 17: model verified on all 4913 triples (k=6, j=4)`. Its model has six squares and differs from the table in Lean, which has eight.
 
 By default, the Python program reports CaDiCaL's results. To also replay each refutation with a separate certificate checker, use `lrat-trim` **0.2.1-rc3**, pinned to [revision `423194927df747528d5b7364806b5b77b2660c12`](https://github.com/arminbiere/lrat-trim/tree/423194927df747528d5b7364806b5b77b2660c12). This revision passed all 71 order-15 certificates. The script requires its `--rup` option, which version 0.2.0 does not support. Supply the path to that executable:
 

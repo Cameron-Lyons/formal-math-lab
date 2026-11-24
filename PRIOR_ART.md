@@ -11,6 +11,7 @@ recurrence follows from a first-order recurrence already implemented in jOEIS;
 its first-proof status is unverified. The A176755 recurrence is covered by
 Georg Fischer’s January 2020 general recurrence.
 For E670 at order 10, the search of **23 November 2026** likewise found no earlier proof.
+For the 17-element model of E1486, the search of the same date found no earlier model.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
@@ -42,6 +43,32 @@ No earlier order-15 exclusion was located. The source law, square-row
 identities, and earlier spectrum results belong to the Equational Theories
 Project; the local claim is the specific order-15 exclusion, not the whole
 spectrum or the first formal study of E1486.
+
+## E1486 at order 17
+
+**Audited statement:** some 17-element magma satisfies
+`(y*x)*(x*(z*z)) = x` universally.
+
+Checked **23 November 2026** (24 November UTC). The pinned research note and
+live spectrum data cited for order 15 also list 17 among E1486's unresolved
+orders. The live response is unchanged since **5 November 2026** and matches the
+hash in the [filtered retrieval record](research/prior-art/equational-spectrum-2026-11-22.json).
+The note's [search data](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/data/spectrum/1486_search_followup.json)
+record one attempt at order 17: a CaDiCaL run on the full law that reached its
+60-second limit with result `UNKNOWN`.
+
+The note, catalogue, and data are developed on a branch of a fork. The main
+project's [commentary](https://github.com/teorth/equational_theories/blob/02b063b67143a897f070803482691c820770501d/commentary/Equation1486.md)
+says only that the finite spectrum is unknown. Its
+[equation list](https://github.com/teorth/equational_theories/blob/02b063b67143a897f070803482691c820770501d/data/equations.txt#L1486)
+gives Equation 1486 as `x = (y ◇ x) ◇ (x ◇ (z ◇ z))`, the law checked here.
+
+No earlier 17-element model or order-17 exclusion was located in the fork, in
+the main repository's issues and pull requests, or in the public Equational
+channel of the Lean Zulip. The
+[earlier discussion](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/Understanding.20Finite.201486.20Magmas.html)
+of sporadic models does not mention order 17. The local claim is this one model,
+not the spectrum. [Lean proof](E1486-order-15/Simple/Order17.lean)
 
 ## E17260: partial results, finite existence unresolved
 
@@ -389,6 +416,7 @@ equivalent terminology. Representative queries included:
 Equation 670 magma spectrum order 10; not_order_670_10; exclude_670_10
 Zulip #Equational: 670; E670; 2937
 E1486 order 15 proof; not_order_1486_15; E2126 spectrum
+E1486 order 17 model; "1486" spectrum "order 17"; Zulip #Equational: 1486; 2126
 reciprocal Rado f_2(26) 2028; 2607.04373; Gaiser Ramezanpour 26
 R_3^2(C_7) 11; seven cycle two colour changes; 2607.03243
 prismatic T tetromino 45083592; ternary ziggurat more than 60

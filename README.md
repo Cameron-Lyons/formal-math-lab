@@ -15,6 +15,7 @@ it does not establish historical priority or imply that every lemma is new.
 | --- | --- | --- |
 | [Triple covering design $C(61,25,3)$](covering-61-25-3/) | Any 26-group cover can retain at most 20 groups from the published construction. Lean checks all 296,010 choices of 21 retained groups. | Caleb Ashton published the 27-group construction. The unrestricted 26-group question remains open in this project. |
 | [E677 implies E255 at order 9](E677-E255-order-9/) | Every nine-element magma satisfying E677 also satisfies E255. | José Brox reported the order-nine exclusion in December 2024. |
+| [E670, order 10: finite magma spectrum](E670-order-10/) | No 10-element binary operation satisfies `y*(x*((x*y)*y)) = x`. | No earlier proof located; order 10 remains open in the inspected Equational Theories catalogue. |
 | [E1486, order 15: finite magma spectrum](E1486-order-15/) | No 15-element binary operation satisfies `(y*x)*(x*(z*z)) = x`. | No earlier proof located; order 15 remains open in the inspected Equational Theories catalogue. |
 | [E17260: partial finite-model obstructions](E17260-partial-results/) | Any model with surjective squaring, an idempotent, either cancellation law, or an affine operation is trivial. | Finite nontrivial existence remains open. Infinite models and finite linear obstructions are prior work; novelty of the other partial results is unverified. |
 | [Integer cubic $z^2+y^2z+x^3=2$](integer-cubic/) | A nonconstant rational polynomial family passing through an integer triple must have degree at least six in $x$. An explicit infinite family has integral $x,z$ and $y$ of reduced denominator 13. | Infinitude of integer triples remains open in Grechuk’s Table 6. |
@@ -41,13 +42,14 @@ Each proof has its own Lake project. The Erdős #677, #708, and #835 projects us
 The #708 project includes Tripodo’s pinned development. The other projects use Lean **4.36.0**.
 The E17260, integer cubic, three cubes, three-column matrix, A026019, A176755, and arctangent-sum projects also use mathlib **v4.36.0**.
 With Lean's toolchain manager installed, run the command in the corresponding directory.
-E1486's SAT checks and the large T-board
+The E670 and E1486 SAT checks and the large T-board
 families can require substantial computation.
 
 | Directory | Build command | Main Lean declaration |
 | --- | --- | --- |
 | `covering-61-25-3` | `lake build` | `Covering61.RepairSearch.published_six_for_five_screen` |
 | `E677-E255-order-9` | `lake build` | `Nine.eq677_implies_eq255` |
+| `E670-order-10` | `lake build` | `E670.no_model_of_order_ten` |
 | `E1486-order-15` | `lake build +Simple.NoTable` | `E1486.Simple.noTable` |
 | `E17260-partial-results` | `lake build` | `Equation17260.subsingleton_of_surjective_square` |
 | `integer-cubic` | `lake build` then `lake exe boundedSearch` | `IntegerCubic.infinitely_many_with_two_integer_coordinates` |
@@ -69,17 +71,12 @@ families can require substantial computation.
 | `a176755-linear-recurrence` | `lake build` | `A176755.mathar` |
 | `arctangent-sum` | `lake build` | `Arxiv.«2607.05739».positive_integer_count_isBigO` |
 
-The E1486 proof uses Lean's native certificate-checking machinery; see its
-[trust and reproduction notes](E1486-order-15/README.md#reproduce).
+The E670 and E1486 proofs use Lean's native certificate-checking machinery; see
+the trust and reproduction notes for
+[E670](E670-order-10/README.md#reproduce) and
+[E1486](E1486-order-15/README.md#reproduce).
 Project documentation distinguishes mathematical proofs, verified finite
 certificates, and exploratory searches. A timed-out search is not a proof.
-
-## Research targets without a supplied proof
-
-- **E670 on ten elements:** whether a 10-element magma satisfies
-  `y*(x*((x*y)*y)) = x`. This is a research lead from the original shortlist;
-  there is no local proof project. See the
-  [Equational Theories spectrum catalogue](https://ohaithe.re/equational_theories/spectrum/?eq=670).
 
 ## Supporting tools and attribution
 

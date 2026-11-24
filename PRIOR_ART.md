@@ -9,8 +9,8 @@ found no earlier proof of the exact headline results. The three-column matrix
 formula follows from an earlier inclusion–exclusion theorem. The A026019
 recurrence follows from a first-order recurrence already implemented in jOEIS;
 its first-proof status is unverified. The A176755 recurrence is covered by
-Georg Fischer’s January 2020 general recurrence. The E670 order-ten research target
-supplies no local proof.
+Georg Fischer’s January 2020 general recurrence.
+For E670 at order 10, the search of **23 November 2026** likewise found no earlier proof.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
@@ -344,13 +344,40 @@ The local Lean proof sharpens the count to $O((\log N)^{3/4})$ and verifies
 that only $n=1,2,3,4$ give integers among positive indices through $10^6$.
 [Project theorems](arctangent-sum/ArctanSum.lean)
 
-## E670 on ten elements: no local proof
+## E670 at order 10
 
-The live [spectrum data](https://ohaithe.re/equational_theories/research/data/spectrum.json)
-still lists order 10 open for E670, without a pending proof. The
-[pinned order-ten report](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/order_ten_followup_20261007.md#what-remains-at-ten)
-likewise leaves E670 and E677 unresolved at ten. This collection contains no
-proof project for that target.
+**Audited statement:** no 10-element magma satisfies
+`y*(x*((x*y)*y)) = x` universally.
+
+Checked **23 November 2026**. The live
+[spectrum data](https://ohaithe.re/equational_theories/research/data/spectrum.json),
+last modified **5 November 2026**, lists `[2,3,6,7,8]` as E670's excluded orders
+and 10 as its smallest undecided order, with no pending proofs. The response
+retrieved for this check has the hash preserved in the
+[filtered retrieval record](research/prior-art/equational-spectrum-2026-11-22.json).
+The [pinned order-ten report](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/order_ten_followup_20261007.md#what-remains-at-ten)
+leaves E670 and E677 unresolved at ten. For E670 its
+[search data](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/data/spectrum/order_ten_followup_20261007.json)
+records 61 of the 97 first-row cases refuted and 36 undecided within budgets of
+at most 100,000 conflicts. The catalogue and these reports are developed on the
+`definability-negative` branch of the fork `Timeroot/equational_theories`, not
+in the project's main repository. That branch had the head
+`199f75c2aa71ff0e112a8a38faf0680f252d33a4` on the day of the check, two
+commits after the pinned revision; neither later commit concerns E670.
+
+No earlier order-10 exclusion was located. The law belongs to the Equational
+Theories Project; the choice of the element labelled 0, the normal form of the
+first row, and the exclusions at other orders belong to that spectrum work. The local
+claim is the specific order-10 exclusion, not the whole spectrum. Web searches
+for the equation number with “order 10”, for the law written out, and for the
+theorem names an upstream exclusion would carry (`not_order_670_10`,
+`exclude_670_10`) returned no proof. The project's public Zulip stream was
+searched through its web-public interface for `670`, `E670` and the dual
+`2937`: no message concerns order 10. The latest spectrum summary there, by
+Alex Meiburg on 7 October 2026, lists E670 as cofinite with no finite cutoff
+worked out.
+[Lean proof](E670-order-10/E670/Main.lean) ·
+[project notes](E670-order-10/README.md)
 
 ## Search scope and limits
 
@@ -359,6 +386,8 @@ catalogues, GitHub code searches, and web searches for exact statements and
 equivalent terminology. Representative queries included:
 
 ```text
+Equation 670 magma spectrum order 10; not_order_670_10; exclude_670_10
+Zulip #Equational: 670; E670; 2937
 E1486 order 15 proof; not_order_1486_15; E2126 spectrum
 reciprocal Rado f_2(26) 2028; 2607.04373; Gaiser Ramezanpour 26
 R_3^2(C_7) 11; seven cycle two colour changes; 2607.03243

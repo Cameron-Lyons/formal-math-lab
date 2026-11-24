@@ -13,6 +13,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 | Problem and identifiers | Result in this collection | Prior-art status |
 | --- | --- | --- |
+| [42 consecutive-size squares, Friedman problem 10](consecutive-squares-21/) | With two squares of each side from 1 through 21, the only possible rectangle is 77 × 86, up to rotation. | Friedman lists this case as open. The search found no earlier proof excluding 43 × 154. |
 | [Five 30-sided Go First Dice](five-30-sided-dice/) | For all 120 rankings to have equal odds, each die must have a face at which two opponents’ counts of higher labels differ modulo four. Lean also excludes fifteen mirrored permutation blocks. | The unrestricted problem remains open. An earlier search excluded all column-grouped labelings, including the mirrored blocks. Priority of the modulo-four condition is unconfirmed. |
 | [Triple covering design $C(61,25,3)$](covering-61-25-3/) | Any 26-group cover can retain at most 20 groups from the published construction. Lean checks all 296,010 choices of 21 retained groups. | Caleb Ashton published the 27-group construction. The unrestricted 26-group question remains open in this project. |
 | [E677 implies E255 at order 9](E677-E255-order-9/) | Every nine-element magma satisfying E677 also satisfies E255. | José Brox reported the order-nine exclusion in December 2024. |
@@ -51,6 +52,7 @@ families can require substantial computation.
 
 | Directory | Build command | Main Lean declaration |
 | --- | --- | --- |
+| `consecutive-squares-21` | `lake build` | `Squares42.exists_tiling_iff_77_by_86` |
 | `five-30-sided-dice` | `lake build` | `FiveDice.EqualCuts.needs_distinct_residues`, `FiveDice.Mirrored.no_fifteen_mirrored` |
 | `covering-61-25-3` | `lake build` | `Covering61.RepairSearch.published_six_for_five_screen` |
 | `E677-E255-order-9` | `lake build` | `Nine.eq677_implies_eq255` |

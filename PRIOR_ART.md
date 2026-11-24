@@ -19,6 +19,17 @@ The Erdős #708 project formalizes C. Bergström’s previously proved value $g(
 and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
+## Two squares of each side from 1 through 21
+
+Checked **24 November 2026**. Friedman’s table gives bounds of two through five
+on the minimum number of copies of each size needed to tile a rectangle.
+On 22 November he revised problem 10 and retained the two-copy case for
+`n = 21` among the open cases. [Results table](https://erich-friedman.github.io/mathmagic/0505.html) · [Open problem 10](https://erich-friedman.github.io/mathmagic/unsolved.html) · [Dated revision](https://github.com/erich-friedman/erich-friedman.github.io/commit/4072f4a7ec4aacba7590ddd5ccb016a922ea594c)
+
+Searches by dimensions, area, square inventory, and the three-squares-per-row
+argument found no earlier proof excluding 43 × 154. Priority of that exclusion
+remains unconfirmed. The Lean reduction leaves 77 × 86 open. [Width-43 proof](consecutive-squares-21/Width43.lean) · [Reduction](consecutive-squares-21/Bridge.lean)
+
 ## Five 30-sided Go First Dice
 
 Checked **24 November 2026**. The Go First Dice team lists as open whether five

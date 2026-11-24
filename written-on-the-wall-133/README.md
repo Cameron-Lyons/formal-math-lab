@@ -1,6 +1,6 @@
 # Written on the Wall II, Graph Conjecture 133
 
-For a finite simple connected graph $G$, let $p$ be the number of vertices in a longest induced path, $r$ its radius, and $k=\lfloor l(G)\rfloor$, where $l(G)$ is the average of the independence numbers of the open neighborhoods. The floored conjecture asks for $p\ge r+k$ when $G$ contains no four-cycle, and $p\ge r+1$ when it contains any four-cycle, including one with a chord. [Graffiti.pc catalogue, Conjecture 133](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/wowiiaii.pdf#page=77)
+For a finite simple connected graph $G$, let $p$ be the number of vertices in a longest induced path, $r$ its radius, and $k=\lfloor l(G)\rfloor$, where $l(G)$ is the average of the independence numbers of the open neighborhoods. The floored conjecture asks for $p\ge r+k$ when $G$ contains no four-cycle, and $p\ge r+1$ when it contains any four-cycle, including one with a chord. [Graffiti.pc catalogue, Conjecture 133](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
 
 This project studies the earlier, floored Lean formulation. In September 2026 Formal Conjectures interpreted the catalogue’s brackets as grouping and changed its declaration to use the unrounded $l(G)$. The two bounds differ when $G$ is $C_4$-free and $l(G)$ is nonintegral. [Upstream correction](https://github.com/google-deepmind/formal-conjectures/commit/5faef0c4dc3d226f8f9a9fc8f581b6221283eb6e) · [Pinned declaration](https://github.com/google-deepmind/formal-conjectures/blob/86a2f58a4d7a3a0637d15d5b2ce627592b54b956/FormalConjectures/WrittenOnTheWallII/GraphConjecture133.lean#L46-L54)
 
@@ -28,4 +28,4 @@ lake build
 LEAN_NUM_THREADS=1 lake env leanchecker -v Wall133
 ```
 
-The radius estimate $p\ge 2r-1$ is Theorem 2.2 of Erdős, Saks and Sós, who credit the proof to Fan Chung. This package adapts KitaKen1’s Lean formalization to the pinned graph definitions and retains the Apache-2.0 license. [Paper](https://www.renyi.hu/~p_erdos/1986-08.pdf) · [Original Lean proof](https://github.com/KitaKen1/wowii-graph-conjecture-31-lean/blob/a948e9fc07e11b786aee8dadb1376b4d938454d6/lean/GraphConjecture31.lean) · [Adaptation](Wall133/Chung.lean) · [License](LICENSE)
+The radius estimate $p\ge 2r-1$ is Theorem 2.2 of Erdős, Saks and Sós, who credit the proof to Fan Chung. This package adapts KitaKen1’s Lean formalization to the pinned graph definitions and retains the Apache-2.0 license. [Paper](https://real.mtak.hu/110576/1/1-s2.0-0095895686900286-main.pdf#page=4) · [Original Lean proof](https://github.com/KitaKen1/wowii-graph-conjecture-31-lean/blob/a948e9fc07e11b786aee8dadb1376b4d938454d6/lean/GraphConjecture31.lean) · [Adaptation](Wall133/Chung.lean) · [License](LICENSE)

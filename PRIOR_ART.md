@@ -237,11 +237,11 @@ Comparison updated **23 November 2026**. At $k=16$, the September 2026 discussio
 
 ## Written on the Wall II, Graph Conjecture 133
 
-Checked **24 November 2026**. DeLaViña’s Graffiti.pc catalogue lists #133 as open. The local project proves partial results for the earlier floored formulation. Formal Conjectures removed the floor in September 2026 after interpreting the source brackets as grouping. [Catalogue, #133](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/wowiiaii.pdf#page=77) · [Upstream change](https://github.com/google-deepmind/formal-conjectures/commit/5faef0c4dc3d226f8f9a9fc8f581b6221283eb6e)
+Checked **24 November 2026**. DeLaViña’s Graffiti.pc catalogue lists #133 as open. The local project proves partial results for the earlier floored formulation. Formal Conjectures removed the floor in September 2026 after interpreting the source brackets as grouping. [Catalogue, #133](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/files/conjectures.json) · [Upstream change](https://github.com/google-deepmind/formal-conjectures/commit/5faef0c4dc3d226f8f9a9fc8f581b6221283eb6e)
 
 Haoyu Chen treats graphs containing a four-cycle and all floors through two, and derives restrictions at floor three. Kuber Mehta’s Lean development treats further special classes and gives a conditional reduction for regular triangle-free graphs. The local project verifies all floors through four, every order through 29, and the bipartite and regular cases at arbitrary order. Priority of these partial results is unverified. [Chen’s report](https://doi.org/10.5281/zenodo.22054835) · [Mehta’s regular and low-average results](https://github.com/Kuberwastaken/c5-k4/blob/f0f912c17bde0aa1b1f4b59845cf018eea696452/results/expansion/method_v09_133_regular.md) · [Local theorems](written-on-the-wall-133/README.md)
 
-The radius estimate used here appears in Erdős, Saks and Sós, Theorem 2.2, with the proof credited to Fan Chung. The project adapts KitaKen1’s Lean formalization of that estimate. [Paper](https://www.renyi.hu/~p_erdos/1986-08.pdf) · [Formalization](https://github.com/KitaKen1/wowii-graph-conjecture-31-lean/blob/a948e9fc07e11b786aee8dadb1376b4d938454d6/lean/GraphConjecture31.lean)
+The radius estimate used here appears in Erdős, Saks and Sós, Theorem 2.2, with the proof credited to Fan Chung. The project adapts KitaKen1’s Lean formalization of that estimate. [Paper](https://real.mtak.hu/110576/1/1-s2.0-0095895686900286-main.pdf#page=4) · [Formalization](https://github.com/KitaKen1/wowii-graph-conjecture-31-lean/blob/a948e9fc07e11b786aee8dadb1376b4d938454d6/lean/GraphConjecture31.lean)
 
 ## Seven-cycle threshold R₃²(C₇) = 11
 

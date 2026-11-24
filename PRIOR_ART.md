@@ -20,6 +20,10 @@ The Erdős #708 project formalizes C. Bergström’s previously proved value $g(
 and uses John Tripodo’s Lean bounds for four and five integers.
 None of these searches proves the absence of an earlier or unpublished result.
 
+## Box-free colorings of the 6 × 7 grid
+
+Checked **24 November 2026**. Genkin’s version 2 constructs a box-free 6 × 7 × 50 coloring and gives 52 as the upper bound. Question 8.1 asks whether the bound can be attained. The local project supplies an explicit 52-layer coloring and a Lean proof of the exact maximum. [Genkin, Theorem 5.1 and Question 8.1](https://zenodo.org/records/24457907) · [Coloring](box-free-6x7/BoxFree/Construction.lean) · [Exact-height theorem](box-free-6x7/BoxFree.lean)
+
 ## Nine-bit snake-in-the-box
 
 Checked **24 November 2026**. Orland et al. published 131 inequivalent induced

@@ -1,6 +1,6 @@
 import Std
 
-/-! Square-row facts used by the order-12 and order-15 proofs. Further results are in
+/-! Square-row facts used by the order-12, order-14 and order-15 proofs. Further results are in
 `Simple.AdditionalResults`. -/
 
 namespace E1486

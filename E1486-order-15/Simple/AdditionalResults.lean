@@ -1,6 +1,7 @@
 import Simple.Graph
 import Normalize
 import SymmetryCore
+import MaxKey
 
 /-! Related results that are not needed by `E1486.Simple.noTable`.
 

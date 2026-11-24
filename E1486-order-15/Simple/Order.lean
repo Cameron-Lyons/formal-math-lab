@@ -1,4 +1,5 @@
-import Simple.Graph
+import MaxKey
+import Simple.LeaderOfLaw
 import Simple.Pack
 import Moves
 import SymmetryCore
@@ -12,32 +13,11 @@ private noncomputable def adj (m : Operation) (a b : V) : Bool :=
 private theorem adj_pull (l : Label 15) (m : Operation) (a b : V) :
     adj (l.pull m) a b = adj m (l.old a) (l.old b) := by
   apply Bool.eq_iff_iff.mpr
-  simp only [adj,pack_get,arrows,Pred,l.row]
-  have eq : l.pull m b b = a ↔ m (l.old b) (l.old b) = l.old a := by
-    constructor
-    · intro h; simpa [Label.pull,l.old_idx] using congrArg l.old h
-    · intro h; simp [Label.pull,h,l.idx_old]
-  rw [eq]
+  simp only [adj,pack_get,Test.arrows_pull]
 
 private theorem len_score (k : Nat) (m n : Operation) :
     (score k (adj m)).length = (score k (adj n)).length := by
   simp [score,matrix,profile,List.length_flatMap]
-
-local instance : Std.Asymm ((· < ·) : Bool → Bool → Prop) := ⟨by decide⟩
-local instance : Std.Trichotomous ((· < ·) : Bool → Bool → Prop) := ⟨by decide⟩
-
-private theorem ge_of_le (g : Finite.G) (l : List (Nat × Nat))
-    (h : l.map (fun x => g.getLsbD x.2) ≤ l.map (fun x => g.getLsbD x.1)) : Finite.geBits g l = true := by
-  induction l with
-  | nil => rfl
-  | cons hd tail ih =>
-    rcases hd with ⟨a,b⟩
-    change g.getLsbD b :: _ ≤ g.getLsbD a :: _ at h
-    have cmp := (List.cons_le_cons_iff (α := Bool)).mp h
-    simp only [Finite.geBits]
-    by_cases same : a=b
-    · subst b; simp; apply ih; rcases cmp with bad | h; simp at bad;exact h.2
-    · simp [same]; cases ha : g.getLsbD a <;> cases hb : g.getLsbD b <;> simp_all <;> contradiction
 
 private theorem range_sv (k : Nat) (h : k≤15) : (sv k).map Fin.val = List.range k := by
   have all : ∀ k : Fin 16, (sv k.val).map Fin.val = List.range k.val := by decide
@@ -79,7 +59,7 @@ private theorem ns_order {k j : Nat} {m : Operation} (law : Law m) (hn : DiagNor
     intro x y hx hy; rw [adj_pull, hb x (by omega), hb y (by omega)]))
     (fun v hv => (hp v).trans (by rw [hb v hv]))
   rw [hp,ha] at he
-  apply ge_of_le
+  apply Test.geBits_of_le
   have hav : (a+1 : V).val=a.val+1 := by rw [Fin.val_add];exact Nat.mod_eq_of_lt hi
   have adj_eta (u : V) : adj m u = fun x => (pack (arrows m)).getLsbD (15*u.val + x.val) := rfl
   simpa [adj_eta,Finite.nonSq, ← range_sv k hn.le_size, profile,adj,List.map_map,Function.comp_def, hav,Nat.add_assoc] using he
@@ -133,7 +113,7 @@ private theorem sq_order {k j : Nat} {m : Operation} (law : Law m) (hn : DiagNor
       (15*moveNat (moveKind j a.val b.val) a.val b.val x.val + moveNat (moveKind j a.val b.val) a.val b.val y.val) := by
     rw [adj_pull]; change (pack (arrows m)).getLsbD (15*(p.old x).val+(p.old y).val) = _
     rw [eq x,eq y]
-  apply ge_of_le
+  apply Test.geBits_of_le
   simp only [Finite.sqBits, ← range_sv k hn.le_size, List.map_flatMap,List.flatMap_map,
     List.map_map,Function.comp_def]
   have fn := funext (fun x => funext (rel x))

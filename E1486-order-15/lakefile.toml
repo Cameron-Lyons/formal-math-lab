@@ -4,7 +4,7 @@ defaultTargets = ["Simple"]
 
 [[lean_lib]]
 name = "E1486"
-roots = ["E1486", "Normalize", "LabelMoves", "Moves", "SymmetryCore"]
+roots = ["E1486", "Normalize", "LabelMoves", "MaxKey", "Moves", "SymmetryCore"]
 
 [[lean_lib]]
 name = "Simple"

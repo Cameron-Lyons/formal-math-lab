@@ -15,7 +15,7 @@ for all $x,y,z$.
 
 A binary operation on 15 elements is a $15\times15$ table whose entries are drawn from those same 15 elements. The entry in row $a$, column $b$ is $a\star b$. We assume no associativity or commutativity.
 
-The [E1486 research notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/1486_graph_spectrum.md#remaining-small-orders), at revision `6a653268`, list orders 12, 14, 15, 17, and 26 as unresolved. This computer-assisted proof settles the 15-element case. The same arrow rules [rule out order 12](#no-model-with-12-elements). A [17-element model](#a-model-with-17-elements) settles order 17, and a [26-element model](#a-model-with-26-elements) settles order 26. Of the listed orders, only 14 remains.
+The [E1486 research notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/1486_graph_spectrum.md#remaining-small-orders), at revision `6a653268`, list orders 12, 14, 15, 17, and 26 as unresolved. This computer-assisted proof settles the 15-element case. The same arrow rules rule out [order 12](#no-model-with-12-elements) and [order 14](#no-model-with-14-elements). A [17-element model](#a-model-with-17-elements) settles order 17, and a [26-element model](#a-model-with-26-elements) settles order 26. That accounts for all five listed orders. The notes report Lean proofs that the law has no model of size 2, 3, 5, 6, 7, 8 or 10 and has one at every other size outside those five. Taken with the results here, the sizes with no model are exactly 2, 3, 5, 6, 7, 8, 10, 12, 14 and 15. The two parts are checked in separate developments, not as one theorem.
 
 Write $x^2=x\star x$, so a "square" is simply a value on the table's diagonal. Let $Q$ be the set of distinct squares. A counting argument reduces the problem to 36 families of graphs. Lean then checks a certificate ruling out every graph in each family. The argument below explains the reduction; the final exclusions depend on that computation.
 
@@ -101,9 +101,30 @@ This size needs neither the counting arguments nor the ordering conditions. For 
 
 The pattern with no squares fails the first requirement outright. The other 48 are SAT refutations, checked as before.
 
-The proof is in four short files in [Simple/Order12](Simple/Order12). [Test.lean](Simple/Order12/Test.lean) states the four requirements. [Check.lean](Simple/Order12/Check.lean) shows that the arrows of a relabeled table meet them. [Cases.lean](Simple/Order12/Cases.lean) refutes the 49 patterns. [NoTable.lean](Simple/Order12/NoTable.lean) combines them into the theorem `E1486.Order12.noTable`. Two ingredients are shared with order 15 and hold for tables of any size: [Simple/Graph.lean](Simple/Graph.lean) proves the arrow rules, and [Normalize.lean](Normalize.lean) proves that the squares can be labeled in this way. The further ordering of labels used for order 15 is not needed here.
+The proof is in four short files. [Simple/Test.lean](Simple/Test.lean) states the four requirements for a graph on any number of vertices. [Simple/TestOfLaw.lean](Simple/TestOfLaw.lean) shows that the arrows of a relabeled table meet them. [Simple/Order12/Cases.lean](Simple/Order12/Cases.lean) refutes the 49 patterns. [Simple/Order12/NoTable.lean](Simple/Order12/NoTable.lean) combines them into the theorem `E1486.Order12.noTable`. Two ingredients are shared with order 15 and hold for tables of any size: [Simple/Graph.lean](Simple/Graph.lean) proves the arrow rules, and [Normalize.lean](Normalize.lean) proves that the squares can be labeled in this way. The further ordering of labels used for order 15 is not needed here.
 
 **Prior-art status (23 November 2026):** no earlier exclusion of order 12 was located, and no 12-element model. The research notes and the live spectrum data list 12 as unresolved. Their recorded solver runs at this order stopped at limits of 60 or 900 seconds, apart from one restricted family that was refuted. A Mace4 run reported on the Lean Zulip was stopped after 14 hours. See the [audit](../PRIOR_ART.md#e1486-at-order-12).
+
+## No model with 14 elements
+
+**Theorem.** No binary operation on 14 elements satisfies the law.
+
+A 14-element table would give a graph on 14 vertices that meets the same four requirements, with one of the 64 patterns $(k,j)$ for $0\le j\le k\le14$. At this size the requirements alone are too much for the solver: in a trial, 27 of the 63 patterns with a square were still undecided after a minute each. The same graph can be labeled in many ways, so the labels are pinned down further.
+
+Read a fixed list of arrows as a string of zeros and ones: first the arrows among the squares, row by row, then for each nonsquare in turn its arrows from the squares and its arrows to the squares. Among the tables that satisfy the law with the squares first in the same pattern, choose one whose string is largest in dictionary order. There are finitely many strings, so one exists. Relabeling it in a way that keeps the pattern gives another such table, so the string cannot become larger. The test asks this of four kinds of swap:
+
+* two consecutive squares fixed by squaring;
+* the two squares of an exchanged pair;
+* two consecutive pairs;
+* two consecutive nonsquares.
+
+Each swap keeps the squares first and commutes with squaring on the squares, so it keeps the pattern. A pattern has at most 13 such swaps. These conditions are fewer than the ordering conditions of the order-15 proof, and each one compares the whole string, which shortens the argument that some table meets them. Lean proves that argument for tables of any size.
+
+The pattern with no squares fails the first requirement outright. With the ordering conditions added, the other 63 are SAT refutations, checked as before.
+
+The test and the proof that a relabeled table passes it are the two files shared with order 12. [Simple/Leader.lean](Simple/Leader.lean) states the ordering conditions. [Simple/LeaderOfLaw.lean](Simple/LeaderOfLaw.lean) proves that if a table satisfies the law, then so does one that meets them. [Simple/Order14/Cases.lean](Simple/Order14/Cases.lean) refutes the 64 patterns, and [Simple/Order14/NoTable.lean](Simple/Order14/NoTable.lean) combines these into the theorem `E1486.Order14.noTable`.
+
+**Prior-art status (24 November 2026):** no earlier exclusion of order 14 was located, and no 14-element model. The research notes and the live spectrum data list 14 as unresolved; their one recorded attempt at this order is a solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-14).
 
 ## A model with 17 elements
 
@@ -145,6 +166,18 @@ Its endpoint is `E1486.Order12.noTable`. On a desktop machine the build took six
 printf '%s\n' 'import Simple.Order12.NoTable' '#print axioms E1486.Order12.noTable' | lake env lean --stdin
 ```
 
+The order-14 exclusion builds the same way:
+
+```sh
+lake build Simple.Order14.NoTable
+```
+
+Its endpoint is `E1486.Order14.noTable`. On the same machine the build took about thirteen minutes, with the 63 SAT refutations again run one after another. The theorem depends on the standard logical axioms and on the native-evaluation axioms of those 63 refutations. To inspect them, run
+
+```sh
+printf '%s\n' 'import Simple.Order14.NoTable' '#print axioms E1486.Order14.noTable' | lake env lean --stdin
+```
+
 The order-17 model is checked separately, in a few seconds:
 
 ```sh
@@ -163,7 +196,7 @@ Its endpoint is `E1486.Order26.exists_table`, which also depends only on `propex
 
 To follow the formal argument for order 15, start with [Simple/NoTable.lean](Simple/NoTable.lean). It combines the graph reduction, the two counting bounds, and the finite exclusions. The three equalities are named `recover_source`, `return_to_square`, and `recover_target` in [E1486.lean](E1486.lean); [Simple/Graph.lean](Simple/Graph.lean) uses them to prove the arrow rules. [Simple/FiniteBase.lean](Simple/FiniteBase.lean) explains how each graph condition is encoded.
 
-Related results that the proof does not need are collected in [Simple/AdditionalResults.lean](Simple/AdditionalResults.lean): the converse graph constructions, extra square-row lemmas, and the older symmetry argument. Their declaration names are preserved; import `Simple.AdditionalResults` to use them. A plain `lake build` checks everything in this directory: the order-15 proof, the order-12 exclusion, the order-17 and order-26 models, and this module.
+Related results that the proof does not need are collected in [Simple/AdditionalResults.lean](Simple/AdditionalResults.lean): the converse graph constructions, extra square-row lemmas, and the older symmetry argument. Their declaration names are preserved; import `Simple.AdditionalResults` to use them. A plain `lake build` checks everything in this directory: the order-15 proof, the order-12 and order-14 exclusions, the order-17 and order-26 models, and this module.
 
 An independent Python implementation of the graph test is included as `Simple/check.py`. It needs Python 3 and CaDiCaL, which it finds on `PATH` or in the pinned Lean installation. From the same directory run
 
@@ -180,6 +213,8 @@ order 15: 71 cases, all UNSAT
 Here `UNSAT` means no graph satisfies the constraints. The Python program checks all 71 fixed-point/pair patterns for $1\le k\le15$. Lean uses the counting arguments to eliminate $k\le3$ and $k\ge12$, leaving 36 patterns to check computationally.
 
 For order 12, `python3 Simple/check.py 12` prints `order 12: 48 cases, all UNSAT` within seconds. These are the 48 patterns with $1\le k\le12$. The Python program also imposes the ordering conditions; Lean does not need them at this size.
+
+For order 14, `python3 Simple/check.py 14` prints `order 14: 63 cases, all UNSAT` in about twenty seconds. The Python program imposes the ordering conditions of the order-15 proof, not the shorter list that Lean uses at order 14, so the two computations refute different formulas.
 
 The same program finds a 17-element model independently:
 

@@ -14,6 +14,7 @@ For E670 at order 10, the search of **23 November 2026** likewise found no earli
 For the 17-element model of E1486, the search of the same date found no earlier model.
 For E1486 at order 12, the search of the same date found no earlier exclusion and no model.
 For the 26-element model of E1486, the search of **24 November 2026** found no earlier model.
+For E1486 at order 14, the search of the same date found no earlier exclusion and no model.
 The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
@@ -178,6 +179,34 @@ web search. The archived Zulip
 [discussion](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/Understanding.20Finite.201486.20Magmas.html)
 of sporadic models does not mention order 26. The local claim is this one
 model, not the spectrum. [Lean proof](E1486-order-15/Simple/Order26.lean)
+
+## E1486 at order 14
+
+**Audited statement:** no 14-element magma satisfies
+`(y*x)*(x*(z*z)) = x` universally.
+
+Checked **24 November 2026**. The pinned research note and live spectrum data
+cited for order 15 also list 14 among E1486's unresolved orders. The live
+response is unchanged since **5 November 2026** and matches the hash in the
+[filtered retrieval record](research/prior-art/equational-spectrum-2026-11-22.json).
+The note is unchanged at the fork's latest research revision, `199f75c2`.
+
+The note's
+[search data](https://github.com/Timeroot/equational_theories/blob/199f75c2aa71ff0e112a8a38faf0680f252d33a4/data/spectrum/1486_search_followup.json)
+record one attempt at order 14: a CaDiCaL run on the full law that reached its
+60-second limit with result `UNKNOWN`. No earlier order-14 exclusion or
+14-element model was located in the fork, by an issue and pull-request search
+of the fork and of the main repository, in the public Equational channel of the
+Lean Zulip, or by web search.
+[Lean proof](E1486-order-15/Simple/Order14/NoTable.lean)
+
+Orders 12, 14, 15, 17 and 26 are the five that the live spectrum data list as
+unresolved for E1486. The E1486 record in that data marks two bounds from the
+fork's Lean development as proved: no model at orders 2, 3, 5, 6, 7, 8 and 10,
+and a model at every other positive order outside those five. Combined with the
+five local results, the orders with no model are exactly 2, 3, 5, 6, 7, 8, 10,
+12, 14 and 15. This combination is not checked as one theorem, and the fork's
+proofs were not re-verified here.
 
 ## E17260: partial results, finite existence unresolved
 

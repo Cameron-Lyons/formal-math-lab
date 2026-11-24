@@ -1,8 +1,8 @@
-import Simple.Order12.Check
+import Simple.TestOfLaw
 import Simple.Order12.Cases
 
 namespace E1486.Order12
-open E1486.Simple
+open E1486.Simple E1486.Test
 
 /-- No binary operation on 12 elements satisfies `(y⋆x)⋆(x⋆(z⋆z)) = x`. -/
 theorem noTable : ¬ ∃ op : Fin 12 → Fin 12 → Fin 12,

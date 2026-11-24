@@ -1,0 +1,6 @@
+name = "square_triples"
+version = "0.1.0"
+defaultTargets = ["SquareTriples"]
+
+[[lean_lib]]
+name = "SquareTriples"

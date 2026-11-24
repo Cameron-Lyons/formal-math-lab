@@ -1,0 +1,6 @@
+{"version": "1.3.0",
+ "packagesDir": ".lake/packages",
+ "packages": [],
+ "name": "square_triples",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

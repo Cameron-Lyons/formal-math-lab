@@ -13,6 +13,7 @@ it does not establish historical priority or imply that every lemma is new.
 
 | Problem and identifiers | Result in this collection | Prior-art status |
 | --- | --- | --- |
+| [Two triples producing nine squares, Dujella Problem 1.4](square-triples/) | At least one triple in any solution has a largest entry greater than 1,000 times its smallest. | The unrestricted existence question remains open. |
 | [Box-free 6 × 7 grid, Genkin Question 8.1](box-free-6x7/) | The maximum height is 52. Lean checks an explicit 52-layer coloring and proves the upper bound. | Genkin constructed 50 layers and asked whether 52 was attainable. |
 | [Queen domination on the 48 × 48 board](queen-domination-48/) | The minimum is 25 queens. A compiled Lean enumeration excludes 24 and verifies a placement of 25. | Östergård and Weakley give the upper bound. Davies listed the 48 × 48 case as open on 21 November 2026. |
 | [Nine-bit snake-in-the-box](nine-bit-snake/) | Keep the first 156 steps of any published 191-step snake, read from either end. Every 191-step completion belongs to a published class, and none reaches 192 steps. | Orland et al. published the 131 classes. The unrestricted 192-step question remains open. |
@@ -55,6 +56,7 @@ families can require substantial computation.
 
 | Directory | Build command | Main Lean declaration |
 | --- | --- | --- |
+| `square-triples` | `lake build` | `SquareTriples.solution_ratio_1000` |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |
 | `queen-domination-48` | `lake exe queens48` | `main` runs the exhaustive check and verifies the placement. |
 | `nine-bit-snake` | `lake build` | `Snake.bank_no_192`, `Snake.bank_no_new_191`, `Snake.outside_bank_of_end_profiles` |

@@ -1,49 +1,70 @@
-# Does $z^2+y^2z+x^3=2$ have infinitely many integer solutions?
+# Integer cubic z^2 + y^2 z + x^3 = 2 (Grechuk Table 6 / FrontierMath): obstructions, parametric families, and witnesses — Lean 4 proofs
 
-The question remains open. The degree bound below rules out the polynomial pattern that worked for two related equations. [Grechuk, Table 6](https://arxiv.org/html/2404.08518v11#S5) · [Epoch's two families](https://epoch.ai/files/open-problems/small-diophantine-two-families.pdf)
+**Status: whether $z^2 + y^2 z + x^3 = 2$ (equivalently $x^3 + y^2 z + z^2 = 2$) has infinitely many integer solutions remains open.** This small Diophantine equation appears as an open problem in Bogdan Grechuk's Table 6 (`arXiv:2404.08518`) and Epoch AI's FrontierMath Small Diophantine Equations challenge (which asks for three integer solutions with distinct $x$ and $|x| > 10^{50}$).
 
-## A polynomial family would need degree at least six in $x$
+This Lean 4 project proves a **degree $\ge 6$ obstruction** for rational polynomial families passing through an integer solution (ruling out the low-degree pattern that solved two related cubics), exhibits an **infinite family with integral $x, z$ and $y$ of reduced denominator 13**, proves a **Pell-curve amplification theorem** (and rules out a family of quintic Pell substitutions at every coefficient height), and verifies **three integer solutions with distinct $x$ and $|x| > 30{,}000{,}000$**.
 
-Suppose $x,y,z\in\mathbb Q[T]$ give a nonconstant solution and take integer values together at some rational $T$.
+| Field | Summary |
+| --- | --- |
+| **Problem & identifiers** | Diophantine equation `z^2 + y^2*z + x^3 = 2` (`x^3 + y^2*z + z^2 = 2`), Grechuk (`arXiv:2404.08518`) Table 6, Epoch FrontierMath Open Problem (*Small Diophantine Equations*) |
+| **Status** | **Partial results only; infinitude of integer solutions (and $|x| > 10^{50}$ challenge) remains open.** |
+| **Main Lean theorems** | `IntegerCubic.infinitely_many_with_two_integer_coordinates` ([IntegerCubic.lean](IntegerCubic.lean)); `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart` ([pell/MixedPellAmplification.lean](pell/MixedPellAmplification.lean)); `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` ([pell/QuinticSquareObstruction.lean](pell/QuinticSquareObstruction.lean)); `SmallCubic.WitnessSearch.three_large_solutions` ([pell/WitnessSearch.lean](pell/WitnessSearch.lean)) |
+| **Verification** | `lake exe cache get && lake build && lake exe boundedSearch` (Lean 4.36.0 + mathlib v4.36.0; also `lake build SmallCubic`) |
+| **Prior-art status** | Checked **24 November 2026**: infinitude remains open in Grechuk Table 6; Epoch reports polynomial families for two related cubics. Historical priority of the local partial obstructions and families is unverified. See [PRIOR_ART.md](../PRIOR_ART.md). |
 
-**First work modulo 13.** The equation factors as
+## Polynomial family degree bound: deg(x) >= 6
+
+Suppose $x, y, z \in \mathbb{Q}[T]$ form a nonconstant polynomial solution to $z^2 + y^2 z + x^3 = 2$ that takes integer values simultaneously at some rational $T$.
+
+**Step 1 — Reduce modulo 13.** Rewrite the equation as
+
 $$
-z(z+y^2)=2-x^3.
+z(z + y^2) = 2 - x^3.
 $$
-For a fixed $x$, put $f=2-x^3$. Try each polynomial divisor $d$ of $f$, including scalar multiples. It gives a solution exactly when $f/d-d$ is a square, since we can then take $z=d$ and $y^2=f/d-d$.
 
-The Lean executable finds **zero** successes for nonconstant $x$ of degree at most five. It checks 37,883 choices of $x$ after changes of parameter $T\mapsto aT+b$. Translation removes the next-to-leading coefficient, and scaling identifies equivalent leading coefficients. If $x$ is constant, $2-x^3$ is a nonzero constant because 2 is not a cube modulo 13. Its two factors must then be constant, forcing $y,z$ to be constant too.
+For a fixed polynomial $x \in \mathbb{F}_{13}[T]$, set $f = 2 - x^3$ and test each polynomial divisor $d \mid f$ (including scalar multiples); $d$ yields a solution iff $f / d - d$ is a square in $\mathbb{F}_{13}[T]$ (taking $z = d$ and $y^2 = f/d - d$). The Lean executable `boundedSearch` checks all 37,883 normalized choices of nonconstant $x$ with $\deg x \le 5$ (after affine reparametrization $T \mapsto aT + b$) and finds **zero** solutions. If $x$ is constant, then $2 - x^3 \ne 0$ (since 2 is not a cube mod 13), forcing $y, z$ constant too.
 
-**Now pass from rational coefficients to the finite field.** Translate the integral point to $T=0$. For each nonzero coefficient $c_i$ of positive degree $i$ in any of $x,y,z$, write $c_i=13^v u_i$ with numerator and denominator of $u_i$ prime to 13. Let $r$ be the smallest ratio $v/i$. Keep $u_i\bmod13$ when $v=ri$, discard terms with $v>ri$, and reduce constants normally.
+**Step 2 — Pass from $\mathbb{Q}[T]$ to $\mathbb{F}_{13}[T]$.** Translate the integral specialization to $T = 0$. For every nonzero positive-degree coefficient $c_i$ of $x, y, z$ in degree $i$, write $c_i = 13^v u_i$ with $13 \nmid u_i$, and let $r$ be the minimum ratio $v / i$. Retain $u_i \bmod 13$ whenever $v = ri$, discard terms with $v > ri$, and reduce constant terms mod 13. Dividing the degree-$j$ coefficient identity by $13^{rj}$ yields a nonconstant solution over $\mathbb{F}_{13}[T]$ without increasing $\deg x$. Hence **$\deg x \ge 6$**.
 
-At least one nonconstant term survives. The equation survives too. In degree $j$, every product of coefficients has exponent of 13 at least $rj$, with equality only for products of retained terms. If any survive, divide the coefficient identity by $13^{rj}$ and reduce modulo 13. This produces a nonconstant solution over $\mathbb F_{13}$ without increasing $\deg x$. The finite check therefore forces $\deg x\ge6$.
+## Infinite family with integral x, z and denominator-13 y
 
-## An infinite family with $x,z$ integers
+Put $y = 9k - \tfrac{5}{13}$ and $z = -78k^2 + 12k - 2$. Expanding gives
 
-Put $y=9k-5/13$ and $z=-78k^2+12k-2$. Expanding gives
 $$
-2-z(z+y^2)=\frac{18(k+2)}{169}(13k-2)^3.
+2 - z(z + y^2) = \frac{18(k + 2)}{169}(13k - 2)^3.
 $$
-Choose $k=2028n^3-2$ for $n=0,1,2,\ldots$. The first factor becomes $(6n)^3$, so $x=6n(13k-2)$ gives a solution. The $y$-coordinates strictly increase and each has reduced denominator 13.
+
+Setting $k = 2028n^3 - 2$ for $n = 0, 1, 2, \ldots$ makes the first factor $(6n)^3$, so $x = 6n(13k - 2)$ yields an infinite family of solutions with $x, z \in \mathbb{Z}$, strictly increasing $y$, and reduced denominator 13 in $y$ (`IntegerCubic.infinitely_many_with_two_integer_coordinates`, `family_y_den` in [IntegerCubic.lean](IntegerCubic.lean)).
 
 ## Pell substitutions and integer witnesses
 
-On $u^2-3v^2=1$, put $L=1-3t^2$. Consider a rational polynomial identity
+* **Quartic Pell amplification ([pell/MixedPellAmplification.lean](pell/MixedPellAmplification.lean)):** on $u^2 - 3v^2 = 1$ with $L = 1 - 3t^2$, consider a rational polynomial identity
 
-$$
-A^3+B^2J+J^2=2L^{12},\qquad (x,y,z)=(A/L^4,B/L^3,J/L^6).
-$$
+  $$
+  A^3 + B^2 J + J^2 = 2 L^{12}, \qquad (x, y, z) = \left(\frac{A}{L^4}, \frac{B}{L^3}, \frac{J}{L^6}\right),
+  $$
 
-Assume $\deg A\le8,\ \deg B\le6,\ \deg J\le12$. Lean proves that if $x$ is nonconstant and the triple at $t=0$ is integral, the Pell recurrence gives infinitely many integer solutions. The rational identity with those properties remains to be found. At the seed $(0,1,1)$, exact modular searches ruled out more than 21 million candidate first coordinates in each of two bases, within the specified reduction classes and height bound 171. [Lean recurrence and theorem](pell/MixedPellAmplification.lean) · [Search bounds, counts and commands](pell/QuarticFreeMark.md)
-
-Lean also rules out the quintic substitution $az=2-r^3,\ x=r-p^2z$ for every nonzero rational $a$ on a nonsplit Pell conic, when $r,p$ have simple poles at the two conjugate ends and all coordinates are regular away from them. This exclusion holds at every coefficient height. [Lean proof](pell/QuinticSquareObstruction.lean) · [Quintic substitutions and searches](pell/QuinticFactorSearch.md)
-
-Three explicit integer triples have distinct first coordinates with $|x|>30{,}000{,}000$. Lean checks each triple and inequality directly. Epoch's intermediate challenge asks for three distinct first coordinates with $|x|>10^{50}$, which remains open here. [Witnesses](pell/WitnessSearch.md) · [Lean proof](pell/WitnessSearch.lean) · [Epoch challenge](https://epoch.ai/frontiermath/open-problems/small-diophantine)
+  with $\deg A \le 8$, $\deg B \le 6$, $\deg J \le 12$. Lean proves (`SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`) that if $x$ is nonconstant and the triple at $t = 0$ is integral, then the Pell recurrence generates infinitely many integer solutions. At the seed $(0, 1, 1)$, exact modular searches ruled out over 21 million candidate first coordinates in each of two bases within height bound 171. [Search bounds and commands](pell/QuarticFreeMark.md)
+* **Quintic Pell obstruction ([pell/QuinticSquareObstruction.lean](pell/QuinticSquareObstruction.lean)):** Lean rules out the quintic substitution $az = 2 - r^3$, $x = r - p^2 z$ for every nonzero rational $a$ on a nonsplit Pell conic when $r, p$ have simple poles at the two conjugate ends and all coordinates are regular elsewhere — at **every** coefficient height (`SmallCubic.QuinticSquareObstruction.no_negative_square_lift`). [Quintic search notes](pell/QuinticFactorSearch.md)
+* **Verified integer witnesses ([pell/WitnessSearch.lean](pell/WitnessSearch.lean)):** Lean directly verifies three explicit integer solutions with distinct $x$ and $|x| > 30{,}000{,}000$ (`SmallCubic.WitnessSearch.three_large_solutions`). Epoch's intermediate challenge ($|x| > 10^{50}$) remains open. [Witnesses](pell/WitnessSearch.md)
 
 ## Verification
 
-Run `lake build` and `lake exe boundedSearch`. `IntegerCubic.lean` contains the kernel-checked family, injectivity, and denominator proofs. The degree bound uses the executable `BoundedSearch.lean` together with the written reduction above.
+From this directory with Lean and mathlib pinned to **v4.36.0**:
 
-From this directory, `lake build SmallCubic` checks the Pell library on its own. The main declarations are `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`, `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` and `SmallCubic.WitnessSearch.three_large_solutions`.
+```sh
+lake exe cache get
+lake build
+lake exe boundedSearch
+```
 
-Run the search commands in the linked notes from the [pell directory](pell/). Most use Python with `python-flint==0.9.0` via `uv`. Individual notes specify when a C++17 compiler, PARI/GP or Z3 is needed.
+* [IntegerCubic.lean](IntegerCubic.lean) contains the kernel-checked denominator-13 family, injectivity, and quadratic contact obstructions.
+* [BoundedSearch.lean](BoundedSearch.lean) implements `boundedSearch` for the $\mathbb{F}_{13}[T]$ degree $\le 5$ exhaustion (combined with the valuation reduction above).
+* `lake build SmallCubic` builds the Pell library standalone.
+* Additional search scripts under [pell/](pell/) document their own commands (mostly Python with `python-flint==0.9.0` via `uv`, and where noted C++17, PARI/GP, or Z3).
+
+## References
+
+* [Bogdan Grechuk, `arXiv:2404.08518v11`, §5 / Table 6](https://arxiv.org/html/2404.08518v11#S5)
+* [Epoch FrontierMath Open Problem: Small Diophantine Equations](https://epoch.ai/frontiermath/open-problems/small-diophantine) · [Epoch's two constructions](https://epoch.ai/files/open-problems/small-diophantine-two-families.pdf)
+* [Dated prior-art audit](../PRIOR_ART.md)

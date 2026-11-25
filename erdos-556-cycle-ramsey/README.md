@@ -1,28 +1,40 @@
-# Erdős #556 — Three-color cycle Ramsey numbers
+# Erdős Problem #556 (Erdos #556): Three-color nine-cycle Ramsey number R_3(C_9) — Lean 4 partial results
 
-The conjectured value of the three-color Ramsey number $R_3(C_9)$ is 33.
-Lean verifies the lower-bound coloring on 32 vertices and proves that a
-three-coloring of $K_{33}$ contains a monochromatic nine-cycle if some set
-of 15 vertices omits a color on its internal edges. The unrestricted upper
-bound remains open. [Problem statement](https://www.erdosproblems.com/556) ·
-[Ramsey survey, §6.3.1](https://www.cs.rit.edu/~spr/ElJC/ejcram18.pdf#page=61)
+**Status: the unrestricted upper bound $R_3(C_9) \le 33$ remains open.** For the three-color Ramsey number of the odd cycle $C_n$, Erdős Problem #556 asks whether $R_3(C_n) \le 4n - 3$ for odd $n \ge 5$, with $R_3(C_9) = 33$ as the first open case in Radziszowski's survey. This Lean 4 project verifies the known lower bound $R_3(C_9) \ge 33$ via an explicit 3-edge-coloring of $K_{32}$, proves that any 3-coloring of $K_{33}$ with a 15-vertex subset missing one color contains a monochromatic $C_9$, and reduces the full 33-vertex upper bound to two remaining cases.
 
-| Lean declaration | Result |
+| Field | Summary |
 | --- | --- |
-| [`Ramsey556.lowerColoring_no_monoC9`](Ramsey556/Lower.lean) | An explicit three-coloring of $K_{32}$ avoids monochromatic nine-cycles. |
-| [`Ramsey556.monoC9_of_independent15`](Ramsey556/FifteenResult.lean) | Fifteen vertices missing a color force a monochromatic nine-cycle somewhere in $K_{33}$. |
-| [`Ramsey556.k33_iff_final_two_cases`](Ramsey556/Remaining33.lean) | Reduces the upper bound to two cases, distinguished by whether a set of 14 vertices misses a color. |
-| [`Ramsey556.splitForcesC9_iff`](Ramsey556/SplitRamsey.lean) | A clique of size $m$ joined to an independent set, with $n$ vertices total, forces a monochromatic nine-cycle in two colors exactly when $m \ge 13$ and $n \ge 17$. |
+| **Problem & identifiers** | **Erdős Problem #556** (`Erdos #556`, `erdosproblems.com/556`), three-color cycle Ramsey number $R_3(C_9) = R(C_9, C_9, C_9) = 33$ (first open odd-cycle case in Radziszowski's survey §6.3.1) |
+| **Status** | **Partial / conditional results.** Lower bound $R_3(C_9) \ge 33$ verified; conditional upper bound on $K_{33}$ with a 15-vertex color-missing set proved; unrestricted $R_3(C_9) \le 33$ remains open. |
+| **Main Lean theorems** | `Ramsey556.lowerColoring_no_monoC9`, `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases`, `Ramsey556.splitForcesC9_iff` |
+| **Verification** | `lake build` (Lean 4.36.0, stdlib only; checks all proofs and included binary certificates) |
+| **Prior-art status** | Checked **23 November 2026**: lower bound 33 is known; Kohayakawa–Simonovits–Skokan prove $R_3(C_n) = 4n - 3$ for sufficiently large odd $n$; historical priority for the 15-vertex conditional theorem is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-556-three-color-nine-cycle-ramsey-number). |
 
-## Build
+## Lean results
 
-Run from this directory with Lean 4.36.0.
+| Lean declaration | File | Result |
+| --- | --- | --- |
+| `Ramsey556.lowerColoring_no_monoC9` | [Ramsey556/Lower.lean](Ramsey556/Lower.lean) | An explicit 3-edge-coloring of $K_{32}$ avoids monochromatic 9-cycles ($R_3(C_9) \ge 33$). |
+| `Ramsey556.monoC9_of_independent15` | [Ramsey556/FifteenResult.lean](Ramsey556/FifteenResult.lean) | In any 3-coloring of $K_{33}$, if 15 vertices omit one color on their internal edges, then $K_{33}$ contains a monochromatic $C_9$. |
+| `Ramsey556.k33_iff_final_two_cases` | [Ramsey556/Remaining33.lean](Ramsey556/Remaining33.lean) | Reduces $R_3(C_9) \le 33$ to two remaining cases, distinguished by whether some 14-vertex set misses a color. |
+| `Ramsey556.splitForcesC9_iff` | [Ramsey556/SplitRamsey.lean](Ramsey556/SplitRamsey.lean) | A split graph formed by joining an $m$-clique to an independent set ($n$ vertices total) forces a monochromatic $C_9$ in 2 colors if and only if $m \ge 13$ and $n \ge 17$. |
+
+## Build and reproduce
+
+Run from this directory with Lean 4.36.0 (standard library only):
 
 ```sh
 lake build
 ```
 
-The default target imports the proofs and checks the included certificates.
-The optional generators reproduce the finite witnesses. [Lean entry point](Ramsey556.lean) ·
-[16-vertex certificate](research/cert16/README.md) ·
-[Split-graph certificate generator](research/split17/generate_traces.py)
+The default target imports the proofs and checks the included certificates ([Lean entry point](Ramsey556.lean)). Optional generators reproduce the finite witnesses:
+
+* [Dense 16-vertex $C_9$-free graph certificate (`Ramsey556.Certified16`)](research/cert16/README.md)
+* [Split-graph certificate generator](research/split17/generate_traces.py)
+
+## References
+
+* [Erdős Problems #556](https://www.erdosproblems.com/556)
+* [Radziszowski, *Small Ramsey Numbers*, §6.3.1](https://www.cs.rit.edu/~spr/ElJC/ejcram18.pdf#page=61)
+* [Kohayakawa, Simonovits, and Skokan, *The 3-colored Ramsey number of odd cycles*](https://users.renyi.hu/~miki/KohaSimSkokGraco.pdf)
+* [Dated prior-art audit](../PRIOR_ART.md#erdős-556-three-color-nine-cycle-ramsey-number)

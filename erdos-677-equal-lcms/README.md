@@ -1,41 +1,52 @@
-# Erdős #677 — Equal LCMs of disjoint blocks
+# Erdős Problem #677 (Erdos #677): Equal LCMs of consecutive integers (lengths 2, 3, 4, 6 and bounded ranges) — Lean 4 proofs
 
-Write $M(n,k)$ for the LCM of $n+1,\ldots,n+k$. Erdős #677 asks whether $M(m,k)\ne M(n,k)$ whenever $k>0$ and $m\ge n+k$. The general question remains open. The definitions here match the published Lean statement. [Problem status](https://erdosproblemaday.com/problem/677) · [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/677.lean)
+Write $M(n, k) = \operatorname{lcm}(n + 1, n + 2, \ldots, n + k)$ for the least common multiple of $k$ consecutive positive integers. **Erdős Problem #677** asks whether $M(m, k) \ne M(n, k)$ whenever $k > 0$ and $m \ge n + k$ (disjoint equal-length blocks of consecutive integers). **The general question over all $k$ remains open.**
+
+This project proves the **exact classifications for lengths $k = 2, 3, 4$** completely inside Lean 4 (no external computation), gives a **computer-assisted classification for length $k = 6$** (Lean reduction + external elliptic-curve arithmetic), and proves broad unconditional shift, endpoint, and height exclusions. The definitions match `FormalConjectures/ErdosProblems/677.lean`.
+
+| Field | Summary |
+| --- | --- |
+| **Problem & identifiers** | **Erdős Problem #677** (`Erdos #677`, `erdosproblems.com/677`), equal LCMs of consecutive integers $M(m, k) = M(n, k)$, `lcm(m+1, ..., m+k) = lcm(n+1, ..., n+k)`, `FormalConjectures/ErdosProblems/677.lean` |
+| **Status** | **Lengths $k = 2, 3, 4$ completely settled in Lean 4; length $k = 6$ settled computer-assisted** (Lean checks reduction & finite cases; external elliptic-curve arithmetic proves the affine bound). Arbitrary $k$ remains open. |
+| **Headline classifications** | For distinct starts $m > n$: <br> • $k = 2$: none <br> • $k = 3$: only $(n, m) = (2, 3)$ ($\operatorname{lcm} = 60$, overlapping) <br> • $k = 4$: only $(n, m) = (1, 2)$ ($\operatorname{lcm} = 60$, overlapping) <br> • $k = 6$: only $(3, 4)$, $(5, 6)$, $(13, 15)$ (all overlapping) |
+| **Main Lean theorems** | `Erdos677.erdos_677_two`, `erdos_677_three`, `erdos_677_four`, `three_collision_iff`, `four_collision_iff`, `six_collision_iff_three_of_affine_cover`, `no_collision_shift_le_52` |
+| **Verification** | `lake exe cache get && lake build` (Lean 4.35.0-rc2 + mathlib); see [cubic/LengthSix.md](cubic/LengthSix.md#reproduction) for length-6 elliptic-curve arithmetic |
+| **Prior-art status** | Checked **23–24 November 2026**: classifications at $k = 3, 4$, the three overlapping pairs at $k = 6$, and the four-cubic reduction were recorded previously; no earlier Lean proof of $k = 3$ or $k = 4$ or complete $k = 6$ integral-point proof located (priority unverified). See [PRIOR_ART.md](../PRIOR_ART.md#erdős-677-equal-lcms-of-six-consecutive-integers). |
 
 ## Results
 
-At length two the LCM strictly increases with the start. Lengths three and four are settled in Lean with no external computation: for distinct starts the only equalities are $M(2,3)=M(3,3)=60$ and $M(1,4)=M(2,4)=60$, and both pairs of blocks overlap. [Length-three and length-four proofs](LengthThreeAndFour.md)
+* **Length $k = 2$:** $M(n, 2) = (n+1)(n+2)$ strictly increases with $n$, so no collisions occur (`Erdos677.erdos_677_two`).
+* **Lengths $k = 3$ and $k = 4$ (pure Lean 4):** for distinct starts, the only equalities are $M(2, 3) = M(3, 3) = 60$ and $M(1, 4) = M(2, 4) = 60$. Both pairs overlap, so no disjoint blocks have equal LCM. [Length-three and length-four proofs](LengthThreeAndFour.md)
+* **Length $k = 5$:** Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3 \cdot 10^{12}$. [Length-two and length-five proofs](LengthTwoAndFive.md)
+* **Length $k = 6$ (computer-assisted):** for arbitrary distinct starts, the only equalities are the three overlapping pairs $(n, m) \in \{(3, 4), (5, 6), (13, 15)\}$. Lean verifies the reduction to four plane cubics, the finite LCM checks, and the disjoint-block conclusion given the explicit affine bound; external arithmetic using elliptic logarithms and David's theorem proves the bound and enumerates all integral points. [Proof, integral-point lists, and reproduction commands](cubic/LengthSix.md)
+* **Unconditional families in Lean:** Lean also proves $M(m, k) \ne M(n, k)$ for adjacent disjoint blocks ($m = n + k$) of all lengths $k$, for every earlier block starting at $n = 0$ (integers $1, \ldots, k$), and for every positive shift $m - n$ divisible by all integers $1, \ldots, k - 1$.
 
-At length five, Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3\cdot10^{12}$. [Length-two and length-five proofs](LengthTwoAndFive.md)
-
-**Length six is settled by a computer-assisted proof.** For arbitrary distinct starts, the only equalities are the three overlapping pairs with parameters $(3,4)$, $(5,6)$, and $(13,15)$. Lean verifies the reduction, the finite LCM checks, and the disjoint-block conclusion given the explicit affine bound. The proof of that bound uses elliptic logarithms and external arithmetic. [Proof, complete integral-point lists, and reproduction commands](cubic/LengthSix.md)
+### Verified finite and shift ranges
 
 | Range | Verification |
 | --- | --- |
-| All lengths, later endpoint $m+k\le1000$ | Lean kernel, `no_collision_through_1000` |
-| All lengths, start difference $m-n\le52$, with arbitrary starts | Lean kernel, `no_collision_shift_le_52` |
-| Lengths 5 and 6, earlier parameter $n\le10^{20}$, with arbitrary later start | Lean kernel, `no_collision_five_six` |
-| All lengths, later endpoint $m+k\le10{,}000{,}000$ | Exhaustive C++ search |
-| All lengths, start difference $m-n\le7000$, with arbitrary starts | Lean kernel reduction to the C++ search |
-| Lengths 5 and 6, earlier parameter $n\le10^{1000}$, with arbitrary later start | Exact Python search |
-| Lengths 7 through 24, earlier parameter $n\le10^{100}$, with arbitrary later start | Exact Python search |
-| Lengths 25 through 28, earlier parameter $n\le10^{20}$, with arbitrary later start | Exact Python search |
-
-Lean also proves the conjectured inequality for adjacent blocks of all lengths, for every earlier block starting at 1, and for every positive shift divisible by all the integers from 1 to $k-1$.
+| All lengths, later endpoint $m + k \le 1000$ | Lean kernel, `no_collision_through_1000` |
+| All lengths, start difference $m - n \le 52$, arbitrary starts | Lean kernel, `no_collision_shift_le_52` |
+| Lengths 5 and 6, earlier parameter $n \le 10^{20}$, arbitrary later start | Lean kernel, `no_collision_five_six` |
+| All lengths, later endpoint $m + k \le 10{,}000{,}000$ | Exhaustive C++ search |
+| All lengths, start difference $m - n \le 7000$, arbitrary starts | Lean kernel reduction to the C++ search |
+| Lengths 5 and 6, earlier parameter $n \le 10^{1000}$, arbitrary later start | Exact Python search |
+| Lengths 7 through 24, earlier parameter $n \le 10^{100}$, arbitrary later start | Exact Python search |
+| Lengths 25 through 28, earlier parameter $n \le 10^{20}$, arbitrary later start | Exact Python search |
 
 ## Lean declarations
 
-- `Erdos677.three_collision_iff` and `Erdos677.four_collision_iff` classify the equal LCMs at lengths three and four.
-- `Erdos677.erdos_677_two`, `Erdos677.erdos_677_three` and `Erdos677.erdos_677_four` are the conjectured inequality at lengths two, three and four.
-- `Erdos677.six_collision_on_cubics` sends a repeated length-six LCM to one of four plane cubics.
-- `Erdos677.six_collision_iff_three_of_affine_cover` gives the three pairs from the complete integral-point list.
-- `Erdos677.no_collision_six_of_affine_bound` excludes disjoint blocks from the analytic bound alone.
+* `Erdos677.three_collision_iff` and `Erdos677.four_collision_iff` classify all equal LCMs at lengths $k = 3$ and $k = 4$.
+* `Erdos677.erdos_677_two`, `Erdos677.erdos_677_three`, and `Erdos677.erdos_677_four` prove the conjectured disjoint-block inequality at lengths $k = 2, 3, 4$.
+* `Erdos677.six_collision_on_cubics` sends a repeated length-6 LCM to an integral point on one of four plane cubics.
+* `Erdos677.six_collision_iff_three_of_affine_cover` derives the exact three-pair classification at length 6 from the complete integral-point list.
+* `Erdos677.no_collision_six_of_affine_bound` excludes disjoint length-6 blocks from the analytic affine bound alone.
 
-For length six, the Lean sources specify both hypotheses explicitly. The arithmetic scripts verify the global bound and enumerate the integral points. [Lean declarations](SixCubics.lean) · [Reproduce the arithmetic](cubic/LengthSix.md#reproduction)
+For length 6, the Lean sources state both hypotheses explicitly; the external scripts verify the global bound and enumerate the integral points. [Lean declarations](SixCubics.lean) · [Reproduce the arithmetic](cubic/LengthSix.md#reproduction)
 
-## Verification
+## Proof methods and verification
 
-Run the following from this directory with Elan installed.
+Run the following from this directory with Elan installed (pinned Lean **4.35.0-rc2**):
 
 ```sh
 lake exe cache get
@@ -50,12 +61,13 @@ python search/height.py --coefficient-sieve --exponent 20 25 26 27 28
 python -m unittest discover -s search
 ```
 
-A prime power divides a block LCM exactly when it divides an entry. If the later block contains a number that is itself a prime power, that power exceeds every earlier entry. The C++ search discards those later blocks. For the others it sums fixed 64-bit weights for the prime powers above $k$ that occur in each block. Equal LCMs always have equal sums. The program retains every matching pair for exact comparison, including any accidental matches between distinct LCMs. [Lean criterion](PrimePowers.lean)
+* **Prime-power filter ([PrimePowers.lean](PrimePowers.lean)):** a prime power divides a block LCM exactly when it divides an entry. If the later block contains a prime power itself, that power exceeds every earlier entry, so the C++ search discards it; for remaining blocks it hashes prime powers above $k$ and compares exact matches.
+* **Displacement bounds ([BinomialBounds.lean](BinomialBounds.lean), [Displacement.lean](Displacement.lean)):** every prime power of a common LCM divides a positive difference between entries, which for start difference $d = m - n$ lies in $[d - k + 1, d + k - 1]$. Upper and lower binomial bounds on these intervals give an inequality checked by Lean through $d \le 7000$.
+* **Slope and height bands ([FixedLength.lean](FixedLength.lean), [Height.lean](Height.lean), [search/height.py](search/height.py)):** each block LCM has the form $t k \binom{n+k}{k}$ with $t \mid M(0, k)/k$. For lengths 5 and 6 this leaves seven and four possible product ratios, confining the doubled block centers to narrow bands around lines of algebraic slope checked in Lean and extended in exact Python arithmetic.
 
-Each prime power of a common LCM divides a positive difference between entries. For start difference $d$, all differences lie in $[d-k+1,d+k-1]$. Applying upper and lower binomial bounds to these two intervals gives an inequality that Lean checks for each length through 7,000. [Binomial bounds](BinomialBounds.lean) · [Displacement proof](Displacement.lean)
+## References and attribution
 
-Each block LCM has the form $t k\binom{n+k}{k}$, where $t$ divides $M(0,k)/k$. For lengths five and six this leaves seven and four possible ratios of block products, respectively. For each ratio the two doubled centers lie in a narrow band around a line of algebraic slope. Lean verifies rational bounds for that slope and checks every integer point between them. A separate Python implementation uses exact integer arithmetic to extend the search. [Ratio reduction](FixedLength.lean) · [Lean checker](Height.lean) · [Python search](search/height.py)
-
-## Attribution
-
-[UpstreamInterval.lean](UpstreamInterval.lean) reproduces the Formal Conjectures definition of `Finset.lcmInterval` under its [Apache-2.0 license](LICENSE-FormalConjectures). The rest of the project uses the collection’s [MIT license](../LICENSE). [Upstream source](https://github.com/google-deepmind/formal-conjectures/blob/78bc92237b4bcf5ec812a52d07364aa74773bfe2/FormalConjecturesForMathlib/Algebra/GCDMonoid/Finset.lean) · [Dated prior-art audit](../PRIOR_ART.md#erdős-677-equal-lcms-of-six-consecutive-integers)
+* [Erdős Problems #677](https://www.erdosproblems.com/677) · [Erdős Problem a Day #677](https://erdosproblemaday.com/problem/677)
+* [Formal Conjectures `ErdosProblems/677.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/677.lean)
+* [UpstreamInterval.lean](UpstreamInterval.lean) reproduces the Formal Conjectures definition of `Finset.lcmInterval` under its [Apache-2.0 license](LICENSE-FormalConjectures) ([upstream source](https://github.com/google-deepmind/formal-conjectures/blob/78bc92237b4bcf5ec812a52d07364aa74773bfe2/FormalConjecturesForMathlib/Algebra/GCDMonoid/Finset.lean)). The rest of the project uses the collection's [MIT license](../LICENSE).
+* [Dated prior-art audit](../PRIOR_ART.md#erdős-677-equal-lcms-of-six-consecutive-integers)

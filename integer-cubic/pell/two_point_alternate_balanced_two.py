@@ -2,13 +2,13 @@
 
 Run with uv run --with python-flint==0.9.0 python two_point_alternate_balanced_two.py.
 """
+
 from ast import literal_eval
 from fractions import Fraction
 from itertools import product
 from pathlib import Path
 
 from two_point_primary_two import INDICES, SlopeChart, split_residues
-
 
 ALTERNATE_MARKS = ((0, -2), (1, 2), (1, 0))
 TARGET_PARITY = (0, 1, 1)
@@ -52,7 +52,7 @@ def check_chart(slope, certificates):
     used = set()
 
     def contradictory(rows, rhs):
-        augmented = {r | (v << 23) for r, v in zip(rows, rhs)}
+        augmented = {r | (v << 23) for r, v in zip(rows, rhs, strict=False)}
         found = {k for k, patterns in enumerate(certificates) if patterns <= augmented}
         used.update(found)
         return bool(found)
@@ -62,7 +62,7 @@ def check_chart(slope, certificates):
         unknown = [k for k, (_, _, i) in enumerate(INDICES) if i % e]
         for bits in product(range(2), repeat=len(unknown)):
             coefficients = fixed.copy()
-            for k, bit in zip(unknown, bits):
+            for k, bit in zip(unknown, bits, strict=False):
                 coefficients[k] = bit
             if any(chart.digit(chart.identity(coefficients), 0)):
                 continue
@@ -71,13 +71,17 @@ def check_chart(slope, certificates):
             rows = [pack(row) for row in matrix]
             if contradictory(rows, rhs):
                 continue
-            corrections = binary_solutions([pack(column) for column in zip(*matrix)], pack(rhs))
+            corrections = binary_solutions(
+                [pack(column) for column in zip(*matrix, strict=False)], pack(rhs)
+            )
             # Every inconsistent binary system must have matched a stored certificate.
             assert corrections
             counts[1] += 1
             counts[2] += len(corrections)
             for correction in corrections:
-                lifted = [v + 2*((correction >> j) & 1) for j, v in enumerate(coefficients)]
+                lifted = [
+                    v + 2 * ((correction >> j) & 1) for j, v in enumerate(coefficients)
+                ]
                 # At any lift the Jacobian has the same reduction modulo two.
                 rhs_next = chart.digit(chart.identity(lifted), 2)
                 assert contradictory(rows, rhs_next), "A mod-8 obstruction is missing"
@@ -85,8 +89,10 @@ def check_chart(slope, certificates):
     mod_two = {1: 33, 2: 384, 3: 512}[e]
     extra = slope.numerator % 3 == 2 and e == 3
     assert counts == [mod_two, 4 if extra else 0, 4096 if extra else 0]
-    print(f"h={slope}: {counts[0]} normalized tuples mod 2; "
-          f"{counts[1]} have a mod-4 lift; {counts[2]} tuples mod 4; 0 lift mod 8.")
+    print(
+        f"h={slope}: {counts[0]} normalized tuples mod 2; "
+        f"{counts[1]} have a mod-4 lift; {counts[2]} tuples mod 4; 0 lift mod 8."
+    )
     return used
 
 
@@ -95,11 +101,17 @@ if __name__ == "__main__":
     assert counts == [33, 3, 1, 0, 0, 0]
     print("Nonconstant split residues by reduced slope denominator 1..6:", counts)
     source = Path(__file__).with_name("TwoPointAlternateTwo.lean").read_text()
-    data = source.split("def contradictorySubsystems :", 1)[1].split(":= #[", 1)[1].split("\n]", 1)[0]
+    data = (
+        source.split("def contradictorySubsystems :", 1)[1]
+        .split(":= #[", 1)[1]
+        .split("\n]", 1)[0]
+    )
     certificates = [set(rows) for rows in literal_eval("[" + data + "]")]
     assert len(certificates) == 37
     used = set()
     for h in ("1", "2", "3/2", "5/2", "2/3", "4/3", "5/3", "7/3", "8/3", "11/3"):
         used.update(check_chart(Fraction(h), certificates))
     assert used == set(range(len(certificates)))
-    print("Every terminal correction matrix contains a Lean-certified inconsistent subsystem.")
+    print(
+        "Every terminal correction matrix contains a Lean-certified inconsistent subsystem."
+    )

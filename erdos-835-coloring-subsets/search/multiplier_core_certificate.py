@@ -7,15 +7,14 @@ without assuming correctness of the enumeration or the external solver.
 """
 
 import argparse
+import json
+import shutil
+import subprocess
 from collections import defaultdict
 from functools import cache
 from itertools import combinations
-import json
 from pathlib import Path
-import shutil
-import subprocess
 from tempfile import TemporaryDirectory
-
 
 POINTS = range(17)
 QUADS = list(combinations(POINTS, 4))
@@ -67,7 +66,7 @@ def enumerate_cores(atoms):
         index, rows = min(choices, key=lambda pair: len(pair[1]))
         rest = [i for i in remaining if i != index]
         for mask, orbit in rows:
-            yield from visit(rest, mask | used, chosen + [orbit])
+            yield from visit(rest, mask | used, [*chosen, orbit])
 
     yield from visit(list(range(len(groups))), 0, [])
 
@@ -98,7 +97,7 @@ def certificate(cores, atoms):
         translates = [translate(base, d) for d in POINTS]
         add([0, *base], translates)
         for (i, a), (j, b) in combinations(enumerate(translates), 2):
-            add([1, j-i], [a, b])
+            add([1, j - i], [a, b])
     for triple in sorted({min(scalar_orbit(t)) for t in TRIPLES}):
         through = [tuple(sorted((*triple, x))) for x in POINTS if x not in triple]
         for pair in combinations(through, 2):
@@ -125,8 +124,10 @@ def certificate(cores, atoms):
         else:
             assert core == additive
             add([4], sorted(core))
-    print(f"{len(cores)} cores, {failures} violate the degree bound, "
-          f"{len(cores) - failures} additive")
+    print(
+        f"{len(cores)} cores, {failures} violate the degree bound, "
+        f"{len(cores) - failures} additive"
+    )
     return blocks, clauses
 
 
@@ -141,7 +142,7 @@ def trace_core(path, count):
             row = list(map(int, words))
             split = row.index(0)
             clause_id = row[0]
-            dependencies[clause_id] = [abs(x) for x in row[split + 1:-1]]
+            dependencies[clause_id] = [abs(x) for x in row[split + 1 : -1]]
             if split == 1:
                 break
         else:
@@ -159,8 +160,11 @@ def solve(solver, atom_count, clauses, path):
         print("p cnf", atom_count, len(clauses), file=output)
         for clause in clauses:
             print(*clause, 0, file=output)
-    result = subprocess.run([solver, "--plain", "--lrat", "--no-binary", source, path],
-                            stdout=subprocess.DEVNULL)
+    result = subprocess.run(
+        [solver, "--plain", "--lrat", "--no-binary", source, path],
+        stdout=subprocess.DEVNULL,
+        check=False,
+    )
     if result.returncode != 20:
         raise RuntimeError(f"CaDiCaL returned {result.returncode}, expected UNSAT (20)")
 
@@ -194,8 +198,10 @@ def main():
             clauses = [clauses[i] for i in retained]
             solve(args.solver, len(atoms), clauses, trace)
         shutil.copyfile(trace, output / trace.name)
-    write_json(output / "multiplier8-sat.json",
-               [[[abs(v)-1, v > 0] for v in clause] for clause in clauses])
+    write_json(
+        output / "multiplier8-sat.json",
+        [[[abs(v) - 1, v > 0] for v in clause] for clause in clauses],
+    )
     write_json(output / "multiplier8-blocks.json", blocks)
     write_json(output / "multiplier8-rules.json", [rules[c] for c in clauses])
     print(f"Wrote {len(clauses)} clauses with {len(atoms)} atoms to {output}")

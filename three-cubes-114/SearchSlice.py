@@ -6,7 +6,6 @@ Run with Python 3.8 or later. The only dependency is the standard library.
 from itertools import compress
 from math import isqrt
 
-
 P_START = 10**16
 P_STOP = P_START + 10**6  # exclusive
 Z_MAX = 10**21

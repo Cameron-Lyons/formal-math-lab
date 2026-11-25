@@ -26,7 +26,12 @@ The last says how the element 0 was chosen: a non-idempotent element if there is
 The case list depends on the solver's conflict counts.  The script uses the CaDiCaL that ships
 with Lean, as the build does, unless `--solver` names another.
 """
-import argparse, os, subprocess, sys, tempfile
+
+import argparse
+import os
+import subprocess
+import sys
+import tempfile
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -45,7 +50,7 @@ def first_rows(prefix=()):
         return
     for z in range(min(y + 2, N)):
         if z not in prefix:
-            yield from first_rows(prefix + (z,))
+            yield from first_rows((*prefix, z))
 
 
 def formula():
@@ -54,19 +59,29 @@ def formula():
     for x in R:
         for y in R:
             C.append([var(x, y, z) for z in R])
-            C += [[-var(x, y, z1), -var(x, y, z2)] for z1 in R for z2 in range(z1 + 1, N)]
+            C += [
+                [-var(x, y, z1), -var(x, y, z2)] for z1 in R for z2 in range(z1 + 1, N)
+            ]
     for x in R:
         for z in R:
             C.append([var(x, y, z) for y in R])
-            C += [[-var(x, y1, z), -var(x, y2, z)] for y1 in R for y2 in range(y1 + 1, N)]
+            C += [
+                [-var(x, y1, z), -var(x, y2, z)] for y1 in R for y2 in range(y1 + 1, N)
+            ]
     for x in R:
         for y in R:
             for a in R:
                 for b in R:
                     for c in R:
-                        C.append([-var(y, x, a), -var(a, y, b), -var(x, b, c), var(y, c, x)])
-                        C.append([-var(y, x, a), -var(a, y, b), -var(y, c, x), var(x, b, c)])
-                        C.append([-var(y, x, a), -var(x, b, c), -var(y, c, x), var(a, y, b)])
+                        C.append(
+                            [-var(y, x, a), -var(a, y, b), -var(x, b, c), var(y, c, x)]
+                        )
+                        C.append(
+                            [-var(y, x, a), -var(a, y, b), -var(y, c, x), var(x, b, c)]
+                        )
+                        C.append(
+                            [-var(y, x, a), -var(x, b, c), -var(y, c, x), var(a, y, b)]
+                        )
     C += [[-var(0, y, z)] for y in R for z in R if z > y + 1]
     C += [[-var(0, 0, 0), var(x, x, x)] for x in R]
     return C
@@ -74,9 +89,15 @@ def formula():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("--limit", type=int, default=60000, help="conflicts allowed per case")
-    parser.add_argument("--keep", type=int, default=1000, help="list cases needing this many")
-    parser.add_argument("--part", type=int, default=200000, help="conflicts per Lean module")
+    parser.add_argument(
+        "--limit", type=int, default=60000, help="conflicts allowed per case"
+    )
+    parser.add_argument(
+        "--keep", type=int, default=1000, help="list cases needing this many"
+    )
+    parser.add_argument(
+        "--part", type=int, default=200000, help="conflicts per Lean module"
+    )
     parser.add_argument("--jobs", type=int, default=6)
     parser.add_argument("--solver", help="CaDiCaL executable (defaults to Lean's copy)")
     args = parser.parse_args()
@@ -90,19 +111,26 @@ def main():
     def refute(case):
         """The cases, each with its conflict count, into which `case` is divided."""
         with tempfile.NamedTemporaryFile("w", suffix=".cnf", delete=False) as f:
-            f.write(f"p cnf {N ** 3} {len(clauses) + len(case)}\n{text}")
+            f.write(f"p cnf {N**3} {len(clauses) + len(case)}\n{text}")
             f.write("".join(f"{var(*entry)} 0\n" for entry in case))
-        run = subprocess.run([solver, "-c", str(args.limit), f.name],
-                             capture_output=True, text=True)
+        run = subprocess.run(
+            [solver, "-c", str(args.limit), f.name],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
         os.unlink(f.name)
         if run.returncode == 10:
             sys.exit(f"a table exists in the case {case}")
         if run.returncode == 20:
-            conflicts = [line.split()[2] for line in run.stdout.splitlines()
-                         if line.startswith("c conflicts:")]
+            conflicts = [
+                line.split()[2]
+                for line in run.stdout.splitlines()
+                if line.startswith("c conflicts:")
+            ]
             return [(case, int(conflicts[0]) if conflicts else 0)]
         x = 1 + sum(1 for entry in case if entry[1] == 0 and entry[0] > 0)
-        return [done for z in range(N) for done in refute(case + [(x, 0, z)])]
+        return [done for z in range(N) for done in refute([*case, (x, 0, z)])]
 
     rows = [[(0, y, r[y]) for y in range(N)] for r in first_rows()]
     with ThreadPoolExecutor(args.jobs) as pool:
@@ -119,8 +147,10 @@ def main():
     def lean(case):
         return "[" + ", ".join(f"pos {x} {y} {z}" for x, y, z in case) + "]"
 
-    body = ",\n".join("  [" + ",\n   ".join(lean(case) for case in part) + "]" for part in parts)
-    Path("Ten/Cases.lean").write_text(f'''import Ten.Formula
+    body = ",\n".join(
+        "  [" + ",\n   ".join(lean(case) for case in part) + "]" for part in parts
+    )
+    Path("Ten/Cases.lean").write_text(f"""import Ten.Formula
 
 /-!
 # The cases
@@ -142,10 +172,14 @@ def parts : List (List Cube) := [
 {body}]
 
 end Ten
-''')
-    print(f"{len(cases)} cases found, {len(kept)} listed in {len(parts)} parts; "
-          f"{sum(c for _, c in cases)} conflicts, at most {max(c for _, c in cases)} in a case")
-    print(f"Ten/Cases.lean written; now run ../E670-order-10/scripts/parts.sh {len(parts)} Ten")
+""")
+    print(
+        f"{len(cases)} cases found, {len(kept)} listed in {len(parts)} parts; "
+        f"{sum(c for _, c in cases)} conflicts, at most {max(c for _, c in cases)} in a case"
+    )
+    print(
+        f"Ten/Cases.lean written; now run ../E670-order-10/scripts/parts.sh {len(parts)} Ten"
+    )
 
 
 if __name__ == "__main__":

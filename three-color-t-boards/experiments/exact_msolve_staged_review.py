@@ -5,17 +5,21 @@ Hash lookup and insertion use a simple linear reference, not upstream probing.
 The actual rounded reservation, staging, and support selection are extracted.
 Owner tests separately exercise upstream lookup/clean/grow/reuse.
 """
+
 import hashlib
 import json
 import os
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-HERE = ROOT / 'experiments'
-SOURCE = HERE / 'exact_msolve_staged_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c'
+HERE = ROOT / "experiments"
+SOURCE = (
+    HERE
+    / "exact_msolve_staged_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
+)
 
-PRELUDE = r'''
+PRELUDE = r"""
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -107,9 +111,9 @@ static hi_t insert_in_hash_table(const exp_t *v,ht_t *t) {
 static void destroy(ht_t *t) {free(t->ev[0]);free(t->ev);free(t->hd);free(t->hmap);}
 static uint32_t rng=0x4192ae75;
 static uint32_t next_random(void){rng^=rng<<13;rng^=rng>>17;rng^=rng<<5;return rng;}
-'''
+"""
 
-POSTLUDE = r'''
+POSTLUDE = r"""
 static int staged_cases=0,unchanged_cases=0,large_resets=0,zero_missing_cases=0;
 static void verify_scalars(const ht_t *s,const ht_t *old) {
  assert(s->nv==old->nv && s->mo==old->mo && s->evl==old->evl && s->ebl==old->ebl);
@@ -229,62 +233,121 @@ int main(int argc,char **argv) {
  printf("CASES=1200 STAGED=%d UNCHANGED=%d LARGE_RESET=%d ZERO_MISSING=%d\n",staged_cases,unchanged_cases,large_resets,zero_missing_cases);
  return 0;
 }
-'''
+"""
 
 
 def extract(source, marker):
     start = source.index(marker)
-    end = source.index('{', start) + 1
+    end = source.index("{", start) + 1
     depth = 1
     while depth:
-        depth += (source[end] == '{') - (source[end] == '}')
+        depth += (source[end] == "{") - (source[end] == "}")
         end += 1
     return source[start:end]
 
 
 def main():
     source = SOURCE.read_text()
-    functions = [extract(source, marker) for marker in (
-        'static void reserve_basis_hash_table_for_promotion(',
-        'static void *symbolic_stage_calloc(',
-        'static exp_t *stage_missing_symbolic_exponents(',
-        'static inline void switch_used_hcm_data_to_basis_hash_table(')]
-    c_path = HERE / 'exact_msolve_staged_review.c'
-    binary = HERE / 'exact_msolve_staged_review'
-    c_path.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+'\n\n'.join(functions)+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
-    command = ['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
-               '-fsanitize=address,undefined',str(c_path),'-o',str(binary)]
-    compiled = subprocess.run(command,capture_output=True,text=True,check=True)
-    logs = [compiled.stdout+compiled.stderr]
+    functions = [
+        extract(source, marker)
+        for marker in (
+            "static void reserve_basis_hash_table_for_promotion(",
+            "static void *symbolic_stage_calloc(",
+            "static exp_t *stage_missing_symbolic_exponents(",
+            "static inline void switch_used_hcm_data_to_basis_hash_table(",
+        )
+    ]
+    c_path = HERE / "exact_msolve_staged_review.c"
+    binary = HERE / "exact_msolve_staged_review"
+    c_path.write_text(
+        PRELUDE
+        + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'
+        + "\n\n".join(functions)
+        + "\n#pragma GCC diagnostic pop\n"
+        + POSTLUDE
+    )
+    command = [
+        "cc",
+        "-std=c23",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        str(c_path),
+        "-o",
+        str(binary),
+    ]
+    compiled = subprocess.run(command, capture_output=True, text=True, check=True)
+    logs = [compiled.stdout + compiled.stderr]
+
     def run(args):
-        result = subprocess.run([str(binary)]+args,capture_output=True,text=True,
-                                env=dict(os.environ,ASAN_OPTIONS='detect_leaks=1'))
-        logs.append('COMMAND '+repr(args)+'\n'+result.stdout+result.stderr)
-        assert 'AddressSanitizer' not in result.stderr and 'runtime error:' not in result.stderr, result
+        result = subprocess.run(
+            [str(binary), *args],
+            capture_output=True,
+            text=True,
+            env=dict(os.environ, ASAN_OPTIONS="detect_leaks=1"),
+            check=False,
+        )
+        logs.append("COMMAND " + repr(args) + "\n" + result.stdout + result.stderr)
+        assert (
+            "AddressSanitizer" not in result.stderr
+            and "runtime error:" not in result.stderr
+        ), result
         return result
+
     valid = run([])
     assert valid.returncode == 0, valid
-    count = run(['fail','0'])
+    count = run(["fail", "0"])
     assert count.returncode == 0, count
-    calls = int(count.stdout.strip().split('=')[-1])
-    for i in range(1,calls+1):
-        failed = run(['fail',str(i)])
-        assert failed.returncode == 1 and 'Error:' in failed.stderr and not failed.stdout,(i,failed)
-    invalid = ['nonpower','bad-load','bad-mask','duplicate-inverse','out-of-range-inverse',
-               'wrong-missing','wrong-new-map','nonflat-pointer','zero-width','overflow','null-private']
+    calls = int(count.stdout.strip().split("=")[-1])
+    for i in range(1, calls + 1):
+        failed = run(["fail", str(i)])
+        assert (
+            failed.returncode == 1 and "Error:" in failed.stderr and not failed.stdout
+        ), (i, failed)
+    invalid = [
+        "nonpower",
+        "bad-load",
+        "bad-mask",
+        "duplicate-inverse",
+        "out-of-range-inverse",
+        "wrong-missing",
+        "wrong-new-map",
+        "nonflat-pointer",
+        "zero-width",
+        "overflow",
+        "null-private",
+    ]
     for name in invalid:
-        failed = run(['invalid',name])
-        assert failed.returncode == 1 and 'Error:' in failed.stderr and not failed.stdout,(name,failed)
-    report = dict(status='PASS',source_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
-        extracted_functions_sha256=hashlib.sha256('\n\n'.join(functions).encode()).hexdigest(),
-        valid_cases=1200,case_summary=valid.stdout.strip(),allocation_failure_points=calls,
-        invalid_layout_cases=invalid,sanitizers=['address','undefined'],
-        compiler_command=command,independent_lookup='linear equality lookup with hash verification',
-        actual_upstream_lookup_tested=False,full_solver_runs=0)
-    (HERE/'exact_msolve_staged_review.log').write_text('\n'.join(logs))
-    (HERE/'exact_msolve_staged_review_results.json').write_text(json.dumps(report,indent=2)+'\n')
-    print(json.dumps(report,indent=2))
+        failed = run(["invalid", name])
+        assert (
+            failed.returncode == 1 and "Error:" in failed.stderr and not failed.stdout
+        ), (name, failed)
+    report = {
+        "status": "PASS",
+        "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
+        "extracted_functions_sha256": hashlib.sha256(
+            "\n\n".join(functions).encode()
+        ).hexdigest(),
+        "valid_cases": 1200,
+        "case_summary": valid.stdout.strip(),
+        "allocation_failure_points": calls,
+        "invalid_layout_cases": invalid,
+        "sanitizers": ["address", "undefined"],
+        "compiler_command": command,
+        "independent_lookup": "linear equality lookup with hash verification",
+        "actual_upstream_lookup_tested": False,
+        "full_solver_runs": 0,
+    }
+    (HERE / "exact_msolve_staged_review.log").write_text("\n".join(logs))
+    (HERE / "exact_msolve_staged_review_results.json").write_text(
+        json.dumps(report, indent=2) + "\n"
+    )
+    print(json.dumps(report, indent=2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

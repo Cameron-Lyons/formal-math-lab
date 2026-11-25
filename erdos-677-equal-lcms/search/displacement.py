@@ -39,11 +39,15 @@ def verify(endpoint: int, displacement: int) -> None:
             raise ValueError(f"bounds insufficient at length {k}")
         later_binomial = later_binomial * (endpoint + 1 - k) // (k + 1)
         difference_binomial = (
-            difference_binomial * (displacement + k) * (displacement - k)
+            difference_binomial
+            * (displacement + k)
+            * (displacement - k)
             // (2 * k * (2 * k + 1))
         )
         small_lcm = lcm(small_lcm, 2 * k)
-    print(f"excluded all endpoints > {endpoint} for every displacement <= {displacement}")
+    print(
+        f"excluded all endpoints > {endpoint} for every displacement <= {displacement}"
+    )
 
 
 if __name__ == "__main__":

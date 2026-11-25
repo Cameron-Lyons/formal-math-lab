@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """Independent arithmetic/allocation checks of the exact rounded reserve helper."""
+
 import hashlib
 import json
-from pathlib import Path
 import re
 import subprocess
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT/'experiments/exact_msolve_rounded_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c'
+SOURCE = (
+    ROOT
+    / "experiments/exact_msolve_rounded_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
+)
 
-PRELUDE = r'''
+PRELUDE = r"""
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -39,9 +43,9 @@ static void *checked_test_realloc(void *old,size_t size) {
     return realloc(old,size);
 }
 #define realloc checked_test_realloc
-'''
+"""
 
-POSTLUDE = r'''
+POSTLUDE = r"""
 #undef realloc
 static ht_t *initial(hl_t esz,hl_t eld,hl_t hsz,len_t evl,int real) {
     ht_t *table=calloc(1,sizeof(*table));assert(table);
@@ -110,92 +114,171 @@ int main(int argc,char **argv) {
     }
     return 3;
 }
-'''
+"""
 
 
 def main():
     source = SOURCE.read_text()
-    start = source.index('static void reserve_basis_hash_table_for_promotion(')
-    opening = source.index('{', start); depth = 1; end = opening+1
+    start = source.index("static void reserve_basis_hash_table_for_promotion(")
+    opening = source.index("{", start)
+    depth = 1
+    end = opening + 1
     while depth:
-        depth += (source[end] == '{')-(source[end] == '}'); end += 1
+        depth += (source[end] == "{") - (source[end] == "}")
+        end += 1
     helper = source[start:end]
-    c_path = ROOT/'experiments/exact_msolve_rounded_capacity_check.c'
-    c_path.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+helper+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
+    c_path = ROOT / "experiments/exact_msolve_rounded_capacity_check.c"
+    c_path.write_text(
+        PRELUDE
+        + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'
+        + helper
+        + "\n#pragma GCC diagnostic pop\n"
+        + POSTLUDE
+    )
     binaries = {}
-    for tag in ('native', 'size32'):
-        binary = ROOT/('experiments/exact_msolve_rounded_capacity_check_'+tag)
-        command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
-                   '-fsanitize=address,undefined', str(c_path), '-o', str(binary)]
-        if tag == 'size32':
-            command.append('-DREVIEW_SIZE32')
+    for tag in ("native", "size32"):
+        binary = ROOT / ("experiments/exact_msolve_rounded_capacity_check_" + tag)
+        command = [
+            "cc",
+            "-std=c23",
+            "-O1",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-Werror",
+            "-fsanitize=address,undefined",
+            str(c_path),
+            "-o",
+            str(binary),
+        ]
+        if tag == "size32":
+            command.append("-DREVIEW_SIZE32")
         subprocess.run(command, check=True, capture_output=True, text=True)
         binaries[tag] = binary
+
     def run(tag, arguments):
-        result = subprocess.run([str(binaries[tag])]+list(map(str, arguments)), capture_output=True, text=True)
-        assert 'AddressSanitizer' not in result.stderr and 'runtime error:' not in result.stderr, result
+        result = subprocess.run(
+            [str(binaries[tag]), *list(map(str, arguments))],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert (
+            "AddressSanitizer" not in result.stderr
+            and "runtime error:" not in result.stderr
+        ), result
         return result
-    succeeded = run('native', ['success'])
-    assert succeeded.returncode == 0 and 'REAL_REALLOC_COLLISION_CASES=3' in succeeded.stdout
+
+    succeeded = run("native", ["success"])
+    assert (
+        succeeded.returncode == 0
+        and "REAL_REALLOC_COLLISION_CASES=3" in succeeded.stdout
+    )
     failures = []
     for index in range(1, 5):
-        failure = run('native', ['fail', index])
-        assert failure.returncode == 1 and f'AUDIT_ALLOCATION_CALLS={index}' in failure.stdout
-        assert 'Error: cannot allocate promotion' in failure.stderr and 'UNEXPECTED_SUCCESS' not in failure.stdout
+        failure = run("native", ["fail", index])
+        assert (
+            failure.returncode == 1
+            and f"AUDIT_ALLOCATION_CALLS={index}" in failure.stdout
+        )
+        assert (
+            "Error: cannot allocate promotion" in failure.stderr
+            and "UNEXPECTED_SUCCESS" not in failure.stdout
+        )
         failures.append(index)
     plans = []
-    valid = [(8, 6, 1, 3, 16), (65536, 65535, 0, 3, 131072),
-             (65536, 65535, 1, 3, 131072), (131072, 12, 131060, 101, 262144),
-             (131072, 12, 131060, 101, 1048576),
-             (2097152, 2080795, 55218, 101, 4194304),
-             (1 << 29, 1, (1 << 30)-2, 1, 1 << 30)]
+    valid = [
+        (8, 6, 1, 3, 16),
+        (65536, 65535, 0, 3, 131072),
+        (65536, 65535, 1, 3, 131072),
+        (131072, 12, 131060, 101, 262144),
+        (131072, 12, 131060, 101, 1048576),
+        (2097152, 2080795, 55218, 101, 4194304),
+        (1 << 29, 1, (1 << 30) - 2, 1, 1 << 30),
+    ]
     for esz, eld, extra, width, buckets in valid:
-        result = run('native', ['plan', esz, eld, extra, width, buckets])
-        required = eld+extra+1
+        result = run("native", ["plan", esz, eld, extra, width, buckets])
+        required = eld + extra + 1
         if required <= esz:
-            assert result.returncode == 0 and 'PLAN_NO_GROWTH' in result.stdout
-            assert 'AUDIT_ALLOCATION_CALLS=0' in result.stdout
+            assert result.returncode == 0 and "PLAN_NO_GROWTH" in result.stdout
+            assert "AUDIT_ALLOCATION_CALLS=0" in result.stdout
             target, target_buckets = esz, buckets
         else:
-            target = (required+65535)//65536*65536
+            target = (required + 65535) // 65536 * 65536
             target_buckets = buckets
-            while target_buckets < 2*target:
+            while target_buckets < 2 * target:
                 target_buckets *= 2
-            assert result.returncode == 1 and 'AUDIT_ALLOCATION_CALLS=1' in result.stdout
-            match = re.search(r'required_with_spare=(\d+) exponent_old=(\d+) exponent_new=(\d+) buckets_old=(\d+) buckets_new=(\d+)', result.stdout)
-            assert match and tuple(map(int, match.groups())) == (required, esz, target, buckets, target_buckets)
-        plans.append(dict(old_capacity=esz, load=eld, missing=extra,
-                          expected_capacity=target, expected_buckets=target_buckets))
+            assert (
+                result.returncode == 1 and "AUDIT_ALLOCATION_CALLS=1" in result.stdout
+            )
+            match = re.search(
+                r"required_with_spare=(\d+) exponent_old=(\d+) exponent_new=(\d+) buckets_old=(\d+) buckets_new=(\d+)",
+                result.stdout,
+            )
+            assert match and tuple(map(int, match.groups())) == (
+                required,
+                esz,
+                target,
+                buckets,
+                target_buckets,
+            )
+        plans.append(
+            {
+                "old_capacity": esz,
+                "load": eld,
+                "missing": extra,
+                "expected_capacity": target,
+                "expected_buckets": target_buckets,
+            }
+        )
     invalid = [
-        ('zero-capacity', 0, 1, 0, 3, 2), ('zero-load', 8, 0, 0, 3, 16),
-        ('load-over-capacity', 8, 9, 0, 3, 16), ('zero-width', 8, 1, 1, 0, 16),
-        ('non-power-buckets', 8, 1, 1, 3, 17), ('insufficient-buckets', 8, 1, 1, 3, 8),
-        ('legacy-bucket-limit', 8, 1, 1, 3, 1 << 32),
-        ('entry-limit', 8, 1, 1 << 30, 3, 16),
-        ('spare-at-max', 1 << 30, (1 << 30)-1, 1, 3, 1 << 31),
-        ('huge-additional', 8, 1, (1 << 64)-1, 3, 16)]
+        ("zero-capacity", 0, 1, 0, 3, 2),
+        ("zero-load", 8, 0, 0, 3, 16),
+        ("load-over-capacity", 8, 9, 0, 3, 16),
+        ("zero-width", 8, 1, 1, 0, 16),
+        ("non-power-buckets", 8, 1, 1, 3, 17),
+        ("insufficient-buckets", 8, 1, 1, 3, 8),
+        ("legacy-bucket-limit", 8, 1, 1, 3, 1 << 32),
+        ("entry-limit", 8, 1, 1 << 30, 3, 16),
+        ("spare-at-max", 1 << 30, (1 << 30) - 1, 1, 3, 1 << 31),
+        ("huge-additional", 8, 1, (1 << 64) - 1, 3, 16),
+    ]
     rejected = []
     for name, *arguments in invalid:
-        result = run('native', ['plan']+arguments)
-        assert result.returncode == 1 and 'Error:' in result.stderr and 'AUDIT_ALLOCATION_CALLS=0' in result.stdout
+        result = run("native", ["plan", *arguments])
+        assert (
+            result.returncode == 1
+            and "Error:" in result.stderr
+            and "AUDIT_ALLOCATION_CALLS=0" in result.stdout
+        )
         rejected.append(name)
     for name, arguments in (
-            ('simulated-size32-metadata-overflow', [8, 1, 1 << 28, 3, 16]),
-            ('simulated-size32-vector-overflow', [8, 1, 8, (1 << 32)-1, 16]),
-            ('simulated-size32-bucket-overflow', [1 << 28, 1, (1 << 29)-2, 1, 1 << 29])):
-        result = run('size32', ['plan']+arguments)
-        assert result.returncode == 1 and 'allocation size overflow' in result.stderr
-        assert 'AUDIT_ALLOCATION_CALLS=0' in result.stdout
+        ("simulated-size32-metadata-overflow", [8, 1, 1 << 28, 3, 16]),
+        ("simulated-size32-vector-overflow", [8, 1, 8, (1 << 32) - 1, 16]),
+        ("simulated-size32-bucket-overflow", [1 << 28, 1, (1 << 29) - 2, 1, 1 << 29]),
+    ):
+        result = run("size32", ["plan", *arguments])
+        assert result.returncode == 1 and "allocation size overflow" in result.stderr
+        assert "AUDIT_ALLOCATION_CALLS=0" in result.stdout
         rejected.append(name)
-    report = dict(status='PASS', helper_sha256=hashlib.sha256(helper.encode()).hexdigest(),
-                  owner_hash_c_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
-                  real_realloc_and_collision_cases=3, checked_allocation_failure_stages=failures,
-                  independently_checked_capacity_plans=plans, rejected_arithmetic_layout_cases=rejected,
-                  sanitizers=['address', 'undefined'], no_full_solver_run=True,
-                  size32_note='SIZE_MAX was restricted in a native64 harness to exercise32-bit allocation guards; not a32-bit executable.')
-    (ROOT/'experiments/exact_msolve_rounded_capacity_results.json').write_text(json.dumps(report, indent=2)+'\n')
+    report = {
+        "status": "PASS",
+        "helper_sha256": hashlib.sha256(helper.encode()).hexdigest(),
+        "owner_hash_c_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
+        "real_realloc_and_collision_cases": 3,
+        "checked_allocation_failure_stages": failures,
+        "independently_checked_capacity_plans": plans,
+        "rejected_arithmetic_layout_cases": rejected,
+        "sanitizers": ["address", "undefined"],
+        "no_full_solver_run": True,
+        "size32_note": "SIZE_MAX was restricted in a native64 harness to exercise32-bit allocation guards; not a32-bit executable.",
+    }
+    (ROOT / "experiments/exact_msolve_rounded_capacity_results.json").write_text(
+        json.dumps(report, indent=2) + "\n"
+    )
     print(json.dumps(report, indent=2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

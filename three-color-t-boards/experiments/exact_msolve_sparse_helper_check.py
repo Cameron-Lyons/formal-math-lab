@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Compile the exact candidate helper against a minimal instrumented hash table."""
+
 import hashlib
 import json
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOLS = ROOT/'experiments/exact_msolve_sparse_promotion_tools'
-SOURCE = TOOLS/'msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c'
+TOOLS = ROOT / "experiments/exact_msolve_sparse_promotion_tools"
+SOURCE = TOOLS / "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
 
-PRELUDE = r'''
+PRELUDE = r"""
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -48,9 +49,9 @@ static void init_table(ht_t *table) {
     for(int i=0;i<CAP;i++)table->ev[i]=table->storage+i;
 }
 #define calloc review_calloc
-'''
+"""
 
-POSTLUDE = r'''
+POSTLUDE = r"""
 #undef calloc
 static uint32_t state=0x51A7F00D;
 static uint32_t next_random(void) {state=1664525*state+1013904223;return state;}
@@ -124,43 +125,83 @@ int main(int argc,char **argv) {
     switch_used_hcm_data_to_basis_hash_table(mapping,&basis,&matrix,&symbolic,0);
     puts("UNEXPECTED_SUCCESS");return 0;
 }
-'''
+"""
 
 
 def main():
     text = SOURCE.read_text()
-    start = text.index('static inline void switch_used_hcm_data_to_basis_hash_table(')
-    body = text.index('{', start)
-    depth = 1; end = body+1
+    start = text.index("static inline void switch_used_hcm_data_to_basis_hash_table(")
+    body = text.index("{", start)
+    depth = 1
+    end = body + 1
     while depth:
-        depth += (text[end] == '{')-(text[end] == '}')
+        depth += (text[end] == "{") - (text[end] == "}")
         end += 1
     helper = text[start:end]
-    c_path = ROOT/'experiments/exact_msolve_sparse_helper_check.c'
-    executable = ROOT/'experiments/exact_msolve_sparse_helper_check'
-    c_path.write_text(PRELUDE+helper+POSTLUDE)
-    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
-               '-fsanitize=address,undefined', str(c_path), '-o', str(executable)]
+    c_path = ROOT / "experiments/exact_msolve_sparse_helper_check.c"
+    executable = ROOT / "experiments/exact_msolve_sparse_helper_check"
+    c_path.write_text(PRELUDE + helper + POSTLUDE)
+    command = [
+        "cc",
+        "-std=c23",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        str(c_path),
+        "-o",
+        str(executable),
+    ]
     subprocess.run(command, check=True, capture_output=True, text=True)
-    valid = subprocess.run([str(executable)], capture_output=True, text=True, check=True)
-    assert valid.stdout.strip() == 'VALID_CASES=5000' and not valid.stderr
+    valid = subprocess.run(
+        [str(executable)], capture_output=True, text=True, check=True
+    )
+    assert valid.stdout.strip() == "VALID_CASES=5000" and not valid.stderr
     failures = []
-    for case in ('low-column', 'high-column', 'zero-hash', 'high-hash', 'null-row',
-                 'empty-row', 'overlong-row', 'null-rows', 'bad-dimensions',
-                 'bad-pivot-bound', 'bad-hash-load', 'mask-allocation'):
-        run = subprocess.run([str(executable), case], capture_output=True, text=True)
-        assert run.returncode == 1 and 'Error:' in run.stderr and not run.stdout, (case, run)
-        assert 'AddressSanitizer' not in run.stderr and 'runtime error:' not in run.stderr
+    for case in (
+        "low-column",
+        "high-column",
+        "zero-hash",
+        "high-hash",
+        "null-row",
+        "empty-row",
+        "overlong-row",
+        "null-rows",
+        "bad-dimensions",
+        "bad-pivot-bound",
+        "bad-hash-load",
+        "mask-allocation",
+    ):
+        run = subprocess.run(
+            [str(executable), case], capture_output=True, text=True, check=False
+        )
+        assert run.returncode == 1 and "Error:" in run.stderr and not run.stdout, (
+            case,
+            run,
+        )
+        assert (
+            "AddressSanitizer" not in run.stderr and "runtime error:" not in run.stderr
+        )
         failures.append(case)
-    result = dict(status='PASS', exact_extracted_helper_sha256=hashlib.sha256(helper.encode()).hexdigest(),
-                  owner_hash_c_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
-                  random_support_cases=5000, failure_cases=failures,
-                  compiler_command=command, sanitizers=['address', 'undefined'],
-                  actual_hash_allocation_tested=False,
-                  note='Instrumented hash stub checks support/mapping semantics; upstream enlarge allocator is outside this harness.')
-    (ROOT/'experiments/exact_msolve_sparse_helper_results.json').write_text(json.dumps(result, indent=2)+'\n')
+    result = {
+        "status": "PASS",
+        "exact_extracted_helper_sha256": hashlib.sha256(helper.encode()).hexdigest(),
+        "owner_hash_c_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
+        "random_support_cases": 5000,
+        "failure_cases": failures,
+        "compiler_command": command,
+        "sanitizers": ["address", "undefined"],
+        "actual_hash_allocation_tested": False,
+        "note": "Instrumented hash stub checks support/mapping semantics; upstream enlarge allocator is outside this harness.",
+    }
+    (ROOT / "experiments/exact_msolve_sparse_helper_results.json").write_text(
+        json.dumps(result, indent=2) + "\n"
+    )
     print(json.dumps(result, indent=2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

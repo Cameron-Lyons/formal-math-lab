@@ -16,15 +16,15 @@ from NormOtherRoots import other_roots, residuals
 from NormSearch import K, recover
 from TernaryNormSearch import CUBES_19, bit_tables, joined_root, row_candidates
 
-
 A_MIN, A_MAX = 3_020_000, 3_020_999
 COEFFICIENT_MAX = 12
 WIDTH = 48
+tables = {}
 
 
 def seed_pairs(lo, hi, coefficient_max):
-    for b in range(1, coefficient_max+1):
-        for c in range(1, coefficient_max+1):
+    for b in range(1, coefficient_max + 1):
+        for c in range(1, coefficient_max + 1):
             if gcd(b, c) != 1:
                 continue
             for a in row_candidates(K, b, c, lo, hi):
@@ -33,7 +33,7 @@ def seed_pairs(lo, hi, coefficient_max):
                     continue
                 g, _, m, r = result
                 assert g > 1
-                if m % 3 and 54*m > 10**19 and m % 19 not in CUBES_19:
+                if m % 3 and 54 * m > 10**19 and m % 19 not in CUBES_19:
                     yield m, r
 
 
@@ -69,10 +69,10 @@ def search_batch(batch):
         sign = 1 if m % 3 == 1 else -1
         for r in roots:
             for z in residuals(m, sign, r, 3, tables[sign], WIDTH):
-                s = sign*m
-                q, rem = divmod(K-z**3, s)
+                s = sign * m
+                q, rem = divmod(K - z**3, s)
                 assert rem == 0
-                delta, rem = divmod(4*q-s*s, 3)
+                delta, rem = divmod(4 * q - s * s, 3)
                 assert rem == 0 and delta >= 0
                 xyz = recover(s, z, K)
                 tested.append((s, z, isqrt(delta), r in joined, xyz))
@@ -103,16 +103,18 @@ def search(full=False):
         unique, n_seeds, count, tested = search_batch(list(seed_classes().items()))
     hits = 0
     for s, z, gap, is_seed, xyz in tested:
-        print('Survivor', s, z, gap, 'seed' if is_seed else 'additional')
+        print("Survivor", s, z, gap, "seed" if is_seed else "additional")
         if xyz is not None:
-            print('Solution', *xyz)
+            print("Solution", *xyz)
             hits += 1
-    print('Unique moduli, joined roots, additional roots, total roots, candidate coordinates, exact square tests, solutions')
-    print(unique, n_seeds, count-n_seeds, count, WIDTH*count, len(tested), hits)
-    print(f'Elapsed seconds: {perf_counter()-start:.3f}')
+    print(
+        "Unique moduli, joined roots, additional roots, total roots, candidate coordinates, exact square tests, solutions"
+    )
+    print(unique, n_seeds, count - n_seeds, count, WIDTH * count, len(tested), hits)
+    print(f"Elapsed seconds: {perf_counter() - start:.3f}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument('--full', action='store_true')
+    parser.add_argument("--full", action="store_true")
     search(parser.parse_args().full)

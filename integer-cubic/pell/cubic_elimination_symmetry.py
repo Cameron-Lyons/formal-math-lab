@@ -11,7 +11,6 @@ from itertools import product
 from pathlib import Path
 
 from flint import fmpz_mpoly_ctx, fmpz_poly, nmod_mat, nmod_poly
-
 from search_pell_mod import cubic_candidates
 
 
@@ -21,14 +20,16 @@ def coordinates(poly, basis):
     matrix = [[int(f[i]) for f in basis] for i in range(7)]
     rows = []
     for i in range(7):
-        if nmod_mat([matrix[j] for j in rows + [i]], p).rank() > len(rows):
+        if nmod_mat([matrix[j] for j in [*rows, i]], p).rank() > len(rows):
             rows.append(i)
     assert len(rows) == len(basis)
-    coeffs = nmod_mat([matrix[i] for i in rows], p).solve(
-        nmod_mat([[int(poly[i])] for i in rows], p)
-    ).entries()
+    coeffs = (
+        nmod_mat([matrix[i] for i in rows], p)
+        .solve(nmod_mat([[int(poly[i])] for i in rows], p))
+        .entries()
+    )
     values = [int(a) for a in coeffs]
-    if sum(a * f for a, f in zip(values, basis)) == poly:
+    if sum(a * f for a, f in zip(values, basis, strict=False)) == poly:
         return values
     return None
 
@@ -36,13 +37,13 @@ def coordinates(poly, basis):
 def symmetric_models(candidate):
     p = 7
     t = nmod_poly([0, 1], p)
-    L = 1 - 3*t**2
+    L = 1 - 3 * t**2
     X, Y, Z = candidate
     for b in range(p):
-        T = t + b*t**2
-        R = 1 + 2*b*t + 3*t**2
-        cubics = [T**j * L**(3-j) for j in range(4)]
-        quadratics = [R * T**j * L**(2-j) for j in range(3)]
+        T = t + b * t**2
+        R = 1 + 2 * b * t + 3 * t**2
+        cubics = [T**j * L ** (3 - j) for j in range(4)]
+        quadratics = [R * T**j * L ** (2 - j) for j in range(3)]
         c = coordinates(X, cubics)
         d = coordinates(Z, cubics)
         e = coordinates(Y, quadratics)
@@ -51,19 +52,19 @@ def symmetric_models(candidate):
 
         assert (c[0], d[0], e[0]) == (0, 1, 1)
         C, Z0, E = (nmod_poly(v, p) for v in (c, d, e))
-        r2 = 1 + 4*b*t + 12*t**2
+        r2 = 1 + 4 * b * t + 12 * t**2
         assert C**3 + Z0**2 + r2 * E**2 * Z0 == 2
         # This makes gcd(X(t), Z(t)−L³) recover the factor t(1+bt).
         assert (C // t).gcd((Z0 - 1) // t) == 1
         columns = (
-            [4*t*E**2*Z0]
-            + [3*C**2*t**j for j in range(1, 4)]
-            + [(r2*E**2+2*Z0)*t**j for j in range(1, 4)]
-            + [2*r2*E*Z0*t**j for j in (1, 2)]
+            [4 * t * E**2 * Z0]
+            + [3 * C**2 * t**j for j in range(1, 4)]
+            + [(r2 * E**2 + 2 * Z0) * t**j for j in range(1, 4)]
+            + [2 * r2 * E * Z0 * t**j for j in (1, 2)]
         )
-        determinant = int(nmod_mat([
-            [int(col[j]) for col in columns] for j in range(1, 10)
-        ], p).det())
+        determinant = int(
+            nmod_mat([[int(col[j]) for col in columns] for j in range(1, 10)], p).det()
+        )
         assert determinant != 0
         yield b, C, Z0, E, determinant
 
@@ -80,28 +81,28 @@ def normalized_parameters(C, Z0):
 
     roots = []
     for a, i, j in product(range(p), repeat=3):
-        theta = a + i*alpha + j*alpha**2
+        theta = a + i * alpha + j * alpha**2
         if evaluate(Z0, theta) == 0 and evaluate(C, theta) == alpha:
             roots.append((a, i, j))
     assert len(roots) == 1
     a, i, j = roots[0]
     assert i != 0
     inv = pow(i, -1, p)
-    return j*inv % p, -a*inv % p
+    return j * inv % p, -a * inv % p
 
 
 def first_lift_system(candidate, seed):
     """Construct the Jacobian and correction right-hand side modulo seven."""
     t = fmpz_poly([0, 1])
-    L = 1 - 3*t**2
+    L = 1 - 3 * t**2
     X, Y, Z = (fmpz_poly(list(map(int, f))) for f in candidate)
     X[0], Y[0], Z[0] = seed
-    residual = X**3 + Z*Y**2 + Z**2*L**3 - 2*L**9
+    residual = X**3 + Z * Y**2 + Z**2 * L**3 - 2 * L**9
     assert residual[0] == 0
     assert all(int(a) % 7 == 0 for a in residual)
     columns = [
-        derivative*t**i
-        for derivative in (3*X**2, 2*Z*Y, Y**2 + 2*Z*L**3)
+        derivative * t**i
+        for derivative in (3 * X**2, 2 * Z * Y, Y**2 + 2 * Z * L**3)
         for i in range(1, 7)
     ]
     rows = [[int(f[i]) for f in columns] for i in range(1, 19)]
@@ -111,7 +112,7 @@ def first_lift_system(candidate, seed):
 
 def first_lift_ranks(candidate, seed):
     jacobian, rhs = first_lift_system(candidate, seed)
-    augmented = [row + [rhs[i, 0]] for i, row in enumerate(jacobian.tolist())]
+    augmented = [[*row, rhs[i, 0]] for i, row in enumerate(jacobian.tolist())]
     return jacobian.rank(), nmod_mat(augmented, 7).rank()
 
 
@@ -121,15 +122,14 @@ def lean_witness_record(candidate, seed):
     kernel, dimension = jacobian.transpose().nullspace()
     for j in range(dimension):
         left = nmod_mat([[kernel[i, j] for i in range(18)]], 7)
-        if (left*rhs)[0, 0] != 0:
-            assert not any((left*jacobian).entries())
+        if (left * rhs)[0, 0] != 0:
+            assert not any((left * jacobian).entries())
             coeffs = [list(map(int, f)) for f in candidate]
-            for f, c in zip(coeffs, seed):
+            for f, c in zip(coeffs, seed, strict=False):
                 f[0] = c
             fields = [*coeffs, list(map(int, left.entries()))]
             return "  ⟨" + ", ".join(str(v) for v in fields) + "⟩"
     raise ValueError("the augmented system is consistent")
-
 
 
 def exceptional_normalizations():
@@ -145,15 +145,20 @@ def exceptional_normalizations():
         P = s**3 - 2**j
         A = a**3 - 2**j
         H, B = s**j, a**j
-        Q, remainder = divmod(2*j**3 - H**3, P)
+        Q, remainder = divmod(2 * j**3 - H**3, P)
         assert not remainder
-        F = (A**3*Q + 3*A**2*B*H**2 - 3*A*B**2*H*P
-             + B**3*P**2 - j**3*A*P)
-        assert F*P == 2*j**3*A**3 - (A*H - B*P)**3 - j**3*A*P**2
+        F = (
+            A**3 * Q
+            + 3 * A**2 * B * H**2
+            - 3 * A * B**2 * H * P
+            + B**3 * P**2
+            - j**3 * A * P
+        )
+        assert 2 * j**3 * A**3 - (A * H - B * P) ** 3 - j**3 * A * P**2 == F * P
         disc = F.discriminant("s")
         assert disc.degrees()[0] == 0
         coeffs = disc.to_dict()
-        U = fmpz_poly([coeffs.get((0, n), 0) for n in range(disc.degrees()[1]+1)])
+        U = fmpz_poly([coeffs.get((0, n), 0) for n in range(disc.degrees()[1] + 1)])
         scalar, factors = U.factor()
         product_poly = fmpz_poly([scalar])
         found = {}
@@ -161,7 +166,7 @@ def exceptional_normalizations():
             product_poly *= f**multiplicity
             found[f.degree()] = multiplicity
             if f.degree() == 1:
-                assert f == fmpz_poly([0, 1]) and multiplicity == 6*j
+                assert f == fmpz_poly([0, 1]) and multiplicity == 6 * j
                 continue
             expected, prime = certificates[j][f.degree()]
             assert multiplicity == expected
@@ -176,10 +181,10 @@ def exceptional_normalizations():
 if __name__ == "__main__":
     count = 0
     for candidate in cubic_candidates(7, 3):
-        (b, C, Z0, E, determinant), = symmetric_models(candidate)
+        ((b, C, Z0, E, determinant),) = symmetric_models(candidate)
         assert first_lift_ranks(candidate, (0, 1, 1)) == (18, 18)
         assert (C.degree(), Z0.degree(), E.degree()) == (3, 3, 2)
-        assert (b*b - 3) % 7 != 0
+        assert (b * b - 3) % 7 != 0
         w, a = normalized_parameters(C, Z0)
         assert w**3 % 7 == 1 and a == 0
         print(f"X'(0)={candidate[0][1]}  b={b}  det={determinant}  (w,a)=({w},{a})")
@@ -193,8 +198,10 @@ if __name__ == "__main__":
         ranks = first_lift_ranks(candidate, second_seed)
         assert ranks == (16, 17)
         records.append(lean_witness_record(candidate, second_seed))
-        print(f"seed {second_seed}, X'(0)={candidate[0][1]}: "
-              f"Jacobian and augmented ranks {ranks}")
+        print(
+            f"seed {second_seed}, X'(0)={candidate[0][1]}: "
+            f"Jacobian and augmented ranks {ranks}"
+        )
         count += 1
     assert count == 6
 

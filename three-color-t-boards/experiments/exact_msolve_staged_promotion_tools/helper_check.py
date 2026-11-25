@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
 """Actual upstream hash functions + staged promotion: ownership/reuse tests."""
+
 import hashlib
 import importlib.util
 import json
 import os
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
-ROOT=Path(__file__).resolve().parent
-SOURCE=ROOT/'msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c'
-spec=importlib.util.spec_from_file_location('previous',ROOT.parent/'exact_msolve_rounded_promotion_tools/compatibility_check.py')
-previous=importlib.util.module_from_spec(spec);spec.loader.exec_module(previous)
-PRELUDE=previous.PRELUDE+r'''
+ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT / "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
+spec = importlib.util.spec_from_file_location(
+    "previous",
+    ROOT.parent / "exact_msolve_rounded_promotion_tools/compatibility_check.py",
+)
+assert spec is not None and spec.loader is not None
+previous = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(previous)
+PRELUDE = (
+    previous.PRELUDE
+    + r"""
 static unsigned fail_at=0, allocation_calls=0;
 static void *checked_calloc(size_t n,size_t s) {
     if(fail_at && ++allocation_calls==fail_at)return NULL;
@@ -23,9 +31,10 @@ static void *checked_realloc(void *p,size_t s) {
 }
 #define calloc checked_calloc
 #define realloc checked_realloc
-'''
+"""
+)
 
-POSTLUDE=r'''
+POSTLUDE = r"""
 static void initialize(ht_t *h,hl_t n,int collide) {
     memset(h,0,sizeof(*h));h->evl=4;h->nv=3;h->esz=n;h->hsz=2*n;h->eld=1;
     h->ev=malloc(n*sizeof(exp_t*));h->ev[0]=calloc(n*4,sizeof(exp_t));
@@ -126,42 +135,122 @@ int main(int argc,char **argv) {
     one(2,0,1,0);one(7,0,0,1);one(12,1,0,1);direct_zero_or_fault(0);
     puts("PASS actual_hash_promotions=49 rotations=23 collision_modes=2 staged_zero=1 subsequent_growth_clean_copy_reinitialize_reset=49");
 }
-'''
+"""
 
 
 def main():
-    text=SOURCE.read_text()
-    markers=[
-        ('ht_t *copy_hash_table(', 'ht_t *initialize_secondary_hash_table('),
-        ('ht_t *initialize_secondary_hash_table(', 'void free_shared_hash_data('),
-        ('static void enlarge_hash_table(', 'static inline sdm_t generate_short_divmask('),
-        ('static inline int32_t is_contained_in_hash_table(', '/* This function assumes that is_contained_in_hash_table()'),
-        ('static inline hi_t insert_in_hash_table(', 'static inline void reinitialize_hash_table('),
-        ('static inline void reinitialize_hash_table(', 'static inline int prime_monomials('),
-        ('static void reserve_basis_hash_table_for_promotion(', 'static inline void insert_in_basis_hash_table_pivots('),
-        ('static inline void reinsert_in_hash_table(', 'void reset_hash_table_indices('),
-        ('static void reset_hash_table(', '/* computes lcm of a and b from ht1 and inserts it in ht2 */')]
-    extracted='\n'.join(text[text.index(a):text.index(b,text.index(a))] for a,b in markers)
-    source,exe=ROOT/'helper_check.c',ROOT/'helper_check'
-    source.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+extracted+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
-    command=['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
-             '-fsanitize=address,undefined',str(source),'-lm','-o',str(exe)]
-    subprocess.run(command,check=True)
-    good=subprocess.run([str(exe)],capture_output=True,text=True,timeout=40)
-    (ROOT/'helper_check.log').write_text(good.stdout+good.stderr)
-    assert good.returncode==0 and not good.stderr,good
-    faults=[]
-    for i in range(1,6):
-        bad=subprocess.run([str(exe),str(i)],capture_output=True,text=True,timeout=10,
-                           env=dict(os.environ,ASAN_OPTIONS='detect_leaks=0'))
-        assert bad.returncode==1 and 'Error: ' in bad.stderr and 'Sanitizer' not in bad.stderr,bad
-        faults.append(dict(allocation=i,returncode=bad.returncode,diagnostic=bad.stderr.strip()))
-    report=dict(status='PASS',actual_hash_promotions=49,forced_hash_collisions=True,zero_missing_direct_stage=True,
-                subsequent_operations=['insert','lookup','legacy grow','clean','copy','reinitialize','reset/reinsert'],
-                sanitizer='ASan+UBSan; normal-run leak detection enabled; deliberate fatal-allocation tests disable leak reporting',
-                allocation_failures=faults,compiler_command=command,stubs=['short divisibility mask returnszero','timing returnszero'],
-                owner_hash_c_sha256=hashlib.sha256(text.encode()).hexdigest(),extracted_source_sha256=hashlib.sha256(extracted.encode()).hexdigest(),output=good.stdout.strip())
-    (ROOT/'helper_check.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+    text = SOURCE.read_text()
+    markers = [
+        ("ht_t *copy_hash_table(", "ht_t *initialize_secondary_hash_table("),
+        ("ht_t *initialize_secondary_hash_table(", "void free_shared_hash_data("),
+        (
+            "static void enlarge_hash_table(",
+            "static inline sdm_t generate_short_divmask(",
+        ),
+        (
+            "static inline int32_t is_contained_in_hash_table(",
+            "/* This function assumes that is_contained_in_hash_table()",
+        ),
+        (
+            "static inline hi_t insert_in_hash_table(",
+            "static inline void reinitialize_hash_table(",
+        ),
+        (
+            "static inline void reinitialize_hash_table(",
+            "static inline int prime_monomials(",
+        ),
+        (
+            "static void reserve_basis_hash_table_for_promotion(",
+            "static inline void insert_in_basis_hash_table_pivots(",
+        ),
+        (
+            "static inline void reinsert_in_hash_table(",
+            "void reset_hash_table_indices(",
+        ),
+        (
+            "static void reset_hash_table(",
+            "/* computes lcm of a and b from ht1 and inserts it in ht2 */",
+        ),
+    ]
+    extracted = "\n".join(
+        text[text.index(a) : text.index(b, text.index(a))] for a, b in markers
+    )
+    source, exe = ROOT / "helper_check.c", ROOT / "helper_check"
+    source.write_text(
+        PRELUDE
+        + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'
+        + extracted
+        + "\n#pragma GCC diagnostic pop\n"
+        + POSTLUDE
+    )
+    command = [
+        "cc",
+        "-std=c23",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        str(source),
+        "-lm",
+        "-o",
+        str(exe),
+    ]
+    subprocess.run(command, check=True)
+    good = subprocess.run(
+        [str(exe)], capture_output=True, text=True, timeout=40, check=False
+    )
+    (ROOT / "helper_check.log").write_text(good.stdout + good.stderr)
+    assert good.returncode == 0 and not good.stderr, good
+    faults = []
+    for i in range(1, 6):
+        bad = subprocess.run(
+            [str(exe), str(i)],
+            capture_output=True,
+            text=True,
+            timeout=10,
+            env=dict(os.environ, ASAN_OPTIONS="detect_leaks=0"),
+            check=False,
+        )
+        assert (
+            bad.returncode == 1
+            and "Error: " in bad.stderr
+            and "Sanitizer" not in bad.stderr
+        ), bad
+        faults.append(
+            {
+                "allocation": i,
+                "returncode": bad.returncode,
+                "diagnostic": bad.stderr.strip(),
+            }
+        )
+    report = {
+        "status": "PASS",
+        "actual_hash_promotions": 49,
+        "forced_hash_collisions": True,
+        "zero_missing_direct_stage": True,
+        "subsequent_operations": [
+            "insert",
+            "lookup",
+            "legacy grow",
+            "clean",
+            "copy",
+            "reinitialize",
+            "reset/reinsert",
+        ],
+        "sanitizer": "ASan+UBSan; normal-run leak detection enabled; deliberate fatal-allocation tests disable leak reporting",
+        "allocation_failures": faults,
+        "compiler_command": command,
+        "stubs": ["short divisibility mask returnszero", "timing returnszero"],
+        "owner_hash_c_sha256": hashlib.sha256(text.encode()).hexdigest(),
+        "extracted_source_sha256": hashlib.sha256(extracted.encode()).hexdigest(),
+        "output": good.stdout.strip(),
+    }
+    (ROOT / "helper_check.json").write_text(json.dumps(report, indent=2) + "\n")
+    print(json.dumps(report, indent=2))
 
 
-if __name__=='__main__':main()
+if __name__ == "__main__":
+    main()

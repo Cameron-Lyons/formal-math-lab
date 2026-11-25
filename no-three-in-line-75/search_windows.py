@@ -5,11 +5,11 @@ success the output is a candidate and its Lean verification. Otherwise the
 output invokes the Lean proof search for the same width. Progress goes to stderr.
 """
 
+import re
+import sys
 from functools import lru_cache
 from math import gcd
 from pathlib import Path
-import re
-import sys
 
 SIDE = 75
 BOARD = (1 << (SIDE * SIDE)) - 1
@@ -18,7 +18,9 @@ BOARD = (1 << (SIDE * SIDE)) - 1
 def read_seed():
     source = Path(__file__).with_name("Grid75.lean").read_text()
     literal = source.split("def witness148 : List Point := [", 1)[1].split("]", 1)[0]
-    points = [int(x) + SIDE * int(y) for x, y in re.findall(r"\((\d+), (\d+)\)", literal)]
+    points = [
+        int(x) + SIDE * int(y) for x, y in re.findall(r"\((\d+), (\d+)\)", literal)
+    ]
     assert len(set(points)) == len(points) == 148
     return points
 
@@ -69,6 +71,7 @@ LINES += [mask(range(x, SIDE * SIDE, SIDE)) for x in range(SIDE)]
 
 def choose_line(fixed_mask, available):
     best_score = None
+    best = None
     for axis, line in enumerate(LINES):
         taken = (fixed_mask & line).bit_count()
         if taken >= 2:
@@ -81,6 +84,7 @@ def choose_line(fixed_mask, available):
         if best_score is None or score < best_score:
             best_score = score
             best = (axis, fixed_mask & line, free)
+    assert best is not None
     return best
 
 
@@ -98,7 +102,7 @@ def search(fixed, fixed_mask, available):
         candidates.pop()  # A complete line uses two cells, so one may be exempted.
     nodes = 1
     for p in candidates:
-        nodes += search(fixed + [p], fixed_mask | (1 << p), select(p, fixed, available))
+        nodes += search([*fixed, p], fixed_mask | (1 << p), select(p, fixed, available))
     return nodes
 
 
@@ -126,6 +130,7 @@ set_option Elab.async false
 refute_strips certificates {width} {SIDE - width}
 
 end Grid75.StripSearch""")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

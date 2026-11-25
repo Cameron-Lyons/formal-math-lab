@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
 """Exercise actual legacy hash callers after non-power-of-two reservation."""
+
 import hashlib
 import importlib.util
 import json
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SOURCE = ROOT / 'msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c'
-spec = importlib.util.spec_from_file_location('prior_harness', ROOT.parent/'exact_msolve_missing_promotion_tools/helper_check.py')
+SOURCE = ROOT / "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
+spec = importlib.util.spec_from_file_location(
+    "prior_harness",
+    ROOT.parent / "exact_msolve_missing_promotion_tools/helper_check.py",
+)
+assert spec is not None and spec.loader is not None
 prior = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(prior)
-PRELUDE = prior.PRELUDE.replace('hd_t *hd; hi_t *hmap; val_t *rn;} ht_t;',
-    'hd_t *hd; hi_t *hmap; val_t *rn; len_t nv,ndv,bpv,*dv; int32_t mo; sdm_t *dm;} ht_t;')
-PRELUDE += r'''
+PRELUDE = prior.PRELUDE.replace(
+    "hd_t *hd; hi_t *hmap; val_t *rn;} ht_t;",
+    "hd_t *hd; hi_t *hmap; val_t *rn; len_t nv,ndv,bpv,*dv; int32_t mo; sdm_t *dm;} ht_t;",
+)
+PRELUDE += r"""
 typedef len_t bl_t;
 typedef struct {bl_t ld; uint8_t *red; hm_t **hm;} bs_t;
 typedef struct {hi_t lcm;} spair_t;
@@ -21,9 +28,9 @@ typedef struct {len_t ld; spair_t *p;} ps_t;
 typedef struct {double rht_ctime,rht_rtime; int32_t init_hts;} md_t;
 static double cputime(void){return 0;}
 static double realtime(void){return 0;}
-'''
+"""
 
-POSTLUDE = r'''
+POSTLUDE = r"""
 static void init(ht_t *h,hl_t n,int collisions) {
     memset(h,0,sizeof(*h));h->evl=4;h->nv=3;h->esz=n;h->eld=1;h->hsz=2*n;
     h->ev=malloc(n*sizeof(exp_t*));h->ev[0]=calloc(n*4,sizeof(exp_t));
@@ -89,44 +96,106 @@ int main(void) {
     }
     puts("PASS collision_modes=2 nonpower_reserve legacy_growth copy clean reinitialize secondary reset exact_boundary_spare");
 }
-'''
+"""
 
 
 def main():
     text = SOURCE.read_text()
     markers = [
-        ('ht_t *copy_hash_table(', 'ht_t *initialize_secondary_hash_table('),
-        ('ht_t *initialize_secondary_hash_table(', 'void free_shared_hash_data('),
-        ('static void enlarge_hash_table(', 'static inline sdm_t generate_short_divmask('),
-        ('static inline int32_t is_contained_in_hash_table(', '/* This function assumes that is_contained_in_hash_table()'),
-        ('static inline hi_t insert_in_hash_table(', 'static inline void reinitialize_hash_table('),
-        ('static inline void reinitialize_hash_table(', 'static inline int prime_monomials('),
-        ('static void reserve_basis_hash_table_for_promotion(', '/* Used only by exact, non-tracing ordinary F4 export computations. */'),
-        ('static inline void reinsert_in_hash_table(', 'void reset_hash_table_indices('),
-        ('static void reset_hash_table(', '/* computes lcm of a and b from ht1 and inserts it in ht2 */'),
+        ("ht_t *copy_hash_table(", "ht_t *initialize_secondary_hash_table("),
+        ("ht_t *initialize_secondary_hash_table(", "void free_shared_hash_data("),
+        (
+            "static void enlarge_hash_table(",
+            "static inline sdm_t generate_short_divmask(",
+        ),
+        (
+            "static inline int32_t is_contained_in_hash_table(",
+            "/* This function assumes that is_contained_in_hash_table()",
+        ),
+        (
+            "static inline hi_t insert_in_hash_table(",
+            "static inline void reinitialize_hash_table(",
+        ),
+        (
+            "static inline void reinitialize_hash_table(",
+            "static inline int prime_monomials(",
+        ),
+        (
+            "static void reserve_basis_hash_table_for_promotion(",
+            "/* Used only by exact, non-tracing ordinary F4 export computations. */",
+        ),
+        (
+            "static inline void reinsert_in_hash_table(",
+            "void reset_hash_table_indices(",
+        ),
+        (
+            "static void reset_hash_table(",
+            "/* computes lcm of a and b from ht1 and inserts it in ht2 */",
+        ),
     ]
-    extracted = '\n'.join(text[text.index(start):text.index(end, text.index(start))] for start, end in markers)
-    source, executable = ROOT/'compatibility_check.c', ROOT/'compatibility_check'
-    source.write_text(PRELUDE + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n' + extracted + '\n#pragma GCC diagnostic pop\n' + POSTLUDE)
-    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
-               '-fsanitize=address,undefined', str(source), '-lm', '-o', str(executable)]
+    extracted = "\n".join(
+        text[text.index(start) : text.index(end, text.index(start))]
+        for start, end in markers
+    )
+    source, executable = ROOT / "compatibility_check.c", ROOT / "compatibility_check"
+    source.write_text(
+        PRELUDE
+        + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'
+        + extracted
+        + "\n#pragma GCC diagnostic pop\n"
+        + POSTLUDE
+    )
+    command = [
+        "cc",
+        "-std=c23",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        str(source),
+        "-lm",
+        "-o",
+        str(executable),
+    ]
     subprocess.run(command, check=True)
-    run = subprocess.run([str(executable)], text=True, capture_output=True, timeout=30)
-    (ROOT/'compatibility_check.log').write_text(run.stdout + run.stderr)
+    run = subprocess.run(
+        [str(executable)], text=True, capture_output=True, timeout=30, check=False
+    )
+    (ROOT / "compatibility_check.log").write_text(run.stdout + run.stderr)
     assert run.returncode == 0 and not run.stderr, run
-    report = dict(status='PASS', compiler_command=command,
-                  actual_upstream_operations=['lookup', 'insertion', 'legacy enlargement', 'copy',
-                                             'clean', 'reinitialize', 'secondary initialization', 'reset/reinsert'],
-                  candidate_operation='promotion-only rounded reserve',
-                  allocation_failures_tested=False,
-                  stubs=['short divisibility mask returns zero', 'CPU and wall timing return zero'],
-                  non_power_of_two_capacity=196608, subsequent_legacy_capacity=393216,
-                  tested_exact_boundary_spare=True, tested_forced_hash_collisions=True,
-                  extracted_source_sha256=hashlib.sha256(extracted.encode()).hexdigest(),
-                  owner_hash_c_sha256=hashlib.sha256(text.encode()).hexdigest(), output=run.stdout.strip())
-    (ROOT/'compatibility_check.json').write_text(json.dumps(report, indent=2)+'\n')
+    report = {
+        "status": "PASS",
+        "compiler_command": command,
+        "actual_upstream_operations": [
+            "lookup",
+            "insertion",
+            "legacy enlargement",
+            "copy",
+            "clean",
+            "reinitialize",
+            "secondary initialization",
+            "reset/reinsert",
+        ],
+        "candidate_operation": "promotion-only rounded reserve",
+        "allocation_failures_tested": False,
+        "stubs": [
+            "short divisibility mask returns zero",
+            "CPU and wall timing return zero",
+        ],
+        "non_power_of_two_capacity": 196608,
+        "subsequent_legacy_capacity": 393216,
+        "tested_exact_boundary_spare": True,
+        "tested_forced_hash_collisions": True,
+        "extracted_source_sha256": hashlib.sha256(extracted.encode()).hexdigest(),
+        "owner_hash_c_sha256": hashlib.sha256(text.encode()).hexdigest(),
+        "output": run.stdout.strip(),
+    }
+    (ROOT / "compatibility_check.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,8 +1,9 @@
 """Generate the palindromic upper-prefix supplement to the six-layer splice certificate."""
+
 import argparse
 import json
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 from prepare_splice import split_rows
 from prepare_splice_extension import generate_packed_data
@@ -22,18 +23,24 @@ def validate_pal(data):
             if any(row != row[::-1] for row in rows):
                 raise ValueError(f"group {i} contains an asymmetric cap or pivot")
             if list(dict.fromkeys(cap + group["pivot"])) != list("012"):
-                raise ValueError(f"group {i} does not use the canonical order of first appearances")
+                raise ValueError(
+                    f"group {i} does not use the canonical order of first appearances"
+                )
         tails = set(group["tails"])
         for tail in tails:
             reflected = "".join(row[::-1] for row in split_rows(tail, 6, 10))
             if reflected == tail or reflected not in tails:
-                raise ValueError(f"group {i} has no distinct reflected partner for tail {tail}")
+                raise ValueError(
+                    f"group {i} has no distinct reflected partner for tail {tail}"
+                )
 
 
 def generate_pal(directory):
     data = json.loads((directory / WITNESS).read_text())
     validate_pal(data)
-    generate_packed_data(data, data, directory, further=True, namespace=MODULE, witness=WITNESS)
+    generate_packed_data(
+        data, data, directory, further=True, namespace=MODULE, witness=WITNESS
+    )
     labeled = generate_next(directory, sixth=True)
     labeled += sum(6 * len(g["caps"]) * len(g["tails"]) for g in data["groups"])
     proof = f"""import SplicePal
@@ -72,9 +79,14 @@ end TBoards
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--build", action="store_true", help="build the combined Lean theorem")
+    parser.add_argument(
+        "--build", action="store_true", help="build the combined Lean theorem"
+    )
     args = parser.parse_args()
     count = generate_pal(ROOT)
-    print(f"Generated the combined Lean certificate for {count:,} labeled boards.", flush=True)
+    print(
+        f"Generated the combined Lean certificate for {count:,} labeled boards.",
+        flush=True,
+    )
     if args.build:
         subprocess.run(["lake", "build", "SplicePalCertificates"], cwd=ROOT, check=True)

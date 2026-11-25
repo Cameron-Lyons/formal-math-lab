@@ -62,14 +62,20 @@ def ceil_div(a, b):
     return -((-a) // b)
 
 
-def candidates(k, ratio, max_center, tight_bound=False, ratio_bound=False,
-               progressions=((0, 1), (0, 1))):
+def candidates(
+    k,
+    ratio,
+    max_center,
+    tight_bound=False,
+    ratio_bound=False,
+    progressions=((0, 1), (0, 1)),
+):
     # A denominator above max_center^2 also keeps the root error well below 1/X.
     Q = 1 << (2 * max_center.bit_length())
     u, v = ratio.numerator, ratio.denominator
-    target = u * Q ** k
+    target = u * Q**k
     A = floor_root(target // v, k)
-    if not v * A ** k <= target < v * (A + 1) ** k:
+    if not v * A**k <= target < v * (A + 1) ** k:
         raise ArithmeticError("incorrect root bounds")
     sum_squares = sum(a * a for a in range(k - 1, 0, -2))
     base_error = ceil_div((A + 1) * sum_squares, Q)
@@ -91,8 +97,12 @@ def candidates(k, ratio, max_center, tight_bound=False, ratio_bound=False,
             # For z=Y/(alpha*X), 1-z^k >= (1-z)*k*z^(k-1).
             # Since z^(k-1) >= z^k >= 1-S/X^2, this sharpens the coefficient
             # in alpha*X-Y <= error/X throughout this slab.
-            error = min(error, ceil_div((A + 1) * sum_squares * lo * lo,
-                                        Q * k * (lo * lo - sum_squares)))
+            error = min(
+                error,
+                ceil_div(
+                    (A + 1) * sum_squares * lo * lo, Q * k * (lo * lo - sum_squares)
+                ),
+            )
             if ratio_bound:
                 # If F(X)=prod(1-a^2/X^2), telescoping gives
                 # F(Y)-F(X) <= S*(1/X^2-1/Y^2).
@@ -100,8 +110,13 @@ def candidates(k, ratio, max_center, tight_bound=False, ratio_bound=False,
                 # Therefore X*(alpha*X-Y) <= (alpha-1/alpha)*S/(k*F(X)).
                 # A/Q <= alpha < (A+1)/Q and F(X) >= 1-S/lo^2.
                 upper = A + 1
-                error = min(error, ceil_div((upper*upper - Q*Q) * sum_squares * lo*lo,
-                                            upper * Q * k * (lo*lo - sum_squares)))
+                error = min(
+                    error,
+                    ceil_div(
+                        (upper * upper - Q * Q) * sum_squares * lo * lo,
+                        upper * Q * k * (lo * lo - sum_squares),
+                    ),
+                )
         while next_fraction is not None and next_fraction[1] * n_step <= lo:
             p, q = next_fraction
             next_fraction = next(fractions, None)
@@ -154,8 +169,8 @@ def coefficient_tables(k):
         period = powers[-1]
         entries = []
         for n in range(period):
-            e = sum((k-1)//q - max(0, (n+k)//q - n//q - 1) for q in powers)
-            entries.append(p ** e)
+            e = sum((k - 1) // q - max(0, (n + k) // q - n // q - 1) for q in powers)
+            entries.append(p**e)
         if max(entries) != min(entries):
             tables.append((period, entries))
     return tables
@@ -169,7 +184,7 @@ def coefficient_ratios(tables):
     for _, entries in tables:
         values = set(entries)
         local = {Fraction(a, b) for a in values for b in values}
-        parts = [(u*r.numerator, v*r.denominator) for u, v in parts for r in local]
+        parts = [(u * r.numerator, v * r.denominator) for u, v in parts for r in local]
     return sorted(Fraction(u, v) for u, v in parts if u > v)
 
 
@@ -188,8 +203,10 @@ def residue_conditions(tables):
             a, b = points[0]
             n_mod = gcd(period, *(n - a for n, _ in points))
             m_mod = gcd(period, *(m - b for _, m in points))
-            local[(ratio.numerator, ratio.denominator)] = ((a % n_mod, n_mod),
-                                                            (b % m_mod, m_mod))
+            local[(ratio.numerator, ratio.denominator)] = (
+                (a % n_mod, n_mod),
+                (b % m_mod, m_mod),
+            )
         conditions.append((max(entries), local))
     return conditions
 
@@ -229,15 +246,25 @@ def search(k, max_start, bound_label=None, tight_bound=False, coefficient_sieve=
     tested = product_matches = witnesses = 0
     for ratio in rational_ratios:
         starts = start_progressions(ratio, conditions)
-        for x, y in candidates(k, ratio, max_center, tight_bound,
-                               ratio_bound=coefficient_sieve, progressions=starts):
+        for x, y in candidates(
+            k,
+            ratio,
+            max_center,
+            tight_bound,
+            ratio_bound=coefficient_sieve,
+            progressions=starts,
+        ):
             n, m = (x - k - 1) // 2, (y - k - 1) // 2
             tested += 1
-            if (ratio.denominator * product_mod[m % modulus] -
-                ratio.numerator * product_mod[n % modulus]) % modulus:
+            if (
+                ratio.denominator * product_mod[m % modulus]
+                - ratio.numerator * product_mod[n % modulus]
+            ) % modulus:
                 continue
-            if coefficient_sieve and (ratio.denominator * multiplier_part(n, tables) !=
-                                      ratio.numerator * multiplier_part(m, tables)):
+            if coefficient_sieve and (
+                ratio.denominator * multiplier_part(n, tables)
+                != ratio.numerator * multiplier_part(m, tables)
+            ):
                 continue
             left, right = range(n + 1, n + k + 1), range(m + 1, m + k + 1)
             if ratio.denominator * prod(right) != ratio.numerator * prod(left):
@@ -247,28 +274,44 @@ def search(k, max_start, bound_label=None, tight_bound=False, coefficient_sieve=
                 witnesses += 1
                 print(f"witness k={k} n={n} m={m}", flush=True)
     label = max_start if bound_label is None else bound_label
-    print(f"k={k} n<={label} ratios={len(rational_ratios)} "
-          f"candidates={tested} product_matches={product_matches} witnesses={witnesses}",
-          flush=True)
+    print(
+        f"k={k} n<={label} ratios={len(rational_ratios)} "
+        f"candidates={tested} product_matches={product_matches} witnesses={witnesses}",
+        flush=True,
+    )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     bounds = parser.add_mutually_exclusive_group()
-    bounds.add_argument("--max-start", type=int, help="largest earlier start parameter n")
-    bounds.add_argument("--exponent", type=int, default=100,
-                        help="search through earlier start parameter n=10^E (default E=100)")
-    parser.add_argument("--tight-bound", action="store_true",
-                        help="use the tighter error bound for faster searches at longer lengths")
-    parser.add_argument("--coefficient-sieve", action="store_true",
-                        help="use exact periodic multipliers and a ratio-dependent slope bound")
+    bounds.add_argument(
+        "--max-start", type=int, help="largest earlier start parameter n"
+    )
+    bounds.add_argument(
+        "--exponent",
+        type=int,
+        default=100,
+        help="search through earlier start parameter n=10^E (default E=100)",
+    )
+    parser.add_argument(
+        "--tight-bound",
+        action="store_true",
+        help="use the tighter error bound for faster searches at longer lengths",
+    )
+    parser.add_argument(
+        "--coefficient-sieve",
+        action="store_true",
+        help="use exact periodic multipliers and a ratio-dependent slope bound",
+    )
     parser.add_argument("lengths", type=int, nargs="*", default=[5, 6])
     args = parser.parse_args()
-    if args.exponent < 0 or (args.max_start is not None and args.max_start < 0) or any(
-        k < 1 for k in args.lengths
+    if (
+        args.exponent < 0
+        or (args.max_start is not None and args.max_start < 0)
+        or any(k < 1 for k in args.lengths)
     ):
         parser.error("expected a nonnegative maximum start and positive lengths")
-    maximum = 10 ** args.exponent if args.max_start is None else args.max_start
+    maximum = 10**args.exponent if args.max_start is None else args.max_start
     label = f"10^{args.exponent}" if args.max_start is None else str(maximum)
     for k in args.lengths:
         search(k, maximum, label, args.tight_bound, args.coefficient_sieve)

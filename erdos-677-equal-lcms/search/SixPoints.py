@@ -21,7 +21,6 @@ import argparse
 
 from height import ceil_div, convergents, floor_root
 
-
 RATIOS = [(2, 1), (5, 2), (5, 1), (10, 1)]
 
 
@@ -36,7 +35,7 @@ def affine_points(u, v, bound):
     Q = 1 << (2 * max_center.bit_length())
     target = u * Q**3
     A = floor_root(target // v, 3)
-    if not v * A**3 <= target < v * (A + 1)**3:
+    if not v * A**3 <= target < v * (A + 1) ** 3:
         raise ArithmeticError("inexact root enclosure")
 
     modulus = 4093
@@ -80,9 +79,10 @@ def affine_points(u, v, bound):
                         b = (4 + sign * y) // 3
                         if abs(a) <= bound:
                             candidates += 1
-                            if (v*values[b % modulus] - u*values[a % modulus]) % modulus == 0:
-                                if v*cubic(b) == u*cubic(a):
-                                    points.add((a, b))
+                            if (
+                                v * values[b % modulus] - u * values[a % modulus]
+                            ) % modulus == 0 and v * cubic(b) == u * cubic(a):
+                                points.add((a, b))
                 x += q
         lo = hi + 1
     return sorted(points), candidates
@@ -96,5 +96,7 @@ if __name__ == "__main__":
         parser.error("expected a nonnegative exponent")
     for u, v in RATIOS:
         found, tested = affine_points(u, v, 10**args.exponent)
-        print(f"r={u}/{v} |a|<=10^{args.exponent} candidates={tested} "
-              f"points={found}", flush=True)
+        print(
+            f"r={u}/{v} |a|<=10^{args.exponent} candidates={tested} points={found}",
+            flush=True,
+        )

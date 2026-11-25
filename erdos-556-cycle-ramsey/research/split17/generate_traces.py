@@ -5,13 +5,13 @@ Lean. This optional generator uses python-sat to discover cycles that cover
 all spoke assignments. Its output is a Lean source file whose checker only
 uses the path from a decision-tree root to a leaf and the cycle at that leaf.
 """
+
 import argparse
+import re
 from itertools import combinations, permutations
 from pathlib import Path
-import re
 
 from pysat.solvers import Solver
-
 
 CORE = 13
 OUTSIDE = 4
@@ -70,7 +70,7 @@ def find_cycle(rows):
 
 def spoke_mask(cycle):
     result = 0
-    for x, y in zip(cycle, cycle[1:] + cycle[:1]):
+    for x, y in zip(cycle, cycle[1:] + cycle[:1], strict=False):
         i, j = sorted((x, y))
         if j >= CORE:
             result |= 1 << (CORE * (j - CORE) + i)
@@ -86,6 +86,7 @@ def collect_cycles(core):
     clauses = []
     seen = set()
     with Solver(name="cadical195") as solver:
+
         def add(color, cycle):
             mask = spoke_mask(cycle)
             if (color, mask) in seen:
@@ -93,7 +94,9 @@ def collect_cycles(core):
             seen.add((color, mask))
             clauses.append((color, mask, pack_cycle(cycle)))
             sign = 1 if color == 0 else -1
-            solver.add_clause([sign * (i + 1) for i in range(VARIABLES) if mask & (1 << i)])
+            solver.add_clause(
+                [sign * (i + 1) for i in range(VARIABLES) if mask & (1 << i)]
+            )
             return True
 
         for color in (0, 1):
@@ -101,7 +104,7 @@ def collect_cycles(core):
                 path = find_path(base[color], a, 7, b)
                 if path is not None:
                     for outside in range(CORE, ORDER):
-                        add(color, (outside,) + path)
+                        add(color, (outside, *path))
 
         # Each proposed assignment either contains a cycle or is a counterexample.
         while solver.solve():
@@ -118,7 +121,9 @@ def collect_cycles(core):
                 if cycle is None:
                     continue
                 for permutation in permutations(range(CORE, ORDER)):
-                    image = tuple(v if v < CORE else permutation[v - CORE] for v in cycle)
+                    image = tuple(
+                        v if v < CORE else permutation[v - CORE] for v in cycle
+                    )
                     found |= add(color, image)
             if not found:
                 raise RuntimeError(f"Uncovered spoke assignment: {model}")
@@ -144,7 +149,9 @@ def decision_tree(clauses, zero=0, one=0):
                 bit = undecided & -undecided
                 scores[bit.bit_length() - 1] += weight
                 undecided ^= bit
-    bit = unit if unit is not None else 1 << max(range(VARIABLES), key=scores.__getitem__)
+    bit = (
+        unit if unit is not None else 1 << max(range(VARIABLES), key=scores.__getitem__)
+    )
     if bit & (zero | one):
         raise RuntimeError("Decision tree encountered a satisfying assignment")
     left = decision_tree(clauses, zero | bit, one)
@@ -154,7 +161,9 @@ def decision_tree(clauses, zero=0, one=0):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("output", type=Path, help="destination for the reconstructed Proofs.lean")
+    parser.add_argument(
+        "output", type=Path, help="destination for the reconstructed Proofs.lean"
+    )
     args = parser.parse_args()
     project = Path(__file__).resolve().parents[2]
     source = project / "Ramsey556" / "Split17"
@@ -165,12 +174,14 @@ def main():
         raise ValueError("Expected 18 thirteen-vertex representatives")
     original = (source / "Proofs.lean").read_text()
     prefix = original.split("private noncomputable def trace0", 1)[0]
-    suffix = original[original.index("/-- Every coloring of the spokes"):]
+    suffix = original[original.index("/-- Every coloring of the spokes") :]
     output = [prefix]
     for i, core in enumerate(cores):
         trace = decision_tree(collect_cycles(core))
         output.append(f"private noncomputable def trace{i} : Trace :=\n {trace}\n\n")
-        output.append(f"private theorem valid{i} : check (core13 {i}) (fun _ => 0) trace{i} = true := by decide +kernel\n\n")
+        output.append(
+            f"private theorem valid{i} : check (core13 {i}) (fun _ => 0) trace{i} = true := by decide +kernel\n\n"
+        )
     args.output.write_text("".join(output) + suffix)
 
 

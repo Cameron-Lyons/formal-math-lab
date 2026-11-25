@@ -5,15 +5,17 @@ The fixed-width flattened ternary words give an exact, injective integer key.
 No search result is trusted: every symmetry image is checked geometrically.
 The search's prefix-completeness claim is recorded, not independently proved.
 """
-from collections import Counter
-from itertools import permutations, product
-from pathlib import Path
+
 import hashlib
 import json
 import re
+from collections import Counter
+from itertools import pairwise, permutations, product
+from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parent
-PATTERNS = Counter({p: 1 for p in product(range(3), repeat=4)})
+PATTERNS = Counter(dict.fromkeys(product(range(3), repeat=4), 1))
 
 
 def read_json(relative):
@@ -26,9 +28,12 @@ def read_jsonl(relative):
 
 def orbit(rows):
     return {
-        tuple("".join(str(p[int(c)]) for c in (row[::-1] if reflected else row))
-              for row in rows)
-        for p in permutations(range(3)) for reflected in (False, True)
+        tuple(
+            "".join(str(p[int(c)]) for c in (row[::-1] if reflected else row))
+            for row in rows
+        )
+        for p in permutations(range(3))
+        for reflected in (False, True)
     }
 
 
@@ -37,8 +42,11 @@ def verify_coordinates(rows):
         raise ValueError("incorrect row lengths")
     if any(c not in "012" for row in rows for c in row):
         raise ValueError("invalid color")
-    grid = {(j - r, -r): int(color)
-            for r, row in enumerate(rows) for j, color in enumerate(row)}
+    grid = {
+        (j - r, -r): int(color)
+        for r, row in enumerate(rows)
+        for j, color in enumerate(row)
+    }
     histogram = Counter()
     for x, y in grid:
         # The first point is directly above the middle of the horizontal triple.
@@ -56,11 +64,14 @@ def main():
     prefix1 = read_jsonl("more_results.jsonl")
     records = [(rows, "published ternary_seeds", i) for i, rows in enumerate(published)]
     records += [(original, "prefix_result.json", 0)]
-    records += [(record["rows"], "extended_prefix0.jsonl", i)
-                for i, record in enumerate(prefix0)]
-    records += [(record["rows"], "more_results.jsonl", i)
-                for i, record in enumerate(prefix1)]
-    representatives = []
+    records += [
+        (record["rows"], "extended_prefix0.jsonl", i)
+        for i, record in enumerate(prefix0)
+    ]
+    records += [
+        (record["rows"], "more_results.jsonl", i) for i, record in enumerate(prefix1)
+    ]
+    representatives: list[dict[str, Any]] = []
     by_canonical = {}
     full = set()
     for rows, source, entry in records:
@@ -76,9 +87,14 @@ def main():
             raise ValueError("unequal canonical keys for overlapping orbits")
         index = len(representatives)
         by_canonical[canonical] = index
-        representatives.append({"index": index, "rows": rows,
-                                "canonical_flat": canonical,
-                                "provenance": [provenance]})
+        representatives.append(
+            {
+                "index": index,
+                "rows": rows,
+                "canonical_flat": canonical,
+                "provenance": [provenance],
+            }
+        )
         full |= variants
 
     family = sorted(full, key=lambda board: "".join(board))
@@ -86,15 +102,17 @@ def main():
     for board in family:
         verify_coordinates(board)
         numeric_keys.append(int("".join(board), 3))
-    if not all(a < b for a, b in zip(numeric_keys, numeric_keys[1:])):
+    if not all(a < b for a, b in pairwise(numeric_keys)):
         raise ValueError("base3 board keys are not strictly increasing")
     if len(family) != 12 * len(representatives):
         raise ValueError("incorrect orbit union cardinality")
 
     prefix0_summary = read_json("extended_prefix0_summary.json")
     prefix1_log = (ROOT / "more_search.log").read_text().splitlines()[-1]
-    match = re.fullmatch(r"nodes=(\d+) leaves=(\d+) new_orbits=(\d+) exhaustive=(\d+) elapsed=([\d.]+)",
-                         prefix1_log)
+    match = re.fullmatch(
+        r"nodes=(\d+) leaves=(\d+) new_orbits=(\d+) exhaustive=(\d+) elapsed=([\d.]+)",
+        prefix1_log,
+    )
     if match is None:
         raise ValueError("missing or malformed final prefix1 search statistics")
     nodes, leaves, fresh, exhaustive, elapsed = match.groups()
@@ -145,13 +163,22 @@ def main():
                 "exact_prefix_count": None,
             },
         },
-        "sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest()
-                   for path in (output_seeds, output_family)},
+        "sha256": {
+            path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in (output_seeds, output_family)
+        },
     }
     (ROOT / "extended_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-    print(json.dumps({"symmetry_orbits": len(representatives),
-                      "individually_verified_boards": len(family),
-                      "duplicate_inputs_removed": len(records) - len(representatives)}, indent=2))
+    print(
+        json.dumps(
+            {
+                "symmetry_orbits": len(representatives),
+                "individually_verified_boards": len(family),
+                "duplicate_inputs_removed": len(records) - len(representatives),
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

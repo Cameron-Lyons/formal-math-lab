@@ -18,17 +18,20 @@ usage: python3 -B scripts/gen_cases.py N K /path/to/frame/out DIR [LABEL [WHOSE]
 The list consists of the cases refuted by the run (scripts/runlog.py: plain records UNSAT + VERIFIED, or a
 cover by verified cube records).  Each case (ml, mr, mb, mt, dR, dC, dT, dS) is one decimal numeral
 ml mr mb mt (two digits each) dR dC dT dS (one digit each); each def is sorted."""
-import sys, os
+
+import os
+import sys
+
 sys.dont_write_bytecode = True
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from runlog import analyse, code
+from runlog import analyse, code  # noqa: E402
 
 n, k, outdir, leandir = int(sys.argv[1]), int(sys.argv[2]), sys.argv[3], sys.argv[4]
-label = sys.argv[5].rstrip('/') if len(sys.argv) > 5 else 'frame/out'
+label = sys.argv[5].rstrip("/") if len(sys.argv) > 5 else "frame/out"
 whose = sys.argv[6] if len(sys.argv) > 6 else "the referee's"
 refuted, info, keys = analyse(outdir, n, k)
-assert info['sat_records'] == 0 and info['n_keys_not_refuted'] == 0, info
-pairs = [(p, q) for p in range(k + 1) for q in range(k + 1 - p)]          # = marginPairs k
+assert info["sat_records"] == 0 and info["n_keys_not_refuted"] == 0, info
+pairs = [(p, q) for p in range(k + 1) for q in range(k + 1 - p)]  # = marginPairs k
 by_pq = {}
 for c in refuted:
     assert c[:2] in set(pairs), c
@@ -36,69 +39,125 @@ for c in refuted:
 for v in by_pq.values():
     assert v == sorted(v)
 
-hdr = ['/-', 'GENERATED FILE -- do not edit.  Produced by scripts/gen_cases.py from the run logs']
-for fn, d in info['files'].items():
-    if d['sha256']:
-        hdr.append('  %s/%-20s (%6d records, sha256%s %s)' % (
-            label, fn, d['records'], ' of the uncompressed text' if fn.endswith('.xz') else '', d['sha256']))
-hdr.append("of %s frame-method run for n = %d, k = %d: %d cases, %d frames;" % (
-    whose, n, k, len(refuted), len({c[:4] for c in refuted})))
-hdr.append('%d refuted by a plain record (UNSAT, drat-trim VERIFIED), %d by verified cube records of run_hard.py.' % (
-    info['plain_refuted'], info['cube_refuted']))
+hdr = [
+    "/-",
+    "GENERATED FILE -- do not edit.  Produced by scripts/gen_cases.py from the run logs",
+]
+for fn, d in info["files"].items():
+    if d["sha256"]:
+        uncomp = " of the uncompressed text" if fn.endswith(".xz") else ""
+        hdr.append(
+            f"  {label}/{fn:<20} ({d['records']:6d} records, sha256{uncomp} {d['sha256']})"
+        )
+nframes = len({c[:4] for c in refuted})
+hdr.append(
+    f"of {whose} frame-method run for n = {n:d}, k = {k:d}: {len(refuted):d} cases, {nframes:d} frames;"
+)
+hdr.append(
+    f"{info['plain_refuted']:d} refuted by a plain record (UNSAT, drat-trim VERIFIED), "
+    f"{info['cube_refuted']:d} by verified cube records of run_hard.py."
+)
 
-data = hdr + ['Each numeral encodes one case (ml, mr, mb, mt, dR, dC, dT, dS) in decimal as',
-              '  ml mr mb mt (two digits each) dR dC dT dS (one digit each);',
-              '`caseCodes%dT[ml][mr]` lists the cases with horizontal margins (ml, mr), sorted.' % n,
-              '`QueenDom.Case.ofCode` decodes a numeral.', '-/', '',
-              'module', '', '@[expose] public section', '', 'namespace QueenDom', '']
-for (p, q) in pairs:
+data = [
+    *hdr,
+    "Each numeral encodes one case (ml, mr, mb, mt, dR, dC, dT, dS) in decimal as",
+    "  ml mr mb mt (two digits each) dR dC dT dS (one digit each);",
+    f"`caseCodes{n:d}T[ml][mr]` lists the cases with horizontal margins (ml, mr), sorted.",
+    "`QueenDom.Case.ofCode` decodes a numeral.",
+    "-/",
+    "",
+    "module",
+    "",
+    "@[expose] public section",
+    "",
+    "namespace QueenDom",
+    "",
+]
+for p, q in pairs:
     if (p, q) not in by_pq:
         continue
     ch = by_pq[(p, q)]
-    data.append('set_option maxRecDepth 100000 in')
-    data.append('/-- The %d cases with (ml, mr) = (%d, %d) of the n = %d, k = %d run. -/' % (len(ch), p, q, n, k))
-    data.append('def caseCodes%d_%d_%d : List Nat := [' % (n, p, q))
-    for i in range(0, len(ch), 8):
-        data.append('  ' + ', '.join(str(c) for c in ch[i:i + 8]) + (',' if i + 8 < len(ch) else ''))
-    data.append(']')
-    data.append('')
-data.append('/-- The table of the case codes of the n = %d, k = %d run: row `ml`, column `mr`. -/' % (n, k))
-data.append('def caseCodes%dT : List (List (List Nat)) := [' % n)
+    data.append("set_option maxRecDepth 100000 in")
+    data.append(
+        f"/-- The {len(ch):d} cases with (ml, mr) = ({p:d}, {q:d}) of the n = {n:d}, k = {k:d} run. -/"
+    )
+    data.append(f"def caseCodes{n:d}_{p:d}_{q:d} : List Nat := [")
+    data.extend(
+        "  "
+        + ", ".join(str(c) for c in ch[i : i + 8])
+        + ("," if i + 8 < len(ch) else "")
+        for i in range(0, len(ch), 8)
+    )
+    data.append("]")
+    data.append("")
+data.append(
+    f"/-- The table of the case codes of the n = {n:d}, k = {k:d} run: row `ml`, column `mr`. -/"
+)
+data.append(f"def caseCodes{n:d}T : List (List (List Nat)) := [")
 for p in range(k + 1):
-    row = ['caseCodes%d_%d_%d' % (n, p, q) if (p, q) in by_pq else '[]' for q in range(k + 1 - p)]
-    data.append('  [' + ', '.join(row) + ']' + (',' if p < k else ''))
-data.append(']')
-data += ['', 'end QueenDom', '']
+    row = [
+        f"caseCodes{n:d}_{p:d}_{q:d}" if (p, q) in by_pq else "[]"
+        for q in range(k + 1 - p)
+    ]
+    data.append("  [" + ", ".join(row) + "]" + ("," if p < k else ""))
+data.append("]")
+data += ["", "end QueenDom", ""]
 
-pc = hdr + ['Kernel computations: the case list `L(%d, %d)` is the decoded table `caseCodes%dT`, checked piece' % (n, k, n),
-            'by piece (one theorem per pair of horizontal margins (ml, mr), so that each kernel computation is',
-            'small and the pieces are checked in parallel).  No `native_decide`.', '-/', '',
-            'module', '', 'public import QueenDom.Main', 'public import %s.Cases%dData' % (os.path.basename(os.path.abspath(leandir)), n), '',
-            '@[expose] public section', '', 'namespace QueenDom', '',
-            'set_option maxRecDepth 100000 in',
-            '/-- The %d pairs `(ml, mr)` with `ml + mr <= %d`. -/' % (len(pairs), k),
-            'theorem marginPairs_%d : marginPairs %d = [' % (k, k)]
-for i in range(0, len(pairs), 12):
-    pc.append('    ' + ', '.join('(%d, %d)' % pq for pq in pairs[i:i + 12]) + (',' if i + 12 < len(pairs) else ''))
-pc += ['  ] := by decide +kernel', '']
-for (p, q) in pairs:
-    pc.append('set_option maxRecDepth 100000 in')
-    pc.append('set_option maxHeartbeats 0 in')
-    pc.append('theorem piece%d_%d_%d : casesPQ %d %d %d %d = (tableCodes caseCodes%dT %d %d).map Case.ofCode := by'
-              % (n, p, q, n, k, p, q, n, p, q))
-    pc.append('  decide +kernel')
-    pc.append('')
-term = 'List.forall_mem_nil _'
-for (p, q) in reversed(pairs):
-    term = 'List.forall_mem_cons.2 ⟨piece%d_%d_%d,\n    %s⟩' % (n, p, q, term)
-pc += ['set_option maxRecDepth 100000 in',
-       '/-- **The case list `L(%d, %d)` is the decoded table of the run** (assembled from the pieces). -/' % (n, k),
-       'theorem enumCases_%d_%d_table : enumCases %d %d = (tableList %d caseCodes%dT).map Case.ofCode := by' % (
-           n, k, n, k, k, n),
-       '  refine enumCases_eq_table ?_',
-       '  rw [marginPairs_%d]' % k,
-       '  exact ' + term, '', 'end QueenDom', '']
-open(os.path.join(leandir, 'Cases%dData.lean' % n), 'w').write('\n'.join(data))
-open(os.path.join(leandir, 'Cases%dPieces.lean' % n), 'w').write('\n'.join(pc))
-print('n=%d k=%d: %d cases, %d frames, %d nonempty pieces of %d; written Cases%dData.lean, Cases%dPieces.lean' % (
-    n, k, len(refuted), len({c[:4] for c in refuted}), len(by_pq), len(pairs), n, n))
+pc = [
+    *hdr,
+    f"Kernel computations: the case list `L({n:d}, {k:d})` is the decoded table `caseCodes{n:d}T`, checked piece",
+    "by piece (one theorem per pair of horizontal margins (ml, mr), so that each kernel computation is",
+    "small and the pieces are checked in parallel).  No `native_decide`.",
+    "-/",
+    "",
+    "module",
+    "",
+    "public import QueenDom.Main",
+    f"public import {os.path.basename(os.path.abspath(leandir))}.Cases{n:d}Data",
+    "",
+    "@[expose] public section",
+    "",
+    "namespace QueenDom",
+    "",
+    "set_option maxRecDepth 100000 in",
+    f"/-- The {len(pairs):d} pairs `(ml, mr)` with `ml + mr <= {k:d}`. -/",
+    f"theorem marginPairs_{k:d} : marginPairs {k:d} = [",
+]
+pc.extend(
+    "    "
+    + ", ".join(f"({p:d}, {q:d})" for p, q in pairs[i : i + 12])
+    + ("," if i + 12 < len(pairs) else "")
+    for i in range(0, len(pairs), 12)
+)
+pc += ["  ] := by decide +kernel", ""]
+for p, q in pairs:
+    pc.append("set_option maxRecDepth 100000 in")
+    pc.append("set_option maxHeartbeats 0 in")
+    pc.append(
+        f"theorem piece{n:d}_{p:d}_{q:d} : casesPQ {n:d} {k:d} {p:d} {q:d} = (tableCodes caseCodes{n:d}T {p:d} {q:d}).map Case.ofCode := by"
+    )
+    pc.append("  decide +kernel")
+    pc.append("")
+term = "List.forall_mem_nil _"
+for p, q in reversed(pairs):
+    term = f"List.forall_mem_cons.2 ⟨piece{n:d}_{p:d}_{q:d},\n    {term}⟩"
+pc += [
+    "set_option maxRecDepth 100000 in",
+    f"/-- **The case list `L({n:d}, {k:d})` is the decoded table of the run** (assembled from the pieces). -/",
+    f"theorem enumCases_{n:d}_{k:d}_table : enumCases {n:d} {k:d} = (tableList {k:d} caseCodes{n:d}T).map Case.ofCode := by",
+    "  refine enumCases_eq_table ?_",
+    f"  rw [marginPairs_{k:d}]",
+    "  exact " + term,
+    "",
+    "end QueenDom",
+    "",
+]
+with open(os.path.join(leandir, f"Cases{n:d}Data.lean"), "w") as f:
+    f.write("\n".join(data))
+with open(os.path.join(leandir, f"Cases{n:d}Pieces.lean"), "w") as f:
+    f.write("\n".join(pc))
+print(
+    f"n={n:d} k={k:d}: {len(refuted):d} cases, {nframes:d} frames, "
+    f"{len(by_pq):d} nonempty pieces of {len(pairs):d}; "
+    f"written Cases{n:d}Data.lean, Cases{n:d}Pieces.lean"
+)

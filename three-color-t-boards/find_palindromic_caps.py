@@ -1,4 +1,5 @@
 """Find interchangeable mirror-symmetric caps above an eleven-cell palindromic pivot."""
+
 import argparse
 from collections import Counter, defaultdict
 from itertools import product
@@ -23,10 +24,10 @@ def cap_groups(pivot):
 
         width = len(lower) - 2
         half = width // 2
-        triples = [int(lower[j:j+3], 3) for j in range(width)]
+        triples = [int(lower[j : j + 3], 3) for j in range(width)]
         # Two mirrored placements have the same top color. Equal lower
         # triples there would repeat a pattern whichever top color is chosen.
-        if any(triples[j] == triples[-1-j] for j in range(half)):
+        if any(triples[j] == triples[-1 - j] for j in range(half)):
             return
         row = ["0"] * width
 
@@ -38,9 +39,9 @@ def cap_groups(pivot):
                 return
             for color in range(1 if width == 1 else 3):
                 shift = 27 * color
-                bits = (1 << (shift + triples[j])) | (1 << (shift + triples[-1-j]))
+                bits = (1 << (shift + triples[j])) | (1 << (shift + triples[-1 - j]))
                 if not bits & used:
-                    row[j] = row[-1-j] = str(color)
+                    row[j] = row[-1 - j] = str(color)
                     place(j + 1, used | bits)
 
         place(0, mask)
@@ -52,8 +53,11 @@ def cap_groups(pivot):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("pivot", nargs="?")
-    parser.add_argument("--census", action="store_true",
-                        help="count canonical caps by group size over all 729 palindromic pivots")
+    parser.add_argument(
+        "--census",
+        action="store_true",
+        help="count canonical caps by group size over all 729 palindromic pivots",
+    )
     parser.add_argument("--min-caps", type=int, default=2)
     args = parser.parse_args()
     if args.census == bool(args.pivot):
@@ -76,6 +80,9 @@ if __name__ == "__main__":
             groups = cap_groups(args.pivot)
         except ValueError as error:
             parser.error(str(error))
-        for count, prefix in sorted((len(caps), min(caps) + args.pivot)
-                                    for caps in groups.values() if len(caps) >= args.min_caps):
+        for count, prefix in sorted(
+            (len(caps), min(caps) + args.pivot)
+            for caps in groups.values()
+            if len(caps) >= args.min_caps
+        ):
             print(count, prefix)

@@ -1,0 +1,75 @@
+[project]
+name = "formal-math-lab"
+version = "0.1.0"
+requires-python = ">=3.15"
+dependencies = [
+    "ortools>=10.0.0rc1",
+    "python-flint>=0.9.0",
+    "python-sat>=1.9.dev25",
+    "z3-solver>=5.4.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17.6",
+    "ty>=0.0.110",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py315"
+line-length = 88
+extend-exclude = ["three-color-t-boards/sources"]
+
+[tool.ruff.lint]
+extend-select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "SIM",  # flake8-simplify
+    "C4",   # flake8-comprehensions
+    "PIE",  # flake8-pie
+    "PERF", # Perflint
+    "RET",  # flake8-return
+    "RSE",  # flake8-raise
+    "PGH",  # pygrep-hooks
+    "ISC",  # flake8-implicit-str-concat
+    "FURB", # refurb
+    "RUF",  # Ruff-specific rules
+    "TC",   # flake8-type-checking
+    "A",    # flake8-builtins
+    "T10",  # flake8-debugger
+    "FLY",  # flynt
+]
+ignore = [
+    "E501",   # line length handled by ruff format
+    "E741",   # single-letter math variable names (l, I, O)
+    "RUF001", # intentional Unicode math symbols in strings
+    "RUF002", # intentional Unicode math symbols in docstrings
+    "RUF003", # intentional Unicode math symbols in comments
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ty.src]
+exclude = ["three-color-t-boards/sources"]
+
+[tool.ty.environment]
+python-version = "3.15"
+extra-paths = [
+    "three-color-t-boards/sources/anc",
+    "three-cubes-114",
+    "queen-domination-48-sat/code/frame",
+]
+
+[tool.ty.terminal]
+error-on-warning = true
+
+[tool.ty.rules]
+all = "error"

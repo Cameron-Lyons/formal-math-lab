@@ -18,7 +18,14 @@ Variables: v(x,y,z) says x*y = z.  Clauses:
   * if 0*0 = 0, every element is idempotent (the element called 0 is non-idempotent if any is);
   * row 0 is the given row.
 """
-import argparse, os, shutil, subprocess, sys, tempfile, time
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 N = 10
@@ -36,7 +43,7 @@ def first_rows(prefix=()):
         return
     for z in range(min(y + 2, N)):
         if z not in prefix:
-            yield from first_rows(prefix + (z,))
+            yield from first_rows((*prefix, z))
 
 
 def formula():
@@ -45,17 +52,26 @@ def formula():
     for x in R:
         for y in R:
             C.append([var(x, y, z) for z in R])
-            C += [[-var(x, y, z1), -var(x, y, z2)] for z1 in R for z2 in range(z1 + 1, N)]
+            C += [
+                [-var(x, y, z1), -var(x, y, z2)] for z1 in R for z2 in range(z1 + 1, N)
+            ]
     for x in R:
         for z in R:
             C.append([var(x, y, z) for y in R])
-            C += [[-var(x, y1, z), -var(x, y2, z)] for y1 in R for y2 in range(y1 + 1, N)]
+            C += [
+                [-var(x, y1, z), -var(x, y2, z)] for y1 in R for y2 in range(y1 + 1, N)
+            ]
     for x in R:
         for y in R:
             for a in R:
                 for b in R:
                     for c in R:
-                        p1, p2, p3, p4 = var(x, y, a), var(a, y, b), var(x, b, c), var(y, c, x)
+                        p1, p2, p3, p4 = (
+                            var(x, y, a),
+                            var(a, y, b),
+                            var(x, b, c),
+                            var(y, c, x),
+                        )
                         C.append([-p1, -p2, -p3, p4])
                         C.append([-p1, -p2, -p4, p3])
                         C.append([-p1, -p3, -p4, p2])
@@ -65,12 +81,14 @@ def formula():
 
 def find_cadical():
     exe = shutil.which("cadical")
-    if exe:
+    if exe is not None and exe:
         return exe
     lean = shutil.which("lean")
-    if lean:
+    if lean is not None and lean:
         try:
-            prefix = subprocess.run([lean, "--print-prefix"], capture_output=True, text=True).stdout.strip()
+            prefix = subprocess.run(
+                [lean, "--print-prefix"], capture_output=True, text=True, check=False
+            ).stdout.strip()
             cand = os.path.join(prefix, "bin", "cadical")
             if os.path.exists(cand):
                 return cand
@@ -99,17 +117,22 @@ def main():
         cnf = os.path.join(tmp, tag + ".cnf")
         proof = os.path.join(tmp, tag + ".drat")
         with open(cnf, "w") as fh:
-            fh.write(f"p cnf {N ** 3} {len(base) + N}\n" + body)
+            fh.write(f"p cnf {N**3} {len(base) + N}\n" + body)
             fh.write("".join(f"{var(0, y, z)} 0\n" for y, z in enumerate(row)))
         cmd = [cadical, "-q", cnf] + ([proof] if args.verify_with else [])
         t0 = time.time()
-        out = subprocess.run(cmd, capture_output=True, text=True).stdout
+        out = subprocess.run(cmd, capture_output=True, text=True, check=False).stdout
         dt = time.time() - t0
         if "s SATISFIABLE" in out:
-            lits = [int(t) for line in out.splitlines() if line.startswith("v ") for t in line[2:].split()]
+            lits = [
+                int(t)
+                for line in out.splitlines()
+                if line.startswith("v ")
+                for t in line[2:].split()
+            ]
             T = [[-1] * N for _ in range(N)]
             for l in lits:
-                if 0 < l <= N ** 3:
+                if 0 < l <= N**3:
                     l -= 1
                     T[l // (N * N)][(l // N) % N] = l % N
             return row, "SAT", dt, f"law holds: {check_law(T)}; table {T}"
@@ -117,7 +140,12 @@ def main():
             return row, "UNKNOWN", dt, ""
         note = ""
         if args.verify_with:
-            res = subprocess.run([args.verify_with, cnf, proof], capture_output=True, text=True).stdout
+            res = subprocess.run(
+                [args.verify_with, cnf, proof],
+                capture_output=True,
+                text=True,
+                check=False,
+            ).stdout
             note = "proof verified" if "s VERIFIED" in res else "PROOF NOT VERIFIED"
             os.unlink(proof)
         os.unlink(cnf)
@@ -126,7 +154,9 @@ def main():
     results = []
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         for row, status, dt, note in pool.map(run, rows):
-            print(f"{' '.join(map(str, row))}  {status:7} {dt:7.2f}s  {note}", flush=True)
+            print(
+                f"{' '.join(map(str, row))}  {status:7} {dt:7.2f}s  {note}", flush=True
+            )
             results.append((status, note))
     shutil.rmtree(tmp, ignore_errors=True)
     unsat = sum(1 for s, _ in results if s == "UNSAT")

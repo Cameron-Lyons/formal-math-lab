@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """ASan/UBSan checks using the actual lookup, insertion and rehash routines."""
+
 import hashlib
 import json
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SOURCE = ROOT / 'msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c'
+SOURCE = ROOT / "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
 
-PRELUDE = r'''
+PRELUDE = r"""
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -30,9 +31,9 @@ typedef struct {len_t ncl,ncr,nc,np; hm_t **tr;} mat_t;
 static sdm_t generate_short_divmask(const exp_t *a,const ht_t *ht) {
     (void)a;(void)ht;return 0;
 }
-'''
+"""
 
-POSTLUDE = r'''
+POSTLUDE = r"""
 static uint32_t rng=0x8391beef;
 static uint32_t next(void){rng=1664525*rng+1013904223;return rng;}
 static void init(ht_t *ht,hl_t size,int collisions) {
@@ -101,38 +102,78 @@ int main(void) {
     assert(growth_cases>0&&overlap_cases>0&&capacity_savings>0);
     printf("PASS cases=2000 growth=%u overlap=%u smaller_capacity=%u\n",growth_cases,overlap_cases,capacity_savings);
 }
-'''
+"""
 
 
 def main():
     text = SOURCE.read_text()
     markers = [
-        ('static void enlarge_hash_table(', 'static inline sdm_t generate_short_divmask('),
-        ('static inline int32_t is_contained_in_hash_table(', '/* This function assumes that is_contained_in_hash_table()'),
-        ('static inline hi_t insert_in_hash_table(', 'static inline void reinitialize_hash_table('),
-        ('static inline void switch_used_hcm_data_to_basis_hash_table(', 'static inline void insert_in_basis_hash_table_pivots('),
+        (
+            "static void enlarge_hash_table(",
+            "static inline sdm_t generate_short_divmask(",
+        ),
+        (
+            "static inline int32_t is_contained_in_hash_table(",
+            "/* This function assumes that is_contained_in_hash_table()",
+        ),
+        (
+            "static inline hi_t insert_in_hash_table(",
+            "static inline void reinitialize_hash_table(",
+        ),
+        (
+            "static inline void switch_used_hcm_data_to_basis_hash_table(",
+            "static inline void insert_in_basis_hash_table_pivots(",
+        ),
     ]
-    extracted = '\n'.join(text[text.index(start):text.index(end, text.index(start))]
-                          for start, end in markers)
-    source = ROOT / 'helper_check.c'
-    binary = ROOT / 'helper_check'
+    extracted = "\n".join(
+        text[text.index(start) : text.index(end, text.index(start))]
+        for start, end in markers
+    )
+    source = ROOT / "helper_check.c"
+    binary = ROOT / "helper_check"
     source.write_text(PRELUDE + extracted + POSTLUDE)
-    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
-               '-fsanitize=address,undefined', str(source), '-lm', '-o', str(binary)]
+    command = [
+        "cc",
+        "-std=c23",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        str(source),
+        "-lm",
+        "-o",
+        str(binary),
+    ]
     subprocess.run(command, check=True)
-    result = subprocess.run([str(binary)], capture_output=True, text=True, timeout=30)
-    (ROOT / 'helper_check.log').write_text(result.stdout + result.stderr)
+    result = subprocess.run(
+        [str(binary)], capture_output=True, text=True, timeout=30, check=False
+    )
+    (ROOT / "helper_check.log").write_text(result.stdout + result.stderr)
     assert result.returncode == 0 and not result.stderr, result
-    report = dict(status='PASS', randomized_cases=2000, command=command,
-                  actual_upstream_functions=['is_contained_in_hash_table', 'insert_in_hash_table', 'enlarge_hash_table'],
-                  stubbed_function='generate_short_divmask returns zero; divisibility is not tested',
-                  allocation_failure_tested=False, forced_hash_collisions=True,
-                  exact_extracted_functions_sha256=hashlib.sha256(extracted.encode()).hexdigest(),
-                  owner_hash_c_sha256=hashlib.sha256(text.encode()).hexdigest(),
-                  output=result.stdout.strip())
-    (ROOT / 'helper_check.json').write_text(json.dumps(report, indent=2) + '\n')
+    report = {
+        "status": "PASS",
+        "randomized_cases": 2000,
+        "command": command,
+        "actual_upstream_functions": [
+            "is_contained_in_hash_table",
+            "insert_in_hash_table",
+            "enlarge_hash_table",
+        ],
+        "stubbed_function": "generate_short_divmask returns zero; divisibility is not tested",
+        "allocation_failure_tested": False,
+        "forced_hash_collisions": True,
+        "exact_extracted_functions_sha256": hashlib.sha256(
+            extracted.encode()
+        ).hexdigest(),
+        "owner_hash_c_sha256": hashlib.sha256(text.encode()).hexdigest(),
+        "output": result.stdout.strip(),
+    }
+    (ROOT / "helper_check.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

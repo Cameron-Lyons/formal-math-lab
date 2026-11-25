@@ -1,8 +1,9 @@
 """Generate the fifth or sixth splice certificate, allowing disjoint tail ranges on an existing signature."""
+
 import argparse
 import json
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 from prepare_prefix_classifier import LAYERS, generate_classifier
 from prepare_splice_extension import generate_packed_data, total
@@ -26,8 +27,11 @@ def validate_ranges(sources, new):
             if "extends" in group:
                 parent = group["extends"]
                 source, index = parent["layer"], parent["index"]
-                if (source not in earlier_layers or type(index) is not int
-                        or not 0 <= index < len(earlier_layers[source]["groups"])):
+                if (
+                    source not in earlier_layers
+                    or type(index) is not int
+                    or not 0 <= index < len(earlier_layers[source]["groups"])
+                ):
                     raise ValueError(f"group {i} names an unknown earlier group")
                 original = earlier_layers[source]["groups"][index]
                 if (caps, pivot) != (original["caps"], original["pivot"]):
@@ -35,7 +39,9 @@ def validate_ranges(sources, new):
                 if tails[0] <= latest_tail[key]:
                     raise ValueError(f"group {i} overlaps an earlier tail interval")
             elif key in latest_tail:
-                raise ValueError(f"group {i} repeats a signature without identifying an earlier group")
+                raise ValueError(
+                    f"group {i} repeats a signature without identifying an earlier group"
+                )
             latest_tail[key] = tails[-1]
         earlier_layers[layer] = data
 
@@ -104,15 +110,23 @@ end TBoards
 
 def generate_next(directory, sixth=False):
     targets = [*LAYERS, NEXT, SIXTH] if sixth else [*LAYERS, NEXT]
-    layers = [(module, json.loads((directory / filename).read_text())) for module, filename in targets]
-    sources = {Path(filename).stem: data for (_, filename), (_, data) in zip(LAYERS[:3], layers[:3])}
+    layers = [
+        (module, json.loads((directory / filename).read_text()))
+        for module, filename in targets
+    ]
+    sources = {
+        Path(filename).stem: data
+        for (_, filename), (_, data) in zip(LAYERS[:3], layers[:3], strict=False)
+    }
     sources["splice_transfer"] = expand_transfer(layers[3][1], sources)
     if sixth:
         sources[Path(NEXT[1]).stem] = layers[4][1]
     new = layers[-1][1]
     validate_ranges(sources, new)
     module, witness = targets[-1]
-    generate_packed_data(layers[0][1], new, directory, further=True, namespace=module, witness=witness)
+    generate_packed_data(
+        layers[0][1], new, directory, further=True, namespace=module, witness=witness
+    )
     generate_classifier(layers, directory, module.removesuffix("Data") + "PrefixData")
     count = sum(total(source) for source in sources.values()) + total(new)
     write_theorem(directory, layers, count, sixth)
@@ -121,12 +135,19 @@ def generate_next(directory, sixth=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--build", action="store_true", help="check the resulting theorem with Lean")
-    parser.add_argument("--sixth", action="store_true", help="generate the six-layer combined proof")
+    parser.add_argument(
+        "--build", action="store_true", help="check the resulting theorem with Lean"
+    )
+    parser.add_argument(
+        "--sixth", action="store_true", help="generate the six-layer combined proof"
+    )
     args = parser.parse_args()
     count = generate_next(ROOT, sixth=args.sixth)
     layer_count = "six" if args.sixth else "five"
-    print(f"Generated the {layer_count}-layer Lean certificate for {count:,} labeled boards.", flush=True)
+    print(
+        f"Generated the {layer_count}-layer Lean certificate for {count:,} labeled boards.",
+        flush=True,
+    )
     if args.build:
         target = "SpliceSixthCertificates" if args.sixth else "SpliceNextCertificates"
         subprocess.run(["lake", "build", target], cwd=ROOT, check=True)

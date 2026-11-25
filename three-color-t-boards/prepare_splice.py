@@ -1,4 +1,6 @@
 """Generate the kernel-checked Lean certificate from the flat ternary witnesses."""
+
+import itertools
 import json
 from pathlib import Path
 
@@ -17,14 +19,19 @@ open Splice
 
 def split_rows(flat, start, stop):
     if set(flat) - set("012") or len(flat) != stop**2 - start**2:
-        raise ValueError(f"invalid rows {start} through {stop-1}: {flat!r}")
-    return [flat[r*r-start*start:(r+1)**2-start*start] for r in range(start, stop)]
+        raise ValueError(f"invalid rows {start} through {stop - 1}: {flat!r}")
+    return [
+        flat[r * r - start * start : (r + 1) ** 2 - start * start]
+        for r in range(start, stop)
+    ]
 
 
 def pattern_codes(rows):
-    return sorted(27*int(a) + int(lower[j:j+3], 3)
-                  for upper, lower in zip(rows, rows[1:])
-                  for j, a in enumerate(upper))
+    return sorted(
+        27 * int(a) + int(lower[j : j + 3], 3)
+        for upper, lower in itertools.pairwise(rows)
+        for j, a in enumerate(upper)
+    )
 
 
 def lean_list(values):
@@ -63,44 +70,62 @@ def generate(data, directory):
     count = 0
     for i, group in enumerate(groups):
         pivot, caps, tails = group["pivot"], group["caps"], group["tails"]
-        split_rows(pivot, cut, cut+1)
+        split_rows(pivot, cut, cut + 1)
         if not caps or not tails:
             raise ValueError(f"group {i} contains an empty list of pieces")
-        uppers = pattern_codes(split_rows(caps[0], 0, cut) + [pivot])
-        lowers = pattern_codes([pivot] + split_rows(tails[0], cut+1, 10))
+        uppers = pattern_codes([*split_rows(caps[0], 0, cut), pivot])
+        lowers = pattern_codes([pivot, *split_rows(tails[0], cut + 1, 10)])
         if sorted(uppers + lowers) != list(range(81)):
             raise ValueError(f"group {i} has incompatible sample pieces")
         template = f"template{i}"
-        templates += [f"def {template} : Group where",
-                      f"  k := {cut}", f"  pivot := {lean_list(pivot)}",
-                      "  caps := []", "  tails := []",
-                      f"  upperMask := {sum(1 << c for c in uppers)}",
-                      f"  lowerMask := {sum(1 << c for c in lowers)}", ""]
+        templates += [
+            f"def {template} : Group where",
+            f"  k := {cut}",
+            f"  pivot := {lean_list(pivot)}",
+            "  caps := []",
+            "  tails := []",
+            f"  upperMask := {sum(1 << c for c in uppers)}",
+            f"  lowerMask := {sum(1 << c for c in lowers)}",
+            "",
+        ]
         pieces = []
         for side, flats, first_row, stop_row in [
-            ("cap", caps, 0, cut), ("tail", tails, cut+1, 10)
+            ("cap", caps, 0, cut),
+            ("tail", tails, cut + 1, 10),
         ]:
             if flats != sorted(set(flats)):
-                raise ValueError(f"{side} pieces in group {i} must be distinct and sorted")
+                raise ValueError(
+                    f"{side} pieces in group {i} must be distinct and sorted"
+                )
             batches = []
             for start in range(0, len(flats), BATCH_SIZE):
-                chunk = flats[start:start+BATCH_SIZE]
+                chunk = flats[start : start + BATCH_SIZE]
                 for flat in chunk:
                     split_rows(flat, first_row, stop_row)
                 codes = [int(flat or "0", 3) for flat in chunk]
                 index = len(batch_modules)
                 module = f"Batch{index:04}"
                 name = f"batch{index:04}"
-                imports = ["SpliceData.Groups" if index < BUILD_JOBS else batch_modules[-BUILD_JOBS]]
-                numbers = ",\n  ".join(", ".join(str(n) for n in codes[j:j+3])
-                                       for j in range(0, len(codes), 3))
+                imports = [
+                    "SpliceData.Groups"
+                    if index < BUILD_JOBS
+                    else batch_modules[-BUILD_JOBS]
+                ]
+                numbers = ",\n  ".join(
+                    ", ".join(str(n) for n in codes[j : j + 3])
+                    for j in range(0, len(codes), 3)
+                )
                 code_field = f"{name}Codes"
-                body = [f"private def {code_field} : List Nat := [",
-                        f"  {numbers}]", "",
-                        f"def {name} : Group.Batch {template}.{side}OK where",
-                        f"  codes := {code_field}",
-                        f"  values := {code_field}.map (decodePiece {first_row} {stop_row-first_row})",
-                        "  valid := by decide +kernel", "  fingerprints := by decide +kernel"]
+                body = [
+                    f"private def {code_field} : List Nat := [",
+                    f"  {numbers}]",
+                    "",
+                    f"def {name} : Group.Batch {template}.{side}OK where",
+                    f"  codes := {code_field}",
+                    f"  values := {code_field}.map (decodePiece {first_row} {stop_row - first_row})",
+                    "  valid := by decide +kernel",
+                    "  fingerprints := by decide +kernel",
+                ]
                 write_source(generated / (module + ".lean"), imports, body)
                 batch_modules.append("SpliceData." + module)
                 batches.append(name)
@@ -112,26 +137,36 @@ def generate(data, directory):
             marker = apex + pivot + apex
             if marker not in markers:
                 markers.append(marker)
-        assembled += [f"def {name} := Group.assemble {template} {pieces[0]} {pieces[1]}",
-                      f"theorem {name}_checked : {name}.Checked := by",
-                      "  apply Group.assemble_checked <;> decide +kernel", ""]
-        count += len(caps)*len(tails)*12
+        assembled += [
+            f"def {name} := Group.assemble {template} {pieces[0]} {pieces[1]}",
+            f"theorem {name}_checked : {name}.Checked := by",
+            "  apply Group.assemble_checked <;> decide +kernel",
+            "",
+        ]
+        count += len(caps) * len(tails) * 12
 
     write_source(generated / "Groups.lean", ["Splice"], templates)
     final_modules = set(batch_modules)
     for old in generated.glob("Batch[0-9][0-9][0-9][0-9].lean"):
         if f"SpliceData.{old.stem}" not in final_modules:
             old.unlink()
-    assembled += [f"def groups : List Group := {lean_list(group_names)}",
-                  "theorem checked : ∀ g ∈ groups, g.Checked := by",
-                  "  simp only [groups, List.forall_mem_cons, List.not_mem_nil, false_implies,",
-                  "    implies_true, and_true]"]
+    assembled += [
+        f"def groups : List Group := {lean_list(group_names)}",
+        "theorem checked : ∀ g ∈ groups, g.Checked := by",
+        "  simp only [groups, List.forall_mem_cons, List.not_mem_nil, false_implies,",
+        "    implies_true, and_true]",
+    ]
     if len(group_names) == 1:
         assembled.append(f"  exact {group_names[0]}_checked")
     else:
-        assembled.append("  exact ⟨" + ", ".join(g + "_checked" for g in group_names) + "⟩")
-    assembled += ["", "def markers : List (List Nat) := [",
-                  "  " + ",\n  ".join(lean_list(marker) for marker in markers) + "]"]
+        assembled.append(
+            "  exact ⟨" + ", ".join(g + "_checked" for g in group_names) + "⟩"
+        )
+    assembled += [
+        "",
+        "def markers : List (List Nat) := [",
+        "  " + ",\n  ".join(lean_list(marker) for marker in markers) + "]",
+    ]
     write_source(directory / "SpliceData.lean", batch_modules[-BUILD_JOBS:], assembled)
     proof = f"""import SpliceData
 import SpliceSymmetry

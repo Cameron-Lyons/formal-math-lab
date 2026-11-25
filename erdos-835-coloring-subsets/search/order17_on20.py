@@ -6,12 +6,12 @@ blocks, omit those blocks and the quadruples incompatible with them.
 """
 
 import argparse
+import json
+import sys
 from collections import defaultdict
 from functools import cache
 from itertools import combinations
-import json
 from pathlib import Path
-import sys
 
 
 @cache
@@ -29,12 +29,15 @@ def incidences(block):
 def read_blocks(path):
     data = json.loads(path.read_text())
     if not isinstance(data, list):
-        raise ValueError("expected a JSON list of quadruples")
+        raise TypeError("expected a JSON list of quadruples")
     blocks = []
     for row in data:
-        if not isinstance(row, list) or len(row) != 4 or any(
-            type(x) is not int or not 0 <= x < 20 for x in row
-        ) or row != sorted(set(row)):
+        if (
+            not isinstance(row, list)
+            or len(row) != 4
+            or any(type(x) is not int or not 0 <= x < 20 for x in row)
+            or row != sorted(set(row))
+        ):
             raise ValueError(f"invalid quadruple: {row!r}")
         blocks.append(tuple(row))
     return blocks
@@ -46,7 +49,7 @@ def main():
     args = parser.parse_args()
     try:
         fixed = read_blocks(args.extend) if args.extend else []
-    except (ValueError, OSError) as exc:
+    except (TypeError, ValueError, OSError) as exc:
         parser.error(str(exc))
 
     used = {key for block in fixed for key in incidences(block)}

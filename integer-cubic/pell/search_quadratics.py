@@ -2,6 +2,7 @@
 
 Run with: uv run --with python-flint==0.9.0 search_quadratics.py [height]
 """
+
 import argparse
 from itertools import product
 from math import gcd
@@ -23,8 +24,7 @@ def residue_table(p):
     for a, b in product(range(p), repeat=2):
         quadratic = (a * y + b) * y
         table[a, b] = [
-            c for c in range(p)
-            if odd_part_degree(base - 4 * (quadratic + c)**3) <= 2
+            c for c in range(p) if odd_part_degree(base - 4 * (quadratic + c) ** 3) <= 2
         ]
     return table
 
@@ -44,11 +44,17 @@ def search(height):
             if d % p == 0:
                 continue
             inv = pow(d, -1, p)
-            masks = [sum(1 << (c + height)
-                         for c in range(-height + (r + height) % p, height + 1, p))
-                     for r in range(p)]
-            table = {(a, b): sum(masks[c * d % p] for c in cs)
-                     for (a, b), cs in tables[p].items()}
+            masks = [
+                sum(
+                    1 << (c + height)
+                    for c in range(-height + (r + height) % p, height + 1, p)
+                )
+                for r in range(p)
+            ]
+            table = {
+                (a, b): sum(masks[c * d % p] for c in cs)
+                for (a, b), cs in tables[p].items()
+            }
             filters.append((p, inv, table))
         for a in range(-height, height + 1):
             # Changing y to -y accounts for the other sign of b.
@@ -64,7 +70,7 @@ def search(height):
                     c = bit.bit_length() - 1 - height
                     if gcd(a, b, c, d) != 1:
                         continue
-                    delta = d**3 * (y**4 + 8) - 4 * ((a*y+b)*y+c)**3
+                    delta = d**3 * (y**4 + 8) - 4 * ((a * y + b) * y + c) ** 3
                     if odd_part_degree(delta) <= 2:
                         yield a, b, c, d
 

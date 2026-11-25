@@ -1,4 +1,5 @@
 """Find groups of single-2 caps with the same 25 T patterns above a given pivot."""
+
 import argparse
 from collections import defaultdict
 
@@ -10,8 +11,11 @@ def cap_groups(pivot):
     cells = [0] * 25 + [int(digit) for digit in pivot]
     # A row r starts at r². Filling from the pivot upward fixes all three
     # lower cells of each T before its top cell is chosen.
-    placements = [(r*r + column, (r+1)**2 + column)
-                  for r in range(4, -1, -1) for column in range(2*r + 1)]
+    placements = [
+        (r * r + column, (r + 1) ** 2 + column)
+        for r in range(4, -1, -1)
+        for column in range(2 * r + 1)
+    ]
     groups = defaultdict(list)
 
     def visit(index, used, has_two):
@@ -20,9 +24,9 @@ def cap_groups(pivot):
                 groups[used].append("".join(map(str, cells[:25])))
             return
         top, left = placements[index]
-        triple = 9*cells[left] + 3*cells[left+1] + cells[left+2]
+        triple = 9 * cells[left] + 3 * cells[left + 1] + cells[left + 2]
         for color in range(2 if has_two else 3):
-            bit = 1 << (27*color + triple)
+            bit = 1 << (27 * color + triple)
             if used & bit:
                 continue
             cells[top] = color
@@ -35,7 +39,9 @@ def cap_groups(pivot):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("pivot", help="eleven ternary digits")
-    parser.add_argument("--min-caps", type=int, default=15, help="minimum group size (default 15)")
+    parser.add_argument(
+        "--min-caps", type=int, default=15, help="minimum group size (default 15)"
+    )
     args = parser.parse_args()
     if args.min_caps < 1:
         parser.error("--min-caps must be positive")
@@ -44,8 +50,11 @@ def main():
     except ValueError as error:
         parser.error(str(error))
     # Each output line gives the cap count and a six-row prefix for splice_search.
-    matches = [(len(caps), min(caps) + args.pivot)
-               for caps in groups.values() if len(caps) >= args.min_caps]
+    matches = [
+        (len(caps), min(caps) + args.pivot)
+        for caps in groups.values()
+        if len(caps) >= args.min_caps
+    ]
     for count, prefix in sorted(matches, key=lambda match: (-match[0], match[1])):
         print(count, prefix)
 

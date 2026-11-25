@@ -4,22 +4,26 @@ Run with uv run --with python-flint==0.9.0 polynomial_graph_mod7.py.
 """
 
 from itertools import product
-from flint import nmod_poly
 
+from flint import nmod_poly
 
 P = 7
 Y = nmod_poly([0, 1], P)
-H = Y**4+8
+H = Y**4 + 8
 EXPECTED = {
-    (5, 1), (6, 3),
-    (1, 2, 1), (2, 0, 1), (4, 1, 1), (1, 0, 3),
+    (5, 1),
+    (6, 3),
+    (1, 2, 1),
+    (2, 0, 1),
+    (4, 1, 1),
+    (1, 0, 3),
 }
 
 
 def check_graph(f):
-    delta = H - 4*f**3
+    delta = H - 4 * f**3
     # A factor E with E² | delta divides both delta and delta'.
-    if 2*delta.gcd(delta.derivative()).degree() + 2 < delta.degree():
+    if 2 * delta.gcd(delta.derivative()).degree() + 2 < delta.degree():
         return None
     _, factors = delta.factor_squarefree()
     odd_part = nmod_poly([1], P)
@@ -30,11 +34,11 @@ def check_graph(f):
 
 
 def main():
-    assert all((c**3-2) % P for c in range(P))
-    assert all((c**4+8) % P for c in range(P))
+    assert all((c**3 - 2) % P for c in range(P))
+    assert all((c**4 + 8) % P for c in range(P))
     assert check_graph(nmod_poly([], P)) is None
     cube_roots = [c for c in range(1, P) if c**3 % P == 1]
-    leads = {min(c*z % P for z in cube_roots) for c in range(1, P)}
+    leads = {min(c * z % P for z in cube_roots) for c in range(1, P)}
     assert leads == {1, 3}
     found = set()
     for degree in range(9):
@@ -53,7 +57,9 @@ def main():
                     found.add(coeffs)
         print(f"Degree {degree}: {tested} normalized polynomials tested", flush=True)
     assert found == EXPECTED
-    print("All six surviving representatives have degree one or two and two distinct branch roots.")
+    print(
+        "All six surviving representatives have degree one or two and two distinct branch roots."
+    )
 
 
 if __name__ == "__main__":

@@ -1,36 +1,54 @@
 #!/usr/bin/env python3
 """Independent sanitizer tests of the exact byte source's arithmetic routines."""
+
 import hashlib
 import json
 import os
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-SOURCE = HERE / 'exact_msolve_byte_exponent_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb'
+SOURCE = (
+    HERE
+    / "exact_msolve_byte_exponent_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb"
+)
 
 
 def extract(text, start, end):
-    return text[text.index(start):text.index(end, text.index(start))]
+    return text[text.index(start) : text.index(end, text.index(start))]
 
 
 def main():
-    data = (SOURCE / 'data.h').read_text()
-    io = (SOURCE / 'io.c').read_text()
-    hash_source = (SOURCE / 'hash.c').read_text()
-    snippets = [extract(data, 'typedef uint8_t exp_t;', 'typedef int32_t deg_t;'),
-                extract(io, 'static inline void set_exponent_vector(', '/* note that depending on the input data'),
-                extract(hash_source, 'static inline hi_t get_lcm(', 'static inline hm_t *poly_to_matrix_row('),
-                extract(hash_source, 'static inline void insert_multiplied_poly_in_hash_table(', 'static inline void reinsert_in_hash_table(')]
-    prefix = r'''
+    data = (SOURCE / "data.h").read_text()
+    io = (SOURCE / "io.c").read_text()
+    hash_source = (SOURCE / "hash.c").read_text()
+    snippets = [
+        extract(data, "typedef uint8_t exp_t;", "typedef int32_t deg_t;"),
+        extract(
+            io,
+            "static inline void set_exponent_vector(",
+            "/* note that depending on the input data",
+        ),
+        extract(
+            hash_source,
+            "static inline hi_t get_lcm(",
+            "static inline hm_t *poly_to_matrix_row(",
+        ),
+        extract(
+            hash_source,
+            "static inline void insert_multiplied_poly_in_hash_table(",
+            "static inline void reinsert_in_hash_table(",
+        ),
+    ]
+    prefix = r"""
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <limits.h>
-'''
-    types = r'''
+"""
+    types = r"""
 typedef uint32_t len_t,hi_t,hm_t,val_t;
 typedef struct {len_t nv,evl,ebl,eld;exp_t **ev;} ht_t;
 typedef struct {len_t nev;} md_t;
@@ -44,8 +62,8 @@ static unsigned captures;
 static hi_t insert_in_hash_table(const exp_t *e,ht_t *h) {
  assert(captures<8);memcpy(capture[captures],e,h->evl*sizeof(exp_t));return ++captures;
 }
-'''
-    tests = r'''
+"""
+    tests = r"""
 static uint32_t state=0x63e52125u;
 static unsigned next(void){state^=state<<13;state^=state>>17;state^=state<<5;return state;}
 static void vector(exp_t *e,unsigned n,unsigned budget){
@@ -111,35 +129,83 @@ int main(int argc,char **argv){
  assert(good==65792&&sizeof(exp_t)==1);matrix_tests();
  puts("PASS:65792 integer operations;1200 input-index/LCM/two-term products;degree255 and degree6");return 0;
 }
-'''
-    content = (prefix + snippets[0] + types +
-               '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wunused-parameter"\n' +
-               ''.join(snippets[1:]) + '\n#pragma GCC diagnostic pop\n' + tests)
-    source = HERE / 'exact_msolve_byte_arithmetic_review.c'
-    binary = HERE / 'exact_msolve_byte_arithmetic_review.bin'
+"""
+    content = (
+        prefix
+        + snippets[0]
+        + types
+        + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wunused-parameter"\n'
+        + "".join(snippets[1:])
+        + "\n#pragma GCC diagnostic pop\n"
+        + tests
+    )
+    source = HERE / "exact_msolve_byte_arithmetic_review.c"
+    binary = HERE / "exact_msolve_byte_arithmetic_review.bin"
     source.write_text(content)
-    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
-               '-fsanitize=address,undefined', str(source), '-o', str(binary)]
+    command = [
+        "cc",
+        "-std=c23",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        str(source),
+        "-o",
+        str(binary),
+    ]
     subprocess.run(command, check=True)
-    good = subprocess.run([str(binary)], capture_output=True, text=True, timeout=20)
-    (HERE / 'exact_msolve_byte_arithmetic_review.log').write_text(good.stdout + good.stderr)
+    good = subprocess.run(
+        [str(binary)], capture_output=True, text=True, timeout=20, check=False
+    )
+    (HERE / "exact_msolve_byte_arithmetic_review.log").write_text(
+        good.stdout + good.stderr
+    )
     assert good.returncode == 0 and not good.stderr, good
     failures = []
     for case in range(14):
-        result = subprocess.run([str(binary), str(case)], capture_output=True, text=True, timeout=5,
-                                env=dict(os.environ, ASAN_OPTIONS='detect_leaks=0'))
-        assert result.returncode == 1 and result.stderr == 'Error: byte exponent/degree overflow.\n', (case, result)
-        failures.append(dict(case=case, returncode=result.returncode, diagnostic=result.stderr.strip()))
-    report = dict(status='PASS', compiler_command=command, sanitizers='ASan+UBSan',
-                  C_source_sha256=hashlib.sha256(content.encode()).hexdigest(),
-                  extracted_source_files_sha256={p: hashlib.sha256((SOURCE/p).read_bytes()).hexdigest()
-                                                 for p in ('data.h', 'io.c', 'hash.c')},
-                  valid_arithmetic_cases=65792, random_three_function_cases=1200,
-                  boundary_LCM_degrees=[6, 255], overflow_and_underflow_failures=failures,
-                  insertion_stub='Captures vectors only; no allocator/probing claim', full_board_solver_runs=0)
-    (HERE / 'exact_msolve_byte_arithmetic_review_results.json').write_text(json.dumps(report, indent=2) + '\n')
-    print(good.stdout.strip(), ';14 explicit pre-narrowing failures')
+        result = subprocess.run(
+            [str(binary), str(case)],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            env=dict(os.environ, ASAN_OPTIONS="detect_leaks=0"),
+            check=False,
+        )
+        assert (
+            result.returncode == 1
+            and result.stderr == "Error: byte exponent/degree overflow.\n"
+        ), (case, result)
+        failures.append(
+            {
+                "case": case,
+                "returncode": result.returncode,
+                "diagnostic": result.stderr.strip(),
+            }
+        )
+    report = {
+        "status": "PASS",
+        "compiler_command": command,
+        "sanitizers": "ASan+UBSan",
+        "C_source_sha256": hashlib.sha256(content.encode()).hexdigest(),
+        "extracted_source_files_sha256": {
+            p: hashlib.sha256((SOURCE / p).read_bytes()).hexdigest()
+            for p in ("data.h", "io.c", "hash.c")
+        },
+        "valid_arithmetic_cases": 65792,
+        "random_three_function_cases": 1200,
+        "boundary_LCM_degrees": [6, 255],
+        "overflow_and_underflow_failures": failures,
+        "insertion_stub": "Captures vectors only; no allocator/probing claim",
+        "full_board_solver_runs": 0,
+    }
+    (HERE / "exact_msolve_byte_arithmetic_review_results.json").write_text(
+        json.dumps(report, indent=2) + "\n"
+    )
+    print(good.stdout.strip(), ";14 explicit pre-narrowing failures")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

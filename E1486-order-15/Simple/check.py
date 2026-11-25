@@ -10,10 +10,10 @@ A pattern K:J restricts the search to K squares, J of them fixed by squaring.
 
 import argparse
 import itertools
-from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from pathlib import Path
 
 
 class CNF:
@@ -32,7 +32,7 @@ class CNF:
         # Forbid a first difference of 0 versus 1. Each auxiliary bit records
         # that the preceding bits agree. Implications toward this bit suffice.
         guard = []
-        for x, y in zip(left, right):
+        for x, y in zip(left, right, strict=False):
             if x != y:
                 self.add(*guard, x, -y)
                 equal = self.fresh()
@@ -123,8 +123,10 @@ def verify_model(model, edge):
             else:
                 row.append(next(q for q in square if y in out[q]))
         table.append(row)
-    if any(table[table[y][x]][table[x][table[z][z]]] != x
-           for x, y, z in itertools.product(vertices, repeat=3)):
+    if any(
+        table[table[y][x]][table[x][table[z][z]]] != x
+        for x, y, z in itertools.product(vertices, repeat=3)
+    ):
         raise ValueError("the reconstructed table violates E1486")
 
 
@@ -139,20 +141,38 @@ def solve(n, solver, checker, pattern=None):
                 cases += 1
                 formula, edges = graph_formula(n, k, j)
                 formula.write(cnf)
-                args = [solver, "-q", "--lrat", cnf, proof] if checker else [solver, "-q", cnf]
-                run = subprocess.run(args, capture_output=True, text=True)
+                args = (
+                    [solver, "-q", "--lrat", cnf, proof]
+                    if checker
+                    else [solver, "-q", cnf]
+                )
+                run = subprocess.run(args, capture_output=True, text=True, check=False)
                 if run.returncode == 10:
-                    model = {int(t) for line in run.stdout.splitlines() if line.startswith("v ")
-                             for t in line.split()[1:]}
+                    model = {
+                        int(t)
+                        for line in run.stdout.splitlines()
+                        if line.startswith("v ")
+                        for t in line.split()[1:]
+                    }
                     verify_model(model, edges)
-                    print(f"order {n}: model verified on all {n**3} triples (k={k}, j={j})", flush=True)
+                    print(
+                        f"order {n}: model verified on all {n**3} triples (k={k}, j={j})",
+                        flush=True,
+                    )
                     return
                 if run.returncode != 20:
                     raise RuntimeError(f"CaDiCaL failed for k={k}, j={j}\n{run.stderr}")
                 if checker:
-                    replay = subprocess.run([checker, "--rup", cnf, proof], capture_output=True, text=True)
+                    replay = subprocess.run(
+                        [checker, "--rup", cnf, proof],
+                        capture_output=True,
+                        text=True,
+                        check=False,
+                    )
                     if replay.returncode != 20:
-                        raise RuntimeError(f"LRAT verification failed for k={k}, j={j}\n{replay.stdout}\n{replay.stderr}")
+                        raise RuntimeError(
+                            f"LRAT verification failed for k={k}, j={j}\n{replay.stdout}\n{replay.stderr}"
+                        )
     result = "RUP proofs verified" if checker else "UNSAT"
     print(f"order {n}: {cases} cases, all {result}", flush=True)
 
@@ -160,9 +180,19 @@ def solve(n, solver, checker, pattern=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("orders", nargs="*", type=int, default=[15])
-    parser.add_argument("--solver", help="CaDiCaL executable (defaults to PATH or Lean's copy)")
-    parser.add_argument("--verify-with", metavar="EXECUTABLE", help="independently check binary RUP proofs using lrat-trim")
-    parser.add_argument("--pattern", metavar="K:J", help="check only K squares with J of them fixed by squaring")
+    parser.add_argument(
+        "--solver", help="CaDiCaL executable (defaults to PATH or Lean's copy)"
+    )
+    parser.add_argument(
+        "--verify-with",
+        metavar="EXECUTABLE",
+        help="independently check binary RUP proofs using lrat-trim",
+    )
+    parser.add_argument(
+        "--pattern",
+        metavar="K:J",
+        help="check only K squares with J of them fixed by squaring",
+    )
     args = parser.parse_args()
     pattern = None
     if args.pattern:
@@ -174,7 +204,7 @@ def main():
             parser.error("--pattern needs 0 <= J <= K with K - J even")
         pattern = (k, j)
     solver = args.solver or shutil.which("cadical")
-    if not solver:
+    if solver is None or not solver:
         prefix = subprocess.check_output(["lean", "--print-prefix"], text=True).strip()
         solver = str(Path(prefix) / "bin" / "cadical")
     for n in args.orders:

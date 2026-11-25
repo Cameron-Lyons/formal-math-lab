@@ -1,4 +1,5 @@
 """Generate the packed Lean certificate for the additional row-five splice groups."""
+
 import argparse
 import json
 import subprocess
@@ -18,7 +19,8 @@ BASE_TEMPLATE_COUNT = 13
 
 def write_module(path, imports, body, namespace, witness):
     content = "\n".join("import " + name for name in imports)
-    content += f"""
+    content += (
+        f"""
 
 -- Generated from {witness} by prepare_splice_extension.py.
 set_option Elab.async false
@@ -28,7 +30,10 @@ set_option maxHeartbeats 0
 namespace TBoards.{namespace}
 open Splice
 
-""" + "\n".join(body) + f"\nend TBoards.{namespace}\n"
+"""
+        + "\n".join(body)
+        + f"\nend TBoards.{namespace}\n"
+    )
     if not path.exists() or path.read_text() != content:
         path.write_text(content)
 
@@ -38,14 +43,22 @@ def total(data):
 
 
 def code_list(numbers):
-    return "[\n  " + ",\n  ".join(
-        ", ".join(map(str, numbers[i:i+3])) for i in range(0, len(numbers), 3)
-    ) + "]"
+    return (
+        "[\n  "
+        + ",\n  ".join(
+            ", ".join(map(str, numbers[i : i + 3])) for i in range(0, len(numbers), 3)
+        )
+        + "]"
+    )
 
 
-def generate_packed_data(old, extension, directory, further=False, *, namespace=None, witness=None):
+def generate_packed_data(
+    old, extension, directory, further=False, *, namespace=None, witness=None
+):
     if old["cut"] != 5 or extension["cut"] != 5 or not extension["groups"]:
-        raise ValueError("the packed certificate requires a row-five cut and at least one new group")
+        raise ValueError(
+            "the packed certificate requires a row-five cut and at least one new group"
+        )
     namespace = namespace or ("SpliceFurtherData" if further else "SpliceExtensionData")
     shared_templates = 0 if further else BASE_TEMPLATE_COUNT
     witness = witness or ("splice_further.json" if further else "splice_extension.json")
@@ -63,35 +76,43 @@ def generate_packed_data(old, extension, directory, further=False, *, namespace=
         split_rows(pivot, 5, 6)
         if not caps or not tails:
             raise ValueError(f"group {i} has an empty list of pieces")
-        upper = pattern_codes(split_rows(caps[0], 0, 5) + [pivot])
-        lower = pattern_codes([pivot] + split_rows(tails[0], 6, 10))
+        upper = pattern_codes([*split_rows(caps[0], 0, 5), pivot])
+        lower = pattern_codes([pivot, *split_rows(tails[0], 6, 10)])
         if sorted(upper + lower) != list(range(81)):
             raise ValueError(f"incompatible sample pieces in group {i}")
         template = f"template{i}"
         templates = base_templates if i < shared_templates else []
         templates += [
-            f"def {template} : Group where", "  k := 5",
-            f"  pivot := {lean_list(pivot)}", "  caps := []", "  tails := []",
+            f"def {template} : Group where",
+            "  k := 5",
+            f"  pivot := {lean_list(pivot)}",
+            "  caps := []",
+            "  tails := []",
             f"  upperMask := {sum(1 << c for c in upper)}",
-            f"  lowerMask := {sum(1 << c for c in lower)}", "",
+            f"  lowerMask := {sum(1 << c for c in lower)}",
+            "",
         ]
         tails_in_group = []
         pieces = []
         for side, flats, start, stop in [("cap", caps, 0, 5), ("tail", tails, 6, 10)]:
             if flats != sorted(set(flats)):
-                raise ValueError(f"{side} pieces in group {i} must be sorted and distinct")
+                raise ValueError(
+                    f"{side} pieces in group {i} must be sorted and distinct"
+                )
             piece_batches = []
             for offset in range(0, len(flats), BATCH_SIZE):
-                chunk = flats[offset:offset+BATCH_SIZE]
+                chunk = flats[offset : offset + BATCH_SIZE]
                 for flat in chunk:
                     split_rows(flat, start, stop)
                 name = f"{side}{i}_{len(piece_batches)}"
                 codes = code_list([int(flat, 3) for flat in chunk])
                 declaration = [
-                    f"private def {name}Codes : List Nat := {codes}", "",
+                    f"private def {name}Codes : List Nat := {codes}",
+                    "",
                     f"def {name} : Group.Batch {template}.{side}OK :=",
                     f"  Packed.{side}Batch {template} {int(pivot, 3)} rfl (by decide) {name}Codes",
-                    "    (by decide +kernel)", "",
+                    "    (by decide +kernel)",
+                    "",
                 ]
                 # Caps are small, and all tail workers can import their definitions.
                 if side == "cap":
@@ -106,12 +127,18 @@ def generate_packed_data(old, extension, directory, further=False, *, namespace=
             extra_templates.add(extra_template)
             write(generated / f"Template{i:03}.lean", ["SplicePacked"], templates)
         # Each lane is serial even when Lake schedules every target at once.
-        previous = last_modules[i-BUILD_LANES] if i >= BUILD_LANES else f"{namespace}.Groups"
+        previous = (
+            last_modules[i - BUILD_LANES] if i >= BUILD_LANES else f"{namespace}.Groups"
+        )
         for part, start in enumerate(range(0, len(tails_in_group), BATCHES_PER_MODULE)):
             module = f"Group{i:03}Part{part:03}"
-            body = [line for batch in tails_in_group[start:start+BATCHES_PER_MODULE] for line in batch]
+            body = [
+                line
+                for batch in tails_in_group[start : start + BATCHES_PER_MODULE]
+                for line in batch
+            ]
             imports = [previous]
-            if part == 0 and extra_template:
+            if part == 0 and extra_template is not None:
                 imports.append(extra_template)
             write(generated / (module + ".lean"), imports, body)
             previous = namespace + "." + module
@@ -123,7 +150,8 @@ def generate_packed_data(old, extension, directory, further=False, *, namespace=
             f"def {name} := Group.assemble {template} {pieces[0]} {pieces[1]}",
             f"theorem {name}_checked : {name}.Checked := by",
             "  apply Group.assemble_checked <;> decide +kernel",
-            f"private theorem {name}_size : {name}.size = {len(caps) * len(tails)} := by decide +kernel", "",
+            f"private theorem {name}_size : {name}.size = {len(caps) * len(tails)} := by decide +kernel",
+            "",
         ]
 
     write(generated / "Groups.lean", ["SplicePacked"], base_templates)
@@ -138,13 +166,17 @@ def generate_packed_data(old, extension, directory, further=False, *, namespace=
     if len(names) > 1:
         checked = "⟨" + checked + "⟩"
     assemblies += [
-        f"def groups : List Group := {lean_list(names)}", "",
+        f"def groups : List Group := {lean_list(names)}",
+        "",
         "theorem checked : ∀ g ∈ groups, g.Checked := by",
         "  simp only [groups, List.forall_mem_cons, List.not_mem_nil, false_implies,",
-        "    implies_true, and_true]", f"  exact {checked}", "",
+        "    implies_true, and_true]",
+        f"  exact {checked}",
+        "",
         f"theorem size_sum : (groups.map Group.size).sum = {total(extension) // 12} := by",
         "  simp only [groups, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil,",
-        "    " + ", ".join(name + "_size" for name in names) + "] <;> decide", "",
+        "    " + ", ".join(name + "_size" for name in names) + "] <;> decide",
+        "",
     ]
     if not further:
         markers = []
@@ -247,9 +279,15 @@ def generate_further(directory):
     from prepare_splice_transfer import generate_transfer
     from verify_splice import combine
 
-    layers = [(module, json.loads((directory / filename).read_text())) for module, filename in LAYERS]
+    layers = [
+        (module, json.loads((directory / filename).read_text()))
+        for module, filename in LAYERS
+    ]
     base, extension, further, transfer = [data for _, data in layers]
-    sources = {Path(filename).stem: data for (_, filename), (_, data) in zip(LAYERS[:3], layers[:3])}
+    sources = {
+        Path(filename).stem: data
+        for (_, filename), (_, data) in zip(LAYERS[:3], layers[:3], strict=False)
+    }
     generate_packed_data(combine(base, extension), further, directory, further=True)
     transfer_count = generate_transfer(transfer, sources, directory)
     generate_classifier(layers, directory)
@@ -261,18 +299,32 @@ def generate_further(directory):
 def build(directory, groups, further=False):
     namespace = "SpliceFurtherData" if further else "SpliceExtensionData"
     # Select two group targets at a time when less memory or CPU is available.
-    targets = [sorted((directory / namespace).glob(f"Group{i:03}Part*.lean"))[-1]
-               for i in range(len(groups))]
+    targets = [
+        max((directory / namespace).glob(f"Group{i:03}Part*.lean"))
+        for i in range(len(groups))
+    ]
     for i in range(0, len(targets), BUILD_JOBS):
-        modules = ["+" + namespace + "." + path.stem for path in targets[i:i+BUILD_JOBS]]
+        modules = [
+            "+" + namespace + "." + path.stem for path in targets[i : i + BUILD_JOBS]
+        ]
         subprocess.run(["lake", "build", *modules], cwd=directory, check=True)
-    subprocess.run(["lake", "build", namespace.replace("Data", "Certificates")], cwd=directory, check=True)
+    subprocess.run(
+        ["lake", "build", namespace.replace("Data", "Certificates")],
+        cwd=directory,
+        check=True,
+    )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--build", action="store_true", help="build two groups at a time and check the final theorem")
-    parser.add_argument("--further", action="store_true", help="generate the four-layer combined proof")
+    parser.add_argument(
+        "--build",
+        action="store_true",
+        help="build two groups at a time and check the final theorem",
+    )
+    parser.add_argument(
+        "--further", action="store_true", help="generate the four-layer combined proof"
+    )
     args = parser.parse_args()
     if args.further:
         result = generate_further(ROOT)

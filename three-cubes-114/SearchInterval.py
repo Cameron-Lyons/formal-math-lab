@@ -11,7 +11,6 @@ from math import gcd, isqrt, prod
 
 from flint import fmpz, fmpz_mod_poly_ctx
 
-
 D_START = 2 * 10**17
 D_COUNT = 10_000_000
 Z_MAX = 10**20
@@ -66,7 +65,7 @@ def search_block(bounds):
     start, stop, z_max = bounds
     counts = Counter()
     for d in range(start, stop):
-        counts['pair sums'] += 1
+        counts["pair sums"] += 1
         # Cubes mod 9 force x,y,z = -1 mod 3, so signed D=x+y is 1 mod 3.
         if d % 3 == 0:
             continue
@@ -81,7 +80,7 @@ def search_block(bounds):
         roots = cube_roots(d)
         if not roots:
             continue
-        counts['pair sums with progressions'] += 1
+        counts["pair sums with progressions"] += 1
 
         # 114-z^3 = D*(x^2-xy+y^2); the factor multiplying D is positive.
         low, high = (-z_max, min(4, z_max)) if D > 0 else (5, z_max)
@@ -94,9 +93,9 @@ def search_block(bounds):
         for r in roots:
             assert (-D - r) % g == 0
             r += d * (((-D - r) // g) * inverse % lift)
-            counts['progressions'] += 1
+            counts["progressions"] += 1
             first = low + (r - low) % stride
-            counts['candidate z values'] += max(0, 1 + (high - first) // stride)
+            counts["candidate z values"] += max(0, 1 + (high - first) // stride)
             for z in range(first, high + 1, stride):
                 # 3*(x-y)^2 = 4*(114-z^3)/D - D^2. Since z^3 = 114
                 # mod d, the division here is exact for either sign of D.
@@ -107,20 +106,28 @@ def search_block(bounds):
                 if difference**2 * 3 == disc and (D + difference) % 2 == 0:
                     x, y = (D + difference) // 2, (D - difference) // 2
                     assert x**3 + y**3 + z**3 == 114
-                    print('Solution', x, y, z, flush=True)
-                    counts['solutions'] += 1
+                    print("Solution", x, y, z, flush=True)
+                    counts["solutions"] += 1
     return counts
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stop = D_START + D_COUNT
-    print(f'Searching {D_START} <= |x+y| < {stop}, |z| <= {Z_MAX}', flush=True)
+    print(f"Searching {D_START} <= |x+y| < {stop}, |z| <= {Z_MAX}", flush=True)
     block_size = 100_000
-    blocks = [(d, min(d + block_size, stop), Z_MAX) for d in range(D_START, stop, block_size)]
+    blocks = [
+        (d, min(d + block_size, stop), Z_MAX) for d in range(D_START, stop, block_size)
+    ]
     counts = Counter()
     with ProcessPoolExecutor(max_workers=4) as pool:
         for result in pool.map(search_block, blocks):
             counts.update(result)
-    assert counts['pair sums'] == D_COUNT
-    for key in ['pair sums', 'pair sums with progressions', 'progressions', 'candidate z values', 'solutions']:
+    assert counts["pair sums"] == D_COUNT
+    for key in [
+        "pair sums",
+        "pair sums with progressions",
+        "progressions",
+        "candidate z values",
+        "solutions",
+    ]:
         print(key, counts[key])

@@ -530,7 +530,9 @@ polynomial. An independent two-valued sign and the existing three-valued
 offset recover every original board uniquely. Both factors remain inside
 the exported 97-variable ideal, whose dimension is still the full count.
 The added constraint has 180 terms and introduces a nonzero target at degree
-five. Its effect on the full calculation remains to be measured.
+five. A full 4 GiB trial of this model ended with a segmentation fault during
+degree five, from an unconfirmed cause, without a basis or count; see the
+[solver notes](experiments/exact_msolve_notes.md).
 An independently checked fixed-prefix run reproduces six completions using
 the new bilinear color reconstruction.
 

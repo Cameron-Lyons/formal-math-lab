@@ -127,8 +127,10 @@ forbidden at every other placement; these local exclusions are valid
 redundant constraints for a future encoding. We have not implemented or
 benchmarked them, and do not claim that they make an algebraic solve easier.
 
-The existing saved witnesses cover 0000, 0001, 0011, 0111, and 0112. No saved
-witness covers 0010, 0012, 0101, 0102, or 0121. Absence from these artifacts
-does not prove any cap impossible. A unit ideal from a completed exact basis,
-or a separately checked complete contradiction, would establish a zero case;
-a timeout or memory failure does not.
+The 1,557 boards counted in `exact_symmetry_split_coverage.json` cover 0000,
+0001, 0011, 0111, and 0112. The splice certificates contain valid boards for
+the other five: 0010 (`../splice_extension.json`), 0012
+(`../splice_next.json`), 0101 (`../splice_further.json`), 0102
+(`../splice_transfer.json`), and 0121 (`../splice_sixth.json`). So no cap count
+is zero, and a completed computation reporting zero for a cap would be an
+error. A timeout or memory failure gives no count.

@@ -1,8 +1,11 @@
 # Bounded full-label branch-3 GANAK probe
 
 The single authorized deterministic probe **timed out without an exact
-count**. Branch 3's existence and count remain unknown. No zero, SAT or UNSAT
-conclusion is inferred from the timeout.
+count**. Branch 3's count remains unknown. No SAT or UNSAT conclusion is
+inferred from the timeout itself, but branch 3 is nonempty: two valid boards
+in `exact_structure_gauge_rank.json` satisfy its conditions. The `UNKNOWN`
+existence entries in the saved JSON files record only that no solver decided
+the question.
 
 The complete CNF has 13,341 variables and 59,308 clauses. It uses the existing
 parsimonious tree encoding with all 100 original cells free, and appends only

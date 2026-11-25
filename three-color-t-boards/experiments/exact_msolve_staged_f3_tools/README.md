@@ -35,7 +35,7 @@ hash/reuse cases and 1,200 independently checked helper cases apply to
 the identical compaction code here. They include allocation failures,
 zero-missing stages, inverse-map permutations and subsequent legacy reuse.
 
-`validation.py` / `validation.json` record twenty completed g1/g2 comparisons
+`validate.py` / `validation.json` record twenty completed g1/g2 comparisons
 against the frozen F2-only sixth build. Eight F3 ideals include the previously
 audited natural 19-variable/99-generator fixed nine-row fiber. Its quotient
 dimension is six by both independent bigint counters, directly with divisor

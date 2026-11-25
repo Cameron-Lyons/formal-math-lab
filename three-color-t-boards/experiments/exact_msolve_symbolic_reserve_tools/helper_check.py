@@ -111,8 +111,8 @@ def main():
     extracted='\n'.join(text[text.index(a):text.index(b,text.index(a))] for a,b in markers)
     extracted+='\n'+text[text.index('static inline hm_t *poly_to_matrix_row('):]
     source,exe=ROOT/'helper_check.c',ROOT/'helper_check'
-    source.write_text(PRELUDE+extracted+POSTLUDE)
-    command=['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Werror','-Wno-error=type-limits','-Wno-unused-parameter','-fsanitize=address,undefined',str(source),'-lm','-o',str(exe)]
+    source.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#pragma GCC diagnostic ignored "-Wunused-parameter"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+extracted+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
+    command=['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror','-fsanitize=address,undefined',str(source),'-lm','-o',str(exe)]
     subprocess.run(command,check=True)
     good=subprocess.run([str(exe)],capture_output=True,text=True,timeout=60)
     (ROOT/'helper_check.log').write_text(good.stdout+good.stderr)

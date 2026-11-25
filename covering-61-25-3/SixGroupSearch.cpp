@@ -1,5 +1,5 @@
 // Check the six-to-five replacement question for the 27 groups in Covering.lean.
-// Build with c++ -std=c++20 -O3 SixGroupSearch.cpp -o six-group-search
+// Build with c++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror SixGroupSearch.cpp -o six-group-search
 // Run ./six-group-search [Covering.lean]
 #include <algorithm>
 #include <array>

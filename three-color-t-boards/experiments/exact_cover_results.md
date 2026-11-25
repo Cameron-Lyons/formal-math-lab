@@ -127,7 +127,7 @@ runs. Full arguments and results are in `exact_cover_unrestricted.json`.
 ## Running the counter
 
 ```sh
-g++ -O3 -std=c++20 experiments/exact_cover.cpp -o /tmp/tboard-cover
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_cover.cpp -o /tmp/tboard-cover
 /tmp/tboard-cover --colors 2 --seconds 30
 /tmp/tboard-cover --colors 3 --seconds 15 --branch-cells 1 --flow 1 --hall 81 --components 1 --memo 100000
 python experiments/exact_cover_check.py

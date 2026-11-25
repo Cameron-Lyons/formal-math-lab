@@ -32,7 +32,7 @@ quotient satisfies $|q|\le Q$, and the $|x|$ lower bound is strict.
 | 60,000,001 | 1,400,000,000 | 50,000 | 4 | 8,593,390 | 187,609,579 | 1,679,989,814 |
 
 ```sh
-g++ -std=c++17 -O3 witness_search.cpp -o /tmp/witness_search
+g++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror witness_search.cpp -o /tmp/witness_search
 /tmp/witness_search 60000000 400000 14 1 5547568
 /tmp/witness_search 220000000 1000000 18 60000001 8593390
 /tmp/witness_search 1400000000 50000 4 60000001 8593390

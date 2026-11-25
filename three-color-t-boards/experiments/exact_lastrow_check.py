@@ -12,7 +12,7 @@ def main():
  with tempfile.TemporaryDirectory(prefix='tboards-lastrow-check-')as tmp:
   binary=Path(tmp)/'terminal';reference=Path(tmp)/'reference'
   for source,target in [('exact_lastrow.cpp',binary),('exact_algo_count.cpp',reference)]:
-   subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments'/source),'-o',str(target)],check=True)
+   subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments'/source),'-o',str(target)],check=True)
   boards,_,_=count_extensions(2,[]);expected=Counter(''.join(map(str,b[:16]))for b in boards)
   prefixes=list(map(''.join,itertools.product('01',repeat=16)))
   for depth in [0,4,7]:

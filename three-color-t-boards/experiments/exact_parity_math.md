@@ -222,7 +222,7 @@ Reproduction:
 
 ```sh
 python experiments/exact_parity_math.py
-c++ -O3 -std=c++20 experiments/exact_parity_math_binary.cpp -o /tmp/exact_parity_math_binary
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_parity_math_binary.cpp -o /tmp/exact_parity_math_binary
 /tmp/exact_parity_math_binary experiments/exact_parity_math_reduced_2.dat > experiments/exact_parity_math_binary_result.json
 python experiments/exact_parity_math_check.py
 python experiments/exact_parity_math_fourier.py

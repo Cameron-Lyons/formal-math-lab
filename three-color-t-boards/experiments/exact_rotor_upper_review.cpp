@@ -40,7 +40,8 @@ int main() {
              <<"\"assignments_examined\":"<<total<<",\"caps\":"<<cap_count<<",\"histogram\":[";
     bool first=true;
     for(const auto &[frequencies,count]:histogram){
-        if(!first)std::cout<<',';first=false;
+        if(!first)std::cout<<',';
+        first=false;
         std::cout<<"{\"n0\":"<<frequencies[0]<<",\"n1\":"<<frequencies[1]
                  <<",\"n2\":"<<frequencies[2]<<",\"n3\":"<<frequencies[3]
                  <<",\"caps\":"<<count<<'}';

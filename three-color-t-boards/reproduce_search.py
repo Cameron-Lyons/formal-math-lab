@@ -22,7 +22,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='tboard-search-') as tmp:
         directory = Path(tmp)
         binary = directory/'search'
-        subprocess.run(['g++', '-O3', '-std=c++17', str(root/'search_prefix.cpp'),
+        subprocess.run(['g++', '-O3', '-std=c++23', '-Wall', '-Wextra', '-Wpedantic', '-Werror', str(root/'search_prefix.cpp'),
                         '-o', str(binary)], check=True)
         (directory/'prefix_known.txt').write_text('\n'.join(sorted(known))+'\n')
         completed = subprocess.run([str(binary), ''.join(seeds[0]), '6', str(args.seconds)],

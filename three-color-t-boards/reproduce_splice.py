@@ -102,7 +102,7 @@ def main():
     checkpoints = extension_checkpoints(groups[:max(indices)], sources) if sources is not None else {}
     with TemporaryDirectory() as directory:
         binary = Path(directory) / "splice_search"
-        subprocess.run(["c++", "-O3", "-std=c++20", CERTIFICATE.with_name("splice_search.cpp"),
+        subprocess.run(["c++", "-O3", "-std=c++23", "-Wall", "-Wextra", "-Wpedantic", "-Werror", CERTIFICATE.with_name("splice_search.cpp"),
                         "-o", binary], check=True)
         with ThreadPoolExecutor(max_workers=args.jobs) as pool:
             results = [pool.submit(replay, binary, groups[i-1], i, args.exhaust,

@@ -14,7 +14,7 @@ def main():
  with tempfile.TemporaryDirectory(prefix='tboards-tworow-benchmark-')as tmp:
   binary=Path(tmp)/'counter';reference=Path(tmp)/'reference'
   for source,target in [('exact_tworow_count.cpp',binary),('exact_algo_count.cpp',reference)]:
-   subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments'/source),'-o',str(target)],check=True)
+   subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments'/source),'-o',str(target)],check=True)
   for name,prefix in regions:
    r=subprocess.run([str(reference),'--colors','3','--rows','10','--prefix',prefix,'--seconds','90'],text=True,capture_output=True,timeout=95,check=True)
    base=dict(t.split('=',1)for t in r.stdout.split());assert base['status']=='COMPLETE';expected=int(base['exact_count_completed_interval'])

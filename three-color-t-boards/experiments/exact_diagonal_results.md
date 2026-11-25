@@ -103,7 +103,7 @@ other prescribed cells.
 ## Reproduction
 
 ```sh
-g++ -O3 -std=c++20 experiments/exact_diagonal.cpp -o /tmp/tboard-diagonal
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_diagonal.cpp -o /tmp/tboard-diagonal
 /tmp/tboard-diagonal --colors 2 --normalize-apex 1 --flow 1
 /tmp/tboard-diagonal --colors 3 --normalize-apex 1 --flow 1 --seconds 10
 python experiments/exact_diagonal_check.py

@@ -12,9 +12,17 @@ static void *test_calloc(size_t n,size_t s){if(fail_at&&++allocation_calls==fail
 static void *test_realloc(void *p,size_t s){if(fail_at&&++allocation_calls==fail_at)return NULL;return realloc(p,s);}
 #define calloc test_calloc
 #define realloc test_realloc
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-function"
+#pragma GCC diagnostic ignored "-Wtype-limits"
 #include "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/hash.c"
 #include "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/sort_r.h"
 #include "msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/order.c"
+#pragma GCC diagnostic pop
 #undef calloc
 #undef realloc
 

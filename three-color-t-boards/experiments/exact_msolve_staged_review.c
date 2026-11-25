@@ -90,6 +90,12 @@ static hi_t insert_in_hash_table(const exp_t *v,ht_t *t) {
 static void destroy(ht_t *t) {free(t->ev[0]);free(t->ev);free(t->hd);free(t->hmap);}
 static uint32_t rng=0x4192ae75;
 static uint32_t next_random(void){rng^=rng<<13;rng^=rng>>17;rng^=rng<<5;return rng;}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+#endif
 static void reserve_basis_hash_table_for_promotion(
     ht_t *ht,
     const hl_t additional,
@@ -455,6 +461,8 @@ static inline void switch_used_hcm_data_to_basis_hash_table(
         fflush(VERBSTREAM);
     }
 }
+#pragma GCC diagnostic pop
+
 static int staged_cases=0,unchanged_cases=0,large_resets=0,zero_missing_cases=0;
 static void verify_scalars(const ht_t *s,const ht_t *old) {
  assert(s->nv==old->nv && s->mo==old->mo && s->evl==old->evl && s->ebl==old->ebl);
@@ -540,7 +548,8 @@ static void one_case(unsigned iteration,int fault) {
   unchanged_cases++;assert(symbolic.eld==original_symbolic.eld&&symbolic.esz==cap);
   assert(symbolic.ev==original_symbolic.ev&&symbolic.hd==original_symbolic.hd&&symbolic.hmap==original_symbolic.hmap);
  }
- for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);free(mat.tr);
+ for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);
+ free(mat.tr);
  free(mapping);free(selected);free(expected_ids);free(expected);destroy(&symbolic);destroy(&basis);
  if(fault)printf("ALLOCATION_CALLS=%d\n",allocation_calls);
 }

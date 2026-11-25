@@ -1,5 +1,5 @@
 // Scan valid ternary boards for a two-cell swap preserving all 3-marginals.
-// Build: c++ -O3 -std=c++20 experiments/exact_structure_switch.cpp -o /tmp/exact_structure_switch
+// Build: c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_structure_switch.cpp -o /tmp/exact_structure_switch
 // Input: one flattened 100-digit ternary board per line.
 #include <array>
 #include <bit>

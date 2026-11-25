@@ -1,5 +1,5 @@
 // Experimental residual-component/subset-length prune.
-// Build with c++ -O3 -std=c++20 experiments/exact_math_search.cpp -o /tmp/exact_math_search
+// Build with c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_math_search.cpp -o /tmp/exact_math_search
 // Add -DEXACT_COMPONENT_PRUNE=0 for the instrumented original baseline.
 // Run ./splice_search FLAT_PREFIX LIMIT [MODULUS RESIDUES SALT].
 // Alternatively pass --after TAIL after LIMIT to resume after a 64-digit tail.

@@ -8,7 +8,7 @@ def main():
  x=json.loads((ROOT/'sources/anc/certificates.json').read_text());results=[]
  with tempfile.TemporaryDirectory(prefix='tboards-diagonal-benchmark-')as tmp:
   binary=Path(tmp)/'counter'
-  subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments/exact_diagonal.cpp'),'-o',str(binary)],check=True)
+  subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments/exact_diagonal.cpp'),'-o',str(binary)],check=True)
   regions=[(name,['--prefix',''.join(rows)])for name,rows in x['ternary_prefixes'].items()]+[('unrestricted_apex0',['--normalize-apex','1'])]
   for region,flags in regions:
    for reverse in [0,1]:

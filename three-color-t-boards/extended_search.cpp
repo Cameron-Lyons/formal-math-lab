@@ -8,7 +8,7 @@
 #include <string>
 #include <unordered_set>
 using namespace std;
-using Bits=unsigned __int128;
+__extension__ using Bits=unsigned __int128;
 int v[100], counts[4][3], wtop[100], roleMask[100];
 unsigned long long nodes=0, sols=0, fresh=0;
 chrono::steady_clock::time_point started, deadline;
@@ -53,7 +53,7 @@ int main(int argc,char**argv){
  ifstream f("prefix_known.txt");string s;while(f>>s)known.insert(canonical(s));
  ifstream old("prefix_result.json");string line,b;while(getline(old,line))if(line.size()>2&&line[0]=='"'){auto end=line.find('"',1);b+=line.substr(1,end-1);}if(b.size()==100)known.insert(canonical(b));
  int rows=stoi(argv[2]),prefix_len=rows*rows;string pre=argv[1];Bits used=0;
- if(pre.size()<prefix_len)return 2;
+ if(rows<0||pre.size()<static_cast<size_t>(prefix_len))return 2;
  for(int p=0;p<prefix_len;p++){
   v[p]=pre[p]-'0';if(v[p]<0||v[p]>2)return 2;
   for(int role=0;role<4;role++)if(roleMask[p]>>role&1)counts[role][v[p]]++;

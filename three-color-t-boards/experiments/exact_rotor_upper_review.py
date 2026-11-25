@@ -20,7 +20,7 @@ def main():
     output=HERE/'exact_rotor_upper_review_results.json'
     if output.exists():
         raise FileExistsError(output)
-    subprocess.run(['g++','-std=c++17','-O2','-Wall','-Wextra',str(source),'-o',str(executable)],check=True)
+    subprocess.run(['g++','-std=c++23','-O2','-Wall','-Wextra','-Wpedantic','-Werror',str(source),'-o',str(executable)],check=True)
     start=time.monotonic()
     run=subprocess.run([str(executable)],text=True,capture_output=True,check=True,timeout=30)
     independent=json.loads(run.stdout)

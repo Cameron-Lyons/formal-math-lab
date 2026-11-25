@@ -61,7 +61,7 @@ lake exe boundedSearch
 * [IntegerCubic.lean](IntegerCubic.lean) contains the kernel-checked denominator-13 family, injectivity, and quadratic contact obstructions.
 * [BoundedSearch.lean](BoundedSearch.lean) implements `boundedSearch` for the $\mathbb{F}_{13}[T]$ degree $\le 5$ exhaustion (combined with the valuation reduction above).
 * `lake build SmallCubic` builds the Pell library standalone.
-* Additional search scripts under [pell/](pell/) document their own commands (mostly Python with `python-flint==0.9.0` via `uv`, and where noted C++17, PARI/GP, or Z3).
+* Additional search scripts under [pell/](pell/) document their own commands (mostly Python with `python-flint==0.9.0` via `uv`, and where noted C++23, PARI/GP, or Z3).
 
 ## References
 

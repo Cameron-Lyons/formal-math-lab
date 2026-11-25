@@ -91,7 +91,7 @@ def main():
     if not args.prefix_rows <= args.rows <= args.colors**2+1 or args.seconds <= 0:
         parser.error('require prefix rows <= rows <= colors squared + 1 and seconds > 0')
     binary = Path(tempfile.mkdtemp(prefix='tboards-exact-census-'))/'counter'
-    subprocess.run(['g++', '-O3', '-std=c++20', '-Wall', '-Wextra', '-Wpedantic',
+    subprocess.run(['g++', '-O3', '-std=c++23', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                     str(ROOT/'experiments/exact_algo_count.cpp'), '-o', str(binary)],
                    check=True)
     # Smaller checks use no prefix quotient at all.

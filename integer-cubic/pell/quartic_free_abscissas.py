@@ -86,7 +86,7 @@ def check(height):
     with TemporaryDirectory() as work:
         w=Path(work)
         exe=w/'sieve'
-        subprocess.run(['c++','-std=c++17','-O3',str(here/'quartic_free_abscissas.cpp'),'-o',str(exe)],check=True)
+        subprocess.run(['c++','-std=c++23','-O3','-Wall','-Wextra','-Wpedantic','-Werror',str(here/'quartic_free_abscissas.cpp'),'-o',str(exe)],check=True)
         for name,basis in bases().items():
             write_rows(w/'r7',change_basis(rows,basis,343))
             write_rows(w/'r5',change_basis(good5,basis,5))

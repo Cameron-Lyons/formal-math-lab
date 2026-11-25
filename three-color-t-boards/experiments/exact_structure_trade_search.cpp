@@ -1,5 +1,5 @@
 // Prescribed binary-cube pattern trade; original search remains unchanged.
-// Build: c++ -O3 -std=c++20 experiments/exact_structure_trade_search.cpp -o /tmp/exact_structure_trade_search
+// Build: c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_structure_trade_search.cpp -o /tmp/exact_structure_trade_search
 // Run ./splice_search FLAT_PREFIX LIMIT [MODULUS RESIDUES SALT].
 // Alternatively pass --after TAIL after LIMIT to resume after a 64-digit tail.
 // A zero limit exhausts the selected region. RESIDUES is a comma-separated list.
@@ -46,22 +46,6 @@ bool read_unsigned(std::string_view text, UInt &value) {
     const char *end = text.data() + text.size();
     auto result = std::from_chars(text.data(), end, value);
     return result.ec == std::errc{} && result.ptr == end;
-}
-
-bool read_sample(char **argv, RowSixSample &sample) {
-    if (!read_unsigned(argv[3], sample.modulus) || sample.modulus == 0 ||
-        !read_unsigned(argv[5], sample.salt)) return false;
-    std::string_view terms(argv[4]);
-    while (true) {
-        auto comma = terms.find(',');
-        std::uint32_t value;
-        if (!read_unsigned(terms.substr(0, comma), value) || value >= sample.modulus) return false;
-        sample.residues.push_back(value);
-        if (comma == std::string_view::npos) break;
-        terms.remove_prefix(comma + 1);
-    }
-    std::sort(sample.residues.begin(), sample.residues.end());
-    return true;
 }
 
 class Search {

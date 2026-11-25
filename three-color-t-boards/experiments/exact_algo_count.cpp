@@ -1,5 +1,5 @@
 // Reproducible exact bounded-prefix search, independent of earlier searches.
-// Compile: g++ -O3 -std=c++20 experiments/exact_algo_count.cpp -o /tmp/tboard-count
+// Compile: g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_algo_count.cpp -o /tmp/tboard-count
 // Full count: tboard-count --colors 2 --rows 5
 // Prefix interval: --split-cells K --begin B --end E (base-q codes [B,E)).
 // Any timeout is explicitly INCOMPLETE; counts are never extrapolated.

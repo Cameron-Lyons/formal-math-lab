@@ -12,7 +12,7 @@ unsigned long long nodes=0, sols=0;
 int prefix_len=0;
 chrono::steady_clock::time_point deadline;
 unordered_set<string> known;
-using Bits=unsigned __int128;
+__extension__ using Bits=unsigned __int128;
 bool timedout=false;
 bool visit(int p,Bits used){
  if((++nodes & 0xfffff)==0 && chrono::steady_clock::now()>deadline){timedout=true;return false;}

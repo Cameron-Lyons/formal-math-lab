@@ -195,7 +195,8 @@ static void one_case(unsigned iteration,int fault) {
   unchanged_cases++;assert(symbolic.eld==original_symbolic.eld&&symbolic.esz==cap);
   assert(symbolic.ev==original_symbolic.ev&&symbolic.hd==original_symbolic.hd&&symbolic.hmap==original_symbolic.hmap);
  }
- for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);free(mat.tr);
+ for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);
+ free(mat.tr);
  free(mapping);free(selected);free(expected_ids);free(expected);destroy(&symbolic);destroy(&basis);
  if(fault)printf("ALLOCATION_CALLS=%d\n",allocation_calls);
 }
@@ -250,9 +251,8 @@ def main():
         'static inline void switch_used_hcm_data_to_basis_hash_table(')]
     c_path = HERE / 'exact_msolve_staged_review.c'
     binary = HERE / 'exact_msolve_staged_review'
-    c_path.write_text(PRELUDE+'\n\n'.join(functions)+POSTLUDE)
-    command = ['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Werror',
-               '-Wno-error=type-limits','-Wno-error=misleading-indentation',
+    c_path.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+'\n\n'.join(functions)+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
+    command = ['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
                '-fsanitize=address,undefined',str(c_path),'-o',str(binary)]
     compiled = subprocess.run(command,capture_output=True,text=True,check=True)
     logs = [compiled.stdout+compiled.stderr]

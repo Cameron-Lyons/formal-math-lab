@@ -44,6 +44,12 @@ static void *checked_realloc(void *p,size_t s) {
 #define NO_TRACER 0
 #define COEFFS (OFFSET-3)
 #define PRELOOP (OFFSET-2)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+#endif
 ht_t *copy_hash_table(
     const ht_t *bht
     )
@@ -1068,6 +1074,8 @@ static inline hm_t *multiplied_poly_to_matrix_row(
 
   return row;
 }
+
+#pragma GCC diagnostic pop
 
 static void initialize(ht_t *h,hl_t n,int collide) {
     memset(h,0,sizeof(*h));h->evl=4;h->nv=3;h->esz=n;h->hsz=2*n;h->eld=1;

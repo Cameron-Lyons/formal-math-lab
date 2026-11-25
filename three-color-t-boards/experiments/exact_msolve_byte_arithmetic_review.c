@@ -36,6 +36,9 @@ static unsigned captures;
 static hi_t insert_in_hash_table(const exp_t *e,ht_t *h) {
  assert(captures<8);memcpy(capture[captures],e,h->evl*sizeof(exp_t));return ++captures;
 }
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 static inline void set_exponent_vector(
         exp_t *ev,
         const int32_t *iev,  /* input exponent vectors */
@@ -148,6 +151,8 @@ static inline void insert_multiplied_poly_in_hash_table(
     }
 }
 
+
+#pragma GCC diagnostic pop
 
 static uint32_t state=0x63e52125u;
 static unsigned next(void){state^=state<<13;state^=state>>17;state^=state<<5;return state;}

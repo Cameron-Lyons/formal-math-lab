@@ -479,7 +479,7 @@ Harborth and Krause reported in 2003 that 38 is the largest order of a
 triangle-free circulant graph with no independent ten-set. Coniglio and
 coauthors reproduced this value in 2026. The local project verifies the
 order-40 circulant exclusion and treats graphs admitting a simultaneous
-rotation of two 20-vertex cycles in Lean, and includes standalone C++20
+rotation of two 20-vertex cycles in Lean, and includes standalone C++23
 exhaustive checks outside the Lean kernel covering all 14 groups of order 40
 (Cayley graphs), all 5 groups of order 20 (two-orbit bi-Cayley graphs), and
 degree-4 vertices via $C_{35}(\{1,7,11,16\})$.

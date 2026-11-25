@@ -2,8 +2,7 @@
 from pathlib import Path
 import subprocess,os,json,hashlib
 R=Path(__file__).resolve().parent
-command=['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Werror=incompatible-pointer-types',
- '-Werror=int-conversion','-Wno-unused-function','-Wno-unused-parameter','-Wno-unknown-pragmas',
+command=['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
  '-fsanitize=address,undefined',str(R/'table_check.c'),'-lm','-o',str(R/'table_check')]
 p=subprocess.run(command,capture_output=True,text=True)
 (R/'table_check_compile.log').write_text(p.stdout+p.stderr)

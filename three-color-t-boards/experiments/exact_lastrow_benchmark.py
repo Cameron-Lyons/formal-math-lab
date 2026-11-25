@@ -7,7 +7,7 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--groups',default='1');p.add_argument('--depths',default='0,4,8,17');p.add_argument('--capacity',type=int,default=1000000);p.add_argument('--timeout',type=float,default=120);p.add_argument('--output',type=Path,default=ROOT/'experiments/exact_lastrow_benchmark.json');a=p.parse_args()
  groups=json.loads((ROOT/'splice_witnesses.json').read_text())['groups'];results=[]
  with tempfile.TemporaryDirectory(prefix='tboards-lastrow-benchmark-')as tmp:
-  binary=Path(tmp)/'counter';subprocess.run(['g++','-O3','-std=c++20',str(ROOT/'experiments/exact_lastrow_search.cpp'),'-o',str(binary)],check=True)
+  binary=Path(tmp)/'counter';subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments/exact_lastrow_search.cpp'),'-o',str(binary)],check=True)
   for group in map(int,a.groups.split(',')):
    source=groups[group-1];prefix=source['prefix'];expected=len(source['tails'])
    for depth in map(int,a.depths.split(',')):

@@ -112,11 +112,13 @@ int main(int argc,char **argv){
  puts("PASS:65792 integer operations;1200 input-index/LCM/two-term products;degree255 and degree6");return 0;
 }
 '''
-    content = prefix + snippets[0] + types + ''.join(snippets[1:]) + tests
+    content = (prefix + snippets[0] + types +
+               '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wunused-parameter"\n' +
+               ''.join(snippets[1:]) + '\n#pragma GCC diagnostic pop\n' + tests)
     source = HERE / 'exact_msolve_byte_arithmetic_review.c'
     binary = HERE / 'exact_msolve_byte_arithmetic_review.bin'
     source.write_text(content)
-    command = ['cc', '-std=c11', '-O1', '-g', '-Wall', '-Wextra', '-Wno-unused-parameter',
+    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                '-fsanitize=address,undefined', str(source), '-o', str(binary)]
     subprocess.run(command, check=True)
     good = subprocess.run([str(binary)], capture_output=True, text=True, timeout=20)

@@ -51,7 +51,9 @@ int main(int argc,char **argv) {
    case 5:checked_exp_sub(0,1);break;case 6:lcmbound(1);break;
    case 7:product(1);break;case 8:product(2);break;
    case 9:case 10:case 11:{int32_t in[2]={1,1};exp_t out[3];ht_t ht={2,3,0,0,NULL};md_t md={0};
-     if(id==9)in[0]=-1;if(id==10)in[0]=256;if(id==11){in[0]=200;in[1]=100;}
+     if(id==9)in[0]=-1;
+     if(id==10)in[0]=256;
+     if(id==11){in[0]=200;in[1]=100;}
      set_exponent_vector(out,in,0,&ht,&md);break;}
   }
   fputs("expected failure did not occur\n",stderr);return 3;
@@ -73,9 +75,9 @@ int main(int argc,char **argv) {
  printf("PASS valid_add_sub=%u values=256 boundary_input_degrees=254,255 lcm_degree=255 multiplied_rows=1\n",count);
 }
 '''
-source=pre+read+lcm+mult+post
+source=pre+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wunused-parameter"\n'+read+lcm+mult+'\n#pragma GCC diagnostic pop\n'+post
 (R/'arithmetic_check.c').write_text(source)
-cmd=['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Wno-unused-parameter','-fsanitize=address,undefined',str(R/'arithmetic_check.c'),'-o',str(R/'arithmetic_check')]
+cmd=['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror','-fsanitize=address,undefined',str(R/'arithmetic_check.c'),'-o',str(R/'arithmetic_check')]
 subprocess.run(cmd,check=True)
 q=subprocess.run([str(R/'arithmetic_check')],capture_output=True,text=True,timeout=15);(R/'arithmetic_check.log').write_text(q.stdout+q.stderr);assert q.returncode==0 and not q.stderr,q
 faults=[]

@@ -11,7 +11,7 @@ research/cert16/generate.sh /path/to/nauty2_9_3
 lake build Ramsey556.Certified16
 ```
 
-The generator requires Bash, `make`, C and C++17 compilers with 128-bit integer support, and Python 3. It builds `geng` with a pruning function for complements of dense graphs, stores `graph6` representatives and text witnesses under `.lake/cert16-generation`, and regenerates the Lean tables, binary witness files, and layer modules under `Ramsey556/Cert16`. Each generated strip records its binary file's SHA-256 digest so regeneration invalidates its Lake build trace.
+The generator requires Bash, `make`, C23 and C++23 compilers with 128-bit integer support, and Python 3. It builds `geng` with a pruning function for complements of dense graphs, stores `graph6` representatives and text witnesses under `.lake/cert16-generation`, and regenerates the Lean tables, binary witness files, and layer modules under `Ramsey556/Cert16`. Each generated strip records its binary file's SHA-256 digest so regeneration invalidates its Lake build trace.
 
 ## How the kernel check works
 

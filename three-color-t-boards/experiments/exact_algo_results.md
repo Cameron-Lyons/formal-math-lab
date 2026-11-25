@@ -80,10 +80,10 @@ From the repository root:
 python experiments/exact_algo_check.py
 python experiments/exact_algo_census.py --seconds 240
 
-g++ -O3 -std=c++20 experiments/exact_algo_frontier.cpp -o /tmp/tboard-frontier
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_algo_frontier.cpp -o /tmp/tboard-frontier
 /tmp/tboard-frontier 3 4
 
-g++ -O3 -std=c++20 experiments/exact_algo_fixed.cpp -o /tmp/tboard-fixed
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_algo_fixed.cpp -o /tmp/tboard-fixed
 /tmp/tboard-fixed 3 5
 ```
 
@@ -105,7 +105,7 @@ cells as a base-q integer; `--begin B --end E` selects the disjoint interval
 [B,E). For example:
 
 ```sh
-g++ -O3 -std=c++20 experiments/exact_algo_count.cpp -o /tmp/tboard-count
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_algo_count.cpp -o /tmp/tboard-count
 /tmp/tboard-count --colors 2 --rows 5
 /tmp/tboard-count --colors 3 --rows 5 --prefix 000021121
 /tmp/tboard-count --colors 3 --rows 5 --split-cells 9 --begin 205 --end 207

@@ -7,7 +7,7 @@
 #include <string>
 #include <unordered_set>
 using namespace std;
-using Bits = unsigned __int128;
+__extension__ using Bits = unsigned __int128;
 int values[100], windowtop[100], roles[100], counts[4][3];
 unsigned long long nodes=0, leaves=0, fresh=0, max_new=0;
 chrono::steady_clock::time_point started, deadline;

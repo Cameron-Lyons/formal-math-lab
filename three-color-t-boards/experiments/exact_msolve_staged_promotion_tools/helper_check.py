@@ -143,8 +143,8 @@ def main():
         ('static void reset_hash_table(', '/* computes lcm of a and b from ht1 and inserts it in ht2 */')]
     extracted='\n'.join(text[text.index(a):text.index(b,text.index(a))] for a,b in markers)
     source,exe=ROOT/'helper_check.c',ROOT/'helper_check'
-    source.write_text(PRELUDE+extracted+POSTLUDE)
-    command=['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Werror','-Wno-error=type-limits',
+    source.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+extracted+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
+    command=['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
              '-fsanitize=address,undefined',str(source),'-lm','-o',str(exe)]
     subprocess.run(command,check=True)
     good=subprocess.run([str(exe)],capture_output=True,text=True,timeout=40)

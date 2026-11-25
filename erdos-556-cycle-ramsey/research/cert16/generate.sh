@@ -14,9 +14,9 @@ mkdir -p "$output_dir"
     cd "$nauty_src"
     make geng
     objects=(gtoolsW.o nautyW1.o nautilW1.o naugraphW1.o schreierW.o naurng.o)
-    cc -O3 -mpopcnt -DMAXN=WORDSIZE -DWORDSIZE=32 "-DPLUGIN=\"$tool_dir/c9prune.h\"" \
+    cc -std=c23 -O3 -mpopcnt -DMAXN=WORDSIZE -DWORDSIZE=32 "-DPLUGIN=\"$tool_dir/c9prune.h\"" \
        geng.c "${objects[@]}" -o "$output_dir/densegeng"
-    c++ -std=c++17 -w -O3 -mpopcnt -DMAXN=WORDSIZE -DWORDSIZE=32 -I. \
+    c++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror -mpopcnt -DMAXN=WORDSIZE -DWORDSIZE=32 -isystem . \
        "$tool_dir/witnesses.cpp" "${objects[@]}" -o "$output_dir/witnesses"
 )
 for n in {1..16}; do

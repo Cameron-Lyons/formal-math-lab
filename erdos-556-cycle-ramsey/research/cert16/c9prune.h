@@ -20,6 +20,7 @@ static unsigned path_ends(int vertex, unsigned available, int remaining) {
 }
 
 static int c9prune(graph *g, int n, int maxn) {
+    (void)maxn;
     static const int needed[] = {0, 0, 1, 2, 4, 6, 9, 12, 16, 20, 24, 29, 34, 40, 46, 53, 60};
     int degree_sum = 0;
     for (int i = 0; i < n; ++i)

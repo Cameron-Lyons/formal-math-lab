@@ -171,9 +171,9 @@ the residual weak-component and prescribed-length test above. Three build
 settings permit comparison:
 
 ```sh
-c++ -O3 -std=c++20 -DEXACT_COMPONENT_PRUNE=0 experiments/exact_math_search.cpp -o /tmp/exact_math_baseline
-c++ -O3 -std=c++20 experiments/exact_math_search.cpp -o /tmp/exact_math_components
-c++ -O3 -std=c++20 -DEXACT_COMPONENT_LOOPS_ONLY=1 experiments/exact_math_search.cpp -o /tmp/exact_math_loops
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror -DEXACT_COMPONENT_PRUNE=0 experiments/exact_math_search.cpp -o /tmp/exact_math_baseline
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_math_search.cpp -o /tmp/exact_math_components
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror -DEXACT_COMPONENT_LOOPS_ONLY=1 experiments/exact_math_search.cpp -o /tmp/exact_math_loops
 ```
 
 The last version checks just isolated homogeneous-triple loops. For example,

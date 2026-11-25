@@ -4,14 +4,14 @@ The classical Ramsey number $R(3, 10)$ is the smallest $N$ such that every simpl
 
 The Lean 4 proofs here verify two non-isomorphic 39-vertex witnesses ($R(3, 10) \ge 40$: Exoo's 167-edge graph and a 172-edge graph), verify Kalbfleisch's unique 35-vertex $R(3, 9, 35)$ circulant ($R(3, 9) \ge 36$), prove structural constraints on any 40-vertex $R(3, 10, 40)$ graph (degree bound $\Delta \le 9$, dual-neighborhood reduction, weighted Mantel's theorem, and an Angeltveit-type edge/regularity dichotomy), prove that no one-vertex extension of Exoo's graph to 40 vertices avoids both $K_3$ and $\overline{K_{10}}$, rule out all 40-vertex circulant graphs and all 40-vertex graphs invariant under simultaneous rotation of two 20-vertex cycles, and prove the equivalence between $R(3, 10) \in \{40, 41\}$ and the unrestricted 40-vertex SAT formula.
 
-In addition, three standalone C++20 programs in [scripts/](scripts/) run exhaustive checks outside the Lean kernel ruling out all Cayley graphs on the 14 groups of order 40, all 2-orbit bi-Cayley graphs on the 5 groups of order 20, and degree-4 vertices in $R(3, 10, 40)$ (assuming uniqueness of $R(3, 9, 35)$).
+In addition, three standalone C++23 programs in [scripts/](scripts/) run exhaustive checks outside the Lean kernel ruling out all Cayley graphs on the 14 groups of order 40, all 2-orbit bi-Cayley graphs on the 5 groups of order 20, and degree-4 vertices in $R(3, 10, 40)$ (assuming uniqueness of $R(3, 9, 35)$).
 
 | Field | Summary |
 | --- | --- |
 | Problem | Classical Ramsey number $R(3, 10)$ ($40 \le R(3, 10) \le 41$), Exoo (1989) 39-vertex graph, Angeltveit (2025) upper bound 41 |
 | Status | Lower bound 40 verified (two non-isomorphic 39-vertex witnesses), structural dichotomy and order-40 extension/symmetry obstructions proved; choice between 40 and 41 remains open. |
 | Main theorems | `Ramsey310.ramsey_lower_bound`, `exoo_no_one_vertex_extension`, `Structural.r310_40_dichotomy`, `Structural.weighted_mantel`, `R39.r39_witness`, `Dense39.dense39_witness`, `Circulants.order40`, `TwoOrbits.two_cycles_of_length_twenty`, `SAT.value40_iff_unsat`, `SAT.value41_iff_sat` |
-| Verification | `lake build` (Lean 4.36.0, stdlib only; all modules except `TwoOrbits` are kernel-checked; `TwoOrbits` LRAT check uses `native_decide`; `scripts/*.cpp` are unverified external C++20 exhaustive checks) |
+| Verification | `lake build` (Lean 4.36.0, stdlib only; all modules except `TwoOrbits` are kernel-checked; `TwoOrbits` LRAT check uses `native_decide`; `scripts/*.cpp` are unverified external C++23 exhaustive checks) |
 | Prior art | Updated 25 November 2026: Kalbfleisch (1966) gave $C_{35}(\{1, 7, 11, 16\})$, Exoo (1989) proved $R(3, 10) \ge 40$, Angeltveit (2025) proved $R(3, 10) \le 41$ using weighted-Mantel / blow-up constraints, and Harborth and Krause (2003) and Coniglio et al. (2026) reported the circulant bound 38. See [PRIOR_ART.md](../PRIOR_ART.md). |
 
 ## Why Exoo's 39-vertex graph cannot be extended by one vertex
@@ -38,7 +38,7 @@ In any triangle-free 40-vertex graph $G$ with no independent 10-set, every verte
 | `TwoOrbits.two_cycles_of_length_twenty` | [TwoOrbits.lean](TwoOrbits.lean) | Every 40-vertex graph invariant under simultaneous rotation of two disjoint 20-cycles contains a triangle or an independent 10-set. |
 | `SAT.value40_iff_unsat`, `SAT.value41_iff_sat` | [RamseySAT.lean](RamseySAT.lean) | For the unrestricted 40-vertex SAT formula (one variable per edge of $K_{40}$), unsatisfiability is equivalent to $R(3, 10) = 40$, and (assuming Angeltveit's $R(3, 10) \le 41$) satisfiability is equivalent to $R(3, 10) = 41$. |
 
-## Compiled C++20 exhaustive checks (outside Lean)
+## Compiled C++23 exhaustive checks (outside Lean)
 
 These standalone programs are compiled and run outside the Lean kernel and carry the trust boundary of unverified C++ code:
 
@@ -58,12 +58,12 @@ lake build
 
 All Lean modules except [TwoOrbits.lean](TwoOrbits.lean) are kernel-checked with only standard Lean axioms (`propext`, `Classical.choice`, `Quot.sound`). The two-cycle theorem in [TwoOrbits.lean](TwoOrbits.lean) uses `native_decide` to validate its vertex sets and replay its LRAT certificate ([certificates/two-orbits.sets](certificates/two-orbits.sets), [certificates/two-orbits.lrat](certificates/two-orbits.lrat)), trusting the Lean compiler and runtime for those finite checks.
 
-To reproduce the external C++20 exhaustive checks:
+To reproduce the external C++23 exhaustive checks:
 
 ```sh
-g++ -O3 -std=c++20 scripts/check_r39_35_deg4.cpp -o /tmp/check_deg4 && /tmp/check_deg4
-g++ -O3 -std=c++20 scripts/search_cayley40.cpp -o /tmp/search_cayley40 && /tmp/search_cayley40
-g++ -O3 -std=c++20 scripts/search_sym40.cpp -o /tmp/search_sym40 && /tmp/search_sym40
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror scripts/check_r39_35_deg4.cpp -o /tmp/check_deg4 && /tmp/check_deg4
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror scripts/search_cayley40.cpp -o /tmp/search_cayley40 && /tmp/search_cayley40
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror scripts/search_sym40.cpp -o /tmp/search_sym40 && /tmp/search_sym40
 ```
 
 ## References

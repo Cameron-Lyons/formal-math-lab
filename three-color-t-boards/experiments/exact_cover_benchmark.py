@@ -12,7 +12,7 @@ def main():
  results=[]
  with tempfile.TemporaryDirectory(prefix='tboards-cover-benchmark-') as tmp:
   binary=Path(tmp)/'counter'
-  subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments/exact_cover.cpp'),'-o',str(binary)],check=True)
+  subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments/exact_cover.cpp'),'-o',str(binary)],check=True)
   for name,prefix in prefixes:
    for config,extra in configs:
     args=[str(binary),'--colors','3','--prefix',prefix,'--seconds',str(a.seconds),*extra]

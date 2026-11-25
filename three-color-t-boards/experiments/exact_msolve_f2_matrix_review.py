@@ -76,7 +76,7 @@ def cases():
 
 def main():
     executable = HERE/'exact_msolve_f2_matrix_review.bin'
-    command = ['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Werror',
+    command = ['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
                '-fsanitize=address,undefined','-fno-omit-frame-pointer','-no-pie',
                str(HERE/'exact_msolve_f2_matrix_review.c'),'-o',str(executable)]
     subprocess.run(command,check=True,capture_output=True,text=True,timeout=30)

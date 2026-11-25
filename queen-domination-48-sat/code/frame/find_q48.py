@@ -248,7 +248,7 @@ def anneal_c(work, m, seed, iters_per=16000000, T0=1.2, T1=0.12, indep=False, pw
     src = os.path.join(work, 'find_q48_sa.c'); exe = os.path.join(work, 'find_q48_sa')
     with open(src, 'w') as f:
         f.write(C_SOURCE)
-    subprocess.run(['cc', '-O2', '-o', exe, src, '-lm'], check=True)
+    subprocess.run(['cc', '-std=c23', '-O2', '-Wall', '-Wextra', '-Wpedantic', '-Werror', '-o', exe, src, '-lm'], check=True)
     a0, b0 = fixed if fixed else (0, 0)
     out = subprocess.run([exe, str(m), str(seed), str(iters_per), repr(T0), repr(T1), str(int(indep)), str(pw),
                           repr(float(max_cpu)) if max_cpu is not None else '-1', str(int(bool(fixed))), str(a0), str(b0)],

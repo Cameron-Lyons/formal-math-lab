@@ -27,7 +27,7 @@ void visit(int position) {
         else { assert(bin.n2==frequency[2] && bin.n3==frequency[3]); }
         ++bin.caps;++leaves;return;
     }
-    if (top[position]<0) {
+    if (position<2 || top[position]<0) {
         for (int color=0;color<q;++color) { cells[position]=color;visit(position+1); }
         return;
     }
@@ -70,7 +70,8 @@ int main(int argc,char**argv) {
     bool first=true;
     for (int n0=0;n0<=triple_count;++n0) for (int n1=0;n1<=triple_count;++n1) {
         const Bin&bin=histogram[n0][n1];if (!bin.caps)continue;
-        if (!first)std::cout<<',';first=false;
+        if (!first)std::cout<<',';
+        first=false;
         std::cout<<"{\"n0\":"<<n0<<",\"n1\":"<<n1<<",\"n2\":"<<bin.n2<<",\"n3\":"<<bin.n3<<",\"caps\":"<<bin.caps<<'}';
     }
     std::cout<<"]}\n";

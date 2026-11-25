@@ -92,6 +92,12 @@ static hi_t insert_in_hash_table(const exp_t *v,ht_t *t) {
 static void destroy(ht_t *t) {free(t->ev[0]);free(t->ev);free(t->hd);free(t->hmap);}
 static uint32_t rng=0x4192ae75;
 static uint32_t next_random(void){rng^=rng<<13;rng^=rng>>17;rng^=rng<<5;return rng;}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+#endif
 static void reserve_hash_table_checked(
     ht_t *ht,
     const hl_t additional,
@@ -510,6 +516,8 @@ static inline void switch_used_hcm_data_to_basis_hash_table(
         fflush(VERBSTREAM);
     }
 }
+#pragma GCC diagnostic pop
+
 static int staged_cases=0,unchanged_cases=0,large_resets=0,zero_missing_cases=0,nonpower_stages=0;
 static void verify_scalars(const ht_t *s,const ht_t *old) {
  assert(s->nv==old->nv && s->mo==old->mo && s->evl==old->evl && s->ebl==old->ebl);
@@ -597,7 +605,8 @@ static void one_case(unsigned iteration,int fault) {
   unchanged_cases++;assert(symbolic.eld==original_symbolic.eld&&symbolic.esz==cap);
   assert(symbolic.ev==original_symbolic.ev&&symbolic.hd==original_symbolic.hd&&symbolic.hmap==original_symbolic.hmap);
  }
- for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);free(mat.tr);
+ for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);
+ free(mat.tr);
  free(mapping);free(selected);free(expected_ids);free(expected);destroy(&symbolic);destroy(&basis);
  if(fault)printf("ALLOCATION_CALLS=%d\n",allocation_calls);
 }
@@ -653,9 +662,14 @@ static void check_row_reserve(void) {
  ht_t t=table(8,3);t.eld=6;hm_t poly[OFFSET]={0};poly[LENGTH]=8;
  for(int mode=0;mode<8;mode++){
   md_t md=metadata(&t);
-  if(mode==0)md.fc=5;if(mode==1)md.laopt=1;if(mode==2)md.nthrds=2;
-  if(mode==3)md.trace_level=1;if(mode==4)md.nf=1;if(mode==5)md.in_final_reduction_step=1;
-  if(mode==6)md.nev=1;if(mode==7)md.print_gb=0;
+  if(mode==0)md.fc=5;
+  if(mode==1)md.laopt=1;
+  if(mode==2)md.nthrds=2;
+  if(mode==3)md.trace_level=1;
+  if(mode==4)md.nf=1;
+  if(mode==5)md.in_final_reduction_step=1;
+  if(mode==6)md.nev=1;
+  if(mode==7)md.print_gb=0;
   ht_t old=t;allocation_calls=0;count_calls=1;
   reserve_symbolic_row_capacity(&t,poly,&md);count_calls=0;
   assert(!memcmp(&t,&old,sizeof(t))&&allocation_calls==0);

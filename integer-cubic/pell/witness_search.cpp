@@ -1,4 +1,4 @@
-// g++ -O3 -std=c++17 witness_search.cpp -o /tmp/witness_search
+// g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror witness_search.cpp -o /tmp/witness_search
 // Arguments: max |z|, largest prime factor, quotient radius, min |z|, min |x|.
 #include <algorithm>
 #include <array>
@@ -62,7 +62,7 @@ struct PrimePower { Int modulus; std::vector<Int> roots; };
 
 struct Search {
     Int maxZ, maxPrime, radius, minZ, minX;
-    std::vector<std::vector<PrimePower>> factors;
+    std::vector<std::vector<PrimePower>> factors{};
     std::array<bool,256> squares{};
     Int residues = 0, tested = 0;
 

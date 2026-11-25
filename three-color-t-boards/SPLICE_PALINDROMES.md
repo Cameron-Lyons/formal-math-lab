@@ -52,7 +52,7 @@ The continued groups name the earlier cap family they extend. For a repeated piv
 
 ## Verification
 
-Lean checked the combined lower bound using `propext`, `Classical.choice`, and `Quot.sound`. The independent audit constructed all 45,083,592 labeled boards, evaluated the 81 Cartesian T placements on each, and compared complete base-three encodings for duplicates. It also confirmed inclusion of the original 17,160-board family. The C++20 checker uses three exact base-three integers for each 100-cell board. The Python-only checker can repeat the expansion with `--expand`. The lower bound counts the recorded pieces from bounded or exhaustive searches. The unrestricted exact count remains open. [Lean build](splice-pal-build.log) · [Cartesian checker](expand_splice.cpp) · [Independent audit](splice-pal-audit.log)
+Lean checked the combined lower bound using `propext`, `Classical.choice`, and `Quot.sound`. The independent audit constructed all 45,083,592 labeled boards, evaluated the 81 Cartesian T placements on each, and compared complete base-three encodings for duplicates. It also confirmed inclusion of the original 17,160-board family. The C++23 checker uses three exact base-three integers for each 100-cell board. The Python-only checker can repeat the expansion with `--expand`. The lower bound counts the recorded pieces from bounded or exhaustive searches. The unrestricted exact count remains open. [Lean build](splice-pal-build.log) · [Cartesian checker](expand_splice.cpp) · [Independent audit](splice-pal-audit.log)
 
 ```sh
 python prepare_splice_pal.py --build

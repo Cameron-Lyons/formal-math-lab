@@ -14,7 +14,7 @@ static void byte_input_error(const char *why)
     fprintf(stderr,"Error: byte input guard: %s.\n",why);
     exit(EXIT_FAILURE);
 }
-static uint32_t byte_cli_integer(const char *s)
+[[maybe_unused]] static uint32_t byte_cli_integer(const char *s)
 {
     if (s==NULL || !*s) byte_input_error("missing numeric option");
     uint32_t n=0;

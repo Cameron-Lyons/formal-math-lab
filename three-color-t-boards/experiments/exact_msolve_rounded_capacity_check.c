@@ -28,6 +28,11 @@ static void *checked_test_realloc(void *old,size_t size) {
     return realloc(old,size);
 }
 #define realloc checked_test_realloc
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+#endif
 static void reserve_basis_hash_table_for_promotion(
     ht_t *ht,
     const hl_t additional,
@@ -136,6 +141,8 @@ static void reserve_basis_hash_table_for_promotion(
     ht->esz = new_esz;
     ht->hsz = new_hsz;
 }
+#pragma GCC diagnostic pop
+
 #undef realloc
 static ht_t *initial(hl_t esz,hl_t eld,hl_t hsz,len_t evl,int real) {
     ht_t *table=calloc(1,sizeof(*table));assert(table);

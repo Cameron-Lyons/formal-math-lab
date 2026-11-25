@@ -14,7 +14,7 @@ extern "C" {
 #include "nauty.h"
 }
 using U = unsigned;
-using Wide = unsigned __int128;
+__extension__ using Wide = unsigned __int128;
 using Rows = std::array<graph, 16>;
 using Perm = std::array<int, 16>;
 

@@ -139,7 +139,7 @@ def main():
     c_path = ROOT/'experiments/exact_msolve_sparse_helper_check.c'
     executable = ROOT/'experiments/exact_msolve_sparse_helper_check'
     c_path.write_text(PRELUDE+helper+POSTLUDE)
-    command = ['cc', '-std=c11', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
+    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                '-fsanitize=address,undefined', str(c_path), '-o', str(executable)]
     subprocess.run(command, check=True, capture_output=True, text=True)
     valid = subprocess.run([str(executable)], capture_output=True, text=True, check=True)

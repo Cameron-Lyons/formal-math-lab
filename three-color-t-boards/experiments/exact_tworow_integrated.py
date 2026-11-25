@@ -8,7 +8,7 @@ def main():
  prefix=json.loads((ROOT/'splice_witnesses.json').read_text())['groups'][0]['prefix']
  with tempfile.TemporaryDirectory(prefix='tboards-tworow-integrated-')as tmp:
   binary=Path(tmp)/'counter'
-  subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic','-DTWO_START_ROW=6',str(ROOT/'experiments/exact_tworow_search.cpp'),'-o',str(binary)],check=True)
+  subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror','-DTWO_START_ROW=6',str(ROOT/'experiments/exact_tworow_search.cpp'),'-o',str(binary)],check=True)
   args=[str(binary),prefix,'0','0'];started=time.monotonic();before=resource.getrusage(resource.RUSAGE_CHILDREN)
   try:
    run=subprocess.run(args,text=True,capture_output=True,timeout=90,check=True)

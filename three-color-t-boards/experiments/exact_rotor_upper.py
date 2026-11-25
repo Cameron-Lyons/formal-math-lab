@@ -126,7 +126,7 @@ def ternary_lazy_rotor_sum(height):
 def build(check=False):
     # The driver and every child have an explicit1GiB address-space ceiling.
     limits()
-    command=['c++','-O3','-std=c++20',str(SOURCE),'-o',str(BINARY)]
+    command=['c++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(SOURCE),'-o',str(BINARY)]
     if not BINARY.exists():subprocess.run(command,check=True,timeout=30)
     source_hash=sha(SOURCE);binary_hash=sha(BINARY)
     if check:

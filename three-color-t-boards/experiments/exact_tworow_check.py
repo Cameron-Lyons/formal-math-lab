@@ -12,7 +12,7 @@ def main():
  with tempfile.TemporaryDirectory(prefix='tboards-tworow-check-')as tmp:
   binary=Path(tmp)/'counter';search=Path(tmp)/'search';reference=Path(tmp)/'reference'
   for source,target in [('exact_tworow_count.cpp',binary),('exact_tworow_search.cpp',search),('exact_algo_count.cpp',reference)]:
-   subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments'/source),'-o',str(target)],check=True)
+   subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments'/source),'-o',str(target)],check=True)
   boards,_,_=count_extensions(2,[]);expected=Counter(''.join(map(str,b[:9]))for b in boards);prefixes=list(map(''.join,itertools.product('01',repeat=9)))
   def batch(q,prefixes,depth,endpoints=1):
    run=subprocess.run([str(binary),str(q),str(depth),'1000000','90',str(endpoints)],input='\n'.join(prefixes)+'\n',text=True,capture_output=True,timeout=90,check=True)

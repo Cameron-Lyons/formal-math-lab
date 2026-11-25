@@ -25,7 +25,7 @@ def main():
  strong=['--branch-cells','1','--flow','1','--hall','81','--components','1','--memo','100000']
  with tempfile.TemporaryDirectory(prefix='tboards-cover-check-')as tmp:
   binary=Path(tmp)/'counter'
-  subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments/exact_cover.cpp'),'-o',str(binary)],check=True)
+  subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments/exact_cover.cpp'),'-o',str(binary)],check=True)
   def run(q,prefix='',extra=(),limit=30):
    r=subprocess.run([str(binary),'--colors',str(q),'--prefix',prefix,'--seconds',str(limit),*extra],capture_output=True,text=True)
    if r.returncode not in (0,1):raise RuntimeError(r.stderr)

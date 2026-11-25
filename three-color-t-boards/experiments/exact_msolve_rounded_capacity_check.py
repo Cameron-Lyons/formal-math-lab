@@ -121,11 +121,11 @@ def main():
         depth += (source[end] == '{')-(source[end] == '}'); end += 1
     helper = source[start:end]
     c_path = ROOT/'experiments/exact_msolve_rounded_capacity_check.c'
-    c_path.write_text(PRELUDE+helper+POSTLUDE)
+    c_path.write_text(PRELUDE+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+helper+'\n#pragma GCC diagnostic pop\n'+POSTLUDE)
     binaries = {}
     for tag in ('native', 'size32'):
         binary = ROOT/('experiments/exact_msolve_rounded_capacity_check_'+tag)
-        command = ['cc', '-std=c11', '-O1', '-g', '-Wall', '-Wextra', '-Wno-type-limits',
+        command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                    '-fsanitize=address,undefined', str(c_path), '-o', str(binary)]
         if tag == 'size32':
             command.append('-DREVIEW_SIZE32')

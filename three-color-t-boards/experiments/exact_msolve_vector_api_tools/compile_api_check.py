@@ -20,7 +20,7 @@ cases={
 results=[]
 for name,body in cases.items():
  source=header+'void probe(ht_t *h,exp_t *d){'+body+'}\n'
- command=['cc','-std=c11','-Werror=incompatible-pointer-types','-Werror=int-conversion','-fsyntax-only','-x','c','-']
+ command=['cc','-std=c23','-Wall','-Wextra','-Wpedantic','-Werror','-fsyntax-only','-x','c','-']
  p=subprocess.run(command,input=source,capture_output=True,text=True)
  assert (p.returncode==0)==(name=='valid'),(name,p)
  (R/('compile_api_'+name+'.log')).write_text(p.stdout+p.stderr)

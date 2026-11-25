@@ -31,6 +31,9 @@ typedef struct {len_t nev;} md_t;
 #define PARALLEL_HASHING 0
 static exp_t captured[129];
 static hi_t insert_in_hash_table(const exp_t *e,ht_t *h){memcpy(captured,e,h->evl*sizeof(exp_t));return 1;}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 static inline void set_exponent_vector(
         exp_t *ev,
         const int32_t *iev,  /* input exponent vectors */
@@ -144,6 +147,8 @@ static inline void insert_multiplied_poly_in_hash_table(
 }
 
 
+#pragma GCC diagnostic pop
+
 static void product(int overflow) {
  exp_t a[4]={8,2,3,3},b[4]={9,3,4,2},out[4]={0};
  if(overflow==1){a[0]=255;b[0]=1;}
@@ -170,7 +175,9 @@ int main(int argc,char **argv) {
    case 5:checked_exp_sub(0,1);break;case 6:lcmbound(1);break;
    case 7:product(1);break;case 8:product(2);break;
    case 9:case 10:case 11:{int32_t in[2]={1,1};exp_t out[3];ht_t ht={2,3,0,0,NULL};md_t md={0};
-     if(id==9)in[0]=-1;if(id==10)in[0]=256;if(id==11){in[0]=200;in[1]=100;}
+     if(id==9)in[0]=-1;
+     if(id==10)in[0]=256;
+     if(id==11){in[0]=200;in[1]=100;}
      set_exponent_vector(out,in,0,&ht,&md);break;}
   }
   fputs("expected failure did not occur\n",stderr);return 3;

@@ -28,6 +28,12 @@ typedef struct {len_t ld; spair_t *p;} ps_t;
 typedef struct {double rht_ctime,rht_rtime; int32_t init_hts;} md_t;
 static double cputime(void){return 0;}
 static double realtime(void){return 0;}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+#endif
 ht_t *copy_hash_table(
     const ht_t *bht
     )
@@ -625,6 +631,8 @@ static void reset_hash_table(
     st->rht_rtime  +=  rt1 - rt0;
 }
 
+
+#pragma GCC diagnostic pop
 
 static void init(ht_t *h,hl_t n,int collisions) {
     memset(h,0,sizeof(*h));h->evl=4;h->nv=3;h->esz=n;h->eld=1;h->hsz=2*n;

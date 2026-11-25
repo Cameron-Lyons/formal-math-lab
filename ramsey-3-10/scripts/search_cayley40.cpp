@@ -244,7 +244,6 @@ void check_cayley_group(const Group40& G) {
     // So if alpha(S') >= 10, then alpha(S) >= 10 automatically!
     // Let's count both total valid S (|S|<=9) and maximal-within-|S|<=9!
     long long total_valid = 0, max_checked = 0, hits = 0;
-    int best_alpha_lb = 100; // Wait: we just check alpha >= 10!
     // Track how many have alpha >= 10 vs alpha <= 9.
 
     function<void(int, uint64_t, uint64_t, int)> dfs = [&](int idx, uint64_t S, uint64_t forbid, int deg) {

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rediscover the larger recorded family without overwriting certificates.
 
-Requires a C++17 compiler (g++ by default). The seed1 search stops after the
+Requires a C++23 compiler (g++ by default). The seed1 search stops after the
 recorded number of new orbits, so its output does not depend on reproducing
 a 180-second timing cutoff. A separate safety timeout can still stop slow runs.
 This optional discovery replay is not required to check the Lean certificates.
@@ -76,7 +76,7 @@ def main():
                         help="safety time limit for each search (default: 300)")
     parser.add_argument("--smoke", action="store_true",
                         help="only rediscover and verify the first seed1 record")
-    parser.add_argument("--compiler", default="g++", help="C++17 compiler (default: g++)")
+    parser.add_argument("--compiler", default="g++", help="C++23 compiler (default: g++)")
     args = parser.parse_args()
     if args.seconds <= 0:
         parser.error("--seconds must be positive")
@@ -99,7 +99,7 @@ def main():
         (directory / "prefix_result.json").write_bytes((ROOT / "prefix_result.json").read_bytes())
         names = ["more_search"] if args.smoke else ["extended_search", "more_search"]
         for name in names:
-            subprocess.run([args.compiler, "-O3", "-std=c++17", str(ROOT / f"{name}.cpp"),
+            subprocess.run([args.compiler, "-O3", "-std=c++23", "-Wall", "-Wextra", "-Wpedantic", "-Werror", str(ROOT / f"{name}.cpp"),
                             "-o", str(directory / name)], check=True)
 
         if not args.smoke:

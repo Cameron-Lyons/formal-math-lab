@@ -1,4 +1,4 @@
-// c++ -O3 -std=c++17 pole_two_check.cpp -o /tmp/pole_two_check && /tmp/pole_two_check
+// c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror pole_two_check.cpp -o /tmp/pole_two_check && /tmp/pole_two_check
 #include <algorithm>
 #include <array>
 #include <cstdint>

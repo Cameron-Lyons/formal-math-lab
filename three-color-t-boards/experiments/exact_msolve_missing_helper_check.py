@@ -61,7 +61,7 @@ static int32_t is_contained_in_hash_table(const exp_t *exponent,const ht_t *tabl
     c_path = ROOT/'experiments/exact_msolve_missing_helper_check.c'
     binary = ROOT/'experiments/exact_msolve_missing_helper_check'
     c_path.write_text(prelude+helper+postlude)
-    command = ['cc', '-std=c11', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
+    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                '-fsanitize=address,undefined', str(c_path), '-o', str(binary)]
     subprocess.run(command, check=True, capture_output=True, text=True)
     for arguments, expected in (([], 'VALID_CASES=5000'), (['all-reused'], 'ALL_REUSED_NO_GROWTH')):

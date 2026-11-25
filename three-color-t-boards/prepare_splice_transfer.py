@@ -79,7 +79,7 @@ def discover_transfer(sources):
                 owners.append((owner, first))
     with TemporaryDirectory() as work:
         exe = Path(work) / "reverse"
-        subprocess.run(["c++", "-O3", "-std=c++20", ROOT / "search_splice_transfer.cpp", "-o", exe], check=True)
+        subprocess.run(["c++", "-O3", "-std=c++23", "-Wall", "-Wextra", "-Wpedantic", "-Werror", ROOT / "search_splice_transfer.cpp", "-o", exe], check=True)
         result = subprocess.run([exe], input="".join(inputs), text=True, stdout=subprocess.PIPE, check=True)
     caps = defaultdict(set)
     matches = defaultdict(lambda: defaultdict(set))

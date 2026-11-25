@@ -13,7 +13,7 @@ def main():
  boards,_,_=count_extensions(2,[]);assert len(boards)==168
  with tempfile.TemporaryDirectory(prefix='tboards-diagonal-check-')as tmp:
   binary=Path(tmp)/'counter'
-  subprocess.run(['g++','-O3','-std=c++20','-Wall','-Wextra','-Wpedantic',str(ROOT/'experiments/exact_diagonal.cpp'),'-o',str(binary)],check=True)
+  subprocess.run(['g++','-O3','-std=c++23','-Wall','-Wextra','-Wpedantic','-Werror',str(ROOT/'experiments/exact_diagonal.cpp'),'-o',str(binary)],check=True)
   def run(q,flags=(),reverse=0,flow=1,seconds=15):
    cmd=[str(binary),'--colors',str(q),'--seconds',str(seconds),'--reverse',str(reverse),'--flow',str(flow),*flags]
    result=subprocess.run(cmd,capture_output=True,text=True)

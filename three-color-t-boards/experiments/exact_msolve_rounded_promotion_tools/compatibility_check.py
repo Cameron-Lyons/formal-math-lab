@@ -107,9 +107,9 @@ def main():
     ]
     extracted = '\n'.join(text[text.index(start):text.index(end, text.index(start))] for start, end in markers)
     source, executable = ROOT/'compatibility_check.c', ROOT/'compatibility_check'
-    source.write_text(PRELUDE + extracted + POSTLUDE)
-    command = ['cc', '-std=c11', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
-               '-Wno-error=type-limits', '-fsanitize=address,undefined', str(source), '-lm', '-o', str(executable)]
+    source.write_text(PRELUDE + '\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n' + extracted + '\n#pragma GCC diagnostic pop\n' + POSTLUDE)
+    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
+               '-fsanitize=address,undefined', str(source), '-lm', '-o', str(executable)]
     subprocess.run(command, check=True)
     run = subprocess.run([str(executable)], text=True, capture_output=True, timeout=30)
     (ROOT/'compatibility_check.log').write_text(run.stdout + run.stderr)

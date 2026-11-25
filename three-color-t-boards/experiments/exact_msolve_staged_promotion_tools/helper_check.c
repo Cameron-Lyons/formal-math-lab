@@ -40,6 +40,11 @@ static void *checked_realloc(void *p,size_t s) {
 }
 #define calloc checked_calloc
 #define realloc checked_realloc
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+#endif
 ht_t *copy_hash_table(
     const ht_t *bht
     )
@@ -902,6 +907,8 @@ static void reset_hash_table(
     st->rht_rtime  +=  rt1 - rt0;
 }
 
+
+#pragma GCC diagnostic pop
 
 static void initialize(ht_t *h,hl_t n,int collide) {
     memset(h,0,sizeof(*h));h->evl=4;h->nv=3;h->esz=n;h->hsz=2*n;h->eld=1;

@@ -1,5 +1,5 @@
 // Exhaustively check disjoint equal-length intervals with all entries in [1, N].
-// Build with c++ -O3 -std=c++17 search.cpp -o search
+// Build with c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror search.cpp -o search
 #include <algorithm>
 #include <cstdint>
 #include <iostream>

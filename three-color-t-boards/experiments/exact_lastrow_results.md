@@ -175,7 +175,7 @@ completed run and imposes an external 120-second limit per run. It never
 labels a timed-out result complete. The standalone terminal interface is:
 
 ```sh
-g++ -O3 -std=c++20 experiments/exact_lastrow.cpp -o /tmp/tboard-lastrow
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_lastrow.cpp -o /tmp/tboard-lastrow
 /tmp/tboard-lastrow 3 17 1000000 < nine-row-prefixes.txt
 ```
 

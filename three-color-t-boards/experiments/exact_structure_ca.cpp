@@ -1,7 +1,7 @@
 // Exact affine-CA subclass test for uniform 3-coordinate marginals.
 // Every lower triple must occur n times. The nonzero affine coefficients then
 // imply every 3-coordinate T marginal is uniform; T quadruples occur n or 0 times.
-// Build: c++ -O3 -std=c++20 experiments/exact_structure_ca.cpp -o /tmp/exact_structure_ca
+// Build: c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_structure_ca.cpp -o /tmp/exact_structure_ca
 // Usage: exact_structure_ca N A B C D SECONDS ; N is 2 or 3.
 #include <array>
 #include <chrono>

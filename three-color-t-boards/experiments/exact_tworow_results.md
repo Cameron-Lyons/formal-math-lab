@@ -152,7 +152,7 @@ The standalone transfer reads eight-row ternary prefixes (64 digits), or
 three-row binary prefixes (9 digits), one per line:
 
 ```sh
-g++ -O3 -std=c++20 experiments/exact_tworow_count.cpp -o /tmp/tboard-tworow
+g++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_tworow_count.cpp -o /tmp/tboard-tworow
 /tmp/tboard-tworow 3 0 0 90 < eight-row-prefixes.txt
 ```
 

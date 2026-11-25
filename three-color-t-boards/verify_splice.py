@@ -284,7 +284,7 @@ def native_expanded_count(tasks, jobs, cut):
 
     with TemporaryDirectory() as work:
         binary = Path(work) / "expand_splice"
-        subprocess.run(["c++", "-std=c++20", "-O3", CERTIFICATE.with_name("expand_splice.cpp"),
+        subprocess.run(["c++", "-std=c++23", "-O3", "-Wall", "-Wextra", "-Wpedantic", "-Werror", CERTIFICATE.with_name("expand_splice.cpp"),
                         "-o", binary], check=True)
 
         def check(task):
@@ -336,7 +336,7 @@ if __name__ == "__main__":
     parser.add_argument("--through-next", action="store_true", help="check the first five layers")
     parser.add_argument("--through-sixth", action="store_true", help="check the first six layers")
     parser.add_argument("--expand", action="store_true", help="also check every labeled board directly")
-    parser.add_argument("--native", action="store_true", help="expand with the C++20 Cartesian checker")
+    parser.add_argument("--native", action="store_true", help="expand with the C++23 Cartesian checker")
     parser.add_argument("--jobs", type=int, default=1, help="parallel workers for the expanded check")
     args = parser.parse_args()
     if args.jobs < 1:

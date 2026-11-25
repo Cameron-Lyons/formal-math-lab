@@ -11,11 +11,11 @@ from exact_algo_census import ROOT, count, independent_patterns, prefix_orbits
 def main():
     with tempfile.TemporaryDirectory(prefix='tboards-exact-check-') as directory:
         binary = Path(directory)/'count'
-        subprocess.run(['g++', '-O3', '-std=c++20', '-Wall', '-Wextra', '-Wpedantic',
+        subprocess.run(['g++', '-O3', '-std=c++23', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                         str(ROOT/'experiments/exact_algo_count.cpp'), '-o', str(binary)],
                        check=True)
         fixed_binary = Path(directory)/'fixed'
-        subprocess.run(['g++', '-O3', '-std=c++20', '-Wall', '-Wextra', '-Wpedantic',
+        subprocess.run(['g++', '-O3', '-std=c++23', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                         str(ROOT/'experiments/exact_algo_fixed.cpp'), '-o', str(fixed_binary)],
                        check=True)
         for q, rows in ((2, 3), (2, 4), (3, 3)):

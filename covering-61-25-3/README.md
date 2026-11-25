@@ -38,10 +38,10 @@ lake build
 * [Repairs.lean](Repairs.lean): direct two-replacement proofs for the 84-triple candidate.
 * [Covering.lean](Covering.lean): published 27-block cover and 26-block candidate.
 
-An independent C++20 program reproduces the intermediate surviving counts:
+An independent C++23 program reproduces the intermediate surviving counts:
 
 ```sh
-c++ -std=c++20 -O3 SixGroupSearch.cpp -o six-group-search
+c++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror SixGroupSearch.cpp -o six-group-search
 ./six-group-search Covering.lean
 ```
 

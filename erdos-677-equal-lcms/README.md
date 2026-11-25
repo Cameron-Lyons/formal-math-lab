@@ -51,7 +51,7 @@ Run from this directory with `elan` installed (pinned Lean 4.35.0-rc2):
 ```sh
 lake exe cache get
 lake build
-c++ -O3 -std=c++17 search/search.cpp -o /tmp/erdos677-search
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror search/search.cpp -o /tmp/erdos677-search
 /tmp/erdos677-search 10000000
 python search/displacement.py
 python search/height.py --exponent 1000 5 6

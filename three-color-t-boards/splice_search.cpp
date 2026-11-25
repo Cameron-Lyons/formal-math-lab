@@ -1,4 +1,4 @@
-// Build with c++ -O3 -std=c++20 splice_search.cpp -o splice_search
+// Build with c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror splice_search.cpp -o splice_search
 // Run ./splice_search FLAT_PREFIX LIMIT [MODULUS RESIDUES SALT].
 // Alternatively pass --after TAIL after LIMIT to resume after a 64-digit tail.
 // A zero limit exhausts the selected region. RESIDUES is a comma-separated list.

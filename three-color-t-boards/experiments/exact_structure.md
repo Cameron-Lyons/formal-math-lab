@@ -75,7 +75,7 @@ balance, remain valid. The original solver is unchanged. Reproduce the first
 witness with:
 
 ```sh
-c++ -O3 -std=c++20 experiments/exact_structure_trade_search.cpp -o /tmp/exact_structure_trade_search
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_structure_trade_search.cpp -o /tmp/exact_structure_trade_search
 /tmp/exact_structure_trade_search 100001001210200101000022122102110022 1 1 2 1
 ```
 
@@ -197,7 +197,7 @@ exhaustions of the affine subclass, not of all ternary boards. Compile and
 run an individual rule with:
 
 ```sh
-c++ -O3 -std=c++20 experiments/exact_structure_ca.cpp -o /tmp/exact_structure_ca
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_structure_ca.cpp -o /tmp/exact_structure_ca
 /tmp/exact_structure_ca 3 2 2 2 0 60
 ```
 

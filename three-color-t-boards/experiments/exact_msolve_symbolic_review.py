@@ -42,9 +42,14 @@ static void check_row_reserve(void) {
  ht_t t=table(8,3);t.eld=6;hm_t poly[OFFSET]={0};poly[LENGTH]=8;
  for(int mode=0;mode<8;mode++){
   md_t md=metadata(&t);
-  if(mode==0)md.fc=5;if(mode==1)md.laopt=1;if(mode==2)md.nthrds=2;
-  if(mode==3)md.trace_level=1;if(mode==4)md.nf=1;if(mode==5)md.in_final_reduction_step=1;
-  if(mode==6)md.nev=1;if(mode==7)md.print_gb=0;
+  if(mode==0)md.fc=5;
+  if(mode==1)md.laopt=1;
+  if(mode==2)md.nthrds=2;
+  if(mode==3)md.trace_level=1;
+  if(mode==4)md.nf=1;
+  if(mode==5)md.in_final_reduction_step=1;
+  if(mode==6)md.nev=1;
+  if(mode==7)md.print_gb=0;
   ht_t old=t;allocation_calls=0;count_calls=1;
   reserve_symbolic_row_capacity(&t,poly,&md);count_calls=0;
   assert(!memcmp(&t,&old,sizeof(t))&&allocation_calls==0);
@@ -117,10 +122,9 @@ def main():
     postlude=postlude.replace('ZERO_MISSING=%d\\n",staged_cases,unchanged_cases,large_resets,zero_missing_cases);',
         'ZERO_MISSING=%d NONPOWER=%d\\n",staged_cases,unchanged_cases,large_resets,zero_missing_cases,nonpower_stages);')
     c_path=HERE/'exact_msolve_symbolic_review.c';binary=HERE/'exact_msolve_symbolic_review'
-    c_path.write_text(prelude+'\n\n'.join(functions)+postlude)
-    command=['cc','-std=c11','-O1','-g','-Wall','-Wextra','-Werror',
-        '-Wno-error=type-limits','-Wno-error=misleading-indentation','-fsanitize=address,undefined',
-        str(c_path),'-o',str(binary)]
+    c_path.write_text(prelude+'\n#pragma GCC diagnostic push\n#pragma GCC diagnostic ignored "-Wtype-limits"\n#if defined(__clang__)\n#pragma clang diagnostic ignored "-Wtautological-constant-out-of-range-compare"\n#endif\n'+'\n\n'.join(functions)+'\n#pragma GCC diagnostic pop\n'+postlude)
+    command=['cc','-std=c23','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror',
+        '-fsanitize=address,undefined',str(c_path),'-o',str(binary)]
     compiled=subprocess.run(command,capture_output=True,text=True,check=True)
     logs=[compiled.stdout+compiled.stderr]
     def run(args):

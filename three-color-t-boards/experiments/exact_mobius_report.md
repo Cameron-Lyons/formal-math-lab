@@ -195,7 +195,7 @@ Reproduction:
 
 ```sh
 python experiments/exact_mobius_small.py --output experiments/exact_mobius_small_results.json
-c++ -O3 -std=c++20 experiments/exact_mobius_closure.cpp -o /tmp/exact_mobius_closure
+c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror experiments/exact_mobius_closure.cpp -o /tmp/exact_mobius_closure
 /tmp/exact_mobius_closure 4 500000 30
 /tmp/exact_mobius_closure 5 500000 30
 python experiments/exact_mobius_check.py

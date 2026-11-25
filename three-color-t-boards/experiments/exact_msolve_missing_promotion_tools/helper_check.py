@@ -117,7 +117,7 @@ def main():
     source = ROOT / 'helper_check.c'
     binary = ROOT / 'helper_check'
     source.write_text(PRELUDE + extracted + POSTLUDE)
-    command = ['cc', '-std=c11', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
+    command = ['cc', '-std=c23', '-O1', '-g', '-Wall', '-Wextra', '-Wpedantic', '-Werror',
                '-fsanitize=address,undefined', str(source), '-lm', '-o', str(binary)]
     subprocess.run(command, check=True)
     result = subprocess.run([str(binary)], capture_output=True, text=True, timeout=30)

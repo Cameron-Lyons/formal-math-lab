@@ -97,7 +97,7 @@ def main():
     groups = []
     with TemporaryDirectory() as work:
         binary = Path(work) / "splice_search"
-        subprocess.run(["c++", "-O3", "-std=c++20", str(ROOT / "splice_search.cpp"),
+        subprocess.run(["c++", "-O3", "-std=c++23", "-Wall", "-Wextra", "-Wpedantic", "-Werror", str(ROOT / "splice_search.cpp"),
                         "-o", str(binary)], check=True)
         for caps in sorted(canonical_groups(args.pivot).values(), key=lambda items: items[0]):
             prefix = caps[0] + args.pivot

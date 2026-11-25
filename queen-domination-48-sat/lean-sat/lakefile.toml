@@ -1,0 +1,17 @@
+name = "QueenDomSat"
+version = "0.1.0"
+defaultTargets = ["QueenDomSat", "dumpcnf", "listcases"]
+
+[leanOptions]
+autoImplicit = false
+
+[[lean_lib]]
+name = "QueenDomSat"
+
+[[lean_exe]]
+name = "dumpcnf"
+root = "DumpCnf"
+
+[[lean_exe]]
+name = "listcases"
+root = "ListCases"

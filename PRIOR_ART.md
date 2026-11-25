@@ -30,6 +30,8 @@ Checked **24 November 2026**. Genkin’s version 2 constructs a box-free 6 × 7 
 
 Checked **24 November 2026**. Östergård and Weakley give a 25-queen placement. Davies identifies 48 as the next open even board in §9 of his 21 November preprint. The project verifies the published placement and excludes 24 by exhaustive enumeration in compiled Lean. [Published placement, pp. 10–11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/) · [Davies, §9](https://hexagonmath.org/pdf/2611.00830v1#page=19) · [Proof and checker](queen-domination-48/README.md)
 
+The SAT project gives a second, independent proof of $\gamma(Q_{48}) = 25$ with Davies' frame method, and also $i(Q_{48}) = 25$ for independent dominating sets; Östergård and Weakley had both numbers in {24, 25}. No earlier determination of $i(Q_{48})$ was found, but only Davies' paper and a brief web search were consulted. [Proof and certificates](queen-domination-48-sat/README.md)
+
 ## Two triples producing nine squares
 
 Checked **24 November 2026**. Dujella poses the six-integer question as Problem 1.4. Batta, Hajdu and Pongrácz identify the case of three vertices on each side as open. The local Lean theorem rules out solutions in which both triples span a factor of at most 1,000. Priority of this bound is unverified. [Dujella, Problem 1.4](https://web.math.pmf.unizg.hr/~duje/pdf/open2.pdf#page=2) · [Batta, Hajdu and Pongrácz, §6](https://arxiv.org/html/2410.20120v1#S6) · [Lean proof](square-triples/SquareTriples/Ratio.lean)

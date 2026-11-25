@@ -1,0 +1,14 @@
+{"version": "1.3.0",
+ "packagesDir": ".lake/packages",
+ "packages":
+ [{"type": "path",
+   "scope": "",
+   "name": "QueenDomSat",
+   "manifestFile": "lake-manifest.json",
+   "inherited": false,
+   "dir": "../lean-sat",
+   "copy": false,
+   "configFile": "lakefile.toml"}],
+ "name": "QueenDomCheck",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

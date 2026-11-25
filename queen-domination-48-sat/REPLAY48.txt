@@ -1,0 +1,85 @@
+read QueenDomSat.Encode: 168 constants (13 theorems) from some (Encode.olean) (+ .server, .private)
+read QueenDomSat.Cases: 79 constants (39 theorems) from some (Cases.olean) (+ .server, .private)
+read QueenDomSat.Formula: 3 constants (0 theorems) from some (Formula.olean) (+ .server, .private)
+read QueenDomSat.Lemmas: 126 constants (123 theorems) from some (Lemmas.olean) (+ .server, .private)
+read QueenDomSat: 0 constants (0 theorems) from some (QueenDomSat.olean) (+ .server, .private)
+read QueenDom.Defs: 49 constants (11 theorems) from some (Defs.olean) (+ .server, .private)
+read QueenDom.Basic: 50 constants (50 theorems) from some (Basic.olean) (+ .server, .private)
+read QueenDom.Geometry: 88 constants (88 theorems) from some (Geometry.olean) (+ .server, .private)
+read QueenDom.Identities: 109 constants (109 theorems) from some (Identities.olean) (+ .server, .private)
+read QueenDom.Consequences: 87 constants (87 theorems) from some (Consequences.olean) (+ .server, .private)
+read QueenDom.Symmetry: 105 constants (70 theorems) from some (Symmetry.olean) (+ .server, .private)
+read QueenDom.Cases: 101 constants (63 theorems) from some (Cases.olean) (+ .server, .private)
+read QueenDom.SymmetryCase: 58 constants (52 theorems) from some (SymmetryCase.olean) (+ .server, .private)
+read QueenDom.Enum: 37 constants (29 theorems) from some (Enum.olean) (+ .server, .private)
+read QueenDom.Main: 43 constants (37 theorems) from some (Main.olean) (+ .server, .private)
+read Queens48.Framework: 83 constants (76 theorems) from some (Framework.olean) (+ .server, .private)
+read Queens48.Base: 172 constants (144 theorems) from some (Base.olean) (+ .server, .private)
+read Queens48.Waste: 78 constants (67 theorems) from some (Waste.olean) (+ .server, .private)
+read Queens48.Extra: 28 constants (28 theorems) from some (Extra.olean) (+ .server, .private)
+read Queens48.Sound: 7 constants (5 theorems) from some (Sound.olean) (+ .server, .private)
+read Queens48.Gamma48: 19 constants (16 theorems) from some (Gamma48.olean) (+ .server, .private)
+read Queens48.Cases48Data: 170 constants (0 theorems) from some (Cases48Data.olean) (+ .server, .private)
+read Queens48.Cases48Pieces: 653 constants (653 theorems) from some (Cases48Pieces.olean) (+ .server, .private)
+read Queens48.Cases48: 25 constants (22 theorems) from some (Cases48.olean) (+ .server, .private)
+to replay: 2336 distinct constants, 1780 of them theorems; declared axioms among them: []; unsafe/partial (skipped by replay): [QueenDomSat.amoLine._unsafe_rec,
+ QueenDomSat.wasteLines._unsafe_rec]; already present in the base environment: []
+base environment contains QueenDom.gamma: false, QueenDomSat.caseFormula: false
+REPLAY OK: the kernel accepted all of them (227518 ms)
+positive control: accepted: True.intro : True (added by the same function)
+  (message: while replaying declaration 'Replay48.bogus1':
+(kernel) declaration type mismatch, 'Replay48.bogus1' has type
+  True
+but it is expected to have type
+  False)
+negative control: rejected: ill-typed proof of False
+  (message: while replaying declaration 'Replay48.bogus2':
+(kernel) declaration type mismatch, 'Replay48.bogus2' has type
+  24 = 24
+but it is expected to have type
+  QueenDom.gamma 48 = 24)
+negative control: rejected: proof of gamma 48 = 24 by rfl
+in the replayed environment: QueenDom.gamma_48_eq_25_of_formulas_unsat [theorem] -> 8987 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.igamma_48_eq_25_of_formulas_unsat [theorem] -> 8995 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.gamma_48_eq_25_of_lrat_check [theorem] -> 11259 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.Sat.lt_gamma_of_formulas_unsat [theorem] -> 8417 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.Sat.caseFormula_sat_of_caseSat [theorem] -> 7136 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.gamma_48_le [theorem] -> 2372 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.igamma_48_le [theorem] -> 2379 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.q48c_dominating [theorem] -> 2342 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.q48i_dominating [theorem] -> 2342 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDom.q48i_independent [theorem] -> 2324 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+in the replayed environment: QueenDomSat.mem_enumCases [theorem] -> 1683 constants in its closure; axioms: [propext,
+ Quot.sound]; missing: []
+in the replayed environment: QueenDom.Sat.enumCases_map_toT [theorem] -> 285 constants in its closure; axioms: [propext,
+ Quot.sound]; missing: []
+in the replayed environment: QueenDom.enumCases_48_24 [theorem] -> 1553 constants in its closure; axioms: [propext,
+ Quot.sound]; missing: []
+in the replayed environment: QueenDom.cases48_length [theorem] -> 741 constants in its closure; axioms: [propext]; missing: []
+in the replayed environment: QueenDom.gamma_48_eq_25_of_cases48_unsat [theorem] -> 8431 constants in its closure; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: []
+closure of ALL replayed constants: 12807 constants; axioms: [propext,
+ Quot.sound,
+ Classical.choice]; missing: [QueenDomSat.wasteLines._unsafe_rec, QueenDomSat.amoLine._unsafe_rec]
+ALL CHECKS PASSED

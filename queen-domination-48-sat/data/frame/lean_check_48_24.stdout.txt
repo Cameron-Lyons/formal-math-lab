@@ -1,0 +1,6 @@
+c qdcheck n=48 k=24 certdir=../runs/d_48_24.jsonl.lrat jobs=5 lean=4.35.0
+c case list: QueenDomSat.enumCases 48 24, 47580 cases
+c result: cases=47580 verified=47580 failed=0 zstd_warnings=0
+c proofs: lrat_bytes=148456520357 zst_bytes=24964196706 lemmas=122429776 hints=10891488639 base_formulas_built=55
+c time: wall_s=809.860 worker_cpu_s=2778.953 process_cpu_s=2807.000 decompress_cpu_s=431.280 peak_rss_kb=390372
+s ALL VERIFIED n=48 k=24 cases=47580

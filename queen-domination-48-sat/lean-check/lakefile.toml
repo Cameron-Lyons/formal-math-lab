@@ -1,0 +1,19 @@
+name = "QueenDomCheck"
+version = "0.1.0"
+defaultTargets = ["QueenDomCheck", "qdcheck"]
+
+# Only the Lean 4.35.0 toolchain (core + Std) and the Mathlib-free encoder package are used.
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "QueenDomSat"
+path = "../lean-sat"
+
+[[lean_lib]]
+name = "QueenDomCheck"
+
+[[lean_exe]]
+name = "qdcheck"
+root = "Main"

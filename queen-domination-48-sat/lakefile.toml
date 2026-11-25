@@ -1,0 +1,19 @@
+name = "queens48sat"
+version = "0.1.0"
+defaultTargets = ["Queens48"]
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "queen_domination32"
+git = "https://github.com/jasondavies/queen-domination.git"
+rev = "bc37cb0a1c0d1f70ba93fe1c6c7eb04d6773e25e"
+subDir = "lean"
+
+[[require]]
+name = "QueenDomSat"
+path = "lean-sat"
+
+[[lean_lib]]
+name = "Queens48"

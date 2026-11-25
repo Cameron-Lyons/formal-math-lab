@@ -1,0 +1,60 @@
+'QueenDom.Sat.atmostSeq_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.atmost_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.exactly_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.holds_defCls' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.holds_domCls' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.holds_amoCls' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.Kind.exactly_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.base_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.waste_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.count_wasteValues' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.holds_frameCls' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.groupF_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.groupV_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.groupH_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.extra_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.caseFormula_sat_of_caseSat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.enumCases_map_toT' depends on axioms: [propext, Quot.sound]
+'QueenDom.Sat.card_lt_of_formulas_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.lt_gamma_of_formulas_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.Sat.lt_gamma_of_lrat_check' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.independent_iff_isIndepSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.igamma_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.gamma_le_igamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.q48i_card' depends on axioms: [propext, Quot.sound]
+'QueenDom.q48i_dominating' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.q48i_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.gamma_48_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.igamma_48_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.twentyfive_le_card_of_formulas_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.gamma_48_eq_25_of_formulas_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.igamma_48_eq_25_of_formulas_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.gamma_48_eq_25_of_lrat_check' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.cases48_length' depends on axioms: [propext]
+'QueenDom.enumFrames_48_24_length' does not depend on any axioms
+'QueenDom.enumCases_48_24' depends on axioms: [propext, Quot.sound]
+'QueenDom.mem_cases48' depends on axioms: [propext, Quot.sound]
+'QueenDom.case_split_48' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.twentyfive_le_card_of_cases48_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.q48c_dominating' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.gamma_48_le_of_q48c' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDom.gamma_48_eq_25_of_cases48_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDomSat.mem_enumCases' depends on axioms: [propext, Quot.sound]
+'QueenDomSat.sat_toCNF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDomSat.unsat_toCNF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QueenDomSat.caseCNF_eq' depends on axioms: [propext, Quot.sound]
+'QueenDomSat.sat_caseCNF' depends on axioms: [propext, Classical.choice, Quot.sound]
+modules Queens48.*, QueenDomSat.*: [QueenDomSat.Cases,
+ QueenDomSat.Encode,
+ QueenDomSat.Formula,
+ QueenDomSat.Lemmas,
+ Queens48.Base,
+ Queens48.Cases48,
+ Queens48.Cases48Data,
+ Queens48.Cases48Pieces,
+ Queens48.Extra,
+ Queens48.Framework,
+ Queens48.Gamma48,
+ Queens48.Sound,
+ Queens48.Waste]
+declarations of these modules checked: 1611 (1186 theorems); declared as axioms: 0; with an axiom outside [propext, Classical.choice, Quot.sound]: 0 []

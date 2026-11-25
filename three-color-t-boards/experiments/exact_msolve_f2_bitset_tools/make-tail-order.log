@@ -1,0 +1,172 @@
+make  all-recursive
+make[1]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2'
+Making all in src/usolve
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/usolve'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/usolve'
+Making all in src/fglm
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/fglm'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/fglm'
+Making all in src/neogb
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb'
+/bin/sh ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..   -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -O2 -g0 -MT libneogb_la-gb.lo -MD -MP -MF .deps/libneogb_la-gb.Tpo -c -o libneogb_la-gb.lo `test -f 'gb.c' || echo './'`gb.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -O2 -g0 -MT libneogb_la-gb.lo -MD -MP -MF .deps/libneogb_la-gb.Tpo -c gb.c -o libneogb_la-gb.o
+In file included from gb.c:35:
+hash.c: In function ‘check_insert_in_hash_table’:
+hash.c:807: warning: ignoring ‘#pragma omp critical’ [-Wunknown-pragmas]
+  807 | #pragma omp critical
+hash.c: In function ‘reserve_basis_hash_table_for_promotion’:
+hash.c:1106:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+ 1106 |             ht->evl > SIZE_MAX/sizeof(exp_t) ||
+      |                     ^
+In file included from gb.c:38:
+la_ff_8.c: In function ‘probabilistic_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:910: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  910 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘exact_application_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:1083: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1083 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_8.c: In function ‘exact_trace_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:1218: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1218 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_8.c: In function ‘exact_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:1363: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1363 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_8.c: In function ‘sparse_AB_CD_linear_algebra_ff_8’:
+la_ff_8.c:1526: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1526 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘exact_dense_linear_algebra_ff_8’:
+la_ff_8.c:1667: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1667 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘probabilistic_dense_linear_algebra_ff_8’:
+la_ff_8.c:1789: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1789 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘probabilistic_sparse_dense_echelon_form_ff_8’:
+la_ff_8.c:1925: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1925 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:39:
+la_ff_16.c: In function ‘probabilistic_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:761: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  761 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘exact_trace_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:944: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  944 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_16.c: In function ‘exact_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:1091: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1091 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_16.c: In function ‘exact_application_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:1260: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1260 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_16.c: In function ‘sparse_AB_CD_linear_algebra_ff_16’:
+la_ff_16.c:1395: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1395 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘exact_dense_linear_algebra_ff_16’:
+la_ff_16.c:1538: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1538 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘probabilistic_dense_linear_algebra_ff_16’:
+la_ff_16.c:1660: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1660 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘probabilistic_sparse_dense_echelon_form_ff_16’:
+la_ff_16.c:1796: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1796 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:40:
+la_ff_32.c: In function ‘probabilistic_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:2367: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 2367 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘exact_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:2641: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 2641 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_32.c: In function ‘exact_sparse_reduced_echelon_form_sat_ff_32’:
+la_ff_32.c:2806: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 2806 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c:2842: warning: ignoring ‘#pragma omp critical’ [-Wunknown-pragmas]
+ 2842 | #pragma omp critical
+la_ff_32.c: In function ‘exact_trace_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:3036: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3036 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_32.c: In function ‘exact_application_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:3167: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3167 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_32.c: In function ‘sparse_AB_CD_linear_algebra_ff_32’:
+la_ff_32.c:3304: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3304 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘exact_dense_linear_algebra_ff_32’:
+la_ff_32.c:3445: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3445 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘probabilistic_dense_linear_algebra_ff_32’:
+la_ff_32.c:3586: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3586 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘probabilistic_sparse_dense_echelon_form_ff_32’:
+la_ff_32.c:3722: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3722 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:41:
+la_qq.c: In function ‘exact_sparse_reduced_echelon_form_ab_first_qq’:
+la_qq.c:423: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  423 | #pragma omp parallel for num_threads(st->nthrds) private(i, j, k, sc) schedule(dynamic)
+la_qq.c: In function ‘exact_sparse_reduced_echelon_form_qq’:
+la_qq.c:596: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  596 | #pragma omp parallel for num_threads(st->nthrds) private(i, j, k, sc) \
+In file included from gb.c:42:
+update.c: In function ‘insert_and_update_spairs’:
+update.c:124: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  124 | #pragma omp parallel for num_threads(nthrds) \
+In file included from gb.c:43:
+convert.c: In function ‘convert_hashes_to_columns_sat’:
+convert.c:140: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  140 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c:159: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  159 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c: In function ‘sba_convert_hashes_to_columns’:
+convert.c:265: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  265 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c: In function ‘convert_hashes_to_columns’:
+convert.c:365: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  365 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c:383: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  383 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c: In function ‘convert_sparse_matrix_rows_to_basis_elements_internal’:
+convert.c:667: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  667 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:51:
+modular.c: In function ‘f4_trace_julia’:
+modular.c:1903: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1903 | #pragma omp parallel for num_threads(st->nthrds) \
+convert.c: In function ‘convert_sparse_matrix_rows_to_basis_elements_internal’:
+convert.c:763:13: warning: ‘deg’ may be used uninitialized [-Wmaybe-uninitialized]
+  759 |             st->trace_level != APPLY_TRACER
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  760 |             && st->in_final_reduction_step != 1
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  761 |             && st->homogeneous == 0
+      |             ~~~~~~~~~~~~~~~~~~~~~~~
+  762 |             && st->min_deg_in_first_deg_fall == INT32_MAX
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  763 |             && deg < pairs_deg
+      |             ^~~~~~~~~~~~~~~~~~
+convert.c:645:11: note: ‘deg’ was declared here
+  645 |     deg_t deg;
+      |           ^~~
+mv -f .deps/libneogb_la-gb.Tpo .deps/libneogb_la-gb.Plo
+/bin/sh ../../libtool  --tag=CC   --mode=link gcc -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -O2 -g0 -version-info 4:0:0 -L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -o libneogb.la -rpath /usr/local/lib libneogb_la-gb.lo  -lflint -lmpfr -lgmp -lm 
+libtool: link: rm -fr  .libs/libneogb.a .libs/libneogb.la .libs/libneogb.lai
+libtool: link: ar cr .libs/libneogb.a libneogb_la-gb.o
+libtool: link: ranlib .libs/libneogb.a
+libtool: link: ( cd ".libs" && rm -f "libneogb.la" && ln -s "../libneogb.la" "libneogb.la" )
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb'
+Making all in src/msolve
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/msolve'
+/bin/sh ../../libtool  --tag=CC   --mode=link gcc -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -O2 -g0 -version-info 4:0:0 -L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -o libmsolve.la -rpath /usr/local/lib libmsolve_la-libmsolve.lo ../usolve/libusolve.la ../fglm/libfglm.la ../neogb/libneogb.la -lflint -lmpfr -lgmp -lm 
+libtool: link: rm -fr  .libs/libmsolve.a .libs/libmsolve.la .libs/libmsolve.lai
+libtool: link: (cd .libs/libmsolve.lax/libusolve.a && ar x "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/msolve/../usolve/.libs/libusolve.a")
+libtool: link: (cd .libs/libmsolve.lax/libfglm.a && ar x "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/msolve/../fglm/.libs/libfglm.a")
+libtool: link: ar cr .libs/libmsolve.a libmsolve_la-libmsolve.o  .libs/libmsolve.lax/libusolve.a/libusolve_la-usolve.o  .libs/libmsolve.lax/libfglm.a/libfglm_la-fglm_core.o 
+libtool: link: ranlib .libs/libmsolve.a
+libtool: link: rm -fr .libs/libmsolve.lax
+libtool: link: ( cd ".libs" && rm -f "libmsolve.la" && ln -s "../libmsolve.la" "libmsolve.la" )
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/msolve'
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2'
+/bin/sh ./libtool  --tag=CC   --mode=link gcc -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -O2 -g0  -L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -o msolve src/msolve/main.o src/neogb/libneogb.la src/fglm/libfglm.la src/usolve/libusolve.la -lflint -lmpfr -lgmp -lm 
+libtool: link: gcc -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm -O2 -g0 -Wl,-rpath -Wl,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -o msolve src/msolve/main.o  -L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib src/neogb/.libs/libneogb.a src/fglm/.libs/libfglm.a src/usolve/.libs/libusolve.a -lflint -lmpfr -lgmp -lm
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2'
+make[1]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_f2_bitset_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2'

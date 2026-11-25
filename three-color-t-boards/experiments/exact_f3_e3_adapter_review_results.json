@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "input_sha256": "cb2497554585e51166b747cee0221efc3cf7f130f46b9084d7f2e9d3b760c105",
+  "pre_e3_input_sha256": "e9e1163bd047fdca4000333d917a26e37dbf711abebca29d27fae6d49a2c34ba",
+  "source_sha256": "6cef0fb4e6b3ccb80f17f7aebadfd02fd777d082e1dedb84cdf5d9786d408392",
+  "base_verbatim": true,
+  "independently_compared_added_polynomials": 4,
+  "added_terms": 574,
+  "variables": 96,
+  "generators": 176,
+  "domain_equations": 96,
+  "retained_moments": 76,
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "invalid_option_combinations": 12,
+  "invalid_base_metadata_cases": 6,
+  "prepared_input": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_e3_review_prepared/native_e3.ms",
+  "prepare_status": "PREPARED_NOT_RUN",
+  "adapter_sha256": "5f0fc422ed7301a8fe83cf74a6f27f3ea03e37fed555f3d8c343d6e3a2515b83",
+  "solver_runs": 0
+}

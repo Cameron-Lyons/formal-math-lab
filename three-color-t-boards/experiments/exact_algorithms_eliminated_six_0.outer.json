@@ -1,0 +1,20 @@
+{
+  "branch": 0,
+  "command": [
+    "/usr/bin/python",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algorithms_eliminated_six.py",
+    "--child",
+    "0"
+  ],
+  "status": "COMPLETE",
+  "timeout_seconds": 60,
+  "memory_limit_bytes": 2147483648,
+  "returncode": 0,
+  "elapsed_seconds": 2.022099567002442,
+  "dimension_decimal": "6",
+  "basis_complete": true,
+  "standard_basis_complete": true,
+  "child_cpu_seconds": 1.012038,
+  "child_wall_seconds": 1.1179497779958183,
+  "known_prefix_branch_dimension_verified": true
+}

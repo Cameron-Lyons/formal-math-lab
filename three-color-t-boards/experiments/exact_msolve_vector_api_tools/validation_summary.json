@@ -1,0 +1,41 @@
+{
+  "status": "OWNER_PASS_INDEPENDENT_PENDING",
+  "executable_sha256": "317aeae6e3c82c81fe105b5ef4fc90f65880836f7ce17297f00d495015fd44be",
+  "patch_sha256": "82c8810eab2d175aaffb794593da4c0a30c1073eb8f7d3d5ba367f5076382e51",
+  "source_tree_sha256": "8e6d9f043562e5a8f69b369fc021bae20e416aadac082eb7993be62c616a6730",
+  "reports": {
+    "validation": {
+      "path": "experiments/exact_msolve_vector_api_tools/validation.json",
+      "sha256": "d2cac86c27ce01e220cc62cc961f13b0c354edb23e330a0c858053c9156b3320",
+      "status": "PASS"
+    },
+    "table_check": {
+      "path": "experiments/exact_msolve_vector_api_tools/table_check.json",
+      "sha256": "55d4951df98d57a652bb4f76e469e452487719d84ca1ed18f8f2c222cd235c80",
+      "status": "PASS"
+    },
+    "guard_check": {
+      "path": "experiments/exact_msolve_vector_api_tools/guard_check.json",
+      "sha256": "ebb1d88d93b552b0b8b7127db5caf1f80821bb50f01fc9d351ff01c492ce1d5e",
+      "status": "PASS"
+    },
+    "compile_api_check": {
+      "path": "experiments/exact_msolve_vector_api_tools/compile_api_check.json",
+      "sha256": "4d5513687f757e6e8b6cc50d7713b6d409e1755d615862b4162493c0e39923a3",
+      "status": "PASS"
+    },
+    "source_audit": {
+      "path": "experiments/exact_msolve_vector_api_tools/source_audit.json",
+      "sha256": "86ae1cb9864b554c7a3dab0c12590247574e32c57388fbe23ed6ac99bbe54e02",
+      "status": "PASS"
+    },
+    "patch_reproduction": {
+      "path": "experiments/exact_msolve_vector_api_tools/patch_reproduction.json",
+      "sha256": "ad4b77d191f646edd25997af6d65a76f67c85133f88971c8f61a5232cbb798e3",
+      "status": "PASS"
+    }
+  },
+  "full_board_solver_runs": 0,
+  "physical_storage_changed": false,
+  "nibble_packing": false
+}

@@ -1,0 +1,21 @@
+{
+  "status": "REVIEWED_UNKNOWN_TIMEOUT",
+  "solver_invocations": 1,
+  "new_solver_invocations_in_review": 0,
+  "raw_worker_status_preserved": true,
+  "count_complete": false,
+  "branch_count_decimal": null,
+  "exact_count_lines": [],
+  "actual_runtime_error_diagnostics": [],
+  "diagnostic_false_positive": {
+    "text": [
+      "c o Ganak compilation env CMAKE_CXX_COMPILER = /usr/bin/c++ | CMAKE_CXX_FLAGS =  -fno-stack-protector -mpopcnt -msse4.2 -mpclmul -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wrestrict -Wnull-dereference -Wdouble-promotion -Wshadow -Wformat=2 -Wextra-semi -pedantic | COMPILE_DEFINES =  -DNDEBUG -D_FORTIFY_SOURCE=0 -DUSE_ZLIB | BUILD_SHARED_LIBS = OFF | ZLIB_FOUND = TRUE | ENABLE_ASSERTIONS = OFF | "
+    ],
+    "reason": "Generic assertion substring scan matched the compiler configuration metadata ENABLE_ASSERTIONS, not an assertion failure."
+  },
+  "termination_reason": "60-second child wall timeout; subprocess.run killed and waited for the child before worker/outer completion.",
+  "worker_control_exit_not_counter_completion": "The outer worker exit0 only reports successful handling of the timeout; it is not a normal exact counter exit.",
+  "source_and_input_hashes_match_prepared_audit": true,
+  "existence_status": "UNKNOWN",
+  "branch_count_status": "UNKNOWN"
+}

@@ -1,0 +1,141 @@
+--- a/src/neogb/hash.c
++++ b/src/neogb/hash.c
+@@ -1062,18 +1062,21 @@
+ }
+ 
+ /* Keep exponent capacity independent from power-of-two probing buckets.
+- * This helper is used only by the guarded ordinary F4 promotion path. */
+-static void reserve_basis_hash_table_for_promotion(
++ * Shared checked allocator for the guarded promotion and symbolic paths. */
++static void reserve_hash_table_checked(
+     ht_t *ht,
+     const hl_t additional,
+-    const int info_level
+-    )
+-{
+-    const hl_t quantum = (hl_t)1 << 16;
++    const hl_t quantum,
++    const int info_level,
++    const char *context
++    )
++{
+     /* Avoid the legacy reset path's uint32_t narrowing at hsz == 2^32. */
+     const hl_t max_entries = (hl_t)1 << 30;
+     const hl_t max_buckets = (hl_t)1 << 31;
+-    if (ht == NULL || ht->esz == 0 || ht->esz > max_entries ||
++    if (quantum == 0 || quantum > ((hl_t)1 << 16) ||
++            (quantum & (quantum-1)) != 0 || context == NULL ||
++            ht == NULL || ht->esz == 0 || ht->esz > max_entries ||
+             ht->eld == 0 || ht->eld > ht->esz || ht->evl == 0 ||
+             ht->hsz == 0 || ht->hsz > max_buckets ||
+             (ht->hsz & (ht->hsz-1)) != 0 || ht->esz > ht->hsz/2 ||
+@@ -1110,8 +1113,8 @@
+         exit(EXIT_FAILURE);
+     }
+     if (info_level > 1) {
+-        fprintf(VERBSTREAM, "\nMSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=%lu exponent_old=%lu exponent_new=%lu buckets_old=%lu buckets_new=%lu\n",
+-                (unsigned long)required, (unsigned long)ht->esz,
++        fprintf(VERBSTREAM, "\nMSOLVE_%s_CAPACITY_REQUEST required_with_spare=%lu exponent_old=%lu exponent_new=%lu buckets_old=%lu buckets_new=%lu\n",
++                context, (unsigned long)required, (unsigned long)ht->esz,
+                 (unsigned long)new_esz, (unsigned long)ht->hsz,
+                 (unsigned long)new_hsz);
+         fflush(VERBSTREAM);
+@@ -1172,6 +1175,57 @@
+     ht->hsz = new_hsz;
+ }
+ 
++static void reserve_basis_hash_table_for_promotion(
++        ht_t *ht, const hl_t additional, const int info_level)
++{
++    reserve_hash_table_checked(ht, additional, (hl_t)1 << 16,
++            info_level, "PROMOTION");
++}
++
++/* Reserve a translated source row before the unchanged constructor.
++ * Each source term inserts at most one symbolic monomial. With one spare,
++ * eld+LENGTH+1 slots make the constructor's legacy growth loop a no-op.
++ * No symbolic exponent-data pointer may be used after this call. */
++static void reserve_symbolic_row_capacity(
++        ht_t *sht, const hm_t *poly, const md_t *md)
++{
++    if (md == NULL) {
++        fprintf(ERRSTREAM, "Error: missing metadata in symbolic row reserve.\n");
++        exit(EXIT_FAILURE);
++    }
++    if (!((md->fc == 2 || md->fc == 3) && md->laopt == 2 &&
++            md->nthrds == 1 && md->trace_level == NO_TRACER &&
++            md->nf == 0 && md->in_final_reduction_step == 0 &&
++            md->nev == 0 && md->print_gb > 0)) {
++        return;
++    }
++    const hl_t max_entries = (hl_t)1 << 30;
++    if (sht == NULL || md->ht != sht || poly == NULL ||
++            sht->eld == 0 || sht->eld >= max_entries ||
++            (hl_t)poly[LENGTH] > max_entries-1-sht->eld) {
++        fprintf(ERRSTREAM, "Error: invalid symbolic row reservation.\n");
++        exit(EXIT_FAILURE);
++    }
++    const hl_t required = sht->eld+(hl_t)poly[LENGTH]+1;
++    if (required <= sht->esz) {
++        return;
++    }
++    /* Geometric growth for small tables; 64K rounding above that scale. */
++    hl_t quantum = 2;
++    while (quantum < required && quantum < ((hl_t)1 << 16)) {
++        quantum *= 2;
++    }
++    const hl_t requested = ((required+quantum-1)/quantum)*quantum;
++    if (md->info_level > 1) {
++        fprintf(VERBSTREAM, "\nMSOLVE_SYMBOLIC_ROW_RESERVE old_load=%lu row_length=%lu required_with_spare=%lu requested_capacity=%lu\n",
++                (unsigned long)sht->eld, (unsigned long)poly[LENGTH],
++                (unsigned long)required, (unsigned long)requested);
++        fflush(VERBSTREAM);
++    }
++    reserve_hash_table_checked(sht, (hl_t)poly[LENGTH], quantum,
++            md->info_level, "SYMBOLIC");
++}
++
+ /* Private allocations only: rn/dv/dm remain borrowed from the basis table. */
+ static void *symbolic_stage_calloc(const size_t count, const size_t width)
+ {
+@@ -1198,10 +1252,13 @@
+         ht_t *sht, const len_t missing, const int info_level)
+ {
+     if (sht == NULL || sht->evl == 0 || sht->esz < 2 ||
+-            (sht->esz & (sht->esz-1)) != 0 ||
++            /* Large non-power capacities restore to power-of-two 2048. */
++            (sht->esz < 2048 && (sht->esz & (sht->esz-1)) != 0) ||
+             sht->eld != (hl_t)mat->nc+1 || sht->eld > sht->esz ||
+             sht->eld > UINT32_MAX || missing > mat->ncr ||
+             sht->hsz < sht->eld || sht->hsz > SIZE_MAX/sizeof(hi_t) ||
++            sht->hsz == 0 || (sht->hsz & (sht->hsz-1)) != 0 ||
++            sht->esz > sht->hsz/2 ||
+             mat->ncl > mat->nc || mat->ncr != mat->nc-mat->ncl ||
+             sht->ev == NULL || sht->ev[0] == NULL ||
+             sht->hd == NULL || sht->hmap == NULL || hcm == NULL ||
+--- a/src/neogb/symbol.c
++++ b/src/neogb/symbol.c
+@@ -324,6 +324,7 @@
+         const hi_t h    = bht->hd[lcm].val - bht->hd[b[OFFSET]].val;
+         /* note that we use index mat->nc and not mat->nr since for each new
+          * lcm we add exactly one row to mat->rr */
++        reserve_symbolic_row_capacity(sht, b, md);
+         rrows[nrr]  = multiplied_poly_to_matrix_row(sht, bht, h, etmp, b);
+         /* track trace information ? */
+         if (md->trace_level == LEARN_TRACER) {
+@@ -359,6 +360,7 @@
+                 etmp[l]   =   (exp_t)(elcm[l] - eb[l]);
+             }
+             const hi_t h  = bht->hd[lcm].val - bht->hd[b[OFFSET]].val;
++            reserve_symbolic_row_capacity(sht, b, md);
+             trows[ntr] = multiplied_poly_to_matrix_row(sht, bht, h, etmp, b);
+             /* track trace information ? */
+             if (md->trace_level == LEARN_TRACER) {
+@@ -537,6 +539,7 @@
+         }
+ 
+         const hi_t h  = hdm.val - hdb[b[OFFSET]].val;
++        reserve_symbolic_row_capacity(sht, b, md);
+         rows[rr]  = multiplied_poly_to_matrix_row(sht, bht, h, etmp, b);
+         /* track trace information ? */
+         if (md->trace_level == LEARN_TRACER) {

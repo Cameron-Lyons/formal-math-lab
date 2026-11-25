@@ -1,0 +1,158 @@
+{
+  "status": "PASS",
+  "scope": "independent affine-eliminated branch-model audit; no solver",
+  "manifest_sha256": "91e25ac8803be65a12998e344060e3e48778e499722f30aaf7b5a663f8b2eaa0",
+  "branches": [
+    {
+      "branch": 0,
+      "pivots": [
+        0
+      ],
+      "variants": [
+        {
+          "order": "natural",
+          "variables": 96,
+          "generators": 177,
+          "input_sha256": "41c86521e2d91c76065c9e8f5c4a9d7a86c011fd39b13b9ff38e7e803bff4222",
+          "metadata_sha256": "5fc29dd410eb4026d159608fff56654108b6f000f9a8705766c6a48314f61484",
+          "all_source_images_checked": true,
+          "polynomial_terms": 96117,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 2,
+          "witness_roundtrips": 12,
+          "arbitrary_free_assignments_roundtripped": 12
+        },
+        {
+          "order": "minfill",
+          "variables": 96,
+          "generators": 177,
+          "input_sha256": "d0bfafe82f691a8c47f342e340876ab9c05ad759ad0962249079e052fee3308a",
+          "metadata_sha256": "c55670e81383ccbe70dc09e37c7408d09ed3b0703a7093eb79bd61dd5712204a",
+          "all_source_images_checked": true,
+          "polynomial_terms": 96117,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 2,
+          "witness_roundtrips": 12,
+          "arbitrary_free_assignments_roundtripped": 12
+        }
+      ]
+    },
+    {
+      "branch": 1,
+      "pivots": [
+        0,
+        71
+      ],
+      "variants": [
+        {
+          "order": "natural",
+          "variables": 95,
+          "generators": 176,
+          "input_sha256": "f345ad2cdb888cb958d8e7613a44991efca62bc757e04c8a979ba83a25dbdaaa",
+          "metadata_sha256": "7593a644d56992cf52976a312b2c481c6db2f0f011ce2134418e17e600885f90",
+          "all_source_images_checked": true,
+          "polynomial_terms": 98737,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 2,
+          "witness_roundtrips": 149,
+          "arbitrary_free_assignments_roundtripped": 12
+        },
+        {
+          "order": "minfill",
+          "variables": 95,
+          "generators": 176,
+          "input_sha256": "fce0999e368ac90d16ccf56b4a15c26aeec9bd1e6ad22825eb2f9612de437dcb",
+          "metadata_sha256": "fb9bc97954bbe3dab09d643a7919124cf59d5616a932000c03b5a57eace04c1a",
+          "all_source_images_checked": true,
+          "polynomial_terms": 98737,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 2,
+          "witness_roundtrips": 149,
+          "arbitrary_free_assignments_roundtripped": 12
+        }
+      ]
+    },
+    {
+      "branch": 2,
+      "pivots": [
+        0,
+        71,
+        8
+      ],
+      "variants": [
+        {
+          "order": "natural",
+          "variables": 94,
+          "generators": 175,
+          "input_sha256": "46cbd5c8701e54e8f35691d4cf067a5e320a08c18ce1b88fc6c1e781e739657c",
+          "metadata_sha256": "1936b876f17f9aaf7c046bb9c54e1161cc6682549de5923d6a82df0c5b5a8b89",
+          "all_source_images_checked": true,
+          "polynomial_terms": 98654,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 3,
+          "witness_roundtrips": 0,
+          "arbitrary_free_assignments_roundtripped": 12
+        },
+        {
+          "order": "minfill",
+          "variables": 94,
+          "generators": 175,
+          "input_sha256": "fcb116e22fd9faaac56c227c15d658f391d779d05b872396aec98fbfe48abfe3",
+          "metadata_sha256": "86a893844c74073dda474106889fce77e9d682f9bf25cb754be21d6fd86b658b",
+          "all_source_images_checked": true,
+          "polynomial_terms": 98654,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 3,
+          "witness_roundtrips": 0,
+          "arbitrary_free_assignments_roundtripped": 12
+        }
+      ]
+    },
+    {
+      "branch": 3,
+      "pivots": [
+        0,
+        71,
+        8,
+        1
+      ],
+      "variants": [
+        {
+          "order": "natural",
+          "variables": 93,
+          "generators": 174,
+          "input_sha256": "0e8c6e7ff8a76a72cd5d8f7bb5dabbd85965a71a238099e6483e1f5838408a07",
+          "metadata_sha256": "e5e9bcf448c1f1b3aa83f2b1f8195c25aae0b5dea61ccc44f4705c789b461061",
+          "all_source_images_checked": true,
+          "polynomial_terms": 96006,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 2,
+          "witness_roundtrips": 0,
+          "arbitrary_free_assignments_roundtripped": 12
+        },
+        {
+          "order": "minfill",
+          "variables": 93,
+          "generators": 174,
+          "input_sha256": "f752d055d104dc6cd2d2599ce52c5931f1f6f8e082703eac42c978bfbbb033ae",
+          "metadata_sha256": "e4e6cb66f9023eff839ee6fc91a0dcab54ebc07b8cfc00b0714fc69407cf5bca",
+          "all_source_images_checked": true,
+          "polynomial_terms": 96006,
+          "max_degree": 8,
+          "nonzero_affine_color_constants": 2,
+          "witness_roundtrips": 0,
+          "arbitrary_free_assignments_roundtripped": 12
+        }
+      ]
+    }
+  ],
+  "ordinary_old_variable_domain_identities": 388,
+  "source_generator_certificates": 1444,
+  "original_color_forms": 800,
+  "known_board_roundtrips": 322,
+  "count_multiplier": 1,
+  "count_divisor": 1,
+  "generator_imported": false,
+  "solver_runs": 0,
+  "reviewer_sha256": "c96ca9b07843810c59b1d39559a171d4b9cd15bec86bcb046ecf119858130dee"
+}

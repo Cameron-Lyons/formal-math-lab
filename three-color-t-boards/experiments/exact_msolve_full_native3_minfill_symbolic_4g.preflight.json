@@ -1,0 +1,20 @@
+{
+  "mem_available_mib": 4824,
+  "selected_memory_mib": 4096,
+  "required_available_mib": 4608,
+  "unix_time": 1795427031.3329744,
+  "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+  "model_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+  "e3_source_sha256": "5bed48f4a1523c26d02a2add9423c463ffdb08af5cf5ecf7bab40a0cceae4a40",
+  "variable_order_source_sha256": "387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e",
+  "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+  "scope": "full labeled ternary boards",
+  "variables": 96,
+  "coupled_variables": 95,
+  "generators": 176,
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "child_wall_seconds": 900,
+  "outer_wall_seconds": 960,
+  "comparison": "Same input and executable as terminal3GiB run; only memory limit raised"
+}

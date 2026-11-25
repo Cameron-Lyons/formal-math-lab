@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "source_sha256": "6cef0fb4e6b3ccb80f17f7aebadfd02fd777d082e1dedb84cdf5d9786d408392",
+  "native_source_sha256": "fe1321842be3bf5bdb8ff91cd5b9c38017d542968fe27a8d5a8952e344564cc4",
+  "ordinary_difference_certificates": [
+    {
+      "roles": [
+        "T",
+        "M"
+      ],
+      "ordinary_correction_terms": 136
+    },
+    {
+      "roles": [
+        "M",
+        "L"
+      ],
+      "ordinary_correction_terms": 69
+    },
+    {
+      "roles": [
+        "M",
+        "R"
+      ],
+      "ordinary_correction_terms": 160
+    }
+  ],
+  "role_quadratic_power_sum_identities": 4,
+  "top_path_identity": true,
+  "exported_terms": [
+    158,
+    180,
+    86,
+    150
+  ],
+  "total_exported_terms": 574,
+  "all_exported_terms_pure_cubic": true,
+  "linear_span_ranks": [
+    26,
+    30
+  ],
+  "histogram_cases": 3403,
+  "histogram_survivors": [
+    406,
+    136
+  ],
+  "existing_valid_witnesses_checked": 161,
+  "solver_runs": 0,
+  "count_preservation": "finite-field domain quotient is a product of F3 fields; valid-point vanishing implies ideal membership",
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "full_count_status": "NOT_COMPUTED"
+}

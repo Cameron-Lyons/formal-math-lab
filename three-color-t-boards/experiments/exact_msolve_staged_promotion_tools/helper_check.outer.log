@@ -1,0 +1,73 @@
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/helper_check.c: In function ‘reserve_basis_hash_table_for_promotion’:
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/helper_check.c:429:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  429 |             ht->evl > SIZE_MAX/sizeof(exp_t) ||
+      |                     ^
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/helper_check.c: In function ‘stage_missing_symbolic_exponents’:
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/helper_check.c:532:30: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  532 |             (size_t)sht->evl > SIZE_MAX/sizeof(exp_t)) {
+      |                              ^
+{
+  "status": "PASS",
+  "actual_hash_promotions": 49,
+  "forced_hash_collisions": true,
+  "zero_missing_direct_stage": true,
+  "subsequent_operations": [
+    "insert",
+    "lookup",
+    "legacy grow",
+    "clean",
+    "copy",
+    "reinitialize",
+    "reset/reinsert"
+  ],
+  "sanitizer": "ASan+UBSan; normal-run leak detection enabled; deliberate fatal-allocation tests disable leak reporting",
+  "allocation_failures": [
+    {
+      "allocation": 1,
+      "returncode": 1,
+      "diagnostic": "Error: cannot shrink staged symbolic exponent data."
+    },
+    {
+      "allocation": 2,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "allocation": 3,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "allocation": 4,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "allocation": 5,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    }
+  ],
+  "compiler_command": [
+    "cc",
+    "-std=c11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-error=type-limits",
+    "-fsanitize=address,undefined",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/helper_check.c",
+    "-lm",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/helper_check"
+  ],
+  "stubs": [
+    "short divisibility mask returnszero",
+    "timing returnszero"
+  ],
+  "owner_hash_c_sha256": "8ff90c83d8decbec184c023cc71301a40273f9dfb2d6566e924b488b121c2f98",
+  "extracted_source_sha256": "b39cfaa90b5053858140e5e8353a871db67764601c2fb4127e90e2905625ac2b",
+  "output": "PASS actual_hash_promotions=49 rotations=23 collision_modes=2 staged_zero=1 subsequent_growth_clean_copy_reinitialize_reset=49"
+}

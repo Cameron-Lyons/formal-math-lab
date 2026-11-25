@@ -1,0 +1,29 @@
+domain 1 PASS promotion events 0
+domain 2 PASS promotion events 0
+domain_pair 1 PASS promotion events 0
+domain_pair 2 PASS promotion events 0
+root_sum 1 PASS promotion events 2
+root_sum 2 PASS promotion events 2
+mixed 1 PASS promotion events 1
+mixed 2 PASS promotion events 1
+mixed_chain 1 PASS promotion events 5
+mixed_chain 2 PASS promotion events 5
+unit 1 PASS promotion events 0
+unit 2 PASS promotion events 0
+positive_dimension 1 PASS promotion events 0
+positive_dimension 2 PASS promotion events 0
+six_fiber 1 PASS promotion events 17
+six_fiber 2 PASS promotion events 17
+{
+  "rounded_growth_exercised": true,
+  "status": "PASS",
+  "complete_basis_comparisons": 16,
+  "existing_column_overlap_in_validation": true,
+  "missing_equals_actual_insertions": true,
+  "largest_nonpivot_to_referenced": {
+    "nonpivot": 38,
+    "referenced": 14,
+    "inserted": 0,
+    "basis_capacity": 16384
+  }
+}

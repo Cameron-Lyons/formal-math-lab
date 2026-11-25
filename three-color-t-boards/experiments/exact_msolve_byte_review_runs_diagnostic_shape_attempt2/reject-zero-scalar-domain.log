@@ -1,0 +1,3 @@
+Initial seed for pseudo-random number generator is 1795428549
+Error when parsing term 3*x1^3 (coefficient cannot be 0 modulo 3).
+Error when reading file (exit but things need to be free-ed)

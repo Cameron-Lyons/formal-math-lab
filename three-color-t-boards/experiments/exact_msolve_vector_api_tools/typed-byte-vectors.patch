@@ -1,0 +1,2292 @@
+--- a/src/msolve/hilbert.c
++++ b/src/msolve/hilbert.c
+@@ -531,12 +531,12 @@
+   for(long k = 0; k < nv-1 ; k++){
+     /* in hash table exponent vectors store their degree in the first entry,
+      * thus we have to go by "k+1" */
+-    int e = (int32_t)ht->ev[dt[pos]][k+1];
++    int e = (int32_t)stored_exp_read(ht->ev[dt[pos]], k+1, ht->evl);
+     if(e != exp2[k]){
+       return 0;
+     }
+   }
+-  int e = (int32_t)ht->ev[dt[pos]][nv];
++  int e = (int32_t)stored_exp_read(ht->ev[dt[pos]], nv, ht->evl);
+   return (e == exp2[nv - 1]);
+ }
+ 
+@@ -566,13 +566,13 @@
+   /* printf ("\n"); */
+   for(long i = 0; i < nvars - 1; i++){
+     /* printf ("exp1[%ld]=%d\texp2[%ld]=%d\n",i,exp1->ev[hmj][evi[i]],i,exp2[i]); */
+-    if(exp1->ev[hmj][evi[i]]!=exp2[i]){
++    if(stored_exp_read(exp1->ev[hmj], evi[i], exp1->evl)!=exp2[i]){
+       return 0;
+     }
+   }
+   /* printf ("exp1[%ld]=%d\texp2[%ld]=%d\n",nvars-1,exp1->ev[hmj][evi[nvars-1]], */
+   /* 	  nvars-1,exp2[nvars-1]); */
+-  return ((exp1->ev[hmj][evi[nvars-1]]) == exp2[nvars-1]);
++  return ((stored_exp_read(exp1->ev[hmj], evi[nvars-1], exp1->evl)) == exp2[nvars-1]);
+ }
+ 
+ /* returns -1 if exp1 is smaller
+@@ -616,7 +616,7 @@
+   int32_t deg1 = 0;
+   int32_t deg2 = 0;
+   for(long i = 0; i < nvars; i++){
+-    deg1 += exp1->ev[hmj][evi[i]];
++    deg1 += stored_exp_read(exp1->ev[hmj], evi[i], exp1->evl);
+     deg2 += exp2[i];
+   }
+   /* printf ("deg1= %d, deg2=%d\n",deg1,deg2); */
+@@ -628,10 +628,10 @@
+   }
+   for (long i = nvars-1; i>1; i--) {
+     /* printf ("x[%ld]: %d, %d\n",i,exp1->ev[hmj][evi[i]],exp2[i]); */
+-    if(exp1->ev[hmj][evi[i]]<exp2[i]){
++    if(stored_exp_read(exp1->ev[hmj], evi[i], exp1->evl)<exp2[i]){
+       return 1;
+     }
+-    if(exp1->ev[hmj][evi[i]]>exp2[i]){
++    if(stored_exp_read(exp1->ev[hmj], evi[i], exp1->evl)>exp2[i]){
+       return -1;
+     }
+   }
+@@ -1802,9 +1802,9 @@
+ 	else if (i == nv - 1 + k) {
+ 	  cpt = 2;
+ 	}
+-	exps[(count_not_lm + i*suppsize+j)*nv+k]=bht->ev[hm[j]][evi[k]] + cpt;
+-      }
+-      exps[(count_not_lm + i*suppsize+j)*nv+nv-1]=bht->ev[hm[j]][evi[nv-1]];
++	exps[(count_not_lm + i*suppsize+j)*nv+k]=stored_exp_read(bht->ev[hm[j]], evi[k], bht->evl) + cpt;
++      }
++      exps[(count_not_lm + i*suppsize+j)*nv+nv-1]=stored_exp_read(bht->ev[hm[j]], evi[nv-1], bht->evl);
+     }
+   }
+   tbr = initialize_basis(st, bht);
+@@ -2250,9 +2250,9 @@
+ 	else if (i == nv - 1 + k) {
+ 	  cpt = 2;
+ 	}
+-	exps[(count_not_lm + i*suppsize+j)*nv+k]=bht->ev[hm[j]][evi[k]] + cpt;
+-      }
+-      exps[(count_not_lm + i*suppsize+j)*nv+nv-1]=bht->ev[hm[j]][evi[nv-1]];
++	exps[(count_not_lm + i*suppsize+j)*nv+k]=stored_exp_read(bht->ev[hm[j]], evi[k], bht->evl) + cpt;
++      }
++      exps[(count_not_lm + i*suppsize+j)*nv+nv-1]=stored_exp_read(bht->ev[hm[j]], evi[nv-1], bht->evl);
+     }
+   }
+   tbr = initialize_basis(st, bht);
+@@ -3871,10 +3871,10 @@
+ 
+     dt  = bs->hm[bi] + OFFSET;
+     for (len_t k = 1; k < ebl; ++k) {
+-      exp[ce++] = (int32_t)ht->ev[dt[0]][k];
++      exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[0]], k, ht->evl);
+     }
+     for (len_t k = ebl+1; k < evl; ++k) {
+-      exp[ce++] = (int32_t)ht->ev[dt[0]][k];
++      exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[0]], k, ht->evl);
+     }
+   }
+   return exp;
+@@ -3895,10 +3895,10 @@
+ 
+     dt  = bs->hm[bi] + OFFSET;
+     for (len_t k = 1; k < ebl; ++k) {
+-      exp[ce++] = (int32_t)ht->ev[dt[0]][k];
++      exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[0]], k, ht->evl);
+     }
+     for (len_t k = ebl+1; k < evl; ++k) {
+-      exp[ce++] = (int32_t)ht->ev[dt[0]][k];
++      exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[0]], k, ht->evl);
+     }
+   }
+ }
+@@ -3917,7 +3917,7 @@
+ 
+     dt  = bs->hm[bi] + OFFSET;
+     for (len_t k = ebl+1; k < evl; ++k) {
+-      exp[ce++] = (int32_t)ht->ev[dt[0]][k];
++      exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[0]], k, ht->evl);
+     }
+   }
+ }
+--- a/src/msolve/iofiles.c
++++ b/src/msolve/iofiles.c
+@@ -249,15 +249,15 @@
+                 ctr = 0;
+                 k = 0;
+                 while (ctr == 0 && k < nv) {
+-                    if (ht->ev[hm[0]][evi[k]] > 0) {
+-                        fprintf(file, "%s^%u",vnames[k], ht->ev[hm[0]][evi[k]]);
++                    if (stored_exp_read(ht->ev[hm[0]], evi[k], ht->evl) > 0) {
++                        fprintf(file, "%s^%u",vnames[k], stored_exp_read(ht->ev[hm[0]], evi[k], ht->evl));
+                         ctr++;
+                     }
+                     k++;
+                 }
+                 for (;k < nv; ++k) {
+-                    if (ht->ev[hm[0]][evi[k]] > 0) {
+-                        fprintf(file, "*%s^%u",vnames[k], ht->ev[hm[0]][evi[k]]);
++                    if (stored_exp_read(ht->ev[hm[0]], evi[k], ht->evl) > 0) {
++                        fprintf(file, "*%s^%u",vnames[k], stored_exp_read(ht->ev[hm[0]], evi[k], ht->evl));
+                         ctr++;
+                     }
+                 }
+@@ -295,8 +295,8 @@
+                   break;
+                 }
+                 for (k = 0; k < nv; ++k) {
+-                    if (ht->ev[hm[0]][evi[k]] > 0) {
+-                        fprintf(file, "*%s^%u",vnames[k], ht->ev[hm[0]][evi[k]]);
++                    if (stored_exp_read(ht->ev[hm[0]], evi[k], ht->evl) > 0) {
++                        fprintf(file, "*%s^%u",vnames[k], stored_exp_read(ht->ev[hm[0]], evi[k], ht->evl));
+                     }
+                 }
+                 for (j = 1; j < len; ++j) {
+@@ -315,8 +315,8 @@
+ 		    break;
+ 		  }
+ 		  for (k = 0; k < nv; ++k) {
+-		    if (ht->ev[hm[j]][evi[k]] > 0) {
+-		      fprintf(file, "*%s^%u",vnames[k], ht->ev[hm[j]][evi[k]]);
++		    if (stored_exp_read(ht->ev[hm[j]], evi[k], ht->evl) > 0) {
++		      fprintf(file, "*%s^%u",vnames[k], stored_exp_read(ht->ev[hm[j]], evi[k], ht->evl));
+ 		    }
+ 		  }
+                 }
+--- a/src/msolve/lifting-gb.c
++++ b/src/msolve/lifting-gb.c
+@@ -355,18 +355,18 @@
+     }
+     if(mpz_cmp_ui(modgbs->modpolys[pos]->cf_qq[2*i], 0) != 0){
+       for (k = 0; k < nv; ++k) {
+-         if (ht->ev[hm[len-i-1]][evi[k]] == 1) {
++         if (stored_exp_read(ht->ev[hm[len-i-1]], evi[k], ht->evl) == 1) {
+             if(star == 1){
+                 fprintf(file, "*");
+             }
+             fprintf(file, "%s",gens->vnames[k]);
+             star = 1;
+          }
+-         if (ht->ev[hm[len-i-1]][evi[k]] > 1) {
++         if (stored_exp_read(ht->ev[hm[len-i-1]], evi[k], ht->evl) > 1) {
+             if(star == 1){
+                 fprintf(file, "*");
+             }
+-            fprintf(file, "%s^%u",gens->vnames[k], ht->ev[hm[len-i-1]][evi[k]]);
++            fprintf(file, "%s^%u",gens->vnames[k], stored_exp_read(ht->ev[hm[len-i-1]], evi[k], ht->evl));
+             star = 1;
+          }
+      }
+@@ -378,7 +378,7 @@
+   }
+   int deg = 0;
+   for (k = 0; k < nv; ++k) {
+-     deg += ht->ev[hm[len-1]][evi[k]];
++     deg += stored_exp_read(ht->ev[hm[len-1]], evi[k], ht->evl);
+   }
+   if(deg == 0){
+     mpz_out_str(file, 10, modgbs->modpolys[pos]->cf_qq[0]);
+@@ -404,18 +404,18 @@
+     fflush(file);
+     if(mpz_cmp_ui(modgbs->modpolys[pos]->cf_qq[0], 0) != 0){
+       for (k = 0; k < nv; ++k) {
+-         if (ht->ev[hm[len-1]][evi[k]] == 1) {
++         if (stored_exp_read(ht->ev[hm[len-1]], evi[k], ht->evl) == 1) {
+             if(star == 1){
+                 fprintf(file, "*");
+             }
+             fprintf(file, "%s",gens->vnames[k]);
+             star = 1;
+          }
+-         if (ht->ev[hm[len-1]][evi[k]] > 1) {
++         if (stored_exp_read(ht->ev[hm[len-1]], evi[k], ht->evl) > 1) {
+             if(star == 1){
+                 fprintf(file, "*");
+             }
+-            fprintf(file, "%s^%u",gens->vnames[k], ht->ev[hm[len-1]][evi[k]]);
++            fprintf(file, "%s^%u",gens->vnames[k], stored_exp_read(ht->ev[hm[len-1]], evi[k], ht->evl));
+             star = 1;
+          }
+      }
+@@ -848,7 +848,7 @@
+   if (st->nev > 0) {
+       int32_t j = 0;
+       for (len_t i = 0; i < bs->lml; ++i) {
+-          if ((*bht)->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {
++          if (stored_exp_read((*bht)->ev[bs->hm[bs->lmps[i]][OFFSET]], 0, (*bht)->evl) == 0) {
+               bs->lm[j]   = bs->lm[i];
+               bs->lmps[j] = bs->lmps[i];
+               ++j;
+@@ -1711,7 +1711,7 @@
+             for(int32_t i = l-1; i >= 0; i--) {
+                 if(mpz_cmp_ui(gb->modpolys[p]->cf_qq[2*i], 0) != 0) {
+                   for (int32_t n = 0; n < nve; n++) {
+-                    exp[term * nve + n] = ht->ev[hm[l - i]][evi[n]];
++                    exp[term * nve + n] = stored_exp_read(ht->ev[hm[l - i]], evi[n], ht->evl);
+                   }
+                   mpz_set(cf_qq[term], gb->modpolys[p]->cf_qq[2 * i]);
+ 
+--- a/src/msolve/linear.c
++++ b/src/msolve/linear.c
+@@ -56,15 +56,15 @@
+         hm_t *dt = bs->hm[bi] + OFFSET;
+         for (long j = 0; j < len; j++) {
+           uint32_t coef = bs->cf_8[bs->hm[bi][COEFFS]][j];
+-          exp_t *exp = bht->ev[dt[j]];
++          stored_exp_t *exp = bht->ev[dt[j]];
+           /* convert to usual exponent vector without block elimination storage
+            * structure */
+           ctr = 0;
+           for (int k = 1; k < ebl; ++k) {
+-            etmp[ctr++] = (int32_t)exp[k];
++            etmp[ctr++] = (int32_t)stored_exp_read(exp, k, bht->evl);
+           }
+           for (int k = ebl + 1; k < evl; ++k) {
+-            etmp[ctr++] = (int32_t)exp[k];
++            etmp[ctr++] = (int32_t)stored_exp_read(exp, k, bht->evl);
+           }
+ 
+           int isvar = 0;
+@@ -117,15 +117,15 @@
+         hm_t *dt = bs->hm[bi] + OFFSET;
+         for (long j = 0; j < len; j++) {
+           uint32_t coef = bs->cf_16[bs->hm[bi][COEFFS]][j];
+-          exp_t *exp = bht->ev[dt[j]];
++          stored_exp_t *exp = bht->ev[dt[j]];
+           /* convert to usual exponent vector without block elimination storage
+            * structure */
+           ctr = 0;
+           for (int k = 1; k < ebl; ++k) {
+-            etmp[ctr++] = (int32_t)exp[k];
++            etmp[ctr++] = (int32_t)stored_exp_read(exp, k, bht->evl);
+           }
+           for (int k = ebl + 1; k < evl; ++k) {
+-            etmp[ctr++] = (int32_t)exp[k];
++            etmp[ctr++] = (int32_t)stored_exp_read(exp, k, bht->evl);
+           }
+ 
+           int isvar = 0;
+@@ -175,15 +175,15 @@
+         hm_t *dt = bs->hm[bi] + OFFSET;
+         for (long j = 0; j < len; j++) {
+           uint32_t coef = bs->cf_32[bs->hm[bi][COEFFS]][j];
+-          exp_t *exp = bht->ev[dt[j]];
++          stored_exp_t *exp = bht->ev[dt[j]];
+           /* convert to usual exponent vector without block elimination storage
+            * structure */
+           ctr = 0;
+           for (int k = 1; k < ebl; ++k) {
+-            etmp[ctr++] = (int32_t)exp[k];
++            etmp[ctr++] = (int32_t)stored_exp_read(exp, k, bht->evl);
+           }
+           for (int k = ebl + 1; k < evl; ++k) {
+-            etmp[ctr++] = (int32_t)exp[k];
++            etmp[ctr++] = (int32_t)stored_exp_read(exp, k, bht->evl);
+           }
+ 
+           int isvar = 0;
+@@ -256,12 +256,12 @@
+         hm_t *dt = bs->hm[bi] + OFFSET;
+         for (long j = 0; j < len; j++) {
+           uint32_t coef = bs->cf_8[bs->hm[bi][COEFFS]][j];
+-          exp_t *exp = bht->ev[dt[j]];
++          stored_exp_t *exp = bht->ev[dt[j]];
+           int isvar = 0;
+           for (int k = 0; k < bht->nv; k++) {
+             /* exponent vectors in hash table store the degree
+              * at the first position, thus "+1" */
+-            if (exp[k + 1] == 1) {
++            if (stored_exp_read(exp, k + 1, bht->evl) == 1) {
+               lineqs[cnt * (bht->nv + 1) + k] = coef;
+               isvar = 1;
+             }
+@@ -330,12 +330,12 @@
+         hm_t *dt = bs->hm[bi] + OFFSET;
+         for (long j = 0; j < len; j++) {
+           uint32_t coef = bs->cf_16[bs->hm[bi][COEFFS]][j];
+-          exp_t *exp = bht->ev[dt[j]];
++          stored_exp_t *exp = bht->ev[dt[j]];
+           int isvar = 0;
+           for (int k = 0; k < bht->nv; k++) {
+             /* exponent vectors in hash table store the degree
+              * at the first position, thus "+1" */
+-            if (exp[k + 1] == 1) {
++            if (stored_exp_read(exp, k + 1, bht->evl) == 1) {
+               lineqs[cnt * (bht->nv + 1) + k] = coef;
+               isvar = 1;
+             }
+@@ -404,12 +404,12 @@
+         hm_t *dt = bs->hm[bi] + OFFSET;
+         for (long j = 0; j < len; j++) {
+           uint32_t coef = bs->cf_32[bs->hm[bi][COEFFS]][j];
+-          exp_t *exp = bht->ev[dt[j]];
++          stored_exp_t *exp = bht->ev[dt[j]];
+           int isvar = 0;
+           for (int k = 0; k < bht->nv; k++) {
+             /* exponent vectors in hash table store the degree
+              * at the first position, thus "+1" */
+-            if (exp[k + 1] == 1) {
++            if (stored_exp_read(exp, k + 1, bht->evl) == 1) {
+               lineqs[cnt * (bht->nv + 1) + k] = coef;
+               isvar = 1;
+             }
+--- a/src/msolve/msolve.c
++++ b/src/msolve/msolve.c
+@@ -1890,7 +1890,7 @@
+         if (st->nev > 0) {
+             int32_t j = 0;
+             for (len_t k = 0; k < bs[i]->lml; ++k) {
+-                if (bs[i]->ht->ev[bs[i]->hm[bs[i]->lmps[k]][OFFSET]][0] == 0) {
++                if (stored_exp_read(bs[i]->ht->ev[bs[i]->hm[bs[i]->lmps[k]][OFFSET]], 0, bs[i]->ht->evl) == 0) {
+                     bs[i]->lm[j]   = bs[i]->lm[k];
+                     bs[i]->lmps[j] = bs[i]->lmps[k];
+                     ++j;
+@@ -4347,7 +4347,7 @@
+ 	    int32_t *bcf_ff = (int32_t *)(*bcf);
+ 	    int32_t *bexp_lm = get_lead_monomials(bld, blen, bexp, gens);
+ 
+-	    long maxdeg = sht->ev[hcm[0]][0]; /* degree of the normal
++	    long maxdeg = stored_exp_read(sht->ev[hcm[0]], 0, sht->evl); /* degree of the normal
+ 						 form */
+ 	    for (long i = 0; i < bld[0]; i++) {
+ 	      long degi = 0;
+@@ -4713,7 +4713,7 @@
+                 fprintf(VERBSTREAM, "\nUnion of support, sorted by decreasing monomial order:\n");
+                 for (len_t k = 0; k < mat->nc; ++k) {
+                     for (len_t l = 1; l <= sht->nv; ++l) {
+-                        fprintf(VERBSTREAM, "%2u ", sht->ev[hcm[k]][l]);
++                        fprintf(VERBSTREAM, "%2u ", stored_exp_read(sht->ev[hcm[k]], l, sht->evl));
+                     }
+                     fprintf(VERBSTREAM, "\n");
+                 }
+--- a/src/neogb/convert.c
++++ b/src/neogb/convert.c
+@@ -36,7 +36,8 @@
+ 
+     hi_t *hcm = *hcmp;
+     /* clear ht-ev[0] */
+-    memset(ht->ev[0], 0, (uint64_t)ht->nv * sizeof(exp_t));
++    for (size_t zero_lane=0;zero_lane<(size_t)ht->nv;++zero_lane)
++        stored_exp_write(ht->ev[0],zero_lane,0,ht->evl);
+ 
+     /* timings */
+     double ct0, ct1, rt0, rt1;
+@@ -525,7 +526,7 @@
+             terms[nterms] = bs->hm[bld+ctr][j];
+             nterms++;
+         }
+-        if (ht->ev[bs->hm[bld+ctr][OFFSET]][DEG] == 0) {
++        if (stored_exp_read(ht->ev[bs->hm[bld+ctr][OFFSET]], DEG, ht->evl) == 0) {
+             bs->constant  = 1;
+         }
+         /* printf("new element from kernel (%u): length %u | ", bld+ctr, bs->hm[bld+ctr][LENGTH]);
+@@ -728,7 +729,7 @@
+             for (int kk=0; kk<bs->hm[bl+k][LENGTH]; ++kk) {
+             printf("%u | ", bs->cf_32[bl+k][kk]);
+             for (int jj=0; jj < bht->evl; ++jj) {
+-                printf("%u ", bht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);
++                printf("%u ", stored_exp_read(bht->ev[bs->hm[bl+k][OFFSET+kk]], jj, bht->evl));
+             }
+             printf(" || ");
+             }
+@@ -741,7 +742,7 @@
+             for (int kk=0; kk<bs->hm[bl+k][LENGTH]; ++kk) {
+             printf("%u | ", bs->cf_16[bl+k][kk]);
+             for (int jj=0; jj < bht->evl; ++jj) {
+-                printf("%u ", bht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);
++                printf("%u ", stored_exp_read(bht->ev[bs->hm[bl+k][OFFSET+kk]], jj, bht->evl));
+             }
+             printf(" || ");
+             }
+@@ -754,7 +755,7 @@
+             for (int kk=0; kk<bs->hm[bl+k][LENGTH]; ++kk) {
+             printf("%u | ", bs->cf_8[bl+k][kk]);
+             for (int jj=0; jj < bht->evl; ++jj) {
+-                printf("%u ", bht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);
++                printf("%u ", stored_exp_read(bht->ev[bs->hm[bl+k][OFFSET+kk]], jj, bht->evl));
+             }
+             printf(" || ");
+             }
+@@ -875,7 +876,7 @@
+             /* for (int kk=0; kk<bs->hm[bl+k][LENGTH]; ++kk) { */
+             printf("%u | ", bs->cf_32[bl+k][kk]);
+             for (int jj=0; jj < sht->evl; ++jj) {
+-                printf("%u ", sht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);
++                printf("%u ", stored_exp_read(sht->ev[bs->hm[bl+k][OFFSET+kk]], jj, sht->evl));
+             }
+             /* printf(" || ");
+              * } */
+--- a/src/neogb/data.h
++++ b/src/neogb/data.h
+@@ -100,6 +100,8 @@
+ {
+     return checked_exp_value((int32_t)a-(int32_t)b);
+ }
++#include "stored_exp.h"
++
+ typedef int32_t deg_t;   /* (total) degree of polynomial */
+ typedef len_t bi_t;      /* basis index of element */
+ typedef len_t bl_t;      /* basis load */
+@@ -137,7 +139,8 @@
+ typedef struct ht_t ht_t;
+ struct ht_t
+ {
+-    exp_t **ev;   /* exponent vector */
++    stored_exp_t **ev; /* stored byte vectors, never dense exp_t scratch */
++    size_t evbytes; /* physical bytes per stored vector; evl stays logical */
+     hd_t *hd;     /* hash data */
+     hi_t *hmap;   /* hash map */
+     len_t elo;    /* load of exponent vector before current step */
+--- a/src/neogb/f4.c
++++ b/src/neogb/f4.c
+@@ -528,7 +528,7 @@
+         if (md->nev > 0) {
+             j = 0;
+             for (i = 0; i < bs->lml; ++i) {
+-                if (ht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {
++                if (stored_exp_read(ht->ev[bs->hm[bs->lmps[i]][OFFSET]], 0, ht->evl) == 0) {
+                     bs->lm[j]   = bs->lm[i];
+                     bs->lmps[j] = bs->lmps[i];
+                     ++j;
+--- a/src/neogb/f4sat.c
++++ b/src/neogb/f4sat.c
+@@ -61,6 +61,16 @@
+     }
+     return 0;
+ }
++static inline int is_pure_power_stored(const stored_exp_t *ev,const ht_t *ht)
++{
++    exp_t dense[128];
++    stored_exp_export(dense,ht->evl,ev,ht->evbytes);
++    return is_pure_power(dense,ht);
++}
++#define is_pure_power(ev,ht) _Generic((ev), \
++    exp_t *: is_pure_power, const exp_t *: is_pure_power, \
++    stored_exp_t *: is_pure_power_stored, const stored_exp_t *: is_pure_power_stored)(ev,ht)
++
+ 
+ static inline int is_zero_dimensional(
+         const bs_t * const bs,
+@@ -255,7 +265,7 @@
+             enlarge_hash_table(ht);
+         }
+         for (j = ind[nv-i]; j < oqb_dim; ++j) {
+-            memcpy(etmp, ht->ev[oqb[j]], (unsigned long)(nv+1)*sizeof(exp_t));;
++            stored_exp_export(etmp, ht->evl, ht->ev[oqb[j]], ht->evbytes);
+             etmp[i]++;
+             etmp[DEG]++;
+             cqb[ctr]  = check_lm_divisibility_and_insert_in_hash_table(
+@@ -288,7 +298,7 @@
+ 
+     for (i = nv-1; i > 0; --i) {
+         for (j = ind[nv-1-i]; j < dim; ++j) {
+-            if (ht->ev[qb[j]][i+1] == 0) {
++            if (stored_exp_read(ht->ev[qb[j]], i+1, ht->evl) == 0) {
+                 ind[nv-i] = j;
+                 break;
+             }
+@@ -442,11 +452,11 @@
+             j--;
+         }
+         for (k = 0; k < bht->evl; ++k) {
+-            if (bht->ev[qb[i]][k] < bht->ev[sat->hm[j][MULT]][k]) {
++            if (stored_exp_read(bht->ev[qb[i]], k, bht->evl) < stored_exp_read(bht->ev[sat->hm[j][MULT]], k, bht->evl)) {
+                 j--;
+                 goto sat_restart;
+             }
+-            etmp[k] = bht->ev[qb[i]][k] - bht->ev[sat->hm[j][MULT]][k];
++            etmp[k] = stored_exp_read(bht->ev[qb[i]], k, bht->evl) - stored_exp_read(bht->ev[sat->hm[j][MULT]], k, bht->evl);
+         }
+         const hi_t h      = bht->hd[m].val - bht->hd[sat->hm[j][MULT]].val;
+         sat->hm[i]        = multiplied_poly_to_matrix_row(
+@@ -519,7 +529,8 @@
+     bs_t *sat   = gsat;
+     /* initialize multiplier of first element in sat to be the hash of
+      * the all-zeroes exponent vector. */
+-    memset(bht->ev[0], 0, (unsigned long)bht->evl * sizeof(exp_t));
++    for (size_t zero_lane=0;zero_lane<(size_t)bht->evl;++zero_lane)
++        stored_exp_write(bht->ev[0],zero_lane,0,bht->evl);
+     sat->hm[0][MULT]  = insert_in_hash_table(bht->ev[0], bht);
+     sat->ld = 1;
+ 
+--- a/src/neogb/hash.c
++++ b/src/neogb/hash.c
+@@ -99,6 +99,7 @@
+ 
+     /* generate random values */
+     ht->rsd = 2463534242;
++    ht->evbytes = stored_exp_bytes(ht->evl);
+     ht->rn  = calloc((unsigned long)ht->evl, sizeof(val_t));
+     for (i = ht->evl; i > 0; --i) {
+         /* random values should not be zero */
+@@ -108,14 +109,14 @@
+     /* keep first entry empty for faster divisibility checks */
+     ht->eld = 1;
+     ht->hd  = (hd_t *)calloc(ht->esz, sizeof(hd_t));
+-    ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));
++    ht->ev  = (stored_exp_t **)malloc(ht->esz * sizeof(stored_exp_t *));
+     if (ht->ev == NULL) {
+         fprintf(ERRSTREAM, "Computation needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "could not initialize exponent vector for hash table,\n");
+         fprintf(ERRSTREAM, "esz = %lu, segmentation fault will follow.\n", (unsigned long)ht->esz);
+     }
+-    exp_t *tmp  = (exp_t *)malloc(
+-            (unsigned long)ht->evl * ht->esz * sizeof(exp_t));
++    stored_exp_t *tmp  = (stored_exp_t *)malloc(
++            ht->evbytes * ht->esz);
+     if (tmp == NULL) {
+         fprintf(ERRSTREAM, "Exponent storage needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "initialization failed, esz = %lu,\n", (unsigned long)ht->esz);
+@@ -123,7 +124,7 @@
+     }
+     const hl_t esz  = ht->esz;
+     for (j = 0; j < esz; ++j) {
+-        ht->ev[j]  = tmp + (j*ht->evl);
++        ht->ev[j]  = tmp + (j*ht->evbytes);
+     }
+     st->max_bht_size  = ht->esz;
+     return ht;
+@@ -140,6 +141,7 @@
+     ht->nv    = bht->nv;
+     ht->mo    = bht->mo;
+     ht->evl   = bht->evl;
++    ht->evbytes = bht->evbytes;
+     ht->ebl   = bht->ebl;
+     ht->hsz   = bht->hsz;
+     ht->esz   = bht->esz;
+@@ -158,24 +160,24 @@
+     ht->hd  = (hd_t *)calloc(ht->esz, sizeof(hd_t));
+ 
+     memcpy(ht->hd, bht->hd, (unsigned long)ht->esz * sizeof(hd_t));
+-    ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));
++    ht->ev  = (stored_exp_t **)malloc(ht->esz * sizeof(stored_exp_t *));
+     if (ht->ev == NULL) {
+         fprintf(ERRSTREAM, "Computation needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "could not initialize exponent vector for hash table,\n");
+         fprintf(ERRSTREAM, "esz = %lu, segmentation fault will follow.\n", (unsigned long)ht->esz);
+     }
+-    exp_t *tmp  = (exp_t *)malloc(
+-            (unsigned long)ht->evl * ht->esz * sizeof(exp_t));
++    stored_exp_t *tmp  = (stored_exp_t *)malloc(
++            ht->evbytes * ht->esz);
+     if (tmp == NULL) {
+         fprintf(ERRSTREAM, "Exponent storage needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "initialization failed, esz = %lu,\n", (unsigned long)ht->esz);
+         fprintf(ERRSTREAM, "segmentation fault will follow.\n");
+     }
+-    memcpy(tmp, bht->ev[0], (unsigned long)ht->evl * ht->esz * sizeof(exp_t));
++    stored_exp_copy_vectors(tmp, bht->ev[0], ht->evl, ht->evbytes, ht->esz);
+     ht->eld = bht->eld;
+     const hl_t esz  = ht->esz;
+     for (j = 0; j < esz; ++j) {
+-        ht->ev[j]  = tmp + (j*ht->evl);
++        ht->ev[j]  = tmp + (j*ht->evbytes);
+     }
+     return ht;
+ }
+@@ -192,6 +194,7 @@
+     ht->nv    = bht->nv;
+     ht->mo    = bht->mo;
+     ht->evl   = bht->evl;
++    ht->evbytes = bht->evbytes;
+     ht->ebl   = bht->ebl;
+ 
+     /* generate map */
+@@ -211,14 +214,14 @@
+     /* keep first entry empty for faster divisibility checks */
+     ht->eld = 1;
+     ht->hd  = (hd_t *)calloc(ht->esz, sizeof(hd_t));
+-    ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));
++    ht->ev  = (stored_exp_t **)malloc(ht->esz * sizeof(stored_exp_t *));
+     if (ht->ev == NULL) {
+         fprintf(ERRSTREAM, "Computation needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "could not initialize exponent vector for hash table,\n");
+         fprintf(ERRSTREAM, "esz = %lu, segmentation fault will follow.\n", (unsigned long)ht->esz);
+     }
+-    exp_t *tmp  = (exp_t *)malloc(
+-            (unsigned long)ht->evl * ht->esz * sizeof(exp_t));
++    stored_exp_t *tmp  = (stored_exp_t *)malloc(
++            ht->evbytes * ht->esz);
+     if (tmp == NULL) {
+         fprintf(ERRSTREAM, "Exponent storage needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "initialization failed, esz = %lu,\n", (unsigned long)ht->esz);
+@@ -226,7 +229,7 @@
+     }
+     const hl_t esz  = ht->esz;
+     for (j = 0; j < esz; ++j) {
+-        ht->ev[j]  = tmp + (j*ht->evl);
++        ht->ev[j]  = tmp + (j*ht->evbytes);
+     }
+     return ht;
+ }
+@@ -329,7 +332,7 @@
+ 
+     ht->hd    = realloc(ht->hd, esz * sizeof(hd_t));
+     memset(ht->hd+eld, 0, (esz-eld) * sizeof(hd_t));
+-    ht->ev    = realloc(ht->ev, esz * sizeof(exp_t *));
++    ht->ev    = realloc(ht->ev, esz * sizeof(stored_exp_t *));
+     if (ht->ev == NULL) {
+         fprintf(ERRSTREAM, "Enlarging hash table failed for esz = %lu,\n", (unsigned long)esz);
+         fprintf(ERRSTREAM, "segmentation fault will follow.\n");
+@@ -337,7 +340,7 @@
+     /* note: memory is allocated as one big block, so reallocating
+      *       memory from ev[0] is enough    */
+     ht->ev[0] = realloc(ht->ev[0],
+-            esz * (unsigned long)ht->evl * sizeof(exp_t));
++            esz * ht->evbytes);
+     if (ht->ev[0] == NULL) {
+         fprintf(ERRSTREAM, "Enlarging exponent vector for hash table failed\n");
+         fprintf(ERRSTREAM, "for esz = %lu, segmentation fault will follow.\n", (unsigned long)esz);
+@@ -345,7 +348,7 @@
+     /* due to realloc we have to reset ALL ev entries,
+      * memory might have been moved */
+     for (i = 1; i < esz; ++i) {
+-        ht->ev[i] = ht->ev[0] + (i*ht->evl);
++        ht->ev[i] = ht->ev[0] + (i*ht->evbytes);
+     }
+ 
+     /* The hash table should be double the size of the exponent space in
+@@ -416,6 +419,17 @@
+ 
+   return res;
+ }
++/* Type-selected boundary: callers cannot reinterpret stored bytes as dense. */
++static inline sdm_t generate_short_divmask_stored(const stored_exp_t *a, const ht_t *ht)
++{
++    exp_t dense[128];
++    stored_exp_export(dense, ht->evl, a, ht->evbytes);
++    return generate_short_divmask(dense, ht);
++}
++#define generate_short_divmask(a, ht) _Generic((a), \
++    exp_t *: generate_short_divmask, const exp_t *: generate_short_divmask, \
++    stored_exp_t *: generate_short_divmask_stored, const stored_exp_t *: generate_short_divmask_stored)(a, ht)
++
+ 
+ /* note: we calculate the divmask after reading in the input generators. thoseV
+  * are first stored in the local hash table. thus we use the local exponents to
+@@ -429,28 +443,28 @@
+   len_t j, steps;
+   int32_t ctr = 0;
+   const len_t * const dv  = ht->dv;
+-  exp_t **ev  = ht->ev;
++  stored_exp_t **ev  = ht->ev;
+ 
+   deg_t *max_exp  = (deg_t *)malloc((unsigned long)ht->ndv * sizeof(deg_t));
+   deg_t *min_exp  = (deg_t *)malloc((unsigned long)ht->ndv * sizeof(deg_t));
+ 
+-  exp_t *e  = ev[1];
++  stored_exp_t *e  = ev[1];
+ 
+   /* get initial values from first hash table entry */
+   for (i = 0; i < ht->ndv; ++i) {
+-    max_exp[i]  = min_exp[i]  = e[dv[i]];
++    max_exp[i]  = min_exp[i]  = stored_exp_read(e, dv[i], ht->evl);
+   }
+ 
+   /* get maximal and minimal exponent element entries in hash table */
+   for (i = 2; i < ht->eld; ++i) {
+     e = ev[i];
+     for (j = 0; j < ht->ndv; ++j) {
+-      if (e[dv[j]] > max_exp[j]) {
+-        max_exp[j]  = e[dv[j]];
++      if (stored_exp_read(e, dv[j], ht->evl) > max_exp[j]) {
++        max_exp[j]  = stored_exp_read(e, dv[j], ht->evl);
+         continue;
+       }
+-      if (e[dv[j]] < min_exp[j]) {
+-        min_exp[j]  = e[dv[j]];
++      if (stored_exp_read(e, dv[j], ht->evl) < min_exp[j]) {
++        min_exp[j]  = stored_exp_read(e, dv[j], ht->evl);
+       }
+     }
+   }
+@@ -490,17 +504,17 @@
+ 
+   const len_t evl = ht->evl;
+ 
+-  const exp_t *const ea = ht->ev[a];
+-  const exp_t *const eb = ht->ev[b];
++  const stored_exp_t *const ea = ht->ev[a];
++  const stored_exp_t *const eb = ht->ev[b];
+ 
+   /* printf("! no sdm decision !\n"); */
+   /* exponent check */
+   for (i = 0; i < evl-1; i += 2) {
+-    if (ea[i] < eb[i] || ea[i+1] < eb[i+1]) {
++    if (stored_exp_read(ea, i, ht->evl) < stored_exp_read(eb, i, ht->evl) || stored_exp_read(ea, i+1, ht->evl) < stored_exp_read(eb, i+1, ht->evl)) {
+       return 0;
+     }
+   }
+-  if (ea[evl-1] < eb[evl-1]) {
++  if (stored_exp_read(ea, evl-1, ht->evl) < stored_exp_read(eb, evl-1, ht->evl)) {
+     return 0;
+   }
+   return 1;
+@@ -518,7 +532,7 @@
+     const len_t evl = ht->evl;
+ 
+     const sdm_t sb        = ht->hd[b].sdm;
+-    const exp_t *const eb = ht->ev[b];
++    const stored_exp_t *const eb = ht->ev[b];
+     /* pairs are sorted, we only have to search entries
+      * above the starting point */
+         j = start+1;
+@@ -531,15 +545,15 @@
+         if (~ht->hd[a[j]].sdm & sb) {
+             continue;
+         }
+-        const exp_t *const ea = ht->ev[a[j]];
++        const stored_exp_t *const ea = ht->ev[a[j]];
+         /* exponent check */
+         for (i = 0; i < evl-1; i += 2) {
+-            if (ea[i] < eb[i] || ea[i+1] < eb[i+1]) {
++            if (stored_exp_read(ea, i, ht->evl) < stored_exp_read(eb, i, ht->evl) || stored_exp_read(ea, i+1, ht->evl) < stored_exp_read(eb, i+1, ht->evl)) {
+                 j++;
+                 goto restart;
+             }
+         }
+-        if (ea[evl-1] < eb[evl-1]) {
++        if (stored_exp_read(ea, evl-1, ht->evl) < stored_exp_read(eb, evl-1, ht->evl)) {
+             continue;
+         }
+         a[j]  = 0;
+@@ -555,7 +569,7 @@
+     hl_t i;
+     hi_t k, pos;
+     len_t j;
+-    exp_t *e;
++    stored_exp_t *e;
+     hd_t *d;
+     const len_t lml   = bs->lml;
+ 
+@@ -579,7 +593,7 @@
+     if (i < lml) {
+         e = ht->ev[bs->hm[lmps[i]][OFFSET]];
+         for (j = 0; j < evl; ++j) {
+-            if (e[j] > a[j]) {
++            if (stored_exp_read(e, j, ht->evl) > a[j]) {
+                 i++;
+                 goto start;
+             }
+@@ -607,14 +621,14 @@
+         if (ht->hd[hm].val != h) {
+             continue;
+         }
+-        const exp_t * const ehm = ht->ev[hm];
++        const stored_exp_t * const ehm = ht->ev[hm];
+         for (j = 0; j < evl-1; j += 2) {
+-            if (a[j] != ehm[j] || a[j+1] != ehm[j+1]) {
++            if (a[j] != stored_exp_read(ehm, j, ht->evl) || a[j+1] != stored_exp_read(ehm, j+1, ht->evl)) {
+                 i++;
+                 goto restart;
+             }
+         }
+-        if (a[evl-1] != ehm[evl-1]) {
++        if (a[evl-1] != stored_exp_read(ehm, evl-1, ht->evl)) {
+             i++;
+             goto restart;
+         }
+@@ -625,10 +639,10 @@
+     ht->hmap[k]  = pos = (hi_t)ht->eld;
+     e   = ht->ev[pos];
+     d   = ht->hd + pos;
+-    memcpy(e, a, (unsigned long)evl * sizeof(exp_t));
++    stored_exp_import(e, a, ht->evl, ht->evbytes);
+     d->sdm  =   generate_short_divmask(e, ht);
+-    d->deg  =   e[0];
+-    d->deg  +=  ht->ebl > 0 ? e[ht->ebl] : 0;
++    d->deg  =   stored_exp_read(e, 0, ht->evl);
++    d->deg  +=  ht->ebl > 0 ? stored_exp_read(e, ht->ebl, ht->evl) : 0;
+     d->val  =   h;
+ 
+     ht->eld++;
+@@ -645,8 +659,8 @@
+     hl_t i;
+     hi_t k, pos;
+     len_t j;
+-    exp_t *e;
+-    exp_t *a = ht->ev[0];
++    stored_exp_t *e;
++    stored_exp_t *a = ht->ev[0];
+     hd_t *d;
+     val_t h = 0;
+     const len_t evl = ht->evl;
+@@ -658,7 +672,7 @@
+ 
+     /* generate exponent vector */
+     for (j = 0; j < evl; ++j) {
+-        a[j] = checked_exp_add(ht->ev[h1][j], ht->ev[h2][j]);
++        stored_exp_write(a, j, checked_exp_add(stored_exp_read(ht->ev[h1], j, ht->evl), stored_exp_read(ht->ev[h2], j, ht->evl)), ht->evl);
+     }
+     /* probing */
+     k = h;
+@@ -673,14 +687,14 @@
+         if (ht->hd[hm].val != h) {
+             continue;
+         }
+-        const exp_t * const ehm = ht->ev[hm];
++        const stored_exp_t * const ehm = ht->ev[hm];
+         for (j = 0; j < evl-1; j += 2) {
+-            if (a[j] != ehm[j] || a[j+1] != ehm[j+1]) {
++            if (stored_exp_read(a, j, ht->evl) != stored_exp_read(ehm, j, ht->evl) || stored_exp_read(a, j+1, ht->evl) != stored_exp_read(ehm, j+1, ht->evl)) {
+                 i++;
+                 goto restart;
+             }
+         }
+-        if (a[evl-1] != ehm[evl-1]) {
++        if (stored_exp_read(a, evl-1, ht->evl) != stored_exp_read(ehm, evl-1, ht->evl)) {
+             i++;
+             goto restart;
+         }
+@@ -691,10 +705,10 @@
+     ht->hmap[k]  = pos = (hi_t)ht->eld;
+     e   = ht->ev[pos];
+     d   = ht->hd + pos;
+-    memcpy(e, a, (unsigned long)evl * sizeof(exp_t));
++    stored_exp_copy(e, a, ht->evl, ht->evbytes);
+     d->sdm  =   generate_short_divmask(e, ht);
+-    d->deg  =   e[0];
+-    d->deg  +=  ht->ebl > 0 ? e[ht->ebl] : 0;
++    d->deg  =   stored_exp_read(e, 0, ht->evl);
++    d->deg  +=  ht->ebl > 0 ? stored_exp_read(e, ht->ebl, ht->evl) : 0;
+     d->val  =   h;
+ 
+     ht->eld++;
+@@ -738,14 +752,14 @@
+         if (ht->hd[hm].val != h) {
+             continue;
+         }
+-        const exp_t * const ehm = ht->ev[hm];
++        const stored_exp_t * const ehm = ht->ev[hm];
+         for (j = 0; j < ht->evl-1; j += 2) {
+-            if (a[j] != ehm[j] || a[j+1] != ehm[j+1]) {
++            if (a[j] != stored_exp_read(ehm, j, ht->evl) || a[j+1] != stored_exp_read(ehm, j+1, ht->evl)) {
+                 i++;
+                 goto restart;
+             }
+         }
+-        if (a[ht->evl-1] != ehm[ht->evl-1]) {
++        if (a[ht->evl-1] != stored_exp_read(ehm, ht->evl-1, ht->evl)) {
+             i++;
+             goto restart;
+         }
+@@ -754,6 +768,17 @@
+     }
+     return -1;
+ }
++/* Type-selected boundary: callers cannot reinterpret stored bytes as dense. */
++static inline int32_t is_contained_in_hash_table_stored(const stored_exp_t *a, const ht_t *ht, const val_t h, hi_t *kp)
++{
++    exp_t dense[128];
++    stored_exp_export(dense, ht->evl, a, ht->evbytes);
++    return is_contained_in_hash_table(dense, ht, h, kp);
++}
++#define is_contained_in_hash_table(a, ht, h, kp) _Generic((a), \
++    exp_t *: is_contained_in_hash_table, const exp_t *: is_contained_in_hash_table, \
++    stored_exp_t *: is_contained_in_hash_table_stored, const stored_exp_t *: is_contained_in_hash_table_stored)(a, ht, h, kp)
++
+ 
+ /* This function assumes that is_contained_in_hash_table() was
+  * called beforehand such that the values for h and k are already
+@@ -768,12 +793,12 @@
+     /* add element to hash table */
+     hi_t pos;
+     ht->hmap[k] = pos = (hi_t)ht->eld;
+-    exp_t *e    = ht->ev[pos];
++    stored_exp_t *e    = ht->ev[pos];
+     hd_t *d     = ht->hd + pos;
+-    memcpy(e, a, (unsigned long)ht->evl * sizeof(exp_t));
++    stored_exp_import(e, a, ht->evl, ht->evbytes);
+     d->sdm  =   generate_short_divmask(e, ht);
+-    d->deg  =   e[0];
+-    d->deg  +=  ht->ebl > 0 ? e[ht->ebl] : 0;
++    d->deg  =   stored_exp_read(e, 0, ht->evl);
++    d->deg  +=  ht->ebl > 0 ? stored_exp_read(e, ht->ebl, ht->evl) : 0;
+     d->val  =   h;
+ 
+     ht->eld++;
+@@ -824,7 +849,7 @@
+     hl_t i;
+     hi_t k, pos;
+     len_t j;
+-    exp_t *e;
++    stored_exp_t *e;
+     hd_t *d;
+     val_t h = 0;
+     const len_t evl = ht->evl;
+@@ -849,14 +874,14 @@
+         if (ht->hd[hm].val != h) {
+             continue;
+         }
+-        const exp_t * const ehm = ht->ev[hm];
++        const stored_exp_t * const ehm = ht->ev[hm];
+         for (j = 0; j < evl-1; j += 2) {
+-            if (a[j] != ehm[j] || a[j+1] != ehm[j+1]) {
++            if (a[j] != stored_exp_read(ehm, j, ht->evl) || a[j+1] != stored_exp_read(ehm, j+1, ht->evl)) {
+                 i++;
+                 goto restart;
+             }
+         }
+-        if (a[evl-1] != ehm[evl-1]) {
++        if (a[evl-1] != stored_exp_read(ehm, evl-1, ht->evl)) {
+             i++;
+             goto restart;
+         }
+@@ -867,16 +892,27 @@
+     ht->hmap[k]  = pos = (hi_t)ht->eld;
+     e   = ht->ev[pos];
+     d   = ht->hd + pos;
+-    memcpy(e, a, (unsigned long)evl * sizeof(exp_t));
++    stored_exp_import(e, a, ht->evl, ht->evbytes);
+     d->sdm  =   generate_short_divmask(e, ht);
+-    d->deg  =   e[0];
+-    d->deg  +=  ht->ebl > 0 ? e[ht->ebl] : 0;
++    d->deg  =   stored_exp_read(e, 0, ht->evl);
++    d->deg  +=  ht->ebl > 0 ? stored_exp_read(e, ht->ebl, ht->evl) : 0;
+     d->val  =   h;
+ 
+     ht->eld++;
+ 
+     return pos;
+ }
++/* Type-selected boundary: callers cannot reinterpret stored bytes as dense. */
++static inline hi_t insert_in_hash_table_stored(const stored_exp_t *a, ht_t *ht)
++{
++    exp_t dense[128];
++    stored_exp_export(dense, ht->evl, a, ht->evbytes);
++    return insert_in_hash_table(dense, ht);
++}
++#define insert_in_hash_table(a, ht) _Generic((a), \
++    exp_t *: insert_in_hash_table, const exp_t *: insert_in_hash_table, \
++    stored_exp_t *: insert_in_hash_table_stored, const stored_exp_t *: insert_in_hash_table_stored)(a, ht)
++
+ 
+ static inline void reinitialize_hash_table(
+     ht_t *ht,
+@@ -894,7 +930,7 @@
+         const hl_t hsz  = ht->hsz;
+         const len_t evl = ht->evl;
+         ht->hd  = realloc(ht->hd, esz * sizeof(hd_t));
+-        ht->ev  = realloc(ht->ev, esz * sizeof(exp_t *));
++        ht->ev  = realloc(ht->ev, esz * sizeof(stored_exp_t *));
+         if (ht->ev == NULL) {
+             fprintf(ERRSTREAM, "Computation needs too much memory on this machine,\n");
+             fprintf(ERRSTREAM, "could not reinitialize exponent vector for hash table,\n");
+@@ -903,7 +939,7 @@
+         /* note: memory is allocated as one big block, so reallocating
+          *       memory from evl[0] is enough    */
+         ht->ev[0]  = realloc(ht->ev[0],
+-                esz * (unsigned long)evl * sizeof(exp_t));
++                esz * ht->evbytes);
+         if (ht->ev[0] == NULL) {
+             fprintf(ERRSTREAM, "Exponent storage needs too much memory on this machine,\n");
+             fprintf(ERRSTREAM, "reinitialization failed, esz = %lu\n", (unsigned long)esz);
+@@ -911,7 +947,7 @@
+         }
+         /* due to realloc we have to reset ALL evl entries, memory might be moved */
+         for (i = 1; i < esz; ++i) {
+-            ht->ev[i] = ht->ev[0] + (i*evl);
++            ht->ev[i] = ht->ev[0] + (i*ht->evbytes);
+         }
+         ht->hmap  = realloc(ht->hmap, hsz * sizeof(hi_t));
+     }
+@@ -939,19 +975,19 @@
+ {
+     len_t i;
+ 
+-    const exp_t * const ea = ht->ev[a];
+-    const exp_t * const eb = ht->ev[b];
++    const stored_exp_t * const ea = ht->ev[a];
++    const stored_exp_t * const eb = ht->ev[b];
+ 
+     const len_t evl = ht->evl;
+     const len_t ebl = ht->ebl;
+ 
+     for (i = 1; i < ebl; ++i) {
+-        if (ea[i] != 0 && eb[i] != 0) {
++        if (stored_exp_read(ea, i, ht->evl) != 0 && stored_exp_read(eb, i, ht->evl) != 0) {
+             return 0;
+         }
+     }
+     for (i = ebl+1; i < evl; ++i) {
+-        if (ea[i] != 0 && eb[i] != 0) {
++        if (stored_exp_read(ea, i, ht->evl) != 0 && stored_exp_read(eb, i, ht->evl) != 0) {
+             return 0;
+         }
+     }
+@@ -993,9 +1029,8 @@
+         }
+         ps[m] = pp[l];
+         const val_t h = uht->hd[lcms[l]].val;
+-        memcpy(bht->ev[bht->eld], uht->ev[lcms[l]],
+-                (unsigned long)evl * sizeof(exp_t));
+-        const exp_t * const n = bht->ev[bht->eld];
++        stored_exp_copy(bht->ev[bht->eld], uht->ev[lcms[l]], bht->evl, bht->evbytes);
++        const stored_exp_t * const n = bht->ev[bht->eld];
+         k = h;
+         i = 0;
+ restart:
+@@ -1008,14 +1043,14 @@
+             if (bht->hd[hm].val != h) {
+                 continue;
+             }
+-            const exp_t * const ehm = bht->ev[hm];
++            const stored_exp_t * const ehm = bht->ev[hm];
+             for (j = 0; j < evl-1; j += 2) {
+-                if (n[j] != ehm[j] || n[j+1] != ehm[j+1]) {
++                if (stored_exp_read(n, j, bht->evl) != stored_exp_read(ehm, j, bht->evl) || stored_exp_read(n, j+1, bht->evl) != stored_exp_read(ehm, j+1, bht->evl)) {
+                     i++;
+                     goto restart;
+                 }
+             }
+-            if (n[evl-1] != ehm[evl-1]) {
++            if (stored_exp_read(n, evl-1, bht->evl) != stored_exp_read(ehm, evl-1, bht->evl)) {
+                 i++;
+                 goto restart;
+             }
+@@ -1105,9 +1140,9 @@
+     }
+     if (new_esz > max_entries ||
+             new_esz > SIZE_MAX/sizeof(hd_t) ||
+-            new_esz > SIZE_MAX/sizeof(exp_t *) ||
+-            ht->evl > SIZE_MAX/sizeof(exp_t) ||
+-            new_esz > SIZE_MAX/((size_t)ht->evl*sizeof(exp_t)) ||
++            new_esz > SIZE_MAX/sizeof(stored_exp_t *) ||
++            ht->evbytes != stored_exp_bytes(ht->evl) ||
++            new_esz > SIZE_MAX/ht->evbytes ||
+             new_hsz > SIZE_MAX/sizeof(hi_t)) {
+         fprintf(ERRSTREAM, "Error: promotion reserve allocation size overflow.\n");
+         exit(EXIT_FAILURE);
+@@ -1127,22 +1162,22 @@
+     }
+     ht->hd = new_hd;
+     memset(ht->hd+ht->eld, 0, (size_t)(new_esz-ht->eld)*sizeof(hd_t));
+-    exp_t *old_block = ht->ev[0];
+-    exp_t **new_ev = realloc(ht->ev, (size_t)new_esz*sizeof(exp_t *));
++    stored_exp_t *old_block = ht->ev[0];
++    stored_exp_t **new_ev = realloc(ht->ev, (size_t)new_esz*sizeof(stored_exp_t *));
+     if (new_ev == NULL) {
+         fprintf(ERRSTREAM, "Error: cannot allocate promotion exponent pointers.\n");
+         exit(EXIT_FAILURE);
+     }
+     ht->ev = new_ev;
+-    exp_t *new_block = realloc(old_block,
+-            (size_t)new_esz*(size_t)ht->evl*sizeof(exp_t));
++    stored_exp_t *new_block = realloc(old_block,
++            (size_t)new_esz*ht->evbytes);
+     if (new_block == NULL) {
+         fprintf(ERRSTREAM, "Error: cannot allocate promotion exponent data.\n");
+         exit(EXIT_FAILURE);
+     }
+     /* No exponent-data pointer survives realloc, including slot zero. */
+     for (hl_t i = 0; i < new_esz; ++i) {
+-        ht->ev[i] = new_block + i*ht->evl;
++        ht->ev[i] = new_block + i*ht->evbytes;
+     }
+ 
+     if (new_hsz != ht->hsz) {
+@@ -1247,7 +1282,7 @@
+  * overwrite any unread slot.  Column order is deliberately NOT used for
+  * this packing step.  hcm records the new packed positions so the caller
+  * can retain its original ascending-column insertion order afterwards. */
+-static exp_t *stage_missing_symbolic_exponents(
++static stored_exp_t *stage_missing_symbolic_exponents(
+         hi_t *hcm, const uint8_t *used, const mat_t *mat,
+         ht_t *sht, const len_t missing, const int info_level)
+ {
+@@ -1263,18 +1298,18 @@
+             sht->ev == NULL || sht->ev[0] == NULL ||
+             sht->hd == NULL || sht->hmap == NULL || hcm == NULL ||
+             (mat->ncr > 0 && used == NULL) ||
+-            (size_t)sht->evl > SIZE_MAX/sizeof(exp_t)) {
++            sht->evbytes != stored_exp_bytes(sht->evl)) {
+         fprintf(ERRSTREAM, "Error: invalid symbolic staging layout.\n");
+         exit(EXIT_FAILURE);
+     }
+     const hl_t old_capacity = sht->esz, old_load = sht->eld;
+-    const size_t vector_bytes = (size_t)sht->evl*sizeof(exp_t);
++    const size_t vector_bytes = sht->evbytes;
+     const hl_t slots = (hl_t)missing+1;
+     if (old_capacity > SIZE_MAX/vector_bytes || slots > SIZE_MAX/vector_bytes) {
+         fprintf(ERRSTREAM, "Error: symbolic staging byte count overflows.\n");
+         exit(EXIT_FAILURE);
+     }
+-    exp_t *block = sht->ev[0];
++    stored_exp_t *block = sht->ev[0];
+ 
+     /* Symbolic bucket lookup is finished. Reuse a small prefix of its
+      * PRIVATE bucket storage to verify the entire inverse-map bijection,
+@@ -1306,7 +1341,7 @@
+         }
+         seen[column/8] |= 1U << (column%8);
+         if (column >= mat->ncl && used[column-mat->ncl] == 1) {
+-            if (hcm[column] != id || sht->ev[id] != block+id*sht->evl) {
++            if (hcm[column] != id || sht->ev[id] != block+id*sht->evbytes) {
+                 fprintf(ERRSTREAM, "Error: inconsistent staged symbolic mapping.\n");
+                 exit(EXIT_FAILURE);
+             }
+@@ -1327,7 +1362,7 @@
+                 exit(EXIT_FAILURE);
+             }
+             if (packed != id)
+-                memmove(block+packed*sht->evl, block+id*sht->evl, vector_bytes);
++                stored_exp_copy(block+packed*sht->evbytes, block+id*sht->evbytes, sht->evl, vector_bytes);
+             hcm[column] = (hi_t)packed;
+         }
+     }
+@@ -1342,7 +1377,7 @@
+     free(sht->hd); sht->hd = NULL;
+     free(sht->hmap); sht->hmap = NULL;
+     free(sht->ev); sht->ev = NULL;
+-    exp_t *staged = realloc(block, (size_t)slots*vector_bytes);
++    stored_exp_t *staged = realloc(block, (size_t)slots*vector_bytes);
+     if (staged == NULL) {
+         fprintf(ERRSTREAM, "Error: cannot shrink staged symbolic exponent data.\n");
+         exit(EXIT_FAILURE);
+@@ -1354,10 +1389,10 @@
+     const hl_t reset_capacity = old_capacity < 2048 ? old_capacity : 2048;
+     sht->hd = symbolic_stage_calloc((size_t)reset_capacity, sizeof(hd_t));
+     sht->hmap = symbolic_stage_calloc((size_t)(2*reset_capacity), sizeof(hi_t));
+-    sht->ev = symbolic_stage_calloc((size_t)reset_capacity, sizeof(exp_t *));
+-    exp_t *fresh = symbolic_stage_calloc((size_t)reset_capacity, vector_bytes);
++    sht->ev = symbolic_stage_calloc((size_t)reset_capacity, sizeof(stored_exp_t *));
++    stored_exp_t *fresh = symbolic_stage_calloc((size_t)reset_capacity, vector_bytes);
+     for (hl_t id = 0; id < reset_capacity; ++id)
+-        sht->ev[id] = fresh+id*sht->evl;
++        sht->ev[id] = fresh+id*sht->evbytes;
+     sht->esz = reset_capacity;
+     sht->hsz = 2*reset_capacity;
+     sht->eld = 1;
+@@ -1383,7 +1418,7 @@
+ {
+     if (mat->ncl > mat->nc || mat->ncr != mat->nc-mat->ncl ||
+             (mat->np > 0 && mat->tr == NULL) || bht->eld > bht->esz ||
+-            bht == sht || bht->evl != sht->evl ||
++            bht == sht || bht->evl != sht->evl || bht->evbytes != sht->evbytes ||
+             (consumable_sht != NULL && consumable_sht != sht)) {
+         fprintf(ERRSTREAM, "Error: invalid retained-column promotion dimensions.\n");
+         exit(EXIT_FAILURE);
+@@ -1421,10 +1456,10 @@
+                 fprintf(ERRSTREAM, "Error: invalid symbolic hash in column promotion.\n");
+                 exit(EXIT_FAILURE);
+             }
+-            const exp_t * const exponent = sht->ev[symbolic_hash];
++            const stored_exp_t * const exponent = sht->ev[symbolic_hash];
+             val_t hash = 0;
+             for (len_t j = 0; j < bht->evl; ++j) {
+-                hash += bht->rn[j] * exponent[j];
++                hash += bht->rn[j] * stored_exp_read(exponent, j, sht->evl);
+             }
+             hi_t position = 0;
+             const int32_t contained = is_contained_in_hash_table(
+@@ -1451,7 +1486,7 @@
+                 (unsigned long)bht->esz);
+         fflush(VERBSTREAM);
+     }
+-    exp_t *staged = NULL;
++    stored_exp_t *staged = NULL;
+     /* Only consume the symbolic table when basis storage must grow. */
+     if (consumable_sht != NULL &&
+             (bht->eld >= bht->esz || missing >= bht->esz-bht->eld)) {
+@@ -1467,13 +1502,13 @@
+                 fprintf(ERRSTREAM, "Error: insufficient reserved capacity in column promotion.\n");
+                 exit(EXIT_FAILURE);
+             }
+-            const exp_t *exponent;
++            const stored_exp_t *exponent;
+             if (staged != NULL) {
+                 if (symbolic_hash == 0 || symbolic_hash > missing) {
+                     fprintf(ERRSTREAM, "Error: invalid staged symbolic position.\n");
+                     exit(EXIT_FAILURE);
+                 }
+-                exponent = staged+(size_t)symbolic_hash*bht->evl;
++                exponent = staged+(size_t)symbolic_hash*bht->evbytes;
+             } else {
+                 exponent = sht->ev[symbolic_hash];
+             }
+@@ -1512,12 +1547,11 @@
+     const len_t evl = bht->evl;
+ 
+     /* const hd_t * const hds    = sht->hd; */
+-    exp_t * const * const evs = sht->ev;
++    stored_exp_t * const * const evs = sht->ev;
+ 
+     exp_t *evt  = (exp_t *)malloc((unsigned long)evl * sizeof(exp_t));
+     for (l = OFFSET; l < len; ++l) {
+-        memcpy(evt, evs[hcm[row[l]]],
+-                (unsigned long)evl * sizeof(exp_t));
++        stored_exp_export(evt, bht->evl, evs[hcm[row[l]]], bht->evbytes);
+         row[l] = insert_in_hash_table(evt, bht);
+     }
+     free(evt);
+@@ -1555,24 +1589,23 @@
+     )
+ {
+     len_t j, l;
+-    exp_t *n;
++
+ 
+     const len_t len = b[LENGTH]+OFFSET;
+     const len_t evl = ht1->evl;
+ 
+-    exp_t * const *ev1      = ht1->ev;
++    stored_exp_t * const *ev1      = ht1->ev;
+     /* const hd_t * const hd1  = ht1->hd; */
+ 
+-    exp_t **ev2     = ht2->ev;
++    exp_t n[ht1->evl];
+ 
+     l = OFFSET;
+ 
+     for (; l < len; ++l) {
+-        const exp_t * const eb = ev1[b[l]];
+-
+-        n = ev2[ht2->eld];
++        const stored_exp_t * const eb = ev1[b[l]];
++
+         for (j = 0; j < evl; ++j) {
+-            n[j] = checked_exp_add(ea[j], eb[j]);
++            n[j] = checked_exp_add(ea[j], stored_exp_read(eb, j, ht1->evl));
+         }
+ 
+ #if PARALLEL_HASHING
+@@ -1586,14 +1619,14 @@
+ 
+ static inline void reinsert_in_hash_table(
+     hm_t *row,
+-    exp_t * const *oev,
++    stored_exp_t * const *oev,
+     ht_t *ht
+     )
+ {
+     hl_t i;
+     hi_t k, pos;
+     len_t j, l;
+-    exp_t *e;
++    stored_exp_t *e;
+     hd_t *d;
+     val_t h;
+ 
+@@ -1605,11 +1638,11 @@
+     l = OFFSET;
+ letsgo:
+     for (; l < len; ++l) {
+-        const exp_t * const n = oev[row[l]];
++        const stored_exp_t * const n = oev[row[l]];
+         /* generate hash value */
+         h = 0;
+         for (j = 0; j < evl; ++j) {
+-            h +=  ht->rn[j] * n[j];
++            h +=  ht->rn[j] * stored_exp_read(n, j, ht->evl);
+         }
+         k = h;
+         i = 0;
+@@ -1623,14 +1656,14 @@
+             if (ht->hd[hm].val != h) {
+                 continue;
+             }
+-            const exp_t * const ehm = ht->ev[hm];
++            const stored_exp_t * const ehm = ht->ev[hm];
+             for (j = 0; j < evl-1; j += 2) {
+-                if (n[j] != ehm[j] || n[j+1] != ehm[j+1]) {
++                if (stored_exp_read(n, j, ht->evl) != stored_exp_read(ehm, j, ht->evl) || stored_exp_read(n, j+1, ht->evl) != stored_exp_read(ehm, j+1, ht->evl)) {
+                     i++;
+                     goto restart;
+                 }
+             }
+-            if (n[evl-1] != ehm[evl-1]) {
++            if (stored_exp_read(n, evl-1, ht->evl) != stored_exp_read(ehm, evl-1, ht->evl)) {
+                 i++;
+                 goto restart;
+             }
+@@ -1643,10 +1676,10 @@
+         ht->hmap[k] = pos = (hi_t)ht->eld;
+         e = ht->ev[ht->eld];
+         d = ht->hd + ht->eld;
+-        memcpy(e, n, (unsigned long)evl * sizeof(exp_t));
++        stored_exp_copy(e, n, ht->evl, ht->evbytes);
+         d->sdm  =   generate_short_divmask(e, ht);
+-        d->deg  =   e[0];
+-        d->deg  +=  ht->ebl > 0 ? e[ht->ebl] : 0;
++        d->deg  =   stored_exp_read(e, 0, ht->evl);
++        d->deg  +=  ht->ebl > 0 ? stored_exp_read(e, ht->ebl, ht->evl) : 0;
+         d->val  =   h;
+ 
+         ht->eld++;
+@@ -1679,31 +1712,31 @@
+ 
+     len_t i;
+     hi_t k;
+-    exp_t *e;
++    stored_exp_t *e;
+ 
+     spair_t *ps = psl->p;
+-    exp_t **oev  = ht->ev;
++    stored_exp_t **oev  = ht->ev;
+ 
+     const len_t evl = ht->evl;
+     const hl_t esz  = ht->esz;
+     const bl_t bld  = bs->ld;
+     const len_t pld = psl->ld;
+ 
+-    ht->ev  = calloc(esz, sizeof(exp_t *));
++    ht->ev  = calloc(esz, sizeof(stored_exp_t *));
+     if (ht->ev == NULL) {
+         fprintf(ERRSTREAM, "Computation needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "cannot reset ht->ev, esz = %lu\n", (unsigned long)esz);
+         fprintf(ERRSTREAM, "segmentation fault will follow.\n");
+     }
+-    exp_t *tmp  = (exp_t *)malloc(
+-            (unsigned long)evl * esz * sizeof(exp_t));
++    stored_exp_t *tmp  = (stored_exp_t *)malloc(
++            ht->evbytes * esz);
+     if (tmp == NULL) {
+         fprintf(ERRSTREAM, "Computation needs too much memory on this machine,\n");
+         fprintf(ERRSTREAM, "resetting table failed, esz = %lu\n", (unsigned long)esz);
+         fprintf(ERRSTREAM, "segmentation fault will follow.\n");
+     }
+     for (k = 0; k < esz; ++k) {
+-        ht->ev[k]  = tmp + k*evl;
++        ht->ev[k]  = tmp + k*ht->evbytes;
+     }
+     ht->eld = 1;
+     memset(ht->hmap, 0, ht->hsz * sizeof(hi_t));
+@@ -1746,8 +1779,8 @@
+     len_t i;
+ 
+     /* exponents of basis elements, thus from basis hash table */
+-    const exp_t * const ea = ht1->ev[a];
+-    const exp_t * const eb = ht1->ev[b];
++    const stored_exp_t * const ea = ht1->ev[a];
++    const stored_exp_t * const eb = ht1->ev[b];
+     exp_t etmp[ht1->evl];
+     const len_t evl = ht1->evl;
+     const len_t ebl = ht1->ebl;
+@@ -1756,7 +1789,7 @@
+      * order then the second for loop is just not executed and the third one
+      * computes correctly the full degree of the lcm. */
+     for (i = 1; i < evl; ++i) {
+-        etmp[i]  = ea[i] < eb[i] ? eb[i] : ea[i];
++        etmp[i]  = stored_exp_read(ea, i, ht1->evl) < stored_exp_read(eb, i, ht1->evl) ? stored_exp_read(eb, i, ht1->evl) : stored_exp_read(ea, i, ht1->evl);
+     }
+     /* reset degree entries */
+     etmp[0]   = 0;
+@@ -1821,3 +1854,15 @@
+ 
+   return row;
+ }
++static inline hm_t *multiplied_poly_to_matrix_row_stored(
++    ht_t *sht,const ht_t *bht,const val_t hm,const stored_exp_t *em,const hm_t *poly)
++{
++    exp_t dense[128];
++    stored_exp_export(dense,bht->evl,em,bht->evbytes);
++    return multiplied_poly_to_matrix_row(sht,bht,hm,dense,poly);
++}
++#define multiplied_poly_to_matrix_row(sht,bht,hm,em,poly) _Generic((em), \
++    exp_t *: multiplied_poly_to_matrix_row, const exp_t *: multiplied_poly_to_matrix_row, \
++    stored_exp_t *: multiplied_poly_to_matrix_row_stored, \
++    const stored_exp_t *: multiplied_poly_to_matrix_row_stored)(sht,bht,hm,em,poly)
++
+--- a/src/neogb/io.c
++++ b/src/neogb/io.c
+@@ -299,13 +299,13 @@
+     check_enlarge_basis(bs, ngens, st);
+ 
+     /* import monomials */
+-    exp_t *e  = ht->ev[0]; /* use as temporary storage */
++    exp_t e[ht->evl]; /* dense scratch independent of stored-table realloc */
+     off = init_off;
+     for (i = start; i < stop; ++i) {
+         if (invalid_gens == NULL || invalid_gens[i] == 0) {
+             while (lens[i] >= ht->esz-ht->eld) {
+                 enlarge_hash_table(ht);
+-                e  = ht->ev[0]; /* reset e if enlarging */
++                /* dense scratch remains valid across table growth */
+             }
+             hm  = (hm_t *)malloc(((unsigned long)lens[i]+OFFSET) * sizeof(hm_t));
+             bs->hm[ctr] = hm;
+@@ -590,10 +590,10 @@
+         dt  = bs->hm[bi] + OFFSET;
+         for (j = 0; j < len[cl]; ++j) {
+             for (k = 1; k < ebl; ++k) {
+-                exp[ce++] = (int32_t)ht->ev[dt[j]][k];
++                exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[j]], k, ht->evl);
+             }
+             for (k = ebl+1; k < evl; ++k) {
+-                exp[ce++] = (int32_t)ht->ev[dt[j]][k];
++                exp[ce++] = (int32_t)stored_exp_read(ht->ev[dt[j]], k, ht->evl);
+             }
+         }
+         cc  +=  len[cl];
+--- a/src/neogb/modular.c
++++ b/src/neogb/modular.c
+@@ -125,8 +125,9 @@
+ 
+     len_t i, j, k;
+ 
+-    exp_t *etmp = bht->ev[0];
+-    memset(etmp, 0, (unsigned long)(bht->evl) * sizeof(exp_t));
++    stored_exp_t *etmp = bht->ev[0];
++    for (size_t zero_lane=0;zero_lane<(size_t)bht->evl;++zero_lane)
++        stored_exp_write(etmp,zero_lane,0,bht->evl);
+ 
+     mat->rr = (hm_t **)malloc((unsigned long)bs->lml * 2 * sizeof(hm_t *));
+     mat->nr = mat->nc = mat->ncl  = mat->ncr  = 0;
+@@ -266,7 +267,7 @@
+       generate_matrix_from_trace(mat, bs, st);
+         if (st->info_level > 1) {
+             fprintf(VERBSTREAM, "%5d", round+1);
+-            fprintf(VERBSTREAM, "%6u ", sht->ev[mat->tr[0][OFFSET]][DEG]);
++            fprintf(VERBSTREAM, "%6u ", stored_exp_read(sht->ev[mat->tr[0][OFFSET]], DEG, sht->evl));
+             fflush(VERBSTREAM);
+         }
+       convert_hashes_to_columns(mat, st, sht);
+@@ -330,7 +331,7 @@
+     if (st->nev > 0) {
+         j = 0;
+         for (i = 0; i < bs->lml; ++i) {
+-            if (bht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {
++            if (stored_exp_read(bht->ev[bs->hm[bs->lmps[i]][OFFSET]], 0, bht->evl) == 0) {
+                 bs->lm[j]   = bs->lm[i];
+                 bs->lmps[j] = bs->lmps[i];
+                 ++j;
+@@ -420,7 +421,8 @@
+ 
+     /* initialize multiplier of first element in sat to be the hash of
+      * the all-zeroes exponent vector. */
+-    memset(bht->ev[0], 0, (unsigned long)(bht->evl) * sizeof(exp_t));
++    for (size_t zero_lane=0;zero_lane<(size_t)bht->evl;++zero_lane)
++        stored_exp_write(bht->ev[0],zero_lane,0,bht->evl);
+     sat->hm[0][MULT]  = insert_in_hash_table(bht->ev[0], bht);
+     sat->ld = 1;
+     len_t sat_deg = 0;
+@@ -1084,7 +1086,7 @@
+     if (st->nev > 0) {
+         j = 0;
+         for (i = 0; i < bs->lml; ++i) {
+-            if (bht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {
++            if (stored_exp_read(bht->ev[bs->hm[bs->lmps[i]][OFFSET]], 0, bht->evl) == 0) {
+                 bs->lm[j]   = bs->lm[i];
+                 bs->lmps[j] = bs->lmps[i];
+                 ++j;
+@@ -1199,7 +1201,7 @@
+     sat->hm[0][MULT]  = insert_in_hash_table(zero, bht);
+     sat->ld = 1;
+ 
+-    next_deg  = 2*bht->ev[sat->hm[0][OFFSET]][DEG];
++    next_deg  = 2*stored_exp_read(bht->ev[sat->hm[0][OFFSET]], DEG, bht->evl);
+ 
+     /* normalize the copied basis */
+     normalize_initial_basis(bs, fc);
+@@ -1528,7 +1530,7 @@
+     sat->hm[0][MULT]  = insert_in_hash_table(zero, bht);
+     sat->ld = 1;
+ 
+-    next_deg  = 2*bht->ev[sat->hm[0][OFFSET]][DEG];
++    next_deg  = 2*stored_exp_read(bht->ev[sat->hm[0][OFFSET]], DEG, bht->evl);
+ 
+     /* normalize the copied basis */
+     normalize_initial_basis(bs, fc);
+@@ -2030,7 +2032,7 @@
+     if (st->nev > 0) {
+         j = 0;
+         for (i = 0; i < bs->lml; ++i) {
+-            if (bht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {
++            if (stored_exp_read(bht->ev[bs->hm[bs->lmps[i]][OFFSET]], 0, bht->evl) == 0) {
+                 bs->lm[j]   = bs->lm[i];
+                 bs->lmps[j] = bs->lmps[i];
+                 ++j;
+--- a/src/neogb/order.c
++++ b/src/neogb/order.c
+@@ -230,17 +230,17 @@
+     const hm_t ha  = ((hm_t **)a)[0][OFFSET];
+     const hm_t hb  = ((hm_t **)b)[0][OFFSET];
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+ 
+     /* lexicographical */
+     const len_t evl = ht->evl;
+ 
+     i = 1;
+-    while(i < evl-1 && ea[i] == eb[i]) {
++    while(i < evl-1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         ++i;
+     }
+-    return ea[i] - eb[i];
++    return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+ }
+ 
+ static int initial_gens_cmp_lex(
+@@ -255,17 +255,17 @@
+     const hm_t ha  = **(hm_t **)a;
+     const hm_t hb  = **(hm_t **)b;
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+ 
+     /* lexicographical */
+     const len_t evl = ht->evl;
+ 
+     i = 1;
+-    while(i < evl-1 && ea[i] == eb[i]) {
++    while(i < evl-1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         ++i;
+     }
+-    return ea[i] - eb[i];
++    return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+ }
+ 
+ static int monomial_cmp_pivots_lex(
+@@ -289,17 +289,17 @@
+     }
+ #endif
+ 
+-    const exp_t * const ea  = ht->ev[a];
+-    const exp_t * const eb  = ht->ev[b];
++    const stored_exp_t * const ea  = ht->ev[a];
++    const stored_exp_t * const eb  = ht->ev[b];
+ 
+     /* lexicographical */
+     const len_t evl  = ht->evl;
+ 
+     i = 1;
+-    while(i < evl-1 && ea[i] == eb[i]) {
++    while(i < evl-1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         ++i;
+     }
+-    return eb[i] - ea[i];
++    return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+ }
+ 
+ static inline int monomial_cmp_lex(
+@@ -310,15 +310,15 @@
+ {
+     len_t i;
+ 
+-    const exp_t * const ea  = ht->ev[a];
+-    const exp_t * const eb  = ht->ev[b];
++    const stored_exp_t * const ea  = ht->ev[a];
++    const stored_exp_t * const eb  = ht->ev[b];
+     const len_t evl  = ht->evl;
+ 
+     i = 1;
+-    while(i < evl-1 && ea[i] == eb[i]) {
++    while(i < evl-1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         ++i;
+     }
+-    return ea[i] - eb[i];
++    return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+ }
+ 
+ static int hcm_cmp_pivots_lex(
+@@ -345,8 +345,8 @@
+     const hi_t lb   = ((spair_t *)b)->lcm;
+     const ht_t *ht  = (ht_t *)htp;
+ 
+-    if (ht->ev[la][DEG] != ht->ev[lb][DEG]) {
+-        return (ht->ev[la][DEG] < ht->ev[lb][DEG]) ? -1 : 1;
++    if (stored_exp_read(ht->ev[la], DEG, ht->evl) != stored_exp_read(ht->ev[lb], DEG, ht->evl)) {
++        return (stored_exp_read(ht->ev[la], DEG, ht->evl) < stored_exp_read(ht->ev[lb], DEG, ht->evl)) ? -1 : 1;
+     } else {
+         return (int)monomial_cmp(la, lb, ht);
+     }
+@@ -372,24 +372,24 @@
+     const hm_t ha  = ((hm_t **)a)[0][OFFSET];
+     const hm_t hb  = ((hm_t **)b)[0][OFFSET];
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+ 
+     /* DRL */
+-    if (ea[DEG] > eb[DEG]) {
+-        return 1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, DEG, ht->evl) > stored_exp_read(eb, DEG, ht->evl)) {
++        return 1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return -1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->evl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    return eb[i] - ea[i];
++    return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+ }
+ #endif
+ 
+@@ -405,24 +405,24 @@
+     const hm_t ha  = ((hm_t **)a)[0][OFFSET];
+     const hm_t hb  = ((hm_t **)b)[0][OFFSET];
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+ 
+     /* DRL */
+-    if (ea[DEG] < eb[DEG]) {
+-        return -1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, DEG, ht->evl) < stored_exp_read(eb, DEG, ht->evl)) {
++        return -1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return 1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->evl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    return eb[i] - ea[i];
++    return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+ }
+ 
+ static int initial_gens_cmp_drl(
+@@ -437,23 +437,23 @@
+     const hm_t ha  = **(hm_t **)a;
+     const hm_t hb  = **(hm_t **)b;
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+     /* DRL */
+-    if (ea[DEG] < eb[DEG]) {
+-        return 1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, DEG, ht->evl) < stored_exp_read(eb, DEG, ht->evl)) {
++        return 1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return -1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->evl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    return ea[i] - eb[i];
++    return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+ }
+ 
+ static int monomial_cmp_pivots_drl(
+@@ -477,24 +477,24 @@
+     }
+ #endif
+ 
+-    const exp_t * const ea  = ht->ev[a];
+-    const exp_t * const eb  = ht->ev[b];
++    const stored_exp_t * const ea  = ht->ev[a];
++    const stored_exp_t * const eb  = ht->ev[b];
+ 
+     /* then DRL */
+-    if (ea[DEG] > eb[DEG]) {
+-        return -1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, DEG, ht->evl) > stored_exp_read(eb, DEG, ht->evl)) {
++        return -1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return 1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->evl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    return ea[i] - eb[i];
++    return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+ }
+ 
+ static inline int monomial_cmp_drl(
+@@ -509,23 +509,23 @@
+         return 0;
+     }
+ 
+-    const exp_t * const ea  = ht->ev[a];
+-    const exp_t * const eb  = ht->ev[b];
++    const stored_exp_t * const ea  = ht->ev[a];
++    const stored_exp_t * const eb  = ht->ev[b];
+ 
+     /* DRL */
+-    if (ea[DEG] > eb[DEG]) {
+-        return 1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, DEG, ht->evl) > stored_exp_read(eb, DEG, ht->evl)) {
++        return 1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return -1;
+         }
+     }
+ 
+     i = ht->evl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    return eb[i] - ea[i];
++    return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+ }
+ 
+ /* comparison for hash-column-maps */
+@@ -620,41 +620,41 @@
+     const hm_t ha  = ((hm_t **)a)[0][OFFSET];
+     const hm_t hb  = ((hm_t **)b)[0][OFFSET];
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+ 
+     /* first block */
+-    if (ea[0] < eb[0]) {
+-        return -1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, 0, ht->evl) < stored_exp_read(eb, 0, ht->evl)) {
++        return -1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return 1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->ebl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    if (eb[i] - ea[i] != 0) {
+-        return eb[i] - ea[i];
++    if (stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl) != 0) {
++        return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+     } else {
+         /* second block */
+-        if (ea[ht->ebl] < eb[ht->ebl]) {
++        if (stored_exp_read(ea, ht->ebl, ht->evl) < stored_exp_read(eb, ht->ebl, ht->evl)) {
+             return -1;
+         } else {
+-            if (ea[ht->ebl] != eb[ht->ebl]) {
++            if (stored_exp_read(ea, ht->ebl, ht->evl) != stored_exp_read(eb, ht->ebl, ht->evl)) {
+                 return 1;
+             }
+         }
+ 
+         /* note: reverse lexicographical */
+         i = ht->evl-1;
+-        while (i > ht->ebl && ea[i] == eb[i]) {
++        while (i > ht->ebl && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+             --i;
+         }
+-        return eb[i] - ea[i];
++        return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+     }
+ }
+ 
+@@ -670,40 +670,40 @@
+     const hm_t ha  = **(hm_t **)a;
+     const hm_t hb  = **(hm_t **)b;
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+     /* first block */
+-    if (ea[0] < eb[0]) {
+-        return 1;
+-    } else {
+-        if (ea[0] != eb[0]) {
++    if (stored_exp_read(ea, 0, ht->evl) < stored_exp_read(eb, 0, ht->evl)) {
++        return 1;
++    } else {
++        if (stored_exp_read(ea, 0, ht->evl) != stored_exp_read(eb, 0, ht->evl)) {
+             return -1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->ebl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    if (ea[i] - eb[i] != 0) {
+-        return ea[i] - eb[i];
++    if (stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl) != 0) {
++        return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+     } else {
+         /* second block */
+-        if (ea[ht->ebl] < eb[ht->ebl]) {
++        if (stored_exp_read(ea, ht->ebl, ht->evl) < stored_exp_read(eb, ht->ebl, ht->evl)) {
+             return 1;
+         } else {
+-            if (ea[ht->ebl] != eb[ht->ebl]) {
++            if (stored_exp_read(ea, ht->ebl, ht->evl) != stored_exp_read(eb, ht->ebl, ht->evl)) {
+                 return -1;
+             }
+         }
+ 
+         /* note: reverse lexicographical */
+         i = ht->evl-1;
+-        while (i > ht->ebl && ea[i] == eb[i]) {
++        while (i > ht->ebl && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+             --i;
+         }
+-        return ea[i] - eb[i];
++        return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+     }
+ }
+ 
+@@ -728,41 +728,41 @@
+     }
+ #endif
+ 
+-    const exp_t * const ea  = ht->ev[a];
+-    const exp_t * const eb  = ht->ev[b];
++    const stored_exp_t * const ea  = ht->ev[a];
++    const stored_exp_t * const eb  = ht->ev[b];
+ 
+     /* first block */
+-    if (ea[0] > eb[0]) {
+-        return -1;
+-    } else {
+-        if (ea[0] != eb[0]) {
++    if (stored_exp_read(ea, 0, ht->evl) > stored_exp_read(eb, 0, ht->evl)) {
++        return -1;
++    } else {
++        if (stored_exp_read(ea, 0, ht->evl) != stored_exp_read(eb, 0, ht->evl)) {
+             return 1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->ebl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    if (ea[i] - eb[i] != 0) {
+-        return ea[i] - eb[i];
++    if (stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl) != 0) {
++        return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+     } else {
+         /* second block */
+-        if (ea[ht->ebl] > eb[ht->ebl]) {
++        if (stored_exp_read(ea, ht->ebl, ht->evl) > stored_exp_read(eb, ht->ebl, ht->evl)) {
+             return -1;
+         } else {
+-            if (ea[ht->ebl] != eb[ht->ebl]) {
++            if (stored_exp_read(ea, ht->ebl, ht->evl) != stored_exp_read(eb, ht->ebl, ht->evl)) {
+                 return 1;
+             }
+         }
+ 
+         /* note: reverse lexicographical */
+         i = ht->evl-1;
+-        while (i > ht->ebl && ea[i] == eb[i]) {
++        while (i > ht->ebl && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+             --i;
+         }
+-        return ea[i] - eb[i];
++        return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+     }
+ }
+ 
+@@ -778,39 +778,39 @@
+         return 0;
+     }
+ 
+-    const exp_t * const ea  = ht->ev[a];
+-    const exp_t * const eb  = ht->ev[b];
++    const stored_exp_t * const ea  = ht->ev[a];
++    const stored_exp_t * const eb  = ht->ev[b];
+ 
+     /* first block */
+-    if (ea[0] > eb[0]) {
+-        return 1;
+-    } else {
+-        if (ea[0] != eb[0]) {
++    if (stored_exp_read(ea, 0, ht->evl) > stored_exp_read(eb, 0, ht->evl)) {
++        return 1;
++    } else {
++        if (stored_exp_read(ea, 0, ht->evl) != stored_exp_read(eb, 0, ht->evl)) {
+             return -1;
+         }
+     }
+ 
+     i = ht->ebl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    if (eb[i] - ea[i] != 0) {
+-        return eb[i] - ea[i];
++    if (stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl) != 0) {
++        return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+     } else {
+         /* second block */
+-        if (ea[ht->ebl] > eb[ht->ebl]) {
++        if (stored_exp_read(ea, ht->ebl, ht->evl) > stored_exp_read(eb, ht->ebl, ht->evl)) {
+             return 1;
+         } else {
+-            if (ea[ht->ebl] != eb[ht->ebl]) {
++            if (stored_exp_read(ea, ht->ebl, ht->evl) != stored_exp_read(eb, ht->ebl, ht->evl)) {
+                 return -1;
+             }
+         }
+ 
+         i = ht->evl-1;
+-        while (i > ht->ebl && ea[i] == eb[i]) {
++        while (i > ht->ebl && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+             --i;
+         }
+-        return eb[i] - ea[i];
++        return stored_exp_read(eb, i, ht->evl) - stored_exp_read(ea, i, ht->evl);
+     }
+ }
+ 
+@@ -872,24 +872,24 @@
+     const hm_t ha  = ((hm_t **)a)[0][OFFSET];
+     const hm_t hb  = ((hm_t **)b)[0][OFFSET];
+ 
+-    const exp_t * const ea  = ht->ev[ha];
+-    const exp_t * const eb  = ht->ev[hb];
++    const stored_exp_t * const ea  = ht->ev[ha];
++    const stored_exp_t * const eb  = ht->ev[hb];
+ 
+     /* DRL */
+-    if (ea[DEG] < eb[DEG]) {
+-        return 1;
+-    } else {
+-        if (ea[DEG] != eb[DEG]) {
++    if (stored_exp_read(ea, DEG, ht->evl) < stored_exp_read(eb, DEG, ht->evl)) {
++        return 1;
++    } else {
++        if (stored_exp_read(ea, DEG, ht->evl) != stored_exp_read(eb, DEG, ht->evl)) {
+             return -1;
+         }
+     }
+ 
+     /* note: reverse lexicographical */
+     i = ht->evl-1;
+-    while (i > 1 && ea[i] == eb[i]) {
++    while (i > 1 && stored_exp_read(ea, i, ht->evl) == stored_exp_read(eb, i, ht->evl)) {
+         --i;
+     }
+-    return ea[i] - eb[i];
++    return stored_exp_read(ea, i, ht->evl) - stored_exp_read(eb, i, ht->evl);
+ }
+ 
+ static int matrix_row_cmp_by_increasing_signature(
+--- a/src/neogb/sba.c
++++ b/src/neogb/sba.c
+@@ -195,14 +195,13 @@
+     len_t i;
+ 
+     /* get exponent vector and increment entry for var_idx */
+-    exp_t *ev   =   ht->ev[0];
+-    memcpy(ev, ht->ev[smat->pr[idx][SM_SMON]],
+-            (unsigned long)ht->evl * sizeof(exp_t));;
++    stored_exp_t *ev   =   ht->ev[0];
++    stored_exp_copy(ev, ht->ev[smat->pr[idx][SM_SMON]], ht->evl, ht->evbytes);
+     /* Note: ht->ebl = #elimination variables + 1 */
+     len_t shift   = var_idx < ht->ebl - 1 ? 1: 2;
+     len_t deg_pos = shift == 2 ? ht->ebl : 0;
+-    ev[var_idx+shift]++;
+-    ev[deg_pos]++;
++    stored_exp_write(ev, var_idx+shift, stored_exp_read(ev, var_idx+shift, ht->evl)+1, ht->evl);
++    stored_exp_write(ev, deg_pos, stored_exp_read(ev, deg_pos, ht->evl)+1, ht->evl);
+ 
+     const len_t sig_idx = smat->pr[idx][SM_SIDX];
+     /* printf("check signature ");
+@@ -240,9 +239,9 @@
+         if (nsdm & syz_idx.sdm[i]) {
+             continue;
+         }
+-        const exp_t *sev = ht->ev[syz_idx.hm[i]];
++        const stored_exp_t *sev = ht->ev[syz_idx.hm[i]];
+         for (len_t j = 0; j < evl; ++j) {
+-            if (sev[j] > ev[j]) {
++            if (stored_exp_read(sev, j, ht->evl) > stored_exp_read(ev, j, ht->evl)) {
+                 i++;
+                 goto syz;
+             }
+@@ -259,9 +258,9 @@
+         if (nsdm & rew_idx.sdm[i]) {
+             continue;
+         }
+-        const exp_t *rev = ht->ev[rew_idx.hm[i]];
++        const stored_exp_t *rev = ht->ev[rew_idx.hm[i]];
+         for (len_t j = 0; j < evl; ++j) {
+-            if (rev[j] > ev[j]) {
++            if (stored_exp_read(rev, j, ht->evl) > stored_exp_read(ev, j, ht->evl)) {
+                 i++;
+                 goto rew;
+             }
+@@ -343,16 +342,16 @@
+     /* Note that ht->ev[0] is already the multiplied signature, we have already
+      * checked if we need this signature in is_signature_needed(), thus we can
+      * just use it without further updating it. */
+-    exp_t *ev           =   ht->ev[0];
++    stored_exp_t *ev           =   ht->ev[0];
+     /* multiply signature */
+     cr[SM_SMON] = insert_in_hash_table(ev, ht);
+ 
+     /* multiply monomials in corresp. polnoymial */
+     const len_t len =  cr[SM_LEN] + SM_OFFSET;
+     for (len_t i = SM_OFFSET; i < len; ++i) {
+-        memcpy(ev, ht->ev[cr[i]], (unsigned long)ht->evl * sizeof(exp_t));
+-        ev[var_idx+shift]++;
+-        ev[deg_pos]++;
++        stored_exp_copy(ev, ht->ev[cr[i]], ht->evl, ht->evbytes);
++        stored_exp_write(ev, var_idx+shift, stored_exp_read(ev, var_idx+shift, ht->evl)+1, ht->evl);
++        stored_exp_write(ev, deg_pos, stored_exp_read(ev, deg_pos, ht->evl)+1, ht->evl);
+         cr[i] = insert_in_hash_table(ev, ht);
+     }
+     smat->cld++;
+--- /dev/null
++++ b/src/neogb/stored_exp.h
+@@ -0,0 +1,75 @@
++/* Phase 9a: type-separated stored BYTE vectors. No packing or new identities. */
++#ifndef MSOLVE_STORED_EXP_H
++#define MSOLVE_STORED_EXP_H
++typedef struct { uint8_t byte; } stored_exp_t;
++_Static_assert(sizeof(stored_exp_t)==1,"byte storage layout changed");
++
++static inline size_t stored_exp_bytes(const size_t logical_lanes)
++{
++    if (logical_lanes<2 || logical_lanes>128) {
++        fprintf(stderr,"Error: invalid stored exponent vector length.\n");
++        exit(EXIT_FAILURE);
++    }
++    return logical_lanes*sizeof(stored_exp_t);
++}
++static inline exp_t stored_exp_read(const stored_exp_t *vector,
++        const size_t index,const size_t logical_lanes)
++{
++    if (vector==NULL || logical_lanes<2 || index>=logical_lanes || logical_lanes>128) {
++        fprintf(stderr,"Error: invalid stored exponent read.\n");exit(EXIT_FAILURE);
++    }
++    return vector[index].byte;
++}
++static inline void stored_exp_write(stored_exp_t *vector,const size_t index,
++        const int64_t value,const size_t logical_lanes)
++{
++    if (vector==NULL || logical_lanes<2 || index>=logical_lanes || logical_lanes>128) {
++        fprintf(stderr,"Error: invalid stored exponent write.\n");exit(EXIT_FAILURE);
++    }
++    vector[index].byte=checked_exp_value(value);
++}
++static inline void stored_exp_import(stored_exp_t *destination,
++        const exp_t *dense,const size_t logical_lanes,const size_t physical_bytes)
++{
++    if (destination==NULL || dense==NULL || physical_bytes!=stored_exp_bytes(logical_lanes)) {
++        fprintf(stderr,"Error: invalid stored exponent import.\n");exit(EXIT_FAILURE);
++    }
++    /* The dense source may alias neither a stored vector nor its destination:
++     * the distinct pointer types make that boundary explicit to the compiler. */
++    uint32_t degree=0;
++    for (size_t i=1;i<logical_lanes;++i)degree+=dense[i];
++    if (degree>UINT8_MAX || dense[0]!=degree) {
++        fprintf(stderr,"Error: inconsistent ordinary exponent degree.\n");exit(EXIT_FAILURE);
++    }
++    for (size_t i=0;i<logical_lanes;++i)destination[i].byte=dense[i];
++}
++static inline void stored_exp_export(exp_t *dense,const size_t logical_lanes,
++        const stored_exp_t *source,const size_t physical_bytes)
++{
++    if (dense==NULL || source==NULL || physical_bytes!=stored_exp_bytes(logical_lanes)) {
++        fprintf(stderr,"Error: invalid stored exponent export.\n");exit(EXIT_FAILURE);
++    }
++    for (size_t i=0;i<logical_lanes;++i)dense[i]=source[i].byte;
++}
++static inline void stored_exp_copy(stored_exp_t *destination,const stored_exp_t *source,
++        const size_t logical_lanes,const size_t physical_bytes)
++{
++    if (destination==NULL || source==NULL || physical_bytes!=stored_exp_bytes(logical_lanes)) {
++        fprintf(stderr,"Error: invalid stored exponent copy.\n");exit(EXIT_FAILURE);
++    }
++    memmove(destination,source,physical_bytes);
++}
++/* Private slab copies include unused slots, so they copy representation bytes
++ * without interpreting degrees. The caller owns count complete vector slots. */
++static inline void stored_exp_copy_vectors(stored_exp_t *destination,
++        const stored_exp_t *source,const size_t logical_lanes,
++        const size_t physical_bytes,const size_t count)
++{
++    if (destination==NULL || source==NULL ||
++            physical_bytes!=stored_exp_bytes(logical_lanes) ||
++            count>SIZE_MAX/physical_bytes) {
++        fprintf(stderr,"Error: invalid stored exponent slab copy.\n");exit(EXIT_FAILURE);
++    }
++    memmove(destination,source,count*physical_bytes);
++}
++#endif
+--- a/src/neogb/symbol.c
++++ b/src/neogb/symbol.c
+@@ -44,7 +44,7 @@
+     len_t load  = 0;
+     hi_t lcm;
+     len_t *gens;
+-    exp_t *elcm, *eb;
++    stored_exp_t *elcm; stored_exp_t *eb;
+     exp_t etmp[bht->evl];
+ 
+     /* timings */
+@@ -114,7 +114,7 @@
+         b     = bs->hm[prev];
+         eb    = bht->ev[b[OFFSET]];
+         for (l = 0; l <= nv; ++l) {
+-            etmp[l]   =   checked_exp_sub(elcm[l], eb[l]);
++            etmp[l]   =   checked_exp_sub(stored_exp_read(elcm, l, bht->evl), stored_exp_read(eb, l, bht->evl));
+         }
+         const hi_t h    = bht->hd[lcm].val - bht->hd[b[OFFSET]].val;
+         /* note that we use index mat->nc and not mat->nr since for each new
+@@ -142,7 +142,7 @@
+             /* ev might change when enlarging the hash table during insertion of a new
+              * row in the matrix, thus we have to reset elcm inside the for loop */
+             elcm  = bht->ev[lcm];
+-            if (elcm[0] > 0) {
++            if (stored_exp_read(elcm, 0, bht->evl) > 0) {
+                 /* printf("pair with lcm ");
+                  * for (int ii = 0; ii < nv; ++ii) {
+                  *     printf("%u ", elcm[ii]);
+@@ -152,7 +152,7 @@
+             b     = bs->hm[prev];
+             eb    = bht->ev[b[OFFSET]];
+             for (l = 0; l <= nv; ++l) {
+-                etmp[l]   =   checked_exp_sub(elcm[l], eb[l]);
++                etmp[l]   =   checked_exp_sub(stored_exp_read(elcm, l, bht->evl), stored_exp_read(eb, l, bht->evl));
+             }
+             const hi_t h  = bht->hd[lcm].val - bht->hd[b[OFFSET]].val;
+             trows[ntr] = multiplied_poly_to_matrix_row(sht, bht, h, etmp, b);
+@@ -208,7 +208,7 @@
+     len_t load = 0;
+     hi_t lcm;
+     len_t *gens;
+-    exp_t *elcm, *eb;
++    stored_exp_t *elcm; stored_exp_t *eb;
+     ht_t *bht   = bs->ht;
+     exp_t etmp[bht->evl];
+     ps_t *psl   = md->ps;
+@@ -246,7 +246,7 @@
+         }
+         printf("%d --> deg %d --> [%u,%u]", i, ps[i].deg, ps[i].gen1, ps[i].gen2);
+         for (int jj = 0; jj < evl; ++jj) {
+-            printf("%d ", bht->ev[ps[i].lcm][jj]);
++            printf("%d ", stored_exp_read(bht->ev[ps[i].lcm], jj, bht->evl));
+         }
+         pctr++;
+         printf("\n");
+@@ -319,7 +319,7 @@
+         b     = bs->hm[prev];
+         eb    = bht->ev[b[OFFSET]];
+         for (l = 0; l < evl; ++l) {
+-            etmp[l]   =   checked_exp_sub(elcm[l], eb[l]);
++            etmp[l]   =   checked_exp_sub(stored_exp_read(elcm, l, bht->evl), stored_exp_read(eb, l, bht->evl));
+         }
+         const hi_t h    = bht->hd[lcm].val - bht->hd[b[OFFSET]].val;
+         /* note that we use index mat->nc and not mat->nr since for each new
+@@ -352,12 +352,12 @@
+             /* ev might change when enlarging the hash table during insertion of a new
+              * row in the matrix, thus we have to reset elcm inside the for loop */
+             elcm  = bht->ev[lcm];
+-            if (elcm[0] > 0) {
++            if (stored_exp_read(elcm, 0, bht->evl) > 0) {
+             }
+             b     = bs->hm[prev];
+             eb    = bht->ev[b[OFFSET]];
+             for (l = 0; l < evl; ++l) {
+-                etmp[l]   =   checked_exp_sub(elcm[l], eb[l]);
++                etmp[l]   =   checked_exp_sub(stored_exp_read(elcm, l, bht->evl), stored_exp_read(eb, l, bht->evl));
+             }
+             const hi_t h  = bht->hd[lcm].val - bht->hd[b[OFFSET]].val;
+             reserve_symbolic_row_capacity(sht, b, md);
+@@ -509,7 +509,7 @@
+ 
+     const len_t evl = bht->evl;
+ 
+-    const exp_t * const e  = sht->ev[m];
++    const stored_exp_t * const e  = sht->ev[m];
+ 
+     const hd_t hdm    = sht->hd[m];
+     const len_t lml   = bs->lml;
+@@ -520,7 +520,7 @@
+ 
+     exp_t etmp[bht->evl];
+     const hd_t * const hdb  = bht->hd;
+-    exp_t * const * const evb = bht->ev;
++    stored_exp_t * const * const evb = bht->ev;
+ 
+     i = 0;
+ start:
+@@ -529,13 +529,13 @@
+     }
+     if (i < lml) {
+         const hm_t *b = bs->hm[lmps[i]];
+-        const exp_t * const f = evb[b[OFFSET]];
++        const stored_exp_t * const f = evb[b[OFFSET]];
+         for (k=0; k < evl; ++k) {
+-            if (e[k] < f[k]) {
++            if (stored_exp_read(e, k, sht->evl) < stored_exp_read(f, k, bht->evl)) {
+                 i++;
+                 goto start;
+             }
+-            etmp[k] = checked_exp_sub(e[k], f[k]);
++            etmp[k] = checked_exp_sub(stored_exp_read(e, k, sht->evl), stored_exp_read(f, k, bht->evl));
+         }
+ 
+         const hi_t h  = hdm.val - hdb[b[OFFSET]].val;
+@@ -655,7 +655,7 @@
+ 
+     len_t i, nr;
+     hm_t *b;
+-    exp_t *emul;
++    stored_exp_t *emul;
+     hi_t h;
+ 
+     const len_t idx = md->trace_rd;
+@@ -732,7 +732,7 @@
+ 
+     len_t i, nr;
+     hm_t *b;
+-    exp_t *emul;
++    stored_exp_t *emul;
+     hi_t h;
+ 
+     ts_t ts       = trace->ts[idx];

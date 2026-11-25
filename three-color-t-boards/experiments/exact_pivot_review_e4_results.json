@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "solver_runs": 0,
+  "source_sha256": "dadaa5f4caf17b00311abe9000cf5463e101946bfc0ab9b2fb319f26838e8a91",
+  "prefix_source_sha256": "7f8251ab52e8d6869c19cc861dc98b0c1e66904313b0d87920d9f95659700092",
+  "independent_method": "balanced formal-parameter product tree and ordinary tuple monomials",
+  "term_counts": {
+    "e4:T": 12324,
+    "e4:T:M": 1146,
+    "e4:M:L": 278,
+    "e4:M:R": 446
+  },
+  "raw_role_e4_term_counts": {
+    "T": 12324,
+    "L": 12646,
+    "M": 13440,
+    "R": 13906
+  },
+  "ordinary_degree_four_only": true,
+  "no_exponent_reduction": true,
+  "role_difference_certificates": [
+    {
+      "roles": [
+        "T",
+        "M"
+      ],
+      "exclusive_set_size": 17,
+      "exact_polynomial_identity": true,
+      "correction_terms": 9062,
+      "required_generators": [
+        "existing unary elimination",
+        "role e2 equations",
+        "original transformed cubic domains"
+      ]
+    },
+    {
+      "roles": [
+        "M",
+        "L"
+      ],
+      "exclusive_set_size": 9,
+      "exact_polynomial_identity": true,
+      "correction_terms": 5270,
+      "required_generators": [
+        "existing unary elimination",
+        "role e2 equations",
+        "original transformed cubic domains"
+      ]
+    },
+    {
+      "roles": [
+        "M",
+        "R"
+      ],
+      "exclusive_set_size": 9,
+      "exact_polynomial_identity": true,
+      "correction_terms": 6748,
+      "required_generators": [
+        "existing unary elimination",
+        "role e2 equations",
+        "original transformed cubic domains"
+      ]
+    }
+  ],
+  "newton_degree3_identities_checked": 6,
+  "top_path_formula_checked": true,
+  "valid_boards_checked": 5,
+  "histogram_implication": "Together with e1/e2, e4=0 forces each role color count congruent3 modulo8.",
+  "full_count_status": "NOT_COMPUTED"
+}

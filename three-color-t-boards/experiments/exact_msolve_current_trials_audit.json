@@ -1,0 +1,1699 @@
+{
+  "status": "CHECKED_NO_FULL_COUNT",
+  "trials": [
+    {
+      "name": "exact_msolve_full_prime2_pivot_order",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "solver_cpu_seconds": 66.80950399999999,
+      "solver_wall_seconds": 91.95528916699914,
+      "input_sha256": "a219416c206e31a2547155c62d5df1f3ef4050a303f5a90dde0d460c01e9768f",
+      "memory_mb": 2048
+    },
+    {
+      "name": "exact_msolve_full_prime2_pivot_missing",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "solver_cpu_seconds": 66.415649,
+      "solver_wall_seconds": 87.81164440099747,
+      "input_sha256": "a219416c206e31a2547155c62d5df1f3ef4050a303f5a90dde0d460c01e9768f",
+      "memory_mb": 2048
+    },
+    {
+      "name": "exact_msolve_full_prime2_reduced_all_missing",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "solver_cpu_seconds": 69.012211,
+      "solver_wall_seconds": 99.69489022799826,
+      "input_sha256": "95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f",
+      "memory_mb": 2048
+    },
+    {
+      "name": "exact_msolve_full_prime2_reduced_all_rounded",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "solver_cpu_seconds": 89.87615,
+      "solver_wall_seconds": 91.51124202700157,
+      "input_sha256": "95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f",
+      "memory_mb": 2048
+    },
+    {
+      "name": "exact_msolve_full_prime2_reduced_pairs1",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_complete": false,
+      "solver_cpu_seconds": 168.970484,
+      "solver_wall_seconds": 180.14778955899965,
+      "input_sha256": "95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f",
+      "memory_mb": 2048
+    },
+    {
+      "name": "exact_msolve_cap0000_prime2",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_complete": false,
+      "count_complete": false,
+      "count_scope": "extensions of fixed prefix",
+      "prefix": "0000",
+      "prime": 2,
+      "variables": 96,
+      "generators": 176,
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "solver_cpu_seconds": 158.440272,
+      "solver_wall_seconds": 180.2420947440005,
+      "solver_wall_limit_seconds": 180.0,
+      "memory_mb": 2048,
+      "solver_returncode": null,
+      "solver_returncode_recorded": false,
+      "outer_status": "OUTER_PROCESS_FINISHED",
+      "outer_returncode": 1,
+      "outer_wall_limit_reached": false,
+      "outer_wall_seconds": 180.42581627599793,
+      "process_tree_cpu_seconds": 158.784511,
+      "input_sha256": "4aa5a5354dd1596d4240992c8a078604beecee72808a2b66f9106aafea602900",
+      "executable_sha256": "cebd842aa617f09725a1f5429ebc822da238563f142b14993cccb85312d1874c",
+      "adapter_sha256": "9d718942e1e3247fc5eeb9ac68285e02b3a161cbe0324f5574905af5d732135a",
+      "histogram_e2": false,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "export_marker_count": 0,
+      "completed_rounds_with_timing": 12,
+      "last_completed_round": {
+        "degree": 4,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 787,
+        "matrix_rows": 34368,
+        "matrix_columns": 2575926,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 4,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 903,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "raw_log_failure_diagnostics": [],
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "observed_termination": "Wall timeout after a completed degree-four round; next selection header has no matrix dimensions.",
+      "artifact_sha256": {
+        ".json": "935f401221e4f0ad0f5165a8cd772d1ea1ab5ce7e0b7f5acba1c27ade7eeab98",
+        ".outer.json": "920cbe9b452d0c6ce9fc3886e16e669dd55106b465763fe4f41e515346bc28fa",
+        ".log": "4fa8592a8e70f0a83fa7bd01e7d39d3530290a0918e655d8d9c99231406098fa",
+        ".outer.log": "935f401221e4f0ad0f5165a8cd772d1ea1ab5ce7e0b7f5acba1c27ade7eeab98",
+        ".ms": "4aa5a5354dd1596d4240992c8a078604beecee72808a2b66f9106aafea602900",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "exact_msolve_full_prime29_pivot_rounded",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "count_scope": "full labeled boards",
+      "prefix": "",
+      "prime": 29,
+      "variables": 100,
+      "generators": 180,
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "solver_cpu_seconds": 90.237675,
+      "solver_wall_seconds": 91.784130723001,
+      "solver_wall_limit_seconds": 120.0,
+      "memory_mb": 2048,
+      "solver_returncode": -11,
+      "solver_returncode_recorded": true,
+      "outer_status": "OUTER_PROCESS_FINISHED",
+      "outer_returncode": 1,
+      "outer_wall_limit_reached": false,
+      "outer_wall_seconds": 91.88972435899996,
+      "process_tree_cpu_seconds": 90.455098,
+      "input_sha256": "699e6a81b2f4c1b113a448dc17e5b81f5962a365729204ae32802c857fd9944d",
+      "executable_sha256": "cebd842aa617f09725a1f5429ebc822da238563f142b14993cccb85312d1874c",
+      "adapter_sha256": "9d718942e1e3247fc5eeb9ac68285e02b3a161cbe0324f5574905af5d732135a",
+      "histogram_e2": false,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "export_marker_count": 0,
+      "completed_rounds_with_timing": 5,
+      "last_completed_round": {
+        "degree": 3,
+        "selected_pairs": 10,
+        "pending_pairs_shown": 270,
+        "matrix_rows": 18741,
+        "matrix_columns": 169762,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 4,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 341,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "raw_log_failure_diagnostics": [],
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "observed_termination": "Signal11 after a degree-four selection header; no dimensions or specific failure diagnostic for that round.",
+      "artifact_sha256": {
+        ".json": "729326ac8ccdf325b49eedf877a456664c837b0b9032d59f8395d78cbb78cc90",
+        ".outer.json": "099ea42938310da25586d963a7330b23cbd44f644fc40818659c86597d16048f",
+        ".log": "76f5ffa6a03eb4f3359a294fb5941a7487b1f06193968bd617d4e1268008dfd2",
+        ".outer.log": "729326ac8ccdf325b49eedf877a456664c837b0b9032d59f8395d78cbb78cc90",
+        ".ms": "699e6a81b2f4c1b113a448dc17e5b81f5962a365729204ae32802c857fd9944d",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "exact_msolve_full_prime2_bitset",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "count_scope": "full labeled ternary boards",
+      "prefix": "",
+      "prime": 2,
+      "variables": 96,
+      "generators": 172,
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "solver_cpu_seconds": 133.624,
+      "solver_wall_seconds": 145.61942860800264,
+      "solver_wall_limit_seconds": 180.0,
+      "memory_mb": 2048,
+      "solver_returncode": 1,
+      "solver_returncode_recorded": true,
+      "outer_status": "OUTER_PROCESS_FINISHED",
+      "outer_returncode": 1,
+      "outer_wall_limit_reached": false,
+      "outer_wall_seconds": 146.40982028100188,
+      "process_tree_cpu_seconds": 134.402166,
+      "input_sha256": "95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f",
+      "executable_sha256": "78e65a3c746a036d12ac67d8c332a9afd2101746eee3b850d4a2ecb5e696f502",
+      "adapter_sha256": "9d718942e1e3247fc5eeb9ac68285e02b3a161cbe0324f5574905af5d732135a",
+      "histogram_e2": false,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "export_marker_count": 0,
+      "completed_rounds_with_timing": 6,
+      "last_completed_round": {
+        "degree": 4,
+        "selected_pairs": 17,
+        "pending_pairs_shown": 436,
+        "matrix_rows": 26569,
+        "matrix_columns": 2626958,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 4,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 546,
+        "matrix_rows": 19153,
+        "matrix_columns": 2615528,
+        "round_timing_printed": false
+      },
+      "raw_log_failure_diagnostics": [
+        "  4      16     546   19153 x 2615528     0.20%MSOLVE_F2_BITSET_ERROR: allocation failed"
+      ],
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "observed_termination": "Explicit checked F2 bitset allocation failure in the next degree-four matrix; exit1, not a signal.",
+      "artifact_sha256": {
+        ".json": "d2c43418f9d39b59e919020802bebc2078a3d4f71d6ad23b114f42d97dba22aa",
+        ".outer.json": "7f94b76c70451686c4adb046daac7a2b0ba3829ddf714506e425d93a5a144ea1",
+        ".log": "847aea27aa36b4401ae1f75492d9a5e28215d32f12a55cf7db1ad8bf0185f8ef",
+        ".outer.log": "d2c43418f9d39b59e919020802bebc2078a3d4f71d6ad23b114f42d97dba22aa",
+        ".ms": "95363a4db10206ecc89852d09d93ac08d98311ea317af80c77f4488b72a3b66f",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "exact_msolve_full_prime2_elementary",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "count_scope": "full labeled ternary boards",
+      "prefix": "",
+      "prime": 2,
+      "variables": 96,
+      "generators": 180,
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "solver_cpu_seconds": 121.120406,
+      "solver_wall_seconds": 134.8790567899996,
+      "solver_wall_limit_seconds": 180.0,
+      "memory_mb": 2048,
+      "solver_returncode": -11,
+      "solver_returncode_recorded": true,
+      "outer_status": "OUTER_PROCESS_FINISHED",
+      "outer_returncode": 1,
+      "outer_wall_limit_reached": false,
+      "outer_wall_seconds": 135.6090686339994,
+      "process_tree_cpu_seconds": 121.95422699999999,
+      "input_sha256": "4338b3f86b8738130edbfb788504de14be08c60ada263afeba3f9844b437dd90",
+      "executable_sha256": "78e65a3c746a036d12ac67d8c332a9afd2101746eee3b850d4a2ecb5e696f502",
+      "adapter_sha256": "b43c2bb1dd607c500edea062de78c92a41155178fc285dfc64818635c1ba3b90",
+      "histogram_e2": true,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "export_marker_count": 0,
+      "completed_rounds_with_timing": 4,
+      "last_completed_round": {
+        "degree": 3,
+        "selected_pairs": 9,
+        "pending_pairs_shown": 283,
+        "matrix_rows": 913,
+        "matrix_columns": 151212,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 4,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 345,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "raw_log_failure_diagnostics": [],
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "observed_termination": "Signal11 after a degree-four selection header; no dimensions or specific failure diagnostic for that round.",
+      "artifact_sha256": {
+        ".json": "3f00730243ea83884ed38285642ee11ca102586f80a222d47c39be2511bab5b2",
+        ".outer.json": "c544b00868957d3c87476ebf5ac6de854eaf80d0c8bc0f8189f0d5578523ad56",
+        ".log": "27ba487f695cf243396cc72b1defaacae336804b1c9f52909191a0a7d22eee6d",
+        ".outer.log": "3f00730243ea83884ed38285642ee11ca102586f80a222d47c39be2511bab5b2",
+        ".ms": "4338b3f86b8738130edbfb788504de14be08c60ada263afeba3f9844b437dd90",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "exact_msolve_full_prime2_prefix_gray_3g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "count_scope": "full labeled ternary boards",
+      "prefix": "",
+      "prime": 2,
+      "variables": 96,
+      "generators": 276,
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "solver_cpu_seconds": 248.07015900000002,
+      "solver_wall_seconds": 252.14502551199985,
+      "solver_wall_limit_seconds": 300.0,
+      "memory_mb": 3072,
+      "solver_returncode": 1,
+      "solver_returncode_recorded": true,
+      "outer_status": "OUTER_PROCESS_FINISHED",
+      "outer_returncode": 1,
+      "outer_wall_limit_reached": false,
+      "outer_wall_seconds": 252.4629743789992,
+      "process_tree_cpu_seconds": 248.6535,
+      "input_sha256": "60a5280098df62e0607fd3762a6e501b2d6098609b772138bd08f4f7ef867311",
+      "executable_sha256": "78e65a3c746a036d12ac67d8c332a9afd2101746eee3b850d4a2ecb5e696f502",
+      "adapter_sha256": "d6f52ceb6225efabeed660430701dd5321ac3bb480a5e008976e2461310f7749",
+      "histogram_e2": true,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "export_marker_count": 0,
+      "completed_rounds_with_timing": 29,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2886,
+        "matrix_rows": 42033,
+        "matrix_columns": 753562,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2984,
+        "matrix_rows": 210803,
+        "matrix_columns": 6546994,
+        "round_timing_printed": false
+      },
+      "raw_log_failure_diagnostics": [
+        "Error: cannot allocate promotion exponent data."
+      ],
+      "backend_error_diagnostics": [
+        "Error: cannot allocate promotion exponent data.",
+        "missing or duplicate patched export-completion marker"
+      ],
+      "observed_termination": "Checked promotion exponent allocation failure after degree-five linear algebra; exit1 before basis export.",
+      "artifact_sha256": {
+        ".json": "12296647bea126a7aed70d9d77dbeb7848585af3fea59a4ce12c1c04a94f1c53",
+        ".outer.json": "df8235d059dfb688810c33ec9d42b63d02e9920627822535cc44f0de2e92b216",
+        ".log": "4b78f2b2d2c9e4a4ca552f64bb704ca3b4d618d0eecc753c023270ff710a066d",
+        ".outer.log": "12296647bea126a7aed70d9d77dbeb7848585af3fea59a4ce12c1c04a94f1c53",
+        ".ms": "60a5280098df62e0607fd3762a6e501b2d6098609b772138bd08f4f7ef867311",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ternary_prefix_sums": true,
+      "prefix_field_equations": true,
+      "transformed_original_cubic_domains": 100,
+      "elementary_generators": 8,
+      "optional_prefix_field_equations": 96,
+      "actual_input_matches_independent_audit": true,
+      "prefix_model_source_sha256": "7f8251ab52e8d6869c19cc861dc98b0c1e66904313b0d87920d9f95659700092",
+      "failed_promotion": {
+        "basis_load": 1462002,
+        "missing": 3463587,
+        "required_with_spare": 4925590,
+        "exponent_old": 1572864,
+        "exponent_new": 4980736,
+        "buckets_old": 4194304,
+        "buckets_new": 16777216
+      },
+      "last_linear_algebra_output": {
+        "new_rows": 9,
+        "output_terms": 5528411
+      }
+    },
+    {
+      "name": "exact_msolve_full_prime2_prefix_gray_e4_3g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "count_scope": "full labeled ternary boards",
+      "prefix": "",
+      "prime": 2,
+      "variables": 96,
+      "generators": 280,
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "solver_cpu_seconds": 199.883521,
+      "solver_wall_seconds": 203.77469549799935,
+      "solver_wall_limit_seconds": 300.0,
+      "memory_mb": 3072,
+      "solver_returncode": -11,
+      "solver_returncode_recorded": true,
+      "outer_status": "OUTER_PROCESS_FINISHED",
+      "outer_returncode": 1,
+      "outer_wall_limit_reached": false,
+      "outer_wall_seconds": 204.27543999500267,
+      "process_tree_cpu_seconds": 200.59683099999998,
+      "input_sha256": "72b09d3e2df822ea72f09dd1876580e950642a5681177d7aa604e8f6a68d9081",
+      "executable_sha256": "78e65a3c746a036d12ac67d8c332a9afd2101746eee3b850d4a2ecb5e696f502",
+      "adapter_sha256": "f108608deedab9f0cbb8bc56aba49e55c276af5dbc40b55c46f3619cb2ceeccc",
+      "histogram_e2": true,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "export_marker_count": 0,
+      "completed_rounds_with_timing": 30,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 3038,
+        "matrix_rows": 43637,
+        "matrix_columns": 891323,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 17,
+        "pending_pairs_shown": 3246,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "raw_log_failure_diagnostics": [
+        "  5      17    3246Enlarging exponent vector for hash table failed",
+        "for esz = 8388608, segmentation fault will follow."
+      ],
+      "backend_error_diagnostics": [
+        "for esz = 8388608, segmentation fault will follow.",
+        "missing or duplicate patched export-completion marker"
+      ],
+      "observed_termination": "Hash-table exponent-vector enlargement explicitly failed for8388608 entries after the next degree-five selection; signal11 before matrix dimensions/export.",
+      "artifact_sha256": {
+        ".json": "f89912511cf70a169e51398e0611df98ef327abc7941789b5cf8be1c8cd95c49",
+        ".outer.json": "a31aeb2c29264b3575edd8e513a3640ebc3590e1da5a3af1bbc5c408f10e42de",
+        ".log": "63b627201f7cd6fcfec92363a27deec23ef41ffb530f5678f0454b43db8e1c9f",
+        ".outer.log": "f89912511cf70a169e51398e0611df98ef327abc7941789b5cf8be1c8cd95c49",
+        ".ms": "72b09d3e2df822ea72f09dd1876580e950642a5681177d7aa604e8f6a68d9081",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ternary_prefix_sums": true,
+      "prefix_field_equations": true,
+      "transformed_original_cubic_domains": 100,
+      "elementary_generators": 8,
+      "optional_prefix_field_equations": 96,
+      "actual_input_matches_independent_audit": true,
+      "prefix_model_source_sha256": "7f8251ab52e8d6869c19cc861dc98b0c1e66904313b0d87920d9f95659700092",
+      "histogram_e4": true,
+      "elementary_e4_generators": 4,
+      "pre_e4_input_sha256": "60a5280098df62e0607fd3762a6e501b2d6098609b772138bd08f4f7ef867311",
+      "failed_hash_enlargement": {
+        "requested_entries": 8388608,
+        "diagnostic": "Enlarging exponent vector for hash table failed; segmentation fault will follow",
+        "specific_hash_table_not_identified_by_this_log": true
+      }
+    },
+    {
+      "name": "exact_msolve_full_native3_e3_staged_3g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "quotient_dimension_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "count_scope": "full labeled boards",
+      "variables": 96,
+      "generators": 176,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "input_sha256": "cb2497554585e51166b747cee0221efc3cf7f130f46b9084d7f2e9d3b760c105",
+      "pre_e3_input_sha256": "e9e1163bd047fdca4000333d917a26e37dbf711abebca29d27fae6d49a2c34ba",
+      "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+      "adapter_sha256": "5f0fc422ed7301a8fe83cf74a6f27f3ea03e37fed555f3d8c343d6e3a2515b83",
+      "solver_cpu_seconds": 198.575927,
+      "solver_wall_seconds": 202.79680472199834,
+      "solver_wall_limit_seconds": 300.0,
+      "memory_mb": 3072,
+      "solver_returncode": -11,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 203.69835881299878,
+      "process_tree_cpu_seconds": 199.683149,
+      "outer_wall_limit_reached": false,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "completed_rounds_with_timing": 23,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 17,
+        "pending_pairs_shown": 2524,
+        "matrix_rows": 21640,
+        "matrix_columns": 1032184,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2776,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "symbolic_staging_rounds": 7,
+      "symbolic_staging_records": [
+        {
+          "old_load": 478107,
+          "old_capacity": 524288,
+          "missing": 431171,
+          "old_exponent_bytes": 101711872,
+          "staged_exponent_bytes": 83647368,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 491149,
+          "old_capacity": 1048576,
+          "missing": 33124,
+          "old_exponent_bytes": 203423744,
+          "staged_exponent_bytes": 6426250,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 692666,
+          "old_capacity": 1048576,
+          "missing": 161889,
+          "old_exponent_bytes": 203423744,
+          "staged_exponent_bytes": 31406660,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 733892,
+          "old_capacity": 2097152,
+          "missing": 43784,
+          "old_exponent_bytes": 406847488,
+          "staged_exponent_bytes": 8494290,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 612617,
+          "old_capacity": 2097152,
+          "missing": 6634,
+          "old_exponent_bytes": 406847488,
+          "staged_exponent_bytes": 1287190,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 836252,
+          "old_capacity": 2097152,
+          "missing": 10707,
+          "old_exponent_bytes": 406847488,
+          "staged_exponent_bytes": 2077352,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 1032185,
+          "old_capacity": 2097152,
+          "missing": 837014,
+          "old_exponent_bytes": 406847488,
+          "staged_exponent_bytes": 162380910,
+          "reset_capacity": 2048
+        }
+      ],
+      "F2_bitset_rounds": 0,
+      "raw_log_failure_diagnostics": [
+        "  5      16    2776Enlarging exponent vector for hash table failed",
+        "for esz = 8388608, segmentation fault will follow."
+      ],
+      "backend_error_diagnostics": [
+        "for esz = 8388608, segmentation fault will follow.",
+        "missing or duplicate patched export-completion marker"
+      ],
+      "solver_processes_started_by_this_audit": 0,
+      "artifact_sha256": {
+        ".json": "d66e6e5f7aaf2291e101815cd2152f5e6bc2afcd7fb54bcd2cd5bea5262ad661",
+        ".outer.json": "ac73d1a2098b6fe01534ee6ab136e38753d89118c8a3e0f0fa723d4065d5ccf7",
+        ".log": "13ff8a2e39f77367b5f9edeea0345f6f8d816fb3118ca341cf46ae5039845c26",
+        ".outer.log": "d66e6e5f7aaf2291e101815cd2152f5e6bc2afcd7fb54bcd2cd5bea5262ad661",
+        ".ms": "cb2497554585e51166b747cee0221efc3cf7f130f46b9084d7f2e9d3b760c105",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "exact_msolve_full_native3_translation_e3_symbolic_3g",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_complete": false,
+      "count_complete": false,
+      "quotient_dimension_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "count_scope": "full labeled boards",
+      "variables": 96,
+      "generators": 176,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "input_sha256": "44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5",
+      "pre_e3_input_sha256": "339f10f7632c231f4e79a0b5c1e99700798fe7726c3b359ab097611ee650d3b1",
+      "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+      "adapter_sha256": "0562de0757d2af3bd52e79e4a3ec94fa90d4fcbfce1bd973a4bb138ac9c580a4",
+      "solver_cpu_seconds": 247.204902,
+      "solver_wall_seconds": 300.25658575099806,
+      "solver_wall_limit_seconds": 300.0,
+      "memory_mb": 3072,
+      "solver_returncode": null,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 301.45627552399674,
+      "process_tree_cpu_seconds": 248.465848,
+      "outer_wall_limit_reached": false,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "completed_rounds_with_timing": 25,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 3021,
+        "matrix_rows": 29856,
+        "matrix_columns": 1395306,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 3120,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "symbolic_staging_rounds": 7,
+      "symbolic_staging_records": [
+        {
+          "old_load": 108892,
+          "old_capacity": 131072,
+          "missing": 84671,
+          "old_exponent_bytes": 25427968,
+          "staged_exponent_bytes": 16426368,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 492912,
+          "old_capacity": 524288,
+          "missing": 345684,
+          "old_exponent_bytes": 101711872,
+          "staged_exponent_bytes": 67062890,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 689190,
+          "old_capacity": 983040,
+          "missing": 149699,
+          "old_exponent_bytes": 190709760,
+          "staged_exponent_bytes": 29041800,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 733905,
+          "old_capacity": 1245184,
+          "missing": 35613,
+          "old_exponent_bytes": 241565696,
+          "staged_exponent_bytes": 6909116,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 693911,
+          "old_capacity": 1245184,
+          "missing": 16095,
+          "old_exponent_bytes": 241565696,
+          "staged_exponent_bytes": 3122624,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 182565,
+          "old_capacity": 1376256,
+          "missing": 139341,
+          "old_exponent_bytes": 266993664,
+          "staged_exponent_bytes": 27032348,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 1395307,
+          "old_capacity": 1638400,
+          "missing": 210932,
+          "old_exponent_bytes": 317849600,
+          "staged_exponent_bytes": 40921002,
+          "reset_capacity": 2048
+        }
+      ],
+      "F2_bitset_rounds": 0,
+      "raw_log_failure_diagnostics": [],
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "solver_processes_started_by_this_audit": 0,
+      "artifact_sha256": {
+        ".json": "bd4e29a53e7174cc4ccee83b5ff3031c9fc1d20630c68bf0d9aab85f0c0b3e07",
+        ".outer.json": "1d60a313b891acf8299770ec06ac5e85f84280d6f51fe61aa7fece2beff4f6cb",
+        ".log": "12b3a9fefc13d483add2a0c889ae0030b47b3483c3531fa53d07886755f6d698",
+        ".outer.log": "bd4e29a53e7174cc4ccee83b5ff3031c9fc1d20630c68bf0d9aab85f0c0b3e07",
+        ".ms": "44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native_translation": true,
+      "coupled_variables": 95,
+      "offset_variable_index": 95,
+      "independent_offset_field_domain_retained": true,
+      "additional_factor_applied": 1,
+      "translation_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+      "preflight": {
+        "mem_available_mib": 4424,
+        "required_available_mib": 3584,
+        "unix_time": 1795425758.3815184,
+        "input_sha256": "44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5",
+        "model_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+        "e3_source_sha256": "5bed48f4a1523c26d02a2add9423c463ffdb08af5cf5ecf7bab40a0cceae4a40",
+        "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+        "scope": "full labeled ternary boards",
+        "variables": 96,
+        "coupled_variables": 95,
+        "generators": 176,
+        "count_divisor": 1,
+        "count_multiplier": 1
+      },
+      "preflight_sha256": "70aefd9a4fc6696de3c2eff64e5c8aea92a691e1b1ebaddf3d4a89506b23b0ce",
+      "symbolic_row_reserve_count": 121,
+      "last_symbolic_row_reserve": {
+        "old_load": 3059679,
+        "row_length": 518917,
+        "required_with_spare": 3578597,
+        "requested_capacity": 3604480
+      },
+      "symbolic_capacity_request_count": 121,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 3578597,
+        "exponent_old": 3407872,
+        "exponent_new": 3604480,
+        "buckets_old": 8388608,
+        "buckets_new": 8388608
+      },
+      "maximum_requested_symbolic_exponent_capacity": 3604480
+    },
+    {
+      "name": "exact_msolve_full_native3_minfill_symbolic_3g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "quotient_dimension_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "count_scope": "full labeled boards",
+      "variables": 96,
+      "generators": 176,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+      "pre_e3_input_sha256": "339f10f7632c231f4e79a0b5c1e99700798fe7726c3b359ab097611ee650d3b1",
+      "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+      "adapter_sha256": "a3ef5a83e10c757f242c38e13625753421896bbf334fc1a4dcd3e6e2279eb583",
+      "solver_cpu_seconds": 285.469678,
+      "solver_wall_seconds": 328.58586451299925,
+      "solver_wall_limit_seconds": 900.0,
+      "memory_mb": 3072,
+      "solver_returncode": 1,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 330.12175182400097,
+      "process_tree_cpu_seconds": 287.15943799999997,
+      "outer_wall_limit_reached": false,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "completed_rounds_with_timing": 21,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 1958,
+        "matrix_rows": 17439,
+        "matrix_columns": 3200323,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2113,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "symbolic_staging_rounds": 11,
+      "symbolic_staging_records": [
+        {
+          "old_load": 25324,
+          "old_capacity": 65536,
+          "missing": 7952,
+          "old_exponent_bytes": 12713984,
+          "staged_exponent_bytes": 1542882,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 120213,
+          "old_capacity": 131072,
+          "missing": 66766,
+          "old_exponent_bytes": 25427968,
+          "staged_exponent_bytes": 12952798,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 369946,
+          "old_capacity": 393216,
+          "missing": 262245,
+          "old_exponent_bytes": 76283904,
+          "staged_exponent_bytes": 50875724,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 510455,
+          "old_capacity": 655360,
+          "missing": 60829,
+          "old_exponent_bytes": 127139840,
+          "staged_exponent_bytes": 11801020,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 547777,
+          "old_capacity": 851968,
+          "missing": 38226,
+          "old_exponent_bytes": 165281792,
+          "staged_exponent_bytes": 7416038,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 702140,
+          "old_capacity": 1048576,
+          "missing": 213282,
+          "old_exponent_bytes": 203423744,
+          "staged_exponent_bytes": 41376902,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 717868,
+          "old_capacity": 1179648,
+          "missing": 22944,
+          "old_exponent_bytes": 228851712,
+          "staged_exponent_bytes": 4451330,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 839577,
+          "old_capacity": 1245184,
+          "missing": 703082,
+          "old_exponent_bytes": 241565696,
+          "staged_exponent_bytes": 136398102,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 901824,
+          "old_capacity": 1245184,
+          "missing": 161552,
+          "old_exponent_bytes": 241565696,
+          "staged_exponent_bytes": 31341282,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 2871220,
+          "old_capacity": 3407872,
+          "missing": 1900357,
+          "old_exponent_bytes": 661127168,
+          "staged_exponent_bytes": 368669452,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 3200324,
+          "old_capacity": 4718592,
+          "missing": 186042,
+          "old_exponent_bytes": 915406848,
+          "staged_exponent_bytes": 36092342,
+          "reset_capacity": 2048
+        }
+      ],
+      "F2_bitset_rounds": 0,
+      "raw_log_failure_diagnostics": [
+        "Error: cannot allocate promotion exponent data."
+      ],
+      "backend_error_diagnostics": [
+        "Error: cannot allocate promotion exponent data.",
+        "missing or duplicate patched export-completion marker"
+      ],
+      "solver_processes_started_by_this_audit": 0,
+      "artifact_sha256": {
+        ".json": "0588a1f16b75be809fbe510bb83da18671042b4cf502f56ae78d437e44cef1eb",
+        ".outer.json": "41851c9df429cca2906a555112bae4a08e79bd5969c2cbdefa7793d6fd969539",
+        ".log": "f2359a534f831c4332aee272e9fcdb659528324f14f0b5d055da38efb0decfec",
+        ".outer.log": "0588a1f16b75be809fbe510bb83da18671042b4cf502f56ae78d437e44cef1eb",
+        ".ms": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native_translation": true,
+      "coupled_variables": 95,
+      "offset_variable_index": 95,
+      "independent_offset_field_domain_retained": true,
+      "additional_factor_applied": 1,
+      "translation_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+      "preflight": {
+        "mem_available_mib": 4590,
+        "selected_memory_mib": 3072,
+        "required_available_mib": 3584,
+        "unix_time": 1795426375.5900807,
+        "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+        "model_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+        "e3_source_sha256": "5bed48f4a1523c26d02a2add9423c463ffdb08af5cf5ecf7bab40a0cceae4a40",
+        "variable_order_source_sha256": "387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e",
+        "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+        "scope": "full labeled ternary boards",
+        "variables": 96,
+        "coupled_variables": 95,
+        "generators": 176,
+        "count_divisor": 1,
+        "count_multiplier": 1,
+        "child_wall_seconds": 900,
+        "outer_wall_seconds": 960
+      },
+      "preflight_sha256": "3c51134b65904c37c363aac8d242fd2b70942093c6c5836fe6e86396d534c5b7",
+      "symbolic_row_reserve_count": 136,
+      "last_symbolic_row_reserve": {
+        "old_load": 3624513,
+        "row_length": 1875945,
+        "required_with_spare": 5500459,
+        "requested_capacity": 5505024
+      },
+      "symbolic_capacity_request_count": 136,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 5500459,
+        "exponent_old": 5177344,
+        "exponent_new": 5505024,
+        "buckets_old": 16777216,
+        "buckets_new": 16777216
+      },
+      "maximum_requested_symbolic_exponent_capacity": 5505024,
+      "native_variable_order": "minimum-fill",
+      "variable_order_source_sha256": "387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e",
+      "pre_order_input_sha256": "44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5",
+      "count_sanity_requirements": {
+        "established_lower_bound": 45083592,
+        "divisible_by": 12
+      },
+      "count_sanity_checks_passed": false
+    },
+    {
+      "name": "exact_msolve_full_native3_minfill_symbolic_4g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "quotient_dimension_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "count_scope": "full labeled boards",
+      "variables": 96,
+      "generators": 176,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+      "pre_e3_input_sha256": "339f10f7632c231f4e79a0b5c1e99700798fe7726c3b359ab097611ee650d3b1",
+      "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+      "adapter_sha256": "a3ef5a83e10c757f242c38e13625753421896bbf334fc1a4dcd3e6e2279eb583",
+      "solver_cpu_seconds": 331.31245900000005,
+      "solver_wall_seconds": 351.84261690900166,
+      "solver_wall_limit_seconds": 900.0,
+      "memory_mb": 4096,
+      "solver_returncode": 1,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 353.47651804999623,
+      "process_tree_cpu_seconds": 333.052073,
+      "outer_wall_limit_reached": false,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "completed_rounds_with_timing": 22,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2113,
+        "matrix_rows": 32889,
+        "matrix_columns": 3894880,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2266,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "symbolic_staging_rounds": 12,
+      "symbolic_staging_records": [
+        {
+          "old_load": 25324,
+          "old_capacity": 65536,
+          "missing": 7952,
+          "old_exponent_bytes": 12713984,
+          "staged_exponent_bytes": 1542882,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 120213,
+          "old_capacity": 131072,
+          "missing": 66766,
+          "old_exponent_bytes": 25427968,
+          "staged_exponent_bytes": 12952798,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 369946,
+          "old_capacity": 393216,
+          "missing": 262245,
+          "old_exponent_bytes": 76283904,
+          "staged_exponent_bytes": 50875724,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 510455,
+          "old_capacity": 655360,
+          "missing": 60829,
+          "old_exponent_bytes": 127139840,
+          "staged_exponent_bytes": 11801020,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 547777,
+          "old_capacity": 851968,
+          "missing": 38226,
+          "old_exponent_bytes": 165281792,
+          "staged_exponent_bytes": 7416038,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 702140,
+          "old_capacity": 1048576,
+          "missing": 213282,
+          "old_exponent_bytes": 203423744,
+          "staged_exponent_bytes": 41376902,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 717868,
+          "old_capacity": 1179648,
+          "missing": 22944,
+          "old_exponent_bytes": 228851712,
+          "staged_exponent_bytes": 4451330,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 839577,
+          "old_capacity": 1245184,
+          "missing": 703082,
+          "old_exponent_bytes": 241565696,
+          "staged_exponent_bytes": 136398102,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 901824,
+          "old_capacity": 1245184,
+          "missing": 161552,
+          "old_exponent_bytes": 241565696,
+          "staged_exponent_bytes": 31341282,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 2871220,
+          "old_capacity": 3407872,
+          "missing": 1900357,
+          "old_exponent_bytes": 661127168,
+          "staged_exponent_bytes": 368669452,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 3200324,
+          "old_capacity": 4718592,
+          "missing": 186042,
+          "old_exponent_bytes": 915406848,
+          "staged_exponent_bytes": 36092342,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 3894881,
+          "old_capacity": 5832704,
+          "missing": 769562,
+          "old_exponent_bytes": 1131544576,
+          "staged_exponent_bytes": 149295222,
+          "reset_capacity": 2048
+        }
+      ],
+      "F2_bitset_rounds": 0,
+      "raw_log_failure_diagnostics": [
+        "Error: cannot allocate promotion exponent data."
+      ],
+      "backend_error_diagnostics": [
+        "Error: cannot allocate promotion exponent data.",
+        "missing or duplicate patched export-completion marker"
+      ],
+      "solver_processes_started_by_this_audit": 0,
+      "artifact_sha256": {
+        ".json": "0f3e8060cf7001066821e32f0b8990cdb81f0d866991d1fec5b31550cf4c16d7",
+        ".outer.json": "13eaa17beca4b4ba7eac3ec7fc90a6f58708f91d6c46cf97fe07dbadfa045efb",
+        ".log": "93391643ab1105c6114dc3c7a5541bcf14bd074dc0004e5ead55d48c9dfcdcdc",
+        ".outer.log": "0f3e8060cf7001066821e32f0b8990cdb81f0d866991d1fec5b31550cf4c16d7",
+        ".ms": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native_translation": true,
+      "coupled_variables": 95,
+      "offset_variable_index": 95,
+      "independent_offset_field_domain_retained": true,
+      "additional_factor_applied": 1,
+      "translation_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+      "preflight": {
+        "mem_available_mib": 4824,
+        "selected_memory_mib": 4096,
+        "required_available_mib": 4608,
+        "unix_time": 1795427031.3329744,
+        "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+        "model_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+        "e3_source_sha256": "5bed48f4a1523c26d02a2add9423c463ffdb08af5cf5ecf7bab40a0cceae4a40",
+        "variable_order_source_sha256": "387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e",
+        "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+        "scope": "full labeled ternary boards",
+        "variables": 96,
+        "coupled_variables": 95,
+        "generators": 176,
+        "count_divisor": 1,
+        "count_multiplier": 1,
+        "child_wall_seconds": 900,
+        "outer_wall_seconds": 960,
+        "comparison": "Same input and executable as terminal3GiB run; only memory limit raised"
+      },
+      "preflight_sha256": "29a676880fad0ac760eab8fec427d4d561351e79164e9d1ede5ee932429bf318",
+      "symbolic_row_reserve_count": 166,
+      "last_symbolic_row_reserve": {
+        "old_load": 5097099,
+        "row_length": 2608997,
+        "required_with_spare": 7706097,
+        "requested_capacity": 7733248
+      },
+      "symbolic_capacity_request_count": 166,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 7706097,
+        "exponent_old": 7536640,
+        "exponent_new": 7733248,
+        "buckets_old": 16777216,
+        "buckets_new": 16777216
+      },
+      "maximum_requested_symbolic_exponent_capacity": 7733248,
+      "native_variable_order": "minimum-fill",
+      "variable_order_source_sha256": "387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e",
+      "pre_order_input_sha256": "44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5",
+      "count_sanity_requirements": {
+        "established_lower_bound": 45083592,
+        "divisible_by": 12
+      },
+      "count_sanity_checks_passed": false
+    },
+    {
+      "name": "exact_msolve_full_native3_minfill_byte_4g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "quotient_dimension_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "count_scope": "full labeled boards",
+      "variables": 96,
+      "generators": 176,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+      "pre_e3_input_sha256": "339f10f7632c231f4e79a0b5c1e99700798fe7726c3b359ab097611ee650d3b1",
+      "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+      "adapter_sha256": "3d953e1903ccca3466536026b8ad783ffcb1bfba1fae6802ca73a4e848e4bb19",
+      "solver_cpu_seconds": 546.706832,
+      "solver_wall_seconds": 564.3280889279995,
+      "solver_wall_limit_seconds": 900.0,
+      "memory_mb": 4096,
+      "solver_returncode": -11,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 565.5718188909959,
+      "process_tree_cpu_seconds": 548.501306,
+      "outer_wall_limit_reached": false,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "completed_rounds_with_timing": 24,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2498,
+        "matrix_rows": 21124,
+        "matrix_columns": 6530168,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2690,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "last_completed_promotion": {
+        "nonpivot": 6509060,
+        "referenced": 6484402,
+        "inserted": 2101181,
+        "basis_capacity": 7929856
+      },
+      "symbolic_staging_rounds": 14,
+      "symbolic_staging_records": [
+        {
+          "old_load": 25324,
+          "old_capacity": 65536,
+          "missing": 7952,
+          "old_exponent_bytes": 6356992,
+          "staged_exponent_bytes": 771441,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 120213,
+          "old_capacity": 131072,
+          "missing": 66766,
+          "old_exponent_bytes": 12713984,
+          "staged_exponent_bytes": 6476399,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 369946,
+          "old_capacity": 393216,
+          "missing": 262245,
+          "old_exponent_bytes": 38141952,
+          "staged_exponent_bytes": 25437862,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 510455,
+          "old_capacity": 655360,
+          "missing": 60829,
+          "old_exponent_bytes": 63569920,
+          "staged_exponent_bytes": 5900510,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 547777,
+          "old_capacity": 851968,
+          "missing": 38226,
+          "old_exponent_bytes": 82640896,
+          "staged_exponent_bytes": 3708019,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 702140,
+          "old_capacity": 1048576,
+          "missing": 213282,
+          "old_exponent_bytes": 101711872,
+          "staged_exponent_bytes": 20688451,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 717868,
+          "old_capacity": 1179648,
+          "missing": 22944,
+          "old_exponent_bytes": 114425856,
+          "staged_exponent_bytes": 2225665,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 839577,
+          "old_capacity": 1245184,
+          "missing": 703082,
+          "old_exponent_bytes": 120782848,
+          "staged_exponent_bytes": 68199051,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 901824,
+          "old_capacity": 1245184,
+          "missing": 161552,
+          "old_exponent_bytes": 120782848,
+          "staged_exponent_bytes": 15670641,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 2871220,
+          "old_capacity": 3407872,
+          "missing": 1900357,
+          "old_exponent_bytes": 330563584,
+          "staged_exponent_bytes": 184334726,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 3200324,
+          "old_capacity": 4718592,
+          "missing": 186042,
+          "old_exponent_bytes": 457703424,
+          "staged_exponent_bytes": 18046171,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 3894881,
+          "old_capacity": 5832704,
+          "missing": 769562,
+          "old_exponent_bytes": 565772288,
+          "staged_exponent_bytes": 74647611,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 5384335,
+          "old_capacity": 7733248,
+          "missing": 1226639,
+          "old_exponent_bytes": 750125056,
+          "staged_exponent_bytes": 118984080,
+          "reset_capacity": 2048
+        },
+        {
+          "old_load": 6530169,
+          "old_capacity": 7798784,
+          "missing": 2101181,
+          "old_exponent_bytes": 756482048,
+          "staged_exponent_bytes": 203814654,
+          "reset_capacity": 2048
+        }
+      ],
+      "F2_bitset_rounds": 0,
+      "raw_log_failure_diagnostics": [],
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "solver_processes_started_by_this_audit": 0,
+      "artifact_sha256": {
+        ".json": "44e7f1ea408df368aedc1200c01eea338829532f4b185f6e551f7430beca489f",
+        ".outer.json": "cf3d671633e80859f1985becfd506da48f6cf8c92a7809d102bc3a8ec95c4e5d",
+        ".log": "3451f97c6d8521e930916db67194ca2c7f1d3805b59780a38ad825ee48ddcd23",
+        ".outer.log": "44e7f1ea408df368aedc1200c01eea338829532f4b185f6e551f7430beca489f",
+        ".ms": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native_translation": true,
+      "coupled_variables": 95,
+      "offset_variable_index": 95,
+      "independent_offset_field_domain_retained": true,
+      "additional_factor_applied": 1,
+      "translation_source_sha256": "1e2dc884f8996c6bd1b5093f24fa6fe7d7f1002e97b69762baadfda5adf94a7f",
+      "preflight": {
+        "available_mb": 4942,
+        "required_available_mb": 4608,
+        "memory_cap_mb": 4096,
+        "seconds": 900,
+        "time_unix": 1795428760.4731758,
+        "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+        "status": "LAUNCH"
+      },
+      "preflight_sha256": "b74dbf03306b192a8cdff284ab00b3ea2dc667d21d248de3f67583848a122ac0",
+      "symbolic_row_reserve_count": 219,
+      "last_symbolic_row_reserve": {
+        "old_load": 6439449,
+        "row_length": 4424268,
+        "required_with_spare": 10863718,
+        "requested_capacity": 10878976
+      },
+      "symbolic_capacity_request_count": 219,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 10863718,
+        "exponent_old": 9830400,
+        "exponent_new": 10878976,
+        "buckets_old": 33554432,
+        "buckets_new": 33554432
+      },
+      "maximum_requested_symbolic_exponent_capacity": 10878976,
+      "native_variable_order": "minimum-fill",
+      "variable_order_source_sha256": "387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e",
+      "pre_order_input_sha256": "44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5",
+      "count_sanity_requirements": {
+        "established_lower_bound": 45083592,
+        "divisible_by": 12
+      },
+      "count_sanity_checks_passed": false,
+      "exponent_storage_bytes": 1,
+      "byte_build_review": "exact_msolve_byte_review_notes.md",
+      "input_scope_verified_independently_of_preflight": true,
+      "termination_signal": "SIGSEGV",
+      "underlying_failure_cause": "Not established by the retained artifacts; a capacity request is not an allocation-failure diagnostic."
+    },
+    {
+      "name": "exact_msolve_full_native3_sign_minfill_byte_4g",
+      "status": "BACKEND_ERROR",
+      "basis_complete": false,
+      "count_complete": false,
+      "quotient_dimension_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "count_scope": "full labeled boards",
+      "variables": 97,
+      "coupled_variables": 95,
+      "generators": 179,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "independent_offset_index": 95,
+      "independent_sign_index": 96,
+      "both_independent_factors_retained": true,
+      "input_sha256": "14247d0e4cfaff8636e99852902816d8d0ab97de47ada08cb2e40fa7576e71cf",
+      "sign_model_source_sha256": "d8e366d5dabbc3eddfe0fdf519ea87b1f37602b153e47f209f70c2553db41bbd",
+      "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+      "adapter_sha256": "a1ddee9a535651764b07e3d7d0ba86355bcde890d8e72eb4042d831af3e31afc",
+      "solver_cpu_seconds": 567.581942,
+      "solver_wall_seconds": 598.1965308720028,
+      "solver_wall_limit_seconds": 900.0,
+      "memory_mb": 4096,
+      "solver_returncode": -11,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 598.3200391479986,
+      "process_tree_cpu_seconds": 568.314047,
+      "outer_wall_limit_reached": false,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "preflight": {
+        "available_mb": 4704,
+        "required_available_mb": 4608,
+        "memory_cap_mb": 4096,
+        "seconds": 900,
+        "time_unix": 1795429362.1773906,
+        "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+        "status": "LAUNCH"
+      },
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "solver_processes_started_by_this_audit": 0,
+      "artifact_sha256": {
+        ".json": "d1a2b83760b1ebc00b91c19fd44ec8b2c8f22c391a5256622049330b04067aff",
+        ".outer.json": "d32794f9dbdf7d4946a6b01d3b1cc4fe56f6ded32e64391c7bfaccf537dad5e0",
+        ".log": "d2ba7b8c44948ac819108f41f26362f19bd24bf1d4d988c891ba7c35a8f6ba4e",
+        ".outer.log": "d1a2b83760b1ebc00b91c19fd44ec8b2c8f22c391a5256622049330b04067aff",
+        ".ms": "14247d0e4cfaff8636e99852902816d8d0ab97de47ada08cb2e40fa7576e71cf",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        ".preflight.json": "1197c33a44a5c04d83c4df5f59a57061b5eb3620511a2694fd2264c268f94cd0"
+      },
+      "completed_rounds_with_timing": 24,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2499,
+        "matrix_rows": 21124,
+        "matrix_columns": 6530168,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2691,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "last_completed_promotion": {
+        "nonpivot": 6509060,
+        "referenced": 6484402,
+        "inserted": 2101181,
+        "basis_capacity": 7929856
+      },
+      "symbolic_capacity_request_count": 219,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 10863718,
+        "exponent_old": 9830400,
+        "exponent_new": 10878976,
+        "buckets_old": 33554432,
+        "buckets_new": 33554432
+      },
+      "symbolic_staging_rounds": 14,
+      "raw_log_failure_diagnostics": [],
+      "termination_signal": "SIGSEGV",
+      "underlying_failure_cause": "Not established from a capacity request alone."
+    },
+    {
+      "name": "exact_msolve_branch3_eliminated_minfill_byte_3g",
+      "status": "BACKEND_ERROR",
+      "branch_id": 3,
+      "order": "minimum-fill",
+      "affine_eliminated": true,
+      "count_scope": "full labeled boards in branch 3",
+      "variables": 93,
+      "generators": 174,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "offset_variable_index": 91,
+      "sign_variable_index": 92,
+      "basis_complete": false,
+      "count_complete": false,
+      "branch_count_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "full_total_requires_branch_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_sha256": "f752d055d104dc6cd2d2599ce52c5931f1f6f8e082703eac42c978bfbbb033ae",
+      "branch_model_source_sha256": "e4e6cb66f9023eff839ee6fc91a0dcab54ebc07b8cfc00b0714fc69407cf5bca",
+      "branch_manifest_sha256": "91e25ac8803be65a12998e344060e3e48778e499722f30aaf7b5a663f8b2eaa0",
+      "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+      "solver_cpu_seconds": 423.038078,
+      "solver_wall_seconds": 452.1889783259976,
+      "solver_wall_limit_seconds": 900.0,
+      "memory_mb": 3072,
+      "solver_returncode": -11,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 452.3415493290013,
+      "process_tree_cpu_seconds": 423.616,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "preflight": {
+        "available_mb": 4499,
+        "required_available_mb": 3584,
+        "memory_cap_mb": 3072,
+        "seconds": 900,
+        "time_unix": 1795430056.5499668,
+        "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+        "status": "LAUNCH"
+      },
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "completed_count_evidence": null,
+      "artifact_sha256": {
+        ".json": "823626637a4a81908d901677a0775a8ae17046e53634a5fbd47daa279bd107f0",
+        ".ms": "f752d055d104dc6cd2d2599ce52c5931f1f6f8e082703eac42c978bfbbb033ae",
+        ".log": "fdcd499fab4b67e186e0be1336bb68d506f72c1d9f3a90b2600a2b4d85a06624",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        ".outer.json": "df6b4737d37bc80714b5993986e5a30be73517d94238d0c1618e41625e929f23",
+        ".preflight.json": "fb59962e685da2c063e16cc909e6083e97d4d6d80f056b46b13eec853ccfc32b"
+      },
+      "completed_rounds_with_timing": 18,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 1898,
+        "matrix_rows": 36782,
+        "matrix_columns": 4085322,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 1983,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "last_completed_promotion": {
+        "nonpivot": 4048556,
+        "referenced": 3820491,
+        "inserted": 1519984,
+        "basis_capacity": 4587520
+      },
+      "symbolic_capacity_request_count": 99,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 6881670,
+        "exponent_old": 6488064,
+        "exponent_new": 6946816,
+        "buckets_old": 16777216,
+        "buckets_new": 16777216
+      },
+      "symbolic_staging_rounds": 7,
+      "raw_log_failure_diagnostics": [],
+      "termination_signal": "SIGSEGV",
+      "underlying_failure_cause": "Not established from a capacity request alone."
+    },
+    {
+      "name": "exact_msolve_branch3_eliminated_minfill_byte_4g_waited",
+      "status": "INCOMPLETE_TIMEOUT",
+      "branch_id": 3,
+      "order": "minimum-fill",
+      "affine_eliminated": true,
+      "count_scope": "full labeled boards in branch 3",
+      "variables": 93,
+      "generators": 174,
+      "prime": 3,
+      "field": "F3",
+      "count_divisor": 1,
+      "count_multiplier": 1,
+      "offset_variable_index": 91,
+      "sign_variable_index": 92,
+      "basis_complete": false,
+      "count_complete": false,
+      "branch_count_decimal": null,
+      "full_labeled_board_count_decimal": null,
+      "full_total_requires_branch_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_sha256": "f752d055d104dc6cd2d2599ce52c5931f1f6f8e082703eac42c978bfbbb033ae",
+      "branch_model_source_sha256": "e4e6cb66f9023eff839ee6fc91a0dcab54ebc07b8cfc00b0714fc69407cf5bca",
+      "branch_manifest_sha256": "91e25ac8803be65a12998e344060e3e48778e499722f30aaf7b5a663f8b2eaa0",
+      "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+      "solver_cpu_seconds": 576.1562319999999,
+      "solver_wall_seconds": 900.2924361500045,
+      "solver_wall_limit_seconds": 900.0,
+      "memory_mb": 4096,
+      "solver_returncode": null,
+      "outer_returncode": 1,
+      "outer_wall_seconds": 900.4346078430026,
+      "process_tree_cpu_seconds": 576.993553,
+      "export_marker_count": 0,
+      "basis_file_bytes": 0,
+      "leading_export_present": false,
+      "preflight": {
+        "available_mb": 5138,
+        "required_available_mb": 4608,
+        "memory_cap_mb": 4096,
+        "seconds": 900,
+        "time_unix": 1795430733.3693414,
+        "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+        "availability_checks": [
+          {
+            "time_unix": 1795430723.360894,
+            "available_mb": 4492
+          },
+          {
+            "time_unix": 1795430728.3611798,
+            "available_mb": 4546
+          },
+          {
+            "time_unix": 1795430733.3613918,
+            "available_mb": 5138
+          }
+        ],
+        "status": "LAUNCH"
+      },
+      "backend_error_diagnostics": [
+        "missing or duplicate patched export-completion marker"
+      ],
+      "completed_count_evidence": null,
+      "artifact_sha256": {
+        ".json": "9354c17930aeafc8335e1134881ec073271f97fd62a37bbec721f52f77590b82",
+        ".ms": "f752d055d104dc6cd2d2599ce52c5931f1f6f8e082703eac42c978bfbbb033ae",
+        ".log": "51cdd4ec0b07424bcdb013685c9b6df6f7038fe62b52e62e85e1ad26c6547716",
+        ".basis": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        ".outer.json": "c1cb09ce42fec75888e17ee0f1cb3f1e273756a163f47cb94c0ca43b3f976360",
+        ".preflight.json": "cd4d738008589641a867f447d0ebbd8d56993a6f505477954061f193d53d6d54"
+      },
+      "completed_rounds_with_timing": 19,
+      "last_completed_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 1983,
+        "matrix_rows": 42571,
+        "matrix_columns": 5264659,
+        "round_timing_printed": true
+      },
+      "last_started_round": {
+        "degree": 5,
+        "selected_pairs": 16,
+        "pending_pairs_shown": 2197,
+        "matrix_rows": null,
+        "matrix_columns": null,
+        "round_timing_printed": false
+      },
+      "last_completed_promotion": {
+        "nonpivot": 5222104,
+        "referenced": 4990246,
+        "inserted": 1102046,
+        "basis_capacity": 5701632
+      },
+      "symbolic_capacity_request_count": 127,
+      "last_symbolic_capacity_request": {
+        "required_with_spare": 8863235,
+        "exponent_old": 8847360,
+        "exponent_new": 8912896,
+        "buckets_old": 33554432,
+        "buckets_new": 33554432
+      },
+      "symbolic_staging_rounds": 8,
+      "raw_log_failure_diagnostics": []
+    }
+  ],
+  "unrestricted_count": null,
+  "last_audited_at_utc": "2026-11-23T11:01:52.025154+00:00",
+  "latest_audited_trials": [
+    "exact_msolve_branch3_eliminated_minfill_byte_4g_waited"
+  ],
+  "terminal_semantics": "A terminal branch audit preserves null on incomplete results; a full total requires four independently completed branch counts.",
+  "cpu_semantics": "solver_cpu_seconds is child user+system CPU; solver_wall_seconds is elapsed child wall; process_tree_cpu_seconds is the outer wrapper total.",
+  "solver_processes_started_by_this_audit": 0
+}

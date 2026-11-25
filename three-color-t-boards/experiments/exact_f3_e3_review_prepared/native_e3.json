@@ -1,0 +1,884 @@
+{
+  "model": "ternary-native-field-f3",
+  "mode": "all-80-power-moments",
+  "variables": 96,
+  "prime": 3,
+  "field": "F3",
+  "ring_type": "ordinary polynomial ring",
+  "color_values": [
+    0,
+    1,
+    2
+  ],
+  "scope": "full labeled ternary boards",
+  "count_scope": "full labeled boards",
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "prefix": "",
+  "fixed_prefix_rows": 0,
+  "fixed_cell_count": 0,
+  "fixed_original_cells": [],
+  "symmetry_normalization": false,
+  "extension_variable": false,
+  "ternary_native_field": true,
+  "generators": 176,
+  "field_domain_equations": 96,
+  "substituted_pivot_domain_equations": 0,
+  "moment_equations": 80,
+  "retained_moment_equations": 76,
+  "eliminated_linear_moments": 4,
+  "retained_unary_quadratic_moments": 4,
+  "original_cell_order": [
+    3,
+    8,
+    15,
+    24,
+    35,
+    48,
+    63,
+    80,
+    0,
+    2,
+    7,
+    14,
+    23,
+    34,
+    47,
+    62,
+    79,
+    6,
+    11,
+    12,
+    13,
+    18,
+    19,
+    20,
+    21,
+    22,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    5,
+    10,
+    17,
+    26,
+    37,
+    50,
+    65,
+    1,
+    4,
+    9,
+    16,
+    25,
+    36,
+    49,
+    64,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99
+  ],
+  "free_prefix_variables": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98
+  ],
+  "eliminated_prefix_variables": [
+    80,
+    16,
+    81,
+    99
+  ],
+  "prefix_variable_substitutions": {
+    "80": {},
+    "16": {
+      "97": 1
+    },
+    "81": {
+      "8": 2,
+      "72": 1,
+      "98": 1
+    },
+    "99": {
+      "7": 2,
+      "9": 1,
+      "65": 2,
+      "82": 1
+    }
+  },
+  "original_color_linear_forms": {
+    "0": {
+      "7": 2,
+      "8": 1
+    },
+    "1": {
+      "71": 2,
+      "72": 1
+    },
+    "2": {
+      "8": 2,
+      "9": 1
+    },
+    "3": {
+      "0": 1
+    },
+    "4": {
+      "72": 2,
+      "73": 1
+    },
+    "5": {
+      "64": 2,
+      "65": 1
+    },
+    "6": {
+      "16": 1,
+      "94": 2
+    },
+    "7": {
+      "9": 2,
+      "10": 1
+    },
+    "8": {
+      "0": 2,
+      "1": 1
+    },
+    "9": {
+      "73": 2,
+      "74": 1
+    },
+    "10": {
+      "65": 2,
+      "66": 1
+    },
+    "11": {
+      "16": 2,
+      "17": 1
+    },
+    "12": {
+      "17": 2,
+      "18": 1
+    },
+    "13": {
+      "18": 2,
+      "19": 1
+    },
+    "14": {
+      "10": 2,
+      "11": 1
+    },
+    "15": {
+      "1": 2,
+      "2": 1
+    },
+    "16": {
+      "74": 2,
+      "75": 1
+    },
+    "17": {
+      "66": 2,
+      "67": 1
+    },
+    "18": {
+      "19": 2,
+      "20": 1
+    },
+    "19": {
+      "20": 2,
+      "21": 1
+    },
+    "20": {
+      "21": 2,
+      "22": 1
+    },
+    "21": {
+      "22": 2,
+      "23": 1
+    },
+    "22": {
+      "23": 2,
+      "24": 1
+    },
+    "23": {
+      "11": 2,
+      "12": 1
+    },
+    "24": {
+      "2": 2,
+      "3": 1
+    },
+    "25": {
+      "75": 2,
+      "76": 1
+    },
+    "26": {
+      "67": 2,
+      "68": 1
+    },
+    "27": {
+      "24": 2,
+      "25": 1
+    },
+    "28": {
+      "25": 2,
+      "26": 1
+    },
+    "29": {
+      "26": 2,
+      "27": 1
+    },
+    "30": {
+      "27": 2,
+      "28": 1
+    },
+    "31": {
+      "28": 2,
+      "29": 1
+    },
+    "32": {
+      "29": 2,
+      "30": 1
+    },
+    "33": {
+      "30": 2,
+      "31": 1
+    },
+    "34": {
+      "12": 2,
+      "13": 1
+    },
+    "35": {
+      "3": 2,
+      "4": 1
+    },
+    "36": {
+      "76": 2,
+      "77": 1
+    },
+    "37": {
+      "68": 2,
+      "69": 1
+    },
+    "38": {
+      "31": 2,
+      "32": 1
+    },
+    "39": {
+      "32": 2,
+      "33": 1
+    },
+    "40": {
+      "33": 2,
+      "34": 1
+    },
+    "41": {
+      "34": 2,
+      "35": 1
+    },
+    "42": {
+      "35": 2,
+      "36": 1
+    },
+    "43": {
+      "36": 2,
+      "37": 1
+    },
+    "44": {
+      "37": 2,
+      "38": 1
+    },
+    "45": {
+      "38": 2,
+      "39": 1
+    },
+    "46": {
+      "39": 2,
+      "40": 1
+    },
+    "47": {
+      "13": 2,
+      "14": 1
+    },
+    "48": {
+      "4": 2,
+      "5": 1
+    },
+    "49": {
+      "77": 2,
+      "78": 1
+    },
+    "50": {
+      "69": 2,
+      "70": 1
+    },
+    "51": {
+      "40": 2,
+      "41": 1
+    },
+    "52": {
+      "41": 2,
+      "42": 1
+    },
+    "53": {
+      "42": 2,
+      "43": 1
+    },
+    "54": {
+      "43": 2,
+      "44": 1
+    },
+    "55": {
+      "44": 2,
+      "45": 1
+    },
+    "56": {
+      "45": 2,
+      "46": 1
+    },
+    "57": {
+      "46": 2,
+      "47": 1
+    },
+    "58": {
+      "47": 2,
+      "48": 1
+    },
+    "59": {
+      "48": 2,
+      "49": 1
+    },
+    "60": {
+      "49": 2,
+      "50": 1
+    },
+    "61": {
+      "50": 2,
+      "51": 1
+    },
+    "62": {
+      "14": 2,
+      "15": 1
+    },
+    "63": {
+      "5": 2,
+      "6": 1
+    },
+    "64": {
+      "78": 2
+    },
+    "65": {
+      "70": 2,
+      "71": 1
+    },
+    "66": {
+      "51": 2,
+      "52": 1
+    },
+    "67": {
+      "52": 2,
+      "53": 1
+    },
+    "68": {
+      "53": 2,
+      "54": 1
+    },
+    "69": {
+      "54": 2,
+      "55": 1
+    },
+    "70": {
+      "55": 2,
+      "56": 1
+    },
+    "71": {
+      "56": 2,
+      "57": 1
+    },
+    "72": {
+      "57": 2,
+      "58": 1
+    },
+    "73": {
+      "58": 2,
+      "59": 1
+    },
+    "74": {
+      "59": 2,
+      "60": 1
+    },
+    "75": {
+      "60": 2,
+      "61": 1
+    },
+    "76": {
+      "61": 2,
+      "62": 1
+    },
+    "77": {
+      "62": 2,
+      "63": 1
+    },
+    "78": {
+      "63": 2,
+      "64": 1
+    },
+    "79": {
+      "15": 2,
+      "94": 1
+    },
+    "80": {
+      "6": 2,
+      "7": 1
+    },
+    "81": {
+      "8": 2,
+      "71": 1,
+      "95": 1
+    },
+    "82": {
+      "8": 1,
+      "71": 2,
+      "79": 1,
+      "95": 2
+    },
+    "83": {
+      "79": 2,
+      "80": 1
+    },
+    "84": {
+      "80": 2,
+      "81": 1
+    },
+    "85": {
+      "81": 2,
+      "82": 1
+    },
+    "86": {
+      "82": 2,
+      "83": 1
+    },
+    "87": {
+      "83": 2,
+      "84": 1
+    },
+    "88": {
+      "84": 2,
+      "85": 1
+    },
+    "89": {
+      "85": 2,
+      "86": 1
+    },
+    "90": {
+      "86": 2,
+      "87": 1
+    },
+    "91": {
+      "87": 2,
+      "88": 1
+    },
+    "92": {
+      "88": 2,
+      "89": 1
+    },
+    "93": {
+      "89": 2,
+      "90": 1
+    },
+    "94": {
+      "90": 2,
+      "91": 1
+    },
+    "95": {
+      "91": 2,
+      "92": 1
+    },
+    "96": {
+      "92": 2,
+      "93": 1
+    },
+    "97": {
+      "93": 2,
+      "94": 1
+    },
+    "98": {
+      "94": 2,
+      "95": 1
+    },
+    "99": {
+      "7": 2,
+      "9": 1,
+      "64": 2,
+      "79": 1,
+      "95": 2
+    }
+  },
+  "equation_labels": [
+    "field:0",
+    "field:1",
+    "field:2",
+    "field:3",
+    "field:4",
+    "field:5",
+    "field:6",
+    "field:7",
+    "field:8",
+    "field:9",
+    "field:10",
+    "field:11",
+    "field:12",
+    "field:13",
+    "field:14",
+    "field:15",
+    "field:16",
+    "field:17",
+    "field:18",
+    "field:19",
+    "field:20",
+    "field:21",
+    "field:22",
+    "field:23",
+    "field:24",
+    "field:25",
+    "field:26",
+    "field:27",
+    "field:28",
+    "field:29",
+    "field:30",
+    "field:31",
+    "field:32",
+    "field:33",
+    "field:34",
+    "field:35",
+    "field:36",
+    "field:37",
+    "field:38",
+    "field:39",
+    "field:40",
+    "field:41",
+    "field:42",
+    "field:43",
+    "field:44",
+    "field:45",
+    "field:46",
+    "field:47",
+    "field:48",
+    "field:49",
+    "field:50",
+    "field:51",
+    "field:52",
+    "field:53",
+    "field:54",
+    "field:55",
+    "field:56",
+    "field:57",
+    "field:58",
+    "field:59",
+    "field:60",
+    "field:61",
+    "field:62",
+    "field:63",
+    "field:64",
+    "field:65",
+    "field:66",
+    "field:67",
+    "field:68",
+    "field:69",
+    "field:70",
+    "field:71",
+    "field:72",
+    "field:73",
+    "field:74",
+    "field:75",
+    "field:76",
+    "field:77",
+    "field:78",
+    "field:79",
+    "field:80",
+    "field:81",
+    "field:82",
+    "field:83",
+    "field:84",
+    "field:85",
+    "field:86",
+    "field:87",
+    "field:88",
+    "field:89",
+    "field:90",
+    "field:91",
+    "field:92",
+    "field:93",
+    "field:94",
+    "field:95",
+    "moment:0,0,0,2",
+    "moment:0,0,1,1",
+    "moment:0,0,1,2",
+    "moment:0,0,2,0",
+    "moment:0,0,2,1",
+    "moment:0,0,2,2",
+    "moment:0,1,0,1",
+    "moment:0,1,0,2",
+    "moment:0,1,1,0",
+    "moment:0,1,1,1",
+    "moment:0,1,1,2",
+    "moment:0,1,2,0",
+    "moment:0,1,2,1",
+    "moment:0,1,2,2",
+    "moment:0,2,0,0",
+    "moment:0,2,0,1",
+    "moment:0,2,0,2",
+    "moment:0,2,1,0",
+    "moment:0,2,1,1",
+    "moment:0,2,1,2",
+    "moment:0,2,2,0",
+    "moment:0,2,2,1",
+    "moment:0,2,2,2",
+    "moment:1,0,0,1",
+    "moment:1,0,0,2",
+    "moment:1,0,1,0",
+    "moment:1,0,1,1",
+    "moment:1,0,1,2",
+    "moment:1,0,2,0",
+    "moment:1,0,2,1",
+    "moment:1,0,2,2",
+    "moment:1,1,0,0",
+    "moment:1,1,0,1",
+    "moment:1,1,0,2",
+    "moment:1,1,1,0",
+    "moment:1,1,1,1",
+    "moment:1,1,1,2",
+    "moment:1,1,2,0",
+    "moment:1,1,2,1",
+    "moment:1,1,2,2",
+    "moment:1,2,0,0",
+    "moment:1,2,0,1",
+    "moment:1,2,0,2",
+    "moment:1,2,1,0",
+    "moment:1,2,1,1",
+    "moment:1,2,1,2",
+    "moment:1,2,2,0",
+    "moment:1,2,2,1",
+    "moment:1,2,2,2",
+    "moment:2,0,0,0",
+    "moment:2,0,0,1",
+    "moment:2,0,0,2",
+    "moment:2,0,1,0",
+    "moment:2,0,1,1",
+    "moment:2,0,1,2",
+    "moment:2,0,2,0",
+    "moment:2,0,2,1",
+    "moment:2,0,2,2",
+    "moment:2,1,0,0",
+    "moment:2,1,0,1",
+    "moment:2,1,0,2",
+    "moment:2,1,1,0",
+    "moment:2,1,1,1",
+    "moment:2,1,1,2",
+    "moment:2,1,2,0",
+    "moment:2,1,2,1",
+    "moment:2,1,2,2",
+    "moment:2,2,0,0",
+    "moment:2,2,0,1",
+    "moment:2,2,0,2",
+    "moment:2,2,1,0",
+    "moment:2,2,1,1",
+    "moment:2,2,1,2",
+    "moment:2,2,2,0",
+    "moment:2,2,2,1",
+    "moment:2,2,2,2",
+    "e3:T",
+    "e3:T:M",
+    "e3:M:L",
+    "e3:M:R"
+  ],
+  "source": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_math_model.json",
+  "source_sha256": "cb2497554585e51166b747cee0221efc3cf7f130f46b9084d7f2e9d3b760c105",
+  "native_field_source_sha256": "fe1321842be3bf5bdb8ff91cd5b9c38017d542968fe27a8d5a8952e344564cc4",
+  "source_format": "t-board-natural-f3-prefix-v1",
+  "native_field_exporter_sha256": "e018ecb4775e35519da88a8c69c00e12967e5250f943365727ac7afb3c7edd5e",
+  "input_sha256": "cb2497554585e51166b747cee0221efc3cf7f130f46b9084d7f2e9d3b760c105",
+  "status": "PREPARED_NOT_RUN",
+  "standard_basis_complete": false,
+  "native_e3": true,
+  "native_e3_generators": 4,
+  "native_e3_source": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_math_e3_constraints.json",
+  "native_e3_source_sha256": "6cef0fb4e6b3ccb80f17f7aebadfd02fd777d082e1dedb84cdf5d9786d408392",
+  "native_e3_adapter_sha256": "b5e2013dda95066ec8ecb575157774ffa806180741c4397e4112dda746ff1583",
+  "pre_e3_input_sha256": "e9e1163bd047fdca4000333d917a26e37dbf711abebca29d27fae6d49a2c34ba",
+  "native_e3_scope": "redundant role cubics; unrestricted count unchanged",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/msolve",
+    "-g",
+    "1",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2",
+    "-m",
+    "0",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_e3_review_prepared/native_e3.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_e3_review_prepared/native_e3.basis"
+  ],
+  "adapter_sha256": "5f0fc422ed7301a8fe83cf74a6f27f3ea03e37fed555f3d8c343d6e3a2515b83",
+  "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_e3_review_prepared/native_e3.ms",
+  "linear_algebra": "exact sparse (-l 2)",
+  "log_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_e3_review_prepared/native_e3.log",
+  "log_streaming": true,
+  "threads": 1,
+  "timeout_seconds": 90,
+  "memory_mb": 2048,
+  "require_export_marker": true,
+  "basis_complete": false
+}

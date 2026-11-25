@@ -1,0 +1,7 @@
+<stdin>: In function ‘probe’:
+<stdin>:2:47: error: passing argument 1 of ‘stored_exp_write’ from incompatible pointer type [-Wincompatible-pointer-types]
+In file included from /home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/data.h:103,
+                 from <stdin>:1:
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb/stored_exp.h:23:51: note: expected ‘stored_exp_t *’ but argument is of type ‘exp_t *’ {aka ‘unsigned char *’}
+   23 | static inline void stored_exp_write(stored_exp_t *vector,const size_t index,
+      |                                     ~~~~~~~~~~~~~~^~~~~~

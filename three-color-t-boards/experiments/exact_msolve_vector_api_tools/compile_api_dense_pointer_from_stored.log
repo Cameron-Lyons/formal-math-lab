@@ -1,0 +1,2 @@
+<stdin>: In function ‘probe’:
+<stdin>:2:39: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]

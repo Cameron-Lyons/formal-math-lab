@@ -1,0 +1,11 @@
+{
+  "status": "PREPARED_AND_SOURCE_CHECKED_ONLY",
+  "full_input_sha256": "14247d0e4cfaff8636e99852902816d8d0ab97de47ada08cb2e40fa7576e71cf",
+  "model_sha256": "d8e366d5dabbc3eddfe0fdf519ea87b1f37602b153e47f209f70c2553db41bbd",
+  "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+  "variables": 97,
+  "generators": 179,
+  "terminal_audit_not_run": true,
+  "progress_parser_checked_against_prior_terminal_log": true,
+  "solver_processes_started": 0
+}

@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "helper_sha256": "471ba502694cd18fee5a75415aa8489b4ef1e8c26264c27110de4dae08e87234",
+  "owner_hash_c_sha256": "81104b9e535ff3cc057611238a9987c718099f0ba2431d38c734d667e662aefd",
+  "real_realloc_and_collision_cases": 3,
+  "checked_allocation_failure_stages": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "independently_checked_capacity_plans": [
+    {
+      "old_capacity": 8,
+      "load": 6,
+      "missing": 1,
+      "expected_capacity": 8,
+      "expected_buckets": 16
+    },
+    {
+      "old_capacity": 65536,
+      "load": 65535,
+      "missing": 0,
+      "expected_capacity": 65536,
+      "expected_buckets": 131072
+    },
+    {
+      "old_capacity": 65536,
+      "load": 65535,
+      "missing": 1,
+      "expected_capacity": 131072,
+      "expected_buckets": 262144
+    },
+    {
+      "old_capacity": 131072,
+      "load": 12,
+      "missing": 131060,
+      "expected_capacity": 196608,
+      "expected_buckets": 524288
+    },
+    {
+      "old_capacity": 131072,
+      "load": 12,
+      "missing": 131060,
+      "expected_capacity": 196608,
+      "expected_buckets": 1048576
+    },
+    {
+      "old_capacity": 2097152,
+      "load": 2080795,
+      "missing": 55218,
+      "expected_capacity": 2162688,
+      "expected_buckets": 8388608
+    },
+    {
+      "old_capacity": 536870912,
+      "load": 1,
+      "missing": 1073741822,
+      "expected_capacity": 1073741824,
+      "expected_buckets": 2147483648
+    }
+  ],
+  "rejected_arithmetic_layout_cases": [
+    "zero-capacity",
+    "zero-load",
+    "load-over-capacity",
+    "zero-width",
+    "non-power-buckets",
+    "insufficient-buckets",
+    "legacy-bucket-limit",
+    "entry-limit",
+    "spare-at-max",
+    "huge-additional",
+    "simulated-size32-metadata-overflow",
+    "simulated-size32-vector-overflow",
+    "simulated-size32-bucket-overflow"
+  ],
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "no_full_solver_run": true,
+  "size32_note": "SIZE_MAX was restricted in a native64 harness to exercise32-bit allocation guards; not a32-bit executable."
+}

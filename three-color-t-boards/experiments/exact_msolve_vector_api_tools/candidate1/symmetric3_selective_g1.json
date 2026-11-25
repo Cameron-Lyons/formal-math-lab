@@ -1,0 +1,120 @@
+{
+  "symbolic_requests": [
+    {
+      "old_load": 1,
+      "row_length": 3,
+      "required_with_spare": 5,
+      "requested_capacity": 8
+    },
+    {
+      "old_load": 5,
+      "row_length": 3,
+      "required_with_spare": 9,
+      "requested_capacity": 16
+    },
+    {
+      "old_load": 13,
+      "row_length": 3,
+      "required_with_spare": 17,
+      "requested_capacity": 32
+    }
+  ],
+  "staging_events": [
+    {
+      "old_load": 15,
+      "old_capacity": 32,
+      "missing": 2,
+      "old_exponent_bytes": 128,
+      "staged_exponent_bytes": 12,
+      "reset_capacity": 32
+    }
+  ],
+  "name": "symmetric3",
+  "kind": "selective",
+  "mode": 1,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/symmetric3_selective_g1.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/symmetric3_selective_g1.basis",
+    "-g",
+    "1",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 20,
+  "wall_seconds": 0.011077334995206911,
+  "cpu_seconds": 0.005344999999999989,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "5ccf7a6307cd20983692d63fe3e7d624d64e61659f97edaa48544164c2020490",
+  "input_sha256": "ac259ac5564e281bf2add2bff62e449684b7f1ab6ad756562e05d8d0e9132bcd",
+  "executable_sha256": "86d7819cf841389ae428142140d2b4171b9f14efc6f8b211dc9514db61ba22dc",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/symmetric3_selective_g1.basis",
+  "promotion_events": [
+    {
+      "nonpivot": 4,
+      "referenced": 4,
+      "inserted": 2,
+      "basis_capacity": 65536
+    },
+    {
+      "nonpivot": 4,
+      "referenced": 4,
+      "inserted": 4,
+      "basis_capacity": 65536
+    },
+    {
+      "nonpivot": 2,
+      "referenced": 2,
+      "inserted": 0,
+      "basis_capacity": 65536
+    }
+  ],
+  "reservation_events": [
+    {
+      "nonpivot": 4,
+      "referenced": 4,
+      "missing": 2,
+      "basis_load": 16,
+      "basis_capacity": 16
+    },
+    {
+      "nonpivot": 4,
+      "referenced": 4,
+      "missing": 4,
+      "basis_load": 27,
+      "basis_capacity": 65536
+    },
+    {
+      "nonpivot": 2,
+      "referenced": 2,
+      "missing": 0,
+      "basis_load": 41,
+      "basis_capacity": 65536
+    }
+  ],
+  "capacity_requests": [
+    {
+      "required_with_spare": 19,
+      "exponent_old": 16,
+      "exponent_new": 65536,
+      "buckets_old": 32,
+      "buckets_new": 131072
+    }
+  ]
+}

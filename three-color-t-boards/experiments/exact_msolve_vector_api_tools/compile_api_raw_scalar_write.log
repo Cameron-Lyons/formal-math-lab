@@ -1,0 +1,2 @@
+<stdin>: In function ‘probe’:
+<stdin>:2:42: error: incompatible types when assigning to type ‘stored_exp_t’ from type ‘int’

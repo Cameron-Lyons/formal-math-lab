@@ -1,0 +1,89 @@
+{
+  "format": "t-board-four-linear-sign-branches-v1",
+  "status": "EXPORTED_UNEVALUATED",
+  "coefficient_characteristic": 3,
+  "variables_per_branch": 97,
+  "scope": "partition of every full labeled valid ternary board by first nonzero coordinate of P0-P3",
+  "required_branch_ids": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "branches": [
+    {
+      "branch_id": 0,
+      "role": "T",
+      "generators": 179,
+      "linear_constraint_rank": 1,
+      "extra_branch_constraint_terms": 2,
+      "natural_input": "exact_f3_sign_branch0_natural.ms",
+      "natural_sha256": "43725b768d9bda8fe51f1500a540db2718b6996f6cb9a0a6fe8c67b1b1da697c",
+      "minfill_input": "exact_f3_sign_branch0_minfill.ms",
+      "minfill_sha256": "75418d3a482251d7e677b34a1fb74f9aa9275988effa9cfeab7c355ab28d3be9",
+      "count_status": "UNEVALUATED"
+    },
+    {
+      "branch_id": 1,
+      "role": "L",
+      "generators": 180,
+      "linear_constraint_rank": 2,
+      "extra_branch_constraint_terms": 6,
+      "natural_input": "exact_f3_sign_branch1_natural.ms",
+      "natural_sha256": "9619f4951b1a23bad87db99379f404a38503b0b5ae37bb2e05de633f31636743",
+      "minfill_input": "exact_f3_sign_branch1_minfill.ms",
+      "minfill_sha256": "ecf46e80a8e8a12ba21cacbc5a358184a06bb109acaa76075ea89cf3e77ad0f4",
+      "count_status": "UNEVALUATED"
+    },
+    {
+      "branch_id": 2,
+      "role": "M",
+      "generators": 181,
+      "linear_constraint_rank": 3,
+      "extra_branch_constraint_terms": 9,
+      "natural_input": "exact_f3_sign_branch2_natural.ms",
+      "natural_sha256": "feef4c21958fa7881c6eed531877ea1eda3f8334c20ac4bc4d26a5f9af8c37ba",
+      "minfill_input": "exact_f3_sign_branch2_minfill.ms",
+      "minfill_sha256": "9a19cf697b2cd1a9f61a40dc321ea1f5300c3267e199cbb40ca8ea7e975d6750",
+      "count_status": "UNEVALUATED"
+    },
+    {
+      "branch_id": 3,
+      "role": "R",
+      "generators": 182,
+      "linear_constraint_rank": 4,
+      "extra_branch_constraint_terms": 11,
+      "natural_input": "exact_f3_sign_branch3_natural.ms",
+      "natural_sha256": "44ef110d5434d5ffb17dedfb8894102ac0a76e6cb3f6840b8f4fc349f6e1b275",
+      "minfill_input": "exact_f3_sign_branch3_minfill.ms",
+      "minfill_sha256": "280807c8feafaea21bace6907ebb83ab7abe01f360562f1b326e2b2e558e96f2",
+      "count_status": "UNEVALUATED"
+    }
+  ],
+  "count_rule": "N=N0+N1+N2+N3, with one certified quotient dimension for each branch",
+  "count_multiplier": 1,
+  "count_divisor": 1,
+  "completion_rule": "Do not report N until all four branch dimensions are certified for these exact complete inputs. Natural/minfill inputs are two representations of the same branch and must not both be added. Missing, partial or timed-out branches remain unknown, not zero.",
+  "known_six_prefix_prediction": {
+    "prefix": "100011101011000101010011112112211212021201221022121202020220010222002102100022222",
+    "original_apex": 1,
+    "selected_difference": [
+      1,
+      2,
+      0,
+      2
+    ],
+    "branch_id": 0,
+    "forced_offset": 1,
+    "forced_sign": 1,
+    "expected_fixed_prefix_dimensions_by_branch": [
+      "6",
+      "0",
+      "0",
+      "0"
+    ],
+    "prediction_provenance": "known six-completion prefix, plus direct first-nonzero classification; no branch solver run"
+  },
+  "no_count_proportionality_claim": "Difference-space sizes54,18,6,2 are not board-count ratios.",
+  "full_count_status": "UNEVALUATED; no solver"
+}

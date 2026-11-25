@@ -1,0 +1,84 @@
+{
+  "symbolic_requests": [
+    {
+      "old_load": 1,
+      "row_length": 3,
+      "required_with_spare": 5,
+      "requested_capacity": 8
+    },
+    {
+      "old_load": 6,
+      "row_length": 2,
+      "required_with_spare": 9,
+      "requested_capacity": 16
+    }
+  ],
+  "staging_events": [],
+  "name": "squares2",
+  "kind": "selective",
+  "mode": 1,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_byte_exponent_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_byte_exponent_tools/squares2_selective_g1.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_byte_exponent_tools/squares2_selective_g1.basis",
+    "-g",
+    "1",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 20,
+  "wall_seconds": 0.004357264995633159,
+  "cpu_seconds": 0.0023079999999999767,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "c7622a4e7f65fcebbf504f18162066987576dd2706023bd3720fe06871ea31be",
+  "input_sha256": "8cc9360410c828aaabe6e4b449e1b8da6ac4ef2bc2e8fb1f243e5ef18e05d8ec",
+  "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_byte_exponent_tools/squares2_selective_g1.basis",
+  "promotion_events": [
+    {
+      "nonpivot": 2,
+      "referenced": 1,
+      "inserted": 1,
+      "basis_capacity": 16
+    },
+    {
+      "nonpivot": 2,
+      "referenced": 1,
+      "inserted": 1,
+      "basis_capacity": 16
+    }
+  ],
+  "reservation_events": [
+    {
+      "nonpivot": 2,
+      "referenced": 1,
+      "missing": 1,
+      "basis_load": 10,
+      "basis_capacity": 16
+    },
+    {
+      "nonpivot": 2,
+      "referenced": 1,
+      "missing": 1,
+      "basis_load": 14,
+      "basis_capacity": 16
+    }
+  ],
+  "capacity_requests": []
+}

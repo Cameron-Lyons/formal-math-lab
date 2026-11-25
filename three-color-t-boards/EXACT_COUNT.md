@@ -70,6 +70,13 @@ Global cubic homogeneity recovers the apex factor three and supplies no
 additional reduction. The characteristic-29 apex-zero algebra trial also
 exhausted its 2 GiB limit before producing a basis or count.
 
+The [msolve cap auditor](experiments/exact_msolve_cap_split_notes.md) now
+supports the same complete ten-case sum with explicit coefficient-extension
+divisors and strict input/basis provenance. Its independent geometry audit
+checks all ten models in both characteristics 2 and 29. The first four-cell
+case, `0000`, timed out after 180 seconds without a basis; no required cap
+count has yet been obtained.
+
 ## Exact algorithms and their measured limits
 
 The [row-transfer census](experiments/exact_algo_frontier.cpp) merges prefixes
@@ -367,6 +374,190 @@ An [independent actual-input audit](experiments/exact_parity_math_reduced_input_
 rederives the substitution geometrically and verifies that all four
 eliminated-cell cubic domains remain present. Both exports retain the full
 unrestricted count, with no symmetry or coefficient-extension factor.
+Further reviewed allocation changes pass the earlier storage boundary but
+encounter a null allocation during the following linear-algebra round,
+confirmed by debugger registers and disassembly. Reducing the pair-batch
+target to one avoids that crash within a 180-second trial, which nevertheless
+times out in degree four with no completed basis. A proposed retry with a
+3 GiB memory cap was prevented from starting by its available-memory check.
+No result from these trials is an exact total or an exact zero.
+
+A separate [signed-permutation investigation](experiments/exact_sign_math.md)
+rules out a particular determinant shortcut. Horizontal reflection reverses
+the sign of the 81-pattern permutation, so the unrestricted signed sum is
+exactly zero. Two certified canonical boards share their first nine rows and
+all 19 rotor-boundary colors yet have opposite signs. A universal six-board
+identity also rules out fixed products of per-cell/color weights that make
+all unrestricted terms positive or equal. A separate 56-board XOR certificate
+rules out real sign corrections of that factorized form even on canonical
+representatives. These are exact obstructions to those specific shortcuts,
+not an exclusion of every determinant or Pfaffian approach. The embedded
+certificates pass independent inversion/cycle sign and geometric checks.
+
+A [rotor scheduling audit](experiments/exact_rotor_abelian.md) also gives a
+specific obstruction to an abelian-network shortcut: with the same boundary
+and local permutations, swapping two independent ready updates can change
+completion into capacity failure. Re-encoding the permutations for a new
+legal schedule nevertheless gives a bijection of accepted tuples, including
+for deterministic adaptive schedulers that inspect only revealed data.
+This preserves exact counting across schedules; it supplies no evaluated
+total or runtime improvement.
+
+## Redundant elementary color-balance equations
+
+The [elementary-symmetric audit](experiments/exact_parity_math_elementary.md)
+adds exact unary histogram information as low-degree algebraic consequences.
+For each role, the 81 colors comprise 27 copies of each nonzero F4 element,
+so their generating polynomial is `(1+t^3)^27`. In particular its quadratic
+elementary coefficient is zero. One whole-role quadratic and three sparse
+boundary differences give four additional equations; their Frobenius
+partners may also be included.
+
+All 3,403 possible triples of nonnegative color counts summing to 81 were
+checked independently. The power-of-two coefficients `e1,e2,e4,e8,e16`
+vanishing force exactly `(27,27,27)`; `e1=e2=0` already forces each count
+congruent to three modulo four. The first augmentation uses only
+the four `e2` equations and their Frobenius partners, not all five layers.
+Ordinary squared variables are retained. The new quadratics add independent
+low-degree consequences to the existing reduced model. Radicality of the
+cubic-domain quotient proves that these generators leave the complete
+Fourier ideal, hence the unrestricted quotient dimension, unchanged.
+
+An [audited change to cumulative-sum coordinates](experiments/exact_pivot_review_prefix_notes.md)
+substantially reduces the size of these equations. Order cells by their
+membership in the four roles and set `y_j = z_0 + ... + z_j` in that order.
+The inverse is `z_j = y_j + y_(j-1)`. The four unary equations then have
+only 1, 2, 4 and 5 terms; eliminating four prefix variables leaves an
+isomorphic 96-variable quotient. The transformed 100 color-domain cubics
+have 532 terms in total, and the eight elementary equations have 616.
+
+Prefix variables can equal zero. The exporter therefore retains the
+transformed original color cubics, rather than imposing individual
+`y_j^3+1` domains. Optional `y_j^4+y_j` equations are explicit consequences
+of those cubics. Independent checks rebuild every polynomial, verify the
+coordinate inverse, and check all eight export options. The full model
+with a known nine-row prefix appended reproduces its six completions;
+this is a validation case, not the unrestricted count. The unrestricted
+run reaches degree five but fails a checked monomial-storage allocation
+under a 3 GiB cap, before exporting a basis or count. Its
+[terminal audit](experiments/exact_msolve_notes.md) preserves that distinction.
+
+A further [quartic augmentation](experiments/exact_pivot_math_prefix_e4.md)
+adds the next histogram layer, `e4=0`, with 14,194 terms and no auxiliary
+variables. One whole-role equation and three boundary differences suffice;
+explicit polynomial identities justify the differences using the retained
+unary, quadratic and cell-domain equations. Independent product expansion
+checks all four quartics. Together the first three layers force each role's
+color counts to be three modulo eight. No `e8` or `e16` constraints have
+been added to the solver model.
+
+## An exact model over the three-element field
+
+The [natural F3 formulation](experiments/exact_f3_math.md) uses the actual
+palette `0,1,2` and individual field equations `z^3-z=0`. For each nonzero
+exponent tuple in `{0,1,2}^4`, sum the corresponding color product over all
+81 placements. Every target is zero except the all-two tuple, whose target
+is one. The indicator `1-(z-c)^2` shows that these equations make every
+pattern count congruent to one modulo three. Each count is therefore
+positive, and the 81 available placements force all 81 counts to equal one.
+
+[ExactNativeMoments.lean](ExactNativeMoments.lean) kernel-checks this exact
+equivalence for the original board predicate, using precisely the 80 power
+sums over actual geometric placements. Its proof includes the finite
+inverse transform, modular-count saturation and the automatic constant
+moment; it uses only Lean's standard axioms. The algebraic dimension
+calculation remains a separate computational step.
+
+```sh
+lake build ExactNativeMoments
+```
+
+In characteristic three, linear coordinate changes preserve the individual
+field-domain ideal. The signed cumulative-sum transformation and four unary
+eliminations consequently need only 96 independent field cubics, together
+with 76 remaining moments. There are no substituted pivot domains or
+coefficient-extension factors; the quotient dimension is exactly the full
+labeled count. Independent geometric expansion checks all 172 generators.
+A separate fixed-prefix run reproduces six completions directly over F3.
+
+Four additional [role-histogram cubics](experiments/exact_f3_math_e3.md)
+require just 574 terms and no new variables. Explicit identities prove
+they are redundant consequences of full validity, with the existing unary
+quadratic moments justifying the sparse boundary differences. These are
+separate from the characteristic-two histogram equations. Neither exact
+formulation by itself evaluates the unrestricted count.
+The full F3 trial reaches degree five and successfully uses the reviewed
+temporary-storage compaction, but then fails another exponent-table
+allocation under its 3 GiB cap. Its
+[independent terminal audit](experiments/exact_f3_terminal_review_results.json)
+records no completed basis or count.
+
+An [exact translation factorization](experiments/exact_f3_translation.md)
+separates the global color shift. It leaves 95 coupled coordinates and one
+independent apex-color variable satisfying `a^3-a=0`. Triangular binomial
+identities prove equality of the moment ideals before and after this change.
+The independent variable remains in the exported ring, so its quotient
+dimension already includes all three shifts and still equals the full
+labeled count; no external multiplier belongs on this export.
+The translated model reproduces the known six-completion prefix, with the
+actual apex condition fixing the offset. Its subsequent unrestricted trial
+times out after 300 seconds with no basis or count; the smaller-growth
+allocator records no allocation error in that run.
+
+An [independently checked variable permutation](experiments/exact_f3_order.md)
+preserves every equation and the independent offset factor. It improves a
+monomial-cooccurrence graph heuristic; the full polynomial-support graph
+remains complete, so the graph calculation establishes no decomposition or
+solver-runtime guarantee.
+
+The same native-F3 model was also tried with
+[Singular's two standard-basis algorithms](experiments/exact_native_singular.md).
+Both exhausted a 3 GiB memory allowance without completing a basis: `slimgb`
+after about 42 seconds and `std` after about 67 seconds. Both reproduced the
+known six-completion prefix before the unrestricted trials; those checks do
+not supply the full count.
+
+A narrowly scoped [checked byte-exponent build](experiments/exact_msolve_byte_review_notes.md)
+halves the exponent-vector storage used by these F3 models. It retains
+ordinary polynomial arithmetic and rejects overflow before narrowing.
+Independent complete-basis comparisons, finite-field enumeration and
+sanitizer boundary tests passed. This is a storage improvement, not a
+completed count.
+
+A further [exact sign factorization](experiments/exact_f3_sign.md) selects
+one normalized board from each global-negation pair with a degree-five
+polynomial. An independent two-valued sign and the existing three-valued
+offset recover every original board uniquely. Both factors remain inside
+the exported 97-variable ideal, whose dimension is still the full count.
+The added constraint has 180 terms and introduces a nonzero target at degree
+five. Its effect on the full calculation remains to be measured.
+An independently checked fixed-prefix run reproduces six completions using
+the new bilinear color reconstruction.
+
+An alternative [four-branch partition](experiments/exact_f3_sign_branches.md)
+uses only linear equations to choose the first nonzero difference between
+two distinct patterns. Every valid board belongs to exactly one branch;
+the color-shift and sign factors remain inside each branch's quotient.
+The unrestricted count is the sum of all four completed branch dimensions.
+Two variable orders of the same branch are alternatives and must not both
+be added. Missing or unfinished branches remain unknown, not zero.
+Independent solver fixtures reproduce branch dimensions `6,0,0,0` for the
+known nine-row prefix, with both integer counters agreeing. These completed
+fixtures do not evaluate the four unrestricted branches.
+
+An [affine elimination](experiments/exact_f3_branch_elimination.md) removes
+the solved branch coordinates, leaving 96, 95, 94 and 93 variables. Explicit
+identities preserve every original field domain; independent substitution
+checks cover every moment and histogram equation. These are alternative
+representations of the same four branches, with the same sum rule.
+The reduced models independently reproduce the known-prefix dimensions
+`6,0,0,0` as well.
+
+A separate full-label Boolean encoding of branch 3 adds only 21 direct
+equality/inequality clauses to the existing parsimonious CNF. An exhaustive
+2,187-assignment check verifies the added relation. Its bounded deterministic
+GANAK trial timed out after 60 seconds without a count or satisfiability
+conclusion; the artifacts are `experiments/exact_f3_branch3_ganak.*`.
 
 ## The remaining obstacle
 

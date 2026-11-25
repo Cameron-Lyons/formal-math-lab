@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "backend_sha256": "85f70b2d8eab1a215c28b46fda08b17c726e8ee993ccc24a2e5b99b447c26888",
+  "backend_sha256": "c8b5eecfba93e6bf19dc77bb447f9857e6ded2684d60a431fde4160c189643f0",
   "geometry_models_checked": 39,
   "independent_polynomial_comparisons": 5150,
   "field_extension_fixtures": [
@@ -111,6 +111,9 @@
     }
   ],
   "rejected_rerun_preserves_prior_artifacts": true,
+  "child_log_readable_before_process_returns": true,
+  "timeout_preserves_written_log": true,
+  "existing_log_never_overwritten": true,
   "actual_solver_processes_started": 0,
   "note": "Mock COMPLETE results test control flow only; they are not solver counts or new board results."
 }

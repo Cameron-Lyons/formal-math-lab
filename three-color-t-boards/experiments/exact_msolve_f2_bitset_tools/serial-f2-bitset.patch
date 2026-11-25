@@ -1,0 +1,242 @@
+--- a/src/neogb/la_ff_8.c
++++ b/src/neogb/la_ff_8.c
+@@ -2206,6 +2206,8 @@
+     }
+ }
+ 
++#include "la_ff_2_bitset.c"
++
+ static void exact_sparse_linear_algebra_ff_8(
+         mat_t *mat,
+         const bs_t * const tbr,
+@@ -2220,9 +2222,15 @@
+ 
+     /* allocate temporary storage space for sparse
+      * coefficients of all pivot rows */
+-    mat->cf_8  = realloc(mat->cf_8,
+-            (uint64_t)mat->nr * sizeof(cf8_t *));
+-    exact_sparse_reduced_echelon_form_ff_8(mat, tbr, bs, st);
++    if (st->fc == 2 && st->laopt == 2 && st->nthrds == 1 &&
++            st->trace_level == NO_TRACER && st->nf == 0 &&
++            st->in_final_reduction_step == 0 && st->nev == 0 && st->print_gb > 0) {
++        exact_sparse_reduced_echelon_form_ff_2_bitset(mat, tbr, bs, st);
++    } else {
++        mat->cf_8  = realloc(mat->cf_8,
++                (uint64_t)mat->nr * sizeof(cf8_t *));
++        exact_sparse_reduced_echelon_form_ff_8(mat, tbr, bs, st);
++    }
+ 
+     /* timings */
+     ct1 = cputime();
+--- /dev/null
++++ b/src/neogb/la_ff_2_bitset.c
+@@ -0,0 +1,209 @@
++/* Serial exact F2 matrix reduction for ordinary, non-tracing F4 exports.
++ * Included by la_ff_8.c; this does not impose any identities on variables.
++ * Old reducer rows remain sparse; only new pivots are packed. */
++
++typedef struct {
++    uint64_t *bits;
++    len_t lead;
++    hm_t coefficient_slot, multiplier, basis_index;
++} f2_bitset_pivot_t;
++
++static void f2_bitset_failure(const char *message)
++{
++    fprintf(ERRSTREAM, "MSOLVE_F2_BITSET_ERROR: %s\n", message);
++    fflush(ERRSTREAM);
++    exit(EXIT_FAILURE);
++}
++
++static void *f2_bitset_allocate(size_t count, size_t item_size)
++{
++    if (item_size == 0 || count > SIZE_MAX / item_size)
++        f2_bitset_failure("allocation size overflow");
++    if (count == 0) return NULL;
++    void *result = calloc(count, item_size);
++    if (result == NULL) f2_bitset_failure("allocation failed");
++    return result;
++}
++
++/* ncols is the sentinel.  Masking shift is always in [0,63]. */
++static len_t f2_bitset_next(const uint64_t *bits, len_t start, len_t ncols)
++{
++    if (start >= ncols) return ncols;
++    size_t word = (size_t)start / 64;
++    const size_t words = ((size_t)ncols + 63) / 64;
++    uint64_t value = bits[word] & (UINT64_MAX << (start % 64));
++    for (;;) {
++        if (value != 0) {
++            const size_t column = 64 * word + (unsigned)__builtin_ctzll(value);
++            return column < ncols ? (len_t)column : ncols;
++        }
++        if (++word == words) return ncols;
++        value = bits[word];
++    }
++}
++
++static void f2_bitset_check_row(const hm_t *row, const cf8_t *coefficients,
++        len_t ncols, uint64_t *seen)
++{
++    if (row == NULL || coefficients == NULL || row[LENGTH] == 0 ||
++            row[LENGTH] > ncols || row[PRELOOP] != row[LENGTH] % UNROLL)
++        f2_bitset_failure("invalid sparse row");
++    for (len_t j = 0; j < row[LENGTH]; ++j) {
++        const len_t column = row[OFFSET+j];
++        if (column >= ncols || coefficients[j] != 1 ||
++                (j != 0 && column <= row[OFFSET]) ||
++                ((seen[column/64] >> (column%64)) & 1))
++            f2_bitset_failure("invalid F2 support or coefficient");
++        seen[column/64] |= UINT64_C(1) << (column%64);
++    }
++    /* The converter keeps the leading term first but may permute tails
++     * when it partitions known/unknown pivot columns (convert.c). */
++    for (len_t j = 0; j < row[LENGTH]; ++j) {
++        const len_t column = row[OFFSET+j];
++        seen[column/64] &= ~(UINT64_C(1) << (column%64));
++    }
++}
++
++static int f2_bitset_descending_lead(const void *left, const void *right)
++{
++    const f2_bitset_pivot_t *a = left, *b = right;
++    return (a->lead < b->lead) - (a->lead > b->lead);
++}
++
++static void exact_sparse_reduced_echelon_form_ff_2_bitset(
++        mat_t *mat, const bs_t * const tbr, const bs_t * const bs, md_t *st)
++{
++    const len_t ncols = mat->nc, ncl = mat->ncl, nrl = mat->nrl;
++    const size_t words = ((size_t)ncols + 63) / 64;
++    if (st->fc != 2 || st->laopt != 2 || st->nthrds != 1 ||
++            st->trace_level != NO_TRACER || st->nf != 0 ||
++            st->in_final_reduction_step != 0 || st->nev != 0 || st->print_gb <= 0 ||
++            mat->nru != ncl || ncl > ncols || mat->ncr != ncols-ncl ||
++            (ncl != 0 && (mat->rr == NULL || bs == NULL || bs->cf_8 == NULL)) ||
++            (nrl != 0 && (mat->tr == NULL || tbr == NULL || tbr->cf_8 == NULL)))
++        f2_bitset_failure("unsupported mode or matrix layout");
++
++    uint64_t *work = f2_bitset_allocate(words, sizeof(*work));
++    /* Validate borrowed coefficients before freeing any matrix rows.
++     * These arrays belong to the basis and are never modified or freed. */
++    for (len_t i = 0; i < ncl; ++i) {
++        hm_t *row = mat->rr[i];
++        if (row == NULL || row[COEFFS] >= bs->ld)
++            f2_bitset_failure("invalid known coefficient index");
++        f2_bitset_check_row(row, bs->cf_8[row[COEFFS]], ncols, work);
++        if (row[OFFSET] != i)
++            f2_bitset_failure("known pivots are not the ordered left block");
++    }
++    for (len_t i = 0; i < nrl; ++i) {
++        hm_t *row = mat->tr[i];
++        if (row == NULL || row[COEFFS] >= tbr->ld)
++            f2_bitset_failure("invalid lower coefficient index");
++        f2_bitset_check_row(row, tbr->cf_8[row[COEFFS]], ncols, work);
++    }
++
++    f2_bitset_pivot_t *pivots = f2_bitset_allocate(nrl, sizeof(*pivots));
++    len_t npivots = 0;
++    for (len_t i = 0; i < nrl; ++i) {
++        hm_t *row = mat->tr[i];
++        f2_bitset_pivot_t candidate = {
++            .bits = work, .lead = ncols, .coefficient_slot = i,
++            .multiplier = row[MULT], .basis_index = row[BINDEX]};
++        for (len_t j = 0; j < row[LENGTH]; ++j) {
++            const len_t column = row[OFFSET+j];
++            work[column/64] |= UINT64_C(1) << (column%64);
++        }
++        free(row);
++        mat->tr[i] = NULL;
++
++        /* At column c all earlier pivot columns are zero.  A reducer has
++         * leading column c, so XOR cannot reintroduce an earlier column. */
++        len_t column = f2_bitset_next(work, 0, ncols);
++        while (column < ncols) {
++            if (column < ncl) {
++                const hm_t *known = mat->rr[column];
++                for (len_t j = 0; j < known[LENGTH]; ++j) {
++                    const len_t c = known[OFFSET+j];
++                    work[c/64] ^= UINT64_C(1) << (c%64);
++                }
++            } else {
++                len_t p = 0;
++                while (p < npivots && pivots[p].lead != column) ++p;
++                if (p < npivots) {
++                    for (size_t w = column/64; w < words; ++w)
++                        work[w] ^= pivots[p].bits[w];
++                }
++            }
++            column = f2_bitset_next(work, column+1, ncols);
++        }
++        candidate.lead = f2_bitset_next(work, ncl, ncols);
++        if (candidate.lead < ncols) {
++            pivots[npivots++] = candidate;
++            work = f2_bitset_allocate(words, sizeof(*work));
++        }
++        /* A zero reduction leaves the existing workspace entirely zero. */
++    }
++    free(work);
++
++    /* No lower row can need an old reducer after forward elimination.
++     * Release their potentially large sparse supports BEFORE emitting any
++     * new sparse row.  Borrowed coefficient arrays remain basis-owned. */
++    for (len_t i = 0; i < ncl; ++i) {
++        free(mat->rr[i]);
++        mat->rr[i] = NULL;
++    }
++    free(mat->tr);
++    mat->tr = NULL;
++
++    if (npivots > 1)
++        qsort(pivots, npivots, sizeof(*pivots), f2_bitset_descending_lead);
++    for (len_t i = 0; i < npivots; ++i) {
++        for (len_t j = 0; j < i; ++j) {
++            const len_t lead = pivots[j].lead;
++            if ((pivots[i].bits[lead/64] >> (lead%64)) & 1) {
++                for (size_t w = lead/64; w < words; ++w)
++                    pivots[i].bits[w] ^= pivots[j].bits[w];
++            }
++        }
++    }
++
++    /* Coefficient slots preserve the original lower-row indices, just as
++     * in the serial generic kernel.  Only pointer containers are replaced. */
++    free(mat->cf_8);
++    mat->cf_8 = f2_bitset_allocate(nrl, sizeof(*mat->cf_8));
++    mat->tr = f2_bitset_allocate(npivots, sizeof(*mat->tr));
++    size_t output_terms = 0;
++    for (len_t i = 0; i < npivots; ++i) {
++        f2_bitset_pivot_t *p = pivots+i;
++        size_t length = 0;
++        for (size_t w = 0; w < words; ++w)
++            length += (unsigned)__builtin_popcountll(p->bits[w]);
++        if (length == 0 || length > ncols || length > SIZE_MAX-OFFSET)
++            f2_bitset_failure("invalid output support length");
++        hm_t *row = f2_bitset_allocate(length+OFFSET, sizeof(*row));
++        cf8_t *coefficients = f2_bitset_allocate(length, sizeof(*coefficients));
++        size_t j = 0;
++        for (len_t column = f2_bitset_next(p->bits, 0, ncols); column < ncols;
++                column = f2_bitset_next(p->bits, column+1, ncols)) {
++            row[OFFSET+j] = column;
++            coefficients[j++] = 1;
++        }
++        if (j != length || row[OFFSET] != p->lead)
++            f2_bitset_failure("output support invariant failed");
++        row[BINDEX] = p->basis_index;
++        row[MULT] = p->multiplier;
++        row[COEFFS] = p->coefficient_slot;
++        row[PRELOOP] = length % UNROLL;
++        row[LENGTH] = (len_t)length;
++        mat->tr[i] = row;
++        mat->cf_8[p->coefficient_slot] = coefficients;
++        output_terms += length;
++        free(p->bits);
++    }
++    free(pivots);
++    st->np = mat->np = mat->nr = mat->sz = npivots;
++    if (st->info_level > 1) {
++        fprintf(VERBSTREAM, "\nMSOLVE_F2_BITSET rows=%u old_pivots=%u columns=%u new_pivots=%u words_per_row=%zu output_terms=%zu\n",
++                nrl, ncl, ncols, npivots, words, output_terms);
++        fflush(VERBSTREAM);
++    }
++}

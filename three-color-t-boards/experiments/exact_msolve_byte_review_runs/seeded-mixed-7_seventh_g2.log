@@ -1,0 +1,113 @@
+Initial seed for pseudo-random number generator is 1795428590
+
+--------------- INPUT DATA ---------------
+#variables                       3
+#equations                       5
+#invalid equations               0
+field characteristic             3
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size         16 (2^4)
+max pair selection              16
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  5       1       6
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3 row_length=7 required_with_spare=11 requested_capacity=16
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=11 exponent_old=4 exponent_new=16 buckets_old=8 buckets_new=32
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=9 row_length=7 required_with_spare=17 requested_capacity=32
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=17 exponent_old=16 exponent_new=32 buckets_old=32 buckets_new=64
+       5 x 19         26.32%        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=15 referenced=15 missing=5 basis_load=28 basis_capacity=32
+
+MSOLVE_SYMBOLIC_STAGING old_load=20 old_capacity=32 missing=5 old_exponent_bytes=256 staged_exponent_bytes=48 reset_capacity=32
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=34 exponent_old=32 exponent_new=65536 buckets_old=64 buckets_new=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=15 referenced=15 inserted=5 basis_capacity=65536
+         0.00 | 0.00         
+  5       3       7
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=22 row_length=15 required_with_spare=38 requested_capacity=64
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=38 exponent_old=32 exponent_new=64 buckets_old=64 buckets_new=128
+      20 x 36         15.56%        3 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=19 referenced=16 missing=3 basis_load=37 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=19 referenced=16 inserted=3 basis_capacity=65536
+         0.00 | 0.00         
+  5       9       9      28 x 37         16.70%        9 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=18 referenced=18 missing=2 basis_load=47 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=18 referenced=18 inserted=2 basis_capacity=65536
+         0.00 | 0.00         
+  3       3      22      10 x 16         37.50%        3 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=9 referenced=9 missing=0 basis_load=58 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=9 referenced=9 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  3       9      20      23 x 20         24.13%        3 new       6 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=6 referenced=6 missing=0 basis_load=58 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=6 referenced=6 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  2       3      15      10 x 10         36.00%        0 new       3 zero         0.00 | 0.00         
+  3       5      12      17 x 14         23.53%        0 new       6 zero         0.00 | 0.00         
+  4       7       7      29 x 25         20.41%        0 new       7 zero         0.00 | 0.00         
+------------------------------------------------------------------------------------------------------
+reduce final basis        4 x 7          46.43%        4 new       0 zero         0.00 | 0.00         
+------------------------------------------------------------------------------------------------------
+
+---------------- TIMINGS ----------------
+overall(elapsed)        0.00 sec
+overall(cpu)            0.00 sec
+select                  0.00 sec   3.4%
+symbolic prep.          0.00 sec   1.2%
+update                  0.00 sec   3.2%
+convert                 0.00 sec  84.8%
+linear algebra          0.00 sec   2.0%
+reduce gb               0.00 sec   0.0%
+-----------------------------------------
+
+---------- COMPUTATIONAL DATA -----------
+size of basis                     4
+#terms in basis                  13
+#pairs reduced                   40
+#GM criterion                   236
+#redundant elements              20
+#rows reduced                    86
+#zero reductions                 22
+max. matrix data                 28 x 37 (16.699%)
+max. symbolic hash table size  2^6
+max. basis hash table size     2^16
+-----------------------------------------
+
+MSOLVE_PRIME_GB_EXPORT_COMPLETE
+
+
+------------------------------------------------------------------------------------
+msolve overall time           0.00 sec (elapsed) /  0.00 sec (cpu)
+------------------------------------------------------------------------------------

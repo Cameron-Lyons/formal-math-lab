@@ -1,0 +1,71 @@
+{
+  "symbolic_requests": [],
+  "staging_events": [],
+  "name": "f2_cover",
+  "kind": "baseline",
+  "mode": 2,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/f2_cover_baseline_g2.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/f2_cover_baseline_g2.basis",
+    "-g",
+    "2",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 30,
+  "wall_seconds": 0.006846023003163282,
+  "cpu_seconds": 0.00297300000000017,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "a80d895df0aad79882f9cfa38fdbf27263d726d70f431d2f3da89397b5beac39",
+  "input_sha256": "18f2be07ff4d7f25e7c3b23aa72934a7773e6d3589abe22645af3f4d2e104a6c",
+  "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/f2_cover_baseline_g2.basis",
+  "promotion_events": [
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "inserted": 2,
+      "basis_capacity": 16
+    },
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "inserted": 3,
+      "basis_capacity": 32
+    }
+  ],
+  "reservation_events": [
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "missing": 2,
+      "basis_load": 13,
+      "basis_capacity": 16
+    },
+    {
+      "nonpivot": 3,
+      "referenced": 3,
+      "missing": 3,
+      "basis_load": 19,
+      "basis_capacity": 32
+    }
+  ],
+  "capacity_requests": []
+}

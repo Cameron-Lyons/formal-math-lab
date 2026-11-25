@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_backend.py",
+    "--prime",
+    "2",
+    "--prefix",
+    "0000",
+    "--seconds",
+    "180",
+    "--memory-mb",
+    "2048",
+    "--executable",
+    "experiments/exact_msolve_rounded_promotion_tools/msolve",
+    "--library-dir",
+    "experiments/exact_algebra_backend_root/usr/lib",
+    "--require-export-marker",
+    "--max-pairs",
+    "16",
+    "--pivot-order",
+    "--output",
+    "experiments/exact_msolve_cap0000_prime2"
+  ],
+  "outer_wall_limit_seconds": 240.0,
+  "outer_memory_mb": 2048,
+  "returncode": 1,
+  "outer_wall_limit_reached": false,
+  "elapsed_seconds": 180.42581627599793,
+  "process_tree_cpu_seconds": 158.784511,
+  "status": "OUTER_PROCESS_FINISHED",
+  "backend_status": "INCOMPLETE_TIMEOUT"
+}

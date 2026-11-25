@@ -1,0 +1,175 @@
+{
+  "status": "PASS",
+  "scope": "full-label branch3 Boolean model; no solver result",
+  "variables": 13341,
+  "clauses": 59308,
+  "base_variables": 13341,
+  "base_clauses": 59287,
+  "branch_clause_count": 21,
+  "branch_new_variables": 0,
+  "one_hot_cells": 100,
+  "cell_colors": 3,
+  "pattern_placements": 81,
+  "generator_call": "make_cnf(3, [], canonical=False, occurrence_amo='tree', orbit_canonical=False)",
+  "base_auxiliary_count_semantics": "All selector and AMO-tree auxiliaries are defined by biconditionals; ordinary all-variable count is parsimonious.",
+  "branch_id": 3,
+  "branch_conditions": [
+    "c0=c3",
+    "c1=c6",
+    "c2=c7",
+    "c3!=c8"
+  ],
+  "original_placement_cells": [
+    [
+      0,
+      1,
+      2,
+      3
+    ],
+    [
+      3,
+      6,
+      7,
+      8
+    ]
+  ],
+  "fixed_prefix": [],
+  "palette_canonical": false,
+  "reflection_canonical": false,
+  "independent_support_projection": false,
+  "count_multiplier": 1,
+  "count_divisor": 1,
+  "all_actual_branch_clauses": [
+    [
+      -1,
+      10
+    ],
+    [
+      1,
+      -10
+    ],
+    [
+      -2,
+      11
+    ],
+    [
+      2,
+      -11
+    ],
+    [
+      -3,
+      12
+    ],
+    [
+      3,
+      -12
+    ],
+    [
+      -4,
+      19
+    ],
+    [
+      4,
+      -19
+    ],
+    [
+      -5,
+      20
+    ],
+    [
+      5,
+      -20
+    ],
+    [
+      -6,
+      21
+    ],
+    [
+      6,
+      -21
+    ],
+    [
+      -7,
+      22
+    ],
+    [
+      7,
+      -22
+    ],
+    [
+      -8,
+      23
+    ],
+    [
+      8,
+      -23
+    ],
+    [
+      -9,
+      24
+    ],
+    [
+      9,
+      -24
+    ],
+    [
+      -10,
+      -25
+    ],
+    [
+      -11,
+      -26
+    ],
+    [
+      -12,
+      -27
+    ]
+  ],
+  "relation_cells": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7,
+    8
+  ],
+  "ternary_relation_assignments_checked": 2187,
+  "accepted_relation_assignments": 54,
+  "actual_dimacs_readback_checked": true,
+  "all_base_clauses_retained": true,
+  "known_six_prefix": "100011101011000101010011112112211212021201221022121202020220010222002102100022222",
+  "known_prefix_expected_branch_count": 0,
+  "known_prefix_check_method": "exhaustive seven-cell relation audit and explicit equality/one-hot conflict, no solver",
+  "known_prefix_falsified_clause": {
+    "branch_clause_index": 1,
+    "clause": [
+      1,
+      -10
+    ]
+  },
+  "known_prefix_conflict_clauses": [
+    [
+      -2,
+      11
+    ],
+    [
+      -10,
+      -11
+    ],
+    [
+      2
+    ],
+    [
+      10
+    ]
+  ],
+  "known_prefix_fixture_sha256": "785941f229eecc6cb42a0da0de7ea7134c28420e67ce6f4214be6e21f8a853e6",
+  "input_sha256": "142ee7f7007dbc9dc1698c6625ccf6c7156f608dfa9529ef380d29b53ded7629",
+  "binary_sha256": "e7a3c6a66377db349939ceb01c78783767fbca5a3ef3dad66cbc6cf11f2daf58",
+  "base_generator_sha256": "f9a07f3e121e4aa15b8b33e1e9609804b0c02245e24a6cb0ff0a8c30f315ba50",
+  "probe_generator_sha256": "264eef404ee251bfadec9e1a83ed9f2332f4a7a6e840776b4308b1bd266c6f27",
+  "help_sha256": "9151c8580f03a17ae9ab3bdb5c7aa9dae118f3bf9604bbb016811df87dc0869e",
+  "version_sha256": "cd0bcaec2c6b0bea9606190cffb5769df60a39550feae895f83377401aef1c37",
+  "full_branch_count_status": "UNEVALUATED"
+}

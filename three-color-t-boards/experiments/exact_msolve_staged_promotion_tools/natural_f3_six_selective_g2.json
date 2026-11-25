@@ -1,0 +1,148 @@
+{
+  "staging_events": [],
+  "name": "natural_f3_six",
+  "kind": "selective",
+  "mode": 2,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/natural_f3_six_selective_g2.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/natural_f3_six_selective_g2.basis",
+    "-g",
+    "2",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 30,
+  "wall_seconds": 0.16509738500099047,
+  "cpu_seconds": 0.16197,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "c8fef6c51ae667611db7c19cba25751e8eb820fa180f3edcf00aafd6e16b1eb3",
+  "input_sha256": "8c39af62c3be93a7a0db6e019eefe8a9e851666c2817e106039cbfad9187313b",
+  "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/natural_f3_six_selective_g2.basis",
+  "promotion_events": [
+    {
+      "nonpivot": 17,
+      "referenced": 17,
+      "inserted": 0,
+      "basis_capacity": 2048
+    },
+    {
+      "nonpivot": 66,
+      "referenced": 66,
+      "inserted": 30,
+      "basis_capacity": 2048
+    },
+    {
+      "nonpivot": 159,
+      "referenced": 159,
+      "inserted": 88,
+      "basis_capacity": 4096
+    },
+    {
+      "nonpivot": 25,
+      "referenced": 19,
+      "inserted": 0,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 46,
+      "referenced": 41,
+      "inserted": 0,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 42,
+      "referenced": 42,
+      "inserted": 5,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 8,
+      "referenced": 8,
+      "inserted": 0,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 7,
+      "referenced": 6,
+      "inserted": 0,
+      "basis_capacity": 8192
+    }
+  ],
+  "reservation_events": [
+    {
+      "nonpivot": 17,
+      "referenced": 17,
+      "missing": 0,
+      "basis_load": 946,
+      "basis_capacity": 2048
+    },
+    {
+      "nonpivot": 66,
+      "referenced": 66,
+      "missing": 30,
+      "basis_load": 1208,
+      "basis_capacity": 2048
+    },
+    {
+      "nonpivot": 159,
+      "referenced": 159,
+      "missing": 88,
+      "basis_load": 2002,
+      "basis_capacity": 4096
+    },
+    {
+      "nonpivot": 25,
+      "referenced": 19,
+      "missing": 0,
+      "basis_load": 4308,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 46,
+      "referenced": 41,
+      "missing": 0,
+      "basis_load": 4451,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 42,
+      "referenced": 42,
+      "missing": 5,
+      "basis_load": 5476,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 8,
+      "referenced": 8,
+      "missing": 0,
+      "basis_load": 7556,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 7,
+      "referenced": 6,
+      "missing": 0,
+      "basis_load": 7613,
+      "basis_capacity": 8192
+    }
+  ],
+  "capacity_requests": []
+}

@@ -1,0 +1,1049 @@
+{
+  "status": "PASS_TESTS_ONLY",
+  "tests": [
+    {
+      "name": "actual-eliminated-scope-0-None",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-None-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-0-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-0-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-0-minimum-fill",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-0-minimum-fill-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-0-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-0-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-1-None",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-None-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-1-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-1-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-1-minimum-fill",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-1-minimum-fill-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-1-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-1-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-2-None",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-None-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-2-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-2-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-2-minimum-fill",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-2-minimum-fill-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-2-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-2-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-3-None",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-None-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-3-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-3-None",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-eliminated-scope-3-minimum-fill",
+      "expected": "scope-only pass",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-native_affine_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-native_branch_elimination",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-variables",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-generators",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-offset_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-sign_variable_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-prefix",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-count_multiplier",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-count_divisor",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-branch_manifest_sha256",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-selected_old97_pivots",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-new_index_to_old97_index",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-original_color_polynomials",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-canonical_color_affine_forms",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-old97_affine_reconstruction",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "eliminated-3-minimum-fill-field_domain_equations",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "uneliminated-input-with-eliminated-scope-3-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "actual-known-prefix-input-3-minimum-fill",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "dynamic-parser-wrong-variable-count-93",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "dynamic-monomial-fixture-93",
+      "expected": "dimension6 fixture, not branch count",
+      "passed": true
+    },
+    {
+      "name": "dynamic-parser-wrong-variable-count-94",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "dynamic-monomial-fixture-94",
+      "expected": "dimension6 fixture, not branch count",
+      "passed": true
+    },
+    {
+      "name": "dynamic-parser-wrong-variable-count-95",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "dynamic-monomial-fixture-95",
+      "expected": "dimension6 fixture, not branch count",
+      "passed": true
+    },
+    {
+      "name": "dynamic-parser-wrong-variable-count-96",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "dynamic-monomial-fixture-96",
+      "expected": "dimension6 fixture, not branch count",
+      "passed": true
+    },
+    {
+      "name": "dynamic-parser-wrong-variable-count-97",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "dynamic-monomial-fixture-97",
+      "expected": "dimension6 fixture, not branch count",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-0-(False, 'natural')-(False, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-0-(False, 'natural')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-0-(False, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-0-(False, 'minimum-fill')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-0-(False, 'minimum-fill')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-0-(True, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-1-(False, 'natural')-(False, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-1-(False, 'natural')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-1-(False, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-1-(False, 'minimum-fill')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-1-(False, 'minimum-fill')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-1-(True, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-2-(False, 'natural')-(False, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-2-(False, 'natural')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-2-(False, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-2-(False, 'minimum-fill')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-2-(False, 'minimum-fill')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-2-(True, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-3-(False, 'natural')-(False, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-3-(False, 'natural')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-3-(False, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-3-(False, 'minimum-fill')-(True, 'natural')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-3-(False, 'minimum-fill')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "cross-variant-duplicate-3-(True, 'natural')-(True, 'minimum-fill')",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "production-still-rejects-all-mock-variants",
+      "expected": "reject",
+      "passed": true
+    },
+    {
+      "name": "real-eliminated-prefix-result-0",
+      "expected": "reject by actual input",
+      "passed": true
+    },
+    {
+      "name": "real-eliminated-prefix-result-1",
+      "expected": "reject by actual input",
+      "passed": true
+    },
+    {
+      "name": "real-eliminated-prefix-result-2",
+      "expected": "reject by actual input",
+      "passed": true
+    },
+    {
+      "name": "real-eliminated-prefix-result-3",
+      "expected": "reject by actual input",
+      "passed": true
+    }
+  ],
+  "test_count": 199,
+  "additional_frozen_eliminated_scope_checks": 8,
+  "mocked_variant_selections": 256,
+  "mocked_cross_variant_duplicate_rejections": 24,
+  "dynamic_monomial_fixture_variable_counts": [
+    93,
+    94,
+    95,
+    96,
+    97
+  ],
+  "synthetic_completions_are_only_in_memory_and_patched": true,
+  "actual_complete_branch_results": 0,
+  "unrestricted_count": null,
+  "solver_processes_started": 0,
+  "coordinated_independent_model_adapter_and_fixture_reports": {
+    "exact_algorithms_branch_elimination_review.json": "4ba1dc1462ea1a2818b3ff8b1b2bf1bd2db952624bf252514f5af54f278de274",
+    "exact_algorithms_eliminated_adapter_review.json": "236dddbca1c46a9714bf99432afaafbd343aa50eff26d31eae5e7809f09fe110",
+    "exact_algorithms_eliminated_six_results.json": "18359f9fc2b27ef317db73fff6030ca2486f3f0fc468087f512f7c863eb2ae19"
+  },
+  "completed_fixed_prefix_results_rejected": [
+    {
+      "branch": 0,
+      "result": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algorithms_eliminated_six_0.json",
+      "result_sha256": "4523c12484ad4bfcee0392a61e0b5c6684a3882aff4d6d57319e2e53bcfefbed",
+      "rejection": "actual input is not a frozen full branch input"
+    },
+    {
+      "branch": 1,
+      "result": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algorithms_eliminated_six_1.json",
+      "result_sha256": "6b35e27359c04ee6b0d3c8c1799adffcdba8101eef2e86347ee9c89f109e3819",
+      "rejection": "actual input is not a frozen full branch input"
+    },
+    {
+      "branch": 2,
+      "result": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algorithms_eliminated_six_2.json",
+      "result_sha256": "a781b229e4966516498d70374e19a68ff6755f6f4e5b7ee5026110f7295da43c",
+      "rejection": "actual input is not a frozen full branch input"
+    },
+    {
+      "branch": 3,
+      "result": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algorithms_eliminated_six_3.json",
+      "result_sha256": "c08d369c8b732c72d094d6a876b49a28b8f528e58fd1d0cd8d9c56de7604eea0",
+      "rejection": "actual input is not a frozen full branch input"
+    }
+  ],
+  "partition_manifest_sha256": "9ecb49f828699a3966c0349bddb4bc4f57cc163b65ba1855770357bf2e39d2c7",
+  "elimination_manifest_sha256": "91e25ac8803be65a12998e344060e3e48778e499722f30aaf7b5a663f8b2eaa0",
+  "production_auditor_sha256": "62afbf36e474cc105f1a0eb86dbff9cc95c49284c0612dc0c6cf281ca9373c52"
+}

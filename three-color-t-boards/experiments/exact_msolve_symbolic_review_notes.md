@@ -1,0 +1,23 @@
+# Independent review of symbolic row reservation
+
+The seventh build passes the independent review. Executable SHA256 is `a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a`; patch SHA256 is `11af8d44ef40a0fc51e91bdf24bed6f666b1d6870b2799020a558d4dcbdbf682`. No full board solver run was performed by this reviewer, and these checks do not establish that a future full solve will fit its memory limit.
+
+The C-tree comparison finds only `hash.c` and `symbol.c` changed from build 6b. All other 59 C files match. In `symbol.c`, the only changes are the three pre-reservation calls immediately before the existing ordinary matrix-row constructor: two in pair selection and one in reducer discovery. The constructor itself is unchanged.
+
+Each source row of length `L` can insert at most `L` new symbolic monomials. Reserving `eld+L+1` entries therefore makes the old constructor's `eld+L >= esz` growth condition false, including at the exact boundary. Small requests retain geometric capacities; larger requests round upward to a 65,536-entry boundary. The shared allocator checks the sum, supported capacity limits, bucket power-of-two/load condition, allocation-size products, and every allocation. Promotion still calls the same allocator with its previous fixed 65,536 quantum. Live exponent IDs, metadata including symbolic `idx` markers, and insertion order are preserved across rehash.
+
+Pointer lifetimes are safe at the three callsites. The multiplier exponent vector is already copied into stack storage before reservation. Pair selection borrows source exponents from the separate basis table. Reducer discovery copies symbolic hash metadata by value and completes all reads of its borrowed symbolic exponent pointer before reservation; later accesses reload `sht->hd` through the table object. The called row constructor reads basis exponents and the copied multiplier. No stale symbolic allocation pointer is subsequently dereferenced.
+
+The mode gate permits only ordinary serial exact sparse basis export over F2 or F3, outside tracing, normal-form, final-reduction and elimination modes. Other modes return before allocation. Allowing larger non-power-of-two exponent capacities in staging is valid: staging uses exponent positions and a full inverse map, never capacity-based masking. Buckets remain powers of two with sufficient capacity, while any old exponent capacity at least 2,048 resets to exactly 2,048. Smaller accepted capacities remain powers of two. Shared borrowed arrays and scalar geometry remain intact.
+
+The independently executed extracted-helper audit is `exact_msolve_symbolic_review.py/results.json`. It uses actual reservation, support and staging code with a separate linear monomial reference. Under ASan and UBSan it passed:
+
+- 1,200 mapping/support cases, including 17 non-power-of-two stages and three zero-missing spare-boundary stages.
+- Eight real row-capacity boundary cases, eight disabled-mode cases, ten promotion-path and four symbolic-row allocation failures.
+- Thirteen invalid staging layouts and nine invalid reservation cases, plus three large-capacity arithmetic plans that deliberately fail at the first allocation after logging the checked target.
+
+One test-plan input initially requested no growth while expecting an allocation failure; correcting that reviewer fixture from row length zero to one made the boundary cross as intended. No owner source change was needed. Successful and deliberately failing final runs have no sanitizer findings.
+
+`exact_msolve_symbolic_basis_review.py/results.json` independently checks 24 complete ideals, twelve each in F2 and F3. All 48 full basis exports match build 6b byte-for-byte and match a separate Python Buchberger implementation. The candidate exercises 22 F2 and 24 F3 symbolic reservations, with three staging rounds in each characteristic. Cases include field domains, coupled equations, nonradical ideals, extension-field roots and a unit ideal; ordinary polynomial semantics are preserved.
+
+Separately, the owner's finalized `exact_msolve_symbolic_reserve_tools/helper_check.json` reports 49 prior upstream hash-promotion cases plus four actual translated/untranslated row-constructor comparisons across F2/F3. Those exercise 120,001 live entries and 30,000 source terms: capacity 196,608 versus the old 262,144, with identical vectors, IDs and row metadata. They then stage non-power storage and verify lookup/insert/clean/legacy growth/copy/reinitialize/reset. The owner also reports eight fallback gates, seven capacity boundaries and four allocator failures under sanitizers. Its finalized `validation.json` reports 24 complete basis comparisons. Those owner results are read and attributed separately from the independent tests above.

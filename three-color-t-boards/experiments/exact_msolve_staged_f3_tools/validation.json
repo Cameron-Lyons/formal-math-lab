@@ -1,0 +1,3048 @@
+{
+  "status": "PASS",
+  "complete_basis_comparisons": 20,
+  "f3_staging_events": [
+    {
+      "old_load": 7,
+      "old_capacity": 16,
+      "missing": 4,
+      "old_exponent_bytes": 96,
+      "staged_exponent_bytes": 30,
+      "reset_capacity": 16
+    },
+    {
+      "old_load": 7,
+      "old_capacity": 16,
+      "missing": 4,
+      "old_exponent_bytes": 96,
+      "staged_exponent_bytes": 30,
+      "reset_capacity": 16
+    }
+  ],
+  "full_board_solver_runs": 0,
+  "results": [
+    {
+      "fixture": "f3_domain",
+      "prime": 3,
+      "variables": 1,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        },
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_domain",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.00475282100160257,
+          "cpu_seconds": 0.0037129999999999997,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "162bab896558dff857485be0bccfb4e69b6c8b05008e77382fddcb978dc03394",
+          "input_sha256": "a057e26bbe5ee9d531ddc9e9616a6add4a6c3eb3b67e7bce99e532dd7eb111c3",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_baseline_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_domain",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004350536997662857,
+          "cpu_seconds": 0.0037849999999999997,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "162bab896558dff857485be0bccfb4e69b6c8b05008e77382fddcb978dc03394",
+          "input_sha256": "a057e26bbe5ee9d531ddc9e9616a6add4a6c3eb3b67e7bce99e532dd7eb111c3",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_selective_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_domain",
+      "prime": 3,
+      "variables": 1,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_domain",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0043862099992111325,
+          "cpu_seconds": 0.0038969999999999994,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "516562494f994013518048cea349aef9b8ae74336a7c552ec22375c845705b26",
+          "input_sha256": "a057e26bbe5ee9d531ddc9e9616a6add4a6c3eb3b67e7bce99e532dd7eb111c3",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_baseline_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_domain",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0042163449979852885,
+          "cpu_seconds": 0.0035340000000000007,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "516562494f994013518048cea349aef9b8ae74336a7c552ec22375c845705b26",
+          "input_sha256": "a057e26bbe5ee9d531ddc9e9616a6add4a6c3eb3b67e7bce99e532dd7eb111c3",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_selective_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_domain_pair",
+      "prime": 3,
+      "variables": 2,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "9",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "9",
+          "independent_dimension": "9"
+        },
+        {
+          "quotient_dimension": "9",
+          "independent_dimension": "9"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_domain_pair",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0033402320004825015,
+          "cpu_seconds": 0.0028270000000000014,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "3956c736007b16cb7250cc06aee751405f864b2b2229ea960d60102493f2259d",
+          "input_sha256": "deff95c4b0739216e6defc6000de3a5a80c327c96d754ce0fb55c4f1d5731d2c",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_baseline_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_domain_pair",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004710957000497729,
+          "cpu_seconds": 0.0040469999999999985,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "3956c736007b16cb7250cc06aee751405f864b2b2229ea960d60102493f2259d",
+          "input_sha256": "deff95c4b0739216e6defc6000de3a5a80c327c96d754ce0fb55c4f1d5731d2c",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_selective_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_domain_pair",
+      "prime": 3,
+      "variables": 2,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "9",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_domain_pair",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004718912001408171,
+          "cpu_seconds": 0.003730999999999998,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "19a63267c811bcf61eb8917bdb2a8504b6cc650216ed159f16a7b281773fb35e",
+          "input_sha256": "deff95c4b0739216e6defc6000de3a5a80c327c96d754ce0fb55c4f1d5731d2c",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_baseline_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_domain_pair",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004625231998943491,
+          "cpu_seconds": 0.003697000000000004,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "19a63267c811bcf61eb8917bdb2a8504b6cc650216ed159f16a7b281773fb35e",
+          "input_sha256": "deff95c4b0739216e6defc6000de3a5a80c327c96d754ce0fb55c4f1d5731d2c",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_domain_pair_selective_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_root_sum",
+      "prime": 3,
+      "variables": 3,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "9",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "9",
+          "independent_dimension": "9"
+        },
+        {
+          "quotient_dimension": "9",
+          "independent_dimension": "9"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_root_sum",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004253645001881523,
+          "cpu_seconds": 0.003369999999999998,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "69edd018cb4c4cd4fa8bfe80bc80f5b1bf54c2fc92cc7450cb5cc0cd36e1a36a",
+          "input_sha256": "51b3a19579f2c4bb622e14a8d81dca380bdf5a4572579a02d0a6c079df34bb0e",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_baseline_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_root_sum",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004382332001114264,
+          "cpu_seconds": 0.003481999999999999,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "69edd018cb4c4cd4fa8bfe80bc80f5b1bf54c2fc92cc7450cb5cc0cd36e1a36a",
+          "input_sha256": "51b3a19579f2c4bb622e14a8d81dca380bdf5a4572579a02d0a6c079df34bb0e",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_selective_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_root_sum",
+      "prime": 3,
+      "variables": 3,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "9",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_root_sum",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004290909997507697,
+          "cpu_seconds": 0.0034450000000000036,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "b1d49fc8902f9f8989c885365ca83bb4fe023eeb7034caa701ca8e99962f6089",
+          "input_sha256": "51b3a19579f2c4bb622e14a8d81dca380bdf5a4572579a02d0a6c079df34bb0e",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_baseline_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_root_sum",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004921252999338321,
+          "cpu_seconds": 0.003946999999999999,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "b1d49fc8902f9f8989c885365ca83bb4fe023eeb7034caa701ca8e99962f6089",
+          "input_sha256": "51b3a19579f2c4bb622e14a8d81dca380bdf5a4572579a02d0a6c079df34bb0e",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_root_sum_selective_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_mixed",
+      "prime": 3,
+      "variables": 2,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        },
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_mixed",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004918226000881987,
+          "cpu_seconds": 0.003985000000000006,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "a314062dfe9c51efeb96b44961031eb1ab0bbd89a376f357db1791a71871d48f",
+          "input_sha256": "ad4bbf5684aa793e4cb85eaba73df722fec141fad6c692d9cb076ad55be4d931",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_baseline_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        },
+        {
+          "staging_events": [
+            {
+              "old_load": 7,
+              "old_capacity": 16,
+              "missing": 4,
+              "old_exponent_bytes": 96,
+              "staged_exponent_bytes": 30,
+              "reset_capacity": 16
+            }
+          ],
+          "name": "f3_mixed",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005578758002229733,
+          "cpu_seconds": 0.004800000000000002,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "a314062dfe9c51efeb96b44961031eb1ab0bbd89a376f357db1791a71871d48f",
+          "input_sha256": "ad4bbf5684aa793e4cb85eaba73df722fec141fad6c692d9cb076ad55be4d931",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_selective_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "f3_mixed",
+      "prime": 3,
+      "variables": 2,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_mixed",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005267033997370163,
+          "cpu_seconds": 0.0043289999999999995,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "cb7a9055f5a4b5e77291ba15ca37bb5a2386a023efad0f1fe244b4434b79dbab",
+          "input_sha256": "ad4bbf5684aa793e4cb85eaba73df722fec141fad6c692d9cb076ad55be4d931",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_baseline_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        },
+        {
+          "staging_events": [
+            {
+              "old_load": 7,
+              "old_capacity": 16,
+              "missing": 4,
+              "old_exponent_bytes": 96,
+              "staged_exponent_bytes": 30,
+              "reset_capacity": 16
+            }
+          ],
+          "name": "f3_mixed",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005967324002995156,
+          "cpu_seconds": 0.004907000000000002,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "cb7a9055f5a4b5e77291ba15ca37bb5a2386a023efad0f1fe244b4434b79dbab",
+          "input_sha256": "ad4bbf5684aa793e4cb85eaba73df722fec141fad6c692d9cb076ad55be4d931",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_selective_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "f3_mixed_chain",
+      "prime": 3,
+      "variables": 4,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "9",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "9",
+          "independent_dimension": "9"
+        },
+        {
+          "quotient_dimension": "9",
+          "independent_dimension": "9"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_mixed_chain",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0038616229976469185,
+          "cpu_seconds": 0.0027719999999999897,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "8054e42bc4df4b39c9217b849d4126fac94b83bfabf4217254f84e0a5d47fb6f",
+          "input_sha256": "37d8b73799ef3600d657ddfea7929fb568a105824d28893085dd4c00d641fc55",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_baseline_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "inserted": 1,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 7,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 128
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 25,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "missing": 1,
+              "basis_load": 32,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 7,
+              "basis_load": 39,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 86,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 97,
+              "basis_capacity": 128
+            }
+          ],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_mixed_chain",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.00544295999861788,
+          "cpu_seconds": 0.004271000000000011,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "8054e42bc4df4b39c9217b849d4126fac94b83bfabf4217254f84e0a5d47fb6f",
+          "input_sha256": "37d8b73799ef3600d657ddfea7929fb568a105824d28893085dd4c00d641fc55",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_selective_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "inserted": 1,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 7,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 128
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 25,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "missing": 1,
+              "basis_load": 32,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 7,
+              "basis_load": 39,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 86,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 97,
+              "basis_capacity": 128
+            }
+          ],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_mixed_chain",
+      "prime": 3,
+      "variables": 4,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "9",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_mixed_chain",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.003649984999356093,
+          "cpu_seconds": 0.0027189999999999923,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "10f5d9558ae2379bb8c247545f5378d2f05034d002b2842e894255d7f6ff3856",
+          "input_sha256": "37d8b73799ef3600d657ddfea7929fb568a105824d28893085dd4c00d641fc55",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_baseline_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "inserted": 1,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 7,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 128
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 25,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "missing": 1,
+              "basis_load": 32,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 7,
+              "basis_load": 39,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 86,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 97,
+              "basis_capacity": 128
+            }
+          ],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_mixed_chain",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.002976106999994954,
+          "cpu_seconds": 0.0023950000000000013,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "10f5d9558ae2379bb8c247545f5378d2f05034d002b2842e894255d7f6ff3856",
+          "input_sha256": "37d8b73799ef3600d657ddfea7929fb568a105824d28893085dd4c00d641fc55",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_mixed_chain_selective_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "inserted": 1,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 7,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "inserted": 2,
+              "basis_capacity": 128
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 2,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 25,
+              "basis_capacity": 32
+            },
+            {
+              "nonpivot": 3,
+              "referenced": 2,
+              "missing": 1,
+              "basis_load": 32,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 7,
+              "basis_load": 39,
+              "basis_capacity": 64
+            },
+            {
+              "nonpivot": 5,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 86,
+              "basis_capacity": 128
+            },
+            {
+              "nonpivot": 6,
+              "referenced": 2,
+              "missing": 2,
+              "basis_load": 97,
+              "basis_capacity": 128
+            }
+          ],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_unit",
+      "prime": 3,
+      "variables": 1,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "0",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "0",
+          "independent_dimension": "0"
+        },
+        {
+          "quotient_dimension": "0",
+          "independent_dimension": "0"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_unit",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004815377997147152,
+          "cpu_seconds": 0.004244999999999999,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "20909ea3ce7b835d69bcca6b56226d717f252bbd3a031c3592715fae20fbf308",
+          "input_sha256": "a7e6c5ee934f04256e9b7bb349e6c382fea61dc9e0e2ce5c5bb8cc250c759a4d",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_baseline_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_unit",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004986790998373181,
+          "cpu_seconds": 0.0042149999999999965,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "20909ea3ce7b835d69bcca6b56226d717f252bbd3a031c3592715fae20fbf308",
+          "input_sha256": "a7e6c5ee934f04256e9b7bb349e6c382fea61dc9e0e2ce5c5bb8cc250c759a4d",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_selective_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_unit",
+      "prime": 3,
+      "variables": 1,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "0",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_unit",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0052320079994387925,
+          "cpu_seconds": 0.0042230000000000045,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "547cf13ad29226fe406a396f090908f170523a99c09eb4ea2b63337837fcacbb",
+          "input_sha256": "a7e6c5ee934f04256e9b7bb349e6c382fea61dc9e0e2ce5c5bb8cc250c759a4d",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_baseline_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_unit",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005370710998249706,
+          "cpu_seconds": 0.0043340000000000045,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "547cf13ad29226fe406a396f090908f170523a99c09eb4ea2b63337837fcacbb",
+          "input_sha256": "a7e6c5ee934f04256e9b7bb349e6c382fea61dc9e0e2ce5c5bb8cc250c759a4d",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_unit_selective_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_positive_dimension",
+      "prime": 3,
+      "variables": 2,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": null,
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_positive_dimension",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0036503429982985836,
+          "cpu_seconds": 0.00272,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "edf33e905ef214d55de84b93530b2009f66adcd98d89d1c1597052a7b4f49ce6",
+          "input_sha256": "f598f7168322ab6e1dae05f0bebc60e00f66cafe8c36bae4a5f0847f0f3ab145",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_baseline_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_positive_dimension",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.003067426001507556,
+          "cpu_seconds": 0.0024130000000000054,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "edf33e905ef214d55de84b93530b2009f66adcd98d89d1c1597052a7b4f49ce6",
+          "input_sha256": "f598f7168322ab6e1dae05f0bebc60e00f66cafe8c36bae4a5f0847f0f3ab145",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_selective_g1.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "f3_positive_dimension",
+      "prime": 3,
+      "variables": 2,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": null,
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "f3_positive_dimension",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0026364779987488873,
+          "cpu_seconds": 0.0021030000000000007,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "3ddfc543995c65b11e9ba566c7f17e7372eb8bd980367aba5a7abecda2981d3a",
+          "input_sha256": "f598f7168322ab6e1dae05f0bebc60e00f66cafe8c36bae4a5f0847f0f3ab145",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_baseline_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "f3_positive_dimension",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.002692616999411257,
+          "cpu_seconds": 0.0021120000000000028,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "3ddfc543995c65b11e9ba566c7f17e7372eb8bd980367aba5a7abecda2981d3a",
+          "input_sha256": "f598f7168322ab6e1dae05f0bebc60e00f66cafe8c36bae4a5f0847f0f3ab145",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/f3_positive_dimension_selective_g2.basis",
+          "promotion_events": [],
+          "reservation_events": [],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "natural_f3_six",
+      "prime": 3,
+      "variables": 19,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "6",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "6",
+          "independent_dimension": "6"
+        },
+        {
+          "quotient_dimension": "6",
+          "independent_dimension": "6"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "natural_f3_six",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.17542511400097283,
+          "cpu_seconds": 0.173143,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "7013534f9121e95dc61d03e4baa4c5380c4472445e204cbe0fdae9ddf6764f21",
+          "input_sha256": "8c39af62c3be93a7a0db6e019eefe8a9e851666c2817e106039cbfad9187313b",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_baseline_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "inserted": 0,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "inserted": 30,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "inserted": 88,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "inserted": 5,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "inserted": 0,
+              "basis_capacity": 8192
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "missing": 0,
+              "basis_load": 946,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "missing": 30,
+              "basis_load": 1208,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "missing": 88,
+              "basis_load": 2002,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "missing": 0,
+              "basis_load": 4308,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "missing": 0,
+              "basis_load": 4451,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "missing": 5,
+              "basis_load": 5476,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 0,
+              "basis_load": 7556,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "missing": 0,
+              "basis_load": 7613,
+              "basis_capacity": 8192
+            }
+          ],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "natural_f3_six",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.17122115699748974,
+          "cpu_seconds": 0.169773,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "7013534f9121e95dc61d03e4baa4c5380c4472445e204cbe0fdae9ddf6764f21",
+          "input_sha256": "8c39af62c3be93a7a0db6e019eefe8a9e851666c2817e106039cbfad9187313b",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_selective_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "inserted": 0,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "inserted": 30,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "inserted": 88,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "inserted": 5,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "inserted": 0,
+              "basis_capacity": 8192
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "missing": 0,
+              "basis_load": 946,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "missing": 30,
+              "basis_load": 1208,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "missing": 88,
+              "basis_load": 2002,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "missing": 0,
+              "basis_load": 4308,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "missing": 0,
+              "basis_load": 4451,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "missing": 5,
+              "basis_load": 5476,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 0,
+              "basis_load": 7556,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "missing": 0,
+              "basis_load": 7613,
+              "basis_capacity": 8192
+            }
+          ],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "natural_f3_six",
+      "prime": 3,
+      "variables": 19,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "6",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "natural_f3_six",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.17364269099925878,
+          "cpu_seconds": 0.17004899999999995,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "c8fef6c51ae667611db7c19cba25751e8eb820fa180f3edcf00aafd6e16b1eb3",
+          "input_sha256": "8c39af62c3be93a7a0db6e019eefe8a9e851666c2817e106039cbfad9187313b",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_baseline_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "inserted": 0,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "inserted": 30,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "inserted": 88,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "inserted": 5,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "inserted": 0,
+              "basis_capacity": 8192
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "missing": 0,
+              "basis_load": 946,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "missing": 30,
+              "basis_load": 1208,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "missing": 88,
+              "basis_load": 2002,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "missing": 0,
+              "basis_load": 4308,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "missing": 0,
+              "basis_load": 4451,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "missing": 5,
+              "basis_load": 5476,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 0,
+              "basis_load": 7556,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "missing": 0,
+              "basis_load": 7613,
+              "basis_capacity": 8192
+            }
+          ],
+          "capacity_requests": []
+        },
+        {
+          "staging_events": [],
+          "name": "natural_f3_six",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.17536514600215014,
+          "cpu_seconds": 0.17357299999999995,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "c8fef6c51ae667611db7c19cba25751e8eb820fa180f3edcf00aafd6e16b1eb3",
+          "input_sha256": "8c39af62c3be93a7a0db6e019eefe8a9e851666c2817e106039cbfad9187313b",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/natural_f3_six_selective_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "inserted": 0,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "inserted": 30,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "inserted": 88,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "inserted": 5,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "inserted": 0,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "inserted": 0,
+              "basis_capacity": 8192
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 17,
+              "referenced": 17,
+              "missing": 0,
+              "basis_load": 946,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 66,
+              "referenced": 66,
+              "missing": 30,
+              "basis_load": 1208,
+              "basis_capacity": 2048
+            },
+            {
+              "nonpivot": 159,
+              "referenced": 159,
+              "missing": 88,
+              "basis_load": 2002,
+              "basis_capacity": 4096
+            },
+            {
+              "nonpivot": 25,
+              "referenced": 19,
+              "missing": 0,
+              "basis_load": 4308,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 46,
+              "referenced": 41,
+              "missing": 0,
+              "basis_load": 4451,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 42,
+              "referenced": 42,
+              "missing": 5,
+              "basis_load": 5476,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 8,
+              "referenced": 8,
+              "missing": 0,
+              "basis_load": 7556,
+              "basis_capacity": 8192
+            },
+            {
+              "nonpivot": 7,
+              "referenced": 6,
+              "missing": 0,
+              "basis_load": 7613,
+              "basis_capacity": 8192
+            }
+          ],
+          "capacity_requests": []
+        }
+      ]
+    },
+    {
+      "fixture": "unchanged_f2",
+      "prime": 2,
+      "variables": 2,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        },
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [
+            {
+              "old_load": 7,
+              "old_capacity": 16,
+              "missing": 4,
+              "old_exponent_bytes": 96,
+              "staged_exponent_bytes": 30,
+              "reset_capacity": 16
+            }
+          ],
+          "name": "unchanged_f2",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.00458527199953096,
+          "cpu_seconds": 0.0036480000000000817,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "43da4a2142870a5a51cf86cd7517f5132d9ac9f02749f28ae9684032fda286bf",
+          "input_sha256": "bf7142bdc001e712fefeff8b18aefce4ee3793e76aebb95e0f67659adc95c9f8",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_baseline_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        },
+        {
+          "staging_events": [
+            {
+              "old_load": 7,
+              "old_capacity": 16,
+              "missing": 4,
+              "old_exponent_bytes": 96,
+              "staged_exponent_bytes": 30,
+              "reset_capacity": 16
+            }
+          ],
+          "name": "unchanged_f2",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.004142503999901237,
+          "cpu_seconds": 0.0034769999999999662,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "43da4a2142870a5a51cf86cd7517f5132d9ac9f02749f28ae9684032fda286bf",
+          "input_sha256": "bf7142bdc001e712fefeff8b18aefce4ee3793e76aebb95e0f67659adc95c9f8",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_selective_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "unchanged_f2",
+      "prime": 2,
+      "variables": 2,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [
+            {
+              "old_load": 7,
+              "old_capacity": 16,
+              "missing": 4,
+              "old_exponent_bytes": 96,
+              "staged_exponent_bytes": 30,
+              "reset_capacity": 16
+            }
+          ],
+          "name": "unchanged_f2",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0057279600005131215,
+          "cpu_seconds": 0.005032999999999926,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "14a1ed6a0548529f5ca605b959468b91b820cdd993a8397c5f091a008e13d292",
+          "input_sha256": "bf7142bdc001e712fefeff8b18aefce4ee3793e76aebb95e0f67659adc95c9f8",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_baseline_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        },
+        {
+          "staging_events": [
+            {
+              "old_load": 7,
+              "old_capacity": 16,
+              "missing": 4,
+              "old_exponent_bytes": 96,
+              "staged_exponent_bytes": 30,
+              "reset_capacity": 16
+            }
+          ],
+          "name": "unchanged_f2",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.0053039249978610314,
+          "cpu_seconds": 0.0042859999999999565,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "14a1ed6a0548529f5ca605b959468b91b820cdd993a8397c5f091a008e13d292",
+          "input_sha256": "bf7142bdc001e712fefeff8b18aefce4ee3793e76aebb95e0f67659adc95c9f8",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f2_selective_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "unchanged_f5",
+      "prime": 5,
+      "variables": 2,
+      "mode": 1,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        },
+        {
+          "quotient_dimension": "3",
+          "independent_dimension": "3"
+        }
+      ],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "unchanged_f5",
+          "kind": "baseline",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_baseline_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_baseline_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005164528996829176,
+          "cpu_seconds": 0.004274000000000111,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "8b91c37d90d485e70d8760324c9c362648827af1d60b0f3173b974fc6bd7b782",
+          "input_sha256": "50d1c81773cf1f75d9c1212f57c13384945be7c255a788b895a398a845f595de",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_baseline_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        },
+        {
+          "staging_events": [],
+          "name": "unchanged_f5",
+          "kind": "selective",
+          "mode": 1,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_selective_g1.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_selective_g1.basis",
+            "-g",
+            "1",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005286202998831868,
+          "cpu_seconds": 0.004363999999999951,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "8b91c37d90d485e70d8760324c9c362648827af1d60b0f3173b974fc6bd7b782",
+          "input_sha256": "50d1c81773cf1f75d9c1212f57c13384945be7c255a788b895a398a845f595de",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_selective_g1.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "unchanged_f5",
+      "prime": 5,
+      "variables": 2,
+      "mode": 2,
+      "status": "COMPLETE",
+      "expected_quotient_dimension": "3",
+      "exports_byte_identical": true,
+      "counts": [],
+      "runs": [
+        {
+          "staging_events": [],
+          "name": "unchanged_f5",
+          "kind": "baseline",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_promotion_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_baseline_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_baseline_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005322839999280404,
+          "cpu_seconds": 0.0042670000000000485,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "8a101caf5fc321ac0d04d8bb79b0e5c3e099e94fd75fcc207328544976b36412",
+          "input_sha256": "50d1c81773cf1f75d9c1212f57c13384945be7c255a788b895a398a845f595de",
+          "executable_sha256": "32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_baseline_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        },
+        {
+          "staging_events": [],
+          "name": "unchanged_f5",
+          "kind": "selective",
+          "mode": 2,
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_selective_g2.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_selective_g2.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "timed_out": false,
+          "memory_mb": 2048,
+          "timeout_seconds": 30,
+          "wall_seconds": 0.005277870001009433,
+          "cpu_seconds": 0.004255999999999899,
+          "marker_count": 1,
+          "error_diagnostics": [],
+          "basis_sha256": "8a101caf5fc321ac0d04d8bb79b0e5c3e099e94fd75fcc207328544976b36412",
+          "input_sha256": "50d1c81773cf1f75d9c1212f57c13384945be7c255a788b895a398a845f595de",
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/unchanged_f5_selective_g2.basis",
+          "promotion_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "inserted": 4,
+              "basis_capacity": 65536
+            }
+          ],
+          "reservation_events": [
+            {
+              "nonpivot": 4,
+              "referenced": 4,
+              "missing": 4,
+              "basis_load": 8,
+              "basis_capacity": 8
+            }
+          ],
+          "capacity_requests": [
+            {
+              "required_with_spare": 13,
+              "exponent_old": 8,
+              "exponent_new": 65536,
+              "buckets_old": 16,
+              "buckets_new": 131072
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

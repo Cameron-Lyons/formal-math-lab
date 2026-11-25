@@ -1,0 +1,90 @@
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.archlinux.org>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+Initial seed for pseudo-random number generator is 1795417330
+
+--------------- INPUT DATA ---------------
+#variables                      96
+#equations                     172
+#invalid equations               0
+field characteristic             2
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size     131072 (2^17)
+max pair selection              16
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  2       2      84       5 x 975        25.50%        2 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=972 referenced=955 missing=0 basis_load=35825 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=972 referenced=955 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  3      17      82     373 x 63409       0.59%       17 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=63053 referenced=52579 missing=45054 basis_load=36010 basis_capacity=65536
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=81065 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=63053 referenced=52579 inserted=45054 basis_capacity=131072
+         0.18 | 0.17         
+  3      14     147     462 x 76569       1.04%       14 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=76121 referenced=65587 missing=11314 basis_load=82977 basis_capacity=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=76121 referenced=65587 inserted=11314 basis_capacity=131072
+         0.32 | 0.23         
+  4      16     217   20023 x 2611156     0.09%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=2591149 referenced=1987233 missing=1982744 basis_load=95899 basis_capacity=131072
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=2078644 exponent_old=131072 exponent_new=2097152 buckets_old=262144 buckets_new=4194304
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=2591149 referenced=1987233 inserted=1982744 basis_capacity=2097152
+        26.60 | 25.11        
+  4      16     322   19881 x 2616716     0.13%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=2596851 referenced=2042424 missing=55218 basis_load=2080795 basis_capacity=2097152
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=2136014 exponent_old=2097152 exponent_new=2162688 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=2596851 referenced=2042424 inserted=55218 basis_capacity=2162688
+        32.04 | 30.30        
+  4      17     436   26569 x 2626958     0.13%
+Program received signal SIGSEGV, Segmentation fault.
+0x0000555555584fcd in reduce_dense_row_by_known_pivots_sparse_ff_8.isra ()
+
+Thread 1 (Thread 0x7ffff7edfb00 (LWP 472336) "msolve"):
+#0  0x0000555555584fcd in reduce_dense_row_by_known_pivots_sparse_ff_8.isra ()
+#1  0x000055555558b21f in exact_sparse_linear_algebra_ff_8 ()
+#2  0x00005555555a7b64 in core_f4 ()
+#3  0x0000555555562f52 in initial_modular_step.constprop ()
+#4  0x000055555556fc9e in msolve_trace_qq ()
+#5  0x0000555555577688 in real_msolve_qq ()
+#6  0x0000555555578389 in core_msolve ()
+#7  0x000055555555a71b in main ()
+#0  0x0000555555584fcd in reduce_dense_row_by_known_pivots_sparse_ff_8.isra ()
+No symbol table info available.
+No symbol table info available.

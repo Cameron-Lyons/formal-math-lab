@@ -1,0 +1,76 @@
+Initial seed for pseudo-random number generator is 1795421945
+
+--------------- INPUT DATA ---------------
+#variables                      29
+#equations                      59
+#invalid equations               0
+field characteristic             2
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size     131072 (2^17)
+max pair selection              16
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  3       1      30      30 x 86          5.58%
+MSOLVE_F2_BITSET rows=1 old_pivots=29 columns=86 new_pivots=1 words_per_row=2 output_terms=56
+        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=57 referenced=56 missing=0 basis_load=1769 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=57 referenced=56 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  4      16      31     167 x 392         1.13%
+MSOLVE_F2_BITSET rows=16 old_pivots=151 columns=392 new_pivots=0 words_per_row=7 output_terms=0
+        0 new      16 zero         0.00 | 0.00         
+  4      14      15     478 x 1276        0.39%
+MSOLVE_F2_BITSET rows=14 old_pivots=464 columns=1276 new_pivots=0 words_per_row=20 output_terms=0
+        0 new      14 zero         0.00 | 0.00         
+  5       1       1    4928 x 13046       0.04%
+MSOLVE_F2_BITSET rows=1 old_pivots=4927 columns=13046 new_pivots=1 words_per_row=204 output_terms=156
+        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=8119 referenced=156 missing=156 basis_load=1827 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=8119 referenced=156 inserted=156 basis_capacity=65536
+         0.01 | 0.01         
+  6       3       4   37081 x 92644       0.01%
+MSOLVE_F2_BITSET rows=3 old_pivots=37078 columns=92644 new_pivots=0 words_per_row=1448 output_terms=0
+        0 new       3 zero         0.05 | 0.05         
+  7       1       1   12084 x 31740       0.01%
+MSOLVE_F2_BITSET rows=1 old_pivots=12083 columns=31740 new_pivots=1 words_per_row=496 output_terms=432
+        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=19657 referenced=432 missing=432 basis_load=2042 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=19657 referenced=432 inserted=432 basis_capacity=65536
+         0.01 | 0.01         
+  8       5       6 1473802 x 3216062     0.00%
+MSOLVE_F2_BITSET rows=5 old_pivots=1473797 columns=3216062 new_pivots=0 words_per_row=50251 output_terms=0
+        0 new       5 zero         3.75 | 3.67         
+  9       1       1   29208 x 76014       0.01%
+MSOLVE_F2_BITSET rows=1 old_pivots=29207 columns=76014 new_pivots=1 words_per_row=1188 output_terms=1188
+        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=46807 referenced=1188 missing=1188 basis_load=2534 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=46807 referenced=1188 inserted=1188 basis_capacity=65536
+         0.04 | 0.04         
+ 10       7       8

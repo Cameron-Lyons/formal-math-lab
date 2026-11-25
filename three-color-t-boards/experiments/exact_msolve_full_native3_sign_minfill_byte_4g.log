@@ -1,0 +1,1087 @@
+Initial seed for pseudo-random number generator is 1795429362
+
+--------------- INPUT DATA ---------------
+#variables                      97
+#equations                     179
+#invalid equations               0
+field characteristic             3
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size     131072 (2^17)
+max pair selection              16
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  2       5     101      10 x 867        26.10%        5 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=862 referenced=794 missing=0 basis_load=48783 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=862 referenced=794 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  3      17      99
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1567 row_length=547 required_with_spare=2115 requested_capacity=4096
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2115 exponent_old=2048 exponent_new=4096 buckets_old=4096 buckets_new=8192
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3739 row_length=361 required_with_spare=4101 requested_capacity=8192
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4101 exponent_old=4096 exponent_new=8192 buckets_old=8192 buckets_new=16384
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=8077 row_length=141 required_with_spare=8219 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=8219 exponent_old=8192 exponent_new=16384 buckets_old=16384 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=16262 row_length=141 required_with_spare=16404 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=16404 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+     181 x 16808       1.32%       16 new       1 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=16644 referenced=14141 missing=11885 basis_load=49348 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=16644 referenced=14141 inserted=11885 basis_capacity=65536
+         0.06 | 0.06         
+  3      18     172
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=23204 row_length=9774 required_with_spare=32979 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=32979 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+     267 x 25323       2.74%       18 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=25074 referenced=22886 missing=7951 basis_load=63301 basis_capacity=65536
+
+MSOLVE_SYMBOLIC_STAGING old_load=25324 old_capacity=65536 missing=7951 old_exponent_bytes=6422528 staged_exponent_bytes=779296 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=71253 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=25074 referenced=22886 inserted=7951 basis_capacity=131072
+         0.11 | 0.10         
+  3       3     252
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1498 row_length=619 required_with_spare=2118 requested_capacity=4096
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2118 exponent_old=2048 exponent_new=4096 buckets_old=4096 buckets_new=8192
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3956 row_length=170 required_with_spare=4127 requested_capacity=8192
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4127 exponent_old=4096 exponent_new=8192 buckets_old=8192 buckets_new=16384
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=5262 row_length=14308 required_with_spare=19571 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=19571 exponent_old=8192 exponent_new=32768 buckets_old=16384 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=19459 row_length=15211 required_with_spare=34671 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=34671 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+     230 x 24991       5.77%        3 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=24764 referenced=19793 missing=16 basis_load=74116 basis_capacity=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=24764 referenced=19793 inserted=16 basis_capacity=131072
+         0.11 | 0.11         
+  4      16     263
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=58455 row_length=8489 required_with_spare=66945 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=66945 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+    1105 x 120212      0.66%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=119123 referenced=68699 missing=66766 basis_load=74646 basis_capacity=131072
+
+MSOLVE_SYMBOLIC_STAGING old_load=120213 old_capacity=131072 missing=66766 old_exponent_bytes=12845056 staged_exponent_bytes=6543166 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=141413 exponent_old=131072 exponent_new=196608 buckets_old=262144 buckets_new=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=119123 referenced=68699 inserted=66766 basis_capacity=196608
+         0.51 | 0.50         
+  4      16     393
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1 row_length=9225 required_with_spare=9227 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=9227 exponent_old=2048 exponent_new=16384 buckets_old=4096 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=10797 row_length=8489 required_with_spare=19287 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=19287 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=31562 row_length=7431 required_with_spare=38994 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=38994 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=59450 row_length=7995 required_with_spare=67446 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=67446 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=121370 row_length=9774 required_with_spare=131145 requested_capacity=196608
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=131145 exponent_old=131072 exponent_new=196608 buckets_old=262144 buckets_new=524288
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=194244 row_length=5700 required_with_spare=199945 requested_capacity=262144
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=199945 exponent_old=196608 exponent_new=262144 buckets_old=524288 buckets_new=524288
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=261872 row_length=274 required_with_spare=262147 requested_capacity=327680
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=262147 exponent_old=262144 exponent_new=327680 buckets_old=524288 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=319459 row_length=9225 required_with_spare=328685 requested_capacity=393216
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=328685 exponent_old=327680 exponent_new=393216 buckets_old=1048576 buckets_new=1048576
+    4872 x 369945      0.20%       15 new       1 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=365089 referenced=334064 missing=262245 basis_load=144331 basis_capacity=196608
+
+MSOLVE_SYMBOLIC_STAGING old_load=369946 old_capacity=393216 missing=262245 old_exponent_bytes=38535168 staged_exponent_bytes=25700108 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=406577 exponent_old=196608 exponent_new=458752 buckets_old=524288 buckets_new=1048576
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=365089 referenced=334064 inserted=262245 basis_capacity=458752
+         2.06 | 2.05         
+  4      16     511
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1 row_length=9500 required_with_spare=9502 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=9502 exponent_old=2048 exponent_new=16384 buckets_old=4096 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=9501 row_length=6973 required_with_spare=16475 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=16475 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=30853 row_length=6973 required_with_spare=37827 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=37827 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=62600 row_length=8838 required_with_spare=71439 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=71439 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=75250 row_length=188809 required_with_spare=264060 requested_capacity=327680
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=264060 exponent_old=131072 exponent_new=327680 buckets_old=262144 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=233800 row_length=196085 required_with_spare=429886 requested_capacity=458752
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=429886 exponent_old=327680 exponent_new=458752 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=287459 row_length=177878 required_with_spare=465338 requested_capacity=524288
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=465338 exponent_old=458752 exponent_new=524288 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=339058 row_length=206055 required_with_spare=545114 requested_capacity=589824
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=545114 exponent_old=524288 exponent_new=589824 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=388790 row_length=201861 required_with_spare=590652 requested_capacity=655360
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=590652 exponent_old=589824 exponent_new=655360 buckets_old=2097152 buckets_new=2097152
+    7285 x 510454      0.23%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=503185 referenced=395160 missing=60829 basis_load=409213 basis_capacity=458752
+
+MSOLVE_SYMBOLIC_STAGING old_load=510455 old_capacity=655360 missing=60829 old_exponent_bytes=64225280 staged_exponent_bytes=5961340 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=470043 exponent_old=458752 exponent_new=524288 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=503185 referenced=395160 inserted=60829 basis_capacity=524288
+         4.12 | 3.92         
+  4      16     633
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1 row_length=8691 required_with_spare=8693 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=8693 exponent_old=2048 exponent_new=16384 buckets_old=4096 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=8692 row_length=9004 required_with_spare=17697 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=17697 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=26375 row_length=8691 required_with_spare=35067 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=35067 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=62519 row_length=4986 required_with_spare=67506 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=67506 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=81319 row_length=252672 required_with_spare=333992 requested_capacity=393216
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=333992 exponent_old=131072 exponent_new=393216 buckets_old=262144 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=288811 row_length=238222 required_with_spare=527034 requested_capacity=589824
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=527034 exponent_old=393216 exponent_new=589824 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=377154 row_length=247371 required_with_spare=624526 requested_capacity=655360
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=624526 exponent_old=589824 exponent_new=655360 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=421597 row_length=240321 required_with_spare=661919 requested_capacity=720896
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=661919 exponent_old=655360 exponent_new=720896 buckets_old=2097152 buckets_new=2097152
+    6802 x 469189      0.35%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=462403 referenced=420412 missing=27479 basis_load=472801 basis_capacity=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=462403 referenced=420412 inserted=27479 basis_capacity=524288
+         4.58 | 4.55         
+  4      16     769
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=440051 row_length=283709 required_with_spare=723761 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=723761 exponent_old=720896 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=532678 row_length=263255 required_with_spare=795934 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=795934 exponent_old=786432 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+    8387 x 542962      0.37%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=534591 referenced=410942 missing=172 basis_load=502896 basis_capacity=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=534591 referenced=410942 inserted=172 basis_capacity=524288
+         6.07 | 6.05         
+  4      16     904    9422 x 582971      0.40%       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=573565 referenced=426936 missing=5002 basis_load=505781 basis_capacity=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=573565 referenced=426936 inserted=5002 basis_capacity=524288
+         7.53 | 7.39         
+  4      16    1005    9722 x 609446      0.44%        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=599740 referenced=422053 missing=4 basis_load=513276 basis_capacity=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=599740 referenced=422053 inserted=4 basis_capacity=524288
+         8.23 | 8.10         
+  4      16    1061    7508 x 530751      0.64%        8 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=523259 referenced=418274 missing=89 basis_load=514972 basis_capacity=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=523259 referenced=418274 inserted=89 basis_capacity=524288
+         7.63 | 7.59         
+  4      17    1125    8980 x 547776      0.58%       10 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=538813 referenced=464667 missing=38226 basis_load=516776 basis_capacity=524288
+
+MSOLVE_SYMBOLIC_STAGING old_load=547777 old_capacity=851968 missing=38226 old_exponent_bytes=83492864 staged_exponent_bytes=3746246 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=555003 exponent_old=524288 exponent_new=589824 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=538813 referenced=464667 inserted=38226 basis_capacity=589824
+         8.24 | 8.20         
+  4      16    1191
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1224 row_length=10486 required_with_spare=11711 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=11711 exponent_old=2048 exponent_new=16384 buckets_old=4096 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=13119 row_length=10486 required_with_spare=23606 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=23606 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=23083 row_length=10486 required_with_spare=33570 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=33570 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=64161 row_length=12030 required_with_spare=76192 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=76192 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=130751 row_length=372 required_with_spare=131124 requested_capacity=196608
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=131124 exponent_old=131072 exponent_new=196608 buckets_old=262144 buckets_new=524288
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=187095 row_length=298651 required_with_spare=485747 requested_capacity=524288
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=485747 exponent_old=196608 exponent_new=524288 buckets_old=524288 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=416478 row_length=272508 required_with_spare=688987 requested_capacity=720896
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=688987 exponent_old=524288 exponent_new=720896 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=478724 row_length=282944 required_with_spare=761669 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=761669 exponent_old=720896 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=508218 row_length=284745 required_with_spare=792964 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=792964 exponent_old=786432 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=695018 row_length=256675 required_with_spare=951694 requested_capacity=983040
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=951694 exponent_old=851968 exponent_new=983040 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=695019 row_length=289148 required_with_spare=984168 requested_capacity=1048576
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=984168 exponent_old=983040 exponent_new=1048576 buckets_old=2097152 buckets_new=2097152
+   10189 x 702139      0.46%       12 new       4 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=691966 referenced=678779 missing=213282 basis_load=556654 basis_capacity=589824
+
+MSOLVE_SYMBOLIC_STAGING old_load=702140 old_capacity=1048576 missing=213282 old_exponent_bytes=102760448 staged_exponent_bytes=20901734 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=769937 exponent_old=589824 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=691966 referenced=678779 inserted=213282 basis_capacity=786432
+        10.37 | 10.32        
+  4      16    1257
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=620 row_length=15658 required_with_spare=16279 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=16279 exponent_old=2048 exponent_new=16384 buckets_old=4096 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=16272 row_length=14308 required_with_spare=30581 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=30581 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=29671 row_length=9508 required_with_spare=39180 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=39180 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=56911 row_length=15096 required_with_spare=72008 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=72008 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=125042 row_length=11164 required_with_spare=136207 requested_capacity=196608
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=136207 exponent_old=131072 exponent_new=196608 buckets_old=262144 buckets_new=524288
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=190806 row_length=15658 required_with_spare=206465 requested_capacity=262144
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=206465 exponent_old=196608 exponent_new=262144 buckets_old=524288 buckets_new=524288
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=203087 row_length=453961 required_with_spare=657049 requested_capacity=720896
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=657049 exponent_old=262144 exponent_new=720896 buckets_old=524288 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=618141 row_length=469207 required_with_spare=1087349 requested_capacity=1114112
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1087349 exponent_old=720896 exponent_new=1114112 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=679254 row_length=460574 required_with_spare=1139829 requested_capacity=1179648
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1139829 exponent_old=1114112 exponent_new=1179648 buckets_old=4194304 buckets_new=4194304
+    8688 x 717867      0.58%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=709195 referenced=696212 missing=22944 basis_load=772876 basis_capacity=786432
+
+MSOLVE_SYMBOLIC_STAGING old_load=717868 old_capacity=1179648 missing=22944 old_exponent_bytes=115605504 staged_exponent_bytes=2248610 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=795821 exponent_old=786432 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=709195 referenced=696212 inserted=22944 basis_capacity=851968
+        11.61 | 11.55        
+  4      19    1331
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1 row_length=13697 required_with_spare=13699 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=13699 exponent_old=2048 exponent_new=16384 buckets_old=4096 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=13698 row_length=15211 required_with_spare=28910 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=28910 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=28791 row_length=15211 required_with_spare=44003 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=44003 exponent_old=32768 exponent_new=65536 buckets_old=65536 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=61076 row_length=12030 required_with_spare=73107 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=73107 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=90949 row_length=439036 required_with_spare=529986 requested_capacity=589824
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=529986 exponent_old=131072 exponent_new=589824 buckets_old=262144 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=491027 row_length=474174 required_with_spare=965202 requested_capacity=983040
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=965202 exponent_old=589824 exponent_new=983040 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=638123 row_length=475612 required_with_spare=1113736 requested_capacity=1114112
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1113736 exponent_old=983040 exponent_new=1114112 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=677403 row_length=472836 required_with_spare=1150240 requested_capacity=1179648
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1150240 exponent_old=1114112 exponent_new=1179648 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=707423 row_length=473025 required_with_spare=1180449 requested_capacity=1245184
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1180449 exponent_old=1179648 exponent_new=1245184 buckets_old=4194304 buckets_new=4194304
+   10017 x 719436      0.63%       15 new       4 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=709438 referenced=699907 missing=0 basis_load=800824 basis_capacity=851968
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=709438 referenced=699907 inserted=0 basis_capacity=851968
+        13.37 | 13.30        
+  4       1    1411    6920 x 713410      1.02%        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=706491 referenced=5874 missing=0 basis_load=805593 basis_capacity=851968
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=706491 referenced=5874 inserted=0 basis_capacity=851968
+        14.03 | 13.92        
+  5      16    1421    7091 x 839576      0.14%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=832501 referenced=707857 missing=703072 basis_load=805881 basis_capacity=851968
+
+MSOLVE_SYMBOLIC_STAGING old_load=839577 old_capacity=1245184 missing=703072 old_exponent_bytes=122028032 staged_exponent_bytes=68901154 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=1508954 exponent_old=851968 exponent_new=1572864 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=832501 referenced=707857 inserted=703072 basis_capacity=1572864
+         5.58 | 5.55         
+  5      16    1637
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=262 row_length=293459 required_with_spare=293722 requested_capacity=327680
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=293722 exponent_old=2048 exponent_new=327680 buckets_old=4096 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=294204 row_length=279120 required_with_spare=573325 requested_capacity=589824
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=573325 exponent_old=327680 exponent_new=589824 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=381892 row_length=285229 required_with_spare=667122 requested_capacity=720896
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=667122 exponent_old=589824 exponent_new=720896 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=442227 row_length=317916 required_with_spare=760144 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=760144 exponent_old=720896 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=470969 row_length=528134 required_with_spare=999104 requested_capacity=1048576
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=999104 exponent_old=786432 exponent_new=1048576 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=676665 row_length=435070 required_with_spare=1111736 requested_capacity=1114112
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1111736 exponent_old=1048576 exponent_new=1114112 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=715031 row_length=505196 required_with_spare=1220228 requested_capacity=1245184
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1220228 exponent_old=1114112 exponent_new=1245184 buckets_old=4194304 buckets_new=4194304
+    7819 x 901823      0.27%       13 new       3 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=894020 referenced=870785 missing=161550 basis_load=1513742 basis_capacity=1572864
+
+MSOLVE_SYMBOLIC_STAGING old_load=901824 old_capacity=1245184 missing=161550 old_exponent_bytes=122028032 staged_exponent_bytes=15831998 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=1675293 exponent_old=1572864 exponent_new=1703936 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=894020 referenced=870785 inserted=161550 basis_capacity=1703936
+         9.14 | 8.84         
+  5      16    1801
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=392 row_length=283709 required_with_spare=284102 requested_capacity=327680
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=284102 exponent_old=2048 exponent_new=327680 buckets_old=4096 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=303517 row_length=288082 required_with_spare=591600 requested_capacity=655360
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=591600 exponent_old=327680 exponent_new=655360 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=577515 row_length=263255 required_with_spare=840771 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=840771 exponent_old=655360 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=655575 row_length=283709 required_with_spare=939285 requested_capacity=983040
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=939285 exponent_old=851968 exponent_new=983040 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=763715 row_length=291532 required_with_spare=1055248 requested_capacity=1114112
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1055248 exponent_old=983040 exponent_new=1114112 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=824383 row_length=291140 required_with_spare=1115524 requested_capacity=1179648
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1115524 exponent_old=1114112 exponent_new=1179648 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=865731 row_length=317339 required_with_spare=1183071 requested_capacity=1245184
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1183071 exponent_old=1179648 exponent_new=1245184 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=869817 row_length=528134 required_with_spare=1397952 requested_capacity=1441792
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1397952 exponent_old=1245184 exponent_new=1441792 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1045768 row_length=515471 required_with_spare=1561240 requested_capacity=1572864
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1561240 exponent_old=1441792 exponent_new=1572864 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1074651 row_length=612001 required_with_spare=1686653 requested_capacity=1703936
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1686653 exponent_old=1572864 exponent_new=1703936 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1223249 row_length=582556 required_with_spare=1805806 requested_capacity=1835008
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1805806 exponent_old=1703936 exponent_new=1835008 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1770816 row_length=279120 required_with_spare=2049937 requested_capacity=2097152
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2049937 exponent_old=1835008 exponent_new=2097152 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1859363 row_length=279120 required_with_spare=2138484 requested_capacity=2162688
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2138484 exponent_old=2097152 exponent_new=2162688 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1931400 row_length=285229 required_with_spare=2216630 requested_capacity=2228224
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2216630 exponent_old=2162688 exponent_new=2228224 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1955003 row_length=285229 required_with_spare=2240233 requested_capacity=2293760
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2240233 exponent_old=2228224 exponent_new=2293760 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2018935 row_length=289148 required_with_spare=2308084 requested_capacity=2359296
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2308084 exponent_old=2293760 exponent_new=2359296 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2042432 row_length=317916 required_with_spare=2360349 requested_capacity=2424832
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2360349 exponent_old=2359296 exponent_new=2424832 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2162452 row_length=279120 required_with_spare=2441573 requested_capacity=2490368
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2441573 exponent_old=2424832 exponent_new=2490368 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2185121 row_length=308429 required_with_spare=2493551 requested_capacity=2555904
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2493551 exponent_old=2490368 exponent_new=2555904 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2363832 row_length=279120 required_with_spare=2642953 requested_capacity=2686976
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2642953 exponent_old=2555904 exponent_new=2686976 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2415486 row_length=289148 required_with_spare=2704635 requested_capacity=2752512
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2704635 exponent_old=2686976 exponent_new=2752512 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2462885 row_length=308429 required_with_spare=2771315 requested_capacity=2818048
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2771315 exponent_old=2752512 exponent_new=2818048 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2638379 row_length=279120 required_with_spare=2917500 requested_capacity=2949120
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2917500 exponent_old=2818048 exponent_new=2949120 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2688311 row_length=289148 required_with_spare=2977460 requested_capacity=3014656
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2977460 exponent_old=2949120 exponent_new=3014656 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2732787 row_length=291140 required_with_spare=3023928 requested_capacity=3080192
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3023928 exponent_old=3014656 exponent_new=3080192 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2752152 row_length=505196 required_with_spare=3257349 requested_capacity=3276800
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3257349 exponent_old=3080192 exponent_new=3276800 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2752152 row_length=629309 required_with_spare=3381462 requested_capacity=3407872
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3381462 exponent_old=3276800 exponent_new=3407872 buckets_old=8388608 buckets_new=8388608
+   16437 x 2871219     0.22%       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=2854798 referenced=2775633 missing=1900333 basis_load=1679258 basis_capacity=1703936
+
+MSOLVE_SYMBOLIC_STAGING old_load=2871220 old_capacity=3407872 missing=1900333 old_exponent_bytes=333971456 staged_exponent_bytes=186232732 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=3579592 exponent_old=1703936 exponent_new=3604480 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=2854798 referenced=2775633 inserted=1900333 basis_capacity=3604480
+        48.46 | 44.91        
+  5      16    1959
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1 row_length=283709 required_with_spare=283711 requested_capacity=327680
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=283711 exponent_old=2048 exponent_new=327680 buckets_old=4096 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=316947 row_length=272508 required_with_spare=589456 requested_capacity=589824
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=589456 exponent_old=327680 exponent_new=589824 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=405041 row_length=235486 required_with_spare=640528 requested_capacity=655360
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=640528 exponent_old=589824 exponent_new=655360 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=428377 row_length=232793 required_with_spare=661171 requested_capacity=720896
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=661171 exponent_old=655360 exponent_new=720896 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=460095 row_length=291532 required_with_spare=751628 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=751628 exponent_old=720896 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=509399 row_length=291140 required_with_spare=800540 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=800540 exponent_old=786432 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=528592 row_length=1796763 required_with_spare=2325356 requested_capacity=2359296
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2325356 exponent_old=851968 exponent_new=2359296 buckets_old=2097152 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1999285 row_length=1861802 required_with_spare=3861088 requested_capacity=3866624
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3861088 exponent_old=2359296 exponent_new=3866624 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2769864 row_length=1875945 required_with_spare=4645810 requested_capacity=4653056
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4645810 exponent_old=3866624 exponent_new=4653056 buckets_old=8388608 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2852159 row_length=1864207 required_with_spare=4716367 requested_capacity=4718592
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4716367 exponent_old=4653056 exponent_new=4718592 buckets_old=16777216 buckets_new=16777216
+   17439 x 3200323     0.26%       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=3182900 referenced=2962178 missing=186041 basis_load=3584190 basis_capacity=3604480
+
+MSOLVE_SYMBOLIC_STAGING old_load=3200324 old_capacity=4718592 missing=186041 old_exponent_bytes=462422016 staged_exponent_bytes=18232116 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=3770232 exponent_old=3604480 exponent_new=3801088 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=3182900 referenced=2962178 inserted=186041 basis_capacity=3801088
+        62.86 | 59.31        
+  5      16    2114
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1 row_length=7995 required_with_spare=7997 requested_capacity=8192
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=7997 exponent_old=2048 exponent_new=8192 buckets_old=4096 buckets_new=16384
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=7996 row_length=1989 required_with_spare=9986 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=9986 exponent_old=8192 exponent_new=16384 buckets_old=16384 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=11959 row_length=7885 required_with_spare=19845 requested_capacity=32768
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=19845 exponent_old=16384 exponent_new=32768 buckets_old=32768 buckets_new=65536
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=25469 row_length=40074 required_with_spare=65544 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=65544 exponent_old=32768 exponent_new=131072 buckets_old=65536 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=57557 row_length=287138 required_with_spare=344696 requested_capacity=393216
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=344696 exponent_old=131072 exponent_new=393216 buckets_old=262144 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=367509 row_length=287885 required_with_spare=655395 requested_capacity=720896
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=655395 exponent_old=393216 exponent_new=720896 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=544035 row_length=206055 required_with_spare=750091 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=750091 exponent_old=720896 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=567388 row_length=242303 required_with_spare=809692 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=809692 exponent_old=786432 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=578242 row_length=279476 required_with_spare=857719 requested_capacity=917504
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=857719 exponent_old=851968 exponent_new=917504 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=613410 row_length=308429 required_with_spare=921840 requested_capacity=983040
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=921840 exponent_old=917504 exponent_new=983040 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=975439 row_length=7995 required_with_spare=983435 requested_capacity=1048576
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=983435 exponent_old=983040 exponent_new=1048576 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=999884 row_length=313752 required_with_spare=1313637 requested_capacity=1376256
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1313637 exponent_old=1048576 exponent_new=1376256 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1103772 row_length=295548 required_with_spare=1399321 requested_capacity=1441792
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1399321 exponent_old=1376256 exponent_new=1441792 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1103776 row_length=1160176 required_with_spare=2263953 requested_capacity=2293760
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2263953 exponent_old=1441792 exponent_new=2293760 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2009233 row_length=313752 required_with_spare=2322986 requested_capacity=2359296
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2322986 exponent_old=2293760 exponent_new=2359296 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2169022 row_length=261059 required_with_spare=2430082 requested_capacity=2490368
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2430082 exponent_old=2359296 exponent_new=2490368 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2223026 row_length=288082 required_with_spare=2511109 requested_capacity=2555904
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2511109 exponent_old=2490368 exponent_new=2555904 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2274810 row_length=313752 required_with_spare=2588563 requested_capacity=2621440
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2588563 exponent_old=2555904 exponent_new=2621440 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2478527 row_length=313516 required_with_spare=2792044 requested_capacity=2818048
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2792044 exponent_old=2621440 exponent_new=2818048 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2556664 row_length=288082 required_with_spare=2844747 requested_capacity=2883584
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2844747 exponent_old=2818048 exponent_new=2883584 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2716691 row_length=313516 required_with_spare=3030208 requested_capacity=3080192
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3030208 exponent_old=2883584 exponent_new=3080192 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2793769 row_length=1926068 required_with_spare=4719838 requested_capacity=4784128
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4719838 exponent_old=3080192 exponent_new=4784128 buckets_old=8388608 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3002076 row_length=1796763 required_with_spare=4798840 requested_capacity=4849664
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4798840 exponent_old=4784128 exponent_new=4849664 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3044858 row_length=1969317 required_with_spare=5014176 requested_capacity=5046272
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5014176 exponent_old=4849664 exponent_new=5046272 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3062040 row_length=2070606 required_with_spare=5132647 requested_capacity=5177344
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5132647 exponent_old=5046272 exponent_new=5177344 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3624513 row_length=1875945 required_with_spare=5500459 requested_capacity=5505024
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5500459 exponent_old=5177344 exponent_new=5505024 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3624980 row_length=1966154 required_with_spare=5591135 requested_capacity=5636096
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5591135 exponent_old=5505024 exponent_new=5636096 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3761286 row_length=1913722 required_with_spare=5675009 requested_capacity=5701632
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5675009 exponent_old=5636096 exponent_new=5701632 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3761442 row_length=2006688 required_with_spare=5768131 requested_capacity=5832704
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5768131 exponent_old=5701632 exponent_new=5832704 buckets_old=16777216 buckets_new=16777216
+   32889 x 3894880     0.17%       13 new       3 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=3862007 referenced=3727224 missing=769562 basis_load=3774330 basis_capacity=3801088
+
+MSOLVE_SYMBOLIC_STAGING old_load=3894881 old_capacity=5832704 missing=769562 old_exponent_bytes=571604992 staged_exponent_bytes=75417174 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=4543893 exponent_old=3801088 exponent_new=4587520 buckets_old=8388608 buckets_new=16777216
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=3862007 referenced=3727224 inserted=769562 basis_capacity=4587520
+        79.18 | 78.17        
+  5      16    2267
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=40 row_length=2730 required_with_spare=2771 requested_capacity=4096
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2771 exponent_old=2048 exponent_new=4096 buckets_old=4096 buckets_new=8192
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2767 row_length=10486 required_with_spare=13254 requested_capacity=16384
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=13254 exponent_old=4096 exponent_new=16384 buckets_old=8192 buckets_new=32768
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=13216 row_length=40074 required_with_spare=53291 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=53291 exponent_old=16384 exponent_new=65536 buckets_old=32768 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=57548 row_length=40074 required_with_spare=97623 requested_capacity=131072
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=97623 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=95613 row_length=40074 required_with_spare=135688 requested_capacity=196608
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=135688 exponent_old=131072 exponent_new=196608 buckets_old=262144 buckets_new=524288
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=180364 row_length=276564 required_with_spare=456929 requested_capacity=458752
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=456929 exponent_old=196608 exponent_new=458752 buckets_old=524288 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=453907 row_length=26711 required_with_spare=480619 requested_capacity=524288
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=480619 exponent_old=458752 exponent_new=524288 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=515555 row_length=15292 required_with_spare=530848 requested_capacity=589824
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=530848 exponent_old=524288 exponent_new=589824 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=567017 row_length=272304 required_with_spare=839322 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=839322 exponent_old=589824 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=808125 row_length=313752 required_with_spare=1121878 requested_capacity=1179648
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1121878 exponent_old=851968 exponent_new=1179648 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=926105 row_length=285229 required_with_spare=1211335 requested_capacity=1245184
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1211335 exponent_old=1179648 exponent_new=1245184 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1191562 row_length=283709 required_with_spare=1475272 requested_capacity=1507328
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1475272 exponent_old=1245184 exponent_new=1507328 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1451611 row_length=285229 required_with_spare=1736841 requested_capacity=1769472
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1736841 exponent_old=1507328 exponent_new=1769472 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1681215 row_length=313752 required_with_spare=1994968 requested_capacity=2031616
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1994968 exponent_old=1769472 exponent_new=2031616 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1779690 row_length=313752 required_with_spare=2093443 requested_capacity=2097152
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2093443 exponent_old=2031616 exponent_new=2097152 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2025036 row_length=313752 required_with_spare=2338789 requested_capacity=2359296
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2338789 exponent_old=2097152 exponent_new=2359296 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2259163 row_length=287138 required_with_spare=2546302 requested_capacity=2555904
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2546302 exponent_old=2359296 exponent_new=2555904 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2286069 row_length=279917 required_with_spare=2565987 requested_capacity=2621440
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2565987 exponent_old=2555904 exponent_new=2621440 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2309714 row_length=322369 required_with_spare=2632084 requested_capacity=2686976
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2632084 exponent_old=2621440 exponent_new=2686976 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2310065 row_length=2602117 required_with_spare=4912183 requested_capacity=4915200
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4912183 exponent_old=2686976 exponent_new=4915200 buckets_old=8388608 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3594312 row_length=2574464 required_with_spare=6168777 requested_capacity=6225920
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=6168777 exponent_old=4915200 exponent_new=6225920 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3914541 row_length=2554467 required_with_spare=6469009 requested_capacity=6488064
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=6469009 exponent_old=6225920 exponent_new=6488064 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3981389 row_length=2524320 required_with_spare=6505710 requested_capacity=6553600
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=6505710 exponent_old=6488064 exponent_new=6553600 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4967185 row_length=1796763 required_with_spare=6763949 requested_capacity=6815744
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=6763949 exponent_old=6553600 exponent_new=6815744 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4967185 row_length=1969317 required_with_spare=6936503 requested_capacity=6946816
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=6936503 exponent_old=6815744 exponent_new=6946816 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4967185 row_length=2548254 required_with_spare=7515440 requested_capacity=7536640
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=7515440 exponent_old=6946816 exponent_new=7536640 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=5097099 row_length=2608997 required_with_spare=7706097 requested_capacity=7733248
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=7706097 exponent_old=7536640 exponent_new=7733248 buckets_old=16777216 buckets_new=16777216
+   57321 x 5384334     0.10%       15 new       1 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=5327029 referenced=4301213 missing=1226637 basis_load=4547699 basis_capacity=4587520
+
+MSOLVE_SYMBOLIC_STAGING old_load=5384335 old_capacity=7733248 missing=1226637 old_exponent_bytes=757858304 staged_exponent_bytes=120210524 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=5774337 exponent_old=4587520 exponent_new=5832704 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=5327029 referenced=4301213 inserted=1226637 basis_capacity=5832704
+       133.05 | 122.32       
+  5      16    2499
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1652 row_length=46231 required_with_spare=47884 requested_capacity=65536
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=47884 exponent_old=2048 exponent_new=65536 buckets_old=4096 buckets_new=131072
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=49219 row_length=308739 required_with_spare=357959 requested_capacity=393216
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=357959 exponent_old=65536 exponent_new=393216 buckets_old=131072 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=323995 row_length=322369 required_with_spare=646365 requested_capacity=655360
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=646365 exponent_old=393216 exponent_new=655360 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=426432 row_length=308720 required_with_spare=735153 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=735153 exponent_old=655360 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=529782 row_length=717835 required_with_spare=1247618 requested_capacity=1310720
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1247618 exponent_old=786432 exponent_new=1310720 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1246754 row_length=298911 required_with_spare=1545666 requested_capacity=1572864
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1545666 exponent_old=1310720 exponent_new=1572864 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1495764 row_length=306960 required_with_spare=1802725 requested_capacity=1835008
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1802725 exponent_old=1572864 exponent_new=1835008 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1586737 row_length=308720 required_with_spare=1895458 requested_capacity=1900544
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1895458 exponent_old=1835008 exponent_new=1900544 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1754122 row_length=298911 required_with_spare=2053034 requested_capacity=2097152
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2053034 exponent_old=1900544 exponent_new=2097152 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2006222 row_length=276564 required_with_spare=2282787 requested_capacity=2293760
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2282787 exponent_old=2097152 exponent_new=2293760 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2078094 row_length=315699 required_with_spare=2393794 requested_capacity=2424832
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2393794 exponent_old=2293760 exponent_new=2424832 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2118980 row_length=306960 required_with_spare=2425941 requested_capacity=2490368
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2425941 exponent_old=2424832 exponent_new=2490368 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2389299 row_length=308379 required_with_spare=2697679 requested_capacity=2752512
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2697679 exponent_old=2490368 exponent_new=2752512 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2495379 row_length=315699 required_with_spare=2811079 requested_capacity=2818048
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2811079 exponent_old=2752512 exponent_new=2818048 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2515363 row_length=308720 required_with_spare=2824084 requested_capacity=2883584
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=2824084 exponent_old=2818048 exponent_new=2883584 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2781782 row_length=306960 required_with_spare=3088743 requested_capacity=3145728
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3088743 exponent_old=2883584 exponent_new=3145728 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2872754 row_length=308720 required_with_spare=3181475 requested_capacity=3211264
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3181475 exponent_old=3145728 exponent_new=3211264 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2947925 row_length=298911 required_with_spare=3246837 requested_capacity=3276800
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3246837 exponent_old=3211264 exponent_new=3276800 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3229934 row_length=308379 required_with_spare=3538314 requested_capacity=3538944
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3538314 exponent_old=3276800 exponent_new=3538944 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3308422 row_length=276564 required_with_spare=3584987 requested_capacity=3604480
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3584987 exponent_old=3538944 exponent_new=3604480 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3335973 row_length=315699 required_with_spare=3651673 requested_capacity=3670016
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3651673 exponent_old=3604480 exponent_new=3670016 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3633816 row_length=308379 required_with_spare=3942196 requested_capacity=3997696
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3942196 exponent_old=3670016 exponent_new=3997696 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3738376 row_length=315699 required_with_spare=4054076 requested_capacity=4063232
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4054076 exponent_old=3997696 exponent_new=4063232 buckets_old=8388608 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3997003 row_length=308379 required_with_spare=4305383 requested_capacity=4325376
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4305383 exponent_old=4063232 exponent_new=4325376 buckets_old=8388608 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4066012 row_length=276564 required_with_spare=4342577 requested_capacity=4390912
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4342577 exponent_old=4325376 exponent_new=4390912 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4090050 row_length=315699 required_with_spare=4405750 requested_capacity=4456448
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4405750 exponent_old=4390912 exponent_new=4456448 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4324990 row_length=308379 required_with_spare=4633370 requested_capacity=4653056
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4633370 exponent_old=4456448 exponent_new=4653056 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4387975 row_length=276564 required_with_spare=4664540 requested_capacity=4718592
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4664540 exponent_old=4653056 exponent_new=4718592 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4410098 row_length=315699 required_with_spare=4725798 requested_capacity=4784128
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4725798 exponent_old=4718592 exponent_new=4784128 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4614594 row_length=276564 required_with_spare=4891159 requested_capacity=4915200
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4891159 exponent_old=4784128 exponent_new=4915200 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4666390 row_length=315699 required_with_spare=4982090 requested_capacity=5046272
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=4982090 exponent_old=4915200 exponent_new=5046272 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4758867 row_length=308379 required_with_spare=5067247 requested_capacity=5111808
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5067247 exponent_old=5046272 exponent_new=5111808 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4793257 row_length=322369 required_with_spare=5115627 requested_capacity=5177344
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5115627 exponent_old=5111808 exponent_new=5177344 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=4958323 row_length=306960 required_with_spare=5265284 requested_capacity=5308416
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5265284 exponent_old=5177344 exponent_new=5308416 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=5022192 row_length=308720 required_with_spare=5330913 requested_capacity=5373952
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5330913 exponent_old=5308416 exponent_new=5373952 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=5057476 row_length=322369 required_with_spare=5379846 requested_capacity=5439488
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=5379846 exponent_old=5373952 exponent_new=5439488 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=5060377 row_length=2448247 required_with_spare=7508625 requested_capacity=7536640
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=7508625 exponent_old=5439488 exponent_new=7536640 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=6038413 row_length=1734762 required_with_spare=7773176 requested_capacity=7798784
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=7773176 exponent_old=7536640 exponent_new=7798784 buckets_old=16777216 buckets_new=16777216
+   21124 x 6530168     0.07%       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=6509060 referenced=6484402 missing=2101181 basis_load=5779573 basis_capacity=5832704
+
+MSOLVE_SYMBOLIC_STAGING old_load=6530169 old_capacity=7798784 missing=2101181 old_exponent_bytes=764280832 staged_exponent_bytes=205915836 reset_capacity=2048
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=7880755 exponent_old=5832704 exponent_new=7929856 buckets_old=16777216 buckets_new=16777216
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=6509060 referenced=6484402 inserted=2101181 basis_capacity=7929856
+        86.13 | 77.71        
+  5      16    2691
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=3 row_length=317339 required_with_spare=317343 requested_capacity=327680
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=317343 exponent_old=2048 exponent_new=327680 buckets_old=4096 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=317340 row_length=46231 required_with_spare=363572 requested_capacity=393216
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=363572 exponent_old=327680 exponent_new=393216 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=363260 row_length=43323 required_with_spare=406584 requested_capacity=458752
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=406584 exponent_old=393216 exponent_new=458752 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=445670 row_length=306960 required_with_spare=752631 requested_capacity=786432
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=752631 exponent_old=458752 exponent_new=786432 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=765415 row_length=43323 required_with_spare=808739 requested_capacity=851968
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=808739 exponent_old=786432 exponent_new=851968 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=841662 row_length=43323 required_with_spare=884986 requested_capacity=917504
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=884986 exponent_old=851968 exponent_new=917504 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=878117 row_length=317339 required_with_spare=1195457 requested_capacity=1245184
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1195457 exponent_old=917504 exponent_new=1245184 buckets_old=2097152 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1076209 row_length=315699 required_with_spare=1391909 requested_capacity=1441792
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1391909 exponent_old=1245184 exponent_new=1441792 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1363605 row_length=306960 required_with_spare=1670566 requested_capacity=1703936
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1670566 exponent_old=1441792 exponent_new=1703936 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1437322 row_length=308720 required_with_spare=1746043 requested_capacity=1769472
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1746043 exponent_old=1703936 exponent_new=1769472 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1458385 row_length=322369 required_with_spare=1780755 requested_capacity=1835008
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=1780755 exponent_old=1769472 exponent_new=1835008 buckets_old=4194304 buckets_new=4194304
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=1511438 row_length=1734762 required_with_spare=3246201 requested_capacity=3276800
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=3246201 exponent_old=1835008 exponent_new=3276800 buckets_old=4194304 buckets_new=8388608
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=2765734 row_length=4264645 required_with_spare=7030380 requested_capacity=7077888
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=7030380 exponent_old=3276800 exponent_new=7077888 buckets_old=8388608 buckets_new=16777216
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=5418544 row_length=4347065 required_with_spare=9765610 requested_capacity=9830400
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=9765610 exponent_old=7077888 exponent_new=9830400 buckets_old=16777216 buckets_new=33554432
+
+MSOLVE_SYMBOLIC_ROW_RESERVE old_load=6439449 row_length=4424268 required_with_spare=10863718 requested_capacity=10878976
+
+MSOLVE_SYMBOLIC_CAPACITY_REQUEST required_with_spare=10863718 exponent_old=9830400 exponent_new=10878976 buckets_old=33554432 buckets_new=33554432

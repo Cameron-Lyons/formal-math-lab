@@ -1,0 +1,38 @@
+{
+  "status": "SKIPPED_PACKAGE_UNAVAILABLE",
+  "scope": "authorized branch3 CP-SAT existence preflight only; no model solved and no branch count inferred",
+  "recorded_at_utc": "2026-11-23T10:49:54.418444+00:00",
+  "ortools_checks": [
+    {
+      "invoked_python": "/usr/bin/python",
+      "find_spec_ortools": null
+    },
+    {
+      "invoked_python": "/tmp/exact_structure_venv/bin/python",
+      "sys_prefix": "/tmp/exact_structure_venv",
+      "find_spec_ortools": null
+    }
+  ],
+  "repository_venv_found": false,
+  "mem_available_kib_at_preflight": 4247736,
+  "minimum_available_memory_kib": 1572864,
+  "memory_preflight_passed": true,
+  "decision_solver_invocations": 0,
+  "dependencies_installed": false,
+  "intended_limits": {
+    "workers": 1,
+    "child_seconds": 60,
+    "outer_seconds": 90,
+    "address_space_mib": 512
+  },
+  "intended_canonical_constraints": [
+    "d0=0",
+    "d0=d3",
+    "d1=d6",
+    "d2=d7",
+    "d8=2"
+  ],
+  "intended_model": "100 cell variables0..2,81 base3 ordered T codes,AllDifferent; no other fixes or hints",
+  "branch3_existence_status": "UNKNOWN; no probe attempted",
+  "branch3_count_status": "UNKNOWN"
+}

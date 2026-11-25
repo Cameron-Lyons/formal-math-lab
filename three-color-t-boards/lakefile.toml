@@ -99,6 +99,9 @@ name = "ExactMarginals"
 name = "ExactParity"
 
 [[lean_lib]]
+name = "ExactNativeMoments"
+
+[[lean_lib]]
 name = "SpliceSixthData"
 
 [[lean_lib]]

@@ -1,0 +1,56 @@
+{
+  "symbolic_requests": [
+    {
+      "old_load": 1,
+      "row_length": 3,
+      "required_with_spare": 5,
+      "requested_capacity": 8
+    },
+    {
+      "old_load": 5,
+      "row_length": 3,
+      "required_with_spare": 9,
+      "requested_capacity": 16
+    }
+  ],
+  "staging_events": [],
+  "name": "f3_root_sum",
+  "kind": "selective",
+  "mode": 2,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/f3_root_sum_selective_g2.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/f3_root_sum_selective_g2.basis",
+    "-g",
+    "2",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 30,
+  "wall_seconds": 0.0065304439995088615,
+  "cpu_seconds": 0.003992999999999993,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "b1d49fc8902f9f8989c885365ca83bb4fe023eeb7034caa701ca8e99962f6089",
+  "input_sha256": "51b3a19579f2c4bb622e14a8d81dca380bdf5a4572579a02d0a6c079df34bb0e",
+  "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/f3_root_sum_selective_g2.basis",
+  "promotion_events": [],
+  "reservation_events": [],
+  "capacity_requests": []
+}

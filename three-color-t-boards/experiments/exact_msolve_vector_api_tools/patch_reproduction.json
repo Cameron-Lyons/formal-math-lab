@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "patch_sha256": "82c8810eab2d175aaffb794593da4c0a30c1073eb8f7d3d5ba367f5076382e51",
+  "changed_files": 16,
+  "patch_output": "patching file src/msolve/hilbert.c\npatching file src/msolve/iofiles.c\npatching file src/msolve/lifting-gb.c\npatching file src/msolve/linear.c\npatching file src/msolve/msolve.c\npatching file src/neogb/convert.c\npatching file src/neogb/data.h\npatching file src/neogb/f4.c\npatching file src/neogb/f4sat.c\npatching file src/neogb/hash.c\npatching file src/neogb/io.c\npatching file src/neogb/modular.c\npatching file src/neogb/order.c\npatching file src/neogb/sba.c\npatching file src/neogb/stored_exp.h\npatching file src/neogb/symbol.c\n"
+}

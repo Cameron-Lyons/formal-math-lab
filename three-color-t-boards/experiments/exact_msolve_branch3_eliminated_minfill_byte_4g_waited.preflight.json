@@ -1,0 +1,23 @@
+{
+  "available_mb": 5138,
+  "required_available_mb": 4608,
+  "memory_cap_mb": 4096,
+  "seconds": 900,
+  "time_unix": 1795430733.3693414,
+  "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+  "availability_checks": [
+    {
+      "time_unix": 1795430723.360894,
+      "available_mb": 4492
+    },
+    {
+      "time_unix": 1795430728.3611798,
+      "available_mb": 4546
+    },
+    {
+      "time_unix": 1795430733.3613918,
+      "available_mb": 5138
+    }
+  ],
+  "status": "LAUNCH"
+}

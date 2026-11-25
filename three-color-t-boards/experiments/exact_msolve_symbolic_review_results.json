@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "source_sha256": "4c37f783ecb733b1300a93db6e06e171b8eb07c3a84059dd097d16d2ca4f221e",
+  "extracted_functions_sha256": "97908e1c69bd20203c79c51e238edd2719296f82275a3826c91cce1f71d26e5e",
+  "valid_staging_cases": 1200,
+  "case_summary": "CASES=1200 STAGED=463 UNCHANGED=737 LARGE_RESET=17 ZERO_MISSING=3 NONPOWER=17",
+  "row_capacity_boundary_cases": 8,
+  "disabled_mode_cases": 8,
+  "allocation_failure_points": {
+    "promotion": 10,
+    "symbolic-row": 4
+  },
+  "invalid_staging_layouts": [
+    "nonpower",
+    "bad-load",
+    "bad-mask",
+    "duplicate-inverse",
+    "out-of-range-inverse",
+    "wrong-missing",
+    "wrong-new-map",
+    "nonflat-pointer",
+    "zero-width",
+    "overflow",
+    "null-private",
+    "nonpower-buckets",
+    "undersized-buckets"
+  ],
+  "invalid_reservation_cases": [
+    "null-metadata",
+    "wrong-owner",
+    "null-poly",
+    "oversized-row",
+    "zero-load",
+    "zero-quantum",
+    "nonpower-quantum",
+    "large-quantum",
+    "null-context"
+  ],
+  "large_capacity_plans": [
+    {
+      "old_capacity": 2097152,
+      "load": 2080795,
+      "row_length": 55218,
+      "requested_capacity": 2162688
+    },
+    {
+      "old_capacity": 4194304,
+      "load": 4194200,
+      "row_length": 55124,
+      "requested_capacity": 4259840
+    },
+    {
+      "old_capacity": 65536,
+      "load": 65535,
+      "row_length": 1,
+      "requested_capacity": 131072
+    }
+  ],
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "compiler_command": [
+    "cc",
+    "-std=c11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-error=type-limits",
+    "-Wno-error=misleading-indentation",
+    "-fsanitize=address,undefined",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_review.c",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_review"
+  ],
+  "actual_row_constructor_tested": false,
+  "actual_hash_probing_tested": false,
+  "scope": "independent linear lookup/vector reference; owner separately tests actual upstream constructors/probing",
+  "full_solver_runs": 0
+}

@@ -1,0 +1,269 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "sparse_dense",
+      "status": "PASS",
+      "exports_byte_identical": true,
+      "runs": [
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_sparse_dense_six_b.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_sparse_dense_six_b.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "1",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.010350739998102654,
+          "cpu_seconds": 0.004040999999999906,
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "export_sha256": "ce2d63108217ad8f6a47a8e5f65ee8c8e4ebd68cf2bfae8711bb560de6b0fd47",
+          "bitset_kernel_entered": false
+        },
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_sparse_dense_seventh.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_sparse_dense_seventh.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "1",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.012483038997743279,
+          "cpu_seconds": 0.003967000000000054,
+          "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+          "export_sha256": "ce2d63108217ad8f6a47a8e5f65ee8c8e4ebd68cf2bfae8711bb560de6b0fd47",
+          "bitset_kernel_entered": false
+        }
+      ]
+    },
+    {
+      "name": "thread_count_two",
+      "status": "PASS",
+      "exports_byte_identical": true,
+      "runs": [
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_thread_count_two_six_b.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_thread_count_two_six_b.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "2",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.012611744001333136,
+          "cpu_seconds": 0.0036169999999999813,
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "export_sha256": "ce2d63108217ad8f6a47a8e5f65ee8c8e4ebd68cf2bfae8711bb560de6b0fd47",
+          "bitset_kernel_entered": false
+        },
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_thread_count_two_seventh.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_thread_count_two_seventh.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "2",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.005419938999693841,
+          "cpu_seconds": 0.003054000000000029,
+          "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+          "export_sha256": "ce2d63108217ad8f6a47a8e5f65ee8c8e4ebd68cf2bfae8711bb560de6b0fd47",
+          "bitset_kernel_entered": false
+        }
+      ]
+    },
+    {
+      "name": "elimination_block",
+      "status": "PASS",
+      "exports_byte_identical": true,
+      "runs": [
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_elimination_block_six_b.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_elimination_block_six_b.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2",
+            "-e",
+            "1"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.0036725699974340387,
+          "cpu_seconds": 0.0026770000000001237,
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "export_sha256": "74b27d57d24287b2a3e27114ff681f0e7806a8d583fda02631c700c473eb66af",
+          "bitset_kernel_entered": false
+        },
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_elimination_block_seventh.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_elimination_block_seventh.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2",
+            "-e",
+            "1"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.0054283310018945485,
+          "cpu_seconds": 0.0024419999999999165,
+          "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+          "export_sha256": "74b27d57d24287b2a3e27114ff681f0e7806a8d583fda02631c700c473eb66af",
+          "bitset_kernel_entered": false
+        }
+      ]
+    },
+    {
+      "name": "characteristic_five",
+      "status": "PASS",
+      "exports_byte_identical": true,
+      "runs": [
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_f3_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_characteristic_five_six_b.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_characteristic_five_six_b.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.009536837998894043,
+          "cpu_seconds": 0.004056000000000198,
+          "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+          "export_sha256": "cd74f12760429bdca90d720429f28c167d8413f3b8ec7b81aba5b0f88bd9a127",
+          "bitset_kernel_entered": false
+        },
+        {
+          "command": [
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/msolve",
+            "-f",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_characteristic_five_seventh.ms",
+            "-o",
+            "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_symbolic_reserve_tools/fallback_characteristic_five_seventh.basis",
+            "-g",
+            "2",
+            "-s",
+            "4",
+            "-l",
+            "2",
+            "-t",
+            "1",
+            "-r",
+            "1",
+            "-c",
+            "0",
+            "-v",
+            "2"
+          ],
+          "returncode": 0,
+          "wall_seconds": 0.004588960000546649,
+          "cpu_seconds": 0.0027979999999999394,
+          "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+          "export_sha256": "cd74f12760429bdca90d720429f28c167d8413f3b8ec7b81aba5b0f88bd9a127",
+          "bitset_kernel_entered": false
+        }
+      ]
+    }
+  ]
+}

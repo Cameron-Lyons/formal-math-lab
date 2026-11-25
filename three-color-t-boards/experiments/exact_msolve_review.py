@@ -192,12 +192,19 @@ def main():
             def fake_process(command, **kwargs):
                 Path(command[command.index('-o')+1]).write_text(payload)
                 log = 'MSOLVE_PRIME_GB_EXPORT_COMPLETE\n'+diagnostic
+                assert kwargs['stderr'] == subprocess.STDOUT and 'capture_output' not in kwargs
+                kwargs['stdout'].write(log)
+                kwargs['stdout'].flush()
+                assert output.with_suffix('.log').read_text() == log
+                assert not output.with_suffix('.json').exists()
                 if timeout:
-                    raise subprocess.TimeoutExpired(command, 0.1, output=log)
-                return subprocess.CompletedProcess(command, returncode, stdout=log, stderr='')
+                    raise subprocess.TimeoutExpired(command, 0.1)
+                return subprocess.CompletedProcess(command, returncode)
             with patch.object(backend.subprocess, 'run', side_effect=fake_process):
                 result = backend.run(output, fixture='domain', executable=executable, seconds=1)
             assert result['status'] == expected, (case, result)
+            assert result['log_streaming'] is True
+            assert output.with_suffix('.log').read_text() == 'MSOLVE_PRIME_GB_EXPORT_COMPLETE\n'+diagnostic
             if expected == 'COMPLETE':
                 assert result['board_count_decimal'] == ('0' if case == 'unit' else '3')
             else:
@@ -210,8 +217,12 @@ def main():
             output = directory/case
             def fake_marked_process(command, **kwargs):
                 Path(command[command.index('-o')+1]).write_text(leading_text())
-                return subprocess.CompletedProcess(command, 0,
-                           stdout='MSOLVE_PRIME_GB_EXPORT_COMPLETE\n'*markers, stderr='')
+                log = 'MSOLVE_PRIME_GB_EXPORT_COMPLETE\n'*markers
+                assert kwargs['stderr'] == subprocess.STDOUT and 'capture_output' not in kwargs
+                kwargs['stdout'].write(log)
+                kwargs['stdout'].flush()
+                assert output.with_suffix('.log').read_text() == log
+                return subprocess.CompletedProcess(command, 0)
             with patch.object(backend.subprocess, 'run', side_effect=fake_marked_process):
                 result = backend.run(output, fixture='domain', executable=executable,
                                      seconds=1, require_export_marker=True)
@@ -231,12 +242,24 @@ def main():
             raise AssertionError('existing artifacts accepted')
         assert prior.with_suffix('.ms').read_text() == 'preserve original input'
         assert prior.with_suffix('.basis').read_text() == 'preserve original basis'
+        prior_log = directory/'prior-log'
+        prior_log.with_suffix('.log').write_text('preserve existing log')
+        try:
+            backend.run(prior_log, fixture='domain', executable=executable)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError('existing log accepted')
+        assert prior_log.with_suffix('.log').read_text() == 'preserve existing log'
+        assert not prior_log.with_suffix('.ms').exists()
 
     report = dict(status='PASS', backend_sha256=backend.sha256(Path(backend.__file__).read_bytes()),
                   geometry_models_checked=len(prefixes)*3,
                   independent_polynomial_comparisons=polynomial_comparisons,
                   field_extension_fixtures=field_reports, malformed_parser_cases_rejected=rejected,
                   mocked_process_outcomes=outcomes, rejected_rerun_preserves_prior_artifacts=True,
+                  child_log_readable_before_process_returns=True,
+                  timeout_preserves_written_log=True, existing_log_never_overwritten=True,
                   actual_solver_processes_started=0,
                   note='Mock COMPLETE results test control flow only; they are not solver counts or new board results.')
     (ROOT/'experiments/exact_msolve_review_results.json').write_text(json.dumps(report, indent=2)+'\n')

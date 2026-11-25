@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "complete_basis_comparisons": 25,
+  "actual_unused_column_skipping_rounds": [
+    {
+      "fixture": "mixed-chain_2",
+      "nonpivot": 3,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_2",
+      "nonpivot": 5,
+      "referenced": 4
+    },
+    {
+      "fixture": "mixed-chain_2",
+      "nonpivot": 6,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_5",
+      "nonpivot": 3,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_5",
+      "nonpivot": 5,
+      "referenced": 4
+    },
+    {
+      "fixture": "mixed-chain_5",
+      "nonpivot": 6,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_29",
+      "nonpivot": 3,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_29",
+      "nonpivot": 5,
+      "referenced": 4
+    },
+    {
+      "fixture": "mixed-chain_29",
+      "nonpivot": 6,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_257",
+      "nonpivot": 3,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_257",
+      "nonpivot": 5,
+      "referenced": 4
+    },
+    {
+      "fixture": "mixed-chain_257",
+      "nonpivot": 6,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_65537",
+      "nonpivot": 3,
+      "referenced": 2
+    },
+    {
+      "fixture": "mixed-chain_65537",
+      "nonpivot": 5,
+      "referenced": 4
+    },
+    {
+      "fixture": "mixed-chain_65537",
+      "nonpivot": 6,
+      "referenced": 2
+    }
+  ],
+  "initial_hash_log2": 4,
+  "independent_algorithm": "exact Python Buchberger, grevlex, prime-field arithmetic",
+  "baseline_sha256": "1e2111b5e1ef28201f3b2da6bc727d4563569e96b3468ab241433e7d2238a202",
+  "candidate_sha256": "cebd842aa617f09725a1f5429ebc822da238563f142b14993cccb85312d1874c",
+  "full_t_board_runs": 0
+}

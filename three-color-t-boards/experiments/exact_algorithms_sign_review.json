@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "scope": "independent finitefield/tuple-polynomial and adapter audit; no solver",
+  "irreducibility_divisors": 12,
+  "field_elements": 243,
+  "selector_inputs": 81,
+  "selector_histogram": {
+    "0": 1,
+    "1": 40,
+    "2": 40
+  },
+  "ordinary_norm_terms": 38,
+  "selector_terms": 17,
+  "expanded_constraint_terms": 180,
+  "models": [
+    {
+      "stem": "exact_f3_sign_model",
+      "input_sha256": "dd0d371541d7a0ebbff559a854a08cd89219928e56e570265d29ef31b19fa381",
+      "all179_polynomials_match": true
+    },
+    {
+      "stem": "exact_f3_sign_minfill",
+      "input_sha256": "14247d0e4cfaff8636e99852902816d8d0ab97de47ada08cb2e40fa7576e71cf",
+      "all179_polynomials_match": true
+    }
+  ],
+  "bilinear_reconstructions": 100,
+  "known_board_roundtrips": 161,
+  "affine_palette_reconstructions": 966,
+  "all179_polynomials_evaluated_on_boards": 5,
+  "adapter_variants": [
+    "natural",
+    "minimum-fill"
+  ],
+  "invalid_adapter_scopes": 15,
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "reviewer_source_sha256": "0eaa38dc90ef6540e1b28fa1e8ff06eb81f1437df5cdc5755787c03382516a41",
+  "generator_imported": false,
+  "full_solver_runs": 0
+}

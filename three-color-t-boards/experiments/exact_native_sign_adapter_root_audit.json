@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "inputs": [
+    {
+      "order": null,
+      "input_sha256": "dd0d371541d7a0ebbff559a854a08cd89219928e56e570265d29ef31b19fa381",
+      "variables": 97,
+      "generators": 179
+    },
+    {
+      "order": "minimum-fill",
+      "input_sha256": "14247d0e4cfaff8636e99852902816d8d0ab97de47ada08cb2e40fa7576e71cf",
+      "variables": 97,
+      "generators": 179
+    }
+  ],
+  "rejected_flags": 14,
+  "adapter_sha256": "3d953e1903ccca3466536026b8ad783ffcb1bfba1fae6802ca73a4e848e4bb19"
+}

@@ -1,0 +1,264 @@
+Initial seed for pseudo-random number generator is 1795422388
+
+--------------- INPUT DATA ---------------
+#variables                      96
+#equations                     276
+#invalid equations               0
+field characteristic             2
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size     131072 (2^17)
+max pair selection              16
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  2       4     188      10 x 877        18.05%
+MSOLVE_F2_BITSET rows=4 old_pivots=6 columns=877 new_pivots=4 words_per_row=14 output_terms=1192
+        4 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=871 referenced=784 missing=0 basis_load=56218 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=871 referenced=784 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  3      16     201     240 x 18436       0.89%
+MSOLVE_F2_BITSET rows=16 old_pivots=224 columns=18436 new_pivots=16 words_per_row=289 output_terms=83776
+       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=18212 referenced=16313 missing=14136 basis_load=57021 basis_capacity=65536
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=71158 exponent_old=65536 exponent_new=131072 buckets_old=131072 buckets_new=262144
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=18212 referenced=16313 inserted=14136 basis_capacity=131072
+         0.05 | 0.05         
+  3      17     280     269 x 20066       1.61%
+MSOLVE_F2_BITSET rows=17 old_pivots=252 columns=20066 new_pivots=17 words_per_row=314 output_terms=69283
+       17 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=19814 referenced=17496 missing=3771 basis_load=74913 basis_capacity=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=19814 referenced=17496 inserted=3771 basis_capacity=131072
+         0.06 | 0.06         
+  3      10     398     307 x 22742       2.28%
+MSOLVE_F2_BITSET rows=10 old_pivots=297 columns=22742 new_pivots=10 words_per_row=356 output_terms=84534
+       10 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=22445 referenced=19660 missing=1368 basis_load=82720 basis_capacity=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=22445 referenced=19660 inserted=1368 basis_capacity=131072
+         0.07 | 0.07         
+  4      16     460     169 x 442         1.06%
+MSOLVE_F2_BITSET rows=16 old_pivots=153 columns=442 new_pivots=0 words_per_row=7 output_terms=0
+        0 new      16 zero         0.00 | 0.00         
+  4      16     444     475 x 9906        0.52%
+MSOLVE_F2_BITSET rows=16 old_pivots=459 columns=9906 new_pivots=5 words_per_row=155 output_terms=10817
+        5 new      11 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=9447 referenced=5389 missing=5308 basis_load=86634 basis_capacity=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=9447 referenced=5389 inserted=5308 basis_capacity=131072
+         0.04 | 0.04         
+  4      16     479    1404 x 31152       0.16%
+MSOLVE_F2_BITSET rows=16 old_pivots=1388 columns=31152 new_pivots=2 words_per_row=487 output_terms=6995
+        2 new      14 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=29764 referenced=6961 missing=6321 basis_load=93304 basis_capacity=131072
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=29764 referenced=6961 inserted=6321 basis_capacity=131072
+         0.12 | 0.12         
+  4      16     481     875 x 2420        0.20%
+MSOLVE_F2_BITSET rows=16 old_pivots=859 columns=2420 new_pivots=0 words_per_row=38 output_terms=0
+        0 new      16 zero         0.01 | 0.01         
+  4      16     465    1667 x 4732        0.10%
+MSOLVE_F2_BITSET rows=16 old_pivots=1651 columns=4732 new_pivots=0 words_per_row=74 output_terms=0
+        0 new      16 zero         0.01 | 0.01         
+  4      16     449    6919 x 291206      0.07%
+MSOLVE_F2_BITSET rows=16 old_pivots=6903 columns=291206 new_pivots=11 words_per_row=4551 output_terms=1010889
+       11 new       5 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=284303 referenced=245173 missing=230379 basis_load=100166 basis_capacity=131072
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=330546 exponent_old=131072 exponent_new=393216 buckets_old=262144 buckets_new=1048576
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=284303 referenced=245173 inserted=230379 basis_capacity=393216
+         1.42 | 1.41         
+  4      17     555    8813 x 446205      0.09%
+MSOLVE_F2_BITSET rows=17 old_pivots=8796 columns=446205 new_pivots=16 words_per_row=6972 output_terms=1966317
+       16 new       1 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=437409 referenced=401997 missing=157102 basis_load=333561 basis_capacity=393216
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=490664 exponent_old=393216 exponent_new=524288 buckets_old=1048576 buckets_new=1048576
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=437409 referenced=401997 inserted=157102 basis_capacity=524288
+         2.55 | 2.54         
+  4      16     685    9419 x 461970      0.13%
+MSOLVE_F2_BITSET rows=16 old_pivots=9403 columns=461970 new_pivots=14 words_per_row=7219 output_terms=1982708
+       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=452567 referenced=406197 missing=14418 basis_load=495089 basis_capacity=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=452567 referenced=406197 inserted=14418 basis_capacity=524288
+         3.17 | 3.16         
+  4      16     805   12894 x 647021      0.13%
+MSOLVE_F2_BITSET rows=16 old_pivots=12878 columns=647021 new_pivots=14 words_per_row=10110 output_terms=3028264
+       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=634143 referenced=570933 missing=157198 basis_load=513363 basis_capacity=524288
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=670562 exponent_old=524288 exponent_new=720896 buckets_old=1048576 buckets_new=2097152
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=634143 referenced=570933 inserted=157198 basis_capacity=720896
+         5.69 | 5.57         
+  4      16     915   13200 x 665788      0.16%
+MSOLVE_F2_BITSET rows=16 old_pivots=13184 columns=665788 new_pivots=16 words_per_row=10403 output_terms=3951304
+       16 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=652604 referenced=600197 missing=29261 basis_load=674509 basis_capacity=720896
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=652604 referenced=600197 inserted=29261 basis_capacity=720896
+         6.86 | 6.82         
+  4      17    1069   12994 x 666468      0.20%
+MSOLVE_F2_BITSET rows=17 old_pivots=12977 columns=666468 new_pivots=15 words_per_row=10414 output_terms=2953023
+       15 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=653491 referenced=595465 missing=5485 basis_load=708402 basis_capacity=720896
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=653491 referenced=595465 inserted=5485 basis_capacity=720896
+         7.79 | 7.75         
+  4      16    1213   13704 x 689405      0.19%
+MSOLVE_F2_BITSET rows=16 old_pivots=13688 columns=689405 new_pivots=11 words_per_row=10772 output_terms=2142325
+       11 new       5 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=675717 referenced=575337 missing=29849 basis_load=718440 basis_capacity=720896
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=748290 exponent_old=720896 exponent_new=786432 buckets_old=2097152 buckets_new=2097152
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=675717 referenced=575337 inserted=29849 basis_capacity=786432
+         8.27 | 8.13         
+  4      16    1331   13182 x 703036      0.22%
+MSOLVE_F2_BITSET rows=16 old_pivots=13166 columns=703036 new_pivots=8 words_per_row=10985 output_terms=1820748
+        8 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=689870 referenced=594792 missing=8755 basis_load=751978 basis_capacity=786432
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=689870 referenced=594792 inserted=8755 basis_capacity=786432
+         8.80 | 8.69         
+  4      16    1419   13505 x 700102      0.23%
+MSOLVE_F2_BITSET rows=16 old_pivots=13489 columns=700102 new_pivots=8 words_per_row=10940 output_terms=1576651
+        8 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=686613 referenced=576505 missing=52 basis_load=763457 basis_capacity=786432
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=686613 referenced=576505 inserted=52 basis_capacity=786432
+         9.58 | 9.41         
+  4      16    1503   15649 x 728740      0.24%
+MSOLVE_F2_BITSET rows=16 old_pivots=15633 columns=728740 new_pivots=9 words_per_row=11387 output_terms=2505665
+        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=713107 referenced=636212 missing=11955 basis_load=766157 basis_capacity=786432
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=713107 referenced=636212 inserted=11955 basis_capacity=786432
+        11.11 | 10.89        
+  4      16    1607    9037 x 548448      0.22%
+MSOLVE_F2_BITSET rows=16 old_pivots=9021 columns=548448 new_pivots=9 words_per_row=8570 output_terms=1226985
+        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=539427 referenced=413850 missing=4731 basis_load=781491 basis_capacity=786432
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=539427 referenced=413850 inserted=4731 basis_capacity=786432
+         5.16 | 5.13         
+  4      17    1698   12474 x 644736      0.25%
+MSOLVE_F2_BITSET rows=17 old_pivots=12457 columns=644736 new_pivots=15 words_per_row=10074 output_terms=3301707
+       15 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=632279 referenced=561355 missing=23949 basis_load=789358 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=632279 referenced=561355 inserted=23949 basis_capacity=1572864
+         7.88 | 7.82         
+  4      16    1874   14608 x 663908      0.25%
+MSOLVE_F2_BITSET rows=16 old_pivots=14592 columns=663908 new_pivots=14 words_per_row=10374 output_terms=3635676
+       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=649316 referenced=560356 missing=5340 basis_load=818295 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=649316 referenced=560356 inserted=5340 basis_capacity=1572864
+         9.57 | 9.39         
+  4      16    2020   16452 x 766605      0.25%
+MSOLVE_F2_BITSET rows=16 old_pivots=16436 columns=766605 new_pivots=7 words_per_row=11979 output_terms=2133806
+        7 new       9 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=750169 referenced=633564 missing=25959 basis_load=828406 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=750169 referenced=633564 inserted=25959 basis_capacity=1572864
+        12.36 | 12.10        
+  4      16    2080   16695 x 791390      0.28%
+MSOLVE_F2_BITSET rows=16 old_pivots=16679 columns=791390 new_pivots=9 words_per_row=12366 output_terms=2572992
+        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=774711 referenced=667414 missing=3601 basis_load=856851 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=774711 referenced=667414 inserted=3601 basis_capacity=1572864
+        14.01 | 13.73        
+  4      16    2176   17815 x 793103      0.29%
+MSOLVE_F2_BITSET rows=16 old_pivots=17799 columns=793103 new_pivots=8 words_per_row=12393 output_terms=2539443
+        8 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=775304 referenced=686131 missing=610 basis_load=863431 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=775304 referenced=686131 inserted=610 basis_capacity=1572864
+        14.72 | 14.57        
+  4      16    2263   18666 x 801015      0.29%
+MSOLVE_F2_BITSET rows=16 old_pivots=18650 columns=801015 new_pivots=8 words_per_row=12516 output_terms=2634676
+        8 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=782365 referenced=675271 missing=1520 basis_load=866807 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=782365 referenced=675271 inserted=1520 basis_capacity=1572864
+        15.45 | 15.28        
+  4      16    2341   18751 x 807403      0.30%
+MSOLVE_F2_BITSET rows=16 old_pivots=18735 columns=807403 new_pivots=11 words_per_row=12616 output_terms=3962253
+       11 new       5 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=788668 referenced=710620 missing=9354 basis_load=871074 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=788668 referenced=710620 inserted=9354 basis_capacity=1572864
+        15.60 | 15.45        
+  4      10    2459   18874 x 807776      0.32%
+MSOLVE_F2_BITSET rows=10 old_pivots=18864 columns=807776 new_pivots=2 words_per_row=12622 output_terms=721536
+        2 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=788912 referenced=550603 missing=0 basis_load=884552 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=788912 referenced=550603 inserted=0 basis_capacity=1572864
+        18.68 | 18.24        
+  5      16    2468   29072 x 543740      0.02%
+MSOLVE_F2_BITSET rows=16 old_pivots=29056 columns=543740 new_pivots=14 words_per_row=8496 output_terms=1382171
+       14 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=514684 referenced=314264 missing=313766 basis_load=885318 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=514684 referenced=314264 inserted=313766 basis_capacity=1572864
+         3.46 | 3.45         
+  5      16    2684   29660 x 563912      0.03%
+MSOLVE_F2_BITSET rows=16 old_pivots=29644 columns=563912 new_pivots=9 words_per_row=8812 output_terms=1276328
+        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=534268 referenced=323165 missing=12942 basis_load=1204979 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=534268 referenced=323165 inserted=12942 basis_capacity=1572864
+         4.19 | 4.15         
+  5      16    2798   33542 x 614708      0.05%
+MSOLVE_F2_BITSET rows=16 old_pivots=33526 columns=614708 new_pivots=9 words_per_row=9605 output_terms=2038706
+        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=581182 referenced=478173 missing=151339 basis_load=1221515 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=581182 referenced=478173 inserted=151339 basis_capacity=1572864
+         5.71 | 5.66         
+  5      16    2886   42033 x 753562      0.05%
+MSOLVE_F2_BITSET rows=16 old_pivots=42017 columns=753562 new_pivots=7 words_per_row=11775 output_terms=624891
+        7 new       9 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=711545 referenced=454860 missing=82295 basis_load=1376385 basis_capacity=1572864
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=711545 referenced=454860 inserted=82295 basis_capacity=1572864
+         8.33 | 7.99         
+  5      16    2984  210803 x 6546994     0.00%
+MSOLVE_F2_BITSET rows=16 old_pivots=210787 columns=6546994 new_pivots=9 words_per_row=102297 output_terms=5528411
+        9 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=6336207 referenced=3779019 missing=3463587 basis_load=1462002 basis_capacity=1572864
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=4925590 exponent_old=1572864 exponent_new=4980736 buckets_old=4194304 buckets_new=16777216
+Error: cannot allocate promotion exponent data.

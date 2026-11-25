@@ -60,6 +60,15 @@ incomplete even when a syntactically complete basis file exists. With
 markers prevent both basis completion and leading-ideal export. The ordinary
 stock compatibility path remains separately selectable without that flag.
 
+The adapter now directs child stdout and stderr into the fresh `.log` file
+during execution, opened exclusively. Final validation reads that retained
+file; it does not rewrite it or introduce another accepted completion path.
+The mocked tests verify log visibility before the process returns, retention
+of output on timeout, and preservation of an existing log. A separate tiny
+real validation, `exact_msolve_live_log_fixture.json`, returned exact count
+six for the p29 three-root sum fixture with the required single completion
+marker. That fixture is separate from this script's mocked process tests.
+
 The patch agent owns source-level verification that the new marker follows a
 successfully completed exact F4 calculation and flushed export, before any
 machine-word staircase enumeration. The adapter's parser is not itself a

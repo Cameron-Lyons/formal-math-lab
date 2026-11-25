@@ -1,0 +1,11 @@
+--- a/src/neogb/convert.c
++++ b/src/neogb/convert.c
+@@ -660,7 +660,7 @@
+     deg_t pairs_deg = sht->hd[hcm[0]].deg;
+     if (used_columns_only) {
+         ht_t *consumable_sht = NULL;
+-        if (st->fc == 2 && st->laopt == 2 && st->nthrds == 1 &&
++        if ((st->fc == 2 || st->fc == 3) && st->laopt == 2 && st->nthrds == 1 &&
+                 st->trace_level == NO_TRACER && st->nf == 0 &&
+                 st->in_final_reduction_step == 0 && st->nev == 0 && st->print_gb > 0) {
+             if (st->ht != sht) {

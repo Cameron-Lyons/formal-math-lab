@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "scope": "metadata-only correction of completed small fixtures",
+  "backend_change": "exactly add standard_basis_complete=True at the existing successful parse attestation",
+  "previously_audited_backend_sha256": "a4af607f98f4c90bde22c04c8c1e35e3cfa5409fb9e76983d4efc4222e411cf9",
+  "current_backend_sha256": "a1ddee9a535651764b07e3d7d0ba86355bcde890d8e72eb4042d831af3e31afc",
+  "records": [
+    {
+      "file": "exact_algorithms_sign_six.json",
+      "prior_metadata_sha256": "d326c121c9bb62b2af9a0376db4737b5355537af6e93d0af6ff766defbe9df17",
+      "corrected_metadata_sha256": "34f278b8f8440003ba972c29610e648ea33c4d72d35d037428538483257df26d",
+      "dimension_decimal": "6",
+      "basis_size": 102
+    },
+    {
+      "file": "exact_algorithms_branch_six_0.json",
+      "prior_metadata_sha256": "26e6b1524b4a6e1bbdf27e8c4ae0a34faf71f0683c4e68e79893d2229ce8464b",
+      "corrected_metadata_sha256": "c01f189bf390f34b2d4fa6e1c34318b8e29c234194fb91be488705679f9aabd5",
+      "dimension_decimal": "6",
+      "basis_size": 102
+    },
+    {
+      "file": "exact_algorithms_branch_six_1.json",
+      "prior_metadata_sha256": "31936a63fa49c8e1f49c2bb4fa5b02aed48021ab07246ff02a4be9bc455041d9",
+      "corrected_metadata_sha256": "4d905f1ab59eca3a28a81a60c52f02740c45ba2c925670a9171b89c05a9077fd",
+      "dimension_decimal": "0",
+      "basis_size": 1
+    },
+    {
+      "file": "exact_algorithms_branch_six_2.json",
+      "prior_metadata_sha256": "7d1cfbb58298a6633bfdb10c9f77f57ff9f861b3efa9efb98a9851efec9a17fc",
+      "corrected_metadata_sha256": "9607605820aa19f136d0befb964a7721bed883f984ac2adba4ea33c94e2942b3",
+      "dimension_decimal": "0",
+      "basis_size": 1
+    },
+    {
+      "file": "exact_algorithms_branch_six_3.json",
+      "prior_metadata_sha256": "4406e82cd0a7097635d7a1aee94d6600896f0f0289c35670d6d942512de6cd24",
+      "corrected_metadata_sha256": "2b5bb729a417c53e8b80e790cb22ba16980386ac0cf3912212cb8ddd5b9b1002",
+      "dimension_decimal": "0",
+      "basis_size": 1
+    }
+  ],
+  "solver_runs": 0,
+  "counts_changed": false,
+  "actual_run_adapter_hashes_changed": false
+}

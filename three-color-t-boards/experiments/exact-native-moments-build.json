@@ -1,0 +1,63 @@
+{
+  "status": "BUILD_PASSED",
+  "archived_at_utc": "2026-11-23T09:46:48.287265+00:00",
+  "actual_command": "lake build ExactNativeMoments",
+  "working_directory": "/home/cam/three-color-t-boards",
+  "resolved_working_directory": "/home/cam/formal-math-lab/three-color-t-boards",
+  "exit_code": 0,
+  "captured_wall_time_seconds": 0.073245821,
+  "captured_tool_chunk_id": "d23ef4",
+  "capture_provenance": "The .log is a verbatim transcription of the successful exec_command output field retained in the conversation. It was not captured by shell redirection. The tool does not distinguish stdout from stderr in that field. No build was rerun for this archival step.",
+  "build_kind": "Successful incremental Lake build; ExactParity and ExactNativeMoments diagnostics were replayed from built targets.",
+  "build_timestamp": "Not retained; archived_at_utc records the archival step only.",
+  "hash_timestamp_scope": "Current files at archival time; binary hashes identify installed toolchain executables, not every file in the toolchain distribution.",
+  "log_path": "experiments/exact-native-moments-build.log",
+  "log_sha256": "b7d16d5a952f6f5bc262cd9475b74c9b2024d3785cd64d2412fd5ca5d2aa394b",
+  "source_sha256": {
+    "ExactNativeMoments.lean": "7c1fff4e1b6c152e637c5f7e86755b458aa44e5f24bd1d18709c39b359464122",
+    "ExactParity.lean": "21defff2b72a48cb4b5724edefa782a7b545121febd441dc48470a1bdb18fa04",
+    "EfficientCheck.lean": "87c7f3a9051969680dd401b4db42265abd3294f5fd4f498f30b664f737fd3448",
+    "TBoards.lean": "495ae8dc7218f5c1c3fee1be1f82cdb72bb9f0372db1b255f945408ef7817b3d",
+    "lakefile.toml": "0d17d3b2a116e42ed39fd90900c8845bdb2110727847a2b6088eebe8e624f0ad",
+    "lean-toolchain": "582a63f8f9c5128067b688778c1051cf1464c3ca9d57b9325025c051c29b774a"
+  },
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "toolchain_binary_sha256": {
+    "/home/cam/.elan/toolchains/leanprover--lean4---v4.36.0/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+    "/home/cam/.elan/toolchains/leanprover--lean4---v4.36.0/bin/lake": "42678ccbc2605e2f892540dc7236e009fdd1224e823d104dfd72725d2f1a52d2"
+  },
+  "compiled_artifact": {
+    "path": ".lake/build/lib/lean/ExactNativeMoments.olean",
+    "sha256": "c99148be2c36754ff4aacf4fdc084363ba7620bc8c7948ef2bf13834e7fe4891"
+  },
+  "theorem": "TBoards.ExactNativeMoments.valid_iff_power_moments",
+  "scope": "Original Valid iff WellFormed and the 80 nonconstant direct geometric F3 power moments; target 1 only at exponent tuple (2,2,2,2), otherwise 0. No unrestricted count is evaluated.",
+  "axiom_reports": {
+    "TBoards.ExactNativeMoments.valid_iff_all_moments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TBoards.ExactNativeMoments.valid_iff_native_moments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "TBoards.ExactNativeMoments.valid_iff_power_moments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "forbidden_proof_constructs_absent": [
+    "sorry",
+    "native_decide",
+    "axiom",
+    "unsafe"
+  ],
+  "archival_summary_not_raw_stdout": {
+    "build_succeeded": true,
+    "reported_jobs": 10,
+    "no_solver_run": true
+  }
+}

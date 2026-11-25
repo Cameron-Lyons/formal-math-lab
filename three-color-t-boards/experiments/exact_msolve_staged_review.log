@@ -1,0 +1,87 @@
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c: In function ‘reserve_basis_hash_table_for_promotion’:
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c:133:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  133 |             ht->evl > SIZE_MAX/sizeof(exp_t) ||
+      |                     ^
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c: In function ‘stage_missing_symbolic_exponents’:
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c:229:30: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  229 |             (size_t)sht->evl > SIZE_MAX/sizeof(exp_t)) {
+      |                              ^
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c: In function ‘one_case’:
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c:543:2: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+  543 |  for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);free(mat.tr);
+      |  ^~~
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c:59:14: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   59 | #define free review_free
+      |              ^~~~~~~~~~~
+/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_staged_review.c:543:45: note: in expansion of macro ‘free’
+  543 |  for(len_t i=0;i<mat.np;i++)free(mat.tr[i]);free(mat.tr);
+      |                                             ^~~~
+
+COMMAND []
+CASES=1200 STAGED=463 UNCHANGED=737 LARGE_RESET=16 ZERO_MISSING=3
+
+COMMAND ['fail', '0']
+ALLOCATION_CALLS=10
+
+COMMAND ['fail', '1']
+Error: cannot allocate retained-column support mask.
+
+COMMAND ['fail', '2']
+Error: cannot shrink staged symbolic exponent data.
+
+COMMAND ['fail', '3']
+Error: cannot allocate restored symbolic storage.
+
+COMMAND ['fail', '4']
+Error: cannot allocate restored symbolic storage.
+
+COMMAND ['fail', '5']
+Error: cannot allocate restored symbolic storage.
+
+COMMAND ['fail', '6']
+Error: cannot allocate restored symbolic storage.
+
+COMMAND ['fail', '7']
+Error: cannot allocate promotion hash metadata.
+
+COMMAND ['fail', '8']
+Error: cannot allocate promotion exponent pointers.
+
+COMMAND ['fail', '9']
+Error: cannot allocate promotion exponent data.
+
+COMMAND ['fail', '10']
+Error: cannot allocate promotion hash buckets.
+
+COMMAND ['invalid', 'nonpower']
+Error: invalid symbolic staging layout.
+
+COMMAND ['invalid', 'bad-load']
+Error: invalid symbolic staging layout.
+
+COMMAND ['invalid', 'bad-mask']
+Error: invalid staged symbolic support mask.
+
+COMMAND ['invalid', 'duplicate-inverse']
+Error: invalid symbolic inverse column.
+
+COMMAND ['invalid', 'out-of-range-inverse']
+Error: invalid symbolic inverse column.
+
+COMMAND ['invalid', 'wrong-missing']
+Error: staged symbolic missing count disagrees.
+
+COMMAND ['invalid', 'wrong-new-map']
+Error: inconsistent staged symbolic mapping.
+
+COMMAND ['invalid', 'nonflat-pointer']
+Error: inconsistent staged symbolic mapping.
+
+COMMAND ['invalid', 'zero-width']
+Error: invalid symbolic staging layout.
+
+COMMAND ['invalid', 'overflow']
+Error: invalid symbolic staging layout.
+
+COMMAND ['invalid', 'null-private']
+Error: invalid symbolic staging layout.

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/usr/bin/python",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_translation_six.py",
+    "--child"
+  ],
+  "timeout_seconds": 60,
+  "status": "COMPLETE",
+  "returncode": 0,
+  "elapsed_seconds": 2.829899825999746
+}

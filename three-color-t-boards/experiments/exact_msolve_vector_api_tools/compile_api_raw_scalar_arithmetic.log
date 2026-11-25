@@ -1,0 +1,2 @@
+<stdin>: In function ‘probe’:
+<stdin>:2:47: error: invalid operands to binary + (have ‘stored_exp_t’ and ‘int’)

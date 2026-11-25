@@ -1,0 +1,664 @@
+make  all-recursive
+make[1]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2'
+Making all in src/usolve
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/usolve'
+/bin/sh ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..   -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion -MT libusolve_la-usolve.lo -MD -MP -MF .deps/libusolve_la-usolve.Tpo -c -o libusolve_la-usolve.lo `test -f 'usolve.c' || echo './'`usolve.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm -Wall -Wextra -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion -MT libusolve_la-usolve.lo -MD -MP -MF .deps/libusolve_la-usolve.Tpo -c usolve.c -o libusolve_la-usolve.o
+In file included from usolve.c:56:
+utils.c: In function ‘USOLVEmpz_poly_rescale_normalize_2exp_th’:
+utils.c:163: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  163 | #pragma omp parallel for num_threads(nthreads)
+utils.c:172: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  172 | #pragma omp parallel for num_threads(nthreads)
+utils.c:156:73: warning: unused parameter ‘nthreads’ [-Wunused-parameter]
+  156 |                                                            unsigned int nthreads){
+      |                                                            ~~~~~~~~~~~~~^~~~~~~~
+utils.c: In function ‘USOLVEmpz_poly_rescale_normalize_2exp_th_long’:
+utils.c:196: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  196 | #pragma omp parallel for num_threads(nthreads)
+utils.c:207: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  207 | #pragma omp parallel for num_threads(nthreads)
+utils.c:189:78: warning: unused parameter ‘nthreads’ [-Wunused-parameter]
+  189 |                                                                 unsigned int nthreads){
+      |                                                                 ~~~~~~~~~~~~~^~~~~~~~
+In file included from taylor_shift.c:21,
+                 from usolve.c:57:
+univmultiply.c: In function ‘mpz_2_fmpz_poly’:
+univmultiply.c:66: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   66 | #pragma omp parallel for private(i) num_threads(nthreads)
+univmultiply.c:60:48: warning: unused parameter ‘nthreads’ [-Wunused-parameter]
+   60 |                             const unsigned int nthreads){
+      |                             ~~~~~~~~~~~~~~~~~~~^~~~~~~~
+univmultiply.c: In function ‘fmpz_poly_2_mpz’:
+univmultiply.c:80: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   80 | #pragma omp parallel for private(i) num_threads(nthreads)
+univmultiply.c:78:48: warning: unused parameter ‘nthreads’ [-Wunused-parameter]
+   78 |                             const unsigned int nthreads){
+      |                             ~~~~~~~~~~~~~~~~~~~^~~~~~~~
+taylor_shift.c: In function ‘mpz_poly_swap_th’:
+taylor_shift.c:62: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   62 | #pragma omp parallel for num_threads(nthreads)
+taylor_shift.c:57:56: warning: unused parameter ‘nthreads’ [-Wunused-parameter]
+   57 |                                     const unsigned int nthreads){
+      |                                     ~~~~~~~~~~~~~~~~~~~^~~~~~~~
+taylor_shift.c: In function ‘mpz_poly_add_th’:
+taylor_shift.c:80: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   80 | #pragma omp parallel for num_threads(nthreads) //schedule(static)
+taylor_shift.c:84: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   84 | #pragma omp parallel for num_threads(nthreads) //schedule(static)
+taylor_shift.c:71:55: warning: unused parameter ‘nthreads’ [-Wunused-parameter]
+   71 |                                    const unsigned int nthreads){
+      |                                    ~~~~~~~~~~~~~~~~~~~^~~~~~~~
+taylor_shift.c: In function ‘taylorshift1_dac’:
+taylor_shift.c:163: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  163 | #pragma omp parallel for num_threads(nthreads) schedule(dynamic)
+taylor_shift.c: In function ‘taylorshift1_dac_wsgnvar’:
+taylor_shift.c:351: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  351 | #pragma omp parallel for num_threads(nthreads) //schedule(static)
+In file included from usolve.c:58:
+descartes.c: In function ‘descartes’:
+descartes.c:63: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   63 | #pragma omp parallel for num_threads(flags->nthreads)
+descartes.c:76: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+   76 | #pragma omp parallel for num_threads(flags->nthreads)
+descartes.c: In function ‘descartes_truncate’:
+descartes.c:111: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  111 | #pragma omp parallel for num_threads(flags->nthreads)
+mv -f .deps/libusolve_la-usolve.Tpo .deps/libusolve_la-usolve.Plo
+/bin/sh ../../libtool  --tag=CC   --mode=link gcc -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion  -L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -o libusolve.la  libusolve_la-usolve.lo  -lflint -lmpfr -lgmp -lm 
+libtool: link: ar cr .libs/libusolve.a libusolve_la-usolve.o
+libtool: link: ranlib .libs/libusolve.a
+libtool: link: ( cd ".libs" && rm -f "libusolve.la" && ln -s "../libusolve.la" "libusolve.la" )
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/usolve'
+Making all in src/fglm
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/fglm'
+/bin/sh ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..   -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion -MT libfglm_la-fglm_core.lo -MD -MP -MF .deps/libfglm_la-fglm_core.Tpo -c -o libfglm_la-fglm_core.lo `test -f 'fglm_core.c' || echo './'`fglm_core.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm -Wall -Wextra -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion -MT libfglm_la-fglm_core.lo -MD -MP -MF .deps/libfglm_la-fglm_core.Tpo -c fglm_core.c -o libfglm_la-fglm_core.o
+In file included from fglm_core.c:51:
+linalg-fglm.c: In function ‘_avx2_matrix_vector_product’:
+linalg-fglm.c:637: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  637 | #pragma omp parallel for num_threads (st->nthrds) lastprivate(i)
+linalg-fglm.c:631:54: warning: unused parameter ‘st’ [-Wunused-parameter]
+  631 |                                                md_t *st)
+      |                                                ~~~~~~^~
+mv -f .deps/libfglm_la-fglm_core.Tpo .deps/libfglm_la-fglm_core.Plo
+/bin/sh ../../libtool  --tag=CC   --mode=link gcc -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion  -L/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -Wl,-rpath,/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/lib -o libfglm.la  libfglm_la-fglm_core.lo  -lflint -lmpfr -lgmp -lm 
+libtool: link: ar cr .libs/libfglm.a libfglm_la-fglm_core.o
+libtool: link: ranlib .libs/libfglm.a
+libtool: link: ( cd ".libs" && rm -f "libfglm.la" && ln -s "../libfglm.la" "libfglm.la" )
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/fglm'
+Making all in src/neogb
+make[2]: Entering directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb'
+/bin/sh ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..   -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm  -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion -MT libneogb_la-gb.lo -MD -MP -MF .deps/libneogb_la-gb.Tpo -c -o libneogb_la-gb.lo `test -f 'gb.c' || echo './'`gb.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/include -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -msha -maes -mavx -mfma -mavx2 -mrdrnd -mbmi -mbmi2 -madx -mabm -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -O2 -g0 -Werror=incompatible-pointer-types -Werror=int-conversion -MT libneogb_la-gb.lo -MD -MP -MF .deps/libneogb_la-gb.Tpo -c gb.c -o libneogb_la-gb.o
+In file included from gb.c:35:
+hash.c: In function ‘calculate_divmask’:
+hash.c:440:15: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  440 |   exp_t *e  = ev[1];
+      |               ^~
+hash.c:449:7: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  449 |     e = ev[i];
+      |       ^
+hash.c:473:46: error: passing argument 1 of ‘generate_short_divmask’ from incompatible pointer type [-Wincompatible-pointer-types]
+  473 |     ht->hd[k].sdm = generate_short_divmask(ev[k], ht);
+      |                                            ~~^~~
+      |                                              |
+      |                                              stored_exp_t *
+hash.c:400:25: note: expected ‘const exp_t * const’ {aka ‘const unsigned char * const’} but argument is of type ‘stored_exp_t *’
+  400 |     const exp_t * const a,
+      |     ~~~~~~~~~~~~~~~~~~~~^
+hash.c: In function ‘check_monomial_division’:
+hash.c:496:27: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  496 |   const exp_t *const ea = ht->ev[a];
+      |                           ^~
+hash.c:497:27: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  497 |   const exp_t *const eb = ht->ev[b];
+      |                           ^~
+hash.c: In function ‘check_monomial_division_in_update’:
+hash.c:524:29: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  524 |     const exp_t *const eb = ht->ev[b];
+      |                             ^~
+hash.c:537:33: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  537 |         const exp_t *const ea = ht->ev[a[j]];
+      |                                 ^~
+hash.c: In function ‘check_lm_divisibility_and_insert_in_hash_table’:
+hash.c:583:11: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  583 |         e = ht->ev[bs->hm[lmps[i]][OFFSET]];
+      |           ^
+hash.c:613:35: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  613 |         const exp_t * const ehm = ht->ev[hm];
+      |                                   ^~
+hash.c:629:9: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  629 |     e   = ht->ev[pos];
+      |         ^
+hash.c: In function ‘insert_multiplied_signature_in_hash_table’:
+hash.c:652:16: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  652 |     exp_t *a = ht->ev[0];
+      |                ^~
+hash.c:664:42: error: incompatible type for argument 1 of ‘checked_exp_add’
+  664 |         a[j] = checked_exp_add(ht->ev[h1][j], ht->ev[h2][j]);
+      |                                ~~~~~~~~~~^~~
+      |                                          |
+      |                                          stored_exp_t
+In file included from libneogb.h:25,
+                 from gb.c:29:
+data.h:95:49: note: expected ‘exp_t’ {aka ‘const unsigned char’} but argument is of type ‘stored_exp_t’
+   95 | static inline exp_t checked_exp_add(const exp_t a, const exp_t b)
+      |                                     ~~~~~~~~~~~~^
+hash.c:664:57: error: incompatible type for argument 2 of ‘checked_exp_add’
+  664 |         a[j] = checked_exp_add(ht->ev[h1][j], ht->ev[h2][j]);
+      |                                               ~~~~~~~~~~^~~
+      |                                                         |
+      |                                                         stored_exp_t
+data.h:95:64: note: expected ‘exp_t’ {aka ‘const unsigned char’} but argument is of type ‘stored_exp_t’
+   95 | static inline exp_t checked_exp_add(const exp_t a, const exp_t b)
+      |                                                    ~~~~~~~~~~~~^
+hash.c:679:35: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  679 |         const exp_t * const ehm = ht->ev[hm];
+      |                                   ^~
+hash.c:695:9: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  695 |     e   = ht->ev[pos];
+      |         ^
+hash.c: In function ‘is_contained_in_hash_table’:
+hash.c:744:35: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  744 |         const exp_t * const ehm = ht->ev[hm];
+      |                                   ^~
+hash.c: In function ‘add_to_hash_table’:
+hash.c:774:19: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  774 |     exp_t *e    = ht->ev[pos];
+      |                   ^~
+hash.c: In function ‘check_insert_in_hash_table’:
+hash.c:810: warning: ignoring ‘#pragma omp critical’ [-Wunknown-pragmas]
+  810 | #pragma omp critical
+hash.c: In function ‘insert_in_hash_table’:
+hash.c:855:35: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  855 |         const exp_t * const ehm = ht->ev[hm];
+      |                                   ^~
+hash.c:871:9: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  871 |     e   = ht->ev[pos];
+      |         ^
+hash.c: In function ‘reinitialize_hash_table’:
+hash.c:898:21: warning: unused variable ‘evl’ [-Wunused-variable]
+  898 |         const len_t evl = ht->evl;
+      |                     ^~~
+hash.c: In function ‘prime_monomials’:
+hash.c:945:30: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  945 |     const exp_t * const ea = ht->ev[a];
+      |                              ^~
+hash.c:946:30: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  946 |     const exp_t * const eb = ht->ev[b];
+      |                              ^~
+hash.c: In function ‘insert_plcms_in_basis_hash_table’:
+hash.c:1001:33: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1001 |         const exp_t * const n = bht->ev[bht->eld];
+      |                                 ^~~
+hash.c:1014:39: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1014 |             const exp_t * const ehm = bht->ev[hm];
+      |                                       ^~~
+hash.c: In function ‘switch_hcm_data_to_basis_hash_table’:
+hash.c:1062:46: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1062 |         hcm[i] = insert_in_hash_table(sht->ev[hcm[i]], bht);
+      |                                       ~~~~~~~^~~~~~~~
+      |                                              |
+      |                                              stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+hash.c: In function ‘reserve_hash_table_checked’:
+hash.c:1112:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+ 1112 |             ht->evl > SIZE_MAX/sizeof(exp_t) ||
+      |                     ^
+hash.c: In function ‘stage_missing_symbolic_exponents’:
+hash.c:1269:30: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+ 1269 |             (size_t)sht->evl > SIZE_MAX/sizeof(exp_t)) {
+      |                              ^
+hash.c: In function ‘switch_used_hcm_data_to_basis_hash_table’:
+hash.c:1427:44: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1427 |             const exp_t * const exponent = sht->ev[symbolic_hash];
+      |                                            ^~~
+hash.c:1479:26: error: assignment to ‘const exp_t *’ {aka ‘const unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1479 |                 exponent = staged+(size_t)symbolic_hash*bht->evbytes;
+      |                          ^
+hash.c:1481:26: error: assignment to ‘const exp_t *’ {aka ‘const unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1481 |                 exponent = sht->ev[symbolic_hash];
+      |                          ^
+hash.c: In function ‘insert_in_basis_hash_table_pivots’:
+hash.c:1518:33: error: initialization of ‘exp_t * const* const’ {aka ‘unsigned char * const* const’} from incompatible pointer type ‘stored_exp_t **’ [-Wincompatible-pointer-types]
+ 1518 |     exp_t * const * const evs = sht->ev;
+      |                                 ^~~
+hash.c: In function ‘insert_poly_in_hash_table’:
+hash.c:1546:46: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1546 |         row[l] = insert_in_hash_table(ht1->ev[b[l]], ht2);
+      |                                       ~~~~~~~^~~~~~
+      |                                              |
+      |                                              stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+hash.c: In function ‘insert_multiplied_poly_in_hash_table’:
+hash.c:1566:31: error: initialization of ‘exp_t * const*’ {aka ‘unsigned char * const*’} from incompatible pointer type ‘stored_exp_t **’ [-Wincompatible-pointer-types]
+ 1566 |     exp_t * const *ev1      = ht1->ev;
+      |                               ^~~
+hash.c:1569:23: error: initialization of ‘exp_t **’ {aka ‘unsigned char **’} from incompatible pointer type ‘stored_exp_t **’ [-Wincompatible-pointer-types]
+ 1569 |     exp_t **ev2     = ht2->ev;
+      |                       ^~~
+hash.c: In function ‘reinsert_in_hash_table’:
+hash.c:1629:39: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1629 |             const exp_t * const ehm = ht->ev[hm];
+      |                                       ^~
+hash.c:1647:11: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1647 |         e = ht->ev[ht->eld];
+      |           ^
+hash.c: In function ‘reset_hash_table’:
+hash.c:1718:43: error: passing argument 2 of ‘reinsert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1718 |         reinsert_in_hash_table(bs->hm[i], oev, ht);
+      |                                           ^~~
+      |                                           |
+      |                                           stored_exp_t **
+hash.c:1592:20: note: expected ‘exp_t * const*’ {aka ‘unsigned char * const*’} but argument is of type ‘stored_exp_t **’
+ 1592 |     exp_t * const *oev,
+      |     ~~~~~~~~~~~~~~~^~~
+hash.c:1722:11: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1722 |         e = oev[ps[i].lcm];
+      |           ^
+hash.c:1690:17: warning: unused variable ‘evl’ [-Wunused-variable]
+ 1690 |     const len_t evl = ht->evl;
+      |                 ^~~
+hash.c: In function ‘get_lcm’:
+hash.c:1752:30: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1752 |     const exp_t * const ea = ht1->ev[a];
+      |                              ^~~
+hash.c:1753:30: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+ 1753 |     const exp_t * const eb = ht1->ev[b];
+      |                              ^~~
+In file included from gb.c:36:
+order.c: In function ‘initial_input_cmp_lex’:
+order.c:233:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  233 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:234:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  234 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+order.c: In function ‘initial_gens_cmp_lex’:
+order.c:258:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  258 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:259:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  259 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+order.c: In function ‘monomial_cmp_pivots_lex’:
+order.c:292:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  292 |     const exp_t * const ea  = ht->ev[a];
+      |                               ^~
+order.c:293:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  293 |     const exp_t * const eb  = ht->ev[b];
+      |                               ^~
+order.c: In function ‘monomial_cmp_lex’:
+order.c:313:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  313 |     const exp_t * const ea  = ht->ev[a];
+      |                               ^~
+order.c:314:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  314 |     const exp_t * const eb  = ht->ev[b];
+      |                               ^~
+order.c: In function ‘spair_cmp_deglex’:
+order.c:348:25: error: invalid operands to binary != (have ‘stored_exp_t’ and ‘stored_exp_t’)
+  348 |     if (ht->ev[la][DEG] != ht->ev[lb][DEG]) {
+      |         ~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~
+      |                   |                  |
+      |                   stored_exp_t       stored_exp_t
+order.c:349:33: error: invalid operands to binary < (have ‘stored_exp_t’ and ‘stored_exp_t’)
+  349 |         return (ht->ev[la][DEG] < ht->ev[lb][DEG]) ? -1 : 1;
+      |                 ~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~
+      |                           |                 |
+      |                           stored_exp_t      stored_exp_t
+order.c: In function ‘initial_input_cmp_drl’:
+order.c:408:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  408 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:409:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  409 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+order.c: In function ‘initial_gens_cmp_drl’:
+order.c:440:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  440 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:441:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  441 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+order.c: In function ‘monomial_cmp_pivots_drl’:
+order.c:480:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  480 |     const exp_t * const ea  = ht->ev[a];
+      |                               ^~
+order.c:481:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  481 |     const exp_t * const eb  = ht->ev[b];
+      |                               ^~
+order.c: In function ‘monomial_cmp_drl’:
+order.c:512:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  512 |     const exp_t * const ea  = ht->ev[a];
+      |                               ^~
+order.c:513:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  513 |     const exp_t * const eb  = ht->ev[b];
+      |                               ^~
+order.c: In function ‘initial_input_cmp_be’:
+order.c:623:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  623 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:624:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  624 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+order.c: In function ‘initial_gens_cmp_be’:
+order.c:673:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  673 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:674:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  674 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+order.c: In function ‘monomial_cmp_pivots_be’:
+order.c:731:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  731 |     const exp_t * const ea  = ht->ev[a];
+      |                               ^~
+order.c:732:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  732 |     const exp_t * const eb  = ht->ev[b];
+      |                               ^~
+order.c: In function ‘monomial_cmp_be’:
+order.c:781:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  781 |     const exp_t * const ea  = ht->ev[a];
+      |                               ^~
+order.c:782:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  782 |     const exp_t * const eb  = ht->ev[b];
+      |                               ^~
+order.c: In function ‘initial_input_cmp_sig’:
+order.c:875:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  875 |     const exp_t * const ea  = ht->ev[ha];
+      |                               ^~
+order.c:876:31: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  876 |     const exp_t * const eb  = ht->ev[hb];
+      |                               ^~
+In file included from gb.c:38:
+la_ff_8.c: In function ‘probabilistic_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:910: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  910 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘exact_application_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:1083: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1083 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_8.c: In function ‘exact_trace_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:1218: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1218 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_8.c: In function ‘exact_sparse_reduced_echelon_form_ff_8’:
+la_ff_8.c:1363: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1363 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_8.c: In function ‘sparse_AB_CD_linear_algebra_ff_8’:
+la_ff_8.c:1526: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1526 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘exact_dense_linear_algebra_ff_8’:
+la_ff_8.c:1667: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1667 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘probabilistic_dense_linear_algebra_ff_8’:
+la_ff_8.c:1789: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1789 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_8.c: In function ‘probabilistic_sparse_dense_echelon_form_ff_8’:
+la_ff_8.c:1925: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1925 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:39:
+la_ff_16.c: In function ‘probabilistic_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:761: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  761 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘exact_trace_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:944: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  944 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_16.c: In function ‘exact_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:1091: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1091 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_16.c: In function ‘exact_application_sparse_reduced_echelon_form_ff_16’:
+la_ff_16.c:1260: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1260 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_16.c: In function ‘sparse_AB_CD_linear_algebra_ff_16’:
+la_ff_16.c:1395: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1395 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘exact_dense_linear_algebra_ff_16’:
+la_ff_16.c:1538: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1538 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘probabilistic_dense_linear_algebra_ff_16’:
+la_ff_16.c:1660: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1660 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_16.c: In function ‘probabilistic_sparse_dense_echelon_form_ff_16’:
+la_ff_16.c:1796: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1796 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:40:
+la_ff_32.c: In function ‘probabilistic_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:2367: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 2367 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘exact_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:2641: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 2641 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_32.c: In function ‘exact_sparse_reduced_echelon_form_sat_ff_32’:
+la_ff_32.c:2806: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 2806 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c:2842: warning: ignoring ‘#pragma omp critical’ [-Wunknown-pragmas]
+ 2842 | #pragma omp critical
+la_ff_32.c: In function ‘exact_trace_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:3036: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3036 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_32.c: In function ‘exact_application_sparse_reduced_echelon_form_ff_32’:
+la_ff_32.c:3167: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3167 | #pragma omp parallel for num_threads(nthrds) \
+la_ff_32.c: In function ‘sparse_AB_CD_linear_algebra_ff_32’:
+la_ff_32.c:3304: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3304 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘exact_dense_linear_algebra_ff_32’:
+la_ff_32.c:3445: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3445 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘probabilistic_dense_linear_algebra_ff_32’:
+la_ff_32.c:3586: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3586 | #pragma omp parallel for num_threads(st->nthrds) \
+la_ff_32.c: In function ‘probabilistic_sparse_dense_echelon_form_ff_32’:
+la_ff_32.c:3722: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 3722 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:41:
+la_qq.c: In function ‘exact_sparse_reduced_echelon_form_ab_first_qq’:
+la_qq.c:423: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  423 | #pragma omp parallel for num_threads(st->nthrds) private(i, j, k, sc) schedule(dynamic)
+la_qq.c: In function ‘exact_sparse_reduced_echelon_form_qq’:
+la_qq.c:596: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  596 | #pragma omp parallel for num_threads(st->nthrds) private(i, j, k, sc) \
+In file included from gb.c:42:
+update.c: In function ‘insert_and_update_spairs’:
+update.c:124: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  124 | #pragma omp parallel for num_threads(nthrds) \
+In file included from gb.c:43:
+convert.c: In function ‘convert_hashes_to_columns_sat’:
+convert.c:140: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  140 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c:159: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  159 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c: In function ‘sba_convert_hashes_to_columns’:
+convert.c:265: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  265 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c: In function ‘convert_hashes_to_columns’:
+convert.c:365: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  365 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c:383: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  383 | #pragma omp parallel for num_threads(st->nthrds) private(k, j, row)
+convert.c: In function ‘convert_sparse_matrix_rows_to_basis_elements_internal’:
+convert.c:677: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  677 | #pragma omp parallel for num_threads(st->nthrds) \
+In file included from gb.c:44:
+symbol.c: In function ‘select_spairs_by_minimal_degree’:
+symbol.c:318:15: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  318 |         elcm  = bht->ev[lcm];
+      |               ^
+symbol.c:320:15: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  320 |         eb    = bht->ev[b[OFFSET]];
+      |               ^
+symbol.c:354:19: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  354 |             elcm  = bht->ev[lcm];
+      |                   ^
+symbol.c:358:19: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  358 |             eb    = bht->ev[b[OFFSET]];
+      |                   ^
+symbol.c: In function ‘find_multiplied_reducer’:
+symbol.c:512:30: error: initialization of ‘const exp_t * const’ {aka ‘const unsigned char * const’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  512 |     const exp_t * const e  = sht->ev[m];
+      |                              ^~~
+symbol.c:523:33: error: initialization of ‘exp_t * const* const’ {aka ‘unsigned char * const* const’} from incompatible pointer type ‘stored_exp_t **’ [-Wincompatible-pointer-types]
+  523 |     exp_t * const * const evb = bht->ev;
+      |                                 ^~~
+symbol.c: In function ‘generate_matrix_from_trace’:
+symbol.c:679:15: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  679 |         emul  = bht->ev[td.rri[i]];
+      |               ^
+symbol.c:693:15: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  693 |         emul  = bht->ev[td.tri[i]];
+      |               ^
+symbol.c: In function ‘generate_saturation_reducer_rows_from_trace’:
+symbol.c:747:15: error: assignment to ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  747 |         emul  = bht->ev[ts.rri[i]];
+      |               ^
+In file included from gb.c:45:
+io.c: In function ‘export_data’:
+io.c:593:17: error: aggregate value used where an integer was expected
+  593 |                 exp[ce++] = (int32_t)ht->ev[dt[j]][k];
+      |                 ^~~
+io.c:596:17: error: aggregate value used where an integer was expected
+  596 |                 exp[ce++] = (int32_t)ht->ev[dt[j]][k];
+      |                 ^~~
+In file included from gb.c:48:
+sba.c: In function ‘is_signature_needed’:
+sba.c:198:21: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  198 |     exp_t *ev   =   ht->ev[0];
+      |                     ^~
+sba.c:243:28: error: initialization of ‘const exp_t *’ {aka ‘const unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  243 |         const exp_t *sev = ht->ev[syz_idx.hm[i]];
+      |                            ^~
+sba.c:262:28: error: initialization of ‘const exp_t *’ {aka ‘const unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  262 |         const exp_t *rev = ht->ev[rew_idx.hm[i]];
+      |                            ^~
+sba.c: In function ‘add_row_to_sba_matrix’:
+sba.c:346:29: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  346 |     exp_t *ev           =   ht->ev[0];
+      |                             ^~
+In file included from gb.c:50:
+f4sat.c: In function ‘is_zero_dimensional’:
+f4sat.c:78:33: error: passing argument 1 of ‘is_pure_power’ from incompatible pointer type [-Wincompatible-pointer-types]
+   78 |         if (is_pure_power(ht->ev[bs->hm[bs->lmps[i]][OFFSET]], ht)) {
+      |                           ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                 |
+      |                                 stored_exp_t *
+f4sat.c:37:29: note: expected ‘const exp_t * const’ {aka ‘const unsigned char * const’} but argument is of type ‘stored_exp_t *’
+   37 |         const exp_t * const ev,
+      |         ~~~~~~~~~~~~~~~~~~~~^~
+f4sat.c: In function ‘update_indices’:
+f4sat.c:291:36: error: invalid operands to binary == (have ‘stored_exp_t’ and ‘int’)
+  291 |             if (ht->ev[qb[j]][i+1] == 0) {
+      |                 ~~~~~~~~~~~~~~~~~~ ^~
+      |                              |
+      |                              stored_exp_t
+f4sat.c: In function ‘update_multipliers’:
+f4sat.c:445:35: error: invalid operands to binary < (have ‘stored_exp_t’ and ‘stored_exp_t’)
+  445 |             if (bht->ev[qb[i]][k] < bht->ev[sat->hm[j][MULT]][k]) {
+      |                 ~~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                               |                              |
+      |                               stored_exp_t                   stored_exp_t
+f4sat.c:449:41: error: invalid operands to binary - (have ‘stored_exp_t’ and ‘stored_exp_t’)
+  449 |             etmp[k] = bht->ev[qb[i]][k] - bht->ev[sat->hm[j][MULT]][k];
+      |                       ~~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                     |                              |
+      |                                     stored_exp_t                   stored_exp_t
+f4sat.c:479:57: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+  479 |             sat->hm[i][j] = insert_in_hash_table(bht->ev[sat->hm[i][j]], sht);
+      |                                                  ~~~~~~~^~~~~~~~~~~~~~~
+      |                                                         |
+      |                                                         stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+f4sat.c: In function ‘core_f4sat’:
+f4sat.c:523:53: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+  523 |     sat->hm[0][MULT]  = insert_in_hash_table(bht->ev[0], bht);
+      |                                              ~~~~~~~^~~
+      |                                                     |
+      |                                                     stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+f4sat.c:706:44: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+  706 |                                     sht->ev[sat->hm[i][j]], bht);
+      |                                     ~~~~~~~^~~~~~~~~~~~~~~
+      |                                            |
+      |                                            stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+In file included from gb.c:51:
+modular.c: In function ‘reduce_basis_no_hash_table_switching’:
+modular.c:128:19: error: initialization of ‘exp_t *’ {aka ‘unsigned char *’} from incompatible pointer type ‘stored_exp_t *’ [-Wincompatible-pointer-types]
+  128 |     exp_t *etmp = bht->ev[0];
+      |                   ^~~
+modular.c: In function ‘f4_trace_application_phase’:
+modular.c:269:36: warning: format ‘%u’ expects argument of type ‘unsigned int’, but argument 3 has type ‘stored_exp_t’ [-Wformat=]
+  269 |             fprintf(VERBSTREAM, "%6u ", sht->ev[mat->tr[0][OFFSET]][DEG]);
+      |                                  ~~^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                    |                               |
+      |                                    unsigned int                    stored_exp_t
+modular.c: In function ‘f4sat_trace_application_test_phase’:
+modular.c:424:53: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+  424 |     sat->hm[0][MULT]  = insert_in_hash_table(bht->ev[0], bht);
+      |                                              ~~~~~~~^~~
+      |                                                     |
+      |                                                     stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+modular.c:591:40: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+  591 |                                 sht->ev[sat->hm[i][j]], bht);
+      |                                 ~~~~~~~^~~~~~~~~~~~~~~
+      |                                        |
+      |                                        stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+modular.c: In function ‘f4sat_trace_application_phase’:
+modular.c:885:40: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+  885 |                                 sht->ev[sat->hm[i][j]], bht);
+      |                                 ~~~~~~~^~~~~~~~~~~~~~~
+      |                                        |
+      |                                        stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+modular.c: In function ‘f4sat_trace_learning_phase_1’:
+modular.c:1202:18: error: invalid operands to binary * (have ‘int’ and ‘stored_exp_t’)
+ 1202 |     next_deg  = 2*bht->ev[sat->hm[0][OFFSET]][DEG];
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                              |
+      |                                              stored_exp_t
+modular.c:1369:44: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1369 |                                     sht->ev[sat->hm[i][j]], bht);
+      |                                     ~~~~~~~^~~~~~~~~~~~~~~
+      |                                            |
+      |                                            stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+modular.c: In function ‘f4sat_trace_learning_phase_2’:
+modular.c:1531:18: error: invalid operands to binary * (have ‘int’ and ‘stored_exp_t’)
+ 1531 |     next_deg  = 2*bht->ev[sat->hm[0][OFFSET]][DEG];
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                              |
+      |                                              stored_exp_t
+modular.c:1692:40: error: passing argument 1 of ‘insert_in_hash_table’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 1692 |                                 sht->ev[sat->hm[i][j]], bht);
+      |                                 ~~~~~~~^~~~~~~~~~~~~~~
+      |                                        |
+      |                                        stored_exp_t *
+hash.c:823:18: note: expected ‘const exp_t *’ {aka ‘const unsigned char *’} but argument is of type ‘stored_exp_t *’
+  823 |     const exp_t *a,
+      |     ~~~~~~~~~~~~~^
+modular.c: In function ‘f4_trace_julia’:
+modular.c:1903: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+ 1903 | #pragma omp parallel for num_threads(st->nthrds) \
+make[2]: *** [Makefile:499: libneogb_la-gb.lo] Error 1
+make[2]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2/src/neogb'
+make[1]: *** [Makefile:1426: all-recursive] Error 1
+make[1]: Leaving directory '/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/msolve-cc044551f8e202d00691990fd3fd0b1226a88ea2'
+make: *** [Makefile:1177: all] Error 2

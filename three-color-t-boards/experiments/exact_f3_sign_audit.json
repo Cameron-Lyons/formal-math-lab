@@ -1,0 +1,176 @@
+{
+  "status": "PASS",
+  "scope": "finite-field polynomial construction, exact model factorization and symbolic exports; no solver",
+  "irreducible_degree5_moduli_checked": 48,
+  "initial_coordinate_bases_checked": 240,
+  "local_search_start_count": 24,
+  "local_search_shear_candidates": 1728,
+  "selected_initial_basis_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "selected_shears": [
+    [
+      2,
+      0,
+      1
+    ],
+    [
+      1,
+      3,
+      1
+    ],
+    [
+      0,
+      2,
+      2
+    ],
+    [
+      0,
+      3,
+      1
+    ]
+  ],
+  "sparsity_search_scope": "deterministic local elementary-shear descent; no global minimum claim",
+  "embedding_distinct_values": 81,
+  "field_elements_checked": 243,
+  "all81_selector_values_checked": true,
+  "selector_value_histogram": {
+    "0": 1,
+    "1": 40,
+    "2": 40
+  },
+  "selector_square_identity_verified": true,
+  "oddness_verified": true,
+  "selector_terms": 17,
+  "selector_degrees": {
+    "1": 4,
+    "3": 7,
+    "5": 6
+  },
+  "ordinary_homogeneous_norm_terms": 38,
+  "low_support_pair_shape_classes": 8,
+  "signed_permutations_per_class": 384,
+  "selected_pair": [
+    0,
+    3
+  ],
+  "selector_delta_forms": [
+    {
+      "0": 2
+    },
+    {
+      "70": 2,
+      "71": 1,
+      "15": 2,
+      "93": 1
+    },
+    {
+      "7": 2,
+      "8": 2,
+      "9": 2
+    },
+    {
+      "0": 2,
+      "1": 2
+    }
+  ],
+  "expanded_selector_terms": 179,
+  "expanded_constraint_terms": 180,
+  "expanded_constraint_variable_support": [
+    0,
+    1,
+    7,
+    8,
+    9,
+    15,
+    70,
+    71,
+    93
+  ],
+  "expanded_constraint_degrees": {
+    "0": 1,
+    "1": 9,
+    "3": 52,
+    "5": 118
+  },
+  "candidate_pair_best_terms": [
+    {
+      "pair": [
+        0,
+        1
+      ],
+      "terms": 390
+    },
+    {
+      "pair": [
+        0,
+        3
+      ],
+      "terms": 179
+    },
+    {
+      "pair": [
+        0,
+        49
+      ],
+      "terms": 541
+    },
+    {
+      "pair": [
+        0,
+        50
+      ],
+      "terms": 502
+    },
+    {
+      "pair": [
+        1,
+        4
+      ],
+      "terms": 489
+    },
+    {
+      "pair": [
+        3,
+        8
+      ],
+      "terms": 358
+    },
+    {
+      "pair": [
+        11,
+        12
+      ],
+      "terms": 247
+    },
+    {
+      "pair": [
+        36,
+        49
+      ],
+      "terms": 358
+    }
+  ],
+  "all176_source_generators_preserved": true,
+  "all97_field_domains_retained": true,
+  "sign_field_redundancy_ordinary_identity_checked": true,
+  "both_independent_variables_absent_from_coupled_equations": true,
+  "full_minfill_inverse_rename_checked": true,
+  "existing_valid_boards_roundtripped": 161,
+  "all179_polynomials_evaluated_on_canonical_boards": 5,
+  "all_source_coupled_polynomials_have_uniform_degree_parity": true,
+  "six_affine_palette_reconstructions_per_board_checked": true,
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "full_count_status": "UNEVALUATED",
+  "export_sha256": {
+    "exact_f3_sign_model.ms": "dd0d371541d7a0ebbff559a854a08cd89219928e56e570265d29ef31b19fa381",
+    "exact_f3_sign_minfill.ms": "14247d0e4cfaff8636e99852902816d8d0ab97de47ada08cb2e40fa7576e71cf",
+    "exact_f3_sign_model.json": "a568c7b0341b54ba28d9c01cf000ac0c4fb8ecd89fb27abd9b678262d2ae85bc",
+    "exact_f3_sign_minfill.json": "d8e366d5dabbc3eddfe0fdf519ea87b1f37602b153e47f209f70c2553db41bbd"
+  },
+  "generator_sha256": "13b0a2cb7f0ad8b720dd4c179a911970f1ec68d47d74799faf4c3bb1c33bc46d"
+}

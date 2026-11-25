@@ -1,0 +1,63 @@
+Initial seed for pseudo-random number generator is 1795419043
+
+--------------- INPUT DATA ---------------
+#variables                     100
+#equations                     180
+#invalid equations               0
+field characteristic            29
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size     131072 (2^17)
+max pair selection              16
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  1       1      85       2 x 90         90.00%        1 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=89 referenced=18 missing=0 basis_load=18700 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=89 referenced=18 inserted=0 basis_capacity=65536
+         0.00 | 0.00         
+  2       7      85     383 x 5029        1.29%        7 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=4653 referenced=4445 missing=3954 basis_load=18877 basis_capacity=65536
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=4653 referenced=4445 inserted=3954 basis_capacity=65536
+         0.00 | 0.00         
+  3      17      98    2355 x 152825      0.50%       17 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=150487 referenced=149806 missing=148730 basis_load=23682 basis_capacity=65536
+
+MSOLVE_PROMOTION_CAPACITY_REQUEST required_with_spare=172413 exponent_old=65536 exponent_new=196608 buckets_old=131072 buckets_new=524288
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=150487 referenced=149806 inserted=148730 basis_capacity=196608
+         0.57 | 0.56         
+  3      17     176    2733 x 153152      0.86%       17 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=150436 referenced=149856 missing=73 basis_load=175155 basis_capacity=196608
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=150436 referenced=149856 inserted=73 basis_capacity=196608
+         0.81 | 0.81         
+  3      10     270   18741 x 169762      0.25%       10 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=151031 referenced=149805 missing=27 basis_load=178088 basis_capacity=196608
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=151031 referenced=149805 inserted=27 basis_capacity=196608
+         1.54 | 1.53         
+  4      16     341

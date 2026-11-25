@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "source_sha256": "7f8251ab52e8d6869c19cc861dc98b0c1e66904313b0d87920d9f95659700092",
+  "source_polynomials_compared": 276,
+  "coordinate_inverse_basis_checks": 100,
+  "original_domains_retained": 100,
+  "optional_field_ideal_identities_checked": 100,
+  "no_exponent_reduction_used": true,
+  "moments_nonzero": 72,
+  "vanished_moments": [
+    "moment:0,0,0,1",
+    "moment:0,0,0,2",
+    "moment:0,0,1,0",
+    "moment:0,0,2,0",
+    "moment:0,1,0,0",
+    "moment:0,2,0,0",
+    "moment:1,0,0,0",
+    "moment:2,0,0,0"
+  ],
+  "elementary_ordinary_fourth_powers_preserved": true,
+  "witness_checks": [
+    {
+      "zero_free_coordinates": 24
+    },
+    {
+      "zero_free_coordinates": 23
+    },
+    {
+      "zero_free_coordinates": 24
+    },
+    {
+      "zero_free_coordinates": 24
+    },
+    {
+      "zero_free_coordinates": 21
+    }
+  ],
+  "complete_input_variants": [
+    {
+      "name": "representatives_e0_f0",
+      "generators": 136,
+      "input_sha256": "e0c3b2393744792f529ebc6208f80dd9d420aa98544823cd7d5db9b4bd5d2fd9",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/representatives_e0_f0.ms"
+    },
+    {
+      "name": "representatives_e0_f1",
+      "generators": 232,
+      "input_sha256": "d6900423505ea43eda51651be8381a86eddef3f6eb340247f5992cbeb4827b49",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/representatives_e0_f1.ms"
+    },
+    {
+      "name": "representatives_e1_f0",
+      "generators": 144,
+      "input_sha256": "57a0d706505f06710aff609e280faabc35fb1c27f886c811b5be957c856a760e",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/representatives_e1_f0.ms"
+    },
+    {
+      "name": "representatives_e1_f1",
+      "generators": 240,
+      "input_sha256": "4fe277aa2f711dfbff1c4746a119e4a4682fc4b0db180318403285a29798855b",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/representatives_e1_f1.ms"
+    },
+    {
+      "name": "all_e0_f0",
+      "generators": 172,
+      "input_sha256": "be222f739cbdd2df7313c94050c3607e0703683074cf50a03df7013ad1ec52d4",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/all_e0_f0.ms"
+    },
+    {
+      "name": "all_e0_f1",
+      "generators": 268,
+      "input_sha256": "0cf341b6752e35051dbf9e0b96f302317267d83cd7f37265b8d087dad6b401eb",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/all_e0_f1.ms"
+    },
+    {
+      "name": "all_e1_f0",
+      "generators": 180,
+      "input_sha256": "0661c04a4e649f3292ae4c3304b0c867e298e907833d98a1391548a209d924dc",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/all_e1_f0.ms"
+    },
+    {
+      "name": "all_e1_f1",
+      "generators": 276,
+      "input_sha256": "60a5280098df62e0607fd3762a6e501b2d6098609b772138bd08f4f7ef867311",
+      "status": "PREPARED_NOT_RUN",
+      "count_divisor": 1,
+      "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_pivot_review_prefix_prepared/all_e1_f1.ms"
+    }
+  ],
+  "invalid_scope_cases_rejected": 7,
+  "solver_runs": 0,
+  "full_count_status": "NOT_COMPUTED",
+  "backend_sha256": "d6f52ceb6225efabeed660430701dd5321ac3bb480a5e008976e2461310f7749",
+  "no_blanket_free_cubic_domains_added": true
+}

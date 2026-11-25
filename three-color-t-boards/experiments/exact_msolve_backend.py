@@ -40,8 +40,8 @@ def poly_text(terms, prime):
     return '+'.join(pieces) or '0'
 
 
-def definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=False,
-                ternary_reduced=None):
+def base_definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=False,
+                     ternary_reduced=None):
     if ternary_reduced is not None:
         if ternary_reduced not in ('representatives', 'all'):
             raise ValueError('unknown reduced Fourier generator selection')
@@ -136,6 +136,83 @@ def definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=Fal
     return text, metadata
 
 
+def definitions(prime=29, prefix='', binary=False, fixture=None, pivot_order=False,
+                ternary_reduced=None, histogram_e2=False, ternary_prefix_sums=None,
+                prefix_field_equations=False, histogram_e4=False, ternary_native_field=False,
+                native_e3=False, native_translation=False, native_order=None, native_sign=False,
+                native_sign_branch=None, native_branch_elimination=False):
+    if native_branch_elimination and native_sign_branch is None:
+        raise ValueError('branch elimination requires a selected linear sign branch')
+    if ternary_native_field:
+        if (prime != 3 or prefix or binary or fixture or pivot_order or ternary_reduced or
+                ternary_prefix_sums or histogram_e2 or prefix_field_equations or histogram_e4):
+            raise ValueError('native-field coordinates require F3 and no other model options')
+        if native_sign_branch is not None:
+            if native_sign or not native_translation or not native_e3:
+                raise ValueError('linear sign branch requires translation/e3 and excludes quintic sign gauge')
+            if native_branch_elimination:
+                from exact_msolve_native_branch_elimination import eliminated_branch_definitions
+                return eliminated_branch_definitions(native_sign_branch, native_order)
+            from exact_msolve_native_sign_branch import branch_definitions
+            return branch_definitions(native_sign_branch, native_order)
+        if native_sign:
+            if not native_translation or not native_e3:
+                raise ValueError('native sign factorization requires translation and e3')
+            from exact_msolve_native_sign import sign_definitions
+            return sign_definitions(native_order)
+        if native_translation:
+            from exact_msolve_translation import translation_definitions
+            source, metadata = translation_definitions(e3=native_e3)
+            if native_order is not None:
+                if native_order != 'minimum-fill' or not native_e3:
+                    raise ValueError('minimum-fill ordering requires the translated native e3 model')
+                from exact_msolve_native_order import reorder
+                source, metadata = reorder(source, metadata)
+            return source, metadata
+        if native_order is not None:
+            raise ValueError('native variable ordering requires translation factorization')
+        from exact_msolve_native_field import native_definitions
+        source, metadata = native_definitions()
+        if native_e3:
+            from exact_msolve_native_e3 import augment
+            source, metadata = augment(source, metadata)
+        return source, metadata
+    if native_sign_branch is not None:
+        raise ValueError('linear sign branch requires the natural-F3 model')
+    if native_sign:
+        raise ValueError('sign factorization requires the natural-F3 model')
+    if native_e3:
+        raise ValueError('native e3 requires the natural-F3 model')
+    if native_translation:
+        raise ValueError('translation factorization requires the natural-F3 model')
+    if native_order is not None:
+        raise ValueError('native variable ordering requires the natural-F3 model')
+    if ternary_prefix_sums is not None:
+        if ternary_prefix_sums not in ('representatives', 'all'):
+            raise ValueError('unknown prefix-sum Fourier generator selection')
+        if prime != 2 or prefix or binary or fixture or pivot_order or ternary_reduced:
+            raise ValueError('prefix-sum coordinates require F2 and no other model options')
+        from exact_msolve_prefix_sums import prefix_definitions
+        source, metadata = prefix_definitions(all_moments=ternary_prefix_sums == 'all',
+                                             histogram_e2=histogram_e2,
+                                             field_equations=prefix_field_equations)
+        if histogram_e4:
+            from exact_msolve_prefix_e4 import augment
+            source, metadata = augment(source, metadata)
+        return source, metadata
+    if histogram_e4:
+        raise ValueError('e4 augmentation requires prefix-sum coordinates and e2 equations')
+    if prefix_field_equations:
+        raise ValueError('prefix field equations require prefix-sum coordinates')
+    if histogram_e2 and (prime != 2 or prefix or binary or fixture):
+        raise ValueError('elementary augmentation requires an unrestricted ternary F2 model')
+    source, metadata = base_definitions(prime,prefix,binary,fixture,pivot_order,ternary_reduced)
+    if histogram_e2:
+        from exact_msolve_elementary import augment
+        source, metadata = augment(source,metadata,reduced=ternary_reduced is not None)
+    return source, metadata
+
+
 def parse_leading(output, variables, prime):
     """Parse only complete, explicitly described leading-ideal output."""
     if re.search(r'\berror\b|out of memory|cannot allocate|segmentation|aborted',output,re.I):
@@ -189,13 +266,20 @@ def parse_leading(output, variables, prime):
 def run(output, *, prime=29, prefix='', binary=False, fixture=None,
         seconds=90, memory_mb=2048, prepare_only=False, executable=EXECUTABLE,
         library_dir=None, max_pairs=0, require_export_marker=False, pivot_order=False,
-        ternary_reduced=None):
+        ternary_reduced=None, histogram_e2=False, ternary_prefix_sums=None,
+        prefix_field_equations=False, histogram_e4=False, ternary_native_field=False,
+        native_e3=False, native_translation=False, native_order=None, native_sign=False,
+        native_sign_branch=None, native_branch_elimination=False):
     if seconds <= 0 or memory_mb <= 0 or max_pairs < 0:
         raise ValueError('invalid resource limit or pair batch size')
     output = Path(output)
-    source, metadata = definitions(prime,prefix,binary,fixture,pivot_order,ternary_reduced)
+    source, metadata = definitions(prime,prefix,binary,fixture,pivot_order,ternary_reduced,
+                                  histogram_e2,ternary_prefix_sums,prefix_field_equations,histogram_e4,
+                                  ternary_native_field,native_e3,native_translation,native_order,native_sign,
+                                  native_sign_branch,native_branch_elimination)
     input_path = output.with_suffix('.ms')
     basis_path = output.with_suffix('.basis')
+    log_path = output.with_suffix('.log')
     if any(output.with_suffix(suffix).exists() for suffix in
            ('.ms','.basis','.json','.log','.leading.json')):
         raise ValueError('refusing to overwrite prior run artifacts')
@@ -207,6 +291,7 @@ def run(output, *, prime=29, prefix='', binary=False, fixture=None,
     metadata.update(command=command, source_sha256=sha256(source.encode()),
                     adapter_sha256=sha256(Path(__file__).read_bytes()),
                     input_file=str(input_path), linear_algebra='exact sparse (-l 2)',
+                    log_file=str(log_path), log_streaming=True,
                     threads=1, timeout_seconds=seconds, memory_mb=memory_mb,
                     require_export_marker=require_export_marker,
                     basis_complete=False, status='PREPARED_NOT_RUN')
@@ -227,17 +312,17 @@ def run(output, *, prime=29, prefix='', binary=False, fixture=None,
     metadata['local_shared_libraries'] = {str(path):sha256(path.read_bytes())
         for folder in library_dirs for path in Path(folder).glob('lib*.so*')
         if path.is_file() and not path.is_symlink()}
-    try:
-        process = subprocess.run(command,capture_output=True,text=True,timeout=seconds,
-                                 preexec_fn=limits,env=env)
-        log = process.stdout+process.stderr
-        metadata['returncode'] = process.returncode
-        metadata['status'] = 'BACKEND_ERROR'
-    except subprocess.TimeoutExpired as error:
-        log = (error.stdout or b'').decode(errors='replace') if isinstance(error.stdout,bytes) else (error.stdout or '')
-        if error.stderr:
-            log += error.stderr.decode(errors='replace') if isinstance(error.stderr,bytes) else error.stderr
-        metadata['status'] = 'INCOMPLETE_TIMEOUT'
+    # The child writes directly to the fresh log, so flushed solver progress
+    # remains readable during execution and survives a timeout or interruption.
+    with log_path.open('x', encoding='utf-8') as log_file:
+        try:
+            process = subprocess.run(command,stdout=log_file,stderr=subprocess.STDOUT,
+                                     text=True,timeout=seconds,preexec_fn=limits,env=env)
+            metadata['returncode'] = process.returncode
+            metadata['status'] = 'BACKEND_ERROR'
+        except subprocess.TimeoutExpired:
+            metadata['status'] = 'INCOMPLETE_TIMEOUT'
+    log = log_path.read_text(encoding='utf-8', errors='replace')
     after = resource.getrusage(resource.RUSAGE_CHILDREN)
     metadata['child_cpu_seconds'] = after.ru_utime+after.ru_stime-before.ru_utime-before.ru_stime
     metadata['child_wall_seconds'] = time.monotonic()-started
@@ -251,7 +336,8 @@ def run(output, *, prime=29, prefix='', binary=False, fixture=None,
         try:
             result = basis_path.read_text()
             leading = parse_leading(result,metadata['variables'],metadata['prime'])
-            metadata.update(basis_complete=True,basis_size=len(leading),basis_sha256=sha256(result.encode()))
+            metadata.update(basis_complete=True,standard_basis_complete=True,
+                            basis_size=len(leading),basis_sha256=sha256(result.encode()))
             record = dict(format='leading-monomial-ideal-v1',variables=metadata['variables'],
                           standard_basis_complete=True,leading_monomials=leading,
                           provenance=dict(backend='msolve F4',input_sha256=metadata['source_sha256'],
@@ -272,7 +358,6 @@ def run(output, *, prime=29, prefix='', binary=False, fixture=None,
         except (ValueError,OSError,RuntimeError,MemoryError,RecursionError) as error:
             metadata.update(status='POSTPROCESS_ERROR',postprocess_error=f'{type(error).__name__}: {error}')
     metadata['elapsed_seconds'] = time.monotonic()-started
-    output.with_suffix('.log').write_text(log)
     output.with_suffix('.json').write_text(json.dumps(metadata,indent=2)+'\n')
     return metadata
 
@@ -293,6 +378,17 @@ def main():
     parser.add_argument('--require-export-marker',action='store_true')
     parser.add_argument('--pivot-order',action='store_true')
     parser.add_argument('--ternary-reduced',choices=['representatives','all'])
+    parser.add_argument('--histogram-e2',action='store_true')
+    parser.add_argument('--ternary-prefix-sums',choices=['representatives','all'])
+    parser.add_argument('--prefix-field-equations',action='store_true')
+    parser.add_argument('--histogram-e4',action='store_true')
+    parser.add_argument('--ternary-native-field',action='store_true')
+    parser.add_argument('--native-e3',action='store_true')
+    parser.add_argument('--native-translation',action='store_true')
+    parser.add_argument('--native-order',choices=['minimum-fill'])
+    parser.add_argument('--native-sign',action='store_true')
+    parser.add_argument('--native-sign-branch',type=int,choices=range(4))
+    parser.add_argument('--native-branch-elimination',action='store_true')
     args = parser.parse_args()
     result = run(**vars(args))
     print(json.dumps(result,indent=2))

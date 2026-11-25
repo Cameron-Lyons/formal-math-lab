@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "executable_sha256": "a8192deffde5d6dbc9b5abfdfcc5330bfb4553ba88361cd1d86b2d6492919f6a",
+  "patch_sha256": "11af8d44ef40a0fc51e91bdf24bed6f666b1d6870b2799020a558d4dcbdbf682",
+  "complete_basis_comparisons": 24,
+  "symbolic_reserve_events": 56,
+  "integrated_fallback_cases": 4,
+  "actual_row_comparisons": 4,
+  "full_board_solver_runs": 0,
+  "solver_cpu_seconds_sum": 1.0145940000000002,
+  "all_owner_processes_terminal": true,
+  "independent_review_artifacts": [
+    "../exact_msolve_symbolic_review_results.json",
+    "../exact_msolve_symbolic_basis_review_results.json"
+  ]
+}

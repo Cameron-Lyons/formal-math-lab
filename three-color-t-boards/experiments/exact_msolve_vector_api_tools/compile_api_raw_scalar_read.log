@@ -1,0 +1,2 @@
+<stdin>: In function ‘probe’:
+<stdin>:2:38: error: incompatible types when initializing type ‘exp_t’ {aka ‘unsigned char’} using type ‘stored_exp_t’

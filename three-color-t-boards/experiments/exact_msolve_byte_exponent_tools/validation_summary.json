@@ -1,0 +1,23 @@
+{
+  "status": "OWNER_AND_INDEPENDENT_PASS",
+  "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+  "patch_sha256": "b97f1f487c27c2a0ddf7641046c36d118451a6231ce3554a69be25e0f24f04c6",
+  "paired_complete_basis_comparisons": 26,
+  "guard_rejections": 39,
+  "valid_arithmetic_cases": 65792,
+  "overflow_rejections": 11,
+  "full_board_solver_runs": 0,
+  "all_owner_solver_processes_terminal": true,
+  "solver_cpu_seconds_sum": 1.19276,
+  "independent_review": {
+    "basis_and_scope": "../exact_msolve_byte_review_results.json",
+    "arithmetic": "../exact_msolve_byte_arithmetic_review_results.json",
+    "notes": "../exact_msolve_byte_review_notes.md",
+    "small_ideals": 20,
+    "complete_g1_g2_exports": 80,
+    "scope_rejections": 34,
+    "arithmetic_cases": 65792,
+    "input_lcm_product_cases": 1200,
+    "arithmetic_failure_cases": 14
+  }
+}

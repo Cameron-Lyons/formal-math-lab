@@ -14,8 +14,10 @@ at least 3,314,632 basis-hash slots although most columns might be absent from
 the 17 output rows. The failure was in the second hash allocation, after the
 working matrix had already fit under the 2 GiB address-space cap. This patch
 does not reduce the working symbolic matrix or guarantee that a later round
-will fit. The observed `-m16` setting is a pair-batch target; tied least common
-multiples can extend a batch to 17 pairs.
+will fit. The observed `-m16` setting is a pair-batch target and can produce
+17 selected pairs. A later [selector audit](../exact_msolve_pair_batch_analysis.md)
+documents an offset in the pinned version's LCM boundary loop; no guarantee
+that it preserves every complete tie group is made.
 
 ## Pinned provenance
 

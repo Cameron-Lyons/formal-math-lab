@@ -1,0 +1,12 @@
+{
+  "mem_available_mib": 4115,
+  "required_available_mib": 3584,
+  "unix_time": 1795424339.6178443,
+  "input_sha256": "cb2497554585e51166b747cee0221efc3cf7f130f46b9084d7f2e9d3b760c105",
+  "model_source_sha256": "fe1321842be3bf5bdb8ff91cd5b9c38017d542968fe27a8d5a8952e344564cc4",
+  "e3_source_sha256": "6cef0fb4e6b3ccb80f17f7aebadfd02fd777d082e1dedb84cdf5d9786d408392",
+  "executable_sha256": "9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a",
+  "scope": "full labeled ternary boards",
+  "variables": 96,
+  "generators": 176
+}

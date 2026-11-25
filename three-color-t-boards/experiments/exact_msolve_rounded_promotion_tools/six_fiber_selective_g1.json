@@ -1,0 +1,264 @@
+{
+  "name": "six_fiber",
+  "kind": "selective",
+  "mode": 1,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_rounded_promotion_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_rounded_promotion_tools/six_fiber_selective_g1.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_rounded_promotion_tools/six_fiber_selective_g1.basis",
+    "-g",
+    "1",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 90,
+  "wall_seconds": 1.5918514219993085,
+  "cpu_seconds": 1.3376349999999997,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "a75b23d860139a32c1d1e2f4c613bf67f49c649114919bf44560558b4cf2d52c",
+  "input_sha256": "798324361a89f2c5a2d0d9c11561d4fa82418d90e0834f381ce01a14a3156772",
+  "executable_sha256": "cebd842aa617f09725a1f5429ebc822da238563f142b14993cccb85312d1874c",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_rounded_promotion_tools/six_fiber_selective_g1.basis",
+  "promotion_events": [
+    {
+      "nonpivot": 170,
+      "referenced": 170,
+      "inserted": 92,
+      "basis_capacity": 2048
+    },
+    {
+      "nonpivot": 118,
+      "referenced": 117,
+      "inserted": 0,
+      "basis_capacity": 4096
+    },
+    {
+      "nonpivot": 575,
+      "referenced": 575,
+      "inserted": 392,
+      "basis_capacity": 4096
+    },
+    {
+      "nonpivot": 74,
+      "referenced": 70,
+      "inserted": 0,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 254,
+      "referenced": 254,
+      "inserted": 0,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 213,
+      "referenced": 207,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 57,
+      "referenced": 53,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 158,
+      "referenced": 157,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 46,
+      "referenced": 36,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 118,
+      "referenced": 96,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 65,
+      "referenced": 51,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 38,
+      "referenced": 14,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 90,
+      "referenced": 68,
+      "inserted": 0,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 129,
+      "referenced": 129,
+      "inserted": 36,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 55,
+      "referenced": 48,
+      "inserted": 0,
+      "basis_capacity": 32768
+    },
+    {
+      "nonpivot": 25,
+      "referenced": 24,
+      "inserted": 0,
+      "basis_capacity": 32768
+    },
+    {
+      "nonpivot": 29,
+      "referenced": 28,
+      "inserted": 0,
+      "basis_capacity": 32768
+    }
+  ],
+  "reservation_events": [
+    {
+      "nonpivot": 170,
+      "referenced": 170,
+      "missing": 92,
+      "basis_load": 1664,
+      "basis_capacity": 2048
+    },
+    {
+      "nonpivot": 118,
+      "referenced": 117,
+      "missing": 0,
+      "basis_load": 2239,
+      "basis_capacity": 4096
+    },
+    {
+      "nonpivot": 575,
+      "referenced": 575,
+      "missing": 392,
+      "basis_load": 2576,
+      "basis_capacity": 4096
+    },
+    {
+      "nonpivot": 74,
+      "referenced": 70,
+      "missing": 0,
+      "basis_load": 5295,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 254,
+      "referenced": 254,
+      "missing": 0,
+      "basis_load": 5686,
+      "basis_capacity": 8192
+    },
+    {
+      "nonpivot": 213,
+      "referenced": 207,
+      "missing": 0,
+      "basis_load": 9589,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 57,
+      "referenced": 53,
+      "missing": 0,
+      "basis_load": 11054,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 158,
+      "referenced": 157,
+      "missing": 0,
+      "basis_load": 11309,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 46,
+      "referenced": 36,
+      "missing": 0,
+      "basis_load": 13157,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 118,
+      "referenced": 96,
+      "missing": 0,
+      "basis_load": 13262,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 65,
+      "referenced": 51,
+      "missing": 0,
+      "basis_load": 14431,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 38,
+      "referenced": 14,
+      "missing": 0,
+      "basis_load": 14669,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 90,
+      "referenced": 68,
+      "missing": 0,
+      "basis_load": 14715,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 129,
+      "referenced": 129,
+      "missing": 36,
+      "basis_load": 15870,
+      "basis_capacity": 16384
+    },
+    {
+      "nonpivot": 55,
+      "referenced": 48,
+      "missing": 0,
+      "basis_load": 23172,
+      "basis_capacity": 32768
+    },
+    {
+      "nonpivot": 25,
+      "referenced": 24,
+      "missing": 0,
+      "basis_load": 24134,
+      "basis_capacity": 32768
+    },
+    {
+      "nonpivot": 29,
+      "referenced": 28,
+      "missing": 0,
+      "basis_load": 24625,
+      "basis_capacity": 32768
+    }
+  ],
+  "capacity_requests": []
+}

@@ -1,0 +1,1796 @@
+{
+  "status": "PLAN_ONLY_NO_BUILD",
+  "scope": "representation feasibility and source-site inventory",
+  "baseline_executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+  "baseline_patch_sha256": "b97f1f487c27c2a0ddf7641046c36d118451a6231ce3554a69be25e0f24f04c6",
+  "source_commit": "cc044551f8e202d00691990fd3fd0b1226a88ea2",
+  "algorithm_or_solver_source_changes": false,
+  "builds": 0,
+  "solver_runs": 0,
+  "packing_bound": "stored coordinate<=15 checked before packing; degree<=255 checked; no universal coordinate15 theorem",
+  "storage_calculations": [
+    {
+      "variables": 93,
+      "logical_lanes": 94,
+      "byte_storage_bytes": 94,
+      "packed_storage_bytes": 48,
+      "per_vector_saving_bytes": 46
+    },
+    {
+      "variables": 94,
+      "logical_lanes": 95,
+      "byte_storage_bytes": 95,
+      "packed_storage_bytes": 48,
+      "per_vector_saving_bytes": 47
+    },
+    {
+      "variables": 95,
+      "logical_lanes": 96,
+      "byte_storage_bytes": 96,
+      "packed_storage_bytes": 49,
+      "per_vector_saving_bytes": 47
+    },
+    {
+      "variables": 96,
+      "logical_lanes": 97,
+      "byte_storage_bytes": 97,
+      "packed_storage_bytes": 49,
+      "per_vector_saving_bytes": 48
+    },
+    {
+      "variables": 97,
+      "logical_lanes": 98,
+      "byte_storage_bytes": 98,
+      "packed_storage_bytes": 50,
+      "per_vector_saving_bytes": 48
+    },
+    {
+      "variables": 127,
+      "logical_lanes": 128,
+      "byte_storage_bytes": 128,
+      "packed_storage_bytes": 65,
+      "per_vector_saving_bytes": 63
+    }
+  ],
+  "terminal_log_calculations": [
+    {
+      "log_file": "exact_msolve_full_native3_minfill_byte_4g.log",
+      "log_sha256": "3451f97c6d8521e930916db67194ca2c7f1d3805b59780a38ad825ee48ddcd23",
+      "result_file": "exact_msolve_full_native3_minfill_byte_4g.json",
+      "result_status": "BACKEND_ERROR",
+      "variables": 96,
+      "last_logged_capacity_request": 10878976,
+      "last_logged_bucket_request": 33554432,
+      "request_success_not_attested": true,
+      "hypothetical_same_capacity_exponent_saving_bytes": 522190848,
+      "hypothetical_same_capacity_exponent_saving_mib": 498.0,
+      "observed_packed_memory_saving": false
+    },
+    {
+      "log_file": "exact_msolve_full_native3_sign_minfill_byte_4g.log",
+      "log_sha256": "d2ba7b8c44948ac819108f41f26362f19bd24bf1d4d988c891ba7c35a8f6ba4e",
+      "result_file": "exact_msolve_full_native3_sign_minfill_byte_4g.json",
+      "result_status": "BACKEND_ERROR",
+      "variables": 97,
+      "last_logged_capacity_request": 10878976,
+      "last_logged_bucket_request": 33554432,
+      "request_success_not_attested": true,
+      "hypothetical_same_capacity_exponent_saving_bytes": 522190848,
+      "hypothetical_same_capacity_exponent_saving_mib": 498.0,
+      "observed_packed_memory_saving": false
+    }
+  ],
+  "inventory_is_static_not_complete_reachability_proof": true,
+  "source_inventory": [
+    {
+      "file": "src/neogb/data.h",
+      "sha256": "8eefc0377c524e048980555af305c57531670f92462c4e40858592cf0c1c5109",
+      "scope_note": "logical exponent type and table layout",
+      "matching_lines": [
+        {
+          "line": 86,
+          "text": "typedef uint8_t exp_t;"
+        },
+        {
+          "line": 87,
+          "text": "static inline exp_t checked_exp_value(const int64_t value)"
+        },
+        {
+          "line": 93,
+          "text": "return (exp_t)value;"
+        },
+        {
+          "line": 95,
+          "text": "static inline exp_t checked_exp_add(const exp_t a, const exp_t b)"
+        },
+        {
+          "line": 99,
+          "text": "static inline exp_t checked_exp_sub(const exp_t a, const exp_t b)"
+        },
+        {
+          "line": 131,
+          "text": "*  evl will be nv + 1 + (ebl != 0) where ebl is the number"
+        },
+        {
+          "line": 140,
+          "text": "exp_t **ev;   /* exponent vector */"
+        },
+        {
+          "line": 152,
+          "text": "len_t evl;    /* real length of exponent vector,"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/hash.c",
+      "sha256": "376d7b2d486d89aeb2d73ec4acf7e6351e9e42957691a77525c98cb75562ee86",
+      "scope_note": "all persistent storage, hash, divisor, LCM and promotion paths",
+      "matching_lines": [
+        {
+          "line": 72,
+          "text": "ht->evl = nv + 1; /* store also degree at first position */"
+        },
+        {
+          "line": 78,
+          "text": "ht->evl = nv + 2; /* store also degrees for both blocks, see"
+        },
+        {
+          "line": 102,
+          "text": "ht->rn  = calloc((unsigned long)ht->evl, sizeof(val_t));"
+        },
+        {
+          "line": 103,
+          "text": "for (i = ht->evl; i > 0; --i) {"
+        },
+        {
+          "line": 111,
+          "text": "ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));"
+        },
+        {
+          "line": 117,
+          "text": "exp_t *tmp  = (exp_t *)malloc("
+        },
+        {
+          "line": 118,
+          "text": "(unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+        },
+        {
+          "line": 126,
+          "text": "ht->ev[j]  = tmp + (j*ht->evl);"
+        },
+        {
+          "line": 142,
+          "text": "ht->evl   = bht->evl;"
+        },
+        {
+          "line": 161,
+          "text": "ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));"
+        },
+        {
+          "line": 167,
+          "text": "exp_t *tmp  = (exp_t *)malloc("
+        },
+        {
+          "line": 168,
+          "text": "(unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+        },
+        {
+          "line": 174,
+          "text": "memcpy(tmp, bht->ev[0], (unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+        },
+        {
+          "line": 178,
+          "text": "ht->ev[j]  = tmp + (j*ht->evl);"
+        },
+        {
+          "line": 194,
+          "text": "ht->evl   = bht->evl;"
+        },
+        {
+          "line": 214,
+          "text": "ht->ev  = (exp_t **)malloc(ht->esz * sizeof(exp_t *));"
+        },
+        {
+          "line": 220,
+          "text": "exp_t *tmp  = (exp_t *)malloc("
+        },
+        {
+          "line": 221,
+          "text": "(unsigned long)ht->evl * ht->esz * sizeof(exp_t));"
+        },
+        {
+          "line": 229,
+          "text": "ht->ev[j]  = tmp + (j*ht->evl);"
+        },
+        {
+          "line": 270,
+          "text": "free(ht->ev[0]);"
+        },
+        {
+          "line": 295,
+          "text": "free(ht->ev[0]);"
+        },
+        {
+          "line": 332,
+          "text": "ht->ev    = realloc(ht->ev, esz * sizeof(exp_t *));"
+        },
+        {
+          "line": 339,
+          "text": "ht->ev[0] = realloc(ht->ev[0],"
+        },
+        {
+          "line": 340,
+          "text": "esz * (unsigned long)ht->evl * sizeof(exp_t));"
+        },
+        {
+          "line": 341,
+          "text": "if (ht->ev[0] == NULL) {"
+        },
+        {
+          "line": 348,
+          "text": "ht->ev[i] = ht->ev[0] + (i*ht->evl);"
+        },
+        {
+          "line": 397,
+          "text": "const exp_t * const a,"
+        },
+        {
+          "line": 432,
+          "text": "exp_t **ev  = ht->ev;"
+        },
+        {
+          "line": 437,
+          "text": "exp_t *e  = ev[1];"
+        },
+        {
+          "line": 491,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 493,
+          "text": "const exp_t *const ea = ht->ev[a];"
+        },
+        {
+          "line": 494,
+          "text": "const exp_t *const eb = ht->ev[b];"
+        },
+        {
+          "line": 498,
+          "text": "for (i = 0; i < evl-1; i += 2) {"
+        },
+        {
+          "line": 503,
+          "text": "if (ea[evl-1] < eb[evl-1]) {"
+        },
+        {
+          "line": 518,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 521,
+          "text": "const exp_t *const eb = ht->ev[b];"
+        },
+        {
+          "line": 534,
+          "text": "const exp_t *const ea = ht->ev[a[j]];"
+        },
+        {
+          "line": 536,
+          "text": "for (i = 0; i < evl-1; i += 2) {"
+        },
+        {
+          "line": 542,
+          "text": "if (ea[evl-1] < eb[evl-1]) {"
+        },
+        {
+          "line": 550,
+          "text": "const exp_t *a,"
+        },
+        {
+          "line": 558,
+          "text": "exp_t *e;"
+        },
+        {
+          "line": 568,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 580,
+          "text": "e = ht->ev[bs->hm[lmps[i]][OFFSET]];"
+        },
+        {
+          "line": 581,
+          "text": "for (j = 0; j < evl; ++j) {"
+        },
+        {
+          "line": 594,
+          "text": "for (j = 0; j < evl; ++j) {"
+        },
+        {
+          "line": 610,
+          "text": "const exp_t * const ehm = ht->ev[hm];"
+        },
+        {
+          "line": 611,
+          "text": "for (j = 0; j < evl-1; j += 2) {"
+        },
+        {
+          "line": 617,
+          "text": "if (a[evl-1] != ehm[evl-1]) {"
+        },
+        {
+          "line": 626,
+          "text": "e   = ht->ev[pos];"
+        },
+        {
+          "line": 628,
+          "text": "memcpy(e, a, (unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 648,
+          "text": "exp_t *e;"
+        },
+        {
+          "line": 649,
+          "text": "exp_t *a = ht->ev[0];"
+        },
+        {
+          "line": 652,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 660,
+          "text": "for (j = 0; j < evl; ++j) {"
+        },
+        {
+          "line": 661,
+          "text": "a[j] = checked_exp_add(ht->ev[h1][j], ht->ev[h2][j]);"
+        },
+        {
+          "line": 676,
+          "text": "const exp_t * const ehm = ht->ev[hm];"
+        },
+        {
+          "line": 677,
+          "text": "for (j = 0; j < evl-1; j += 2) {"
+        },
+        {
+          "line": 683,
+          "text": "if (a[evl-1] != ehm[evl-1]) {"
+        },
+        {
+          "line": 692,
+          "text": "e   = ht->ev[pos];"
+        },
+        {
+          "line": 694,
+          "text": "memcpy(e, a, (unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 713,
+          "text": "const exp_t *a,"
+        },
+        {
+          "line": 722,
+          "text": "/* const len_t evl = ht->evl;"
+        },
+        {
+          "line": 741,
+          "text": "const exp_t * const ehm = ht->ev[hm];"
+        },
+        {
+          "line": 742,
+          "text": "for (j = 0; j < ht->evl-1; j += 2) {"
+        },
+        {
+          "line": 748,
+          "text": "if (a[ht->evl-1] != ehm[ht->evl-1]) {"
+        },
+        {
+          "line": 762,
+          "text": "const exp_t * const a,"
+        },
+        {
+          "line": 771,
+          "text": "exp_t *e    = ht->ev[pos];"
+        },
+        {
+          "line": 773,
+          "text": "memcpy(e, a, (unsigned long)ht->evl * sizeof(exp_t));"
+        },
+        {
+          "line": 785,
+          "text": "const exp_t *a,"
+        },
+        {
+          "line": 792,
+          "text": "for (len_t j = 0; j < ht->evl; ++j) {"
+        },
+        {
+          "line": 820,
+          "text": "const exp_t *a,"
+        },
+        {
+          "line": 827,
+          "text": "exp_t *e;"
+        },
+        {
+          "line": 830,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 836,
+          "text": "for (j = 0; j < evl; ++j) {"
+        },
+        {
+          "line": 852,
+          "text": "const exp_t * const ehm = ht->ev[hm];"
+        },
+        {
+          "line": 853,
+          "text": "for (j = 0; j < evl-1; j += 2) {"
+        },
+        {
+          "line": 859,
+          "text": "if (a[evl-1] != ehm[evl-1]) {"
+        },
+        {
+          "line": 868,
+          "text": "e   = ht->ev[pos];"
+        },
+        {
+          "line": 870,
+          "text": "memcpy(e, a, (unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 895,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 897,
+          "text": "ht->ev  = realloc(ht->ev, esz * sizeof(exp_t *));"
+        },
+        {
+          "line": 904,
+          "text": "*       memory from evl[0] is enough    */"
+        },
+        {
+          "line": 905,
+          "text": "ht->ev[0]  = realloc(ht->ev[0],"
+        },
+        {
+          "line": 906,
+          "text": "esz * (unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 907,
+          "text": "if (ht->ev[0] == NULL) {"
+        },
+        {
+          "line": 912,
+          "text": "/* due to realloc we have to reset ALL evl entries, memory might be moved */"
+        },
+        {
+          "line": 914,
+          "text": "ht->ev[i] = ht->ev[0] + (i*evl);"
+        },
+        {
+          "line": 942,
+          "text": "const exp_t * const ea = ht->ev[a];"
+        },
+        {
+          "line": 943,
+          "text": "const exp_t * const eb = ht->ev[b];"
+        },
+        {
+          "line": 945,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 953,
+          "text": "for (i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 978,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 996,
+          "text": "memcpy(bht->ev[bht->eld], uht->ev[lcms[l]],"
+        },
+        {
+          "line": 997,
+          "text": "(unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 998,
+          "text": "const exp_t * const n = bht->ev[bht->eld];"
+        },
+        {
+          "line": 1011,
+          "text": "const exp_t * const ehm = bht->ev[hm];"
+        },
+        {
+          "line": 1012,
+          "text": "for (j = 0; j < evl-1; j += 2) {"
+        },
+        {
+          "line": 1018,
+          "text": "if (n[evl-1] != ehm[evl-1]) {"
+        },
+        {
+          "line": 1057,
+          "text": "sht->ev[hcm[i]], sht->hd[hcm[i]].val, bht);"
+        },
+        {
+          "line": 1059,
+          "text": "hcm[i] = insert_in_hash_table(sht->ev[hcm[i]], bht);"
+        },
+        {
+          "line": 1080,
+          "text": "ht->eld == 0 || ht->eld > ht->esz || ht->evl == 0 ||"
+        },
+        {
+          "line": 1083,
+          "text": "ht->ev == NULL || ht->ev[0] == NULL || ht->hd == NULL ||"
+        },
+        {
+          "line": 1108,
+          "text": "new_esz > SIZE_MAX/sizeof(exp_t *) ||"
+        },
+        {
+          "line": 1109,
+          "text": "ht->evl > SIZE_MAX/sizeof(exp_t) ||"
+        },
+        {
+          "line": 1110,
+          "text": "new_esz > SIZE_MAX/((size_t)ht->evl*sizeof(exp_t)) ||"
+        },
+        {
+          "line": 1130,
+          "text": "exp_t *old_block = ht->ev[0];"
+        },
+        {
+          "line": 1131,
+          "text": "exp_t **new_ev = realloc(ht->ev, (size_t)new_esz*sizeof(exp_t *));"
+        },
+        {
+          "line": 1137,
+          "text": "exp_t *new_block = realloc(old_block,"
+        },
+        {
+          "line": 1138,
+          "text": "(size_t)new_esz*(size_t)ht->evl*sizeof(exp_t));"
+        },
+        {
+          "line": 1145,
+          "text": "ht->ev[i] = new_block + i*ht->evl;"
+        },
+        {
+          "line": 1250,
+          "text": "static exp_t *stage_missing_symbolic_exponents("
+        },
+        {
+          "line": 1254,
+          "text": "if (sht == NULL || sht->evl == 0 || sht->esz < 2 ||"
+        },
+        {
+          "line": 1263,
+          "text": "sht->ev == NULL || sht->ev[0] == NULL ||"
+        },
+        {
+          "line": 1266,
+          "text": "(size_t)sht->evl > SIZE_MAX/sizeof(exp_t)) {"
+        },
+        {
+          "line": 1271,
+          "text": "const size_t vector_bytes = (size_t)sht->evl*sizeof(exp_t);"
+        },
+        {
+          "line": 1277,
+          "text": "exp_t *block = sht->ev[0];"
+        },
+        {
+          "line": 1309,
+          "text": "if (hcm[column] != id || sht->ev[id] != block+id*sht->evl) {"
+        },
+        {
+          "line": 1330,
+          "text": "memmove(block+packed*sht->evl, block+id*sht->evl, vector_bytes);"
+        },
+        {
+          "line": 1345,
+          "text": "exp_t *staged = realloc(block, (size_t)slots*vector_bytes);"
+        },
+        {
+          "line": 1357,
+          "text": "sht->ev = symbolic_stage_calloc((size_t)reset_capacity, sizeof(exp_t *));"
+        },
+        {
+          "line": 1358,
+          "text": "exp_t *fresh = symbolic_stage_calloc((size_t)reset_capacity, vector_bytes);"
+        },
+        {
+          "line": 1360,
+          "text": "sht->ev[id] = fresh+id*sht->evl;"
+        },
+        {
+          "line": 1386,
+          "text": "bht == sht || bht->evl != sht->evl ||"
+        },
+        {
+          "line": 1424,
+          "text": "const exp_t * const exponent = sht->ev[symbolic_hash];"
+        },
+        {
+          "line": 1426,
+          "text": "for (len_t j = 0; j < bht->evl; ++j) {"
+        },
+        {
+          "line": 1454,
+          "text": "exp_t *staged = NULL;"
+        },
+        {
+          "line": 1470,
+          "text": "const exp_t *exponent;"
+        },
+        {
+          "line": 1476,
+          "text": "exponent = staged+(size_t)symbolic_hash*bht->evl;"
+        },
+        {
+          "line": 1478,
+          "text": "exponent = sht->ev[symbolic_hash];"
+        },
+        {
+          "line": 1512,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 1515,
+          "text": "exp_t * const * const evs = sht->ev;"
+        },
+        {
+          "line": 1517,
+          "text": "exp_t *evt  = (exp_t *)malloc((unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 1520,
+          "text": "(unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 1541,
+          "text": "row[l] = check_insert_in_hash_table(ht1->ev[b[l]], ht1->hd[b[l]].val, ht2);"
+        },
+        {
+          "line": 1543,
+          "text": "row[l] = insert_in_hash_table(ht1->ev[b[l]], ht2);"
+        },
+        {
+          "line": 1551,
+          "text": "const exp_t * const ea,"
+        },
+        {
+          "line": 1558,
+          "text": "exp_t *n;"
+        },
+        {
+          "line": 1561,
+          "text": "const len_t evl = ht1->evl;"
+        },
+        {
+          "line": 1563,
+          "text": "exp_t * const *ev1      = ht1->ev;"
+        },
+        {
+          "line": 1566,
+          "text": "exp_t **ev2     = ht2->ev;"
+        },
+        {
+          "line": 1571,
+          "text": "const exp_t * const eb = ev1[b[l]];"
+        },
+        {
+          "line": 1574,
+          "text": "for (j = 0; j < evl; ++j) {"
+        },
+        {
+          "line": 1589,
+          "text": "exp_t * const *oev,"
+        },
+        {
+          "line": 1596,
+          "text": "exp_t *e;"
+        },
+        {
+          "line": 1601,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 1608,
+          "text": "const exp_t * const n = oev[row[l]];"
+        },
+        {
+          "line": 1611,
+          "text": "for (j = 0; j < evl; ++j) {"
+        },
+        {
+          "line": 1626,
+          "text": "const exp_t * const ehm = ht->ev[hm];"
+        },
+        {
+          "line": 1627,
+          "text": "for (j = 0; j < evl-1; j += 2) {"
+        },
+        {
+          "line": 1633,
+          "text": "if (n[evl-1] != ehm[evl-1]) {"
+        },
+        {
+          "line": 1644,
+          "text": "e = ht->ev[ht->eld];"
+        },
+        {
+          "line": 1646,
+          "text": "memcpy(e, n, (unsigned long)evl * sizeof(exp_t));"
+        },
+        {
+          "line": 1682,
+          "text": "exp_t *e;"
+        },
+        {
+          "line": 1685,
+          "text": "exp_t **oev  = ht->ev;"
+        },
+        {
+          "line": 1687,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 1692,
+          "text": "ht->ev  = calloc(esz, sizeof(exp_t *));"
+        },
+        {
+          "line": 1698,
+          "text": "exp_t *tmp  = (exp_t *)malloc("
+        },
+        {
+          "line": 1699,
+          "text": "(unsigned long)evl * esz * sizeof(exp_t));"
+        },
+        {
+          "line": 1706,
+          "text": "ht->ev[k]  = tmp + k*evl;"
+        },
+        {
+          "line": 1749,
+          "text": "const exp_t * const ea = ht1->ev[a];"
+        },
+        {
+          "line": 1750,
+          "text": "const exp_t * const eb = ht1->ev[b];"
+        },
+        {
+          "line": 1751,
+          "text": "exp_t etmp[ht1->evl];"
+        },
+        {
+          "line": 1752,
+          "text": "const len_t evl = ht1->evl;"
+        },
+        {
+          "line": 1758,
+          "text": "for (i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 1767,
+          "text": "for (i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 1771,
+          "text": "* for (int ii = 0; ii < evl; ++ii) {"
+        },
+        {
+          "line": 1806,
+          "text": "const exp_t * const em,"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/io.c",
+      "sha256": "c5eb69f9b9fe8850c9689ac721270335422dd3201bd315a0b237149eaa8788be",
+      "scope_note": "dense input import and generic export",
+      "matching_lines": [
+        {
+          "line": 28,
+          "text": "exp_t *ev,"
+        },
+        {
+          "line": 302,
+          "text": "exp_t *e  = ht->ev[0]; /* use as temporary storage */"
+        },
+        {
+          "line": 308,
+          "text": "e  = ht->ev[0]; /* reset e if enlarging */"
+        },
+        {
+          "line": 510,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 555,
+          "text": "for (k = 1; k < evl; ++k) {"
+        },
+        {
+          "line": 593,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[j]][k];"
+        },
+        {
+          "line": 595,
+          "text": "for (k = ebl+1; k < evl; ++k) {"
+        },
+        {
+          "line": 596,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[j]][k];"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/order.c",
+      "sha256": "06fc44eb8c68a5ca54cd72443205169770ed083e9966cda9dac0b4af3a342bb4",
+      "scope_note": "active DRL comparators; also compiled excluded orders",
+      "matching_lines": [
+        {
+          "line": 202,
+          "text": "const exp_t ea  = ht->hd[la].deg;"
+        },
+        {
+          "line": 203,
+          "text": "const exp_t eb  = ht->hd[lb].deg;"
+        },
+        {
+          "line": 233,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 234,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 237,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 240,
+          "text": "while(i < evl-1 && ea[i] == eb[i]) {"
+        },
+        {
+          "line": 258,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 259,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 262,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 265,
+          "text": "while(i < evl-1 && ea[i] == eb[i]) {"
+        },
+        {
+          "line": 292,
+          "text": "const exp_t * const ea  = ht->ev[a];"
+        },
+        {
+          "line": 293,
+          "text": "const exp_t * const eb  = ht->ev[b];"
+        },
+        {
+          "line": 296,
+          "text": "const len_t evl  = ht->evl;"
+        },
+        {
+          "line": 299,
+          "text": "while(i < evl-1 && ea[i] == eb[i]) {"
+        },
+        {
+          "line": 313,
+          "text": "const exp_t * const ea  = ht->ev[a];"
+        },
+        {
+          "line": 314,
+          "text": "const exp_t * const eb  = ht->ev[b];"
+        },
+        {
+          "line": 315,
+          "text": "const len_t evl  = ht->evl;"
+        },
+        {
+          "line": 318,
+          "text": "while(i < evl-1 && ea[i] == eb[i]) {"
+        },
+        {
+          "line": 348,
+          "text": "if (ht->ev[la][DEG] != ht->ev[lb][DEG]) {"
+        },
+        {
+          "line": 349,
+          "text": "return (ht->ev[la][DEG] < ht->ev[lb][DEG]) ? -1 : 1;"
+        },
+        {
+          "line": 375,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 376,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 388,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 408,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 409,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 421,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 440,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 441,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 452,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 480,
+          "text": "const exp_t * const ea  = ht->ev[a];"
+        },
+        {
+          "line": 481,
+          "text": "const exp_t * const eb  = ht->ev[b];"
+        },
+        {
+          "line": 493,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 512,
+          "text": "const exp_t * const ea  = ht->ev[a];"
+        },
+        {
+          "line": 513,
+          "text": "const exp_t * const eb  = ht->ev[b];"
+        },
+        {
+          "line": 524,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 623,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 624,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 653,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 673,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 674,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 702,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 731,
+          "text": "const exp_t * const ea  = ht->ev[a];"
+        },
+        {
+          "line": 732,
+          "text": "const exp_t * const eb  = ht->ev[b];"
+        },
+        {
+          "line": 761,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 781,
+          "text": "const exp_t * const ea  = ht->ev[a];"
+        },
+        {
+          "line": 782,
+          "text": "const exp_t * const eb  = ht->ev[b];"
+        },
+        {
+          "line": 809,
+          "text": "i = ht->evl-1;"
+        },
+        {
+          "line": 875,
+          "text": "const exp_t * const ea  = ht->ev[ha];"
+        },
+        {
+          "line": 876,
+          "text": "const exp_t * const eb  = ht->ev[hb];"
+        },
+        {
+          "line": 888,
+          "text": "i = ht->evl-1;"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/symbol.c",
+      "sha256": "686ac5a819d51cce51971eb6e018724d79ffdee21f5f88f556cf903fc7fdeee3",
+      "scope_note": "pair/reducer multiplier construction and symbolic insertion",
+      "matching_lines": [
+        {
+          "line": 47,
+          "text": "exp_t *elcm, *eb;"
+        },
+        {
+          "line": 48,
+          "text": "exp_t etmp[bht->evl];"
+        },
+        {
+          "line": 113,
+          "text": "elcm  = bht->ev[lcm];"
+        },
+        {
+          "line": 115,
+          "text": "eb    = bht->ev[b[OFFSET]];"
+        },
+        {
+          "line": 144,
+          "text": "elcm  = bht->ev[lcm];"
+        },
+        {
+          "line": 153,
+          "text": "eb    = bht->ev[b[OFFSET]];"
+        },
+        {
+          "line": 211,
+          "text": "exp_t *elcm, *eb;"
+        },
+        {
+          "line": 213,
+          "text": "exp_t etmp[bht->evl];"
+        },
+        {
+          "line": 223,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 248,
+          "text": "for (int jj = 0; jj < evl; ++jj) {"
+        },
+        {
+          "line": 249,
+          "text": "printf(\"%d \", bht->ev[ps[i].lcm][jj]);"
+        },
+        {
+          "line": 318,
+          "text": "elcm  = bht->ev[lcm];"
+        },
+        {
+          "line": 320,
+          "text": "eb    = bht->ev[b[OFFSET]];"
+        },
+        {
+          "line": 321,
+          "text": "for (l = 0; l < evl; ++l) {"
+        },
+        {
+          "line": 354,
+          "text": "elcm  = bht->ev[lcm];"
+        },
+        {
+          "line": 358,
+          "text": "eb    = bht->ev[b[OFFSET]];"
+        },
+        {
+          "line": 359,
+          "text": "for (l = 0; l < evl; ++l) {"
+        },
+        {
+          "line": 432,
+          "text": "*         printf(\"%u \", bht->ev[sat->hm[0][OFFSET+i]][j]);"
+        },
+        {
+          "line": 441,
+          "text": "*                 bht->ev[sat->hm[i][j]], sht);"
+        },
+        {
+          "line": 455,
+          "text": "const exp_t * const mul,"
+        },
+        {
+          "line": 510,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 512,
+          "text": "const exp_t * const e  = sht->ev[m];"
+        },
+        {
+          "line": 521,
+          "text": "exp_t etmp[bht->evl];"
+        },
+        {
+          "line": 523,
+          "text": "exp_t * const * const evb = bht->ev;"
+        },
+        {
+          "line": 532,
+          "text": "const exp_t * const f = evb[b[OFFSET]];"
+        },
+        {
+          "line": 533,
+          "text": "for (k=0; k < evl; ++k) {"
+        },
+        {
+          "line": 658,
+          "text": "exp_t *emul;"
+        },
+        {
+          "line": 679,
+          "text": "emul  = bht->ev[td.rri[i]];"
+        },
+        {
+          "line": 693,
+          "text": "emul  = bht->ev[td.tri[i]];"
+        },
+        {
+          "line": 735,
+          "text": "exp_t *emul;"
+        },
+        {
+          "line": 747,
+          "text": "emul  = bht->ev[ts.rri[i]];"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/convert.c",
+      "sha256": "1d5671e2df9cee6b96c8f325073e2d633e1f3a0057fa45c66f9e254550d2c92a",
+      "scope_note": "column conversion and ordinary/final promotion",
+      "matching_lines": [
+        {
+          "line": 39,
+          "text": "memset(ht->ev[0], 0, (uint64_t)ht->nv * sizeof(exp_t));"
+        },
+        {
+          "line": 58,
+          "text": "*         printf(\"%d \", ht->ev[hcm[ii]][jj]);"
+        },
+        {
+          "line": 121,
+          "text": "*     printf(\"hcm[%d] = %d | idx %u | deg %u |\", ii, hcm[ii], hds[hcm[ii]].idx, sht->ev[hcm[ii]][DEG]+sht->ev[hcm[ii]][sht->ebl]);"
+        },
+        {
+          "line": 122,
+          "text": "*     for (int jj = 0; jj < sht->evl; ++jj) {"
+        },
+        {
+          "line": 123,
+          "text": "*         printf(\"%d \", sht->ev[hcm[ii]][jj]);"
+        },
+        {
+          "line": 251,
+          "text": "*     printf(\"hcm[%d] = %d | idx %u | deg %u |\", ii, hcm[ii], hds[hcm[ii]].idx, sht->ev[hcm[ii]][DEG]+sht->ev[hcm[ii]][sht->ebl]);"
+        },
+        {
+          "line": 252,
+          "text": "*     for (int jj = 0; jj < sht->evl; ++jj) {"
+        },
+        {
+          "line": 253,
+          "text": "*         printf(\"%d \", sht->ev[hcm[ii]][jj]);"
+        },
+        {
+          "line": 344,
+          "text": "printf(\"hcm[%d] = %d | idx %u | deg %u |\", ii, hcm[ii], hds[hcm[ii]].idx, sht->ev[hcm[ii]][DEG]+sht->ev[hcm[ii]][sht->ebl]);"
+        },
+        {
+          "line": 345,
+          "text": "for (int jj = 0; jj < sht->evl; ++jj) {"
+        },
+        {
+          "line": 346,
+          "text": "printf(\"%d \", sht->ev[hcm[ii]][jj]);"
+        },
+        {
+          "line": 528,
+          "text": "if (ht->ev[bs->hm[bld+ctr][OFFSET]][DEG] == 0) {"
+        },
+        {
+          "line": 534,
+          "text": "*     printf(\"%u | \", ht->ev[bs->hm[bld+ctr][OFFSET+kk]][DEG]);"
+        },
+        {
+          "line": 536,
+          "text": "*         printf(\"%u \", ht->ev[bs->hm[bld+ctr][OFFSET+kk]][jj]);"
+        },
+        {
+          "line": 730,
+          "text": "for (int jj=0; jj < bht->evl; ++jj) {"
+        },
+        {
+          "line": 731,
+          "text": "printf(\"%u \", bht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);"
+        },
+        {
+          "line": 743,
+          "text": "for (int jj=0; jj < bht->evl; ++jj) {"
+        },
+        {
+          "line": 744,
+          "text": "printf(\"%u \", bht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);"
+        },
+        {
+          "line": 756,
+          "text": "for (int jj=0; jj < bht->evl; ++jj) {"
+        },
+        {
+          "line": 757,
+          "text": "printf(\"%u \", bht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);"
+        },
+        {
+          "line": 877,
+          "text": "for (int jj=0; jj < sht->evl; ++jj) {"
+        },
+        {
+          "line": 878,
+          "text": "printf(\"%u \", sht->ev[bs->hm[bl+k][OFFSET+kk]][jj]);"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/f4.c",
+      "sha256": "731c163d045be7b92a75b28abec00f10776ed68d83b8c3a0b2140fe8859edb01",
+      "scope_note": "ordinary and final-interreduction control flow",
+      "matching_lines": [
+        {
+          "line": 159,
+          "text": "exp_t etmp[bht->evl];"
+        },
+        {
+          "line": 160,
+          "text": "memset(etmp, 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 271,
+          "text": "exp_t etmp[bht->evl];"
+        },
+        {
+          "line": 272,
+          "text": "memset(etmp, 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 531,
+          "text": "if (ht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/modular.c",
+      "sha256": "55b35061176db77a0075c0308a6deb57a67fa79f42697928c6fadd837de2fb30",
+      "scope_note": "initial prime trace-wrapper setup; trace computations excluded",
+      "matching_lines": [
+        {
+          "line": 128,
+          "text": "exp_t *etmp = bht->ev[0];"
+        },
+        {
+          "line": 129,
+          "text": "memset(etmp, 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 269,
+          "text": "fprintf(VERBSTREAM, \"%6u \", sht->ev[mat->tr[0][OFFSET]][DEG]);"
+        },
+        {
+          "line": 333,
+          "text": "if (bht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {"
+        },
+        {
+          "line": 423,
+          "text": "memset(bht->ev[0], 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 424,
+          "text": "sat->hm[0][MULT]  = insert_in_hash_table(bht->ev[0], bht);"
+        },
+        {
+          "line": 591,
+          "text": "sht->ev[sat->hm[i][j]], bht);"
+        },
+        {
+          "line": 714,
+          "text": "exp_t zero[bht->evl];;"
+        },
+        {
+          "line": 715,
+          "text": "memset(zero, 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 755,
+          "text": "fprintf(VERBSTREAM, \"%6u \", sht->ev[mat->tr[0][OFFSET]][DEG]);"
+        },
+        {
+          "line": 885,
+          "text": "sht->ev[sat->hm[i][j]], bht);"
+        },
+        {
+          "line": 1087,
+          "text": "if (bht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {"
+        },
+        {
+          "line": 1197,
+          "text": "exp_t zero[bht->evl];;"
+        },
+        {
+          "line": 1198,
+          "text": "memset(zero, 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 1202,
+          "text": "next_deg  = 2*bht->ev[sat->hm[0][OFFSET]][DEG];"
+        },
+        {
+          "line": 1369,
+          "text": "sht->ev[sat->hm[i][j]], bht);"
+        },
+        {
+          "line": 1420,
+          "text": "*             printf(\"%u \", bht->ev[bs->hm[bs->lmps[i]][OFFSET]][j]);"
+        },
+        {
+          "line": 1526,
+          "text": "exp_t zero[bht->evl];;"
+        },
+        {
+          "line": 1527,
+          "text": "memset(zero, 0, (unsigned long)(bht->evl) * sizeof(exp_t));"
+        },
+        {
+          "line": 1531,
+          "text": "next_deg  = 2*bht->ev[sat->hm[0][OFFSET]][DEG];"
+        },
+        {
+          "line": 1692,
+          "text": "sht->ev[sat->hm[i][j]], bht);"
+        },
+        {
+          "line": 1738,
+          "text": "*             printf(\"%u \", bht->ev[bs->hm[bs->lmps[i]][OFFSET]][j]);"
+        },
+        {
+          "line": 2033,
+          "text": "if (bht->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {"
+        }
+      ]
+    },
+    {
+      "file": "src/neogb/engine.c",
+      "sha256": "e6e7199bc9d6d409a31ee63c69963eb24911da8805842ca5b9294d843f07842d",
+      "scope_note": "scope guards and dispatch",
+      "matching_lines": []
+    },
+    {
+      "file": "src/msolve/msolve.c",
+      "sha256": "22b51647d31b6e8c6b329a7425b14a54ffe578b0115376ba884dcb879644b2fa",
+      "scope_note": "prime export early return and leading-ideal extraction call",
+      "matching_lines": [
+        {
+          "line": 898,
+          "text": "int32_t *exp = (*bexp) + (j + coefpos[i]) * nvars; // bht->ev[dt[j]];"
+        },
+        {
+          "line": 1893,
+          "text": "if (bs[i]->ht->ev[bs[i]->hm[bs[i]->lmps[k]][OFFSET]][0] == 0) {"
+        },
+        {
+          "line": 4208,
+          "text": "exp_t *mul  = (exp_t *)calloc(gens->nvars, sizeof(exp_t));"
+        },
+        {
+          "line": 4342,
+          "text": "/* \tprintf(\"%2u \", sht->ev[hcm[k]][l]); */"
+        },
+        {
+          "line": 4350,
+          "text": "long maxdeg = sht->ev[hcm[0]][0]; /* degree of the normal"
+        },
+        {
+          "line": 4688,
+          "text": "exp_t *mul  = (exp_t *)calloc(bht->evl, sizeof(exp_t));"
+        },
+        {
+          "line": 4716,
+          "text": "fprintf(VERBSTREAM, \"%2u \", sht->ev[hcm[k]][l]);"
+        }
+      ]
+    },
+    {
+      "file": "src/msolve/iofiles.c",
+      "sha256": "3bb7edfc4a506ad3ec1247999b0a9ea052f0a7436414e3c8516b4ccc51b13ed4",
+      "scope_note": "active g1/g2 exponent output",
+      "matching_lines": [
+        {
+          "line": 192,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 227,
+          "text": "for (i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 234,
+          "text": "for (i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 252,
+          "text": "if (ht->ev[hm[0]][evi[k]] > 0) {"
+        },
+        {
+          "line": 253,
+          "text": "fprintf(file, \"%s^%u\",vnames[k], ht->ev[hm[0]][evi[k]]);"
+        },
+        {
+          "line": 259,
+          "text": "if (ht->ev[hm[0]][evi[k]] > 0) {"
+        },
+        {
+          "line": 260,
+          "text": "fprintf(file, \"*%s^%u\",vnames[k], ht->ev[hm[0]][evi[k]]);"
+        },
+        {
+          "line": 298,
+          "text": "if (ht->ev[hm[0]][evi[k]] > 0) {"
+        },
+        {
+          "line": 299,
+          "text": "fprintf(file, \"*%s^%u\",vnames[k], ht->ev[hm[0]][evi[k]]);"
+        },
+        {
+          "line": 318,
+          "text": "if (ht->ev[hm[j]][evi[k]] > 0) {"
+        },
+        {
+          "line": 319,
+          "text": "fprintf(file, \"*%s^%u\",vnames[k], ht->ev[hm[j]][evi[k]]);"
+        }
+      ]
+    },
+    {
+      "file": "src/msolve/hilbert.c",
+      "sha256": "8f8e0d9df6d3d37ec888e42529647cca4b6d0049afc9e99eb085d9e6c5360115",
+      "scope_note": "active get_lm_from_bs; staircase paths excluded",
+      "matching_lines": [
+        {
+          "line": 534,
+          "text": "int e = (int32_t)ht->ev[dt[pos]][k+1];"
+        },
+        {
+          "line": 539,
+          "text": "int e = (int32_t)ht->ev[dt[pos]][nv];"
+        },
+        {
+          "line": 568,
+          "text": "/* printf (\"exp1[%ld]=%d\\texp2[%ld]=%d\\n\",i,exp1->ev[hmj][evi[i]],i,exp2[i]); */"
+        },
+        {
+          "line": 569,
+          "text": "if(exp1->ev[hmj][evi[i]]!=exp2[i]){"
+        },
+        {
+          "line": 573,
+          "text": "/* printf (\"exp1[%ld]=%d\\texp2[%ld]=%d\\n\",nvars-1,exp1->ev[hmj][evi[nvars-1]], */"
+        },
+        {
+          "line": 575,
+          "text": "return ((exp1->ev[hmj][evi[nvars-1]]) == exp2[nvars-1]);"
+        },
+        {
+          "line": 619,
+          "text": "deg1 += exp1->ev[hmj][evi[i]];"
+        },
+        {
+          "line": 630,
+          "text": "/* printf (\"x[%ld]: %d, %d\\n\",i,exp1->ev[hmj][evi[i]],exp2[i]); */"
+        },
+        {
+          "line": 631,
+          "text": "if(exp1->ev[hmj][evi[i]]<exp2[i]){"
+        },
+        {
+          "line": 634,
+          "text": "if(exp1->ev[hmj][evi[i]]>exp2[i]){"
+        },
+        {
+          "line": 1657,
+          "text": "const exp_t * const mul, bs_t * bs,"
+        },
+        {
+          "line": 1664,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 1667,
+          "text": "for (long i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 1674,
+          "text": "for (long i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 1805,
+          "text": "exps[(count_not_lm + i*suppsize+j)*nv+k]=bht->ev[hm[j]][evi[k]] + cpt;"
+        },
+        {
+          "line": 1807,
+          "text": "exps[(count_not_lm + i*suppsize+j)*nv+nv-1]=bht->ev[hm[j]][evi[nv-1]];"
+        },
+        {
+          "line": 2096,
+          "text": "const exp_t * const mul, bs_t * bs,"
+        },
+        {
+          "line": 2103,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 2106,
+          "text": "for (long i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 2113,
+          "text": "for (long i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 2253,
+          "text": "exps[(count_not_lm + i*suppsize+j)*nv+k]=bht->ev[hm[j]][evi[k]] + cpt;"
+        },
+        {
+          "line": 2255,
+          "text": "exps[(count_not_lm + i*suppsize+j)*nv+nv-1]=bht->ev[hm[j]][evi[nv-1]];"
+        },
+        {
+          "line": 3100,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 3103,
+          "text": "for (long i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 3110,
+          "text": "for (long i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 3119,
+          "text": "exp_t *mul = (exp_t *)calloc(ht->evl, sizeof(exp_t));"
+        },
+        {
+          "line": 3633,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 3636,
+          "text": "for (long i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 3643,
+          "text": "for (long i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 3668,
+          "text": "exp_t *mul = (exp_t *)calloc(bs->ht->evl, sizeof(exp_t));"
+        },
+        {
+          "line": 3863,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 3874,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[0]][k];"
+        },
+        {
+          "line": 3876,
+          "text": "for (len_t k = ebl+1; k < evl; ++k) {"
+        },
+        {
+          "line": 3877,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[0]][k];"
+        },
+        {
+          "line": 3888,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 3898,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[0]][k];"
+        },
+        {
+          "line": 3900,
+          "text": "for (len_t k = ebl+1; k < evl; ++k) {"
+        },
+        {
+          "line": 3901,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[0]][k];"
+        },
+        {
+          "line": 3910,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 3919,
+          "text": "for (len_t k = ebl+1; k < evl; ++k) {"
+        },
+        {
+          "line": 3920,
+          "text": "exp[ce++] = (int32_t)ht->ev[dt[0]][k];"
+        }
+      ]
+    },
+    {
+      "file": "src/msolve/linear.c",
+      "sha256": "9638306f3040fd477605bee752955b2f67888134bf66fb842cf78d143cf849d9",
+      "scope_note": "compiled direct accesses, but extraction is after export-only return",
+      "matching_lines": [
+        {
+          "line": 36,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 38,
+          "text": "exp_t *etmp = (exp_t *)calloc((unsigned long)nv, sizeof(exp_t));"
+        },
+        {
+          "line": 59,
+          "text": "exp_t *exp = bht->ev[dt[j]];"
+        },
+        {
+          "line": 66,
+          "text": "for (int k = ebl + 1; k < evl; ++k) {"
+        },
+        {
+          "line": 94,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 96,
+          "text": "exp_t *etmp = (exp_t *)calloc((unsigned long)nv, sizeof(exp_t));"
+        },
+        {
+          "line": 120,
+          "text": "exp_t *exp = bht->ev[dt[j]];"
+        },
+        {
+          "line": 127,
+          "text": "for (int k = ebl + 1; k < evl; ++k) {"
+        },
+        {
+          "line": 155,
+          "text": "const len_t evl = bht->evl;"
+        },
+        {
+          "line": 157,
+          "text": "exp_t *etmp = (exp_t *)calloc((unsigned long)nv, sizeof(exp_t));"
+        },
+        {
+          "line": 178,
+          "text": "exp_t *exp = bht->ev[dt[j]];"
+        },
+        {
+          "line": 185,
+          "text": "for (int k = ebl + 1; k < evl; ++k) {"
+        },
+        {
+          "line": 259,
+          "text": "exp_t *exp = bht->ev[dt[j]];"
+        },
+        {
+          "line": 333,
+          "text": "exp_t *exp = bht->ev[dt[j]];"
+        },
+        {
+          "line": 407,
+          "text": "exp_t *exp = bht->ev[dt[j]];"
+        }
+      ]
+    },
+    {
+      "file": "src/msolve/lifting-gb.c",
+      "sha256": "3b6fa94285ffe1e639ecf6d1b2594842125bb75b039f0f70d69a0fe58bff31de",
+      "scope_note": "compiled QQ/trace outputs; excluded by prime/no-trace scope",
+      "matching_lines": [
+        {
+          "line": 322,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 326,
+          "text": "for (i = 1; i < evl; ++i) {"
+        },
+        {
+          "line": 333,
+          "text": "for (i = ebl+1; i < evl; ++i) {"
+        },
+        {
+          "line": 358,
+          "text": "if (ht->ev[hm[len-i-1]][evi[k]] == 1) {"
+        },
+        {
+          "line": 365,
+          "text": "if (ht->ev[hm[len-i-1]][evi[k]] > 1) {"
+        },
+        {
+          "line": 369,
+          "text": "fprintf(file, \"%s^%u\",gens->vnames[k], ht->ev[hm[len-i-1]][evi[k]]);"
+        },
+        {
+          "line": 381,
+          "text": "deg += ht->ev[hm[len-1]][evi[k]];"
+        },
+        {
+          "line": 407,
+          "text": "if (ht->ev[hm[len-1]][evi[k]] == 1) {"
+        },
+        {
+          "line": 414,
+          "text": "if (ht->ev[hm[len-1]][evi[k]] > 1) {"
+        },
+        {
+          "line": 418,
+          "text": "fprintf(file, \"%s^%u\",gens->vnames[k], ht->ev[hm[len-1]][evi[k]]);"
+        },
+        {
+          "line": 851,
+          "text": "if ((*bht)->ev[bs->hm[bs->lmps[i]][OFFSET]][0] == 0) {"
+        },
+        {
+          "line": 1684,
+          "text": "const len_t evl = ht->evl;"
+        },
+        {
+          "line": 1687,
+          "text": "for (len_t i = 1; i <= evl; ++i) {"
+        },
+        {
+          "line": 1694,
+          "text": "for (len_t i = ebl + 1; i < evl; ++i) {"
+        },
+        {
+          "line": 1714,
+          "text": "exp[term * nve + n] = ht->ev[hm[l - i]][evi[n]];"
+        }
+      ]
+    }
+  ],
+  "inventory_generator_sha256": "77c8a6b6cae14f69d52a782a92a04da3b6469f5320e6ddd29d81500392a0fb8c"
+}

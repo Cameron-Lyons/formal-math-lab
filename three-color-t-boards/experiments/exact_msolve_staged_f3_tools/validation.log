@@ -1,0 +1,21 @@
+f3_domain 1 PASS staging events 0
+f3_domain 2 PASS staging events 0
+f3_domain_pair 1 PASS staging events 0
+f3_domain_pair 2 PASS staging events 0
+f3_root_sum 1 PASS staging events 0
+f3_root_sum 2 PASS staging events 0
+f3_mixed 1 PASS staging events 1
+f3_mixed 2 PASS staging events 1
+f3_mixed_chain 1 PASS staging events 0
+f3_mixed_chain 2 PASS staging events 0
+f3_unit 1 PASS staging events 0
+f3_unit 2 PASS staging events 0
+f3_positive_dimension 1 PASS staging events 0
+f3_positive_dimension 2 PASS staging events 0
+natural_f3_six 1 PASS staging events 0
+natural_f3_six 2 PASS staging events 0
+unchanged_f2 1 PASS staging events 1
+unchanged_f2 2 PASS staging events 1
+unchanged_f5 1 PASS staging events 0
+unchanged_f5 2 PASS staging events 0
+PASS 20 completed comparisons; 2 F3 staging events

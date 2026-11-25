@@ -1,0 +1,43 @@
+{
+  "model": "native-F3-minimum-fill",
+  "field": "F3",
+  "prime": 3,
+  "variables": 96,
+  "generators": 176,
+  "count_divisor": 1,
+  "count_multiplier": 1,
+  "count_scope": "full labeled boards",
+  "fixed_cell_count": 0,
+  "native_translation": true,
+  "native_e3": true,
+  "independent_offset_variable": 95,
+  "input_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_f3_order_selected.ms",
+  "input_sha256": "b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd",
+  "definition_sha256": "c4cbf3b78b7389d297397529ddf8ba3a758e84ff3cb0404906cc3edc1c37c2fc",
+  "native_adapter_sha256": "927edfec9b0322048a10adb8ccfa7fb0cd52eb1a0253394b4da075a07c1de39e",
+  "backend_sha256": "f377c07a905c715859af83814b1138c465f1fd4547f2b7409f6deea4effd8690",
+  "executable_sha256": "146e42947919969a7d1e695a6fc30458e9276ee59225d67cba38af061363b010",
+  "algorithm": "slimgb",
+  "ordering": "dp",
+  "ring_type": "ordinary polynomial ring",
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_algebra_backend_root/usr/bin/Singular",
+    "-q"
+  ],
+  "script_sha256": "6ce07077a28ef9191ae48485101c59cee7c22d44894a3b98f7e370c7b7396190",
+  "script": "experiments/exact_native_singular_full_slimgb_3g.sing",
+  "timeout_seconds": 180,
+  "memory_mb": 3072,
+  "basis_complete": false,
+  "standard_basis_complete": false,
+  "leading_export_complete": false,
+  "dimension_complete": false,
+  "status": "BACKEND_ERROR",
+  "returncode": 14,
+  "wall_timeout_reached": false,
+  "error_diagnostics": [
+    "Singular error: no more memory"
+  ],
+  "child_cpu_seconds": 41.013796,
+  "elapsed_seconds": 41.833410068000376
+}

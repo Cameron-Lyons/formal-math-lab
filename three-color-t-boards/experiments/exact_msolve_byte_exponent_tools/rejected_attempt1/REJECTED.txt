@@ -1,0 +1,1 @@
+Owner guard test found missing-domain input accepted because prime CLI initialization bypasses initialize_gba_input_data. This candidate is rejected for model-scope gating. Valid-model basis comparisons passed. Preserved executable22daf0a1 and patch2864e766 are not authorized for full use.

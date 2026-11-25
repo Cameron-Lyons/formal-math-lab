@@ -1,0 +1,161 @@
+{
+  "status": "CHECKED_NO_RETAINED_INTERMEDIATE_POLYNOMIALS",
+  "scope": "19 incomplete msolve trials in consolidated audit",
+  "trials": [
+    {
+      "name": "exact_msolve_full_prime2_pivot_order",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_pivot_missing",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_reduced_all_missing",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_reduced_all_rounded",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_reduced_pairs1",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_cap0000_prime2",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime29_pivot_rounded",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_bitset",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_elementary",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_prefix_gray_3g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_prime2_prefix_gray_e4_3g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_native3_e3_staged_3g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_native3_translation_e3_symbolic_3g",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_native3_minfill_symbolic_3g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_native3_minfill_symbolic_4g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_native3_minfill_byte_4g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_full_native3_sign_minfill_byte_4g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_branch3_eliminated_minfill_byte_3g",
+      "status": "BACKEND_ERROR",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    },
+    {
+      "name": "exact_msolve_branch3_eliminated_minfill_byte_4g_waited",
+      "status": "INCOMPLETE_TIMEOUT",
+      "basis_bytes": 0,
+      "leading_export_exists": false,
+      "completion_markers": 0,
+      "usable_retained_polynomials": false
+    }
+  ],
+  "full_count": null,
+  "new_upper_bound_from_failed_runs": null,
+  "matrix_dimensions_are_not_polynomial_certificates": true
+}

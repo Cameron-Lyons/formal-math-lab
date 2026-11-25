@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_backend.py",
+    "--prime",
+    "3",
+    "--seconds",
+    "300",
+    "--memory-mb",
+    "3072",
+    "--executable",
+    "experiments/exact_msolve_symbolic_reserve_tools/msolve",
+    "--library-dir",
+    "experiments/exact_algebra_backend_root/usr/lib",
+    "--require-export-marker",
+    "--max-pairs",
+    "16",
+    "--ternary-native-field",
+    "--native-e3",
+    "--native-translation",
+    "--output",
+    "experiments/exact_msolve_full_native3_translation_e3_symbolic_3g"
+  ],
+  "outer_wall_limit_seconds": 360.0,
+  "outer_memory_mb": 3072,
+  "returncode": 1,
+  "outer_wall_limit_reached": false,
+  "elapsed_seconds": 301.45627552399674,
+  "process_tree_cpu_seconds": 248.465848,
+  "status": "OUTER_PROCESS_FINISHED",
+  "backend_status": "INCOMPLETE_TIMEOUT"
+}

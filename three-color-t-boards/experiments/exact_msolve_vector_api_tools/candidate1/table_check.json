@@ -1,0 +1,183 @@
+{
+  "status": "PASS",
+  "scope": "actual data.h/hash.c/order.c with typed byte API; no solver",
+  "actual_sources": [
+    "src/neogb/data.h",
+    "src/neogb/stored_exp.h",
+    "src/neogb/hash.c",
+    "src/neogb/order.c"
+  ],
+  "stubs": [
+    "CPU/wall clocks return zero"
+  ],
+  "sanitizers": "ASan+UBSan",
+  "api_vectors": 2032,
+  "coordinate_values": 256,
+  "drl_divisibility_lcm_pairs": 2100,
+  "stages": 13,
+  "nonpower_row_comparisons": 1,
+  "nonpower_capacity": 196608,
+  "legacy_capacity": 262144,
+  "complete_actual_tables_compared": 150000,
+  "subsequent_paths": [
+    "clean",
+    "grow",
+    "copy",
+    "reinitialize",
+    "generic reset/reinsert"
+  ],
+  "failure_checks": [
+    {
+      "mode": "invalid",
+      "case": 1,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent vector length."
+    },
+    {
+      "mode": "invalid",
+      "case": 2,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent vector length."
+    },
+    {
+      "mode": "invalid",
+      "case": 3,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent read."
+    },
+    {
+      "mode": "invalid",
+      "case": 4,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent read."
+    },
+    {
+      "mode": "invalid",
+      "case": 5,
+      "returncode": 1,
+      "diagnostic": "Error: byte exponent/degree overflow."
+    },
+    {
+      "mode": "invalid",
+      "case": 6,
+      "returncode": 1,
+      "diagnostic": "Error: byte exponent/degree overflow."
+    },
+    {
+      "mode": "invalid",
+      "case": 7,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent import."
+    },
+    {
+      "mode": "invalid",
+      "case": 8,
+      "returncode": 1,
+      "diagnostic": "Error: inconsistent ordinary exponent degree."
+    },
+    {
+      "mode": "invalid",
+      "case": 9,
+      "returncode": 1,
+      "diagnostic": "Error: inconsistent ordinary exponent degree."
+    },
+    {
+      "mode": "invalid",
+      "case": 10,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent export."
+    },
+    {
+      "mode": "invalid",
+      "case": 11,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent copy."
+    },
+    {
+      "mode": "invalid",
+      "case": 12,
+      "returncode": 1,
+      "diagnostic": "Error: invalid stored exponent write."
+    },
+    {
+      "mode": "allocation",
+      "case": 1,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate retained-column support mask."
+    },
+    {
+      "mode": "allocation",
+      "case": 2,
+      "returncode": 1,
+      "diagnostic": "Error: cannot shrink staged symbolic exponent data."
+    },
+    {
+      "mode": "allocation",
+      "case": 3,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "mode": "allocation",
+      "case": 4,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "mode": "allocation",
+      "case": 5,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "mode": "allocation",
+      "case": 6,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate restored symbolic storage."
+    },
+    {
+      "mode": "allocation",
+      "case": 7,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate promotion hash metadata."
+    },
+    {
+      "mode": "allocation",
+      "case": 8,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate promotion exponent pointers."
+    },
+    {
+      "mode": "allocation",
+      "case": 9,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate promotion exponent data."
+    },
+    {
+      "mode": "allocation",
+      "case": 10,
+      "returncode": 1,
+      "diagnostic": "Error: cannot allocate promotion hash buckets."
+    }
+  ],
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror=incompatible-pointer-types",
+    "-Werror=int-conversion",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+    "-Wno-unknown-pragmas",
+    "-fsanitize=address,undefined",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/table_check.c",
+    "-lm",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/table_check"
+  ],
+  "output": "PASS api_vectors=2032 coordinate_values=256 comparison_pairs=2100 stages=13 nonpower_row_pairs=1",
+  "source_sha256": "d10c0aa4a2a5b0112ed113e93dff48852572dd0de1309cf7b5b63b49211e08fb"
+}

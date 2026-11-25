@@ -1,0 +1,50 @@
+{
+  "symbolic_requests": [
+    {
+      "old_load": 3,
+      "row_length": 1,
+      "required_with_spare": 5,
+      "requested_capacity": 8
+    }
+  ],
+  "staging_events": [],
+  "name": "product_zero",
+  "kind": "baseline",
+  "mode": 1,
+  "command": [
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_byte_exponent_tools/msolve",
+    "-f",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/product_zero_baseline_g1.ms",
+    "-o",
+    "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/product_zero_baseline_g1.basis",
+    "-g",
+    "1",
+    "-s",
+    "4",
+    "-l",
+    "2",
+    "-t",
+    "1",
+    "-r",
+    "1",
+    "-c",
+    "0",
+    "-v",
+    "2"
+  ],
+  "returncode": 0,
+  "timed_out": false,
+  "memory_mb": 2048,
+  "timeout_seconds": 20,
+  "wall_seconds": 0.005561295001825783,
+  "cpu_seconds": 0.004274000000000014,
+  "marker_count": 1,
+  "error_diagnostics": [],
+  "basis_sha256": "b6be00ca6a0add7acd8cabb1e3bfbd8887b78574f76885c67f468b3b99f0c3aa",
+  "input_sha256": "4b9937c26febc3e34e21282920cfe856079208ed2f061ca3072a467590c2c2eb",
+  "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
+  "basis_file": "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_vector_api_tools/product_zero_baseline_g1.basis",
+  "promotion_events": [],
+  "reservation_events": [],
+  "capacity_requests": []
+}

@@ -1,0 +1,144 @@
+{
+  "status": "PASS",
+  "scope": "independent branch adapter review; no solver",
+  "input_variants": [
+    {
+      "branch": 0,
+      "order": "natural",
+      "input_sha256": "43725b768d9bda8fe51f1500a540db2718b6996f6cb9a0a6fe8c67b1b1da697c",
+      "model_sha256": "60e5325699e1228251a2698658d71ab487367a9f193048f8b915cc914fdb69d4"
+    },
+    {
+      "branch": 0,
+      "order": "minfill",
+      "input_sha256": "75418d3a482251d7e677b34a1fb74f9aa9275988effa9cfeab7c355ab28d3be9",
+      "model_sha256": "2a6423b9eb6fb78b3c8317e0f90552ac90aa67907aa6ff486d849552fbba303b"
+    },
+    {
+      "branch": 1,
+      "order": "natural",
+      "input_sha256": "9619f4951b1a23bad87db99379f404a38503b0b5ae37bb2e05de633f31636743",
+      "model_sha256": "4dd43cb48cf7685db58f47dab2d88ed847c89f92d3e1c6b8029c95e9bf78d85b"
+    },
+    {
+      "branch": 1,
+      "order": "minfill",
+      "input_sha256": "ecf46e80a8e8a12ba21cacbc5a358184a06bb109acaa76075ea89cf3e77ad0f4",
+      "model_sha256": "4b32958c3c94f4912cd68deda550eb51945bdc57d0fa6a4821ae6841a48188ec"
+    },
+    {
+      "branch": 2,
+      "order": "natural",
+      "input_sha256": "feef4c21958fa7881c6eed531877ea1eda3f8334c20ac4bc4d26a5f9af8c37ba",
+      "model_sha256": "e7b28402f52cba32b55090012dd704784720b43e16c168ec7bacee28b2e39530"
+    },
+    {
+      "branch": 2,
+      "order": "minfill",
+      "input_sha256": "9a19cf697b2cd1a9f61a40dc321ea1f5300c3267e199cbb40ca8ea7e975d6750",
+      "model_sha256": "89aa7de87cdfc334c5c2f0d9e375d0bc37d2d8d5102788cca10a307f95200f8f"
+    },
+    {
+      "branch": 3,
+      "order": "natural",
+      "input_sha256": "44ef110d5434d5ffb17dedfb8894102ac0a76e6cb3f6840b8f4fc349f6e1b275",
+      "model_sha256": "3b6ecd98c50872a2d2463973fe1f9c0706a62b040bc024faecae781388ca19c4"
+    },
+    {
+      "branch": 3,
+      "order": "minfill",
+      "input_sha256": "280807c8feafaea21bace6907ebb83ab7abe01f360562f1b326e2b2e558e96f2",
+      "model_sha256": "f61ce552ef831147c4216fd04e0a239e7c8a7e33ae8d9c7a0e730dae3b1271d9"
+    }
+  ],
+  "actual_prepared_inputs": 8,
+  "branch_zero_explicitly_checked": true,
+  "bilinear_forms_checked": 800,
+  "definition_rejections": 26,
+  "cli_rejections": 4,
+  "rejected_arguments": [
+    {
+      "prime": 2
+    },
+    {
+      "prime": 29
+    },
+    {
+      "prefix": "0"
+    },
+    {
+      "binary": true
+    },
+    {
+      "fixture": "domain"
+    },
+    {
+      "pivot_order": true
+    },
+    {
+      "ternary_reduced": "all"
+    },
+    {
+      "histogram_e2": true
+    },
+    {
+      "ternary_prefix_sums": "all"
+    },
+    {
+      "prefix_field_equations": true
+    },
+    {
+      "histogram_e4": true
+    },
+    {
+      "ternary_native_field": false
+    },
+    {
+      "native_translation": false
+    },
+    {
+      "native_e3": false
+    },
+    {
+      "native_sign": true
+    },
+    {
+      "native_order": "natural"
+    },
+    {
+      "native_sign_branch": -1
+    },
+    {
+      "native_sign_branch": 4
+    },
+    {
+      "native_sign_branch": false
+    },
+    {
+      "native_sign_branch": true
+    },
+    {
+      "native_sign_branch": 0.0
+    },
+    {
+      "native_sign_branch": "0"
+    },
+    {
+      "default_model_with_branch": 0
+    },
+    {
+      "default_model_with_branch": 1
+    },
+    {
+      "default_model_with_branch": 2
+    },
+    {
+      "default_model_with_branch": 3
+    }
+  ],
+  "full_solver_runs": 0,
+  "solver_processes_launched": 0,
+  "backend_sha256": "a4af607f98f4c90bde22c04c8c1e35e3cfa5409fb9e76983d4efc4222e411cf9",
+  "helper_sha256": "7ca1640008d72d1275b1efd67808f21cb7c752a486550e0ea241b67a2de2f6e4",
+  "reviewer_sha256": "c64b98b09f8d5aaca99ede71a82b45ce78a8e5bd932b6ffcc2a7aea4ddb342f4"
+}

@@ -1,0 +1,150 @@
+Initial seed for pseudo-random number generator is 1795419152
+
+--------------- INPUT DATA ---------------
+#variables                      20
+#equations                      98
+#invalid equations               0
+field characteristic             2
+homogeneous input?               0
+signature-based computation      0
+monomial order                 DRL
+basis hash table resetting     OFF
+linear algebra option            2
+initial hash table size         16 (2^4)
+max pair selection             ALL
+reduce gb                        1
+#threads                         1
+info level                       2
+generate pbm files               0
+------------------------------------------
+
+Legend for f4 information
+--------------------------------------------------------
+deg       current degree of pairs selected in this round
+sel       number of pairs selected in this round
+pairs     total number of pairs in pair list
+mat       matrix dimensions (# rows x # columns)
+density   density of the matrix
+new data  # new elements for basis in this round
+          # zero reductions during linear algebra
+time(rd)  time of the current f4 round in seconds given
+          for real and cpu time
+--------------------------------------------------------
+
+deg     sel   pairs        mat          density            new data         time(rd) in sec (real|cpu)
+------------------------------------------------------------------------------------------------------
+  2      12      78      72 x 230         7.62%        8 new       4 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=170 referenced=108 missing=46 basis_load=1664 basis_capacity=2048
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=170 referenced=108 inserted=46 basis_capacity=2048
+         0.00 | 0.00         
+  2       5      79      55 x 165         6.94%        5 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=115 referenced=92 missing=30 basis_load=2093 basis_capacity=4096
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=115 referenced=92 inserted=30 basis_capacity=4096
+         0.00 | 0.00         
+  2       2      80      30 x 102         8.01%        2 new       0 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=74 referenced=59 missing=1 basis_load=2501 basis_capacity=4096
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=74 referenced=59 inserted=1 basis_capacity=4096
+         0.00 | 0.00         
+  3      34      81    1476 x 1761        0.81%       16 new      18 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=319 referenced=290 missing=170 basis_load=2667 basis_capacity=4096
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=319 referenced=290 inserted=170 basis_capacity=4096
+         0.00 | 0.00         
+  3      14      84      72 x 332         9.45%       13 new       1 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=274 referenced=216 missing=7 basis_load=4067 basis_capacity=8192
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=274 referenced=216 inserted=7 basis_capacity=8192
+         0.00 | 0.00         
+  3       6     135      42 x 135         8.91%        5 new       1 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=99 referenced=68 missing=0 basis_load=5277 basis_capacity=8192
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=99 referenced=68 inserted=0 basis_capacity=8192
+         0.00 | 0.00         
+  2       5     135      28 x 72         12.50%        3 new       2 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=49 referenced=41 missing=0 basis_load=5580 basis_capacity=8192
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=49 referenced=41 inserted=0 basis_capacity=8192
+         0.00 | 0.00         
+  3      15     129     161 x 291         5.40%        8 new       7 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=145 referenced=126 missing=6 basis_load=5755 basis_capacity=8192
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=145 referenced=126 inserted=6 basis_capacity=8192
+         0.00 | 0.00         
+  4     123     162    9929 x 10099       0.15%       59 new      64 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=293 referenced=260 missing=102 basis_load=6658 basis_capacity=8192
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=293 referenced=260 inserted=102 basis_capacity=8192
+         0.02 | 0.02         
+  2       6     324      26 x 56         19.02%        1 new       5 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=36 referenced=20 missing=0 basis_load=13263 basis_capacity=16384
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=36 referenced=20 inserted=0 basis_capacity=16384
+         0.00 | 0.00         
+  3      45     311     249 x 297         4.20%       13 new      32 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=93 referenced=70 missing=0 basis_load=13359 basis_capacity=16384
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=93 referenced=70 inserted=0 basis_capacity=16384
+         0.00 | 0.00         
+  3      11     196     110 x 173         7.16%        3 new       8 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=74 referenced=44 missing=0 basis_load=14634 basis_capacity=16384
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=74 referenced=44 inserted=0 basis_capacity=16384
+         0.00 | 0.00         
+  4     120     187     528 x 516         4.10%       44 new      76 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=108 referenced=107 missing=2 basis_load=14916 basis_capacity=16384
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=108 referenced=107 inserted=2 basis_capacity=16384
+         0.00 | 0.00         
+  3      24     241     135 x 160         8.64%       20 new       4 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=49 referenced=44 missing=0 basis_load=19459 basis_capacity=32768
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=49 referenced=44 inserted=0 basis_capacity=32768
+         0.00 | 0.00         
+  3      85     209     206 x 145         7.06%       12 new      75 zero
+MSOLVE_PROMOTION_RESERVATION nonpivot=26 referenced=25 missing=0 basis_load=21130 basis_capacity=32768
+
+MSOLVE_PROMOTION_COLUMNS nonpivot=26 referenced=25 inserted=0 basis_capacity=32768
+         0.00 | 0.00         
+  2      14     144      46 x 43         14.81%        0 new      14 zero         0.00 | 0.00         
+  3      40     130     178 x 150         4.61%        0 new      40 zero         0.00 | 0.00         
+  4      66      90     336 x 282         3.67%        0 new      66 zero         0.00 | 0.00         
+  5      15      24   46877 x 46874       0.03%        0 new      15 zero         0.04 | 0.04         
+  6       7       9  185899 x 185904      0.01%        0 new       7 zero         0.19 | 0.19         
+  7       2       2  270035 x 270045      0.01%        0 new       2 zero         0.29 | 0.28         
+------------------------------------------------------------------------------------------------------
+reduce final basis       43 x 54         13.31%       31 new       0 zero         0.00 | 0.00         
+------------------------------------------------------------------------------------------------------
+
+---------------- TIMINGS ----------------
+overall(elapsed)        0.55 sec
+overall(cpu)            0.55 sec
+select                  0.00 sec   0.3%
+symbolic prep.          0.39 sec  70.2%
+update                  0.01 sec   1.9%
+convert                 0.09 sec  15.6%
+linear algebra          0.03 sec   5.1%
+reduce gb               0.00 sec   0.0%
+-----------------------------------------
+
+---------- COMPUTATIONAL DATA -----------
+size of basis                    31
+#terms in basis                 133
+#pairs reduced                  651
+#GM criterion                 47244
+#redundant elements             305
+#rows reduced                  1337
+#zero reductions                441
+max. matrix data             270035 x 270045 (0.006%)
+max. symbolic hash table size  2^19
+max. basis hash table size     2^15
+-----------------------------------------
+
+MSOLVE_PRIME_GB_EXPORT_COMPLETE
+
+
+------------------------------------------------------------------------------------
+msolve overall time           0.56 sec (elapsed) /  0.55 sec (cpu)
+------------------------------------------------------------------------------------

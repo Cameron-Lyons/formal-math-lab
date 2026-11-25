@@ -1,0 +1,3810 @@
+{
+  "status": "PASS",
+  "scope": "symbolic size comparison and exact exports; no solver",
+  "baseline_reproduced_exactly": true,
+  "baseline": {
+    "pivots": [
+      0,
+      81,
+      90,
+      99
+    ],
+    "substitution_lengths": [
+      80,
+      17,
+      80,
+      17
+    ],
+    "pivot_domain_term_counts": [
+      6321,
+      272,
+      6321,
+      272
+    ],
+    "moment40_terms": 11884,
+    "moment80_terms": 23768,
+    "pivot_domain_terms": 13186,
+    "base40_terms": 25070,
+    "base80_terms": 36954,
+    "elementary8_term_counts": [
+      3240,
+      2320,
+      144,
+      144,
+      3240,
+      2320,
+      144,
+      144
+    ],
+    "elementary8_degree_histograms": [
+      {
+        "2": 3240
+      },
+      {
+        "2": 2320
+      },
+      {
+        "2": 144
+      },
+      {
+        "2": 144
+      },
+      {
+        "1": 80,
+        "4": 3160
+      },
+      {
+        "1": 32,
+        "4": 2288
+      },
+      {
+        "1": 8,
+        "4": 136
+      },
+      {
+        "1": 8,
+        "4": 136
+      }
+    ],
+    "augmented80_terms": 48650
+  },
+  "all_single_upper_pivot_candidates": [
+    {
+      "pivots": [
+        56,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14298,
+      "moment80_terms": 28596,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22219,
+      "base80_terms": 36517
+    },
+    {
+      "pivots": [
+        54,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14302,
+      "moment80_terms": 28604,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22223,
+      "base80_terms": 36525
+    },
+    {
+      "pivots": [
+        58,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14302,
+      "moment80_terms": 28604,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22223,
+      "base80_terms": 36525
+    },
+    {
+      "pivots": [
+        70,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14332,
+      "moment80_terms": 28664,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22253,
+      "base80_terms": 36585
+    },
+    {
+      "pivots": [
+        74,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14332,
+      "moment80_terms": 28664,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22253,
+      "base80_terms": 36585
+    },
+    {
+      "pivots": [
+        20,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        29,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        30,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        31,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        40,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        41,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        42,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        43,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        44,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14334,
+      "moment80_terms": 28668,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22255,
+      "base80_terms": 36589
+    },
+    {
+      "pivots": [
+        19,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        21,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        28,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        32,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        39,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        45,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        55,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        57,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        69,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        75,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14336,
+      "moment80_terms": 28672,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22257,
+      "base80_terms": 36593
+    },
+    {
+      "pivots": [
+        12,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14338,
+      "moment80_terms": 28676,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22259,
+      "base80_terms": 36597
+    },
+    {
+      "pivots": [
+        11,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        13,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        18,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        22,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        27,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        33,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        38,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        46,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        53,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        59,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14340,
+      "moment80_terms": 28680,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22261,
+      "base80_terms": 36601
+    },
+    {
+      "pivots": [
+        52,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14342,
+      "moment80_terms": 28684,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22263,
+      "base80_terms": 36605
+    },
+    {
+      "pivots": [
+        60,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14342,
+      "moment80_terms": 28684,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22263,
+      "base80_terms": 36605
+    },
+    {
+      "pivots": [
+        68,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14342,
+      "moment80_terms": 28684,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22263,
+      "base80_terms": 36605
+    },
+    {
+      "pivots": [
+        76,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14342,
+      "moment80_terms": 28684,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22263,
+      "base80_terms": 36605
+    },
+    {
+      "pivots": [
+        67,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14344,
+      "moment80_terms": 28688,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22265,
+      "base80_terms": 36609
+    },
+    {
+      "pivots": [
+        77,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14344,
+      "moment80_terms": 28688,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22265,
+      "base80_terms": 36609
+    },
+    {
+      "pivots": [
+        6,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14346,
+      "moment80_terms": 28692,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22267,
+      "base80_terms": 36613
+    },
+    {
+      "pivots": [
+        51,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14346,
+      "moment80_terms": 28692,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22267,
+      "base80_terms": 36613
+    },
+    {
+      "pivots": [
+        61,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14346,
+      "moment80_terms": 28692,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22267,
+      "base80_terms": 36613
+    },
+    {
+      "pivots": [
+        66,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14348,
+      "moment80_terms": 28696,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22269,
+      "base80_terms": 36617
+    },
+    {
+      "pivots": [
+        78,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14348,
+      "moment80_terms": 28696,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22269,
+      "base80_terms": 36617
+    },
+    {
+      "pivots": [
+        0,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        272
+      ],
+      "moment40_terms": 11884,
+      "moment80_terms": 23768,
+      "pivot_domain_terms": 13186,
+      "base40_terms": 25070,
+      "base80_terms": 36954
+    },
+    {
+      "pivots": [
+        10,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        14,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        17,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        23,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        26,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        34,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        37,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        47,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13584,
+      "moment80_terms": 27168,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25524,
+      "base80_terms": 39108
+    },
+    {
+      "pivots": [
+        5,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13586,
+      "moment80_terms": 27172,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25526,
+      "base80_terms": 39112
+    },
+    {
+      "pivots": [
+        7,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13586,
+      "moment80_terms": 27172,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25526,
+      "base80_terms": 39112
+    },
+    {
+      "pivots": [
+        50,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13590,
+      "moment80_terms": 27180,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25530,
+      "base80_terms": 39120
+    },
+    {
+      "pivots": [
+        62,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13590,
+      "moment80_terms": 27180,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25530,
+      "base80_terms": 39120
+    },
+    {
+      "pivots": [
+        65,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        4291
+      ],
+      "moment40_terms": 13592,
+      "moment80_terms": 27184,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25532,
+      "base80_terms": 39124
+    },
+    {
+      "pivots": [
+        79,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        272
+      ],
+      "moment40_terms": 13592,
+      "moment80_terms": 27184,
+      "pivot_domain_terms": 11940,
+      "base40_terms": 25532,
+      "base80_terms": 39124
+    },
+    {
+      "pivots": [
+        2,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        33,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        1056,
+        4291
+      ],
+      "moment40_terms": 12828,
+      "moment80_terms": 25656,
+      "pivot_domain_terms": 15959,
+      "base40_terms": 28787,
+      "base80_terms": 41615
+    },
+    {
+      "pivots": [
+        49,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15082,
+      "moment80_terms": 30164,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32287,
+      "base80_terms": 47369
+    },
+    {
+      "pivots": [
+        63,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15082,
+      "moment80_terms": 30164,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32287,
+      "base80_terms": 47369
+    },
+    {
+      "pivots": [
+        4,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        8,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        9,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        15,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        16,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        24,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        25,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        35,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        36,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        48,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15206,
+      "moment80_terms": 30412,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32411,
+      "base80_terms": 47617
+    },
+    {
+      "pivots": [
+        1,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        66,
+        80,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        4291,
+        6321,
+        272
+      ],
+      "moment40_terms": 15212,
+      "moment80_terms": 30424,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32417,
+      "base80_terms": 47629
+    },
+    {
+      "pivots": [
+        3,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        80,
+        66
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        6321,
+        4291
+      ],
+      "moment40_terms": 15212,
+      "moment80_terms": 30424,
+      "pivot_domain_terms": 17205,
+      "base40_terms": 32417,
+      "base80_terms": 47629
+    }
+  ],
+  "restricted_cubic_optimal_pattern_scan": [
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        86
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        87
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        88
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        89
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        90
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        91
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        92
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        93
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        94
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        85
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12290,
+      "moment80_terms": 24580,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16627,
+      "base80_terms": 28917
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        95
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12290,
+      "moment80_terms": 24580,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16627,
+      "base80_terms": 28917
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        86
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        87
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        88
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        89
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        90
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        91
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        92
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        93
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        94
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12296,
+      "moment80_terms": 24592,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16633,
+      "base80_terms": 28929
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        85
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12298,
+      "moment80_terms": 24596,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16635,
+      "base80_terms": 28933
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        95
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12298,
+      "moment80_terms": 24596,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16635,
+      "base80_terms": 28933
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        84
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12304,
+      "moment80_terms": 24608,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16641,
+      "base80_terms": 28945
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        96
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12304,
+      "moment80_terms": 24608,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16641,
+      "base80_terms": 28945
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        83
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12306,
+      "moment80_terms": 24612,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16643,
+      "base80_terms": 28949
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        97
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12306,
+      "moment80_terms": 24612,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16643,
+      "base80_terms": 28949
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        84
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12312,
+      "moment80_terms": 24624,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16649,
+      "base80_terms": 28961
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        96
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12312,
+      "moment80_terms": 24624,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16649,
+      "base80_terms": 28961
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        83
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12314,
+      "moment80_terms": 24628,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16651,
+      "base80_terms": 28965
+    },
+    {
+      "pivots": [
+        30,
+        9,
+        24,
+        97
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12314,
+      "moment80_terms": 24628,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16651,
+      "base80_terms": 28965
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        86
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        87
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        88
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        89
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        90
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        91
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        92
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        93
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        94
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        85
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12324,
+      "moment80_terms": 24648,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16661,
+      "base80_terms": 28985
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        95
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12324,
+      "moment80_terms": 24648,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16661,
+      "base80_terms": 28985
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        83
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12328,
+      "moment80_terms": 24656,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16665,
+      "base80_terms": 28993
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        97
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12328,
+      "moment80_terms": 24656,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16665,
+      "base80_terms": 28993
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        86
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        87
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        88
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        89
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        90
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        91
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        92
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        93
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        94
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12334,
+      "moment80_terms": 24668,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16671,
+      "base80_terms": 29005
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        84
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12336,
+      "moment80_terms": 24672,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16673,
+      "base80_terms": 29009
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        96
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12336,
+      "moment80_terms": 24672,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16673,
+      "base80_terms": 29009
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        85
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12336,
+      "moment80_terms": 24672,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16673,
+      "base80_terms": 29009
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        95
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12336,
+      "moment80_terms": 24672,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16673,
+      "base80_terms": 29009
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        84
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12344,
+      "moment80_terms": 24688,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16681,
+      "base80_terms": 29025
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        96
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12344,
+      "moment80_terms": 24688,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16681,
+      "base80_terms": 29025
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        83
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12346,
+      "moment80_terms": 24692,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16683,
+      "base80_terms": 29029
+    },
+    {
+      "pivots": [
+        12,
+        1,
+        8,
+        97
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12348,
+      "moment80_terms": 24696,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16685,
+      "base80_terms": 29033
+    }
+  ],
+  "cubic_support_lower_bound": {
+    "all_unary_combination_support_sizes": {
+      "1": 81,
+      "2": 81,
+      "3": 34,
+      "4": 81,
+      "5": 34,
+      "6": 18,
+      "7": 67,
+      "8": 81,
+      "9": 34,
+      "10": 34,
+      "11": 55,
+      "12": 18,
+      "13": 67,
+      "14": 83,
+      "15": 32
+    },
+    "independent_four_combination_bases": 840,
+    "minimum_pivot_cubic_terms": 4337,
+    "minimizing_unary_combination_masks": [
+      [
+        6,
+        11,
+        12,
+        15
+      ]
+    ],
+    "scope": "all invertible eliminations of four original cells using the four unary equations"
+  },
+  "exports": [
+    {
+      "pivots": [
+        6,
+        81,
+        90,
+        99
+      ],
+      "substitution_lengths": [
+        80,
+        17,
+        33,
+        17
+      ],
+      "pivot_domain_term_counts": [
+        6321,
+        272,
+        1056,
+        272
+      ],
+      "moment40_terms": 14346,
+      "moment80_terms": 28692,
+      "pivot_domain_terms": 7921,
+      "base40_terms": 22267,
+      "base80_terms": 36613,
+      "elementary8_term_counts": [
+        3240,
+        544,
+        144,
+        144,
+        3240,
+        544,
+        144,
+        144
+      ],
+      "elementary8_degree_histograms": [
+        {
+          "2": 3240
+        },
+        {
+          "2": 544
+        },
+        {
+          "2": 144
+        },
+        {
+          "2": 144
+        },
+        {
+          "1": 80,
+          "4": 3160
+        },
+        {
+          "1": 16,
+          "4": 528
+        },
+        {
+          "1": 8,
+          "4": 136
+        },
+        {
+          "1": 8,
+          "4": 136
+        }
+      ],
+      "augmented80_terms": 44757,
+      "name": "p6",
+      "files": [
+        {
+          "file": "exact_pivot_math_p6_fourier40.json",
+          "sha256": "9efc75d2ffb0ac5fbdf5297d10e4e7c3a1f6bc7c275e2153dcb73cdb9862e79e"
+        },
+        {
+          "file": "exact_pivot_math_p6_fourier40.ms",
+          "sha256": "ec6a9342b179bba67ecede9428287b510f29b75874793fdf25b8b0e5e1a05fb8"
+        },
+        {
+          "file": "exact_pivot_math_p6_fourier40_e2.ms",
+          "sha256": "a0456e17b9c9e3d2a2cdc22c01a6c7540deda670f70c58dd2221a75a3a2b9404"
+        },
+        {
+          "file": "exact_pivot_math_p6_fourier80.json",
+          "sha256": "6215bed5c901e07d4adbace1cae378955a502704083b1693ac9d65dcd130bbaa"
+        },
+        {
+          "file": "exact_pivot_math_p6_fourier80.ms",
+          "sha256": "53f3ba34bab4c10499950ad8e8457d04686eb7c6c0eb61553f04fe4f6f184aa3"
+        },
+        {
+          "file": "exact_pivot_math_p6_fourier80_e2.ms",
+          "sha256": "cbf22b1356f4d63c9460df42a99af9aa43408e583e342cf262622a5f8f121bb2"
+        },
+        {
+          "file": "exact_pivot_math_p6_elementary.json",
+          "sha256": "386a0e026ff0a589f6beb1db8df5a60fdd59d137e72a323a8640af6b97892d56"
+        }
+      ],
+      "value_audit": {
+        "random_substituted_assignments_checked": 12,
+        "existing_valid_boards_checked": 161
+      }
+    },
+    {
+      "pivots": [
+        6,
+        9,
+        15,
+        90
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12322,
+      "moment80_terms": 24644,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16659,
+      "base80_terms": 28981,
+      "elementary8_term_counts": [
+        1772,
+        654,
+        144,
+        144,
+        1772,
+        654,
+        144,
+        144
+      ],
+      "elementary8_degree_histograms": [
+        {
+          "2": 1772
+        },
+        {
+          "2": 654
+        },
+        {
+          "2": 144
+        },
+        {
+          "2": 144
+        },
+        {
+          "1": 81,
+          "4": 1691
+        },
+        {
+          "1": 29,
+          "4": 625
+        },
+        {
+          "1": 8,
+          "4": 136
+        },
+        {
+          "1": 8,
+          "4": 136
+        }
+      ],
+      "augmented80_terms": 34409,
+      "name": "sparse",
+      "files": [
+        {
+          "file": "exact_pivot_math_sparse_fourier40.json",
+          "sha256": "109466782f2ffe9826a5620afc2378e63919542814159cff3512b4f25995cbad"
+        },
+        {
+          "file": "exact_pivot_math_sparse_fourier40.ms",
+          "sha256": "679e9d74e5996c9523116ac802525fe355e8cb86e1b04cf91906e91a80c71929"
+        },
+        {
+          "file": "exact_pivot_math_sparse_fourier40_e2.ms",
+          "sha256": "55b2bda0bd27d746cd6d202dbd1e4fee7eae22c5c842325d4def9032d67f039d"
+        },
+        {
+          "file": "exact_pivot_math_sparse_fourier80.json",
+          "sha256": "a1bcc747917c9cc113577f98d8a6ee38a5a03a7441a0a015567e214d7d719d4a"
+        },
+        {
+          "file": "exact_pivot_math_sparse_fourier80.ms",
+          "sha256": "6af91de0eb1c76f9d8bb37b02f792dddf472616d363fbd1b92ab933da62d1e3f"
+        },
+        {
+          "file": "exact_pivot_math_sparse_fourier80_e2.ms",
+          "sha256": "e223e1c14ced66849aa282f50f714c72d7a6fb9c2f366e022df7eb42b8f902fd"
+        },
+        {
+          "file": "exact_pivot_math_sparse_elementary.json",
+          "sha256": "57912b386750ac0ad3f7d0f3f92ccccceef2d3771e22c1954e6caa4e58ef4892"
+        }
+      ],
+      "value_audit": {
+        "random_substituted_assignments_checked": 12,
+        "existing_valid_boards_checked": 161
+      }
+    },
+    {
+      "pivots": [
+        20,
+        4,
+        15,
+        86
+      ],
+      "substitution_lengths": [
+        54,
+        17,
+        17,
+        31
+      ],
+      "pivot_domain_term_counts": [
+        2863,
+        272,
+        272,
+        930
+      ],
+      "moment40_terms": 12288,
+      "moment80_terms": 24576,
+      "pivot_domain_terms": 4337,
+      "base40_terms": 16625,
+      "base80_terms": 28913,
+      "elementary8_term_counts": [
+        1772,
+        654,
+        144,
+        144,
+        1772,
+        654,
+        144,
+        144
+      ],
+      "elementary8_degree_histograms": [
+        {
+          "2": 1772
+        },
+        {
+          "2": 654
+        },
+        {
+          "2": 144
+        },
+        {
+          "2": 144
+        },
+        {
+          "1": 81,
+          "4": 1691
+        },
+        {
+          "1": 29,
+          "4": 625
+        },
+        {
+          "1": 8,
+          "4": 136
+        },
+        {
+          "1": 8,
+          "4": 136
+        }
+      ],
+      "augmented80_terms": 34341,
+      "name": "best",
+      "files": [
+        {
+          "file": "exact_pivot_math_best_fourier40.json",
+          "sha256": "6d821b2df80f181dbf95bcb3e5f3497d613c1e198cf8d6dac66a2236addd0d35"
+        },
+        {
+          "file": "exact_pivot_math_best_fourier40.ms",
+          "sha256": "c10d2db299547ff5929bd9fb28461a46b55bd0325e9e9d4ba1d22a9538ccfd47"
+        },
+        {
+          "file": "exact_pivot_math_best_fourier40_e2.ms",
+          "sha256": "6c60a6091a21d65d680fbf0469961ef902a8b7cf3165d70f7dd9550bdf74443f"
+        },
+        {
+          "file": "exact_pivot_math_best_fourier80.json",
+          "sha256": "73ae3ded6a9adb14c3523cb6c8e49a1ba11fb56629d11567bb76c6d51df8889f"
+        },
+        {
+          "file": "exact_pivot_math_best_fourier80.ms",
+          "sha256": "bdb2d717f8a232ee90596e7ef21e1715453847bf6cab6b3a49631715f8d552ea"
+        },
+        {
+          "file": "exact_pivot_math_best_fourier80_e2.ms",
+          "sha256": "b16d584f480435967e86714ea7db07a88b5569ef94cebe8a741e7df4bb2630b0"
+        },
+        {
+          "file": "exact_pivot_math_best_elementary.json",
+          "sha256": "95f94b6975d13df827f366109d5b580a87439b48df09fda1a51c877c267610b8"
+        }
+      ],
+      "value_audit": {
+        "random_substituted_assignments_checked": 12,
+        "existing_valid_boards_checked": 161
+      }
+    }
+  ]
+}

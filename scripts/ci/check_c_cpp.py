@@ -26,6 +26,7 @@ THIRD_PARTY_FILES: frozenset[str] = frozenset(
 # (nauty 2.9.3 or unpacked msolve archives) rather than the repository alone.
 EXTERNAL_DEP_FILES: frozenset[str] = frozenset(
     {
+        "erdos-64-power-of-two-cycles/scripts/geng_terminals.c",  # Linked into nauty's geng.
         "erdos-556-cycle-ramsey/research/cert16/witnesses.cpp",
         "three-color-t-boards/experiments/exact_msolve_f2_matrix_review.c",
         "three-color-t-boards/experiments/exact_msolve_vector_api_tools/table_check.c",

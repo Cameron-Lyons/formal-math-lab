@@ -1,7 +1,7 @@
 // c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror scripts/pfree_check.cpp -o /tmp/erdos64-pfree-check
-// Independent exhaustive proof search. For each r = 2,...,13, start with an
-// induced P_r and forbid an induced P_(r+1). Separately start from a
-// dominating induced P14, allowing longer paths. Both searches forbid C4, C8, C16.
+// Independent exhaustive proof search. Start with an induced path, then forbid a
+// longer induced path or require the seed to dominate. Check the P15 result
+// in general and the P17 result in triangle-free graphs. Both forbid C4,C8,C16.
 // An inconclusive branch or an implementation capacity limit is a failure.
 #include <algorithm>
 #include <array>
@@ -48,16 +48,19 @@ struct Board {
     }
 };
 
-enum class Seed { longestPath, dominatingPath };
+enum class Seed { longestPath, longestEndpoints, dominatingPath };
 
 struct Rules {
     Board &board;
     int r;
     Seed seed;
+    bool triangle_free;
     std::array<Mask, capacity> conflicts{};
     // Used only to choose which low-degree vertex to extend.
     std::array<int, capacity> fewest_options_on_path;
-    Rules(Board &b, int length, Seed kind) : board(b), r(length), seed(kind) {
+    std::array<int, capacity> longest_at_vertex{};
+    Rules(Board &b, int length, Seed kind, bool forbid_triangle)
+        : board(b), r(length), seed(kind), triangle_free(forbid_triangle) {
         fewest_options_on_path.fill(30);
     }
     Mask seed_mask() const { return bit(r) - 1; }
@@ -75,6 +78,7 @@ struct Rules {
     Mask incompatible(int a) {
         if (!conflicts[a]) {
             conflicts[a] = bit(a);
+            if (triangle_free) conflicts[a] |= board.neighbors[a];
             simple_paths(a, bit(a), 0, conflicts[a]);
         }
         return conflicts[a];
@@ -83,6 +87,8 @@ struct Rules {
     // At the tip, available excludes used labels and the neighbors of every
     // earlier vertex. A next step is adjacent only to the current tip.
     bool induced_paths(int start, int tip, Mask used, Mask available, int length) {
+        if (seed == Seed::longestEndpoints)
+            longest_at_vertex[start] = std::max(longest_at_vertex[start], length);
         Mask next = board.neighbors[tip] & available;
         if (length == r) {
             if (next) return true;
@@ -92,7 +98,8 @@ struct Rules {
             }
             return false;
         }
-        if (length + std::popcount(available) < r) return false;
+        if (seed != Seed::longestEndpoints && length + std::popcount(available) < r)
+            return false;
         return any_bit(next, [&](int w) {
             return induced_paths(start, w, used | bit(w),
                                  available & ~board.neighbors[tip], length + 1);
@@ -118,6 +125,7 @@ struct Rules {
 struct Search {
     int r;
     Seed seed;
+    bool triangle_free;
     std::uint64_t nodes = 0;
     int largest = 0;
     bool certify(Board &b) {
@@ -127,8 +135,8 @@ struct Search {
             std::fprintf(stderr, "Unresolved branch at order %d\n", b.size);
             return false;
         }
-        Rules rules(b, r, seed);
-        if (seed == Seed::longestPath && rules.contains_long_path()) return true;
+        Rules rules(b, r, seed, triangle_free);
+        if (seed != Seed::dominatingPath && rules.contains_long_path()) return true;
         int anchor = -1, best_score = 1000000;
         for (int v = 0; v < b.size; ++v) {
             if (std::popcount(b.neighbors[v]) >= 3) continue;
@@ -141,6 +149,10 @@ struct Search {
                 if (v >= r && on_path == 0) { anchor = v; break; }
                 score = 64 * (v < r ? options + 10 : on_path) + options
                         + std::popcount(b.neighbors[v]);
+            } else if (seed == Seed::longestEndpoints) {
+                const int deficit = r - rules.longest_at_vertex[v];
+                const int support = std::min(6, rules.fewest_options_on_path[v]);
+                score = 200 * deficit + 40 * support + 4 * options - v;
             } else {
                 const int support = rules.fewest_options_on_path[v];
                 if (support == 0) { anchor = v; break; }
@@ -162,12 +174,13 @@ struct Search {
     }
 };
 
-bool run(int r, Seed kind) {
+bool run(int r, Seed kind, bool triangle_free = false) {
     Board board(r);
-    Search search{r, kind};
+    Search search{r, kind, triangle_free};
     if (!search.certify(board)) return false;
-    const char *name = kind == Seed::longestPath ? "longest" : "dominating";
-    std::printf("%s P%d: %llu states, largest order %d\n", name, r,
+    const char *name = kind == Seed::dominatingPath ? "dominating" : "longest";
+    std::printf("%s%s P%d: %llu states, largest order %d\n",
+                triangle_free ? "triangle-free " : "", name, r,
                 static_cast<unsigned long long>(search.nodes), search.largest);
     return true;
 }
@@ -175,5 +188,9 @@ bool run(int r, Seed kind) {
 int main() {
     for (int r = 2; r <= 13; ++r)
         if (!run(r, Seed::longestPath)) return EXIT_FAILURE;
-    return run(14, Seed::dominatingPath) ? EXIT_SUCCESS : EXIT_FAILURE;
+    if (!run(14, Seed::dominatingPath) || !run(14, Seed::longestEndpoints) ||
+        !run(15, Seed::dominatingPath)) return EXIT_FAILURE;
+    for (int r = 1; r <= 16; ++r)
+        if (!run(r, Seed::longestPath, true)) return EXIT_FAILURE;
+    return run(17, Seed::dominatingPath, true) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

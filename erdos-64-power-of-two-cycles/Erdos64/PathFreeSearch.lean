@@ -33,7 +33,7 @@ theorem pathBoardCopy {V : Type u} {G : Graph V} {r : Nat} (path : HasInducedPat
 
 /-- Give priority to an endpoint for which a fresh neighbor has few ways to
 avoid extending an existing induced path. The choice affects only running time. -/
-private def pathAnchor (r : Nat) (nbrs : Array Nat) (allowed : Nat → Nat) (h : PathHints) :
+def pathAnchor (r : Nat) (nbrs : Array Nat) (allowed : Nat → Nat) (h : PathHints) :
     Option Anchor := Id.run do
   let mut best : Option Anchor := none
   for v in [:nbrs.size] do
@@ -49,29 +49,32 @@ private def pathAnchor (r : Nat) (nbrs : Array Nat) (allowed : Nat → Nat) (h :
     if best.all (fun old => score < old.score) then best := some a
   return best
 
-def closesPath (r : Nat) : Nat → Array Nat → Bool
+/-- Choose a deficient vertex using any heuristic. Its degree bound and every
+branch of its possible neighborhood are verified independently. -/
+def closesPathWith (selectAnchor : Nat → Array Nat → (Nat → Nat) → PathHints → Option Anchor)
+    (r : Nat) : Nat → Array Nat → Bool
   | 0, _ => false
   | fuel+1, rows =>
     let nbrs := neighborMasks rows
     let hints := pathHints nbrs r
     if longPath rows r hints then true else
     let allowed := allowedAt (allowedRows rows nbrs)
-    match pathAnchor r nbrs allowed hints with
+    match selectAnchor r nbrs allowed hints with
     | none => false
     | some a =>
       decide (a.vertex < rows.size ∧ ∀ i : Fin rows.size,
         adjAt rows a.vertex i.val = true → i.val = a.p ∨ i.val = a.q) &&
       allMasks rows.size a.vertex allowed
-        (fun m => closesPath r fuel (rows.push m))
+        (fun m => closesPathWith selectAnchor r fuel (rows.push m))
 
-theorem closesPath_sound {V : Type u} {G : Graph V} {r : Nat} (d : MinDegreeThree G)
+theorem closesPathWith_sound {selectAnchor} {V : Type u} {G : Graph V} {r : Nat} (d : MinDegreeThree G)
     (noCycles : ¬ (HasCycle G 4 ∨ HasCycle G 8 ∨ HasCycle G 16))
     (noLong : ¬ HasInducedPath G (r+1)) (fuel : Nat) (rows : Array Nat)
-    (c : Copy G rows.size (adjAt rows)) (closed : closesPath r fuel rows = true) : False := by
+    (c : Copy G rows.size (adjAt rows)) (closed : closesPathWith selectAnchor r fuel rows = true) : False := by
   induction fuel generalizing rows with
-  | zero => simp [closesPath] at closed
+  | zero => simp [closesPathWith] at closed
   | succ fuel ih =>
-    rw [closesPath] at closed
+    rw [closesPathWith] at closed
     split at closed
     next h => exact noLong (longPath_sound h c)
     next =>
@@ -86,5 +89,13 @@ theorem closesPath_sound {V : Type u} {G : Graph V} {r : Nat} (d : MinDegreeThre
           allowedRows_sound hi hj ne bi bj noCycles cx)
         obtain ⟨child⟩ := pushCopy cx
         exact ih _ child childClosed
+
+abbrev closesPath := closesPathWith pathAnchor
+
+theorem closesPath_sound {V : Type u} {G : Graph V} {r : Nat} (d : MinDegreeThree G)
+    (noCycles : ¬ (HasCycle G 4 ∨ HasCycle G 8 ∨ HasCycle G 16))
+    (noLong : ¬ HasInducedPath G (r+1)) (fuel : Nat) (rows : Array Nat)
+    (c : Copy G rows.size (adjAt rows)) (closed : closesPath r fuel rows = true) : False :=
+  closesPathWith_sound d noCycles noLong fuel rows c closed
 
 end Erdos64

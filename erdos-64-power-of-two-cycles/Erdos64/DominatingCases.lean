@@ -35,4 +35,10 @@ theorem cycle_of_dominatingP14 {V : Type u} {G : Graph V}
     HasCycle G 4 ∨ HasCycle G 8 ∨ HasCycle G 16 :=
   cycleOfDominatingSeed degree path seed14Closes
 
+/-- Any dominating induced P₁₅ forces one of the three cycle lengths. -/
+theorem cycle_of_dominatingP15 {V : Type u} {G : Graph V}
+    (degree : MinDegreeThree G) (path : HasDominatingInducedPath G 15) :
+    HasCycle G 4 ∨ HasCycle G 8 ∨ HasCycle G 16 :=
+  cycleOfDominatingSeed degree path (by native_decide)
+
 end Erdos64

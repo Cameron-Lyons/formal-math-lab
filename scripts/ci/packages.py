@@ -296,7 +296,11 @@ def run_build(
     if pkg.extra_targets:
         _run_cmd(["lake", "--wfail", "build", *pkg.extra_targets], cwd=pkg_dir)
 
-    if run_leanchecker and not pkg.heavy and pkg.lib_roots:
+    if run_leanchecker and pkg.path == "erdos-64-power-of-two-cycles":
+        # Lean 4.36 segfaults during the per-module replay. Erdos64 imports
+        # the entire package, so a fresh replay checks all its declarations.
+        _run_cmd(["lake", "env", "leanchecker", "--fresh", "Erdos64"], cwd=pkg_dir)
+    elif run_leanchecker and not pkg.heavy and pkg.lib_roots:
         _run_cmd(["lake", "env", "leanchecker", *pkg.lib_roots], cwd=pkg_dir)
 
 

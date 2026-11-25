@@ -333,13 +333,73 @@ verified it for every graph on at most 40 vertices.
 
 Hegde, Sandeep and Shashank proved the conjecture for $P_{13}$-free graphs
 and forced a 4- or 8-cycle in $P_{12}$-free graphs. Their parallel search
-ran out of memory for $P_{14}$. The local theorem forces a simple cycle of
-length 4, 8, or 16 when the forbidden induced subgraph is $P_{14}\sqcup K_1$.
-This hypothesis says exactly that every induced fourteen-vertex path dominates the graph.
-This includes all $P_{14}$-free graphs. Searches under both descriptions
-located no earlier proof of the exact statement. Priority remains unverified.
+ran out of memory for $P_{14}$. This repository first proved the case forbidding
+$P_{14}\sqcup K_1$. The current proof forces a cycle of length 4, 8, or 16
+when the forbidden induced subgraph is $P_{15}\sqcup K_1$, or
+$P_{17}\sqcup K_1$ when the graph is triangle-free. In either case the forbidden
+pattern means that every induced path of the stated order dominates the graph.
+Priority for these exact statements remains unverified.
 [Hegde, Sandeep and Shashank, Theorems 0.1–0.2 and Table 1](https://arxiv.org/html/2410.22842v2) ·
-[Local proof and verification](erdos-64-power-of-two-cycles/README.md)
+[Local proofs and verification](erdos-64-power-of-two-cycles/README.md)
+
+Two further local results cover graphs of pathwidth at most three and abelian
+voltage covers of $K_4$. Bachtler and Heinrich studied unavoidable subgraphs
+of graphs of bounded pathwidth, including short cycles in cubic graphs.
+Burkhart proved the Erdős–Gyárfás conjecture for Cayley graphs of groups of odd
+order and of finite nilpotent groups. Cinna Davis used a voltage and collision
+certificate to prove a sharp bound of 32 for abelian covers of $K_4$ with one
+edge subdivided. The local voltage theorem gives the sharp bound 16 for $K_4$
+itself. Priority for the two local results remains unverified.
+[Bachtler and Heinrich](https://arxiv.org/abs/2010.08373) ·
+[Burkhart](https://arxiv.org/abs/2611.05060) ·
+[Davis, proof for the subdivided tetrahedron](https://itsdavis.com/solved-conjectures/results/erdos-gyarfas-abelian-covers/proof/)
+
+Ducoffe and Dumitru's Lemma 2.1 gives the odd cycle through an edge of a
+minimal counterexample by contraction. The local vertex-identification theorem
+also treats nonedges and pairs with a common neighbor of degree at least four.
+Their §4.1 gives the one-deficient-vertex reduction. Garcia's Proposition 6.2
+asks about the minimum and maximum path lengths in a two-terminal cubic
+fragment and his Theorem 5.1 gives $f(6)\le 32{,}640$. The local work proves
+terminal-path equivalences in Lean and checks a mixed $H_7,H_{15}$ construction
+giving $f(6)\le 8{,}628$. This compares the two explicit bounds. Historical
+priority of the reformulations and construction is unverified.
+[Ducoffe and Dumitru](https://arxiv.org/html/2609.28594v1) ·
+[Garcia](https://arxiv.org/html/2609.04686v1) ·
+[Local unrestricted results](erdos-64-power-of-two-cycles/CounterexampleSearch.md)
+
+Zhou's Theorem 1 already gives $\ell\ge2h+8$ for a counterexample minimal
+in order and then size. Here $\ell$ counts the degree-three vertices and $h$
+the vertices of higher degree. The local component count also bounds the
+number of vertices outside a packing of disjoint triangles when the degree-three
+fraction approaches two thirds.
+[Zhou, Theorems 1–2](https://airaxiv.com/papers/view/2608.0018/) ·
+[Local counting argument](erdos-64-power-of-two-cycles/DegreeComponents.md)
+
+The local treewidth-three proof gives a 4-, 8- or 16-cycle avoiding any prescribed
+edge at minimum degree three. A 34-vertex cubic example attains 16.
+Bodlaender's Theorem 35 gives the 3-tree completion used by the argument.
+A hand proof classifies the pieces at a triangle into six shapes. Lean
+independently certifies the finite profile calculation. Rooted searches exclude every counterexample
+on at most 41 vertices, extending Ducoffe and Dumitru's general verification
+through 40 by one order. The separator searches
+allow arbitrary maximum degree. A binary matrix argument and cubic terminal
+checks put the lower bound for a cubic bipartite counterexample at 136 vertices.
+For a triangle factor in a cubic graph, Salehi Nowbandegani et al. already
+gave the cycle lift from length $r$ to every length from $2r$ through $3r$.
+The local triangle-packing argument also treats heavy corners and uncovered
+vertices in a globally minimal counterexample.
+[Earlier cubic lift, Corollary 7](https://arxiv.org/pdf/1109.5398#page=5) ·
+[Triangle-packing proof](erdos-64-power-of-two-cycles/DegreeComponents.md#contracting-disjoint-triangles)
+
+Historical priority for the precise local
+treewidth and order-41 statements is unverified.
+[Bodlaender](https://cgi.di.uoa.gr/~sgk/teaching/GT/Bodlaender98-bt.pdf) ·
+[Treewidth result](erdos-64-power-of-two-cycles/TreewidthThree.md) ·
+[Order 41](erdos-64-power-of-two-cycles/Order41.md) ·
+[Unrestricted separator reduction](erdos-64-power-of-two-cycles/Separators.md) ·
+[Binary descent](erdos-64-power-of-two-cycles/AlgebraicDescent.md) ·
+[Cubic bipartite bounds](erdos-64-power-of-two-cycles/BipartiteBounds.md) ·
+[Cubic minor and recursive substitution results](erdos-64-power-of-two-cycles/RecursiveGadgets.md)
 
 ## Erdős #556, three-color nine-cycle Ramsey number
 

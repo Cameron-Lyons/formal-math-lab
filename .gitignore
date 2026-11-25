@@ -21,12 +21,7 @@ __pycache__/
 /three-color-t-boards/experiments/exact_msolve_tools/usr/
 /three-color-t-boards/experiments/exact_msolve_tools/msolve
 /three-color-t-boards/experiments/exact_msolve_tools/*.pkg.tar.zst
-/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve
-/three-color-t-boards/experiments/exact_msolve_patched_tools/msolve-*/
 /three-color-t-boards/experiments/exact_msolve_patched_tools/*.tar.gz
-/three-color-t-boards/experiments/exact_msolve_*_promotion_tools/msolve
-/three-color-t-boards/experiments/exact_msolve_*_promotion_tools/msolve-*/
-/three-color-t-boards/experiments/exact_msolve_*_promotion_tools/helper_check
 /three-color-t-boards/experiments/exact_msolve_*_helper_check
 /three-color-t-boards/experiments/exact_msolve_*_tools/msolve
 /three-color-t-boards/experiments/exact_msolve_*_tools/msolve-*

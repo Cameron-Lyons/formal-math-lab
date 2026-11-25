@@ -1,8 +1,0 @@
-{
-  "status": "TEST_HARNESS_LIMIT_TOO_LOW",
-  "scope": "baseline eighth executable failed before candidate ran",
-  "limit_bytes": 805306368,
-  "evidence": "exact_msolve_vector_review_runs_attempt_768m/two-cube-lcm-degree6_eight_g1.log",
-  "candidate_verdict": null,
-  "followup": "restore the 2GiB limit used by the existing independent tiny basis suite"
-}

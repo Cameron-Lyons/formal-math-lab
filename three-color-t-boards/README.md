@@ -18,7 +18,7 @@ The Lean 4 proofs here establish larger lower bounds and a global symmetry theor
 
 ## Main lower bound: at least 45,083,592 boards
 
-There are at least 45,083,592 distinct valid labeled boards, forming 3,756,966 disjoint orbits under color permutation and horizontal reflection. This adds 12,927,912 boards to the earlier 32,155,680-board certificate by including boards whose first six rows are each mirror-symmetric ([SPLICE_PALINDROMES.md](SPLICE_PALINDROMES.md), [SplicePalCertificates.lean](SplicePalCertificates.lean), [tboards-45083592-proof.zip](tboards-45083592-proof.zip)).
+There are at least 45,083,592 distinct valid labeled boards, forming 3,756,966 disjoint orbits under color permutation and horizontal reflection. This adds 12,927,912 boards to the earlier 32,155,680-board certificate by including boards whose first six rows are each mirror-symmetric ([SPLICE_PALINDROMES.md](SPLICE_PALINDROMES.md), [SplicePalCertificates.lean](SplicePalCertificates.lean)).
 
 ```sh
 lake build SplicePalCertificates

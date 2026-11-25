@@ -1,20 +1,20 @@
-# Equation 677 (E677) at orders 9 and 10, and E677 -> E255 — Lean 4 proofs
+# Equation 677 at orders 9 and 10, and E677 -> E255
 
-This Lean 4 project settles **Equation 677** (`E677`) at orders **9** and **10** for the [Equational Theories Project](https://teorth.github.io/equational_theories/):
+Lean 4 proofs for Equation 677 (`E677`) at orders 9 and 10 from the [Equational Theories Project](https://teorth.github.io/equational_theories/):
 
-* **Order 9 (`Nine.eq677_implies_eq255`):** every 9-element magma satisfying **Equation 677** also satisfies **Equation 255** (`E677 => E255`). [Nine.lean](Nine.lean)
-* **Order 10 (`Ten.no_model`, `Ten.eq677_implies_eq255`):** no 10-element magma satisfies **Equation 677** at all (so `E677 => E255` holds vacuously at order 10). [Ten.lean](Ten.lean)
+* Order 9 (`Nine.eq677_implies_eq255` in [Nine.lean](Nine.lean)): every 9-element magma satisfying Equation 677 also satisfies Equation 255.
+* Order 10 (`Ten.no_model` and `Ten.eq677_implies_eq255` in [Ten.lean](Ten.lean)): no 10-element magma satisfies Equation 677, so `E677 => E255` holds vacuously at order 10.
 
-Whether Equation 677 implies Equation 255 in **every** finite magma (`FINITE: E677 -> E255`) remains open. Both the order-9 and order-10 statements were previously reported from unverified Mace4 searches by José Brox (December 2024 and January 2025); this project supplies machine-checked Lean 4 proofs.
+Whether Equation 677 implies Equation 255 in every finite magma remains open. Both the order-9 and order-10 statements were previously reported from unverified Mace4 searches by José Brox (December 2024 and January 2025); this folder provides Lean 4 proofs.
 
 | Field | Summary |
 | --- | --- |
-| **Problem & identifiers** | Equational Theories Project **Equation 677** (`E677`, `Equation677`), **Equation 255** (`E255`, `Equation255`), finite implication `E677 -> E255` and finite magma spectrum of E677 at orders 9 and 10 |
-| **Laws** | **E677:** `x = y ◇ (x ◇ ((y ◇ x) ◇ y))` (`x = y * (x * ((y * x) * y))`) <br> **E255:** `x = ((x ◇ x) ◇ x) ◇ x` (`x = ((x * x) * x) * x`) |
-| **Status** | **Orders 9 and 10 proved in Lean 4** (formalizing Brox's Mace4 reports). The general finite implication `E677 -> E255` remains open. |
-| **Main Lean theorems** | `Nine.eq677_implies_eq255` ([Nine.lean](Nine.lean)), `Ten.no_model` and `Ten.eq677_implies_eq255` ([Ten.lean](Ten.lean)) |
-| **Verification** | `lake build` with `../E670-order-10` beside it (Lean 4.36.0; kernel-checked reduction + LRAT certificates replayed via `native_decide`) |
-| **Prior-art status** | Checked **23–24 November 2026**: both results formalize earlier Mace4 reports; no earlier Lean proof of order 10 located. See [PRIOR_ART.md](../PRIOR_ART.md#e677-at-order-ten). |
+| Problem | Equational Theories Project Equation 677 and Equation 255, finite implication `E677 -> E255`, and finite magma spectrum of E677 at orders 9 and 10 |
+| Laws | E677: `x = y ◇ (x ◇ ((y ◇ x) ◇ y))`; E255: `x = ((x ◇ x) ◇ x) ◇ x` |
+| Status | Orders 9 and 10 proved in Lean 4 (formalizing Brox's Mace4 reports). General finite `E677 -> E255` remains open. |
+| Main theorems | `Nine.eq677_implies_eq255` ([Nine.lean](Nine.lean)), `Ten.no_model` and `Ten.eq677_implies_eq255` ([Ten.lean](Ten.lean)) |
+| Verification | `lake build` with `../E670-order-10` beside it (Lean 4.36.0; kernel-checked reduction + LRAT certificates replayed via `native_decide`) |
+| Prior art | Checked 23-24 November 2026: both results formalize earlier Mace4 reports; no earlier Lean proof of order 10 located. See [PRIOR_ART.md](../PRIOR_ART.md#e677-at-order-ten). |
 
 ## Order 9: E677 implies E255
 
@@ -82,8 +82,8 @@ The optional command `lake env lean --run ExportCNF.lean > nine.cnf` exports the
 
 José Brox reported the order-9 case in December 2024 from a Mace4 search. [Report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#487358914)
 
-For order 10, Brox reported on 22 December 2024 that no 10-element table satisfies Equation 677 and breaks Equation 255, and on 12 January 2025 that no 10-element table satisfies Equation 677 at all, after 39 hours of Mace4. Rudi Schneider reported in November 2025 that his own search program finds every Equation 677 table through size 11, and the ICARM database of Equation 677 tables lists none with ten elements. [First report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#490346469) · [Second report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#493229385) · [Schneider](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#558558838) · [ICARM database](https://eq677.icarm.cloud/size/10)
+For order 10, Brox reported on 22 December 2024 that no 10-element table satisfies Equation 677 and breaks Equation 255, and on 12 January 2025 that no 10-element table satisfies Equation 677 at all, after 39 hours of Mace4. Rudi Schneider reported in November 2025 that his own search program finds every Equation 677 table through size 11, and the ICARM database of Equation 677 tables lists none with ten elements ([first report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#490346469), [second report](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#493229385), [Schneider](https://leanprover-community.github.io/archive/stream/458659-Equational/topic/FINITE.3A.20677.20-.3E.20255.html#558558838), [ICARM database](https://eq677.icarm.cloud/size/10)).
 
-Two reports from 2026 describe SAT refutations of the weaker statement, that no 10-element table satisfies Equation 677 and breaks Equation 255, with DRAT certificates accepted by `drat-trim`. Neither publishes its certificates, and neither is a Lean proof. [Issue 1464](https://github.com/teorth/equational_theories/issues/1464) · [Mission page](https://prove2.me/missions/Equational_Magmas%3A_E677_%E2%86%92_E255_(finite_case))
+Two reports from 2026 describe SAT refutations of the weaker statement, that no 10-element table satisfies Equation 677 and breaks Equation 255, with DRAT certificates accepted by `drat-trim`. Neither publishes its certificates, and neither is a Lean proof ([Issue 1464](https://github.com/teorth/equational_theories/issues/1464), [mission page](https://prove2.me/missions/Equational_Magmas%3A_E677_%E2%86%92_E255_(finite_case))).
 
 Thus the order-10 theorem here is not a new mathematical result; it is a Lean-checked proof of Brox's second report. No earlier Lean proof of it was located, and the Lean spectrum catalogue kept in a fork of the Equational Theories Project lists order 10 as undecided for Equation 677. See the [order-9 audit](../PRIOR_ART.md#e677-implies-e255-at-order-nine) and [order-10 audit](../PRIOR_ART.md#e677-at-order-ten).

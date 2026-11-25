@@ -1,8 +1,8 @@
 # Eighth preserved build: checked byte exponents
 
-This is a dedicated ordinary-F3, serial, exact sparse DRL basis-export executable. It stores each exponent lane in one byte **without reducing exponents modulo 256 or changing polynomial identities**. Every reachable narrowing arithmetic operation is checked before assignment. Overflow or unsupported input exits nonzero before the completed-basis marker.
+This is a dedicated ordinary-F3, serial, exact sparse DRL basis-export executable. It stores each exponent lane in one byte without reducing exponents modulo 256 or changing polynomial identities. Every reachable narrowing arithmetic operation is checked before assignment. Overflow or unsupported input exits nonzero before the completed-basis marker.
 
-Executable: `msolve`, SHA-256 `63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76`. The complete patch against the preserved seventh build is `checked-byte-exponents.patch`, SHA-256 `b97f1f487c27c2a0ddf7641046c36d118451a6231ce3554a69be25e0f24f04c6`. `source.json` records the upstream v0.11.0 archive/commit, all predecessor patches, source/compiler/library hashes and build commands. Previous builds are unchanged. No full-board solve was launched by this build's owner.
+Executable: `msolve`, SHA-256 `63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76`. The complete patch against the preserved seventh build is `checked-byte-exponents.patch`, SHA-256 `b97f1f487c27c2a0ddf7641046c36d118451a6231ce3554a69be25e0f24f04c6`. `source.json` records the upstream v0.11.0 archive/commit, all predecessor patches, source/compiler/library hashes and build commands. Previous builds are unchanged. No full-board solve was run for this build.
 
 ## Accepted scope
 
@@ -30,9 +30,9 @@ This mathematical argument supports the scope restriction. Runtime checks remain
 
 Thus a 97-lane exponent vector occupies 97 rather than 194 bytes. Metadata, bucket arrays, pointers, sparse row indices and coefficients do not shrink. At the previous 3-GiB minimum-fill trial's failed symbolic target of 5,505,024 slots, the exponent slab would shrink by 509.25 MiB; at its latest reported basis capacity 3,801,088 it would shrink by another 351.625 MiB. These are same-capacity calculations, not measured peak process-memory savings. Other arrays, realloc transient copies and unchecked upstream allocations can still cause failure. No speed or full-count completion guarantee follows.
 
-## Owner validation
+## Validation
 
-All valid-model owner solver runs are terminal. `validation.json` records 26 paired completed g1/g2 comparisons against the seventh executable, with byte-identical exports, exactly one completion marker and no error diagnostics. Eleven small F3 models agree with exhaustive enumeration and both independent integer staircase counters. The natural-F3 nine-row board fiber gives quotient dimension 6 directly. The 127-independent-domain fixture gives exact dimension 3^127, checking the maximum supported variable count and large integer counting path. No unrestricted board model was solved.
+`validation.json` records 26 paired completed g1/g2 comparisons against the seventh executable, with byte-identical exports, exactly one completion marker and no error diagnostics. Eleven small F3 models agree with exhaustive enumeration and both independent integer staircase counters. The natural-F3 nine-row board fiber gives quotient dimension 6 directly. The 127-independent-domain fixture gives exact dimension 3^127, checking the maximum supported variable count and large integer counting path. No unrestricted board model was solved.
 
 `guard_check.json` records 39 fail-nonzero parser/model/mode cases: missing or wrongly signed domains, unreduced non-domain terms, field mismatches, malformed variables/factors, huge exponents and coefficients, negative/missing exponents, total degree 381, 128 variables, option integer wrap and unsupported execution modes. Every case lacks both completion marker and nonempty basis export.
 
@@ -40,7 +40,7 @@ All valid-model owner solver runs are terminal. `validation.json` records 26 pai
 
 The original draft is preserved in `rejected_attempt1/`. A missing-domain test showed that guarding only `initialize_gba_input_data` missed the prime CLI's `initialize_modular_trace` route. The candidate now checks the parsed CLI model and the common `import_input_data` boundary, with the original engine guard retained. No full trial used the rejected draft. The valid-model comparisons were repeated after this fix. A later comment-only correction changed the proof formula to max(6,2n+1); a rebuild verifies identical executable bytes.
 
-Independent review by `/root/exact_counter` passed on exactly the frozen source,
+Independent review passed on exactly the frozen source,
 patch and executable above. Its 20 independent small ideals produced 80 g1/g2
 exports agreeing with the seventh build, Python Buchberger and direct F3
 enumeration; 34 independent parser/scope cases rejected. Actual-source
@@ -54,4 +54,4 @@ raw/model audit, without a solver run. See
 
 ## Reproduction
 
-`prepare.py` extracts the pinned source and applies recorded predecessor patches, then applies `finish_scope_fix.py`; it refuses to replace an existing source directory. `build.py` builds with `-O2 -g0`, static project libraries, no OpenMP and `make -j1`, using local dependencies in `../exact_algebra_backend_root/usr`. `validate.py`, `guard_check.py` and `arithmetic_check.py` preserve input, output and logs. Solver comparisons use a 20-second child wall limit and 2-GiB address-space limit; rejection cases use ten seconds. Use a fresh artifact directory for reproduction because saved solver outputs are not overwritten. The parent owns any later full solver trial.
+`prepare.py` extracts the pinned source and applies recorded predecessor patches, then applies `finish_scope_fix.py`; it refuses to replace an existing source directory. `build.py` builds with `-O2 -g0`, static project libraries, no OpenMP and `make -j1`, using local dependencies in `../exact_algebra_backend_root/usr`. `validate.py`, `guard_check.py` and `arithmetic_check.py` preserve input, output and logs. Solver comparisons use a 20-second child wall limit and 2-GiB address-space limit; rejection cases use ten seconds. Use a fresh artifact directory for reproduction because saved solver outputs are not overwritten.

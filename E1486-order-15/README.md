@@ -1,30 +1,30 @@
-# Equation 1486 (E1486 / dual E2126) finite magma spectrum: orders 12, 14, 15, 17, and 26 — Lean 4 proofs
+# Equation 1486 finite magma spectrum (orders 12, 14, 15, 17, and 26)
 
-This Lean 4 project settles all **five** previously unresolved finite orders — **12, 14, 15, 17, and 26** — for **Equation 1486** (`E1486`, dual **Equation 2126** / `E2126`) of the [Equational Theories Project](https://teorth.github.io/equational_theories/):
+Lean 4 proofs settling the five previously unresolved finite orders (12, 14, 15, 17, and 26) for Equation 1486 (`E1486`, dual Equation 2126) of the [Equational Theories Project](https://teorth.github.io/equational_theories/):
 
 $$
 x = (y \star x) \star \bigl(x \star (z \star z)\bigr)
 $$
 
-for all $x, y, z$. In plain-text / ETP notation, the law is `x = (y ◇ x) ◇ (x ◇ (z ◇ z))` (or `(y * x) * (x * (z * z)) = x`).
+for all $x, y, z$, written in ETP notation as `x = (y ◇ x) ◇ (x ◇ (z ◇ z))`.
 
-* **Orders 12, 14, and 15:** **no** finite magma satisfies Equation 1486.
-* **Orders 17 and 26:** explicit finite magmas satisfying Equation 1486 **exist**, verified directly by Lean's kernel with no SAT solver or external imports.
+* Orders 12, 14, and 15: no finite magma satisfies Equation 1486.
+* Orders 17 and 26: explicit finite magmas satisfying Equation 1486 exist, verified directly by Lean's kernel without a SAT solver or external imports.
 
 | Order | Result | Lean theorem | Build command | Trust boundary |
 | --- | --- | --- | --- | --- |
-| **12** | **No model** | `E1486.Order12.noTable` ([Simple/Order12/NoTable.lean](Simple/Order12/NoTable.lean)) | `lake build Simple.Order12.NoTable` | Kernel reduction + 48 SAT/LRAT checks (`bv_decide` / native evaluation) |
-| **14** | **No model** | `E1486.Order14.noTable` ([Simple/Order14/NoTable.lean](Simple/Order14/NoTable.lean)) | `lake build Simple.Order14.NoTable` | Kernel reduction + 63 SAT/LRAT checks (`bv_decide` / native evaluation) |
-| **15** | **No model** | `E1486.Simple.noTable` ([Simple/NoTable.lean](Simple/NoTable.lean)) | `lake build +Simple.NoTable` | Kernel reduction + 36 SAT/LRAT checks (`bv_decide` / native evaluation) |
-| **17** | **Model exists** | `E1486.Order17.exists_table` ([Simple/Order17.lean](Simple/Order17.lean)) | `lake build Simple.Order17` | Pure Lean kernel check (all $17^3 = 4,913$ triples; `propext` only) |
-| **26** | **Model exists** | `E1486.Order26.exists_table` ([Simple/Order26.lean](Simple/Order26.lean)) | `lake build Simple.Order26` | Pure Lean kernel check (all $26^3 = 17,576$ triples; `propext` only) |
+| 12 | No model | `E1486.Order12.noTable` ([Simple/Order12/NoTable.lean](Simple/Order12/NoTable.lean)) | `lake build Simple.Order12.NoTable` | Kernel reduction + 48 SAT/LRAT checks (`bv_decide` / native evaluation) |
+| 14 | No model | `E1486.Order14.noTable` ([Simple/Order14/NoTable.lean](Simple/Order14/NoTable.lean)) | `lake build Simple.Order14.NoTable` | Kernel reduction + 63 SAT/LRAT checks (`bv_decide` / native evaluation) |
+| 15 | No model | `E1486.Simple.noTable` ([Simple/NoTable.lean](Simple/NoTable.lean)) | `lake build +Simple.NoTable` | Kernel reduction + 36 SAT/LRAT checks (`bv_decide` / native evaluation) |
+| 17 | Model exists | `E1486.Order17.exists_table` ([Simple/Order17.lean](Simple/Order17.lean)) | `lake build Simple.Order17` | Pure Lean kernel check (all $17^3 = 4,913$ triples; `propext` only) |
+| 26 | Model exists | `E1486.Order26.exists_table` ([Simple/Order26.lean](Simple/Order26.lean)) | `lake build Simple.Order26` | Pure Lean kernel check (all $26^3 = 17,576$ triples; `propext` only) |
 
 | Field | Summary |
 | --- | --- |
-| **Problem & identifiers** | Equational Theories Project **Equation 1486** (`E1486`, `Equation1486`; opposite dual **Equation 2126**, `E2126`), finite magma spectrum (`Timeroot/equational_theories` remaining small orders `[12, 14, 15, 17, 26]`) |
-| **Law** | `x = (y ◇ x) ◇ (x ◇ (z ◇ z))` (`(y * x) * (x * (z * z)) = x`) |
-| **Spectrum status** | Combined with the ETP fork's proved bounds (no model at 2, 3, 5, 6, 7, 8, 10; model at all other orders outside `{12, 14, 15, 17, 26}`), the finite orders with **no** model of Equation 1486 are exactly **2, 3, 5, 6, 7, 8, 10, 12, 14, and 15**. (The two developments are checked separately, not as one combined Lean theorem.) |
-| **Prior-art status** | Checked **22–24 November 2026**: no earlier proof or model located for any of orders 12, 14, 15, 17, or 26 (bounded search, not a claim of absolute priority). Audits: [order 12](../PRIOR_ART.md#e1486-at-order-12) · [order 14](../PRIOR_ART.md#e1486-at-order-14) · [order 15](../PRIOR_ART.md#e1486-at-order-15) · [order 17](../PRIOR_ART.md#e1486-at-order-17) · [order 26](../PRIOR_ART.md#e1486-at-order-26). |
+| Problem | Equational Theories Project Equation 1486 (opposite dual Equation 2126), finite magma spectrum (`Timeroot/equational_theories` remaining small orders `[12, 14, 15, 17, 26]`) |
+| Law | `x = (y ◇ x) ◇ (x ◇ (z ◇ z))` |
+| Spectrum status | Combined with the ETP fork's proved bounds (no model at 2, 3, 5, 6, 7, 8, 10; model at all other orders outside `{12, 14, 15, 17, 26}`), the finite orders with no model of Equation 1486 are 2, 3, 5, 6, 7, 8, 10, 12, 14, and 15. The two developments are checked separately, not as one combined Lean theorem. |
+| Prior art | Checked 22-24 November 2026: no earlier proof or model located for orders 12, 14, 15, 17, or 26 (bounded search, not a claim of absolute priority). Audits: [order 12](../PRIOR_ART.md#e1486-at-order-12), [order 14](../PRIOR_ART.md#e1486-at-order-14), [order 15](../PRIOR_ART.md#e1486-at-order-15), [order 17](../PRIOR_ART.md#e1486-at-order-17), [order 26](../PRIOR_ART.md#e1486-at-order-26). |
 
 ## Background and overview
 

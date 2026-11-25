@@ -1,6 +1,6 @@
 # Phase 9a: typed byte exponent vectors
 
-Owner validation passes; independent review is pending. This is an API refactor
+Initial validation passes; independent review is pending. This is an API refactor
 of frozen build eight, not a compressed representation. It changes no polynomial
 identity, coefficient operation, field relation, pair-selection rule, or storage
 width. No unrestricted T-board computation was run with this build.
@@ -82,7 +82,7 @@ byte-identical to build eight. This refactor does not repair unrelated upstream
 unchecked allocation sites. A crash, allocation error, overflow, or missing export
 marker remains an incomplete computation, never a zero count.
 
-## Owner validation
+## Validation
 
 - [`validation.json`](validation.json): 26 paired completed g1/g2 comparisons
   against frozen eight. All exports and all symbolic reservation, staging,
@@ -106,7 +106,7 @@ marker remains an incomplete computation, never a zero count.
 - [`source_audit.json`](source_audit.json): access/copy inventory, unchanged
   coefficient kernels and guard headers, and physical-stride audit.
 
-All owner test processes are terminal. These small checks establish regression
+These small checks establish regression
 evidence, not a speedup, a memory saving, or an unrestricted exact T-board count.
 
 ## Reproduction and preserved attempts
@@ -127,7 +127,7 @@ python experiments/exact_msolve_vector_api_tools/boundaries.py
 python experiments/exact_msolve_vector_api_tools/compile.py
 ```
 
-The owner checks are `table_check.py`, `guard_check.py`, `compile_api_check.py`,
+The validation checks are `table_check.py`, `guard_check.py`, `compile_api_check.py`,
 `source_audit.py`, and `PYTHONPATH=experiments python .../validate.py`.
 The basis runner refuses to overwrite prior test input/basis files. Copy or move
 the terminal test set to a new archival directory before an intentional rerun.
@@ -135,7 +135,7 @@ the terminal test set to a new archival directory before an intentional rerun.
 `candidate1/` preserves executable `86d7819c…` and its passing initial evidence.
 `candidate2/` preserves executable `63b1ee04…`, its complete source patch and
 passing tests. The final revision only closes three excluded-mode zeroing
-boundaries that had different upstream cast spelling. The same owner suite was
+boundaries that had different upstream cast spelling. The same test suite was
 rerun on the final bytes. Initial compiler failures and the preparation check
 failure are retained; none produced an accepted solver result.
 

@@ -1,22 +1,22 @@
-# Equation 670 (E670) order 10: no 10-element magma exists — Lean 4 proof
+# Equation 670 at order 10
 
-No 10-element magma (10 × 10 binary operation table) satisfies **Equation 670** of the [Equational Theories Project](https://teorth.github.io/equational_theories/):
+No 10-element magma satisfies Equation 670 of the [Equational Theories Project](https://teorth.github.io/equational_theories/):
 
 $$
 x = y \star \bigl(x \star ((x \star y) \star y)\bigr)
 $$
 
-for all $x, y$. In plain-text / ETP notation, this is `x = y ◇ (x ◇ ((x ◇ y) ◇ y))` (or `y * (x * ((x * y) * y)) = x`), with opposite-operation dual **Equation 2937** (`E2937`).
+for all $x, y$, written in ETP notation as `x = y ◇ (x ◇ ((x ◇ y) ◇ y))`, with opposite-operation dual Equation 2937.
 
 | Field | Summary |
 | --- | --- |
-| **Problem & identifiers** | Equational Theories Project **Equation 670** (`E670`, `Equation670`; dual `E2937`), finite magma spectrum at order 10 |
-| **Law** | `x = y ◇ (x ◇ ((x ◇ y) ◇ y))` (`y * (x * ((x * y) * y)) = x`) |
-| **Status** | **Order 10 settled (no model).** Orders 2, 3, 6, 7, 8 were previously excluded and models exist at 1, 4, 5, 9, 11, and all sufficiently large orders; 10 was the smallest undecided order in the inspected spectrum catalogue. |
-| **Main Lean theorem** | `E670.no_model_of_order_ten` in [E670/Main.lean](E670/Main.lean) |
-| **Additional checks** | Affine models `x * y = a*x + b*y (mod n)` verified for orders 19, 29, 31, 41, 59, 61 in [E670/Examples.lean](E670/Examples.lean) |
-| **Verification** | `lake build` (Lean 4.36.0, stdlib only; kernel-checked reduction + 1,044 LRAT certificates replayed via `native_decide`) |
-| **Prior-art status** | Checked **23 November 2026**: no earlier order-10 exclusion located (bounded search, not a claim of absolute priority). See [PRIOR_ART.md](../PRIOR_ART.md#e670-at-order-10). |
+| Problem | Equational Theories Project Equation 670 (dual Equation 2937), finite magma spectrum at order 10 |
+| Law | `x = y ◇ (x ◇ ((x ◇ y) ◇ y))` |
+| Status | Order 10 settled (no model). Orders 2, 3, 6, 7, 8 were previously excluded and models exist at 1, 4, 5, 9, 11, and all sufficiently large orders; 10 was the smallest undecided order in the inspected spectrum catalogue. |
+| Main theorem | `E670.no_model_of_order_ten` in [E670/Main.lean](E670/Main.lean) |
+| Additional checks | Affine models `x * y = a*x + b*y (mod n)` verified for orders 19, 29, 31, 41, 59, 61 in [E670/Examples.lean](E670/Examples.lean) |
+| Verification | `lake build` (Lean 4.36.0, stdlib only; kernel-checked reduction + 1,044 LRAT certificates replayed via `native_decide`) |
+| Prior art | Checked 23 November 2026: no earlier order-10 exclusion located (bounded search, not a claim of absolute priority). See [PRIOR_ART.md](../PRIOR_ART.md#e670-at-order-10). |
 
 ## Theorem
 

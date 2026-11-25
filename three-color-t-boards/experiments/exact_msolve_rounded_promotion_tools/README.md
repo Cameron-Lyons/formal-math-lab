@@ -77,7 +77,7 @@ retain their established meanings.
 
 ## Completed validation
 
-- All 16 owner comparisons passed: seven small ideals and the known
+- All 16 build comparisons passed: seven small ideals and the known
   six-completion ternary prefix, both `-g1` and `-g2`, byte-identical to the
   third build. Both bigint counters retain quotient dimension 12 and board
   count 6 for that prefix. `-s4` forces a tiny initial hash; two logged
@@ -108,4 +108,4 @@ helper tests. Its compiler permits the known `-Wtype-limits` warning for a
 32-bit exponent-length overflow guard that is trivially false on this
 64-bit build; all other enabled warnings remain errors.
 
-No full T-board solver run was launched by this build or validation task.
+No full T-board solver run was executed during validation.

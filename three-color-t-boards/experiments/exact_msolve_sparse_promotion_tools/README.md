@@ -112,8 +112,8 @@ The executable dynamically uses the recorded FLINT/GMP/MPFR libraries.
 `-l2 -t1 -r1 -c0 -v2`, separately for `-g1` and `-g2`. All runs used a 2 GiB
 address-space cap. Seven small ideals cover cubic domains, mixed equations,
 unit and positive-dimensional ideals. The eighth fixture is the independently
-known six-completion, nine-row ternary prefix over F29. All **16 complete
-leading/full-basis exports were byte-identical**. Finite dimensions were
+known six-completion, nine-row ternary prefix over F29. All 16 complete
+leading/full-basis exports were byte-identical. Finite dimensions were
 checked by two independently implemented Python-bigint staircase counters;
 the positive-dimensional example was rejected as having no finite bound.
 
@@ -155,4 +155,4 @@ exact Python Buchberger computation. The report is
 `../exact_msolve_sparse_review.py`. All passed with the executable hashes
 listed above.
 
-No unrestricted T-board solver run was launched by this validation.
+No unrestricted T-board solver run was executed during validation.

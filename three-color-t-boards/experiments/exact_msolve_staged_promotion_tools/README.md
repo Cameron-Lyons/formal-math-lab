@@ -52,7 +52,7 @@ slab layout. The count must equal the previously computed missing count.
 Mask values outside zero/one/two, inconsistent layouts, arithmetic overflow
 and allocation failure terminate nonzero.
 
-It then scans **increasing old symbolic IDs**. If the selected IDs are
+It then scans increasing old symbolic IDs. If the selected IDs are
 `i1 < i2 < ...`, their one-based ranks satisfy `k <= ik`. Copying the vector
 at `ik` to slot `k` therefore cannot overwrite a source whose old ID has not
 yet been visited. `memmove` handles same-block overlap, and slot zero is
@@ -64,8 +64,8 @@ metadata, bucket storage and exponent-pointer arrays are freed; a checked
 shrinking realloc releases the unused slab suffix. A failed shrink retains
 no success status and exits before the eventual basis-export marker.
 
-Basis import still visits missing columns in the original **ascending
-column order**. It reads each vector from the packed slot recorded in `hcm`
+Basis import still visits missing columns in the original ascending
+column order. It reads each vector from the packed slot recorded in `hcm`
 and calls the unchanged insertion function. Existing IDs do not change;
 new IDs are assigned in precisely the same order as the fifth build. The
 existing postcondition verifies that the number of actually inserted
@@ -117,7 +117,7 @@ before this boundary. This patch cannot fix that earlier failure. It also
 cannot reduce the size of the eventual persistent basis. The original
 legacy grower's allocation behavior remains unchanged outside this scope.
 
-## Completed owner validation
+## Completed validation
 
 - `helper_check.py` extracts the actual upstream lookup, insertion, reserve,
   staging, clean, copy, secondary initialization, reinitialization, reset
@@ -149,17 +149,17 @@ Independent review also passed against these frozen hashes:
   16 large-to-2048 resets and three zero-missing boundary stages. Independent
   linear lookup verifies vectors, mappings, stable IDs and all borrowed
   pointers/scalars. Ten allocation failures and eleven invalid layouts
-  terminate nonzero. This is separate from the owner's actual upstream
+  terminate nonzero. This is separate from the actual upstream
   lookup/growth/reset harness.
 - `../exact_msolve_staged_basis_review_results.json` verifies twelve complete
   F2 ideals, with 24 exports byte-identical to the fifth build and equal to
   a Python Buchberger reference. Three actual staging rounds and 33 bitset
   rounds are exercised.
 
-`f3_validation.json` additionally checks the parent-audited natural F3
+`f3_validation.json` additionally checks the previously audited natural F3
 nineteen-variable, 99-generator fixed fiber. Both leading/full exports are
 byte-identical to the fifth build; both bigint counters give dimension six
 directly, with no extension divisor. The frozen staging gate is F2-only, so
 this is a compatibility check and does not enable compaction for F3.
 
-No full T-board count was run by this build-validation task.
+No full T-board count was run during validation.

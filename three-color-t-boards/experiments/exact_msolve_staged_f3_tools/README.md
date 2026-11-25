@@ -7,7 +7,7 @@ is retained: exact option two, serial execution, no trace/normal form/final
 reduction/elimination block, ordinary basis export, and actual basis-capacity
 growth. Fields other than two and three retain the old path.
 
-The characteristic-two bitset kernel remains **F2-only**. F3 uses the existing
+The characteristic-two bitset kernel remains F2-only. F3 uses the existing
 generic exact coefficient arithmetic; only its coefficient-independent
 post-LA exponent-storage compaction is newly enabled. The compaction helper,
 hash lookup, reservation, import ordering and ownership logic are byte-for-byte
@@ -31,12 +31,12 @@ Unchanged `hash.c` has SHA256
 The overlap-direction proof, stable insertion order, private/borrowed ownership
 audit and exact memory-model limitations are in
 `../exact_msolve_staged_promotion_tools/README.md`. The 49 actual upstream
-owner hash/reuse cases and 1,200 independently checked helper cases apply to
+hash/reuse cases and 1,200 independently checked helper cases apply to
 the identical compaction code here. They include allocation failures,
 zero-missing stages, inverse-map permutations and subsequent legacy reuse.
 
 `validation.py` / `validation.json` record twenty completed g1/g2 comparisons
-against the frozen F2-only sixth build. Eight F3 ideals include the parent-
+against the frozen F2-only sixth build. Eight F3 ideals include the previously
 audited natural 19-variable/99-generator fixed nine-row fiber. Its quotient
 dimension is six by both independent bigint counters, directly with divisor
 one. Two F3 runs exercise actual staged hash import with nonzero coefficients
@@ -56,5 +56,4 @@ match both the frozen sixth build and a Python Buchberger reference. Nine
 also match exhaustive F3 enumeration. Three actual F3 staging rounds and
 zero F2 bitset rounds are recorded.
 
-All owner/reviewer validation runs are terminal. No full T-board solver was
-launched by either build-validation task.
+No full T-board solver was run during validation.

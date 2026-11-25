@@ -123,4 +123,4 @@ not claim to validate upstream out-of-memory behavior. See `helper_check.c`,
 and sanitizer commands. The independent review separately checks failure
 paths and complete small bases.
 
-No full T-board run was launched by this build or validation task.
+No full T-board run was executed during validation.

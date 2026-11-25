@@ -175,6 +175,5 @@ Independent review passed against the frozen executable and kernel hashes:
 
 The reviewer retained an initial baseline failure under a 1 GiB address-space
 cap. Repeating at the established 2 GiB cap succeeds; it is not a candidate
-regression or a completed basis result. All owner and reviewer processes are
-terminal. No full T-board computation has been run with this build by either
-validation task.
+regression or a completed basis result. No full T-board computation was run
+during validation.

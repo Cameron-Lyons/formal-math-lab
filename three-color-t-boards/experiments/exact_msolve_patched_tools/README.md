@@ -2,7 +2,7 @@
 
 This separate local build changes no Gröbner-basis mathematics. It checks the completed F4 call for errors, exports the basis using the existing writer, emits `MSOLVE_PRIME_GB_EXPORT_COMPLETE`, and returns before enumerating the standard monomials. The early return applies only to prime-field `-g 1` and `-g 2` requests. No T-board counting run was performed during this build validation.
 
-The executable is `experiments/exact_msolve_patched_tools/msolve`. Root's adapter can use it with:
+The executable is `experiments/exact_msolve_patched_tools/msolve`. The adapter can use it with:
 
 ```sh
 --executable experiments/exact_msolve_patched_tools/msolve --library-dir experiments/exact_algebra_backend_root/usr/lib --require-export-marker

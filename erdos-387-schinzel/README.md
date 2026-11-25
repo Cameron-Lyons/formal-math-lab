@@ -1,25 +1,25 @@
-# Erdős Problem #387 (Erdos #387), Schinzel's conjecture (Colloq. Math. P 217) for all large $k$ — Lean 4 proof
+# Erdős Problem #387: Schinzel's conjecture for all large $k$
 
-**Status: Schinzel's conjecture is proved for all sufficiently large $k$; the headline problem is a different question, already answered elsewhere.** If $k$ is large and not a prime power, there is an $n$ such that none of $n, n-1, \dots, n-k+1$ divides the binomial coefficient $\binom{n}{k}$. Schinzel (1958) proved that there is no such $n$ when $k$ is a prime power, and asked in Problem P 217 whether this happens for infinitely many other $k$, expecting a negative answer. The threshold is not explicit, so nothing is proved about any specific $k$.
+If $k$ is sufficiently large and not a prime power, there is an $n$ such that none of $n, n-1, \dots, n-k+1$ divides $\binom{n}{k}$. Schinzel (1958) proved that no such $n$ exists when $k$ is a prime power and asked in Colloq. Math. Problem P 217 whether this holds for infinitely many other $k$, expecting a negative answer. The Lean 4 proof here settles Schinzel's conjecture for all sufficiently large $k$. The threshold is not explicit, so nothing is proved for any specific $k$. The headline problem is a separate question answered elsewhere.
 
 | Field | Summary |
 | --- | --- |
-| **Problem & identifiers** | **Erdős Problem #387, Schinzel variant** (`Erdos #387`, `erdosproblems.com/387`), Colloq. Math. Problem P 217, divisors of binomial coefficients, `erdos_387.variants.schinzel` in `FormalConjectures/ErdosProblems/387.lean` |
-| **Status** | **Variant proved** (eventual form). The explicit form, for every $k \ge 35$ that is not a prime power, remains open as far as known. |
-| **Main Lean theorems** | `main : type_of% @Erdos387.erdos_387.variants.schinzel` in [Erdos387.lean](Erdos387.lean) |
-| **Written proof** | [Erdos387.md](Erdos387.md), with the same lemma numbers as the Lean file |
-| **Verification** | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos387` (Lean 4.33.1 + Formal Conjectures) |
-| **Prior-art status** | Checked **25 November 2026**: no earlier proof of the all-large-$k$ statement located. Erdős wrote in 1985 that Lacampagne and Selfridge probably could do this; no paper was found. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k). |
+| Problem | Erdős Problem #387, Schinzel variant (`erdosproblems.com/387`), Colloq. Math. P 217, `erdos_387.variants.schinzel` in `FormalConjectures/ErdosProblems/387.lean` |
+| Status | Eventual form proved. The explicit form (every non-prime-power $k \ge 35$) remains open. |
+| Main theorem | `main : type_of% @Erdos387.erdos_387.variants.schinzel` in [Erdos387.lean](Erdos387.lean) |
+| Written proof | [Erdos387.md](Erdos387.md), with the same lemma numbers as the Lean file |
+| Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos387` (Lean 4.33.1 + Formal Conjectures) |
+| Prior art | Checked 25 November 2026: no earlier proof of the all-large-$k$ statement located. Erdős wrote in 1985 that Lacampagne and Selfridge could probably do this, though no paper was found. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k). |
 
 ## Idea of the proof
 
-By Kummer's theorem and the Chinese remainder theorem it is enough to choose, for every prime $p \le k$, a residue class $a_p$ with $k \bmod p < a_p \le p$ such that these classes cover $1, \dots, k$ (Schinzel). Start with the class zero for all primes. Move the largest prime factor of $k$ to the class 1, and one auxiliary prime to a class that contains many large primes. The uncovered numbers $n$ are then covered one by one in order of their level $\min(n, k-n)$, each by a fresh prime. A parity argument shows that moving this prime uncovers only numbers of higher level. Chebyshev's bounds and Størmer's theorem show that fresh primes do not run out, and the few numbers left at the end are covered by large primes.
+By Kummer's theorem and the Chinese remainder theorem, it is enough to choose for each prime $p \le k$ a residue class $a_p$ with $k \bmod p < a_p \le p$ so that these classes cover $1, \dots, k$ (Schinzel). Start with class zero for all primes. Move the largest prime factor of $k$ to class 1, and move one auxiliary prime to a class containing many large primes. The remaining uncovered numbers $n$ are covered one by one in order of their level $\min(n, k-n)$, each by a fresh prime. A parity argument shows that moving this prime uncovers only numbers of higher level. Chebyshev's bounds and Størmer's theorem show that fresh primes do not run out, and the few numbers left at the end are covered by large primes.
 
-The proof is long: about 2,400 lines of Lean.
+The proof is about 2,400 lines of Lean.
 
 ## Reproduce
 
-Run from this directory with the pinned Lean **4.33.1** toolchain:
+Run from this directory with the pinned Lean 4.33.1 toolchain:
 
 ```sh
 lake exe cache get
@@ -27,14 +27,14 @@ lake build
 LEAN_NUM_THREADS=1 lake env leanchecker Erdos387
 ```
 
-`lake build` checks the proof, that the type of `main` comes from the upstream statement (`type_of%`), and that `main` uses only the axioms `propext`, `Classical.choice` and `Quot.sound`. `leanchecker` replays the module in the Lean kernel. The first build also compiles the part of Formal Conjectures that the statement imports, which takes a while. Formal Conjectures is a dependency pinned at commit `9097e2f9`; only its statements, definitions and proved lemmas are used, never the theorem it leaves as `sorry`.
+`lake build` checks the proof, verifies that the type of `main` matches the upstream statement (`type_of%`), and confirms that `main` uses only `propext`, `Classical.choice`, and `Quot.sound`. `leanchecker` replays the module in the Lean kernel. The first build also compiles the part of Formal Conjectures imported by the statement. Formal Conjectures is pinned at commit `9097e2f9`; only its statements, definitions, and proved lemmas are used, never the theorem it leaves as `sorry`.
 
-The mathematics, the Lean proof and the literature searches are the work of AI agents. **No human has reviewed this project.**
+The mathematics, Lean proof, and literature searches are the work of AI agents. No human has reviewed this project.
 
 ## References and attribution
 
-* A. Schinzel, [*Sur un problème de P. Erdős*](https://doi.org/10.4064/cm-5-2-198-204), Colloq. Math. 5 (1958) 198–204, with a letter of Erdős (5 February 1957); *P 217, R 1*, Colloq. Math. 10 (1963) 365.
-* [Erdős Problems #387](https://www.erdosproblems.com/387) · [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/387.lean#L62)
-* H. M. Bui, S. Naprienko, K. Pratt and A. Zaharescu, [arXiv:2605.21221](https://arxiv.org/abs/2605.21221), answered the headline problem and give covers for many $k$, though not for all large ones. P. Erdős, [Rocky Mountain J. Math. 15 (1985)](https://users.renyi.hu/~p_erdos/1985-27.pdf), pp. 358–359, has the remark on Lacampagne and Selfridge.
-* The reduction to a cover, the default class zero, the auxiliary prime and the large primes at the end are due to Schinzel and Erdős. Full credits are in [Erdos387.lean](Erdos387.lean) and [Erdos387.md](Erdos387.md#what-is-new-and-what-is-borrowed).
-* [Dated prior-art audit](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k)
+* A. Schinzel, [*Sur un problème de P. Erdős*](https://doi.org/10.4064/cm-5-2-198-204), Colloq. Math. 5 (1958) 198-204, with a letter of Erdős (5 February 1957); *P 217, R 1*, Colloq. Math. 10 (1963) 365.
+* [Erdős Problems #387](https://www.erdosproblems.com/387) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/387.lean#L62)
+* H. M. Bui, S. Naprienko, K. Pratt, and A. Zaharescu, [arXiv:2605.21221](https://arxiv.org/abs/2605.21221), answered the headline problem and give covers for many $k$, though not all large ones. P. Erdős, [Rocky Mountain J. Math. 15 (1985)](https://users.renyi.hu/~p_erdos/1985-27.pdf), pp. 358-359, has the remark on Lacampagne and Selfridge.
+* The reduction to a cover, default class zero, auxiliary prime, and large primes at the end are due to Schinzel and Erdős. Full credits are in [Erdos387.lean](Erdos387.lean) and [Erdos387.md](Erdos387.md#what-is-new-and-what-is-borrowed).
+* [Prior-art audit](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k)

@@ -20,17 +20,19 @@ The E17260 project supplies partial obstructions; finite nontrivial existence
 remains open in the sources checked on **23 November 2026**.
 The Erdős #708 project formalizes C. Bergström’s previously proved value $g(6)=8$
 and uses John Tripodo’s Lean bounds for four and five integers.
+For Erdős #602 and the variants of Erdős #211, #338, #344, #387 and #1066, limited searches up to **25 November 2026** found no earlier proof of the exact statements;
+the #1066 result is a short corollary of D. de Caen’s theorem of 2000.
 None of these searches proves the absence of an earlier or unpublished result.
-
-## Box-free colorings of the 6 × 7 grid
-
-Checked **24 November 2026**. Genkin’s version 2 constructs a box-free 6 × 7 × 50 coloring and gives 52 as the upper bound. Question 8.1 asks whether the bound can be attained. The local project supplies an explicit 52-layer coloring and a Lean proof of the exact maximum. [Genkin, Theorem 5.1 and Question 8.1](https://zenodo.org/records/24457907) · [Coloring](box-free-6x7/BoxFree/Construction.lean) · [Exact-height theorem](box-free-6x7/BoxFree.lean)
 
 ## Queen domination on the 48 × 48 board
 
 Checked **24 November 2026**. Östergård and Weakley give a 25-queen placement. Davies identifies 48 as the next open even board in §9 of his 21 November preprint. The project verifies the published placement and excludes 24 by exhaustive enumeration in compiled Lean. [Published placement, pp. 10–11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/) · [Davies, §9](https://hexagonmath.org/pdf/2611.00830v1#page=19) · [Proof and checker](queen-domination-48/README.md)
 
 The SAT project gives a second, independent proof of $\gamma(Q_{48}) = 25$ with Davies' frame method, and also $i(Q_{48}) = 25$ for independent dominating sets; Östergård and Weakley had both numbers in {24, 25}. No earlier determination of $i(Q_{48})$ was found, but only Davies' paper and a brief web search were consulted. [Proof and certificates](queen-domination-48-sat/README.md)
+
+## Box-free colorings of the 6 × 7 grid
+
+Checked **24 November 2026**. Genkin’s version 2 constructs a box-free 6 × 7 × 50 coloring and gives 52 as the upper bound. Question 8.1 asks whether the bound can be attained. The local project supplies an explicit 52-layer coloring and a Lean proof of the exact maximum. [Genkin, Theorem 5.1 and Question 8.1](https://zenodo.org/records/24457907) · [Coloring](box-free-6x7/BoxFree/Construction.lean) · [Exact-height theorem](box-free-6x7/BoxFree.lean)
 
 ## Two triples producing nine squares
 
@@ -399,6 +401,30 @@ imports those upper bounds from the revision cited in his preprint.
 Comparison updated **23 November 2026**. At $k=16$, the September 2026 discussion excludes point symmetries of orders 19, 23, 29, and 31. Separate computations exclude two groups acting on a single Steiner system. The local project proves restrictions on involutions, point symmetries of orders 11 and 13, and regular abelian groups acting on a coloring. An earlier result on automorphisms of $S(4,5,21)$ also implies the order-11 exclusion and the exclusion of a single 13-cycle. The unrestricted coloring problem remains open. [Kolotoğlu and Magliveras (2014)](https://onlinelibrary.wiley.com/doi/10.1002/jcd.21370) · [September 28 argument](https://www.erdosproblems.com/forum/thread/835#post-9219) · [Steiner-system computations](https://github.com/veljjanoski/erdos835) · [Local proofs and comparison with earlier work](erdos-835-coloring-subsets/README.md#relation-to-earlier-work)
 
 <a id="seven-cycle"></a>
+
+## Erdős #602, countable sets with no singleton intersections
+
+Checked **25 November 2026**. Komjáth’s question, published by Erdős in 1987, asks whether every family of countably infinite sets with finite pairwise intersections, none of size 1, has Property B. The local project proves the unrestricted statement. Two limited searches found no earlier proof, formal or informal, and no published theorem that implies it. Known before: finite families (Lovász), countable families and families with a minimal hitting set or a suitable well-ordering (Ahlswede–Khachatrian, P. L. Erdős, Soukup), and uniformly bounded intersections (Miller, Erdős–Hajnal, Komjáth). Every ingredient of the proof is known; what appears to be new is the combination. Komjáth’s paper of 1989 was read only in abstract, and partial work was public in grandchallenge/MATHSOLVE on 24 November. [Erdős 1987, item 12](https://www.renyi.hu/~p_erdos/1987-28.pdf) · [Komjáth 1989](https://doi.org/10.1016/S0195-6698(89)80071-X) · [Formal statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/602.lean#L78) · [Sources and credits](erdos-602-property-b/Erdos602.lean)
+
+## Erdős #1066, minimum distances in higher dimensions
+
+Checked **25 November 2026**. Pollack (1985) reports that Erdős asked for a proof or disproof of $g_d(n) > cn/d$. The local project disproves it for a constant independent of $d$ and $n$. **The result is a short corollary of D. de Caen’s construction of $2(d+1)^2/9$ equiangular lines (2000).** Three limited searches, the last with the vocabulary of equiangular lines, found no one who had drawn this conclusion, but it may well be known to experts. The norm argument is already used for one special system by Ismailescu, Lee and Lee on 18 November 2026. A draft repository of May 2026 conjectures the opposite. Bezdek, Naszódi and Visy (2003), the main unread source, and the problem’s forum posts should be checked. [de Caen](https://doi.org/10.37236/1533) · [Ismailescu, Lee and Lee](https://arxiv.org/abs/2611.23767) · [Kalai’s survey](https://arxiv.org/abs/1505.04952) · [Formal statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/1066.lean#L126) · [Sources and credits](erdos-1066-higher-dimensions/Erdos1066.lean)
+
+## Erdős #344, the square root of 2N variant
+
+Checked **25 November 2026**. The headline problem, with some absolute constant, is due to Szemerédi and Vu (2006; see also Chen 2003), and has a public Lean proof. For the constant $\sqrt2$, which is listed as open by Formal Conjectures, two limited searches found no earlier proof. The question goes back to Folkman (1966). Much is close to published work: a theorem of Bergelson and Simmons (2017) appears to give Case 2 under a gcd condition, and Case 1 is close to a lemma of Fan (2026). Remarks of Hegyvári (2000) and Chen (2003), without proof, conflict or may conflict with the theorem. [Folkman](https://doi.org/10.4153/CJM-1966-065-2) · [Szemerédi–Vu](https://doi.org/10.4007/annals.2006.163.1) · [Bergelson–Simmons](https://arxiv.org/abs/1507.02208) · [Fan](https://arxiv.org/abs/2607.14071) · [Formal statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/344.lean#L71) · [Sources and credits](erdos-344-sqrt-two/Erdos344.lean)
+
+## Erdős #211, the constant one sixth
+
+Checked **25 November 2026**. Erdős (1984) wondered whether the constant $1/6$ is possible in Beck’s theorem and advised to look for a counterexample first. Two limited searches found no earlier disproof and no published point set with $o(n)$ points on any line and fewer than about $n^2/6$ lines. The line count is not claimed as new mathematics: for a close relative of the point set it follows from Schmidt’s count of primitive sublattices (1998). The book of Brass, Moser and Pach and the papers of Schmidt and Beck were not opened. [Erdős 1984](https://users.renyi.hu/~p_erdos/1984-18.pdf) · [de Zeeuw](https://arxiv.org/abs/1802.08015) · [Schmidt’s theorem, as quoted](https://arxiv.org/abs/0810.0234) · [Formal statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/211.lean#L67) · [Sources and credits](erdos-211-one-sixth/Erdos211.lean)
+
+## Erdős #387, Schinzel’s conjecture for large k
+
+Checked **25 November 2026**. The headline problem was answered by Bui, Naprienko, Pratt and Zaharescu. Schinzel’s Problem P 217 (1958) is a separate question. No earlier proof for all large $k$ was found. Erdős wrote in 1985 that Lacampagne and Selfridge “probably can find such n for every k ≠ p^α”; no paper was found, and it is not known what they had. The main devices (the reduction to a cover, an auxiliary prime, large primes at the end) are due to Schinzel and Erdős. MathSciNet, Guy B34 and Erdős, Lacampagne and Selfridge (1993) were not seen. [Schinzel 1958](https://doi.org/10.4064/cm-5-2-198-204) · [Erdős 1985](https://users.renyi.hu/~p_erdos/1985-27.pdf) · [Bui, Naprienko, Pratt and Zaharescu](https://arxiv.org/abs/2605.21221) · [Formal statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/387.lean#L62) · [Sources and credits](erdos-387-schinzel/Erdos387.lean)
+
+## Erdős #338, restricted order bounded by the order
+
+Checked **25 November 2026**. Two limited searches found no earlier bound on the restricted order that depends only on the order. The strategy is that of Chen, Yang and Zhao (18 November 2026), who characterize the bases with a restricted order; their proofs appear to give such a bound by a compactness argument, so the uniform bound should not be described as out of reach of their method. Earlier instances are in Veljjanoski’s note of 1 October 2026. Hegyvári, Hennecart and Plagne (2003) was not available. [Erdős–Graham 1980](https://static.renyi.hu/~p_erdos/1980-22.pdf) · [Chen, Yang and Zhao](https://github.com/csq20180327/Erdos338) · [Veljjanoski](https://github.com/veljjanoski/erdos338) · [Formal statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/338.lean#L97) · [Sources and credits](erdos-338-restricted-order/Erdos338.lean)
 
 ## Written on the Wall II, Graph Conjecture 133
 

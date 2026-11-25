@@ -2,13 +2,13 @@
 
 Machine-checked **Lean 4** proofs, exact finite-case solutions, counterexample obstructions, and reproducible computations across **combinatorics, Ramsey theory, finite algebra (Equational Theories Project), number theory, Erdős problems, OEIS conjectures, and discrete geometry**.
 
-Every project folder is a self-contained Lake package with an exact mathematical statement, canonical identifiers (arXiv, DOI, OEIS, Erdős #, Equational Theories Project equation numbers), named Lean theorem endpoints, reproduction commands, explicit trust boundaries, and a dated [prior-art audit](PRIOR_ART.md) (updated **24 November 2026**). "No earlier proof located" describes only the sources searched and does not certify absolute historical priority.
+Every project folder is a self-contained Lake package with an exact mathematical statement, canonical identifiers (arXiv, DOI, OEIS, Erdős #, Equational Theories Project equation numbers), named Lean theorem endpoints, reproduction commands, explicit trust boundaries, and a dated [prior-art audit](PRIOR_ART.md) (updated **25 November 2026**). "No earlier proof located" describes only the sources searched and does not certify absolute historical priority.
 
 ---
 
 ## Settled problems, exact values, and proved recurrences
 
-These projects completely settle an open finite case, determine an exact threshold/parameter value, or prove a stated conjecture or recurrence in Lean 4.
+These projects completely settle an open finite case, determine an exact threshold/parameter value, or prove or refute a stated conjecture or recurrence in Lean 4.
 
 | Problem & canonical identifiers | Result proved here | Prior-art & novelty status |
 | --- | --- | --- |
@@ -22,6 +22,12 @@ These projects completely settle an open finite case, determine an exact thresho
 | **[Seven-cycle Ramsey threshold `R_3^2(C_7) = 11`](seven-cycle/)** (at most 2 cyclic color/colour changes, **Allen et al. Problem 22**, `arXiv:2607.03243`) | **Exact threshold $R_3^2(C_7) = 11$.** Every 3-edge-coloring of $K_{11}$ has a $C_7$ with $\le 2$ cyclic color changes; an explicit coloring of $K_{10}$ avoids one. | No earlier proof of this exact threshold located. Settles one finite case of Allen–Böttcher–Clemens–Hamann–Skokan–Taraz Problem 22. |
 | **[Manabe's subtraction game `{3, 8, 11k + 7}`](manabe-residue-seven/)** (`arXiv:2609.05358` Example 1, Sprague–Grundy nim-value 3) | **For every $k \ge 1$, the unique heap with Grundy value 3 is $n = 11k + 10$**, with least preperiod $11k + 11$ and eventual period $11k + 10$. | No earlier proof of the singleton-3 statement for all $k \ge 1$ located; REUF working notes anticipate the repeating block. |
 | **[Erdős Problem #708 (`Erdos #708`) for six integers: `g(6) = 8`](erdos-708-six/)** (interval products for 6 integers, `erdosproblems.com/708`) | **Exact value $g(6) = 8$.** Every block of $\max A$ consecutive integers contains $\le 8$ distinct entries whose product is divisible by $\prod_{a \in A} a$ for $|A| = 6$, and 8 is sharp. | Formalizes C. Bergström's previously proved value $g(6) = 8$ (`10.5281/zenodo.24366897`) using John Tripodo's Lean bounds for $n = 4, 5$. General $g(n) \le 2n$ remains open. |
+| **[Erdős Problem #602 (`Erdos #602`): Property B without singleton intersections](erdos-602-property-b/)** (Komjáth's question, almost disjoint countable sets, `FormalConjectures/ErdosProblems/602.lean`) | **Answered "yes" in full.** Every family of countably infinite sets with finite pairwise intersections, none of size 1, has a 2-coloring in which no set is monochromatic (ZFC only). | No earlier proof of the unrestricted statement located in two limited searches (25 November 2026). Finite, countable and several other special families were known. |
+| **[Erdős Problem #1066 (`Erdos #1066`), higher dimensions](erdos-1066-higher-dimensions/)** (minimum-distance graphs, `g_d(n) >= cn/d`, `erdos_1066.variants.higher_dim`) | **Variant refuted.** For $A = 2^m$, $d = 6A^2$, $n = 4A^4$, at most $2A + 2$ of some $n$ points of $\mathbb{R}^d$ with minimum distance 1 are pairwise at distance $> 1$. | A short corollary of de Caen's equiangular lines (2000); no one was found who had drawn this conclusion. The planar headline problem remains open. |
+| **[Erdős Problem #344 (`Erdos #344`), the $\sqrt{2N}$ variant](erdos-344-sqrt-two/)** (subcomplete sets, Folkman 1966, `erdos_344.variants.sqrt_two`) | **Variant proved.** If $A$ has at least $\sqrt{2N}$ elements up to $N$ for all large $N$, its sums of distinct elements contain an infinite arithmetic progression. | No earlier proof located; close to Bergelson–Simmons (2017) and Fan (2026). The headline problem is due to Szemerédi and Vu. |
+| **[Erdős Problem #211 (`Erdos #211`), the constant 1/6](erdos-211-one-sixth/)** (Beck's theorem, determined lines, `erdos_211.variants.one_sixth`) | **Variant refuted.** Arbitrarily large sets of $n$ points with $O(n^{2/3})$ on any line determine at most $0.166\,n^2$ lines. | No earlier disproof located. Beck's theorem is not affected, and nothing is proved for $k$ below about $0.996\,n$. |
+| **[Erdős Problem #387 (`Erdos #387`), Schinzel's conjecture for large $k$](erdos-387-schinzel/)** (Colloq. Math. P 217, `erdos_387.variants.schinzel`) | **Variant proved.** For every large $k$ that is not a prime power, some $n$ has none of $n, \dots, n-k+1$ dividing $\binom{n}{k}$. | No earlier proof for all large $k$ located. The threshold is not explicit. The headline problem was answered by Bui, Naprienko, Pratt and Zaharescu. |
+| **[Erdős Problem #338 (`Erdos #338`), restricted order bounded by the order](erdos-338-restricted-order/)** (additive bases, Erdős–Graham 1980 question 3(ii), `erdos_338.variants.bounded_by_order`) | **Variant proved.** If a basis of order $h$ has a restricted order, then it is at most $f(h)$, with $f$ explicit and independent of the basis. | No earlier bound depending only on $h$ located; follows the strategy of Chen, Yang and Zhao (18 November 2026). The headline question is not addressed. |
 | **[Three-column binary matrices (`OEIS A401159`)](three-column-matrices/)** (`n x 3` `(0, 1)`-matrices with row/column sums $\le 2$, R. J. Mathar) | **Exact formula $H^3 - n^4 + \binom{n}{2}$** where $H = 1 + n + \binom{n}{2}$ for all $n \ge 0$, matching Mathar's degree-6 polynomial. | Confirms Mathar's OEIS A401159 conjecture; mathematically implied by Adler–Ross (2001). |
 | **[Binomial recurrence (`OEIS A026019`)](a026019-binomial-recurrence/)** (`a(n) = C(3n, n) - C(3n, n-3)`, R. J. Mathar) | **Proves Mathar's three-term polynomial recurrence** for all $n \ge 2$ over $\mathbb{Z}$ (with negative lower binomial indices equal to 0). | No earlier explicit proof located, but Georg Fischer's first-order recurrence in jOEIS (6 Nov 2026) implies it; priority unverified. |
 | **[Nonlinear-to-linear recurrence (`OEIS A176755`)](a176755-linear-recurrence/)** (`a(n+1) = sum a(p)a(n-p) - 2`, R. J. Mathar / Georg Fischer) | **Proves Mathar's five-term linear polynomial recurrence** for all $n \ge 4$ via formal power series over $\mathbb{Z}[[x]]$. | Covered by Georg Fischer's January 2020 general recurrence (OEIS A176604/A176755). Independently formalized Lean 4 proof. |
@@ -64,7 +70,7 @@ Each project has its own Lake configuration and pinned `lean-toolchain`:
 * **Lean 4.35.0** (stdlib only): `queen-domination-48`.
 * **Lean 4.35.0 + mathlib v4.35.0**: `queen-domination-48-sat`.
 * **Lean 4.35.0-rc2 + mathlib**: `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`.
-* **Lean 4.33.1 + mathlib**: `written-on-the-wall-133`.
+* **Lean 4.33.1 + mathlib**: `written-on-the-wall-133`, and, with the unmodified statements of Formal Conjectures, `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
 
 With `elan` installed, run the command in the corresponding directory. (The `E670`, `E677`, and `E1486` SAT checks and large T-board certificates can require substantial computation; see their individual READMEs for timing and memory notes.)
 
@@ -94,6 +100,12 @@ With `elan` installed, run the command in the corresponding directory. (The `E67
 | `erdos-617-missing-colors` | `lake exe cache get && lake build` | `Erdos617.missing_of_at_most_ten_colors`, `Erdos617.missing_of_all_but_two_parallel_rows` |
 | `erdos-677-equal-lcms` | `lake exe cache get && lake build` ([length-6 arithmetic](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction)) | `Erdos677.three_collision_iff`, `Erdos677.four_collision_iff`, `Erdos677.six_collision_iff_three_of_affine_cover` |
 | `erdos-708-six` | `lake exe cache get && lake build` | `Erdos708.isLeast_six`, `IntervalSix.six_integer` |
+| `erdos-211-one-sixth` | `lake exe cache get && lake build` | `main : ¬ type_of% @Erdos211.erdos_211.variants.one_sixth` |
+| `erdos-338-restricted-order` | `lake exe cache get && lake build` | `main : type_of% @Erdos338.erdos_338.variants.bounded_by_order` |
+| `erdos-344-sqrt-two` | `lake exe cache get && lake build` | `main : type_of% @Erdos344.erdos_344.variants.sqrt_two` |
+| `erdos-387-schinzel` | `lake exe cache get && lake build` | `main : type_of% @Erdos387.erdos_387.variants.schinzel` |
+| `erdos-602-property-b` | `lake exe cache get && lake build` | `main : type_of% @Erdos602.erdos_602` |
+| `erdos-1066-higher-dimensions` | `lake exe cache get && lake build` | `main : ¬ type_of% @Erdos1066.erdos_1066.variants.higher_dim`, `Sol1066.gDim_upper` |
 | `erdos-835-coloring-subsets` | `lake exe cache get && lake build` | `Erdos835.involution_moves_at_least_thirty`, `Erdos835.no_regular_abelian_symmetry` |
 | `written-on-the-wall-133` | `lake exe cache get && lake build` | `Wall133.floored_of_order_le_29`, `Wall133.floored_of_floor_le_four` |
 | `seven-cycle` | `lake build` | `SevenCycle.exact_threshold` |
@@ -128,6 +140,7 @@ Original collection material is licensed under the [MIT License](LICENSE), excep
 * [queen-domination-48-sat](queen-domination-48-sat/LICENSE) retains the Apache-2.0 license of Jason Davies' [queen-domination](https://github.com/jasondavies/queen-domination), whose files it uses, adapts, and transcribes; see its [source notes](queen-domination-48-sat/README.md#source-and-license).
 * The Formal Conjectures interval definition in [UpstreamInterval.lean](erdos-677-equal-lcms/UpstreamInterval.lean) retains its [Apache-2.0 license](erdos-677-equal-lcms/LICENSE-FormalConjectures) and copyright notice.
 * The four definitions from Formal Conjectures in [ArctanBridge.lean](arctangent-sum/ArctanBridge.lean) retain their Apache-2.0 license and copyright notice.
+* The Formal Conjectures statements quoted in the comments of [#211](erdos-211-one-sixth/Erdos211.lean), [#338](erdos-338-restricted-order/Erdos338.lean), [#344](erdos-344-sqrt-two/Erdos344.lean), [#387](erdos-387-schinzel/Erdos387.lean) and [#1066](erdos-1066-higher-dimensions/Erdos1066.lean) are under that project's [Apache-2.0 license](https://github.com/google-deepmind/formal-conjectures/blob/main/LICENSE).
 * Qiyuan Ma's manuscript, certificate data, documentation, and recorded outputs in [three-color-t-boards/sources](three-color-t-boards/sources/LICENSE_SCOPE.txt) retain CC-BY-4.0. The supplied Python programs retain their MIT license and original copyright notice.
 * Ma's attribution also applies to the first five representatives and their symmetry images reused in the T-board data; see [source and attribution](three-color-t-boards/README.md#source-and-attribution).
 

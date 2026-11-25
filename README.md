@@ -37,6 +37,7 @@ For every entry below, the unrestricted problem remains open. Lean 4 checks the 
 | Problem | Partial result proved here | Unrestricted problem status |
 | --- | --- | --- |
 | [Three-color prismatic T-tetromino ziggurats](three-color-t-boards/) (`(T, 3)`-prismatic $Z_9$, Qiyuan Ma `10.5281/zenodo.23631079`) | At least 45,083,592 labeled boards (3,756,966 orbits of 12), a standalone proof of $> 60$ (72 boards), and a global orbit-size-12 theorem for every valid board. | Ma proved existence with 60 boards; no earlier proof of $> 60$ or $\ge 45{,}083{,}592$ located. Exact total remains open. |
+| [Erdős Problem #64, power-of-two cycles](erdos-64-power-of-two-cycles/) (`erdosproblems.com/64`) | Every nonempty simple graph of minimum degree at least 3 with no induced $P_{14} \sqcup K_1$ contains a simple cycle of length 4, 8, or 16. | Hegde, Sandeep and Shashank proved the $P_{13}$-free case (`arXiv:2410.22842`). The unrestricted Erdős–Gyárfás conjecture remains open. |
 | [Erdős Problem #677: equal LCMs of consecutive integers](erdos-677-equal-lcms/) (`M(m, k) = M(n, k)`, `FormalConjectures/ErdosProblems/677.lean`) | Lengths $k = 2, 3, 4$ classified in Lean (unique collisions $(2, 3)$ and $(1, 2)$, both overlapping); length $k = 6$ settled computer-assisted (only $(3, 4), (5, 6), (13, 15)$); shift and endpoint bounds. | Earlier notes recorded $k = 3, 4$ and the four-cubic reduction at $k = 6$; no earlier Lean proofs of $k = 3, 4$ located. General $k$ remains open. |
 | [Erdős Problem #617: missing colors in cliques](erdos-617-missing-colors/) (Erdős-Gyárfás on $K_{r^2+1}$, `FormalConjectures/ErdosProblems/617.lean`) | Proved for all $3 \le r \le 10$, for all $r \ge 3$ when one color has $r - 2$ disjoint $K_r$'s (or bounded degree excess), plus rank-window obstructions for counterexamples. | Erdős and Gyárfás proved $r = 3, 4$; a separate formalization covers $r = 5$. Cases $r \ge 11$ remain open. |
 | [Erdős Problem #556: three-color nine-cycle Ramsey number `R_3(C_9)`](erdos-556-cycle-ramsey/) (`erdosproblems.com/556`) | Verifies $K_{32}$ lower-bound coloring; proves any 3-coloring of $K_{33}$ with a 15-vertex set missing one color has a monochromatic $C_9$; reduces $K_{33}$ to two cases. | Lower bound 33 is known. Upper bound $R_3(C_9) \le 33$ remains open. |
@@ -59,7 +60,7 @@ For every entry below, the unrestricted problem remains open. Lean 4 checks the 
 
 Each folder has its own Lake configuration and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `integer-cubic`, `three-column-matrices`, `three-cubes-114`.
 * Lean 4.35.0 (stdlib only): `queen-domination-48`.
 * Lean 4.35.0 + mathlib v4.35.0: `queen-domination-48-sat`.
@@ -90,6 +91,7 @@ With `elan` installed, run the command in the corresponding directory. The `E670
 | `integer-cubic` (Pell library) | `lake build SmallCubic` | `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`, `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` |
 | `three-cubes-114` | `lake exe cache get && lake build` | `ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` |
 | `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
+| `erdos-64-power-of-two-cycles` | `lake build` | `Erdos64.cycle_of_P14_plus_isolate_free` |
 | `erdos-556-cycle-ramsey` | `lake build` | `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases` |
 | `erdos-617-missing-colors` | `lake exe cache get && lake build` | `Erdos617.missing_of_at_most_ten_colors`, `Erdos617.missing_of_all_but_two_parallel_rows` |
 | `erdos-677-equal-lcms` | `lake exe cache get && lake build` ([length-6 arithmetic](erdos-677-equal-lcms/cubic/LengthSix.md#reproduction)) | `Erdos677.three_collision_iff`, `Erdos677.four_collision_iff`, `Erdos677.six_collision_iff_three_of_affine_cover` |

@@ -322,6 +322,25 @@ also treat smaller values; the general even-parameter mechanism is a sketch,
 not a proof covering 26. This collection does not claim the first Lean work
 on reciprocal Rado numbers.
 
+## Erdős #64, power-of-two cycles
+
+Checked **25 November 2026**. Erdős and Gyárfás ask whether every nonempty
+finite simple graph of minimum degree at least three contains a cycle of
+power-of-two length. The general question remains open. Ducoffe and Dumitru
+verified it for every graph on at most 40 vertices.
+[Erdős Problem #64](https://www.erdosproblems.com/64) ·
+[Ducoffe and Dumitru](https://arxiv.org/abs/2609.28594)
+
+Hegde, Sandeep and Shashank proved the conjecture for $P_{13}$-free graphs
+and forced a 4- or 8-cycle in $P_{12}$-free graphs. Their parallel search
+ran out of memory for $P_{14}$. The local theorem forces a simple cycle of
+length 4, 8, or 16 when the forbidden induced subgraph is $P_{14}\sqcup K_1$.
+This hypothesis says exactly that every induced fourteen-vertex path dominates the graph.
+This includes all $P_{14}$-free graphs. Searches under both descriptions
+located no earlier proof of the exact statement. Priority remains unverified.
+[Hegde, Sandeep and Shashank, Theorems 0.1–0.2 and Table 1](https://arxiv.org/html/2410.22842v2) ·
+[Local proof and verification](erdos-64-power-of-two-cycles/README.md)
+
 ## Erdős #556, three-color nine-cycle Ramsey number
 
 Checked **23 November 2026**. Radziszowski’s survey lists $R_3(C_9)$ as the

@@ -1,0 +1,7 @@
+name = "erdos64"
+version = "0.1.0"
+defaultTargets = ["Erdos64"]
+
+[[lean_lib]]
+name = "Erdos64"
+precompileModules = true

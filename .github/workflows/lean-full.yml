@@ -1,0 +1,91 @@
+name: Lean Full Verification
+
+on:
+  schedule:
+    - cron: '0 4 * * 0'
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: Package tier to verify
+        type: choice
+        default: standard
+        options:
+          - standard
+          - heavy
+          - all
+      packages:
+        description: Optional comma-separated package paths (overrides scope)
+        type: string
+        default: ''
+      leanchecker:
+        description: Run bundled leanchecker on non-heavy packages
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: Plan Lean package matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      has_packages: ${{ steps.plan.outputs.has_packages }}
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Compute package matrix
+        id: plan
+        env:
+          SCOPE: ${{ inputs.scope || 'standard' }}
+          FILTER: ${{ inputs.packages || '' }}
+        run: |
+          python3 -m scripts.ci.packages matrix \
+            --mode "$SCOPE" \
+            --filter "$FILTER" \
+            --github-output "$GITHUB_OUTPUT"
+
+  build:
+    name: Lean (${{ matrix.pkg }})
+    needs: plan
+    if: needs.plan.outputs.has_packages == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ matrix.timeout_minutes }}
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Free runner disk space for heavy certificate build
+        if: matrix.heavy
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android /usr/local/share/boost
+          df -h
+      - name: Install pinned Lean toolchain
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
+        with:
+          auto-config: 'false'
+          use-github-cache: 'false'
+          use-mathlib-cache: 'false'
+          lake-package-directory: ${{ matrix.pkg }}
+      - name: Build and verify Lean package
+        env:
+          PKG: ${{ matrix.pkg }}
+          RUN_LEANCHECKER: ${{ github.event_name == 'schedule' || inputs.leanchecker }}
+        run: |
+          if [[ "$RUN_LEANCHECKER" == true ]]; then
+            python3 -m scripts.ci.packages build "$PKG" --leanchecker
+          else
+            python3 -m scripts.ci.packages build "$PKG"
+          fi

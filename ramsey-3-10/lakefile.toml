@@ -4,4 +4,4 @@ defaultTargets = ["Ramsey310"]
 
 [[lean_lib]]
 name = "Ramsey310"
-roots = ["Ramsey39", "RamseyNumber", "RamseySAT", "Extension", "Circulants", "TwoOrbits"]
+roots = ["Ramsey39", "RamseyNumber", "RamseySAT", "Extension", "Circulants", "TwoOrbits", "CertVerify", "Structural", "R39LowerBound", "DenseWitness39"]

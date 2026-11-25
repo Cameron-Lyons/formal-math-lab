@@ -470,11 +470,7 @@ classification for $2p$ with $p=127\equiv3\pmod4$.
 
 ## Classical Ramsey number $R(3,10)$
 
-Checked **23 November 2026**. Geoffrey Exoo's 39-vertex triangle-free graph
-with no independent ten-set gives $R(3,10)\ge 40$. The local Lean proof
-checks Exoo's matrix and rules out extending that particular graph by one
-vertex. Vigleik Angeltveit proved $R(3,10)\le 41$ in a separate exhaustive
-computation. The unrestricted choice between 40 and 41 remains open.
+Checked **23 November 2026** (updated **25 November 2026**). Geoffrey Exoo's 39-vertex triangle-free graph (167 edges) with no independent ten-set gives $R(3,10)\ge 40$. The local Lean project kernel-checks Exoo's matrix, rules out extending that particular graph by one vertex, kernel-checks a second non-isomorphic 39-vertex witness (172 edges) and Kalbfleisch's unique 35-vertex $R(3,9,35)$ circulant $C_{35}(\{1,7,11,16\})$, and formalizes weighted Mantel's theorem and the resulting 9-regular vs. $|E(G - N[v])| \le 180 - 9d$ dichotomy for $R(3,10,40)$. Vigleik Angeltveit proved $R(3,10)\le 41$ in a separate exhaustive computation using weighted-Mantel / blow-up constraints. The unrestricted choice between 40 and 41 remains open.
 [Exoo (1989)](https://doi.org/10.1137/0402043) ·
 [Exoo's matrix](https://cs.indstate.edu/ge/RAMSEY/r3.10.39) ·
 [Angeltveit (2025), Theorem 1](https://doi.org/10.37236/12936)
@@ -482,8 +478,11 @@ computation. The unrestricted choice between 40 and 41 remains open.
 Harborth and Krause reported in 2003 that 38 is the largest order of a
 triangle-free circulant graph with no independent ten-set. Coniglio and
 coauthors reproduced this value in 2026. The local project verifies the
-order-40 circulant exclusion and also treats graphs admitting a simultaneous
-rotation of two 20-vertex cycles.
+order-40 circulant exclusion and treats graphs admitting a simultaneous
+rotation of two 20-vertex cycles in Lean, and includes standalone C++20
+exhaustive checks outside the Lean kernel covering all 14 groups of order 40
+(Cayley graphs), all 5 groups of order 20 (two-orbit bi-Cayley graphs), and
+degree-4 vertices via $C_{35}(\{1,7,11,16\})$.
 [Harborth and Krause, Table 1](https://www.researchgate.net/profile/Heiko-Harborth/publication/265670071_Ramsey_numbers_for_circulant_colorings/links/617430c6eef53e51e1d63351/Ramsey-numbers-for-circulant-colorings.pdf) ·
 [Coniglio et al., Table 8](https://arxiv.org/html/2608.18769v1#S8.T8) ·
 [Local proofs](ramsey-3-10/)

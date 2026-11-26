@@ -40,6 +40,10 @@ Checked **24 November 2026**. Dujella asks the six-integer question as [Problem 
 
 Checked **26 November 2026**. Tong Niu proves the maximum area of a snake polyomino at each fixed height through 12 and identifies height 13 as a next computational case. OEIS A360917 tabulates longest induced paths in rectangular grids. The local C++ computation gives a formula for every width at height 13. [Niu, §8](https://arxiv.org/html/2611.26640v1#S8) · [OEIS A360917](https://oeis.org/A360917) · [Height-13 proof and verifiers](research/height-13-snakes/)
 
+## Longest snakes on a 14 × n grid
+
+Checked **26 November 2026**. The height-14 formula agrees at widths 1 through 16 with the rectangular grid data in OEIS A360917. Niu's fixed-height formulas cover heights through 12. At height 14, two local computations prove a gain of 52 squares every six columns from width 18 onward. [OEIS A360917 data](https://oeis.org/A360917/b360917.txt) · [Niu, §8](https://arxiv.org/html/2611.26640v1#S8) · [Height-14 proof and verifiers](research/height-14-snakes/)
+
 ## Nine-bit snake-in-the-box
 
 Checked **24 November 2026**. Orland et al. published 131 inequivalent induced paths of 191 edges in the 9-dimensional cube, reported that none extends by one edge, and asked whether a 192-step path exists ([Orland et al., §8](https://arxiv.org/html/2607.15270v3#S8), [published records at the pinned revision](https://github.com/Math-AI-Caltech/Snake-in-the-Box/blob/46c765399353a588ea50444a5d6610f53102b1c2/record_snakes.csv.zip)). [Kunt, Koch, and Park](https://arxiv.org/abs/2611.25268) also note dimension 9 as the smallest open case.

@@ -66,6 +66,8 @@ Covering every trio among 14 people requires exactly 25 six-person groups. Two i
 
 The longest snake on a $13\times n$ grid gains 48 squares every six columns for $n\ge7$. Two C++17 verifiers check the formula for every width, and a Python constructor gives a longest snake for any requested width. [Height-13 snakes](research/height-13-snakes/)
 
+On a $14\times n$ grid, six more columns add exactly 52 squares to the longest snake for every $n\ge18$. Two independent C++17 verifiers establish the all-width formula, and one repeatable six-column block gives optimal constructions in all six residue classes. [Height-14 formula, proof, and constructor](research/height-14-snakes/)
+
 ## Find and check a theorem
 
 Each Lean project has its own Lake setup and pinned `lean-toolchain`:

@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Erdős #272, arithmetic progression intersections on thirteen points
+
+Checked **26 November 2026**. Szabó's construction gives $t(13)\ge 82$. In August 2025 Stijn Cambie reported computations through 14, assuming for $10\le n\le14$ that the extremal family contains a singleton. Yang's Theorem 1.1 gives the unrestricted values through $t(12)=69$, and Theorem 1.4 gives the exact maximum for families with a common element for every $n$. [Szabó (1999), §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Cambie's forum post](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang (2026), Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1)
+
+OEIS A401861 lists the unrestricted values through $n=12$. A search for the thirteen-point case and for exact bounds on well-intersecting families found no earlier unrestricted upper bound of 82. The local computer-assisted proof rules out 83 when the total intersection is empty, completing the case $n=13$. The general formula remains open. [OEIS A401861](https://oeis.org/A401861) · [Proof and verification](erdos-272-thirteen/)
+
 ## Breaking every rectangle in a five-row matchstick grid
 
 Checked **26 November 2026**. Dreyer and Biedl introduced the minimum number of unit edges whose removal breaks all axis-aligned rectangular outlines in a grid. Niu and Tang gave upper and lower bounds differing by at most one edge for grids of height five. [Dreyer and Biedl, DIMACS Technical Report 97-53, §4 (1997)](https://archive.dimacs.rutgers.edu/TechnicalReports/abstracts/1997/97-53.html). [Niu and Tang (2026)](https://doi.org/10.1016/j.tcs.2026.116199).

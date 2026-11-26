@@ -60,6 +60,8 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 ## Computational proofs
 
+For Erdős problem #272 on thirteen points, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82**. Lean checks the 82-set construction. A dimension bound and an exhaustive C++ search exclude 83. [One-page proof and verifier](erdos-272-thirteen/)
+
 Covering every trio among 14 people requires exactly 25 six-person groups. Two independent C++20 verifiers rule out 24 groups, and an explicit 25-group construction covers all 364 trios. [Proof and group list](research/covering-14-6-3/)
 
 The longest snake on a $13\times n$ grid gains 48 squares every six columns for $n\ge7$. Two C++17 verifiers check the formula for every width, and a Python constructor gives a longest snake for any requested width. [Height-13 snakes](research/height-13-snakes/)
@@ -68,7 +70,7 @@ The longest snake on a $13\times n$ grid gains 48 squares every six columns for 
 
 Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
 * Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
 
@@ -78,6 +80,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | --- | --- | --- |
 | `square-triples` | `lake build` | `SquareTriples.solution_ratio_1000` |
 | `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
+| `erdos-272-thirteen` | `lake build` | `Erdos272.exists_family_82` (lower bound) |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |
 | `queen-domination-48` | `lake exe queens48` | `main` runs the exhaustive search ruling out 24 and checks the 25-queen cover |
 | `queen-domination-48-sat` | `lake exe cache get && lake build` | `QueenDom.gamma_48_eq_25_of_formulas_unsat`, `QueenDom.igamma_48_eq_25_of_formulas_unsat` |

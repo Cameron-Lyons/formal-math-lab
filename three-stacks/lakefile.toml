@@ -1,0 +1,6 @@
+name = "three-stacks"
+version = "0.1.0"
+defaultTargets = ["ThreeStacks"]
+
+[[lean_lib]]
+name = "ThreeStacks"

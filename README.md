@@ -38,6 +38,7 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 | Problem | Partial result proved here | Unrestricted problem status |
 | --- | --- | --- |
+| [Three stacks in series](three-stacks/) (Vatter’s Question 5.4) | Lean proves that the published 21-card deck cannot be sorted and that all 21 single-card deletions sort. | The external exhaustive 19-card computation leaves 20 or 21 as the minimum. Lean checks 384 final schedules and takes the remaining coverage as a hypothesis. [Vatter’s November update](https://arxiv.org/html/2602.16355v4) |
 | [Three-color prismatic T-tetromino ziggurats](three-color-t-boards/) (`(T, 3)`-prismatic $Z_9$, Qiyuan Ma `10.5281/zenodo.23631079`) | At least 45,083,592 labeled boards (3,756,966 orbits of 12), a standalone proof of $> 60$ (72 boards), and a theorem that every valid board has orbit size 12. | Ma gave 60 boards; no earlier proof of $> 60$ or $\ge 45{,}083{,}592$ found. Exact total is still open. |
 | [Frankl's union-closed sets conjecture](union-closed-sets/) ($c_{\mathrm{UC}} \ge 1533 / 4000 = 0.38325$, Frankl 1979) | Every finite union-closed family with a nonempty set has an element in at least $(1533/4000)\lvert\mathcal{F}\rvert = 0.38325\,\lvert\mathcal{F}\rvert$ sets (past $c_* + 3.647 \times 10^{-4}$), checked in Lean's kernel with no `native_decide`. | Improves on Costa and Sadhu (`arXiv:2610.02295`, $0.3828852549667978$), the Sadhu-Ursin preprint ($c_* + 9.2 \times 10^{-5}$), and Quantavane's November 2026 announcement ($c_* + 2.9 \times 10^{-4} \approx 0.383175$). The conjectured constant $1/2$ is still open. |
 | [Erdős Problem #64, power-of-two cycles](erdos-64-power-of-two-cycles/) (`erdosproblems.com/64`) | C++ search checks all graphs through 41 vertices ([order bound](erdos-64-power-of-two-cycles/Order41.md)). In a smallest counterexample (breaking ties by edge count), every packing of disjoint triangles misses at least two degree-3 vertices ([packing proof](erdos-64-power-of-two-cycles/DegreeComponents.md#contracting-disjoint-triangles)). Lean proves the cycle lift and the full conjecture for graphs with no induced $P_{15}\sqcup K_1$. | Full conjecture is still open. Ducoffe and Dumitru checked through 40 vertices (`arXiv:2609.28594`). |
@@ -73,7 +74,7 @@ On a $14\times n$ grid, six more columns add exactly 52 squares to the longest s
 
 Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
 * Lean 4.35.0 + mathlib v4.35.0: `seven-slabs`.
 * Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
@@ -83,6 +84,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | Directory | Build command | Main Lean declaration(s) |
 | --- | --- | --- |
 | `square-triples` | `lake build` | `SquareTriples.solution_ratio_1000` |
+| `three-stacks` | `lake build` | `ThreeStacks.published_no_physical_run`, `ThreeStacks.smallest_of_bulk_coverage` |
 | `seven-slabs` | `lake build` | `SevenSlabs.no_seven_slab_tiling` |
 | `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
 | `erdos-272-thirteen` | `lake build` | `Erdos272.exists_family_82` (lower bound) |

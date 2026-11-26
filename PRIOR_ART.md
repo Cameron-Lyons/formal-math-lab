@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Three stacks in series
+
+Checked **26 November 2026**. Vatter attributes Question 5.4 to Waton. In the November update, Vatter reports with Jay Pantone that every 16-card order sorts and that a 21-card order fails. Their MathFest slides give the permutation. [Vatter, Question 5.4 and update](https://arxiv.org/html/2602.16355v4) · [MathFest slides](https://vincevatter.com/talks/2026-mathfest-stacks/)
+
+The Lean package independently verifies the published obstruction and all 21 single-card deletions. A separate exhaustive computation covers every 19-card deck. Lean checks the reduction to decks ending in 1 and the last 384 sorting schedules. The grouped coverage remains an explicit hypothesis of the formal 20-or-21 result. [Lean theorems and audit instructions](three-stacks/)
+
 ## Seven slabs tiling a cube
 
 Checked **26 November 2026**. Erich Friedman asks which cubes can be tiled using one slab of each order from 1 to $n$. Vamshi Jandhyala’s October 2026 preprint gives the upper bound $s \le n(n+1)/2$ on cube side length in Proposition 6. Proposition 7 rules out $n=4,5,6$. The last sentence of §6 states that the $n=7$ search had not been run. [Friedman’s problem 6](https://erich-friedman.github.io/mathmagic/unsolved.html) · [December 2001 problem](https://erich-friedman.github.io/mathmagic/1201.html) · [Jandhyala, §6, page 6](https://raw.githubusercontent.com/jvvk/mathematics/c6fecab25b6f821a7185bfdaa68c89bfaf54e4c7/math-magic-problems/paper/paper.pdf#page=6)

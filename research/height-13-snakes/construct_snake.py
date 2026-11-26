@@ -5,9 +5,8 @@ verify the six infinite families and all short boards. Supply n to print the
 column masks of an optimal snake. Only the Python standard library is needed.
 """
 
-from collections import deque
 import sys
-
+from collections import deque
 
 # Each left cap ends at the same frontier. The six-column block returns to it.
 LEFT_11 = (8119, 4317, 8035, 442, 7883, 4973, 4535, 7896, 879, 7601, 5853)
@@ -20,8 +19,12 @@ RIGHT_8 = (7015, 3512, 5839, 7025, 2461, 6373, 5925, 7655)
 
 # The outer index is the width modulo six.
 CAPS = (
-    (LEFT_12, RIGHT_6), (LEFT_11, RIGHT_8), (LEFT_12, RIGHT_8),
-    (LEFT_11, RIGHT_4), (LEFT_11, RIGHT_5), (LEFT_12, RIGHT_5),
+    (LEFT_12, RIGHT_6),
+    (LEFT_11, RIGHT_8),
+    (LEFT_12, RIGHT_8),
+    (LEFT_11, RIGHT_4),
+    (LEFT_11, RIGHT_5),
+    (LEFT_12, RIGHT_5),
 )
 
 SHORT = (
@@ -72,11 +75,15 @@ def frontier(columns):
     """
     if not columns or any(not 0 < mask < 2**13 for mask in columns):
         raise ValueError("each column must be a nonempty 13-bit mask")
-    cells = {(x, y) for x, mask in enumerate(columns)
-             for y in range(13) if mask & (1 << y)}
+    cells = {
+        (x, y) for x, mask in enumerate(columns) for y in range(13) if mask & (1 << y)
+    }
     neighbors = {
-        (x, y): [cell for cell in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
-                 if cell in cells]
+        (x, y): [
+            cell
+            for cell in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+            if cell in cells
+        ]
         for x, y in cells
     }
     if any(len(adjacent) > 2 for adjacent in neighbors.values()):
@@ -100,8 +107,9 @@ def frontier(columns):
         if degree_sum != 2 * (vertices - 1):
             raise ValueError("cycle in the induced graph")
         component_masks.append(mask)
-    degrees = tuple(len(neighbors[last, y]) if (last, y) in cells else -1
-                    for y in range(13))
+    degrees = tuple(
+        len(neighbors[last, y]) if (last, y) in cells else -1 for y in range(13)
+    )
     return degrees, tuple(sorted(component_masks))
 
 
@@ -117,6 +125,7 @@ def verify():
         columns = snake(n)
         assert len(columns) == n
         assert sum(mask.bit_count() for mask in columns) == maximum(n)
+        # A single component meeting the nonempty last column certifies a connected snake.
         assert frontier(columns)[1] == (columns[-1],)
 
 

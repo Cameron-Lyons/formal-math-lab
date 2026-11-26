@@ -4,25 +4,25 @@
 
 ## Why 24 groups fall short
 
-Fix Alice. In each of her groups she has five companions. To cover every trio containing Alice, those five-person sets must cover every pair among the other 13 people. This requires at least ten sets. Thus all 14 people need ten appearances apiece. With 24 groups there are only $24\cdot6-14\cdot10=4$ spare places. At most four people can attend an eleventh group. [Pair-covering bound](https://ljcr.dmgordon.org/cover/show_cover.php?k=5&t=2&v=13)
+Fix Alice. In each of her groups she has five companions. To cover every trio containing Alice, those five-person sets must cover every pair among the other 13 people. Both C++ verifiers check directly that nine five-person sets never suffice, so every person appears in at least ten groups. With 24 groups there are only $24\cdot6-14\cdot10=4$ spare places, so at most four people attend an eleventh group. [Pair-covering reference](https://ljcr.dmgordon.org/cover/show_cover.php?k=5&t=2&v=13)
 
-Choose someone who attends exactly ten groups. Up to renaming the people, there are 30 possible schedules for that person. To enumerate them, observe that each of the other 13 people must appear at least three times in the ten five-person sets to meet all 12 others. Their appearances total 50, so at least two people appear exactly three times. Each one meets four different companions at each appearance. In particular, these two meet exactly once, so their schedules fix five of the ten sets. The verifier labels these five and enumerates the remaining five.
+Choose someone who attends exactly ten groups. Up to renaming the people, there are 30 possible schedules for that person. In any ten five-person sets covering all pairs of 13 people, each person appears at least three times to meet all 12 others. Their appearances total 50, so at least two people appear exactly three times, each meeting four distinct companions per appearance. These two share one set and fix five of the ten sets. The verifier labels those five and enumerates the remaining five, proving both that nine sets are impossible and that exactly 30 isomorphism classes occur at ten sets.
 
-Fix one of the 30 starting schedules and list possible ten-group schedules for the other people. Two people must agree on exactly which groups they share. If a candidate has no matching schedule at each of five other people, all five would need an eleventh group. Discard that candidate. If five people run out of candidates, discard the starting schedule as well. The verifier can restrict this test to people sharing at least four groups with the starting person.
+Fix one of the 30 starting schedules and list possible ten-group schedules for the other people. Two people must agree on exactly which groups they share. If a candidate has no matching schedule at each of five other people, all five would need an eleventh group, so discard that candidate. If five people run out of candidates, discard the starting schedule as well. Restricting this test to people sharing at least four groups with the starting person only weakens it.
 
 A complete cover would preserve its own schedules at every step. Three rounds leave **13, then 5, then 0** of the original 30 types. This rules out 24 groups. [Exhaustive verifier](verify_covering.cpp)
 
-The independent implementation enumerates which people may use the spare places and checks agreement directly. Its 16 surviving assignments each force all 24 groups. Each of those assignments misses two trios. Both lower-bound checks use compiled C++ and finite enumeration. [Independent verifier](verify_independent.cpp)
+The independent verifier uses individualization-refinement canonicalization, explicitly enumerates which four people may use the spare places, and runs exact backtracking on compatible schedules. Its 16 surviving assignments each force all 24 groups and miss two trios. Both lower-bound checks are self-contained compiled C++ with no external inputs. [Independent verifier](verify_independent.cpp)
 
 ## Reproduce
 
-Run from this directory with a C++20 compiler.
+Run from this directory with a C++23 compiler (also valid C++20).
 
 ```sh
 build_dir=$(mktemp -d)
-c++ -std=c++20 -O3 verify_covering.cpp -o "$build_dir/verify_covering"
+c++ -std=c++23 -O3 verify_covering.cpp -o "$build_dir/verify_covering"
 "$build_dir/verify_covering"
-c++ -std=c++20 -O3 verify_independent.cpp -o "$build_dir/verify_independent"
+c++ -std=c++23 -O3 verify_independent.cpp -o "$build_dir/verify_independent"
 "$build_dir/verify_independent"
 ```
 

@@ -19,10 +19,9 @@ def MinimumErasures (n k : Nat) : Prop :=
 private theorem minimum_target (n : Nat) (hn : 0 < n) :
     MinimumErasures n (target n) := by
   obtain ⟨b, width, safe, cost⟩ := attainable n hn
-  refine ⟨⟨b, width, (safe_iff_no_rectangle b).mp safe, cost⟩, ?_⟩
+  refine ⟨⟨b, width, no_rectangle_of_safe b safe, cost⟩, ?_⟩
   intro board width noRectangle
-  simpa only [width] using
-    lower board (by omega) ((safe_iff_no_rectangle board).mpr noRectangle)
+  simpa only [width] using lower board (by omega) noRectangle
 
 /-- The exact minimum is five at width one and ⌊(10n + 4)/3⌋ at every width n ≥ 2.
 Natural-number division in Lean is floor division. -/

@@ -44,23 +44,22 @@ the exterior and each interior component would have three cells. Each such
 component must be an L, since the only other connected three-cell shape is a
 straight rectangle.
 
-Choose a five-cell end column that omits the exterior cell. An L meeting
-this column covers at most two of its cells and lies entirely within the
-first two columns from that end. At least three Ls are needed to cover the
-end column, and four Ls would need twelve cells in a ten-cell region. Thus
-exactly three meet it. They cover consecutive runs of lengths 2, 2, and 1
-in some order.
+Choose a five-cell end column that omits the exterior cell. Each L meeting
+this column lies within the first two columns from that end and covers one or
+two of its cells. Since 5 is odd, some L covers a single cell of the end
+column.
 
 #let tile(x) = table.cell(fill: if x == "A" {rgb("#d8e9ec")} else {rgb("#f5e8c7")})[#text(weight: "bold")[#x]]
 #grid(columns: (auto, 1fr), column-gutter: 14pt, align: (center+horizon, left+horizon),
   table(columns: (20pt,20pt), rows: (16pt,16pt,16pt), align: center+horizon,
     inset: 1pt, stroke: 0.5pt + ink,
     tile("A"), tile("A"), tile("B"), tile("A"), tile("B"), tile("B")),
-  [Let A cover the singleton. It extends into the next column and turns
-   toward an adjacent row. On the end column that row belongs to a two-cell
-   run, B. The square directly across from that row is already in A, so B
-   must turn at its other row. The picture shows the forced arrangement,
-   up to reflection.])
+  [Call this L-tromino A. It steps into the second column and turns into an
+   adjacent row. On the end column that row belongs to another L-tromino, B.
+   Because the cell directly across from it is already in A, B cannot step
+   straight into the second column; instead B covers two cells of the end
+   column and turns into the second column at its other row, as shown up to
+   reflection.])
 
 Together A and B form a $3 times 2$ rectangle. Every edge on its perimeter
 joins different components and is intact. This is a contradiction. Hence

@@ -10,11 +10,11 @@ For example, 28 removals are necessary and sufficient on a $5\times 8$ grid. The
 
 ## Proof
 
-A column scan tracks the 15 possible pairs of horizontal grid lines. A pair stays open while the two horizontal sides can still extend from an intact left side. Lean proves that the scan rejects a board exactly when four intact sides enclose a rectangle. [Geometric equivalence](Matchsticks/Geometry.lean)
+**Lower bound.** Form the dual graph on the $5n$ unit cells plus one exterior vertex, adding an edge for each erased stick. Any union of components disjoint from the exterior has an intact boundary and therefore cannot be a rectangle. Consequently at least one cell joins the exterior, width $1$ admits no interior component, and every interior component at width $n\ge 2$ has at least $3$ cells, giving $3e\ge 10n+1$. When $n=3k+2$, equality forces one exterior cell and all interior components to be L-trominoes; on an end column avoiding the exterior cell, parity gives an L covering a single cell of that column, which forces an adjacent L to pair with it into an intact $3\times 2$ rectangle. Lean formalizes this dual-graph argument directly with no lookup certificate or search table. [Lower bound](Matchsticks/Lower.lean) · [Illustrated proof (PDF)](matchstick-proof.pdf) · [Typst source](matchstick-proof.typ)
 
-A repeating six-column pattern attains the upper bound. For the lower bound, Lean checks a finite table of inequalities for extending a safe board by one column. Induction gives $3c\ge 10n+2$ for the number $c$ of removals at positive width, together with the sharper bound of five at width one. The kernel checks the table, the induction, and the construction using the Lean standard library. The main theorem depends only on `propext`, `Classical.choice`, and `Quot.sound`. [Construction](Matchsticks/Upper.lean) · [Lower bound](Matchsticks/Lower.lean) · [Certificate data](Matchsticks/Certificate.lean)
+**Upper bound.** Two starting columns followed by an alternating three-column block and its top-to-bottom reflection attain the bound for every $n\ge 1$. A 15-bit column scan tracks open pairs of horizontal lines; Lean proves that a scan-accepted board has no intact rectangle and checks the repeating six-column period directly in the kernel. [Construction](Matchsticks/Upper.lean) · [Scan soundness](Matchsticks/Geometry.lean)
 
-The two-page hand proof gives a geometric lower bound by showing how two L-shaped components would force an intact rectangle. [Illustrated proof (PDF)](matchstick-proof.pdf) · [Typst source](matchstick-proof.typ)
+The package uses only Lean's built-in `Init` prelude, and the main theorem depends only on `propext`, `Classical.choice`, and `Quot.sound`.
 
 ## Reproduce
 

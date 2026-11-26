@@ -1,31 +1,35 @@
-#set page(paper: "a4", margin: (x: 21mm, y: 19mm))
-#set text(size: 11pt)
-#set par(leading: 0.62em)
-#show heading.where(level: 2): set text(size: 13pt)
-#align(center)[#text(size: 18pt, weight: "bold")[Why 83 sets are impossible]]
-#v(3pt)
+#set page(paper: "a4", margin: (x: 18mm, y: 14mm))
+#set text(size: 10pt)
+#set par(leading: 0.54em, spacing: 0.7em)
+#show heading.where(level: 2): set text(size: 11.5pt)
+#align(center)[#text(size: 16pt, weight: "bold")[Why 83 sets are impossible]]
+#v(1pt)
 
 *Claim.* The largest family of subsets of $[13]$ whose pairwise intersections are nonempty arithmetic progressions has size *82*.
 
-Szabó's construction gives 82. Yang proved the upper bound of 82 for families with a common element. It suffices to rule out 83 with no common element. Write AP for arithmetic progression.
+Szabó's construction attains 82. Write AP for arithmetic progression. For families with a common element $x$, Yang's starred-family theorem gives the bound 82; the verifier also checks it directly at $n=13$ by assigning each non-AP of size $>=4$ to a non-AP triple $t$ containing $x$ whose AP-hull it omits, and matching all but at most 3 APs of size $>=4$ injectively to those triples (giving at most $1+12+binom(12,2)+3=82$ sets). It remains to rule out an 83-set family $F$ with *no common element* (and hence no singletons).
 
-== 1. Set aside 315 subsets
+== 1. Set aside 300 subsets
 
-Set aside every subset containing a seven-term AP, and also every five-term AP. There are 300 of the first kind and 15 of the second. We show that *at most 79 of the remaining subsets can belong to one valid family*.
+Set aside the 300 subsets containing a seven-term AP, and let $F_0 subset.eq F$ be the remaining members. We show $|F_0| <= 79$.
 
-For a set $A$, let $u_A$ record which of the empty set and the 78 pairs are contained in $A$. Let $v_A$ record which singletons and which three-, four- and six-term APs are contained in $A$. Each entry is 0 or 1. If $a_j(S)$ counts the $j$-term APs in $S$, put
-$ q(S) = 1 + binom(|S|,2) - |S| - a_3(S)-a_4(S)-a_6(S). $
-For every nonempty $S$ containing no seven-term AP, a direct count gives $q(S)=0$ for APs and $q(S)>0$ for all other sets. The verifier checks all 7,891 such $S$. Counting common coordinates gives
-$ u_A dot u_B - v_A dot v_B = q(A inter B). $
+For a set $A$, let $u_A$ record which of the empty set and the 78 pairs lie in $A$, and let $v_A$ record which singletons and which three-, four- and six-term APs lie in $A$ (0/1 entries). Writing $a_j(S)$ for the count of $j$-term APs in $S$, put
+$ q(S) = 1 + binom(|S|,2) - |S| - a_3(S) - a_4(S) - a_6(S). $
+Counting common coordinates gives $u_A dot u_B - v_A dot v_B = q(A inter B)$. The verifier checks all 7,891 nonempty subsets avoiding a seven-term AP and finds $q(S)=0$ on APs and $q(S)>0$ on all other sets.
 
-Now take the remaining members of a valid family. For distinct $A,B$, the right side is zero because $A inter B$ is a nonempty AP of at most six terms. If $sum_A c_A u_A=0$, squaring and using the last identity gives
-$ 0 = norm(sum_A c_A v_A)^2 + sum_A c_A^2 q(A). $
-Every term is nonnegative. Hence $c_A=0$ for all non-APs, and $sum_A c_A v_A=0$ as well. Each AP still under consideration has length 1, 2, 3, 4 or 6, so *it is itself a coordinate* in $u$ or $v$. Choose an inclusion-maximal AP $A$ with $c_A!=0$. In its own coordinate only $A$ can contribute a nonzero coefficient, a contradiction. Thus the vectors $u_A$ are independent. They have only $1+binom(13,2)=79$ coordinates.
+Suppose $sum_(A in F_0) c_A u_A = 0$. Squaring and using $q(A inter B)=0$ for $A != B$ yields
+$ 0 = norm(sum_(A in F_0) c_A v_A)^2 + sum_(A in F_0) c_A^2 q(A). $
+Hence $c_A = 0$ for every non-AP $A in F_0$ and $sum c_A v_A = 0$, so $c in ker(u,v)$ is supported on APs in $F_0$ of length $2,3,4,5,6$. For each of the 15 five-term APs $P = {x-2d, x-d, x, x+d, x+2d}$ with four-term ends $P_L, P_R$, a direct check shows
+$ w_P = e_P - e_(P_L) - e_(P_R) - e_({x-2d,x,x+2d}) + e_({x-d,x,x+d}) + e_({x-2d,x}) + e_({x,x+2d}) - e_({x}) $
+lies in $ker(u,v)$. Subtracting $sum_P c_P w_P$ from $c$ leaves a vector in $ker(u,v)$ supported on APs of lengths $1,2,3,4,6$. Each such AP is itself a coordinate of $(u,v)$, so an inclusion-maximal nonzero AP gives a contradiction. Thus $c = sum_P alpha_P w_P$ with $alpha_P = c_P$.
 
-== 2. Check the families using four of the 315 subsets
+Since $F$ has no singletons, the singleton coefficient $-sum_(P "centred at" x) alpha_P$ vanishes at every $x in [13]$. Centers $3,4,10,11$ admit only one five-term AP, so their weights vanish; any active center must lie in ${5,6,7,8,9}$. Checking which $w_P$ contain each pair shows that each active center $x in {5,6,7,8,9}$ forces two pairs ${u_1, x}, {u_2, x} in F$ with $u_1, u_2 in.not {5,6,7,8,9}$:
+$x=5$: ${1,5},{3,5}$; #h(5pt) $x=6$: ${2,6},{6,10}$; #h(5pt) $x=7$: ${3,7},{7,11}$ or ${1,7},{7,13}$; #h(5pt) $x=8$: ${4,8},{8,12}$; #h(5pt) $x=9$: ${9,11},{9,13}$.
+No two active centers $x != y$ can coexist, because a forced pair ${u, x}$ avoids $y$ and cannot hit both distinct outer endpoints of $y$'s forced pairs. Thus at most one center $x$ is active. Let $d$ be the smallest step with $alpha_(x,d) != 0$. Since no other center is active and $alpha_(x,d\/2)=0$, the pairs ${x-2d,x}$ and ${x,x+2d}$, the five-term AP $P_(x,d)$, and its middle triple $M_(x,d)={x-d,x,x+d}$ all have nonzero coefficient $alpha_(x,d)$ and lie in $F$. Pick $B in F$ omitting $x$. To intersect both pairs, $B$ contains $x-2d$ and $x+2d$. Since $B inter P_(x,d)$ is an AP omitting $x$, $B$ omits $x-d$ and $x+d$, giving $B inter M_(x,d) = emptyset$, a contradiction. Thus $c=0$, the vectors $u_A$ ($A in F_0$) are independent, and $|F_0| <= 1+binom(13,2)=79$.
 
-By the bound just proved, an 83-set family needs at least $83-79=4$ of the subsets set aside. Join two subsets by an edge when their intersection is a nonempty AP. A valid family is a clique in this graph. Order the 315 subsets and try every compatible choice for the *first two* that belong to the clique. There are 9,862 choices. For each, search its common neighbors for 81 more members, requiring at least two further sets from the 315 and no common element overall.
+== 2. Check the families using four of the 300 subsets
 
-The search is exhaustive. It discards a branch whenever the remaining vertices can be covered by fewer independent classes than the number of vertices still needed, since a clique takes at most one vertex per class. The cases were checked in batches, using the reflection $i arrow.r 14-i$ to identify equivalent cases. No such family was found. Thus 83 is impossible, and 82 is attained.
+An 83-set non-starred family therefore needs at least $83 - 79 = 4$ of the 300 subsets containing a seven-term AP. Join two subsets by an edge when their intersection is a nonempty AP; a valid family is a clique. Order the 300 subsets in consecutive reflection pairs ${A, overline(A)}$ under $i arrow.r 14-i$. Up to reflection, the first exceptional member satisfies $A <= overline(A)$ (and if $A = overline(A)$, so does the second), leaving 3,224 compatible choices for the first two. For each choice, an exhaustive branch-and-bound clique search looks for 81 common neighbors including two further exceptional sets and with empty total intersection, pruning whenever fewer than the needed independent sets cover the remaining candidates. None exists. Thus 83 is impossible, and 82 is the maximum. #h(1fr) $square.filled$
 
-#text(size: 9.5pt)[*Reproduce both finite checks* with `clique_search/verify.cpp`. Compile with `g++ -O3 -std=c++20 -march=native clique_search/verify.cpp -o verify`, then run `./verify --simple`. The starred theorem and Szabó's construction appear in #link("https://arxiv.org/abs/2607.23004")[Yang, arXiv:2607.23004].]
+#v(2pt)
+#text(size: 8.8pt)[*Reproduce all finite checks* with `clique_search/verify.cpp`: compile with `c++ -O3 -std=c++23 -march=native clique_search/verify.cpp -o verify` and run `./verify`. Szabó's construction and Yang's starred theorem appear in #link("https://arxiv.org/abs/2607.23004")[Yang, arXiv:2607.23004].]

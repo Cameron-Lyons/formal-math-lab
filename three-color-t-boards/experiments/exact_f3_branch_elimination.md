@@ -1,53 +1,26 @@
 # Exact affine elimination of the four linear sign branches
 
-The four branch equations can be eliminated without changing any branch
-count. The resulting inputs have **96, 95, 94, and 93 variables**, respectively,
-and retain both independent symmetry factors. Their quotient dimensions are
-N0,N1,N2,N3, whose sum is the full labeled count N. No dimension is evaluated
-here, and no additional multiplier is appropriate.
+Eliminating the linear equations of the four sign branches shrinks the inputs to **96, 95, 94, and 93 variables** without changing any branch count, while keeping both independent symmetry factors inside each ring. Their quotient dimensions `N0, N1, N2, N3` sum directly to the full labeled count `N` (with multiplier and divisor 1). None of the four unrestricted dimensions is computed here.
 
 ## Exact polynomial-ideal reduction
 
-Start with the four frozen [linear sign branches](exact_f3_sign_branches.md).
-In branch k, the k+1 affine equations have rank k+1. Gaussian elimination
-solves selected coupled prefix variables as affine expressions L in the
-remaining coordinates. The offset a and sign s are never selected as pivots.
-The quotient by these affine equations is isomorphic to the polynomial ring
-in the remaining variables, by substitution and inverse coordinate projection.
+Starting from the four frozen [linear sign branches](exact_f3_sign_branches.md), branch `k` adds `k + 1` affine equations of full rank `k + 1`. Gaussian elimination solves `k + 1` coupled prefix variables as affine forms `L` in the remaining coordinates, never pivoting on the offset `a` or sign `s`. Substituting `L` and projecting back onto the surviving coordinates shows that quotienting by those affine equations gives the exact polynomial ring in the remaining variables.
 
-The field domains behave particularly simply over F₃. For any affine form
-L=c+sum(a_i*y_i), with c,a_i in F₃, the ordinary polynomial identity is
+Over `F₃`, every affine form `L = c + sum(a_i * y_i)` with `c, a_i in F₃` satisfies the ordinary polynomial identity
 
 ```
-L³−L = sum_i a_i*(y_i³−y_i).
+L³ - L = sum_i a_i*(y_i³ - y_i),
 ```
 
-The constant disappears because c³=c, and the coefficients satisfy a_i³=a_i.
-Thus every eliminated field domain follows from the surviving individual
-field domains. The checker expands each identity as an ordinary polynomial,
-before any field reduction. There is no need for an extra pivot-domain
-constraint or an extension-field parameter.
+because `c³ = c` and `a_i³ = a_i` in `F₃`. Every eliminated field equation therefore follows directly from the surviving field equations (checked as ordinary polynomials before any field reduction), so no extra pivot-domain equation or extension-field parameter is needed.
 
-After substitution, reducing each source moment and elementary cubic
-modulo y_i³−y_i preserves its ideal together with the retained domains.
-All 76 source moments and four elementary cubics survive as nonzero
-polynomials. The exporter independently regenerates all 80 nonconstant
-geometric moments in the new affine color coordinates: the four unary
-linear moments remain identically zero, and the other 76 match the source
-images exactly. It also checks all four elementary-cubic images against
-fresh geometric expansions.
+Substituting into the 76 source moments and 4 elementary cubics, then reducing exponents modulo `y_i³ - y_i`, preserves the ideal, and all 80 polynomials stay nonzero. Rebuilding all 80 geometric moments directly in the new affine color coordinates confirms that the 4 unary linear moments vanish identically while the other 76 moments and 4 elementary cubics match term for term.
 
-Consequently the complete reduced ideal is isomorphic to its original
-branch ideal. It contains every remaining individual field equation,
-including a³−a and s³−s, plus s²−1. These squarefree split field domains
-make the quotient a product of copies of F₃; its dimension counts solutions
-without multiplicity. Each branch still counts full labeled boards in its
-original first-nonzero-difference class.
+Each reduced ideal is therefore isomorphic to its original branch ideal. Every remaining variable keeps its field cubic (including `a³ - a` and `s³ - s`), alongside `s² - 1`. Because these split into distinct roots in `F₃`, each quotient is a finite product of copies of `F₃`, so its dimension equals the exact count of labeled boards in that branch without multiplicity.
 
 ## Selected affine substitutions
 
-The following x indices are **one-based indices in the old 97-variable
-natural-order input**, not the compacted output indices:
+Here `x` indices are **one-based indices in the original 97-variable natural-order input**, not the compacted output indices:
 
 | Branch | Eliminated old variables and replacements |
 |---|---|
@@ -56,11 +29,7 @@ natural-order input**, not the compacted output indices:
 | 2 | x1=0; x72=x16+x71+2*x94; x9=2+2*x8+2*x10 |
 | 3 | x1=0; x72=x16+x71+2*x94; x9=2*x8+2*x10; x2=2 |
 
-The generator exhausts every independent coordinate pivot set of each
-branch's affine equations: 1, 4, 12, and 12 choices. It selects the smallest
-total moment-plus-e3 support, breaking ties by largest individual support
-and then pivot tuple. This is an optimum within these coordinate pivot
-sets, not among general changes of coordinates or algebraic representations.
+The generator tries every independent coordinate pivot set for each branch (1, 4, 12, and 12 choices) and picks the one minimizing total moment-plus-`e3` term count (breaking ties by largest single-polynomial support, then pivot tuple). That optimizes over coordinate pivot sets only, not arbitrary coordinate changes.
 
 | Branch | Variables | Coupled variables | Generators | Moment terms | e3 terms | Total terms |
 |---|---:|---:|---:|---:|---:|---:|
@@ -69,75 +38,35 @@ sets, not among general changes of coordinates or algebraic representations.
 | 2 | 94 | 92 | 175 | 97832 | 632 | 98654 |
 | 3 | 93 | 91 | 174 | 95216 | 602 | 96006 |
 
-The source has 96056 coupled terms. Eliminating branch equations decreases
-this slightly in branches 0 and 3 and increases it modestly in branches
-1 and 2. The calculation removes solved variables from the basis problem;
-no solver performance improvement is asserted.
+Compared to the source's 96,056 coupled terms, elimination trims terms slightly in branches 0 and 3 and increases them slightly in branches 1 and 2. Removing solved variables simplifies the presentation without promising faster basis runs.
 
-## Complete exports, maps and certificates
+## Complete exports, maps, and certificates
 
-The [manifest](exact_f3_branch_elimination_manifest.json) lists the eight
-inputs `exact_f3_branch_elimination_k{k}_{natural,minfill}.ms` and their
-adjacent JSON metadata. Each branch has two alternative variable orders.
-Natural order retains surviving old indices in ascending order; minimum-fill
-order filters the earlier frozen permutation by the same pivot set. The
-independent offset and sign remain the final two variables in both.
+The [manifest](exact_f3_branch_elimination_manifest.json) lists all eight files `exact_f3_branch_elimination_k{k}_{natural,minfill}.ms` and their JSON metadata. Each branch has two variable orders: natural order keeps surviving old indices in ascending order, and minimum-fill filters the frozen permutation by removing the same pivots. Offset and sign stay last in both.
 
-Each complete input contains, in order:
+Each `.ms` file lists, in order:
 
-1. Every remaining individual field cubic.
-2. The 76 substituted and field-reduced moments.
-3. The four substituted and field-reduced elementary cubics.
-4. The independent equation s²−1.
+1. All surviving field cubics `y_i³ - y_i`.
+2. The 76 substituted, field-reduced moments.
+3. The 4 substituted, field-reduced elementary cubics.
+4. `s² - 1`.
 
-Metadata records the exact new-to-old coordinate projection and all 97 old
-variables as affine polynomials in the new ring. It also records the 100
-canonical colors as **affine** forms and the 100 actual colors as polynomials
-of degree at most two. In particular,
+Metadata stores the new-to-old coordinate map, all 97 old coordinates as affine forms in the new variables, all 100 canonical colors as **affine** forms, and all 100 actual colors as polynomials of degree at most 2:
 
 ```
-z_cell = a+s*d_cell
+z_cell = a + s*d_cell.
 ```
 
-can now include a term proportional to s when d_cell has a nonzero constant.
-Using only a linear part of d_cell would impose the wrong original-color
-fixes. The inverse still recovers a from the original apex, the branch k and
-s from the selected pattern difference, then d=s*(z−a), its Gray prefixes,
-and the retained coordinates.
+When `d_cell` has a nonzero constant term, `z_cell` includes a term linear in `s`, so dropping the constant part of `d_cell` would impose wrong prefix constraints. The inverse map still reads `a` from the apex, gets `k` and `s` from the pattern difference, computes `d = s*(z - a)`, takes its Gray prefixes, and projects onto the kept coordinates.
 
-Every source generator has a recorded image certificate. Eliminated field
-domains have explicit ordinary affine-domain identities; surviving domains
-point to their new input index; all moments and elementary cubics have
-image hashes; the removed branch equations are checked to vanish as
-ordinary affine identities. The domain-combination coefficients are
-explicitly labeled in old97 source coordinates. No source generator is
-silently discarded.
+Every source generator gets a recorded image certificate: ordinary affine-domain identities for eliminated domains (with combination coefficients labeled in old-97 indices), new input indices for kept domains, image hashes for all moments and `e3` cubics, and ordinary vanishing identities for the removed branch equations. Nothing is dropped silently.
 
-The natural and minimum-fill outputs are checked by inverse polynomial
-renaming. Both put field equations in ascending variable order, so this
-also permutes the initial domain-generator block; the audit records that
-complete generator permutation.
+Natural and minimum-fill exports are checked against each other by inverse polynomial renaming; because both place field cubics in ascending variable order, the audit also records the full generator permutation.
 
 ## Checks and counting scope
 
-Run `python experiments/exact_f3_branch_elimination.py --check` to reproduce
-the [audit](exact_f3_branch_elimination_audit.json), all input hashes, the
-pivot comparisons, ordinary identities and fresh geometric polynomial
-checks. Eight arbitrary assignments per branch check the affine coordinate
-bijections; these are coordinate tests, not claimed valid boards. Existing
-valid witnesses round-trip in their actual branches (12 in branch 0 and 149
-in branch 1). Two complete transformed polynomial fixtures are checked in
-each represented branch. No valid witness for branches 2 or 3 is assumed;
-the symbolic checks cover both branches regardless.
+Run `python experiments/exact_f3_branch_elimination.py --check` to regenerate the [audit](exact_f3_branch_elimination_audit.json), input hashes, pivot comparisons, ordinary identities, and fresh geometric checks. Eight arbitrary assignments per branch verify the coordinate bijections (coordinate tests only, not valid boards); 161 existing valid witnesses round-trip in their true branches (12 in branch 0, 149 in branch 1), with two complete polynomial fixtures checked per populated branch. The symbolic proofs cover branches 2 and 3 even without stored witnesses.
 
-For the previously known six-completion original-color prefix, the predicted
-four dimensions remain `[6,0,0,0]`. Original fixes must use the exported
-actual-color polynomials. The offset and sign are already retained, so these
-predictions and every eventual branch count have multiplier and divisor one.
-No solver is run here.
+For the known six-completion prefix, the predicted branch dimensions stay `[6, 0, 0, 0]` (using the exported quadratic actual-color polynomials, with multiplier and divisor 1). No solver runs here.
 
-A full count requires exactly one completed certified dimension for each
-of the four branch IDs. Reduced/unreduced and natural/minimum-fill models
-are alternative presentations of the same branch and must never be added
-together. An incomplete branch remains unknown. All earlier inputs and
-backend code remain unchanged.
+Getting the full unrestricted count still requires one certified unrestricted count for each branch ID `0..3`. Reduced vs. unreduced and natural vs. minimum-fill variants are alternative forms of the same branch and must never be summed together; any unfinished branch stays unknown. Earlier inputs and backend code were left untouched.

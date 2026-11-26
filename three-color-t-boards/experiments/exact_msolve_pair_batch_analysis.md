@@ -1,38 +1,21 @@
 # Pair-batch target one preserves pending work
 
-In the preserved fourth build, `--max-pairs 1` reaches msolve as `-m1`.
-`src/neogb/io.c:1262–1265` stores the positive value directly as `mnsel=1`.
-It changes pair batching; it does not add a degree cutoff or an approximation
-to the generating ideal. This is a read-only source assessment, with no new
-solver run or source modification.
+In the fourth build, `--max-pairs 1` passes `-m1` to msolve. `src/neogb/io.c:1262-1265` stores this directly as `mnsel = 1`. It only controls pair batching and introduces no degree cutoff or approximation to the ideal. This note is a read-only source audit with no solver run or code change.
 
-The active selector is `symbol.c:200`, `select_spairs_by_minimal_degree`.
-It sorts the pending pair array and identifies its current minimal-degree
-block. After choosing a count `nps`, it processes every selected pair in
-the prefix `[0,nps)` at lines 296–380: for each LCM group, all pair endpoint
-generators are collected, duplicate endpoints removed, and the appropriate
-monomial multiples loaded into the matrix. Every selected S-pair is in the
-row span of those multiples.
+The active selector is `select_spairs_by_minimal_degree` (`symbol.c:200`). It sorts pending pairs, identifies the current minimal-degree block, picks a count `nps`, and processes `[0, nps)` in lines 296-380: for each LCM group, it gathers endpoint generators, drops duplicates, and loads the required monomial multiples into the matrix. Every selected S-pair lies in the row span of those rows.
 
-Only after constructing those rows, lines 392–393 execute:
+Only after building those rows do lines 392-393 remove the processed prefix:
 
 ```
 memmove(ps, ps+nps, (psl->ld-nps)*sizeof(spair_t));
 psl->ld -= nps;
 ```
 
-The suffix of unselected pairs is therefore retained exactly. No pair is
-discarded solely because it exceeds the batch target. Subsequent updates can
-remove redundant pairs using the solver's existing criteria; those are
-independent of the batching option. `update.c:325` finishes only when a
-constant is found or the pending pair set is empty. The ordinary F4
-initialization keeps `max_gb_degree=INT32_MAX` (`f4.c:394`), so target one
-does not request a truncated basis.
+All unselected pairs remain in the list. No pair is dropped simply for exceeding the batch target. Later updates still prune redundant pairs via the solver's standard criteria, independently of `-m`. `update.c:325` terminates only when a constant appears or the pair list is empty, and ordinary F4 initializes `max_gb_degree = INT32_MAX` (`f4.c:394`), so target 1 computes a full, untruncated basis.
 
 ## Actual tie behavior in this pinned version
 
-Target one is **not a strict cap on selected pairs**, nor a guarantee that
-all ties are grouped. The exact upstream code at `symbol.c:268–272` is:
+Target 1 is **neither a strict cap on selected pairs nor a guarantee that tied LCMs stay together**. The upstream code at `symbol.c:268-272` is:
 
 ```
 if (npd > md->mnsel) {
@@ -44,25 +27,13 @@ if (npd > md->mnsel) {
 }
 ```
 
-Here `nps` is later used as a count. The extension starts from the first
-unselected pair and looks one further ahead, rather than comparing against
-the last selected pair. Thus it can select more than the target and can
-split a tied-LCM run. For example, with pair LCMs `[A,B,B,C]` and target one,
-it selects `[A,B]` and leaves `[B,C]`. With `[A,A,B]`, it selects only the
-first `A`. No pair disappears in either case.
+Because `nps` is used as a count, `ps[nps]` is actually the first *unselected* pair, and the loop compares it against `ps[nps+1]` rather than against the last selected pair. As a result, it can exceed the target or split a run of equal LCMs:
 
-There is also a pre-existing boundary-read issue: when `nps=npd-1`, the
-comparison reads `ps[npd]`, one beyond the current degree block. If that
-block reaches the active-list end, this is beyond the active pair list
-(possibly still within its allocated backing array). The loop's counter
-still remains at most `npd`, and all matrix construction/removal is bounded
-by that selected count. This inspection does not certify the boundary read
-as safe, and no fix was made. The same upstream code applies to the previous
-target sixteen; it is not introduced by target one.
+- For pair LCMs `[A, B, B, C]` with target 1, it selects `[A, B]` and leaves `[B, C]`.
+- For `[A, A, B]` with target 1, it selects only the first `A`.
 
-The accurate operational description is therefore **pair-batch target one**.
-It can reduce the working set compared with target sixteen, but symbolic
-preprocessing can add many reducers even for a single selected pair. Matrix
-rows, columns and memory are not bounded by the batch target. Only a
-successfully completed and validated basis supports an exact quotient count;
-a timeout or allocation failure remains incomplete.
+No pair is lost in either case.
+
+There is also a pre-existing boundary read: when `nps == npd - 1`, `ps[nps+1]` reads `ps[npd]`, one slot past the current degree block (and past the active pair list if the block reaches its end, though possibly still inside the backing allocation). The counter `nps` stays at most `npd`, bounding all matrix construction and removal. We did not certify that read as safe or patch it; the exact same upstream code runs under target 16 as under target 1.
+
+The accurate label for `-m1` is **pair-batch target one**. It can cut working memory relative to target 16, though symbolic preprocessing can still pull in many reducers from a single pair, so memory is not bounded by the batch target. Only a completed, validated basis gives an exact count; timeouts and allocation failures leave the count unknown.

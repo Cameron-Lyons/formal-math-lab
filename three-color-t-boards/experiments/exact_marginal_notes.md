@@ -1,52 +1,30 @@
 # Functional marginal constraints for exact counting
 
-No unrestricted ternary count has been obtained by these experiments.
-`exact_marginal_cnf.py` extends the parsimonious model in `exact_count_cnf.py`
-without changing that file. It adds necessary exact-cardinality constraints,
-using uniquely determined auxiliary variables.
+These experiments did not evaluate the unrestricted ternary count. `exact_marginal_cnf.py` extends `exact_count_cnf.py` (leaving that file untouched) by adding exact color-count cardinality constraints built from uniquely determined auxiliary variables.
 
-For each of the four T roles (top, left, middle, right), every color occurs
-exactly 27 times among the 81 patterns. Each role occupies 81 distinct board
-cells. Therefore the indicator variables for one color in one role sum to
-27. The analogous targets are 8 on 16 cells for binary boards. Optional
-pair marginals require every ordered color pair to occur exactly 9 times
-in any two roles (4 times for binary boards).
+In each of the four T roles (top, left, middle, right), every color appears 27 times across 81 distinct board cells (8 times across 16 cells for binary boards). Optional pair marginals also enforce that every ordered color pair appears 9 times across any two roles (4 times for binary boards).
 
-Two count-preserving circuit encodings are implemented:
+Two count-preserving circuit encodings are supported:
 
-- `--cardinality sequential`: each threshold variable is defined by
-  `s[i,k] iff s[i-1,k] OR (s[i-1,k-1] AND input[i])`. Requiring the target
-  threshold and prohibiting the next threshold gives an exact count.
-- `--cardinality network`: an odd-even sorting network uses Boolean OR/AND
-  comparators, each defined in both directions. Its sorted outputs encode
-  the exact number of true inputs. Padding inputs are constant false.
+- `--cardinality sequential`: defines each counter bit via `s[i,k] iff s[i-1,k] OR (s[i-1,k-1] AND input[i])`, requiring the target threshold and forbidding the next one.
+- `--cardinality network`: builds an odd-even sorting network of two-way OR/AND comparators (padded with false) so the sorted outputs encode the exact count.
 
-Constants and identical subcircuits are simplified. Every remaining gate is
-an equivalence, so its value is uniquely determined by the cell coloring.
-These circuits preserve ordinary model counts, not only projected counts.
+Constants and duplicate subcircuits are simplified away, and every remaining gate is a two-way equivalence forced by the cell variables. Ordinary model counts and projected counts are both preserved.
 
 ## A smaller equivalent system using boundary differences
 
-`--marginal-system boundary` first enforces the three top-role counts, then
-equates the top/left, left/middle, and middle/right color counts. Shared cells
-cancel from each equation. For ternary boards the differences have sizes
-17 versus 17, 9 versus 9, and 9 versus 9, respectively.
+`--marginal-system boundary` enforces the three top-role color counts first, then equates top with left, left with middle, and middle with right. Shared cells cancel out, leaving boundary sets of sizes 17 vs. 17, 9 vs. 9, and 9 vs. 9 for ternary boards.
 
-For equal-size sets A and B, equality of their color counts is equivalent to
+For equal-sized sets `A` and `B`, matching color counts is equivalent to
 
 `sum(color indicators on A) + sum(negated color indicators on B) = |B|`.
 
-Thus the additional counters have only 34, 18, and 18 inputs per color,
-instead of three more counters of length 81. This is logically equivalent
-to enforcing all four role marginals. `--marginal-system both` adds both
-versions, and `--omit-last-color` exploits the redundant last color count.
+That shrinks the extra counters from length 81 down to lengths 34, 18, and 18 per color, with the exact same logical strength. `--marginal-system both` emits both versions, and `--omit-last-color` drops the redundant last color count.
 
-With ternary full-orbit normalization, the original model has 13,543
-variables and 62,090 clauses. Adding all role counters gives 36,211 variables
-and 151,502 clauses with sequential counters, or 33,781 variables and 122,828
-clauses with sorting networks. The boundary system reduces this to 21,388
-variables and 92,867 clauses, or 21,319 variables and 85,442 clauses,
-respectively. A smaller formula is not a demonstrated runtime improvement.
+With full ternary orbit breaking, formula sizes compare as follows (though smaller formulas do not guarantee faster counting):
+- Baseline: 13,543 variables, 62,090 clauses
+- Direct role counters: 36,211 variables / 151,502 clauses (sequential), or 33,781 variables / 122,828 clauses (network)
+- Boundary system: 21,388 variables / 92,867 clauses (sequential), or 21,319 variables / 85,442 clauses (network)
 
 ## Verification and benchmark results
 
@@ -54,64 +32,19 @@ respectively. A smaller formula is not a demonstrated runtime improvement.
 python experiments/exact_marginal_check.py
 ```
 
-All **102 exact-count checks passed**. They check both circuit methods against
-binomial counts for every target on 0 through 7 Boolean inputs, complementary
-literal inputs, and the full binary board counts. For every combination of
-the three marginal systems and optional LM/MR/TM pair marginals, binary
-counts remain **168** unrestricted and **42** with full orbit normalization.
-These tests count all auxiliaries directly, without a projection hint.
-See `exact_marginal_check.log`.
+All **102 exact-count checks passed** (`exact_marginal_check.log`), testing both circuits against exact binomial counts on 0 to 7 inputs, negated literal inputs, and full binary boards across all combinations of the three marginal systems and optional LM/MR/TM pair marginals (**168** unrestricted, **42** orbit-normalized, counted over all variables without projection).
 
-The known seven-row ternary prefix C was counted exactly as **2** by both
-boundary encodings: 33.753 CPU seconds for sequential counters and 27.163
-CPU seconds for sorting networks. The earlier model without marginal
-circuits took 16.28 CPU seconds on this prefix, so these tests do not establish
-a speedup. The larger direct-role encodings did not finish within 90 wall
-seconds. Timings came from concurrent experiments; CPU times are reported
-separately from wall limits. See `exact_marginal_prefix_results.json` and
-`exact_marginal_boundary_prefix_results.json`.
+On the known seven-row ternary prefix C, both boundary encodings returned **2**: 33.753 CPU seconds (sequential) and 27.163 CPU seconds (network), both slower than the 16.28 CPU seconds of the plain model without marginal circuits. The larger direct-role encodings timed out at 90 wall seconds (`exact_marginal_prefix_results.json` and `exact_marginal_boundary_prefix_results.json`; CPU times are logged separately from wall limits under concurrent load).
 
-Unrestricted baseline, direct-role sequential, and direct-role network
-formulas all timed out at 120 wall seconds. They used approximately 41, 47,
-and 46 CPU seconds respectively. None returned a count. Their logs stopped
-immediately after the solver's formula summary, without a counting-progress
-report; see `exact_marginal_full_results.json`.
+Unrestricted baseline, direct-role sequential, and direct-role network formulas all timed out at 120 wall seconds (~41, 47, and 46 CPU seconds) without a count, stopping right after Ganak's formula summary with no counting log lines (`exact_marginal_full_results.json`).
 
-Source inspection identified a relevant obstacle: Ganak calls an independent
-CMS satisfiability solve immediately after that summary and before its
-counting loop. Thus absence of counting statistics must not be interpreted as
-measured #SAT search throughput. The source location is
-[`counter.cpp`, line 1161](https://github.com/meelgroup/ganak/blob/f262be5374f312b4bf7c99c6cca26e51182158e5/src/counter.cpp#L1161).
-The `--polar` option affects Ganak's counting decisions, not that initial
-CMS solve.
+Reading Ganak's source explained why: right after printing the summary, Ganak runs a standalone CryptoMiniSat (CMS) satisfiability solve before entering the counting loop ([`counter.cpp`, line 1161](https://github.com/meelgroup/ganak/blob/f262be5374f312b4bf7c99c6cca26e51182158e5/src/counter.cpp#L1161)), and `--polar` does not affect that initial SAT check. So missing progress lines reflected a stalled SAT startup, not counting throughput. That affected these unphased **orbit-normalized** runs and the earlier 60-second orbit run, whereas the older 120-second palette-only run (`exact_count_ternary_support.log`) had entered counting and logged 148,916 conflicts and 0 cache hits.
 
-This diagnosis concerns the unphased **orbit-normalized** runs in
-`exact_marginal_full_results.json` and the earlier 60-second orbit-normalized
-trial. It does **not** apply to every earlier unrestricted run: the older
-palette-only 120-second trial (`exact_count_ternary_support.log`) did enter
-counting and reported 148,916 conflicts and zero cache hits.
+Because bundled CMS tests constant assignments first, starting with all-false ([CMS `Lucky::doit`](https://github.com/msoos/cryptominisat/blob/97c6efeae45d93c45d2ebc3e4e83c2014c79513d/src/lucky.cpp#L228)), we built `exact_phase.py` to flip variables around a known full satisfying assignment so all-false becomes a valid model while preserving the model set bijectively.
 
-The bundled CMS version enables a preliminary check for constant assignments;
-it tries all-false first. This motivates the separate `exact_phase*` work:
-complement variables according to a known full satisfying assignment so
-all-false becomes a witness, while preserving the model count bijectively.
-See [CMS `Lucky::doit`](https://github.com/msoos/cryptominisat/blob/97c6efeae45d93c45d2ebc3e4e83c2014c79513d/src/lucky.cpp#L228).
+Passing `--phase-seed 0` derives every auxiliary from a known board by unit propagation, checks every clause, and complements variables accordingly. The rephased binary boundary model still counted **42** over all variables.
 
-This workaround was then tested. `--phase-seed 0` calls `exact_phase.py` to
-derive every auxiliary value by unit propagation from a known board, verify
-every clause, and complement variables so that this model becomes all-false.
-The transformation changes neither the model count nor the set of represented
-boards. The phased binary boundary model returned **42**, counting every
-variable without projection.
-
-Both phased unrestricted marginal models immediately passed the initial SAT
-check and reached actual counting, evidenced by component initialization and
-learned-clause database reductions. Both still timed out at 120 wall seconds:
-the boundary model used 24.182 CPU seconds and the direct-role model 27.198.
-Neither emitted a completed count or a periodic exact conflict total. Each
-reached at least the first recorded learned-clause database reduction. These
-runs establish that counting began; they do not establish a runtime advantage
-or a likely completion time. See `exact_marginal_phase_results.json`.
+Both rephased unrestricted marginal models cleared the initial SAT check immediately and entered counting (initializing components and running at least one learned-clause database reduction), then still timed out at 120 wall seconds without a count or conflict total: 24.182 CPU seconds for the boundary model and 27.198 CPU seconds for the direct-role model (`exact_marginal_phase_results.json`). This confirms counting started, without showing a speedup or completion estimate.
 
 ## Reproduction
 
@@ -120,9 +53,4 @@ python experiments/exact_marginal_cnf.py --orbit-canonical --independent-support
 python experiments/exact_marginal_benchmark.py --seconds 120 --jobs 1 --output experiments/exact_marginal_replay.json experiments/exact_marginal_phase_boundary.cnf
 ```
 
-The benchmark wrapper records the exact command, exit status, wall time,
-CPU usage, maximum resident memory, and any reported conflict/decision
-statistics. A timeout records `exact_count: null`. It uses deterministic
-Ganak (`--prob 0`) with no approximate fallback. These external solver
-experiments are not Lean certificates, and the marginal encodings make no
-claim that the full count is practical.
+The benchmark wrapper runs deterministic Ganak (`--prob 0`, no approximate fallback) and logs exact commands, exit codes, wall and CPU times, peak RSS, and any solver stats, recording `exact_count: null` on timeout. These are external solver benchmarks rather than Lean proofs.

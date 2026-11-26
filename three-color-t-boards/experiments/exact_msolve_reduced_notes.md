@@ -1,42 +1,20 @@
 # Reduced F2 msolve export
 
-`exact_msolve_reduced.py` exposes
-`reduced_definitions(all_moments=False) -> (text, metadata)` without invoking a
-solver. It imports the independently reviewed reduced JSON, pins its exact
-SHA256, and keeps the 96-variable ordinary polynomial ring over F2.
+`exact_msolve_reduced.py` exposes `reduced_definitions(all_moments=False) -> (text, metadata)` without running a solver. It loads the independently reviewed reduced JSON, verifies its pinned SHA-256, and exports the 96-variable ordinary polynomial ring over F2.
 
-Both modes retain all 96 free cubic equations `x_i^3+1`, all 36 nonzero
-substituted representative moments, and all four substituted pivot-domain
-polynomials. Default mode has 136 generators and 25,070 terms outside the
-explicit free cubes. The four eliminated cells are 0, 81, 90, and 99; their
-linear substitution map is bijective on the constrained solutions.
+Both modes include all 96 free cubic domains `x_i^3 + 1`, all 36 nonzero substituted representative moments, and all 4 substituted pivot-domain polynomials:
 
-All-moment mode appends exactly 36 Frobenius partners, yielding 172 generators
-and 36,954 terms outside the free cubes. The partner transformation swaps
-exponents one and two modulo the free cubic domains. In characteristic two
-the square of a sum is the sum of its squares, so these partners are redundant
-members of the same ordinary ideal. The pivot-domain polynomials are retained
-unchanged and are not duplicated. All default polynomials remain an exact
-prefix of the larger polynomial list.
+- **Default mode**: 136 generators and 25,070 terms outside the explicit free cubes. The four eliminated cells are 0, 81, 90, and 99, whose linear substitution map is bijective on valid boards.
+- **All-moment mode**: appends the 36 Frobenius partners, giving 172 generators and 36,954 terms outside the free cubes. Partner generation swaps exponents 1 and 2 modulo the free cubes. Because `(A + B)^2 = A^2 + B^2` in characteristic 2, these partners are redundant members of the same ideal. The 4 pivot domains stay unchanged and unduplicated, and the default generator list appears as an exact prefix.
 
-The term decoder rejects exponent three, bits beyond the 96 variables,
-negative/nonhex/nonstring encodings, and duplicate monomials including
-different textual spellings of the same integer. Document checks reject
-missing or duplicate equations, invalid free-cell maps, missing cube-domain
-metadata, and inconsistent substitution data. JSON duplicate keys are also
-rejected.
+Validation rejects malformed inputs strictly:
 
-Metadata records full labeled ternary-board scope, no fixed prefix or
-symmetry normalization, count divisor/multiplier one, exact source and
-emitted-input hashes, and the free original-cell map. `eliminated_unary_moments`
-is four or eight according to mode; only four are ordinary linear equations,
-while all-moment mode additionally eliminates their quadratic unary partners.
+- Term decoding rejects exponent 3, variable indices beyond 96, negative, non-hex, or non-string encodings, and duplicate monomials (including different textual spellings of the same integer).
+- Document checks reject missing or duplicate equations, invalid free-cell maps, missing cube-domain metadata, inconsistent substitution data, and duplicate JSON keys.
 
-Focused checks passed 25 invalid-input cases, 243 small Frobenius monomial
-cases, and complete emitted-polynomial round trips. A separate fresh geometry
-audit by the math agent independently reconstructed all moments and all four
-pivot cubes and matched both actual `.ms` exports. No exact numerical count
-is obtained by exporting these generating ideals.
+Metadata records the full labeled ternary-board scope, no fixed prefix or symmetry normalization, divisor and multiplier equal to 1, exact source and emitted-input hashes, and the free original-cell map. `eliminated_unary_moments` is 4 in default mode (the 4 ordinary linear equations) or 8 in all-moment mode (adding their 4 quadratic unary partners).
+
+Focused tests passed 25 invalid-input rejections, 243 small Frobenius monomial checks, and full polynomial round trips. A separate geometry audit by the math agent independently rebuilt all moments and all four pivot cubes and matched both `.ms` exports. Exporting these ideals does not compute a board count.
 
 ```sh
 python experiments/exact_msolve_reduced_check.py

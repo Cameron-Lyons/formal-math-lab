@@ -1,14 +1,14 @@
 # Exact algebra backend experiment
 
-The unrestricted count is still unknown. One full reduced-ideal computation was attempted and did not complete a standard basis. Its failure must not be interpreted as zero solutions.
+The unrestricted count is still unknown. We ran one full reduced-ideal computation, and it failed before finishing a standard basis (which does not mean zero solutions).
 
-The local backend is Singular 4.4.1 (44105, 64 bit), extracted from the official Arch package `singular-4.4.1.p5-11` with its missing dependencies. No system packages were installed. `exact_algebra_backend_packages.json` records package versions, download URLs and SHA256 checksums. `exact_algebra_backend_setup.py` reuses that pinned manifest and validates every archive before local extraction.
+The local solver is Singular 4.4.1 (44105, 64-bit), extracted locally from the official Arch package `singular-4.4.1.p5-11` along with its missing dependencies, without touching system directories. `exact_algebra_backend_packages.json` stores the package versions, download URLs, and SHA256 checksums, and `exact_algebra_backend_setup.py` verifies every archive against that manifest before extracting.
 
 ## Model and exact count interpretation
 
-The full Fourier model uses an ordinary polynomial ring over F2. Each ternary cell satisfies `x_i^3+1=0`; these are **not** Boolean variables, and adding `x_i^2+x_i` would destroy the model. Over F4 every cubic domain splits into three distinct nonzero roots. The resulting finite quotient is reduced; after scalar extension its vector-space dimension is the number of valid boards. Scalar extension preserves this dimension. Counting F2-rational points would be a different, incorrect task.
+The full Fourier model works in an ordinary polynomial ring over `F2`. Each ternary cell satisfies `x_i^3 + 1 = 0`. These are **not** Boolean variables; imposing `x_i^2 + x_i = 0` would break the encoding. Over `F4`, each cubic splits into three distinct nonzero roots, so the finite quotient is reduced and its vector-space dimension over `F4` equals the number of valid boards. Extending scalars from `F2` to `F4` keeps that dimension unchanged (counting `F2`-rational points would answer the wrong question).
 
-The importer checks these generator totals:
+The importer verifies these generator counts:
 
 | Model | Variables | Generators |
 | --- | ---: | ---: |
@@ -16,25 +16,25 @@ The importer checks these generator totals:
 | Reduced ternary Fourier ideal | 96 | 96 cubic domains + 36 moments + 4 substituted pivot domains = 136 |
 | Reduced binary Boolean ANF | 21 | 21 Boolean domains + 11 ANFs = 32 |
 
-The 96 free cubic domains are generated explicitly; they are metadata rather than entries of the reduced JSON's `remaining_equations` array. Full reduced computations impose no prefix or apex restriction. The optional `--normalize-apex` flag is accepted only for the original ternary model, where it adds `x1+1` and records the justified multiplier 3. Unsupported uses are rejected before running Singular.
+The 96 free cubic domains are generated directly from metadata rather than listed inside the reduced JSON's `remaining_equations` array. Full reduced runs fix no prefix or apex. `--normalize-apex` works only on the original ternary model, adding `x1 + 1` and recording a multiplier of 3; any other use is rejected before Singular starts.
 
-Fixed ternary prefixes are specialized over the genuine coefficient field `F2[a]/(a^2+a+1)`, with original colors 0, 1, 2 represented by `1`, `a`, `a+1`. Singular's [algebraic-extension documentation](https://www.singular.uni-kl.de/Manual/latest/sing_408.htm) explains setting `minpoly` immediately after declaring this ring.
+Fixed ternary prefixes specialize over the field `F2[a]/(a^2 + a + 1)`, encoding colors 0, 1, 2 as `1`, `a`, `a + 1`. Singular's [algebraic-extension documentation](https://www.singular.uni-kl.de/Manual/latest/sing_408.htm) explains setting `minpoly` right after declaring this ring.
 
 ## Reliable integer counting
 
-Singular's [`vdim`](https://www.singular.uni-kl.de/Manual/latest/sing_381.htm) returns a machine integer and assumes a standard basis. It is used only as a diagnostic on tiny fixtures. Counts are obtained independently by:
+Singular's [`vdim`](https://www.singular.uni-kl.de/Manual/latest/sing_381.htm) returns a machine integer and assumes a standard basis, so we use it only as a quick check on tiny fixtures. Exact counts come from three independent paths:
 
-1. Summing Singular's `bigintvec` second Hilbert-series coefficients with a `bigint` accumulator, excluding its final metadata entry. The current [`hilb` documentation](https://www.singular.uni-kl.de/web/docs/reference-hilb-2eeb0fea.html) specifies this vector representation.
-2. Counting standard monomials of the completed leading ideal with Python integers in `exact_algebra_backend.py`.
-3. Counting the same leading ideal with the independently implemented `exact_standard_monomials.py`, which factors support components and branches on exponent intervals.
+1. Summing the coefficients of Singular's `bigintvec` second Hilbert series into a `bigint` accumulator, dropping its trailing metadata entry (see the [`hilb` documentation](https://www.singular.uni-kl.de/web/docs/reference-hilb-2eeb0fea.html)).
+2. Counting standard monomials of the finished leading ideal with Python big integers in `exact_algebra_backend.py`.
+3. Counting the same leading ideal with the separate implementation in `exact_standard_monomials.py`, which splits support components and branches on exponent intervals.
 
-The script exports leading monomials before computing the Hilbert series. A completed standard basis and complete export are required; `attrib(G,"isSB")` must attest that the basis is standard. Zero polynomials are rejected before `leadexp`, so the all-zero exponent vector can mean only the unit monomial. Every Singular error diagnostic invalidates a run even if the interpreter continues and later prints counts or exits successfully. The checker verifies this with an actual undefined-procedure error followed by otherwise successful basis/count output.
+The script exports leading monomials before running `hilb`, and requires both a completed standard basis (attested by `attrib(G,"isSB")`) and a complete export. Zero polynomials are rejected before `leadexp`, so an all-zero exponent vector can only represent the constant monomial 1. Any Singular error message invalidates the run even if Singular keeps going and prints a count or exits 0; the test suite verifies this by triggering an undefined-procedure error followed by an otherwise normal basis and count.
 
-If Hilbert evaluation alone times out after a completed leading-ideal export, agreement between both independent monomial counters can still establish the exact quotient dimension; the runner reports `COMPLETE_FROM_LEADING_IDEAL` and retains the Hilbert timeout separately. No such completed basis was obtained in the unrestricted trial.
+If Hilbert computation times out after a complete leading-ideal export, agreement between the two Python monomial counters still gives the exact quotient dimension, reported as `COMPLETE_FROM_LEADING_IDEAL` while keeping the Hilbert timeout noted separately. The unrestricted trial never reached a completed basis.
 
 ## Validation results
 
-All completed counts below agree between Singular's bigint Hilbert sum and both Python monomial counters. These are fixtures or fixed-prefix fibers, not unrestricted ternary counts.
+Every completed count below matches across Singular's `bigint` Hilbert sum and both Python monomial counters. All rows are small fixtures or fixed-prefix fibers, not unrestricted ternary counts.
 
 | Fixture | Exact quotient dimension |
 | --- | ---: |
@@ -50,22 +50,22 @@ All completed counts below agree between Singular's bigint Hilbert sum and both 
 | Known nine-row ternary prefix, first seed | 1 |
 | Known nine-row ternary prefix, six-completion fiber | 6 |
 
-The `10^20` fixture explicitly exceeds 64-bit range. It tests dimension arithmetic, so its nonradical characteristic-two domains cause no problem. The ternary fibers agree with prior exhaustive row enumeration and terminal-row dynamic programming (`exact_lastrow_check.py` and its saved log). Their Singular runs used 19 variables and 58 generators, requiring respectively 7.1931 and 18.5431 process CPU seconds; wall times were 9.0854 and 19.9193 seconds. The exact 81-color prefix strings are recorded in `exact_algebra_backend_ternary_prefix_one.json` and `exact_algebra_backend_ternary_prefix_six.json`.
+The $10^{20}$ fixture exceeds 64-bit integers on purpose to test big-integer counting, so its nonradical characteristic-2 domains are harmless here. Both nine-row ternary fibers match earlier exhaustive row enumeration and last-row dynamic programming (`exact_lastrow_check.py` and its log). Each Singular run had 19 variables and 58 generators, taking 7.1931 and 18.5431 process CPU seconds (9.0854 and 19.9193 wall seconds). The exact 81-color prefixes are saved in `exact_algebra_backend_ternary_prefix_one.json` and `exact_algebra_backend_ternary_prefix_six.json`.
 
-The binary 21-variable standard-basis trial timed out before completion: 90.0969 wall seconds, 84.0456 process CPU seconds, 2 GiB address-space cap. It produced no algebraic count. The known independent binary count 168 is not claimed as a completed Gröbner result.
+A 21-variable binary standard-basis run timed out at 90.0969 wall seconds (84.0456 CPU seconds, 2 GiB cap) without finishing, so the known binary count of 168 is not claimed as a Gröbner result here.
 
-An early test of 100 independent cubic domains completed its basis but then timed out in Hilbert computation after 60 seconds. That prompted exporting the leading ideal before calling `hilb`. Its dimension is mathematically `3^100`; the two Python counters handle this pure-power ideal directly. The saved early run itself lacks a completed Hilbert result.
+An earlier run on 100 independent cubic domains finished its basis and then timed out inside `hilb` after 60 seconds, which led us to export the leading ideal before calling `hilb`. Its exact dimension is $3^{100}$, which both Python counters evaluate directly, though that earlier saved run itself has no completed Hilbert output.
 
-Run the small fixtures, import checks, normalization misuse checks, actual-error rejection check, and independent verification of saved fiber leading ideals:
+To run the small fixtures, import checks, normalization misuse tests, error-rejection test, and re-verification of saved fiber leading ideals:
 
 ```sh
 python experiments/exact_algebra_backend_setup.py
 python experiments/exact_algebra_backend_check.py
 ```
 
-Add `--include-fibers` to recompute the two fixed-prefix bases. No unrestricted computation is launched by the check script. The saved checks are `exact_algebra_backend_check.json`; a separate independent comparison of all previously exported leading ideals is `exact_algebra_backend_independent_validation.json`.
+Add `--include-fibers` to recompute the two fixed-prefix bases (the script never launches an unrestricted run). Saved results are in `exact_algebra_backend_check.json`, and an independent re-check of all previously exported leading ideals is in `exact_algebra_backend_independent_validation.json`.
 
-An independent review also checked 300 fresh finite-box leading ideals, fully fixed valid and invalid ternary boards (dimensions 1 and 0), and synthetic Hilbert-timeout, incomplete-export and diagnostic cases. Its saved audit is `exact_parity_math_backend_review.json`.
+An independent audit (`exact_parity_math_backend_review.json`) also checked 300 fresh finite-box leading ideals, fully fixed valid and invalid ternary boards (dimensions 1 and 0), and synthetic Hilbert-timeout, incomplete-export, and error-diagnostic cases.
 
 ## The single unrestricted characteristic-two trial
 
@@ -75,7 +75,7 @@ The exact command was:
 python experiments/exact_algebra_backend.py --model ternary-reduced --output experiments/exact_algebra_backend_full_reduced --algorithm std --timeout 90 --memory-mb 2048
 ```
 
-It computes `std(I)` with `option(redSB)` in the ordinary F2 polynomial ring, degree reverse lexicographic order (`dp`), 96 variables and all 136 generators. The wrapper launches the locally extracted `Singular -q`, provides the saved `.sing` file's contents on standard input, sets `RLIMIT_AS` to 2147483648 bytes, and enforces a 90-second wall timeout. Library lookup is set to the local extraction. OS process CPU usage is recorded separately.
+This runs `std(I)` with `option(redSB)` over `F2` in `dp` order on 96 variables and 136 generators. The wrapper launches local `Singular -q`, feeds it the saved `.sing` script on stdin, points library lookup at the local extraction, sets `RLIMIT_AS` to 2147483648 bytes, enforces a 90-second wall timeout, and logs OS process CPU time separately.
 
 Result:
 
@@ -88,10 +88,10 @@ Result:
 | Wall seconds | 90.358622 |
 | Quotient dimension | not computed |
 
-The package memory diagnostic and wall timeout are separate facts; the CPU measurement is not inferred from wall time. No further unrestricted characteristic-two Gröbner trial was run. The later characteristic-29 experiments are recorded separately in `exact_algebra_backend_prime_results.md`.
+Memory exhaustion and the wall timeout are recorded separately, and CPU time comes from the OS rather than wall time. We ran no further unrestricted characteristic-2 Gröbner trials; later characteristic-29 trials are in `exact_algebra_backend_prime_results.md`.
 
 Input JSON SHA256: `66e18148d574178bfdc09296635e43ebe327646beff90ab8c5a6d43e88729c78`.
 
 Executed Singular script SHA256: `6ed1e7cbbbe034ed8ee23961bbed2332ef2be7185207bb4379e7bb815a32204e`.
 
-Raw script, output and metadata are `exact_algebra_backend_full_reduced.sing`, `.log`, and `.json`. The experiment establishes that this exact algebraic reduction can be imported and counted correctly on nontrivial fixed fibers; this bounded `std` computation did not make the unrestricted count tractable.
+The raw script, log, and metadata are `exact_algebra_backend_full_reduced.sing`, `.log`, and `.json`. Overall, the experiment confirms that the exact algebraic reduction imports and counts accurately on nontrivial fixed fibers, while bounded `std` over `F2` did not scale to the unrestricted board.

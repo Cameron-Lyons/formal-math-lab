@@ -1,68 +1,30 @@
 # Independent exact counting backend: d4
 
-The official CRIL **d4** engine independently reproduced the four solved
-validation counts, but neither unrestricted ternary trial completed. Both
-full trials had 120-second wall limits and terminated with exit status 124.
-Their recorded counts are `null`, not zero. No approximate mode, partial
-count, or third full trial was used.
+The official CRIL **d4** counter reproduced all four solved validation counts, while neither unrestricted ternary run finished. Both full runs hit their 120-second wall limits with exit status 124 and record `null` (not zero). No approximate mode, partial count, or third full run was used.
 
 ## Source and arithmetic
 
-Repository: <https://github.com/crillab/d4>, pinned to its current official
-head at inspection, `333370cc1e843dd0749c1efe88516e72b5239174`
-(2023-05-17). The newer `crillab/d4v2` repository was also inspected; its
-current interface is a library with a demo executable. The standalone d4
-CLI was chosen for this independent backend experiment.
+We used <https://github.com/crillab/d4> pinned to commit `333370cc1e843dd0749c1efe88516e72b5239174` (2023-05-17), choosing its standalone CLI over the newer `crillab/d4v2` library-plus-demo repo.
 
-This is a different implementation from Ganak: a DPLL/knowledge-compilation
-counter using its own component cache, a MiniSAT-derived SAT engine, and
-PaToH partitioning. The original source was built locally with installed
-GMP and zlib. Missing Boost 1.83 headers were extracted from a Debian
-development package into `exact_backend_tools/boost`; nothing was installed
-or changed in system directories.
+Unlike Ganak, d4 is a separate DPLL/knowledge-compilation counter with its own component cache, a MiniSAT-derived SAT engine, and PaToH partitioning. We built it locally against installed GMP and zlib, extracting missing Boost 1.83 headers from a Debian development package into `exact_backend_tools/boost` without modifying system directories.
 
-The arithmetic is **arbitrary-precision integer**, not a rounded floating
-result. Unweighted input literals receive weight 1 in
-[`ParserProblem.cc`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/manager/ParserProblem.cc#L56).
-[`core/Main.cc`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/core/Main.cc#L279)
-detects integer weights and instantiates `ModelCounter<mpz_int>`. All six
-logs explicitly confirm `Integer mode`. The `precision` option applies
-only to the alternative floating-weight path and is irrelevant here.
+Counting uses **arbitrary-precision integers**, never rounded floats. Unweighted input literals get weight 1 in [`ParserProblem.cc`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/manager/ParserProblem.cc#L56), and [`core/Main.cc`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/core/Main.cc#L279) instantiates `ModelCounter<mpz_int>`. All six logs confirm `Integer mode` (the `precision` flag only affects floating-weight runs).
 
-Hashing does not introduce probabilistic count correctness: the cache
-checks the serialized component header and then `memcmp`s its full data
-before accepting a hit; see
-[`CacheCNFManager.hh`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/manager/CacheCNFManager.hh#L172).
-The SAT seed was fixed at 91648253, random branching has its default zero
-frequency, and the upstream PaToH seed is 1.
+Caching is exact rather than probabilistic: before accepting a cache hit, d4 checks the serialized component header and runs `memcmp` over the full component data ([`CacheCNFManager.hh`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/manager/CacheCNFManager.hh#L172)). We fixed the SAT seed to `91648253`, kept random branching at 0, and left the upstream PaToH seed at 1.
 
-All runs count **every CNF variable**. They do not pass a projection file;
-d4 ignores the existing `c ind` comments. The encoders' functional
-auxiliaries make ordinary model counting equal to board counting. Full
-models retain orbit normalization, so any completed count would be
-multiplied by 12 to recover all labeled ternary boards. No such full count
-was obtained.
+All runs count **every CNF variable**, passing no projection file (d4 ignores `c ind` comments). Because all auxiliary variables are uniquely forced by the board cells, full-variable model counting equals board counting. Full ternary formulas include orbit breaking, so a finished count would multiply by 12 to give all labeled boards, though no full run finished.
 
 ## Diagnostic change and options
 
-`exact_backend_trace.patch` changes only logging: periodic statistics every
-256 recursive calls, and a branch trace for the first 32 decisions and
-subsequent powers of two. It does not alter search, simplification, cache
-keys, or arithmetic. Source, binary, patch, bundled PaToH archive, Boost
-package hashes, compiler, and linked libraries are recorded in
-`exact_backend_provenance.json`.
+`exact_backend_trace.patch` adds logging only: periodic stats every 256 recursive calls, plus branch traces for the first 32 decisions and then powers of two. Search, simplification, caching, and arithmetic stay unchanged. All hashes (source, binary, patch, PaToH archive, Boost package), compiler info, and linked libraries are saved in `exact_backend_provenance.json`.
 
-Every run used the same counter options:
+Every run used:
 
 ```text
 -mc -ph=TRUE -rnd-seed=91648253
 ```
 
-The defaults retain VSADS branch scoring, clause-bipartite partitioning,
-graph reduction, equivalence probing, component splitting, and caching.
-The `TRUE` phase name in this source produces negative branch literals
-when reverse polarity is off, as confirmed by the traces. It therefore
-follows the known all-false model of each rephased input initially.
+Defaults keep VSADS scoring, clause-bipartite partitioning, graph reduction, equivalence probing, component splitting, and caching. In d4's source, `-ph=TRUE` (with reverse polarity off) branches on negative literals first, as confirmed by the traces, so search initially follows the all-false witness of each rephased CNF.
 
 ## Completed validations and bounded full runs
 
@@ -75,81 +37,34 @@ follows the known all-false model of each rephased input initially.
 | Full ternary baseline | timeout; no count | 96.546 | 120.041 | 611,220 |
 | Full ternary comparison encoding | timeout; no count | 81.322 | 120.074 | 125,600 |
 
-CPU and RSS in this table come from the wrapper's `os.wait4`, with CPU
-equal to user plus system time. In this release,
-[`cpuTime()`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/utils/System.hh#L74)
-uses `gettimeofday`: the solver's reported time and the raw trace field
-named `cpu` are actually **elapsed wall time**. Parsed JSON calls this
-`solver_elapsed_seconds`. Its memory report reads `VmPeak`, a virtual
-address-space size, rather than resident memory. The OS measurements above
-avoid both ambiguities.
+CPU (user + system) and peak RSS come from the wrapper's `os.wait4`. In this release, [`cpuTime()`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/utils/System.hh#L74) calls `gettimeofday`, so both d4's reported time and the trace's `cpu` field actually measure **elapsed wall time** (stored as `solver_elapsed_seconds` in our parsed JSON), while d4's memory figure reports `VmPeak` rather than resident memory. Using OS counters avoids both pitfalls.
 
-Prefix C completed after 55 recursive calls, 27 decisions and one
-partitioner call, with no split components and no cache hits. This
-independently verifies the count; the timing is not a controlled claim of
-general superiority over Ganak.
+Prefix C finished in 55 recursive calls, 27 decisions, and 1 partitioner call, with no component splits and no cache hits. This confirms the count of 2 independently without implying d4 beats Ganak in general.
 
-The first 32 logged decisions in **each full trial** were cell variables
-(absolute literal IDs at most 300), all negative. At the last recorded
-decision the baseline had one 8,500-variable component and the comparison
-encoding one 5,054-variable component. Both snapshots had zero completed
-partitioner calls, zero split components, zero cache hits and zero SAT
-conflicts. Neither run reached the next branch trace at decision 64 or
-the periodic report at 256 recursive calls. Thus counting genuinely
-started, but the logs do **not** establish the final decision count or
-where the remaining time went.
+In **both full ternary runs**, the first 32 logged decisions were negative cell literals (variable IDs at most 300). At decision 32, the baseline held one 8,500-variable component and the comparison encoding held one 5,054-variable component, both with 0 partitioner calls, 0 component splits, 0 cache hits, and 0 SAT conflicts. Neither run reached decision 64 or 256 recursive calls before timing out. Counting clearly started, though the logs do not reveal the final decision count or where the rest of the time was spent.
 
 ## What the source does and does not explain
 
-[`computeDecisionNode`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/modelCounters/ModelCounter.hh#L172)
-calls the partitioner only when the component has more than 10 and fewer
-than 5,000 variables and no remaining priority variables. That accounts
-for the absence of partitioning in the recorded early full-instance
-snapshots. It does not prove that a later partitioner call dominated the
-timeout.
+[`computeDecisionNode`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/modelCounters/ModelCounter.hh#L172) invokes the partitioner only when a component has more than 10 and fewer than 5,000 variables and no remaining priority variables. That explains why partitioning did not fire during the first 32 decisions, without proving whether partitioning later caused the stall.
 
-The exposed option `-no-eqs` would disable just equivalence probing while
-leaving graph reduction and PaToH decomposition enabled. The option flows
-from `core/Main.cc:216` through `PartitionerInterface.cc:34` to
-`ClauseBipartiteGraphPartitioner.cc:56`. However,
-[`EquivManager::searchEquiv`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/utils/equiv.hh#L99)
-does two-sided **unit-propagation** probing and conflict analysis, not
-complete CDCL SAT solves. The observed pause could instead be a difficult
-SAT subproblem after the first valid branch. No third full trial was
-justified by these traces, so `-no-eqs` was not tested.
+The `-no-eqs` flag disables equivalence probing while leaving graph reduction and PaToH active (`core/Main.cc:216` -> `PartitionerInterface.cc:34` -> `ClauseBipartiteGraphPartitioner.cc:56`). Still, [`EquivManager::searchEquiv`](https://github.com/crillab/d4/blob/333370cc1e843dd0749c1efe88516e72b5239174/utils/equiv.hh#L99) runs two-sided unit-propagation probing rather than full CDCL solves, so the stall could equally be a hard SAT subproblem after the first valid branch. Because the traces gave no strong signal, we did not run a third full trial with `-no-eqs`.
 
-A read-only debugger attachment was attempted once to distinguish these
-possibilities. The existing ptrace restriction rejected it; the failed
-attempt is retained in `exact_backend_full_baseline_stack.log`. No kernel
-settings were changed. The final bottleneck is therefore unresolved.
+One read-only debugger attachment failed due to the host's ptrace restriction (saved in `exact_backend_full_baseline_stack.log`), and we did not alter kernel settings, leaving the exact stall point unresolved.
 
 ## Reproduction and artifacts
 
-`exact_backend_benchmark.py` generates the four phased validation inputs
-using the existing parsimonious encoder and verified model-rephasing
-helpers. It reads the existing full baseline and comparison CNFs unchanged.
-It launches the two full trials only after all four expected validation
-counts have completed successfully.
+`exact_backend_benchmark.py` builds the four phased validation formulas from the parsimonious encoder and rephasing helpers, reads the existing full baseline and comparison CNFs untouched, and only starts the two full runs after all four validation counts pass:
 
 ```sh
 python experiments/exact_backend_benchmark.py --full --seconds 120
 ```
 
-The installed executable is `exact_backend_tools/d4/d4`. To rebuild from
-the retained source and locally extracted headers:
+The built binary sits at `exact_backend_tools/d4/d4`. To rebuild from the saved source and extracted Boost headers:
 
 ```sh
 make -C experiments/exact_backend_tools/d4 -j2 COPTIMIZE='-O3 -DNDEBUG -I../boost/usr/include'
 ```
 
-For a fresh checkout, use the repository revision above and apply
-`exact_backend_trace.patch` before building. Download the exact Boost
-package URL and verify its SHA256 from `exact_backend_provenance.json`,
-then extract its `data.tar.xz` member into `exact_backend_tools/boost`
-(headers at `boost/usr/include`); a system package installation is not
-needed. The upstream solver and extracted package retain their licenses.
+From a clean checkout, check out the commit above, apply `exact_backend_trace.patch`, download the Boost package URL listed in `exact_backend_provenance.json`, check its SHA256, and extract `data.tar.xz` into `exact_backend_tools/boost` (headers at `boost/usr/include`). Both upstream projects keep their own licenses.
 
-`exact_backend_results.json` contains all six terminal records, exact
-commands, input hashes, binary hash, resource usage, parsed traces, and log
-paths. All runs have ended. This backend adds independent exact validation
-and bounded search evidence; the unrestricted ternary count remains open.
+`exact_backend_results.json` stores all six terminal records, commands, input and binary hashes, resource stats, parsed traces, and log paths. All runs have finished, giving independent exact validation while leaving the unrestricted ternary total open.

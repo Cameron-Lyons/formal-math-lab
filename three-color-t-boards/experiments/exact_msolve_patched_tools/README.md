@@ -1,53 +1,52 @@
 # msolve build that stops after prime-field basis export
 
-This separate local build changes no Gröbner-basis mathematics. It checks the completed F4 call for errors, exports the basis using the existing writer, emits `MSOLVE_PRIME_GB_EXPORT_COMPLETE`, and returns before enumerating the standard monomials. The early return applies only to prime-field `-g 1` and `-g 2` requests. No T-board counting run was performed during this build validation.
+This local build leaves all Gröbner-basis math unchanged. It checks the finished F4 call for errors, writes the basis using the existing exporter, prints `MSOLVE_PRIME_GB_EXPORT_COMPLETE`, and returns before enumerating standard monomials. The early return applies only to prime-field `-g 1` and `-g 2` requests. No T-board count was run during build validation.
 
-The executable is `experiments/exact_msolve_patched_tools/msolve`. The adapter can use it with:
+Executable: `experiments/exact_msolve_patched_tools/msolve`. Pass it to the adapter with:
 
 ```sh
 --executable experiments/exact_msolve_patched_tools/msolve --library-dir experiments/exact_algebra_backend_root/usr/lib --require-export-marker
 ```
 
-The exact sparse, single-thread command is:
+Exact sparse, single-thread invocation:
 
 ```sh
 msolve -f INPUT.ms -o OUTPUT.basis -g 1 -l 2 -t 1 -r 1 -c 0 -v 2
 ```
 
-The characteristic is specified on the input file's second line. `-l 2` uses exact sparse linear algebra; modes 42 and 44 are probabilistic. `-g 1` exports the leading ideal, while `-g 2` exports the reduced basis. This is documented in the tagged [CLI source](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/msolve/main.c). The full leading export must match the input field, variable order, basis length and final list terminator. Neither an exit status nor the completion marker alone establishes a valid count.
+The input file's second line sets the characteristic. `-l 2` selects exact sparse linear algebra (modes 42 and 44 are probabilistic), `-g 1` exports the leading ideal, and `-g 2` exports the reduced basis, as documented in the tagged [CLI source](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/msolve/main.c). A valid leading export must match the input field, variable order, basis length, and closing list terminator; neither exit status 0 nor the completion marker alone is enough for a count.
 
-## Why the patch is necessary
+## Why the patch is needed
 
-In the tagged [solver source](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/msolve/msolve.c), `initial_modular_step` calls F4, exports and closes the basis file, then calls `monomial_basis` even when `-g 1` was requested. Only the later FGLM stage is skipped. That enumeration stores its dimension in a machine `long` and can consume enormous memory after a compact basis has already been computed.
+In the tagged [solver source](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/msolve/msolve.c), `initial_modular_step` runs F4, writes and closes the basis file, and then calls `monomial_basis` even when `-g 1` was requested (skipping only the later FGLM step). That enumeration stores dimension in a machine `long` and can exhaust memory after a compact basis is already on disk.
 
-The patch stops immediately after the export. It leaves dimension variables at their existing unknown sentinels; it does not report zero or an internal machine-integer dimension. Counting is performed externally with Python integers. The existing caller already handles a null staircase when basis printing is requested.
+This patch returns right after the export, leaving dimension variables at their unknown sentinels rather than reporting zero or an internal machine integer. Counting happens externally with arbitrary-precision Python integers, and the caller already handles a null staircase when basis output is requested.
 
-The [F4 implementation](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/neogb/f4.c) returns after completing its pair loop, removing redundant elements and reducing the final basis. The patch explicitly rejects a nonzero F4 error or null basis before export. Its marker is emitted and flushed only after the existing basis writer returns. The [writer](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/msolve/iofiles.c) closes the output file before returning.
+In the [F4 implementation](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/neogb/f4.c), F4 returns only after finishing its pair loop, pruning redundant elements, and reducing the final basis. The patch rejects any nonzero F4 error or null basis before exporting, and prints and flushes the completion marker only after the [writer](https://github.com/algebraic-solving/msolve/blob/v0.11.0/src/msolve/iofiles.c) closes the output file and returns.
 
-The same input-parser source allocates a 1 GiB line buffer at lines 1027–1028. `get_data_from_file` frees that buffer before it returns and before `core_msolve` starts. It therefore does not consume address space during F4. No parser change was made. An initial 512 MiB validation guard failed in the stock parser; all reported comparisons below use the existing 2 GiB limit.
+The input parser allocates a 1-GiB line buffer at lines 1027-1028, which `get_data_from_file` frees before `core_msolve` begins, so it does not eat address space during F4. No parser change was made. An initial 512-MiB validation cap failed inside that stock parser; all comparisons below use the standard 2-GiB cap.
 
 ## Provenance and build
 
-`source.json` records the exact source URL, tag, commit, archive hash, patch hash, original/patched source hashes, build commands/environment, compiler version, executable hash and resolved runtime-library hashes. The source tag is v0.11.0, commit `cc044551f8e202d00691990fd3fd0b1226a88ea2`.
+`source.json` records the exact source URL, tag, commit, archive hash, patch hash, original/patched source hashes, build commands and environment, compiler version, executable hash, and resolved runtime-library hashes.
 
-The source archive SHA256 is `0f53c278ce2c3d46600348e945313e467314d296d275f2978f92c6b6b8e2224a`.
+- Upstream tag: `v0.11.0`, commit `cc044551f8e202d00691990fd3fd0b1226a88ea2`
+- Source archive SHA-256: `0f53c278ce2c3d46600348e945313e467314d296d275f2978f92c6b6b8e2224a`
+- Patch `leading-export-only.patch` SHA-256: `2b109358fc7a77dc70c1570f194c376df68605caa1f4afbce116fa74bfeb99fd`
+- Built executable SHA-256: `2d3258dd099a34410b05eadd21dbb38db22b8be0962ab59115d01660652c355d`
 
-The exact change is saved in `leading-export-only.patch`, SHA256 `2b109358fc7a77dc70c1570f194c376df68605caa1f4afbce116fa74bfeb99fd`.
-
-The built executable SHA256 is `2d3258dd099a34410b05eadd21dbb38db22b8be0962ab59115d01660652c355d`.
-
-Build steps were `./autogen.sh`, `./configure --disable-shared --enable-static --disable-openmp`, and `make -j1`, using the previously extracted local FLINT headers/libraries, `CFLAGS=-O2 -g0`, and a local-library rpath. Internal msolve libraries are static; FLINT, MPFR and GMP remain dynamic. No system package installation was performed. Build output is retained in `autogen.log`, `configure.log`, `make.log`, and `ldd.txt`.
+Build steps were `./autogen.sh`, `./configure --disable-shared --enable-static --disable-openmp`, and `make -j1`, using the local FLINT headers/libraries, `CFLAGS=-O2 -g0`, and a local-library rpath. Internal msolve libraries are linked statically while FLINT, MPFR, and GMP remain dynamic. No system package was installed. Build logs are saved in `autogen.log`, `configure.log`, `make.log`, and `ldd.txt`.
 
 ## Validation
 
-`python experiments/exact_msolve_patched_tools/validate.py` performs twelve byte-for-byte stock/patched export comparisons: six ideals, each with both `-g 1` and `-g 2`. The fixtures cover one and two cubic domains, the three-root sum equation, a mixed product constraint, the unit ideal, and a positive-dimensional ideal. Every comparison passed. The positive-dimensional leading ideal is correctly rejected by finite-dimensional monomial counting.
+`python experiments/exact_msolve_patched_tools/validate.py` runs 12 byte-for-byte stock-vs-patched comparisons across 6 ideals (both `-g 1` and `-g 2`): one and two cubic domains, the three-root sum equation, a mixed product constraint, the unit ideal, and a positive-dimensional ideal. All 12 match, and the finite-dimensional counter properly rejects the positive-dimensional ideal.
 
-For 100 independent cubic domains, both Python counters establish the exact quotient dimension
+For 100 independent cubic domains, both Python counters return the exact quotient dimension:
 
 ```text
 3^100 = 515377520732011331036461129765621272702107522001
 ```
 
-The patched process completed with one marker and exit 0 in 0.005751 CPU seconds and 0.009538 wall seconds. The stock process produced the identical leading export, then exited 1 with `Issue with realloc` in 0.430302 CPU seconds and 0.514296 wall seconds. Both had a 2 GiB address-space limit; the stock comparison also had a two-second wall guard. Its failure is a post-export enumeration failure, not zero solutions.
+Under a 2-GiB address-space cap, the patched binary finished with exit 0 and one completion marker in 0.005751 CPU seconds (0.009538 wall seconds). Stock msolve (with an added 2-second wall guard) wrote the identical leading ideal, then exited 1 with `Issue with realloc` after 0.430302 CPU seconds (0.514296 wall seconds) during post-export enumeration.
 
-All commands, raw outputs, basis hashes and timings are recorded in `validation.json` and the per-fixture `.ms`, `.basis`, and `.log` files. These are arithmetic fixtures, not an unrestricted T-board count.
+Commands, raw outputs, basis hashes, and timings are saved in `validation.json` and the per-fixture `.ms`, `.basis`, and `.log` files. These are small arithmetic fixtures and do not yield an unrestricted T-board count.

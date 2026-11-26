@@ -6,7 +6,7 @@ $$
 H^3 - n^4 + \binom{n}{2}, \qquad \text{where } H = 1 + n + \binom{n}{2}.
 $$
 
-This proves in Lean 4 the degree-6 polynomial stated as a conjecture by R. J. Mathar on 18 November 2026 in [OEIS A401159](https://oeis.org/A401159). The identity also follows from Adler and Ross's 2001 inclusion-exclusion formula for random subset coverings.
+This proves in Lean 4 the degree-6 polynomial conjectured by R. J. Mathar on 18 November 2026 in [OEIS A401159](https://oeis.org/A401159). The identity also follows from Adler and Ross's 2001 inclusion-exclusion formula for random subset coverings.
 
 | Field | Summary |
 | --- | --- |
@@ -14,15 +14,15 @@ This proves in Lean 4 the degree-6 polynomial stated as a conjecture by R. J. Ma
 | Status | Proved in Lean 4 for all $n \ge 0$ (also follows from Adler and Ross 2001). |
 | Main theorems | `ThreeColumnMatrices.card_validMatrices`, `ThreeColumnMatrices.mathar_polynomial`, `ThreeColumnMatrices.count_correct` in [ThreeColumnMatrices.lean](ThreeColumnMatrices.lean) |
 | Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof) |
-| Prior art | Checked 22 November 2026: confirms Mathar's conjecture in OEIS A401159; implied by Adler and Ross (2001), Corollary 1, eq. (6); no earlier Lean formalization located. See [PRIOR_ART.md](../PRIOR_ART.md#three-column-matrices). |
+| Prior art | Checked 22 November 2026: confirms Mathar's conjecture in OEIS A401159; implied by Adler and Ross (2001), Corollary 1, eq. (6); no earlier Lean formalization was found. See [PRIOR_ART.md](../PRIOR_ART.md#three-column-matrices). |
 
 ## Proof overview
 
-Each column independently has at most two ones among $n$ rows, giving $H = 1 + n + \binom{n}{2}$ choices per column and $H^3$ matrices meeting the column bound. Matrices with an all-ones row are excluded by inclusion-exclusion:
+Each column independently has at most two ones among $n$ rows, giving $H = 1 + n + \binom{n}{2}$ choices per column and $H^3$ matrices meeting the column bound. Inclusion-exclusion removes the matrices with an all-ones row:
 
-* One specified all-ones row ($n$ choices): each column has 1 one fixed in that row and at most 1 one among the remaining $n - 1$ rows, leaving $1 + (n - 1) = n$ choices per column, so subtract $n \cdot n^3 = n^4$.
-* Two specified all-ones rows ($\binom{n}{2}$ choices): every column has already used its two ones, uniquely determining the matrix, so add back $\binom{n}{2}$.
-* Three or more all-ones rows: impossible since each column has at most two ones.
+* One specified all-ones row ($n$ choices): each column uses 1 one in that row and has at most 1 one among the other $n - 1$ rows, leaving $1 + (n - 1) = n$ choices per column. Subtract $n \cdot n^3 = n^4$.
+* Two specified all-ones rows ($\binom{n}{2}$ choices): every column has already used both of its ones, fixing the rest of the matrix. Add back $\binom{n}{2}$.
+* Three or more all-ones rows: impossible, since each column has at most two ones.
 
 ## Reproduce
 
@@ -35,9 +35,9 @@ lake build
 
 In namespace `ThreeColumnMatrices` ([ThreeColumnMatrices.lean](ThreeColumnMatrices.lean)):
 
-* `card_validMatrices` proves the exact cardinality $H^3 - n^4 + \binom{n}{2}$.
-* `mathar_polynomial` proves equality with Mathar's expanded degree-6 polynomial.
-* `count_correct` verifies the executable counting function `count`.
+* `card_validMatrices` proves the exact count $H^3 - n^4 + \binom{n}{2}$.
+* `mathar_polynomial` proves this equals Mathar's expanded degree-6 polynomial.
+* `count_correct` checks the executable counting function `count`.
 
 ## References
 

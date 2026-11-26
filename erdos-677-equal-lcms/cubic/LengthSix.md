@@ -1,52 +1,52 @@
 # Equal LCMs for six consecutive integers
 
-For distinct parameters $n<m$, the blocks $n+1,\ldots,n+6$ and $m+1,\ldots,m+6$ have equal LCMs precisely for $(n,m)=(3,4),(5,6),(13,15)$. In particular, disjoint blocks of length six always have different LCMs.
+For distinct parameters $n<m$, the blocks $n+1,\ldots,n+6$ and $m+1,\ldots,m+6$ have equal LCMs if and only if $(n,m)\in\{(3,4),(5,6),(13,15)\}$. In particular, disjoint blocks of length six never have equal LCMs.
 
-The proof combines Lean with a computer-assisted integral-point calculation. Lean proves the reduction to the four cubics, the implication from the explicit height bound to the disjoint-block result, and the finite LCM checks. The unbounded height estimate uses David's theorem on elliptic logarithms, eclib's full Mordell–Weil bases, and interval and rational arithmetic outside Lean. The earlier public write-up identified the four cubics and the three overlapping pairs. [Lean reduction](../SixCubics.lean) · [Earlier write-up](https://erdosproblemaday.com/day/677-lcm-bridge)
+The proof combines Lean with a computer-assisted integral-point calculation. Lean checks the reduction to four plane cubics, the step from the explicit height bound to the disjoint-block theorem, and the finite LCM checks ([SixCubics.lean](../SixCubics.lean)). The global height bound uses David's theorem on elliptic logarithms, full Mordell-Weil bases from eclib, and interval and rational arithmetic outside Lean. An [earlier public write-up](https://erdosproblemaday.com/day/677-lcm-bridge) identified the four cubics and the three overlapping pairs.
 
 ## Reduction to integral points
 
-Put $F(a)=a(a-1)(a-3)$ and $a=\binom{n+4}{2}, b=\binom{m+4}{2}$. The six-term product equals $8F(a)$. Its quotient by the block LCM equals $12c(n)$, where $c(n)$ acquires a factor of 2 when $n\bmod4\ge2$ and a factor of 5 when $n\bmod5=4$. Equal LCMs force $F(b)/F(a)=c(m)/c(n)>1$. The only possibilities are $2,5/2,5,10$. [Lean identities and ratio classification](../SixCubics.lean)
+Put $F(a)=a(a-1)(a-3)$, $a=\binom{n+4}{2}$, and $b=\binom{m+4}{2}$. The six-term product equals $8F(a)$. Dividing it by the block LCM gives $12c(n)$, where $c(n)$ picks up a factor of 2 when $n\bmod4\ge2$ and a factor of 5 when $n\bmod5=4$. Equal LCMs force $F(b)/F(a)=c(m)/c(n)>1$, leaving only the ratios $2,5/2,5,10$ (see [SixCubics.lean](../SixCubics.lean)).
 
-For each ratio, the exact formulas send every affine point with $ab\ne0$ to a rational point on a Weierstrass curve. Each curve has trivial rational torsion and a full basis $G_1,G_2,G_3$. For every integral point with $|a|\ge10^8$, its image $P=\sum_i n_iG_i$ is close on the real curve to a fixed nonrational algebraic point $Q_\infty$. Write $M=\max_i|n_i|$. For the differential $dx/y$, the difference $L$ of elliptic logarithms satisfies
+For each ratio, exact formulas map every affine point with $ab\ne0$ to a rational point on a Weierstrass curve ([SixElliptic.lean](../SixElliptic.lean)). Each curve has trivial rational torsion and a full basis $G_1,G_2,G_3$. For every integral point with $|a|\ge10^8$, its image $P=\sum_i n_iG_i$ lies close on the real curve to a fixed nonrational algebraic point $Q_\infty$. Write $M=\max_i|n_i|$. For the differential $dx/y$, the elliptic logarithm difference $L$ satisfies
 $$
 0<|L|<13000/|a|,\qquad \log |L| <19-3M^2/40 .
 $$
-These estimates hold at both ends of the real branch. David's Theorem 2.1 then gives $M<10^{400}$. [Lean map](../SixElliptic.lean) · [Real-branch and height proof](ellipticGeometry.md) · [Application of David's theorem](David.md)
+These bounds hold at both ends of the real branch ([ellipticGeometry.md](ellipticGeometry.md)). David's Theorem 2.1 then gives $M<10^{400}$ ([David.md](David.md)).
 
-The elliptic-logarithm method for plane cubics is due to Stroeker and de Weger. Grechuk and Go's released computations for other cubics supplied a worked example of the David bound and the distance-to-lattice step. The calculations here use the models, rank-three bases, target points and scales for these four curves. [Stroeker and de Weger](https://math.deweger.net/papers/%5B29%5DStdW-EllCubic-ActaArith%5B1999%5D.pdf) · [Worked certificates](https://github.com/II-eugene-II/diophantine-certificates/releases/tag/v1.1)
+The elliptic-logarithm method for plane cubics is due to [Stroeker and de Weger](https://math.deweger.net/papers/%5B29%5DStdW-EllCubic-ActaArith%5B1999%5D.pdf). [Grechuk and Go's worked certificates](https://github.com/II-eugene-II/diophantine-certificates/releases/tag/v1.1) for other cubics gave a useful model for the David bound and the distance-to-lattice step. The calculations here use the models, rank-three bases, target points, and scales for our four curves.
 
 ## Converting the coefficient bound to an affine bound
 
-Write $u_1,u_2,u_3,u_\infty$ for the logarithms of the three generators and the target, with representatives in $[0,\omega)$. All four curves have one real component. The period $\omega$ and the point logarithms use the same differential. There is an integer $m_0$ such that
+Write $u_1,u_2,u_3,u_\infty$ for the logarithms of the three generators and the target, taken in $[0,\omega)$. All four curves have a single real component, and the period $\omega$ and point logarithms use the same differential. Choosing the period multiple that puts the representative of $P$ in $[0,\omega)$ gives an integer $m_0$ with
 $$
-L=n_1u_1+n_2u_2+n_3u_3+m_0\omega-u_\infty,\qquad |m_0|\le3M+2 .
+L=n_1u_1+n_2u_2+n_3u_3+m_0\omega-u_\infty,\qquad |m_0|\le3M+2 ,
 $$
-Indeed, choose the multiple of the period giving the representative of $P$. Both $P$ and the target are on the same negative-ordinate branch in the tail.
+since $P$ and the target lie on the same negative-ordinate branch in the tail.
 
-If the cubic on the minimal model has roots $e,w,\bar w$ with $e$ real, the integral from $x$ to infinity of $dX/\sqrt{f(X)}$ is $2R_F(x-e,x-w,x-\bar w)$. This follows by substituting $X=x+t$ in the defining integral of Carlson's $R_F$. At $x=e$ this is half the real period. Use this integral for positive ordinate and subtract it from the period for negative ordinate. This gives a consistent choice of sign for the group logarithm. The implementation encloses each integral with Arb and certifies every rounding operation. [Carlson's definition](https://dlmf.nist.gov/19.16.E1) · [Verifier](logarithms.py)
+If the minimal-model cubic has roots $e,w,\bar w$ with $e$ real, substituting $X=x+t$ into [Carlson's defining integral](https://dlmf.nist.gov/19.16.E1) shows that $\int_x^\infty dX/\sqrt{f(X)}=2R_F(x-e,x-w,x-\bar w)$. At $x=e$ this equals half the real period. Using this integral when $y>0$ and subtracting it from $\omega$ when $y<0$ gives a consistent sign for the group logarithm. The verifier ([logarithms.py](logarithms.py)) encloses each integral with Arb and certifies every rounding step.
 
-For a positive integer scale $C$, let brackets denote rounding to the nearest integer. Form the integer lattice in four dimensions generated by the three columns $(e_i,[Cu_i])$ and the column $(0,0,0,[C\omega])$, where $e_i$ are the three standard basis vectors. The target is $t=(0,0,0,[Cu_\infty])$. LLL supplies a basis matrix $B$ whose unimodular change of basis is checked exactly. For each row $d$ of $B^{-1}$,
+For a positive integer scale $C$, let brackets denote rounding to the nearest integer. Form the 4-dimensional integer lattice generated by the three columns $(e_i,[Cu_i])$ (where $e_i$ are the standard basis vectors) and $(0,0,0,[C\omega])$, with target $t=(0,0,0,[Cu_\infty])$. LLL produces a basis matrix $B$ whose unimodular change of basis is checked exactly. Since $d\cdot v\in\mathbb Z$ for every lattice vector $v$, each row $d$ of $B^{-1}$ satisfies
 $$
 \operatorname{dist}(t,\Lambda)^2 \ge
 \frac{\operatorname{dist}(d\cdot t,\mathbb Z)^2}{\lVert d\rVert^2}.
 $$
-This follows because $d\cdot v$ is an integer for every lattice vector $v$. All calculations in this inequality use rational numbers.
+All arithmetic in this inequality is exact rational arithmetic.
 
-If $M\le M_0$ and $C|L|\le1$, rounding gives a lattice vector within squared distance $3M_0^2+(3M_0+3)^2$ of the target. The verifier obtains a strictly larger lower bound at each stage.
+If $M\le M_0$ and $C|L|\le1$, rounding produces a lattice vector within squared distance $3M_0^2+(3M_0+3)^2$ of $t$. At both stages below, the verifier proves a strictly larger lower bound:
 
 | Stage | Coefficient bound $M_0$ | Scale $C$ | Bit length of the integer part of the squared-distance lower bound, in ratio order |
 |---|---|---|---|
 | 1 | $10^{400}$ | $10^{1800}$ | 2990, 2990, 2990, 2987 |
 | 2 | 250 | $10^{16}$ | 24, 24, 25, 25 |
 
-Stage 1 gives $\log |L|>-1800\log 10$, so $3M^2/40<19+1800\log10<19+1800(5/2)<3(250)^2/40$. Thus stage 2 applies and gives $|L|>10^{-16}$. Combining this with the real-branch bound yields $|a|<13000\cdot10^{16}$. The points with $|a|<10^8$ already satisfy this bound.
+Stage 1 forces $\log |L|>-1800\log 10$, so $3M^2/40<19+1800\log10<19+1800(5/2)<3(250)^2/40$. Stage 2 then applies and gives $|L|>10^{-16}$. Combining this with the real-branch bound yields $|a|<13000\cdot10^{16}$. Any point with $|a|<10^8$ already satisfies this bound.
 
 ## Closing the finite part
 
-For disjoint blocks the affine bound alone suffices. Lean converts it to a bound on the earlier parameter and uses its previously proved finite theorem. The later block has no upper bound. [Lean conclusion](../SixCubics.lean) · [Finite kernel proof](../Height.lean)
+For disjoint blocks, the affine bound alone is enough: Lean turns it into a bound on the earlier start $n$ and applies its finite theorem, with no upper bound needed on the later block ([SixCubics.lean](../SixCubics.lean), [Height.lean](../Height.lean)).
 
-For the stronger classification we searched the signed affine range with exact integer arithmetic. The independent check described below runs through $|a|\le10^{21}$, which contains the entire proved range. For each sign the script bounds a rational approximation to $\sqrt[3]{u/v}$, enumerates every integer pair in the resulting strips, and tests the original cubic exactly. The nine pairs from $\{0,1,3\}^2$ occur on every curve. The complete list of other integral points is as follows. [Enumeration and its bounds](../search/SixPoints.py)
+For the full classification, [search/SixPoints.py](../search/SixPoints.py) searches the signed affine range $|a|\le10^{21}$ (which covers the proved bound) in exact integer arithmetic. For each sign, it bounds a rational approximation to $\sqrt[3]{u/v}$, enumerates every integer pair in the resulting strips, and tests the original cubic directly. The nine pairs from $\{0,1,3\}^2$ lie on every curve; the complete list of other integral points is:
 
 | $F(b)/F(a)$ | Other integral points $(a,b)$ | Genuine equal-LCM parameters and common LCM |
 |---|---|---|
@@ -55,7 +55,7 @@ For the stronger classification we searched the signed affine range with exact i
 | 5 | None | None |
 | 10 | (17,35) | None |
 
-The coordinates 13 and 17 fail $8a+1=\text{square}$. The nine root pairs also fail the block-coordinate test, since $\binom{n+4}{2}\ge6$. Each surviving pair overlaps. [Lean point and LCM checks](../SixCubics.lean)
+The values $a=13$ and $a=17$ fail $8a+1=\text{square}$. The nine root pairs also fail the block-coordinate test because $\binom{n+4}{2}\ge6$. Every surviving pair overlaps ([SixCubics.lean](../SixCubics.lean)).
 
 ## Reproduction
 

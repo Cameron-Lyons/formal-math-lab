@@ -1,25 +1,12 @@
 # Complete cap split with the msolve backend
 
-No full ternary total has been computed. Before this continuation there were no
-four-cell cap solver artifacts. The root agent then ran the first one,
-`exact_msolve_cap0000_prime2`: its terminal status is `INCOMPLETE_TIMEOUT` at
-180 seconds, with no completed basis or count. None of the ten required raw
-cap completion counts is currently available from msolve. Existing completed
-nine-row fibers do not fill a cap case.
+No full ternary board count has been computed yet. Before this work, there were no four-cell cap solver artifacts. The first cap run, `exact_msolve_cap0000_prime2`, stopped with status `INCOMPLETE_TIMEOUT` at 180 seconds and produced no basis or count. None of the 10 required raw cap completion counts is available from msolve, and the completed nine-row fibers cannot stand in for a cap case.
 
-`exact_msolve_cap_split.py` supplies a separate audited msolve path into the
-existing `exact_symmetry_split.aggregate`. The existing command-line auditor
-in `exact_symmetry_split.py` is specific to Singular and cannot directly ingest
-msolve result JSON. The new adapter does not change that implementation or the
-solver backend, and never launches a solver.
+`exact_msolve_cap_split.py` provides a separate audited path from msolve results into the existing `exact_symmetry_split.aggregate` function. The existing CLI auditor in `exact_symmetry_split.py` is built for Singular and cannot read msolve result JSON directly. This new adapter leaves `exact_symmetry_split.py` and the solver backend untouched, and it never launches a solver.
 
 ## Exact factors and complete scope
 
-The cap is the first two rows, flattened as top/left/middle/right. The following
-table applies to both tested characteristics 2 and 29. Every model has all 96
-remaining board variables with ordinary cubic domains and all 80 Fourier
-moments. The nine cases requiring an additional coefficient-field variable
-also retain its quadratic domain.
+A cap consists of the first two rows, flattened in order as top, left, middle, and right. The table below holds for both tested characteristics, 2 and 29. Every model keeps all 96 remaining board variables with ordinary cubic domains and all 80 Fourier moments. The 9 caps that need a coefficient-field variable also keep its quadratic domain.
 
 | Cap | Cap orbit weight | Variables | Generators | Quotient divisor | Raw-count divisibility |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -34,65 +21,35 @@ also retain its quadratic domain.
 | 0112 | 12 | 97 | 177 | 2 | 1 |
 | 0121 | 6 | 97 | 177 | 2 | 2 |
 
-The weights sum to 81. For each cap let D be the completed ordinary prime-field
-quotient dimension and d the divisor in the table. Its raw completion count is
-c = D/d, and the full labeled count is the sum of orbit_weight * c over all ten
-caps. No extra apex, palette, reflection, or field factor is applied.
+The orbit weights sum to 81. For each cap, let `D` be the completed prime-field quotient dimension and `d` the divisor in the table. The raw completion count is `c = D / d`, and the full labeled board count is the sum of `orbit_weight * c` across all 10 caps. No extra apex, palette, reflection, or field factor applies.
 
-For cap 0000 every substituted color equals 1 in the prime field. Scalar
-extension preserves the quotient dimension, which therefore equals c. For the
-other caps the adapter represents the coefficient field by an ordinary
-variable a with a^2+a+1 = 0. This quadratic is irreducible and separable for the
-tested primes, and restriction of scalars doubles dimension: D = 2c. The two
-geometric coefficient embeddings are interchanged by Frobenius, which swaps
-colors 1 and 2. Dividing by two removes the coefficient extension; it does not
-take a symmetry quotient of the board fiber.
+For cap `0000`, every substituted color equals 1 in the prime field. Scalar extension leaves the quotient dimension unchanged, so `D = c`. For the other 9 caps, the adapter encodes the coefficient field using an ordinary variable `a` with `a^2 + a + 1 = 0`. That quadratic is irreducible and separable for both tested primes, so restriction of scalars doubles the dimension: `D = 2c`. Frobenius swaps the two coefficient embeddings (which swaps colors 1 and 2). Dividing by 2 removes that field extension; it is not a symmetry quotient on the boards.
 
-The raw-count divisibility column is a further necessary consistency check.
-The full-board action is free by `ExactSymmetry.lean`, so the stabilizer of a
-cap acts freely on that cap's completion set. Its order is 12/orbit_weight.
-This does not make the cap orbit weights uniformly 12.
+The raw-count divisibility column adds an extra consistency check. Because the full-board symmetry action is free (`ExactSymmetry.lean`), the stabilizer of a cap acts freely on its completions and has order `12 / orbit_weight`. Even so, the cap orbit weights themselves are not all 12.
 
 ## Input and result audit
 
-`exact_msolve_cap_split_check.py` independently reconstructs all 81 placements
-in centered coordinates through `exact_msolve_review.expected_polynomials`,
-then compares every ordinary polynomial with the emitted model. It does not
-reuse the backend's generator term lists as an oracle. All twenty cap models
-(ten caps, two primes) pass. The root's actual cap0000 input also passes:
+`exact_msolve_cap_split_check.py` rebuilds all 81 placements from centered coordinates via `exact_msolve_review.expected_polynomials` and compares every polynomial against the emitted model, without reusing the backend's generator term lists. All 20 cap models (10 caps across 2 primes) pass, along with the actual `cap0000` input:
 
-- Input SHA256: `4aa5a5354dd1596d4240992c8a078604beecee72808a2b66f9106aafea602900`.
-- Variable-to-original-cell order: 81, 90, 99, then 4 through 98 excluding 81
-  and 90. Cells 0 through 3 are fixed to color 0.
-- 96 variables, 96 ordinary cubic domains, 80 moments, divisor 1.
+- Input SHA-256: `4aa5a5354dd1596d4240992c8a078604beecee72808a2b66f9106aafea602900`
+- Variable-to-original-cell order: 81, 90, 99, then 4 to 98 excluding 81 and 90 (cells 0 to 3 are fixed to color 0)
+- Model size: 96 variables, 96 ordinary cubic domains, 80 moments, divisor 1
 
-The result auditor requires literal COMPLETE status, normal process exit,
-completed basis, a unique patched export-completion marker in the actual log,
-absence of error diagnostics, the expected exact sparse command, a reviewed
-executable hash and unchanged local libraries, exact input geometry and scope,
-matching basis and leading-export provenance, and an independent arbitrary
-precision staircase recount. It checks the field divisor before constructing
-a raw `VerifiedCount`. Aggregation then requires each canonical cap exactly
-once and checks the stabilizer divisibilities. No aggregate is emitted with
-even one missing cap.
+Before creating a raw `VerifiedCount`, the result auditor requires all of the following:
 
-A completed standard basis remains a trusted exact backend result, rather
-than a separately checked Buchberger certificate. This matches the existing
-backend trust boundary. The new code independently checks its input scope and
-exact staircase arithmetic; it cannot manufacture an attestation for a
-partial computation. New executable builds must be reviewed before adding
-their hashes to the auditor's explicit allowlist.
+- Literal `COMPLETE` status, normal process exit, and a completed basis
+- Exactly one patched export-completion marker in the log and no error diagnostics
+- The expected exact sparse command, an allowlisted reviewed executable hash, and unchanged local libraries
+- Exact input geometry, scope, and matching basis and leading-export provenance
+- An independent arbitrary-precision staircase recount and a matching field divisor
 
-Checks retained in `exact_msolve_cap_split_checks.json`: 20 geometry/model
-checks, 31 metadata rejection cases, three log rejection cases, and seven
-aggregation/scope rejection cases. A retained completed nine-row artifact was
-recounted as quotient dimension 12 / divisor 2 = six boards, then correctly
-refused as a cap contribution. Its solver was not rerun. Synthetic complete
-and zero aggregates only test aggregation mechanics; they are explicitly not
-board counts. The prior exhaustive binary cap audit still gives 168 using
-the same unchanged partition/aggregation core.
+Aggregation then checks that each of the 10 canonical caps appears once and satisfies its stabilizer divisibility. If even one cap is missing, no aggregate is written.
 
-Example once all ten results exist:
+As in the rest of the backend, a completed standard basis is a trusted exact solver output rather than an independently checked Buchberger certificate. The auditor independently checks input scope and exact staircase arithmetic, and it refuses to certify partial runs. Any new solver executable must pass review before its hash is added to the allowlist.
+
+Checks saved in `exact_msolve_cap_split_checks.json` cover 20 geometry/model checks, 31 metadata rejections, 3 log rejections, and 7 aggregation/scope rejections. A saved completed nine-row artifact was recounted as quotient dimension `12 / 2 = 6` boards and properly rejected as a cap input without rerunning the solver. Synthetic complete and zero aggregates only test aggregation code and are not board counts. The earlier exhaustive binary cap audit still produces 168 using the same unchanged partition and aggregation code.
+
+Example command once all 10 cap results exist (these filenames are placeholders):
 
 ```sh
 python experiments/exact_msolve_cap_split.py --prime 2 \
@@ -109,28 +66,23 @@ python experiments/exact_msolve_cap_split.py --prime 2 \
   --output experiments/cap_total.json
 ```
 
-The example names are placeholders, not completed results. Output creation is
-exclusive and refuses an existing destination.
+Output creation is exclusive and fails if the destination file already exists.
 
 ## Safe necessary constraints for an early zero proof
 
-A larger fixed prefix is impossible if it already repeats a complete T
-pattern; if a fixed ordered k-role pattern occurs more than 3^(4-k) times
-(27, 9, 3, 1 for k=1,2,3,4); or if too few remaining compatible placements can
-reach one of these required totals. These are integer marginal constraints,
-not merely characteristic-two congruences. Any valid completed board has all
-of them. A checked contradiction in this necessary system proves zero.
+A larger fixed prefix has zero completions if any of these hold:
 
-Each two-row cap fixes only one entire T. No cap violates these immediate
-upper bounds. The selected cap pattern is already used once, so it must be
-forbidden at every other placement; these local exclusions are valid
-redundant constraints for a future encoding. We have not implemented or
-benchmarked them, and do not claim that they make an algebraic solve easier.
+- It already repeats a complete T pattern.
+- A fixed ordered `k`-role pattern appears more than `3^(4-k)` times (27, 9, 3, 1 for `k = 1, 2, 3, 4`).
+- Too few remaining compatible placements can reach one of those required totals.
 
-The 1,557 boards counted in `exact_symmetry_split_coverage.json` cover 0000,
-0001, 0011, 0111, and 0112. The splice certificates contain valid boards for
-the other five: 0010 (`../splice_extension.json`), 0012
-(`../splice_next.json`), 0101 (`../splice_further.json`), 0102
-(`../splice_transfer.json`), and 0121 (`../splice_sixth.json`). So no cap count
-is zero, and a completed computation reporting zero for a cap would be an
-error. A timeout or memory failure gives no count.
+These are exact integer marginal constraints that every valid board satisfies, stronger than characteristic-2 congruences alone. A verified contradiction in these constraints proves a prefix has zero completions.
+
+Each two-row cap fixes only one full T, so none breaks these immediate upper bounds. Because the cap's own T pattern is already used once, forbidding that pattern at all other placements is a valid redundant constraint for future encodings. We have not implemented or benchmarked those exclusions and make no claim that they speed up the algebra.
+
+In fact, none of the 10 cap counts can be zero:
+
+- The 1,557 valid boards in `exact_symmetry_split_coverage.json` already give witnesses for `0000`, `0001`, `0011`, `0111`, and `0112`.
+- The splice certificates give valid boards for the other five: `0010` (`../splice_extension.json`), `0012` (`../splice_next.json`), `0101` (`../splice_further.json`), `0102` (`../splice_transfer.json`), and `0121` (`../splice_sixth.json`).
+
+Any completed computation reporting zero for a cap would therefore indicate an error. A timeout or memory failure gives no count at all.

@@ -1,57 +1,56 @@
 # Independent review of the algebra backend
 
 The reviewed versions of `exact_algebra_backend.py` and
-`exact_standard_monomials.py` correctly compute quotient dimensions under their
-explicit prerequisite that Singular has completed a standard basis. No full
-board problem was run during this review. Source hashes and finite checks are
-saved in [exact_parity_math_backend_review.json](exact_parity_math_backend_review.json).
+`exact_standard_monomials.py` compute quotient dimensions accurately whenever
+Singular finishes a standard basis. No full board problem was run for this
+review. Source hashes and finite test results are saved in
+[exact_parity_math_backend_review.json](exact_parity_math_backend_review.json).
 
-One concrete correctness defect was found and fixed by the owning agent:
-`normalize_apex` initially multiplied every model's completed dimension by
-three, although the constraint `z_apex=1` was added only for `ternary-original`.
-Unsupported normalization is now rejected, and multiplication uses metadata
-attesting that normalization was imposed. For the supported model the factor
-three is correct: global multiplication by `F₄×` acts freely, and exactly one
-member of each orbit has apex one.
+The review caught one correctness bug, which the owning agent fixed:
+`normalize_apex` used to multiply every model's finished dimension by 3, even
+though `z_apex=1` was only added for `ternary-original`. Unsupported models are
+now rejected, and the factor of 3 is applied only when metadata confirms that
+normalization was actually imposed. For `ternary-original`, multiplying by 3 is
+valid because global multiplication by `F₄×` acts freely and puts exactly one
+board in each orbit at apex 1.
 
-The field handling is correct. Original/reduced Fourier ideals use ordinary
-F₂ polynomial rings with cubic domains, with no Boolean field equations.
-Their F₂ dimensions equal geometric solution counts over F₄ by scalar
-extension and separability of the domains. Fixed prefixes correctly use F₄,
-with colors `1,a,a+1`, `a²+a+1=0`, and XOR coefficient accumulation. A fully
-fixed valid board gives quotient dimension one; an independently invalid
-one-cell mutation gives zero. The dummy variable used when no free board
-cells remain is constrained to zero and introduces multiplicity one.
+Field handling is sound. The original and reduced Fourier ideals use ordinary
+F₂ polynomial rings with cubic domains and no Boolean field equations. Their F₂
+dimensions match the geometric solution counts over F₄ by scalar extension and
+separability of the cubic domains. Fixed prefixes work over F₄ using colors
+`1, a, a+1` with `a²+a+1=0` and XOR coefficient accumulation. A fully fixed
+valid board gives quotient dimension 1, while an invalid one-cell mutation
+gives 0. When no free board cells remain, the dummy variable is constrained to
+zero and contributes multiplicity 1.
 
-Both standard-monomial algorithms use Python arbitrary-precision integers.
-Their recurrences are sound: condition on a variable's exponent, retain the
-leading generators that can divide at that exponent, project away the fixed
-coordinate, and sum. Interval grouping is valid between consecutive exponent
-thresholds. Pure-power bounds give finite boxes; disconnected supports factor;
-componentwise-dominated generators can be removed. Both counters matched
-direct enumeration on 300 additional deterministic random finite boxes.
+Both standard-monomial counters use Python arbitrary-precision integers and
+sound recurrences: fix a variable's exponent, keep only leading generators that
+can divide at that exponent, project out the fixed coordinate, and sum. Grouping
+exponents into intervals between consecutive generator thresholds is valid. Pure
+powers bound the box, disconnected variable supports factor, and dominated
+generators can be dropped. Both counters matched direct enumeration on 300 extra
+deterministic random finite boxes.
 
-The standard-basis prerequisite is essential. The independent counter's
-completion flag is an attestation, not a Buchberger test. The backend checks
-its own completion markers, Singular's `isSB` attribute, diagnostic output,
-and the number of exported leading rows. This review trusts Singular's
-completed exact `std`/`slimgb` call; it does not independently verify the basis
-polynomials or their ideal membership. Agreement between two monomial
-counters verifies the staircase count, not the preceding basis computation.
+The standard-basis prerequisite is critical. The independent counter's
+completion flag is an attestation from the caller, not a Buchberger check. The
+backend checks its own completion markers, Singular's `isSB` attribute, solver
+diagnostics, and the count of exported leading rows. This review trusts
+Singular's completed exact `std` or `slimgb` run and does not re-verify the
+basis polynomials or their ideal membership. Agreement between the two monomial
+counters confirms the staircase count, not the basis computation ahead of it.
 
-A completed standard basis and complete leading export are sufficient for an
-exact quotient dimension once the staircase is counted correctly. The later
-Singular Hilbert calculation is redundant. Therefore
-`COMPLETE_FROM_LEADING_IDEAL` is justified when Hilbert alone times out and
-both counters finish and agree. Synthetic log tests confirmed that this case
-returns the exact dimension, while an incomplete leading export, a diagnostic,
-or a missing leading row produces no dimension. The Hilbert cross-check also
-correctly omits the last auxiliary entry of Singular's returned vector.
+Once Singular finishes a standard basis and exports every leading monomial, the
+staircase count already determines the exact quotient dimension, so Singular's
+later Hilbert calculation is redundant. Marking a run
+`COMPLETE_FROM_LEADING_IDEAL` is therefore justified if Hilbert times out after
+both counters finish and agree. Synthetic log tests verified that this case
+returns the exact dimension, while an incomplete export, a diagnostic message,
+or a missing leading row returns no dimension. The Hilbert cross-check also
+drops the trailing auxiliary entry of Singular's returned vector as required.
 
-The remaining limitation is operational: `--timeout` is not a hard wall-time
-bound for the entire Python pipeline. It bounds the Singular child; the first
-Python counter checks its own deadline only every 256 new states, and the
-second has a state limit. Expensive normalization can occur between checks.
-An outer wall-time/memory guard is appropriate for a future large pipeline
-run. A timeout must never be interpreted as a zero count; the tested error
-paths do not do so.
+One operational limit remains: `--timeout` limits the Singular subprocess, not
+the entire Python pipeline. The first Python counter checks its deadline only
+every 256 new states, and the second uses a state cap, so expensive
+normalization can run between checks. A future large run should add an outer
+wall-time and memory guard. A timeout must never be read as a zero count, and
+the tested error paths enforce that rule.

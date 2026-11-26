@@ -1,63 +1,60 @@
 # Fourier ideals in odd prime characteristic
 
-`exact_prime_fourier.py` reconstructs all 81 T placements from their row and
+`exact_prime_fourier.py` builds all 81 T placements directly from row and
 column geometry. It imports no characteristic-two polynomial lists and never
-reuses coefficients canceled modulo two. It supports any experimentally sized
-prime `p` congruent to 2 modulo 3, with exact primality validation; the checked
-primes are **5, 29, and 83**.
+reuses coefficients that were reduced modulo 2. It accepts any small prime `p`
+congruent to 2 modulo 3 (with exact primality checking); the tested primes are
+**5, 29, and 83**.
 
 ## Field, equations, and exact count
 
-Work with ordinary polynomial variables satisfying `z_i^3-1=0`. The quadratic
-polynomial `a^2+a+1` is irreducible over `F_p`: otherwise `F_p` would contain a
-nontrivial cube root of unity, contradicting `3` not dividing `p-1`. Its
-extension field has the three distinct cube roots
+Use ordinary polynomial variables with cubic domains `z_i^3-1=0`. Because 3
+does not divide `p-1`, `F_p` contains no nontrivial cube root of unity, so
+`a^2+a+1` is irreducible over `F_p`. In the quadratic extension `F_(p^2)`, the
+three distinct cube roots are
 
 ```text
 color 0 -> 1       color 1 -> a       color 2 -> -1-a.
 ```
 
-For a role-exponent vector `e` in `{0,1,2}^4`, form the moment
-`P_e = sum_over_placements product_over_roles z_cell^e_role`. The required
-nonconstant moments vanish. The zeroth moment is automatically `81 mod p`;
-it is not set to zero or replaced by one in odd characteristic.
+For each role-exponent vector `e` in `{0,1,2}^4`, define the moment
+`P_e = sum_over_placements product_over_roles z_cell^e_role`. All nonconstant
+moments must vanish. The zeroth moment equals `81 mod p` automatically; it is
+not set to zero or replaced by 1 in odd characteristic.
 
-The 81-character Fourier transform on the 81 patterns is invertible. Its
-one-coordinate matrix is the Vandermonde matrix of three distinct roots,
-and the full transform is its fourfold tensor product. The uniform count
-vector has zeroth transform value 81 and all nonconstant values zero.
-Consequently the moment conditions say every integer pattern count is
-congruent to 1 modulo `p`. Each count is therefore at least one. Since all
-81 counts sum to 81, all equal one. Thus the solution set is exactly the
-valid boards for every allowed prime.
+The 81-character Fourier transform on the 81 patterns is invertible, since it
+is the fourth tensor power of the invertible 3-by-3 Vandermonde matrix on the
+three cube roots. The all-ones pattern-count vector has zeroth transform 81 and
+all other transforms 0. Setting all nonconstant moments to zero therefore
+forces every integer pattern count to satisfy `n_s == 1 (mod p)`. Since every
+count is nonnegative, each is at least 1, and summing to 81 forces all 81 counts
+to equal 1. For every allowed prime, the solutions are exactly the valid boards.
 
-Because `p == 2 mod 3`, Frobenius gives `P_e^p = P_(2e mod 3)` modulo the
-cubic domains. The default export keeps the **40** vectors whose first
-nonzero entry is 1, one per nonconstant Frobenius pair. This remains valid
-after fixing a prefix: Frobenius also conjugates its coefficients correctly.
+Because `p == 2 mod 3`, Frobenius gives `P_e^p = P_(2e mod 3)` modulo the cubic
+domains. By default, the exporter keeps the **40** vectors whose first nonzero
+entry is 1, picking one from each nonconstant Frobenius pair. This still works
+with a fixed prefix because Frobenius also conjugates the prefix coefficients.
 
-`all_moments=True` exports **all 80** nonconstant moments. The 40 default
-equation objects remain identical, and metadata records that the additional
-40 equations are redundant. They may aid a standard-basis computation because
-they are available explicitly instead of being derived through `p`th powers
-and domain reductions. This is an equivalent generating ideal, not an
-additional restriction.
+Passing `all_moments=True` exports **all 80** nonconstant moments. The 40
+default equations stay unchanged, and metadata marks the other 40 as redundant.
+Including them explicitly may help a standard-basis solver avoid deriving them
+via `p`th powers and domain reductions, without changing the ideal.
 
-The cubic domains are separable, since `p != 3`. After extending scalars to
-`F_(p^2)`, their quotient splits as a product of fields, one factor per labeled
-coloring. Adding the moments selects exactly the valid factors without
-multiplicity. Therefore the ordinary `F_p` quotient dimension of the full
-model already equals the full labeled board count: **multiplier 1**. Prefix
-models with quadratic coefficients are computed over `F_(p^2)` and similarly
-count extensions of that fixed prefix. No Boolean relations, color symmetry
-normalization, or reflection normalization are introduced.
+Because `p != 3`, the cubic domains are separable. Extending scalars to
+`F_(p^2)` splits their quotient into a product of fields, one per labeled
+coloring, and adding the moments keeps exactly the valid-board factors with
+multiplicity 1. The ordinary `F_p` quotient dimension of the full model is
+therefore already the full labeled board count (**multiplier 1**). Prefix
+models with quadratic coefficients work over `F_(p^2)` and count extensions of
+that fixed prefix. No Boolean relations, color normalization, or reflection
+normalization are added.
 
-## Why 29 already supplies exact low-order margins
+## Why 29 already gives exact low-order margins
 
-If all moments supported on a selected set of `k` roles vanish, inversion
-gives each of its `3^k` marginal counts congruent to `3^(4-k)` modulo `p`.
-When `p > 3^(4-k)`, every nonnegative count is at least this target, and their
-total 81 forces equality for every category. Thus:
+If every moment supported on a set of `k` roles vanishes, Fourier inversion
+forces each of its `3^k` marginal counts to equal `3^(4-k) (mod p)`. Whenever
+`p > 3^(4-k)`, every nonnegative count is at least `3^(4-k)`, and summing to 81
+forces equality everywhere:
 
 | Marginal order | Exact target per category | Sufficient prime threshold |
 | --- | ---: | ---: |
@@ -66,11 +63,11 @@ total 81 forces equality for every category. Thus:
 | Three roles | 3 | `p > 3` |
 | Four roles | 1 | `p > 1` |
 
-Both 29 and 83 force exact one-role margins at the same low moment order.
-Prime 29 is the smallest prime congruent to 2 modulo 3 above 27. These facts
-give no reason to expect a distinct marginal-strength advantage from 83.
-Prime 5 already forces exact three-role margins, but not by itself exact
-one-role or two-role margins.
+Both 29 and 83 enforce exact one-role margins at the same linear moment layer,
+and 29 is the smallest prime congruent to 2 modulo 3 above 27. There is no
+reason here to expect stronger marginal pruning from 83. Prime 5 forces exact
+three-role margins on its own, though not exact one-role or two-role margins at
+lower layers.
 
 ## API and coefficient handling
 
@@ -82,55 +79,55 @@ full80 = generate_model(29, all_moments=True)
 prefix = generate_model(29, prefix_rows, all_moments=True)
 ```
 
-The schema has `coefficient_characteristic`, `variables`,
+The schema records `coefficient_characteristic`, `variables`,
 `free_original_cells`, explicit cubic `domain_equations`, and
-`moment_equations`. Each term is:
+`moment_equations`. Each term looks like:
 
 ```json
 {"coefficient": [2, 28], "monomial": [[0, 1], [4, 2]]}
 ```
 
-Here `[u,v]` means `u+v*a`, and variable indices refer to the zero-based free
-variable list. Fixed-prefix colors are substituted before term collection.
-For each monomial the generator first retains its **integer** multiplicities
-`n0,n1,n2` at the three roots, then computes the coefficient
-`[(n0-n2) mod p, (n1-n2) mod p]`. The unreduced multiplicities are retained
-in `integer_occurrence_groups`, so cancellation is specific to the selected
-prime. All generated models remain marked `standard_basis_complete=False`.
+Here `[u, v]` stands for `u + v*a`, and variable indices point into the 0-based
+free-variable list. Fixed-prefix colors are substituted before collecting
+terms. For each monomial, the generator first records its **integer**
+multiplicities `n0, n1, n2` at the three cube roots in
+`integer_occurrence_groups`, then reduces to `[(n0-n2) mod p, (n1-n2) mod p]`
+so cancellation depends only on the chosen prime. Every generated model keeps
+`standard_basis_complete=False`.
 
-The algebra backend imports this schema using `prime:29` for 40 equations
-or `prime-all:29` for 80. It uses ordinary `F29` when coefficients are in the
-prime field, and the quadratic extension with the stated minimal polynomial
-when necessary for a fixed prefix.
+The algebra backend loads this format as `prime:29` (40 equations) or
+`prime-all:29` (80 equations), using ordinary `F29` when all coefficients lie
+in the prime field and the quadratic extension with `a^2+a+1` when a fixed
+prefix introduces extension coefficients.
 
 ## Verification and full-import audit
 
-At **each** of 5, 29 and 83, the checks passed:
+For **each** of 5, 29, and 83, the test suite passed:
 
-- 2,400 comparisons between exported equations and a separately evaluated
-  Fourier transform of direct integer pattern counts on random boards, with
-  prefix lengths 0, 1, 6, 9 and 10.
-- 2,400 evaluations of explicitly exported Frobenius partners, checking
-  equality to the representative's `p`th power and equality of the default
-  equations to the corresponding all-80 subset.
-- All 80 equations on **1,557 distinct explicit witness boards**, deduplicated
+- 2,400 comparisons of exported equations against a direct Fourier transform of
+  integer pattern counts on random boards, across prefix lengths 0, 1, 6, 9,
+  and 10.
+- 2,400 checks of explicit Frobenius partners against the representative's
+  `p`th power, plus exact equality of the default 40 equations to the matching
+  subset of all 80.
+- All 80 equations on **1,557 distinct valid witness boards**, deduplicated
   from the published seeds, `extended_seeds.json`, and the gauge certificate.
 - Five fully fixed valid boards, each giving the zero ideal in zero free
-  variables; the known uniform-triple counterexample is rejected by eight
-  representative equations and all sixteen corresponding all-80 equations.
-- Tiny exhaustive root fixtures: nine ordered pairs of cube roots and six
-  ordered root triples satisfying `x+y+z=0`.
+  variables, plus rejection of the uniform-triple counterexample by 8
+  representative equations (and all 16 matching all-80 equations).
+- Tiny exhaustive root fixtures: 9 ordered pairs of cube roots and 6 ordered
+  triples satisfying `x+y+z=0`.
 
-Results are in `exact_prime_fourier_checks.json`. The generator launches no
-standard-basis or counting subprocess.
+Check outputs are saved in `exact_prime_fourier_checks.json`. The generator
+never starts a standard-basis or counting subprocess.
 
-The actual full-run script `exact_algebra_backend_full_prime29_all.sing`
-was audited independently, without invoking Singular. The audit parsed and
-regenerated every polynomial from geometry: ordinary `F29`, 100 variables,
-all 100 domains `z_i^3-1`, all 80 nonconstant moments, and no fixed prefix or
-symmetry normalization. Its SHA256 and the multiplier-1 conclusion are in
-`exact_prime_fourier_full_import_review.json`. This verifies input scope, not
-completion of the standard-basis calculation.
+The full-run script `exact_algebra_backend_full_prime29_all.sing` was audited
+independently without running Singular. The checker parsed and rebuilt every
+polynomial from geometry: ordinary `F29`, 100 variables, all 100 domains
+`z_i^3-1`, all 80 nonconstant moments, and no prefix or symmetry normalization.
+Its SHA256 and multiplier-1 check are saved in
+`exact_prime_fourier_full_import_review.json`. This audits the input scope, not
+whether the standard-basis run finishes.
 
 Reproduce checks and exports with:
 
@@ -140,5 +137,5 @@ python experiments/exact_prime_fourier.py --prime 29 --all-moments experiments/e
 python experiments/exact_prime_fourier_import_check.py
 ```
 
-Separate backend runs and their limits are owned by the algebra experiment.
-No unrestricted numerical count is claimed by this generator report.
+Separate backend runs and resource limits belong to the algebra experiment;
+this generator report claims no unrestricted numerical count.

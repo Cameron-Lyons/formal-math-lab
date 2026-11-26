@@ -20,11 +20,11 @@ $$
 | Status | Proved in Lean 4 for all $n \ge 2$. |
 | Main theorems | `A026019.recurrence` ([A026019.lean](A026019.lean)), `A026019.a_eq` ([A026019/Sequence.lean](A026019/Sequence.lean)) |
 | Verification | `lake exe cache get && lake build && lake env lean Check.lean` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
-| Prior art | Checked 23 November 2026: no earlier explicit proof located, though Georg Fischer's first-order recurrence in jOEIS (6 November 2026) algebraically implies it. This folder claims a checked Lean proof, not a first mathematical proof. See [PRIOR_ART.md](PRIOR_ART.md) and the [collection audit](../PRIOR_ART.md#binomial-recurrence-oeis-a026019). |
+| Prior art | Checked 23 November 2026: no earlier explicit proof was found, though Georg Fischer's first-order recurrence in jOEIS (6 November 2026) algebraically implies it. This folder provides a checked Lean proof, not a claim of a first mathematical proof. See [PRIOR_ART.md](PRIOR_ART.md) and the [collection audit](../PRIOR_ART.md#binomial-recurrence-oeis-a026019). |
 
 ## Proof overview
 
-Write $B_n = \binom{3n}{n}$. Three applications of the elementary binomial step identity give, for all $n \ge 0$,
+Write $B_n = \binom{3n}{n}$. Applying the elementary binomial step identity three times gives, for all $n \ge 0$,
 
 $$
 a_n = \frac{(n+3)(7n^2 + 6n + 2)}{2(n+1)(2n+1)(2n+3)} B_n.
@@ -36,9 +36,9 @@ $$
 2(2n+1)(n+1) B_{n+1} = 3(3n+1)(3n+2) B_n.
 $$
 
-Substituting these identities at three consecutive indices, clearing nonzero denominators, and normalizing the resulting polynomial with `ring` proves the recurrence over $\mathbb{Q}$, which transfers to $\mathbb{Z}$.
+Substituting these two identities at three consecutive indices, clearing nonzero denominators, and normalizing the resulting polynomial with `ring` proves the recurrence over $\mathbb{Q}$, and then over $\mathbb{Z}$.
 
-In Lean, the sequence defines the second term as $\binom{3n}{2n+3}$. By binomial symmetry this equals $\binom{3n}{n-3}$ when $n \ge 3$ and is $0$ when $n < 3$. The theorem `A026019.a_eq` shows equivalence to the guarded original formula, so natural-number subtraction does not alter the initial terms $1, 3, 15, 83$.
+In Lean, the second term is defined as $\binom{3n}{2n+3}$. By binomial symmetry this equals $\binom{3n}{n-3}$ for $n \ge 3$ and $0$ for $n < 3$. `A026019.a_eq` proves this matches the guarded original formula, so natural-number subtraction does not alter the initial terms $1, 3, 15, 83$.
 
 ## Files
 
@@ -59,4 +59,4 @@ lake build
 lake env lean Check.lean
 ```
 
-The first command downloads mathlib's compiled cache and can be skipped if dependencies are already built. The proof uses no `sorry`, `admit`, custom axioms, or `native_decide`; [Check.lean](Check.lean) reports only `propext`, `Classical.choice`, and `Quot.sound`.
+You can skip the first command if the mathlib build cache is already present. The proof uses no `sorry`, `admit`, custom axioms, or `native_decide`; [Check.lean](Check.lean) reports only `propext`, `Classical.choice`, and `Quot.sound`.

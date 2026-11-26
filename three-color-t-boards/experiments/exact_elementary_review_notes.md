@@ -1,147 +1,69 @@
 # Independent elementary-symmetric augmentation audit
 
-The mathematics and the eight frozen generator exports pass independent
-review. They are redundant generators for the existing full Fourier/domain
-ideal. They do not replace that ideal, establish a board count, or supply a
-new symmetry factor. No solver was run for this audit.
+The mathematics and all eight frozen generator exports pass independent review. These polynomials are redundant generators of the full Fourier and domain ideal: they do not replace that ideal, compute a board count, or add a symmetry factor. No solver was run here.
 
-The audited source hashes are:
+Audited source hashes:
 
 - `exact_parity_math_elementary_original.json`:
-  `b24731564028877b8dd39850334b80810b776e271a064b89b46fd6b25f59782f`.
+  `b24731564028877b8dd39850334b80810b776e271a064b89b46fd6b25f59782f`
 - `exact_parity_math_elementary_reduced.json`:
-  `4f8f351f5d11c27afc0b80b36c180e6f12fa7a90632eea2a709a0dae77a54d61`.
+  `4f8f351f5d11c27afc0b80b36c180e6f12fa7a90632eea2a709a0dae77a54d61`
 
 ## Histogram implications
 
-Write the nonzero roots of unity in F4 as 1, a, a², with a²+a+1=0. For
-histogram (n0,n1,n2), the generating polynomial for elementary symmetric
-functions is
+Write the nonzero cube roots of unity in `F4` as `1, a, a²` with `a² + a + 1 = 0`. For color counts `(n0, n1, n2)`, the elementary symmetric generating polynomial is
 
 ```
 E(t) = (1+t)^n0 (1+a*t)^n1 (1+a²*t)^n2.
 ```
 
-When all three counts are 27, E(t)=(1+t³)^27. Consequently every coefficient
-whose degree is not divisible by three vanishes, including degrees
-1,2,4,8,16 (and the higher powers of two within the degree bound).
+When all three counts equal 27, `E(t) = (1 + t³)^27`, so every coefficient whose degree is not a multiple of 3 vanishes, including degrees 1, 2, 4, 8, and 16.
 
-Conversely, suppose the counts are nonnegative and sum to 81. Successively
-vanishing coefficients at degrees 1,2,4,8,16 force the counts to be congruent
-to 27 modulo 2,4,8,16,32, respectively. To see the induction, suppose the
-three counts share residue r modulo q=2^j. Write ni=r+q*mi. Frobenius gives
+Conversely, take any nonnegative triple summing to 81. Vanishing coefficients at degrees 1, 2, 4, 8, and 16 force the counts to equal 27 modulo 2, 4, 8, 16, and 32 in turn. By induction, if all three counts equal `r (mod q)` where `q = 2^j`, write `n_i = r + q*m_i`. Frobenius gives
 
 ```
 E(t) = (1+t³)^r * product_i (1+z_i^q*t^q)^mi.
 ```
 
-The coefficient at degree q is the sum of (mi mod2)*z_i^q: the first factor
-has zero coefficient there because 3 does not divide q, and the second
-factor has no positive degree below q. The three values z_i^q are a
-permutation of 1,a,a². Their only F2-linear dependence is their total sum,
-so vanishing is equivalent to the three next bits being equal. Their sum
-81 determines that common bit. Thus the residues are 1,3,3,11,27 at the
-successive moduli. At modulus32, each nonnegative count is at least27; their
-sum81 forces exactly (27,27,27).
+Because 3 does not divide `q` and the second product has no positive degree below `q`, the `t^q` coefficient is `sum (m_i mod 2) * z_i^q`. Since `z_i^q` permutes `1, a, a²`, whose only `F2`-linear relation is their sum, this coefficient vanishes if and only if all three next bits `m_i mod 2` match, and summing to 81 fixes that shared bit. The forced residues are 1, 3, 3, 11, and 27 at moduli 2, 4, 8, 16, and 32; at modulus 32, every nonnegative count is at least 27, so summing to 81 forces `(27, 27, 27)`.
 
-In particular e1=e2=0 forces each count to be 3 modulo4. Four exported e2
-constraints, even with their Frobenius partners, do not independently impose
-the higher e4/e8/e16 constraints. The complete Fourier ideal is retained.
+In particular, `e1 = e2 = 0` forces every count to be `3 (mod 4)`. Exporting the four `e2` equations and their Frobenius partners does not enforce `e4`, `e8`, or `e16` by itself; the full Fourier ideal remains in place.
 
-An independent exhaustive check uses Lucas binomial parity and direct
-three-factor coefficient sums, not the generator's recurrence. All 3,403
-nonnegative histograms summing to81 agree with the induction. Successive
-survivor counts are 820,190,55,10,1.
+An independent check using Lucas binomial parity and direct three-factor products verified all 3,403 nonnegative histograms summing to 81, leaving 820, 190, 55, 10, and 1 survivors after degrees 1, 2, 4, 8, and 16.
 
 ## Role differences and ordinary squares
 
-For role cell sets A,B, let C=A∩B. The exact ordinary-ring identity is
+For two role cell sets `A` and `B` with `C = A ∩ B`, splitting into shared and exclusive parts gives the ordinary polynomial identity
 
 ```
 e2(A)+e2(B)+e2(A\B)+e2(B\A)
   = e1(C) * (e1(A)+e1(B)).
 ```
 
-It follows by splitting A and B into their common and exclusive parts. The
-sparse difference e2(A\B)+e2(B\A) equals e2(A)+e2(B) only modulo the existing
-unary equations; it is not an unconditional polynomial identity. The audit
-checks the nonzero correction polynomial explicitly for all three edges.
+The sparse difference `e2(A\B) + e2(B\A)` therefore matches `e2(A) + e2(B)` only modulo the unary Fourier equations, not unconditionally; the audit checks the nonzero correction term explicitly on all three edges.
 
-The tree T–M, M–L, M–R, together with e2(T), therefore imposes exactly the
-four role e2 constraints modulo the retained unary Fourier equations. The
-four original term counts are 3240,272,72,72. Fresh set-based Gaussian
-elimination of pivots 0,81,90,99 gives exactly the existing free-cell map and
-substitutions. Independent ordinary polynomial expansion then matches every
-term of the four reduced exports, with counts 3240,2320,144,144.
+Using the spanning tree `T-M`, `M-L`, `M-R` together with `e2(T)` therefore imposes all four role `e2` equations modulo the unary equations. The four original term counts are 3,240, 272, 72, and 72. Fresh set-based Gaussian elimination on pivots 0, 81, 90, and 99 recovers the exact free-cell map and substitutions, and independent polynomial expansion matches every term of the four reduced exports (3,240, 2,320, 144, and 144 terms).
 
-The reduced quadratics contain 80,32,8,8 ordinary square monomials. They must
-remain squared: F4 does not satisfy z²=z. The Frobenius partners square each
-polynomial and reduce modulo the retained cubes z³=1. Thus exponent1 becomes2
-and exponent2 becomes1. The reduced partners have 80,32,8,8 linear terms and
-3160,2288,136,136 quartic terms. All eight partners across original/reduced
-exports match independent construction.
+The reduced quadratics contain 80, 32, 8, and 8 ordinary square monomials, which must stay squared because `z² != z` in `F4`. Forming each Frobenius partner squares the polynomial and reduces modulo `z³ = 1` (swapping exponents 1 and 2), producing 80, 32, 8, and 8 linear terms and 3,160, 2,288, 136, and 136 quartic terms. All eight partners match independent expansion.
 
-The new quadratics raise the vector-space span of the six existing quadratic
-Fourier polynomials from rank6 to rank10 after linear elimination. This is a
-polynomial-span statement, not a claim of new logical conditions on valid
-boards; the new generators already belong to the full ideal.
+After linear elimination, adding the new quadratics raises the linear span of the six existing quadratic Fourier polynomials from rank 6 to rank 10. This measures low-degree linear span only; all new generators already lie in the full ideal.
 
 ## Why the quotient is unchanged
 
-Let R=F2[z1,...,z100], let D contain every ordinary domain polynomial z_i³+1,
-and let I be the existing Fourier ideal together with D. Each domain splits
-into three distinct roots over K=F4: its derivative is z_i² and has no common
-root with z_i³+1. Therefore
+Let `R = F2[z1, ..., z100]`, let `D` be the ideal of all 100 cubics `z_i³ + 1`, and let `I` be the Fourier ideal plus `D`. Over `K = F4`, each cubic `z_i³ + 1` has derivative `z_i²` and therefore three distinct roots, so
 
 ```
 K tensor_(F2) (R/D)  ≅  product over all root assignments of K.
 ```
 
-Every ideal in this finite product of fields is radical and selects a subset
-of the coordinates. The previously proved Fourier/odd-count equivalence says
-the surviving coordinates of I are exactly valid labeled boards. Their role
-histograms are all (27,27,27), so the new elementary polynomials vanish on
-every surviving coordinate. Hence they belong to the scalar-extended ideal.
-The map R/I into K tensor_(F2)(R/I) is injective, so they already belong to I.
-Adding them leaves the ideal itself unchanged, not merely its point set.
-There is consequently no lost multiplicity or change in quotient dimension.
+Every ideal in this finite product of fields is radical and picks out a subset of coordinates. By the Fourier odd-count theorem, `I` selects exactly the valid labeled boards. Every valid board has role histograms `(27, 27, 27)`, so the new elementary polynomials vanish at every surviving coordinate and lie in the extended ideal. Since `R/I -> K tensor_(F2)(R/I)` is injective, they already belong to `I`. Adding them leaves the ideal, multiplicities, and quotient dimension completely unchanged.
 
-Eliminating the four unary pivots gives an isomorphic quotient only with all
-96 free cubic domains and all four substituted pivot-domain polynomials
-retained. The reduced model does retain them. The same ideal-equality
-argument therefore applies after substitution. Partners add no restriction:
-they are squares of already included polynomials, reduced by domain
-polynomials that remain in the ideal.
+Eliminating the four unary pivots gives an isomorphic quotient because all 96 free cubic domains and all 4 substituted pivot cubics stay in the reduced ideal, so the same argument applies after substitution. Frobenius partners are squares of existing generators reduced by kept domain cubics, so they are redundant too.
 
 ## Independent artifact checks
 
-`exact_elementary_review.py` reconstructs the 81 placements by row indices,
-uses set-valued linear elimination and ordinary monomial tuples, strictly
-decodes the packed exports, and compares every term. It checks 200 arbitrary
-F4 substitution assignments including zero, 200 nonzero free assignments for
-the Frobenius identity, and 24 distinct saved valid boards. The known
-uniform-triple counterexample also satisfies all e2 constraints, as expected
-from its balanced role histograms, while still having only73 distinct T
-patterns. This confirms why the augmentation must not replace the Fourier
-constraints. Results are in `exact_elementary_review_results.json`.
+`exact_elementary_review.py` rebuilds all 81 placements from row indices, runs set-valued linear elimination with ordinary tuple monomials, decodes the packed exports strictly, and compares every term (`exact_elementary_review_results.json`). It checks 200 arbitrary `F4` assignments (including zeros), 200 nonzero free assignments for the Frobenius identity, and 24 valid boards. As expected from its balanced role histograms, the uniform-triple counterexample also satisfies every `e2` equation while having only 73 distinct T patterns, confirming that these equations cannot replace the Fourier constraints.
 
-`exact_elementary_adapter_review.py` additionally audits the actual root
-backend definitions and fresh prepare-only files for ordinary row order,
-pivot order, reduced40, and reduced80 modes. It reconstructs the appended
-equations independently and maps every emitted monomial back through the
-inverse original-cell map. Every base polynomial, including all domain
-equations, is retained byte-for-byte; exactly eight equations are appended.
-Resulting variable/generator counts are 100/188,100/188,96/144,96/180. All
-counts retain divisor1 and unrestricted scope. Reduced partner linear terms
-are explicitly checked. Non-F2, prefix, binary, fixture, and incompatible
-reduced/pivot scopes are rejected. No subprocess can run in these checks.
+`exact_elementary_adapter_review.py` checks the actual backend definitions and fresh prepare-only outputs across ordinary row order, pivot order, `reduced40`, and `reduced80`. It rebuilds all eight appended equations independently and maps every monomial back through the inverse cell map. Every base polynomial (including all domains) matches byte for byte, giving variable/generator counts of 100/188, 100/188, 96/144, and 96/180, all with divisor 1 and unrestricted scope. Reduced partner linear terms are checked explicitly, and non-`F2`, prefix, binary, fixture, and conflicting reduced/pivot scopes are rejected. Neither script invokes a solver.
 
-The adapter's existing `source_sha256` field identifies the final emitted
-`.ms` file. The reduced JSON hash remains in `reduced_source_sha256`; the
-unaugmented reduced input hash is `base_input_sha256`, distinct from the new
-`input_sha256`. The first preparation check incorrectly expected the old
-meaning of `source_sha256` after run(); that test assertion was corrected,
-and its partial preparation-only files were preserved. Verified fresh
-artifacts are under `exact_elementary_adapter_review_prepared_verified`, and
-their hashes and terminal PREPARED_NOT_RUN status are recorded in
-`exact_elementary_adapter_review_results.json`.
+In adapter metadata, `source_sha256` hashes the emitted `.ms` file, `reduced_source_sha256` keeps the reduced JSON hash, and `base_input_sha256` keeps the unaugmented reduced input hash (distinct from `input_sha256`). An initial check mistakenly tested the old meaning of `source_sha256` after `run()`; we fixed that assertion while preserving its partial files. Verified fresh artifacts live under `exact_elementary_adapter_review_prepared_verified`, with hashes and `PREPARED_NOT_RUN` status in `exact_elementary_adapter_review_results.json`.

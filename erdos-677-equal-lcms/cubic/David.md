@@ -1,17 +1,17 @@
-# Initial bound for the three Mordell–Weil coefficients
+# Initial bound for the three Mordell-Weil coefficients
 
-Consider one of the four ratios $u/v=2,5/2,5,10$. Write its real logarithm difference as
+Consider one of the four ratios $u/v=2,5/2,5,10$, and write its real logarithm difference as
 
 $$
 L=m_0\omega + n_1 U_1+n_2 U_2+n_3 U_3-U_\infty,
 \qquad M=\max_i |n_i|.
 $$
 
-Here $U_i$ denotes the logarithm of the $i$-th generator, $U_\infty$ the logarithm of the real branch at infinity, and $\omega$ the positive real period. Use representatives in $[0,\omega)$ for the four point logarithms and the differential $dX/Y$. Under the geometric estimates $|m_0|\le 3M+2$ and $\log |L|\le 25-0.075M^2$, this note proves $M<10^{400}$. The numerical checks of the point heights and periods below are in [logarithms.py](logarithms.py).
+Here $U_i$ is the logarithm of the $i$-th generator, $U_\infty$ is the logarithm of the real branch at infinity, and $\omega$ is the positive real period. We take representatives in $[0,\omega)$ for the four point logarithms using the differential $dX/Y$. Assuming the geometric bounds $|m_0|\le 3M+2$ and $\log |L|\le 25-0.075M^2$, this note proves $M<10^{400}$. The numerical checks for the point heights and periods below are in [logarithms.py](logarithms.py).
 
 ## David's parameters
 
-Theorem 2.1 treats a linear form on $(1,U_1,\ldots,U_k)$ where each elliptic logarithm may also be a pole of $\wp$, representing the identity. Here the coefficient of the additive coordinate is zero and the period, three generator logarithms, and target logarithm give $k=5$. Write $A_i=\log V_i$ and choose David's auxiliary parameter $E=e$. Using natural logarithms, the theorem for a nonzero value gives
+Theorem 2.1 of [S. David, *Minorations de formes linéaires de logarithmes elliptiques*, Mémoires de la SMF 62 (1995), pp. 9-10](https://doi.org/10.24033/msmf.376) applies to a linear form in $(1,U_1,\ldots,U_k)$, where each elliptic logarithm may also be a pole of $\wp$ representing the identity. Here the additive term has coefficient zero, and the period, three generator logarithms, and target logarithm give $k=5$. Write $A_i=\log V_i$ and set David's auxiliary parameter to $E=e$. Using natural logarithms, when $L\ne 0$ the theorem gives
 
 $$
 \log |L| >
@@ -19,17 +19,17 @@ $$
  (\log\log B+h+\log(De))^{k+1}\prod_i A_i,
 $$
 
-where $C_k=2.9\cdot10^{6+6k}4^{2k^2}(k+1)^{2k^2+9k+12.3}$. The four size conditions and nonvanishing are checked below. [S. David, *Minorations de formes linéaires de logarithmes elliptiques*, Mémoires de la SMF 62 (1995), pp. 9–10, Theorem 2.1](https://doi.org/10.24033/msmf.376)
+where $C_k=2.9\cdot10^{6+6k}4^{2k^2}(k+1)^{2k^2+9k+12.3}$. We check nonvanishing and the four size conditions below.
 
-1. Set $D=3$. With $\beta^3=uv^2$ one has $uv^2\in\{2,20,5,10\}$, each a positive integer that is not a cube. The target coordinates lie in $K=\mathbb Q(\beta)$. Its short-model abscissa is $X_\infty=c-2u\beta+3\beta^2$ for a rational $c$. Thus $X_\infty\notin\mathbb Q$, since $1,\beta,\beta^2$ are linearly independent. Equality $L=0$ would identify the image of this target under uniformization with a rational point, the sum of integer multiples of the rational generators. All our signed logarithms may represent the negatives of the indicated points, which gives the same contradiction.
-2. On the short model $Y^2=X^3+AX+B_0$, set $(x',y')=(X/4,Y/4)$. Then $(y')^2=4(x')^3-g_2x'-g_3$, where $g_2=-A/4$, $g_3=-B_0/16$, and $dx'/y'=dX/Y$. For each model the integer coordinates obtained by clearing denominators in $[1:g_2:g_3:j]$ have absolute value below $2^{100}$. This bounds both of David's heights $h([1:g_2:g_3])$ and $h(j)$ by 100. Replacing his curve-height parameter by the upper bound $h=100$ increases the eventual right-hand magnitude.
-3. Choose all five $A_i=1000$. All three rational generator abscissae have $h(X)<100$, where $h(X)$ denotes the absolute logarithmic Weil height. For the target use $h(c-2u\beta+3\beta^2)\le 2h(\beta)+\log\max(3,|3c|+6u+9)$, since $3c$ is integral. This is below 100 in each case. The two homogeneous quartics in the duplication formula, after clearing a common denominator, have coefficient sums in absolute value below $2^{100}$. Hence $h(X(2P))\le 4h(X(P))+100$ over every number field. Iterating gives $\lim_s4^{-s}h(X(2^sP))\le h(X(P))+100/3$. The curve equation gives $h(Y)\le \tfrac32 h(X)+O(1)$, while $h([1:X:Y])\le h(X)+h(Y)$. The fixed scaling to $(x',y')$ adds a bounded term. David's projective canonical height is therefore at most $\tfrac52(100+100/3)=1000/3$. Torsion points, including the period's identity, have canonical height zero.
-4. Let $i\omega_*$ be a primitive imaginary period. The reflected cubic $y^2=-f(-x)$, with $f(X)=X^3+AX+B_0$, is identified with the original over $\mathbb C$ by $(X,Y)\mapsto(-X,iY)$. This rotates $dX/Y$ by $i$, so its positive real period equals $\omega_*$. For the real lattice $\Lambda$, the rectangular sublattice generated by $\omega,i\omega_*$ has index at most two. Indeed, for $z\in\Lambda$, both $z+\bar z$ and $z-\bar z$ are periods on the corresponding axes. Modulo the rectangular sublattice, the only possible extra class is the simultaneous half-period, by primitivity on each axis. Thus for any reduced basis $(\omega_1,\omega_2)$, its area $|\omega_1|^2\operatorname{Im}(\omega_2/\omega_1)$ is at least $\omega\omega_*/2$. The certified period enclosures give $\omega/\omega_*<100$. Each selected argument has modulus at most $\omega$, so David's archimedean quantity $3\pi |U|^2/(D\operatorname{area}\Lambda)$ is below $200\pi<1000$. This proves the remaining part of condition (3) and ensures $E=e$ satisfies both endpoints in (4).
-5. It suffices to exclude $M\ge10^{400}$. Set $B=6M$. All linear coefficients have absolute value at most $B$ and logarithmic height at most $\log B$. Also $D\log B>1000$ and $\log B>100e$. This proves (1) and (2).
+1. Set $D=3$. With $\beta^3=uv^2$, we have $uv^2\in\{2,20,5,10\}$, each a positive noncube integer. The target coordinates lie in $K=\mathbb Q(\beta)$, and its short-model abscissa is $X_\infty=c-2u\beta+3\beta^2$ for a rational $c$. Since $1,\beta,\beta^2$ are linearly independent over $\mathbb Q$, $X_\infty\notin\mathbb Q$. If $L=0$, uniformization would identify this target with a rational point (an integer linear combination of the rational generators). Any sign flip on our logarithms just negates the corresponding points and leads to the same contradiction.
+2. On the short model $Y^2=X^3+AX+B_0$, set $(x',y')=(X/4,Y/4)$. Then $(y')^2=4(x')^3-g_2x'-g_3$, where $g_2=-A/4$, $g_3=-B_0/16$, and $dx'/y'=dX/Y$. For each curve, clearing denominators in $[1:g_2:g_3:j]$ gives integers with absolute value below $2^{100}$. This bounds both of David's heights $h([1:g_2:g_3])$ and $h(j)$ by 100. Using the upper bound $h=100$ for his curve-height parameter only increases the magnitude of the right-hand side.
+3. Set all five $A_i=1000$. Each of the three rational generator abscissae has absolute logarithmic Weil height $h(X)<100$. For the target, since $3c$ is an integer, $h(c-2u\beta+3\beta^2)\le 2h(\beta)+\log\max(3,|3c|+6u+9)$, which is also below 100 in every case. After clearing a common denominator, the two homogeneous quartics in the duplication formula have coefficient sums in absolute value below $2^{100}$, so $h(X(2P))\le 4h(X(P))+100$ over every number field. Iterating gives $\lim_s4^{-s}h(X(2^sP))\le h(X(P))+100/3$. The curve equation gives $h(Y)\le \tfrac32 h(X)+O(1)$ and $h([1:X:Y])\le h(X)+h(Y)$, while scaling to $(x',y')$ adds only a bounded term. David's projective canonical height is therefore at most $\tfrac52(100+100/3)=1000/3$. Torsion points, including the identity represented by the period, have canonical height zero.
+4. Let $i\omega_*$ be a primitive imaginary period. The reflected cubic $y^2=-f(-x)$ (with $f(X)=X^3+AX+B_0$) is isomorphic to the original over $\mathbb C$ via $(X,Y)\mapsto(-X,iY)$. This rotates $dX/Y$ by $i$, so its positive real period is $\omega_*$. In the real lattice $\Lambda$, the rectangular sublattice generated by $\omega$ and $i\omega_*$ has index at most two: for any $z\in\Lambda$, both $z+\bar z$ and $z-\bar z$ lie on the axes, and primitivity on each axis leaves the simultaneous half-period as the only possible extra coset. For any reduced basis $(\omega_1,\omega_2)$, the fundamental area $|\omega_1|^2\operatorname{Im}(\omega_2/\omega_1)$ is therefore at least $\omega\omega_*/2$. The certified period enclosures give $\omega/\omega_*<100$. Since each chosen logarithm has modulus at most $\omega$, David's archimedean quantity $3\pi |U|^2/(D\operatorname{area}\Lambda)$ is below $200\pi<1000$. This completes condition (3) and ensures that $E=e$ satisfies both bounds in condition (4).
+5. It is enough to rule out $M\ge10^{400}$. Set $B=6M$. Every linear coefficient has absolute value at most $B$ and logarithmic height at most $\log B$. We also have $D\log B>1000$ and $\log B>100e$, which proves conditions (1) and (2).
 
 ## Comparing the bounds
 
-The prefactor for these parameters satisfies the elementary integer estimate
+For these parameters, the prefactor satisfies the elementary estimate
 
 $$
 C_5\,3^{12}\,1000^5
@@ -37,10 +37,10 @@ C_5\,3^{12}\,1000^5
 <10^{172}.
 $$
 
-Set $t=\log(6M)$. Since $\log(3e)<3$, the assumed upper bound and David's lower bound would imply
+Set $t=\log(6M)$. Since $\log(3e)<3$, combining the upper bound on $\log|L|$ with David's lower bound would give
 
 $$
 0.075M^2-25 < 10^{172}(t+3)(\log t+103)^6.
 $$
 
-At $M=10^{400}$, one has $900<t<1000$. The left side exceeds $10^{798}$, while the right side is below $10^{190}$ since $t+3<10^4$ and $\log t+103<200$. For increasing $t$, the logarithmic derivative of the left side exceeds 2. That of the right side is $1/(t+3)+6/[t(\log t+103)]<1$. Therefore the inequality fails throughout $M\ge10^{400}$.
+At $M=10^{400}$, we have $900<t<1000$. The left side exceeds $10^{798}$, while the right side is below $10^{190}$ because $t+3<10^4$ and $\log t+103<200$. As $t$ increases, the logarithmic derivative of the left side exceeds 2, while that of the right side is $1/(t+3)+6/[t(\log t+103)]<1$. The inequality therefore fails for all $M\ge10^{400}$.

@@ -1,24 +1,14 @@
 # More than sixty three-color T boards
 
-**Theorem.** There are at least **72 distinct labeled colorings** of the centered
-board with row lengths $1,3,\ldots,19$, using colors $0,1,2$, in which each
-of the $3^4=81$ ordered T patterns occurs exactly once. A T consists of one
-cell directly above the middle of three consecutive cells. Only translates
-of this orientation are counted; color names and reflected boards count
-separately.
+**Theorem.** There are at least **72 distinct labeled colorings** of the centered board with row lengths $1,3,\ldots,19$, using colors $0,1,2$, in which each of the $3^4=81$ ordered T patterns occurs once. A T consists of one cell directly above the middle of three consecutive cells. Only translates of this orientation are counted; color names and horizontal reflections count separately.
 
-Use `0 = red`, `1 = green`, and `2 = blue`; read each pattern in the
-order (top, left, middle, right).
+Write `0 = red`, `1 = green`, and `2 = blue`, and read each pattern in the order (top, left, middle, right).
 
-This proves that there are more than 60 such boards. The proof consists of
-six explicit boards, a finite validity table, and a symmetry argument.
-Board A below is also explicitly outside all five published families,
-as proved in the novelty argument below.
+This shows there are more than 60 valid boards. The proof uses six explicit boards, a finite validity table, and a short symmetry check. Below, we also show directly that board A falls outside all five published families.
 
 ## Six boards
 
-Number the rows from 0 at the top to 9 at the bottom, and read each row from
-left to right. All six boards start with these seven rows:
+Number the rows from 0 at the top to 9 at the bottom, and read each row from left to right. All six boards start with the same seven rows:
 
 ```text
 row   colors
@@ -31,7 +21,7 @@ row   colors
  6    0120111221110
 ```
 
-Append one of the following endings:
+Attach one of these endings:
 
 | Board | Row 7 | Row 8 | Row 9 |
 |---|---|---|---|
@@ -42,78 +32,48 @@ Append one of the following endings:
 | E | `201002000212101` | `10110202100020220` | `1001200102120220110` |
 | F | `212021210220200` | `00021000100201101` | `1022012020010110021` |
 
-Every row has the prescribed length, so these are six 100-cell boards.
+Each row has the required length, giving six 100-cell boards.
 
 ## Every pattern occurs exactly once
 
-Write $a_r(j)$ for entry $j$ of row $r$, indexing entries from 0.
-The cell has coordinates $(j-r,-r)$. Consequently, every translated T
-has exactly the form
+Write $a_r(j)$ for entry $j$ of row $r$, indexed from 0. That cell sits at $(j-r,-r)$, so every translated T has the form
 
 $$
 W_{r,j}=\bigl(a_{r-1}(j),a_r(j),a_r(j+1),a_r(j+2)\bigr),
 \qquad 1\le r\le9,\quad 0\le j\le2r-2.
 $$
 
-Indeed, the lower middle cell has coordinates $(j+1-r,-r)$, and
-the upper cell has the same horizontal coordinate. The three lower cells
-fit precisely for the stated values of $j$, and their upper cell then
-lies in row $r-1$. Conversely, any T has a lower row and a leftmost
-lower cell, which determine $r,j$. Thus this lists all placements
-without repetition. There are
+The lower middle cell lies at $(j+1-r,-r)$, and the top cell shares its horizontal coordinate. The three lower cells stay inside row $r$ exactly for $0\le j\le 2r-2$, which keeps the top cell inside row $r-1$. In the other direction, any T is determined by its lower row $r$ and its leftmost lower cell $j$. So this lists all placements once each, and there are
 
 $$
 1+3+5+\cdots+17=81
 $$
 
-of them. Encode an ordered color pattern by
+placements in total. Encode an ordered color pattern in base three as
 
 $$
 E(t,l,m,u)=27t+9l+3m+u.
 $$
 
-Base-three notation makes $E$ a bijection between the 81 color patterns
-and the integers $0,\ldots,80$. The complete code table below gives
-$E(W_{r,j})$ from left to right for every row. For each board, its six
-shared lines and its three individual lines contain every integer from
-0 to 80 exactly once. Therefore all six boards have the required property.
+This maps the 81 color patterns bijectively to $0,\ldots,80$. The table below lists $E(W_{r,j})$ from left to right for every row. For each of the six boards, the six shared lines plus its three own lines contain every integer from 0 to 80 once. All six boards are therefore valid.
 
-For example, board A's first window in row 7 is $(0,0,0,1)$, with
-code 1. Its first window in row 8 is $(0,1,0,1)$, with code 10.
+For instance, board A's first window in row 7 is $(0,0,0,1)$, which has code 1, and its first window in row 8 is $(0,1,0,1)$, with code 10.
 
 ## Why these give 72 different boards
 
-Permuting the three color names preserves the property: it permutes the
-81 ordered patterns bijectively. Reflecting every row also preserves it:
-reflection bijects the T placements and sends the pattern
-$(t,l,m,u)$ to $(t,u,m,l)$. Each listed board therefore has
-$3!\cdot2=12$ valid symmetry images, initially allowing repetitions.
+Permuting the three colors preserves validity because it permutes the 81 ordered patterns bijectively. Reflecting every row also preserves validity: it permutes the T placements and turns each pattern $(t,l,m,u)$ into $(t,u,m,l)$. So each of the six boards produces $3!\cdot2=12$ valid symmetry images (before checking for duplicates).
 
-It remains to show that these 72 images are all different. Suppose two
-images coincide. Undoing one of their transformations would take one of
-the six listed boards to another by a color permutation, possibly followed
-by reflection.
+We now check that all 72 images are distinct. Suppose two images are equal. Undoing one transformation turns one of the six boards into another by a color permutation, possibly followed by a reflection.
 
-Reflection is impossible. All six boards have row 2 equal to `21121`.
-In that row, entries 0 and 2 are different. In its reversal `12112`,
-entries 0 and 2 are equal, and a color permutation preserves equality.
-Thus no recolored reflection can have the required row 2.
+A reflection cannot happen. Every one of the six boards has row 2 equal to `21121`, where entries 0 and 2 differ. In the reversed row `12112`, entries 0 and 2 are equal, and a color permutation cannot make equal entries unequal. So no recolored reflection can match row 2.
 
-Without reflection, the color permutation must fix 0 because of the top
-cell. It must also fix 2 and 1 because of entries 0 and 1 of row 2.
-It is therefore the identity. Finally, the six listed boards are distinct:
-the first three entries of row 7 are respectively
-`001`, `002`, `100`, `101`, `201`, and `212`.
+Without reflection, the color permutation must fix 0 (from the apex cell) and also fix 2 and 1 (from entries 0 and 1 of row 2). It must be the identity. Finally, the six boards themselves are distinct because row 7 begins with `001`, `002`, `100`, `101`, `201`, and `212`.
 
-Hence equality is possible only for the same board with the same
-transformation. There are at least $6\cdot12=72>60$ valid boards. **QED.**
+Two images therefore agree only when they come from the same board and the same transformation. That gives at least $6\cdot12=72>60$ valid boards. **QED.**
 
 ## Board A is outside all five published families
 
-This also meets the question's specific request for a new board. The five
-published representatives in [the supplied certificate](sources/anc/certificates.json)
-all have apex color 0 and fall into these two groups (rows are still numbered
-from 0):
+This also answers the specific request for a new board. The five published representatives in [the supplied certificate](sources/anc/certificates.json) all have apex color 0 and split into two groups (rows numbered from 0):
 
 | Published representatives | Row 2 | Row 6 |
 |---|---|---|
@@ -121,26 +81,15 @@ from 0):
 | The other two representatives | `21121` | `0201201111202` |
 | Board A | `21121` | `0120111221110` |
 
-Suppose a published representative could be recolored, with or without
-reflection, to give A. The apex forces the recoloring to fix color 0.
-The three representatives in the first group have zeros in row 2, while A
-has none. Thus they cannot give A, even after reflection.
+Suppose a recoloring of a published representative, with or without reflection, produced board A. Matching the apex forces the recoloring to fix color 0. The three representatives in the first group contain zeros in row 2, while board A has none, so they cannot produce A even after reflection.
 
-For the other two representatives, a reflected row 2 would be `12112`.
-Its entries 0 and 2 are equal, whereas those entries of A's `21121` differ.
-No recoloring can repair this. Without reflection, matching row 2 forces
-the recoloring to fix colors 1 and 2 as well, so it is the identity. But
-row 6 then differs from A's. This excludes the other two representatives.
+For the other two representatives, reflecting row 2 gives `12112`. Its entries 0 and 2 match, whereas those entries in A's `21121` differ, and recoloring cannot change that. Without reflection, matching row 2 fixes colors 1 and 2 as well, leaving only the identity. Row 6 then disagrees with A's row 6, ruling out those two representatives too.
 
-Therefore A is unequal to **every one of the 60 published boards**. Since
-the code table proves A valid, A alone, together with the published 60,
-already answers the question affirmatively. The six-board proof above
-establishes the stronger bound of 72 without relying on the published count.
+Board A is therefore unequal to **every one of the 60 published boards**. Since the code table checks that A is valid, board A together with the published 60 already proves more than 60 boards exist. The six-board proof above gives the stronger bound of 72 without depending on the published count.
 
 ## Complete finite check
 
-The numbers below are decimal codes; leading zeros are just for alignment.
-The first block is used for each of A through F.
+The numbers below are decimal codes; leading zeros are only for alignment. The shared block applies to all six boards A through F.
 
 ```text
 Shared rows:
@@ -176,15 +125,14 @@ F:
   9: 11 08 24 73 32 15 20 06 45 01 03 64 04 39 36 02 34
 ```
 
-For a convenient check of the table, the shared lines contain these
-36 distinct codes:
+To make checking easier, the shared lines contain these 36 distinct codes:
 
 ```text
 0 5 13 14 16 17 22 25 26 28 31 35 37 38 40 41 44 46
 49 52 53 57 59 66 67 68 69 70 71 72 75 76 77 78 79 80
 ```
 
-Each three-line ending contains exactly the complementary 45 codes:
+Each three-line ending contains the remaining 45 codes:
 
 ```text
 1 2 3 4 6 7 8 9 10 11 12 15 18 19 20 21 23 24 27 29
@@ -194,69 +142,38 @@ Each three-line ending contains exactly the complementary 45 codes:
 
 ## Optional machine verification
 
-The proof above includes all its data and can be checked directly.
-[simple_proof.py](simple_proof.py) reproduces the code table and independently
-checks all 72 boards by Cartesian-coordinate enumeration:
+The proof above contains all its data and can be checked by hand. [simple_proof.py](simple_proof.py) reproduces the code table and checks all 72 boards independently using Cartesian coordinates:
 
 ```sh
 python simple_proof.py --codes
 ```
 
-To additionally read the five published certificates, verify their 60
-symmetry images, and compare every new board against them, run:
+To also read the five published certificates, verify their 60 symmetry images, and compare every new board against them:
 
 ```sh
 python simple_proof.py --published
 ```
 
-[SimpleProof.lean](SimpleProof.lean) certifies the same six boards and all
-72 distinct images, as well as A's inequality with all 60 published boards,
-in Lean's kernel, without a search or external solver:
+[SimpleProof.lean](SimpleProof.lean) checks the same six boards, all 72 distinct images, and A's inequality with all 60 published boards inside Lean's kernel, with no search or external solver:
 
 ```sh
 lake build SimpleProof
 ```
 
-A fresh build from the five local Lean modules, without using existing build
-artifacts, passed on 22 November 2026. The [build log](simple-lean-build.log)
-records the Lean version, source checksums, and theorem axioms. The only
-axioms are Lean's standard `propext`, `Classical.choice`, and `Quot.sound`;
-there are no unproved placeholders or assumptions about the search software.
+A clean build from the five local Lean modules, without cached build files, passed on 22 November 2026. The [build log](simple-lean-build.log) lists the Lean version, source checksums, and theorem axioms. Only Lean's standard axioms (`propext`, `Classical.choice`, and `Quot.sound`) appear, with no `sorry`s or assumptions about search software.
 
-Its combined theorem is `TBoards.Simple.problem_solved`:
+The combined theorem is `TBoards.Simple.problem_solved`:
 
 ```lean
 MoreThanSixty ∧ Valid board0 ∧ board0 ∉ TBoards.published
 ```
 
-Here `board0` is A, and `published` enumerates all color permutations and
-both orientations of the five supplied representatives. The separate
-theorems `TBoards.Simple.at_least_72`, `TBoards.Simple.board0_valid`, and
-`TBoards.Simple.board0_not_published` give the numerical bound, validity,
-and novelty respectively. This small proof does not require the
-17,160-board certificate or its enumeration. The larger result remains
-available through `lake build ExtendedCertificates`. Both are lower bounds;
-neither asserts the unrestricted exact count.
+Here `board0` is A, and `published` lists all color permutations and both orientations of the five published representatives. The individual theorems `TBoards.Simple.at_least_72`, `TBoards.Simple.board0_valid`, and `TBoards.Simple.board0_not_published` prove the bound, validity, and novelty separately. This small proof does not depend on the 17,160-board certificate or its search. The larger proof is still available via `lake build ExtendedCertificates`. Both are lower bounds; neither determines the exact unrestricted count.
 
-The six boards are entries 841, 842, 843, 845, 846, and 849 of
-[extended_seeds.json](extended_seeds.json), discovered in this workspace.
-Their first six rows come from a certificate of Qiyuan Ma,
-*Explicit Three- and Four-Color Prismatic T-Tetrominoes* (2026),
-DOI 10.5281/zenodo.23631079. The adapted color-table data retain the
-source's CC-BY-4.0 attribution; see [the source notices](sources/README.txt).
+The six boards are entries 841, 842, 843, 845, 846, and 849 of [extended_seeds.json](extended_seeds.json), found in this workspace. Their first six rows come from a certificate of Qiyuan Ma, *Explicit Three- and Four-Color Prismatic T-Tetrominoes* (2026), DOI 10.5281/zenodo.23631079. The adapted color-table data keep the source's CC-BY-4.0 attribution; see [the source notices](sources/README.txt).
 
 ## What the prior-art check establishes
 
-A literature search on **22 November 2026** found no earlier published
-proof that the number of these boards exceeds 60. It covered
-[Ma's preprint](https://zenodo.org/records/23631079), its only public
-Zenodo version, the latest listed versions of its two cited foundational
-papers, and searches under related terminology. The
-[prior-art report](PRIOR_ART.md) records the sources, queries, and limitations.
+A literature search on **22 November 2026** found no earlier published proof that more than 60 of these boards exist. It checked [Ma's preprint](https://zenodo.org/records/23631079), its only public Zenodo version, the latest listed versions of its two cited foundational papers, and related search terms. See the [prior-art report](PRIOR_ART.md) for the exact sources, queries, and limits of the search.
 
-This is a bounded search finding, **not a proof that no previous proof
-exists**. The mathematical proof above establishes at least 72 boards and
-excludes A from the published 60; absolute historical priority remains
-unconfirmed. In particular, an undetermined exact count does not itself
-imply that the weaker inequality “more than 60” was previously unresolved.
-
+This is a bounded search finding, **not a proof that no earlier proof exists**. The mathematical proof above shows at least 72 boards and rules out board A from the published 60, while absolute historical priority remains unconfirmed. Even though the exact count is unknown, that alone does not mean the weaker inequality "more than 60" was previously open.

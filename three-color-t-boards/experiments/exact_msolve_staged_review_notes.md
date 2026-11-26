@@ -1,48 +1,49 @@
 # Independent review of staged symbolic promotion
 
-The sixth build passes this review. No full board computation was run by this reviewer, and these checks do not establish a full ternary count or a memory bound for a full computation.
+The sixth build passes this review. No full board solve was run here, so these checks do not produce a full ternary count or prove a memory bound for the full board.
 
-Reviewed executable SHA256: `32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0`.
-Patch SHA256: `53ff7198a059bcaa82a83bb0623a500b70df6074270a41c417bd4702ccdbe44e`.
-The source hashes are recorded in the accompanying results and owner manifest.
+- Reviewed executable SHA-256: `32410d78a18d426299aa6120867795b1274250d83aef69d086690630fdc981f0`
+- Patch SHA-256: `53ff7198a059bcaa82a83bb0623a500b70df6074270a41c417bd4702ccdbe44e`
+- Source hashes: recorded in the accompanying JSON reports and owner manifest
 
 ## Source argument
 
-The retained-row support scan covers every column that will subsequently be converted into a basis entry. Existing entries become stable basis IDs before compaction; only missing entries remain symbolic IDs. The staging helper checks the complete old symbolic-ID/column bijection, checks each missing mapping and flat source pointer, and checks the missing count before modifying mappings or exponents.
+The retained-row support scan covers every column that later enters the basis. Already-present entries receive their stable basis IDs before compaction, leaving only missing entries as symbolic IDs. Before editing any mapping or exponent data, the staging helper verifies the full old symbolic-ID/column bijection, each missing mapping and flat source pointer, and the exact missing count.
 
-Compaction scans old symbolic IDs in ascending order. The packed rank is at most the old ID, so each `memmove` writes entirely at or before the current source slot and cannot overwrite an unread later source. It copies the whole exponent vector, including degree metadata stored in the vector. The retained metadata array is not overwritten during this pass. Subsequent insertion scans columns in their original ascending order and reads the compact rank from `hcm`; it therefore preserves the previous insertion order and resulting basis IDs.
+Compaction walks old symbolic IDs in ascending order. Because each packed rank is at most the old ID, `memmove` always writes at or before its source slot and never overwrites an unread vector. It copies the full exponent vector (including its degree lane) while leaving retained metadata untouched. Basis insertion then walks columns in original ascending order and reads each packed rank from `hcm`, preserving the exact insertion order and basis IDs of build 5.
 
-The slab is detached only after all selected vectors have been packed. Only the symbolic table's private metadata, buckets, pointer array and slab are freed or resized. Shared `rn`, `dv`, and `dm` pointers and scalar geometry are preserved. The same table object is restored to an empty, valid secondary table before the basis reserve. All new allocations are checked and fail with a nonzero exit. `pairs_deg` is captured before staging; after promotion, conversion reads retained terms through `hcm` and basis metadata, with no need for the retired symbolic entries. The subsequent ordinary symbolic-table clean remains valid.
+The slab detaches only after all selected vectors are packed. Only the symbolic table's private metadata, buckets, pointer array, and slab are freed or shrunk; borrowed `rn`, `dv`, and `dm` pointers and scalar geometry stay intact. The same `ht_t` object is restored to a valid empty secondary table before basis reservation, with every new allocation checked to exit nonzero on failure. Because `pairs_deg` is saved beforehand, later conversion reads only `hcm` and the basis table, and the usual post-conversion `clean_hash_table` remains safe.
 
-The caller permits consumption only in the guarded serial, characteristic-two, exact sparse, ordinary, non-tracing basis-export path, outside normal-form and final-reduction operations. Staging additionally requires actual basis-capacity growth, including the spare-slot condition. Other paths retain the previous helper behavior. No polynomial, coefficient, matrix row, or ordinary cubic-domain equation is changed by this patch.
+Compaction is gated to the serial, characteristic-2, exact sparse, ordinary, non-tracing basis-export path outside normal-form and final-reduction steps, and triggers only when basis exponent capacity must actually grow (including the spare slot). Other paths keep the earlier helper, and no polynomial, coefficient, matrix row, or cubic domain changes.
 
 ## Independent executed checks
 
-`exact_msolve_staged_review.py` extracts the actual support-selection, rounded-reservation and staging functions into a separate C harness. It uses an independent linear monomial lookup and insertion reference; it does not claim to test upstream probing. Under AddressSanitizer and UndefinedBehaviorSanitizer it passed:
+`exact_msolve_staged_review.py` extracts the support-selection, rounded-reservation, and staging code into an ASan/UBSan harness with an independent linear monomial reference (testing helper semantics rather than upstream probing):
 
-- 1,200 valid mapping/support cases: 463 staged, 737 unchanged, 16 resets from a larger table to 2,048 slots, and three zero-missing spare-boundary stages.
-- Random and reversed old-ID/column permutations, overlapping output rows, reused and missing entries, unsorted retained supports, complete vector contents, stable insertion IDs, pointer reconstruction, shared-pointer preservation and scalar preservation.
-- All ten allocation-failure points on the complete helper path and eleven malformed layouts. Every failure returned nonzero with an explicit error, and none produced sanitizer findings. The harness's allocation tracker cleans allocations on deliberate failure; the production process exits immediately.
+- 1,200 valid support/mapping cases: 463 staged, 737 unchanged, 16 resets from larger tables down to 2,048 slots, and 3 zero-missing spare-boundary stages.
+- Covers random and reversed old-ID/column permutations, overlapping rows, reused and missing entries, unsorted supports, full vector contents, stable IDs, rebuilt pointers, and preserved shared pointers and scalars.
+- All 10 allocation-failure points and 11 malformed layouts exit nonzero with explicit errors and zero sanitizer findings (the harness's tracker cleans up on injected failure, while production exits immediately).
 
-`exact_msolve_staged_basis_review.py` passed twelve complete characteristic-two ideals against the prior fifth executable and an independent Python Buchberger implementation. All 24 full basis exports were byte-identical across executables and equal to the independent reduced bases. The candidate exercised three actual staging rounds and 33 bitset rounds. Cases include coupled cubic domains, field extensions, a unit ideal and a nonradical ideal, so an accidental Boolean or radical reduction would fail these comparisons. These small solver executions used a 2 GiB address-space limit and no full board input.
+`exact_msolve_staged_basis_review.py` checks 12 complete F2 ideals under a 2-GiB cap against build 5 and an independent Python Buchberger solver. All 24 full-basis exports match both build 5 byte-for-byte and Python, exercising 3 staging rounds and 33 bitset rounds across coupled cubics, field extensions, a unit ideal, and a nonradical ideal (catching any accidental Boolean or radical reduction).
 
-## Separately attributed owner checks
+## Owner checks (separately attributed)
 
-The owner artifacts `exact_msolve_staged_promotion_tools/helper_check.json` and `validation.json` were read after completion. The owner reports 49 actual upstream hash-promotion cases, forced collisions, a direct zero-missing stage, and subsequent insert/lookup/legacy growth/clean/copy/reinitialize/reset operations under sanitizers. Its five staging-allocation failures fail explicitly. Its eighteen integrated complete-basis comparisons also pass, including non-characteristic-two fallback. Those are the owner's tests, distinct from the independently executed checks above.
+We read `exact_msolve_staged_promotion_tools/helper_check.json` and `validation.json` after completion. The owner's separate harness reports 49 upstream hash-promotion cases (with forced collisions, a direct zero-missing stage, and later insert/lookup/legacy growth/clean/copy/reinitialize/reset under sanitizers), 5 staging-allocation failures, and 18 complete-basis comparisons including non-F2 fallbacks. These belong to the owner's suite and are distinct from our independent tests above.
 
-Reproduce the independent checks with:
+Reproduce the independent checks:
 
 ```sh
 python experiments/exact_msolve_staged_review.py
 python experiments/exact_msolve_staged_basis_review.py
 ```
 
-The basis review deliberately refuses an existing output directory; preserve prior artifacts and choose a fresh directory before repeating it.
+The basis review refuses to overwrite an existing output directory; choose a fresh directory for reruns.
 
-## Separate characteristic-three gate extension
+## Separate characteristic-three gate extension (6b)
 
-The preserved 6b build extends only the caller condition from characteristic two to characteristics two or three. `exact_msolve_staged_f3_review.py` compared all C sources: only that condition in `convert.c` changes; the other 60 C files, including the complete staging helper, are byte-identical. The F2-only bitset kernel remains restricted to characteristic two. The compaction proof and independent helper failure checks above apply without change because staging only copies exponent vectors and remaps identifiers; it does not inspect or modify coefficients.
+Build 6b widens only the caller condition from characteristic 2 to characteristics 2 or 3. `exact_msolve_staged_f3_review.py` diffed all 61 C files and confirmed only that one guard in `convert.c` changed (the other 60 files, including the full staging helper, are byte-identical). The bitset kernel remains F2-only. Because staging only copies exponent vectors and remaps IDs without touching coefficients, the compaction proof and helper checks above carry over unchanged.
 
-The 6b executable SHA256 is `9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a`, and its one-line patch SHA256 is `96396c6b6a15e2ae1be84fdc968c21c62a87065acb5c4e2b7897b5e14cc75850`.
+- Build 6b executable SHA-256: `9e17f4224f282a2effa0d7b39a2be793db9f186499313ca395163dee53b4bc3a`
+- One-line patch SHA-256: `96396c6b6a15e2ae1be84fdc968c21c62a87065acb5c4e2b7897b5e14cc75850`
 
-Twelve complete characteristic-three ideals independently pass against Python Buchberger and the frozen sixth executable: 24 full basis exports match byte-for-byte, with three actual F3 staging rounds. Nine field-domain fixtures also match exhaustive F3 assignment counts. The other fixtures include an extension-field ideal and a nonradical ideal, preserving ordinary polynomial semantics beyond field-domain cases. No F2 bitset round appears in any F3 run. Results and commands are retained in `exact_msolve_staged_f3_review_results.json`; no full board solve was run by this reviewer.
+Twelve complete F3 ideals pass against Python Buchberger and build 6: all 24 full-basis exports match byte-for-byte, exercising 3 F3 staging rounds and 0 F2 bitset rounds. Nine field-domain ideals also match exhaustive F3 point counts, while the rest test extension-field and nonradical ideals. Results and commands are in `exact_msolve_staged_f3_review_results.json`; no full board solve was run here.

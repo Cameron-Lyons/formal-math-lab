@@ -1,27 +1,14 @@
 # Deterministic ordering of the translated F₃ model
 
-A deterministic minimum-fill ordering improves the **monomial-cooccurrence
-graph** of the translated native-F₃ model with `e3`. It has been exported as
-a pure variable renaming. No solver, new equations, prefix restrictions, or
-backend changes are involved.
+A deterministic minimum-fill variable order shrinks the **monomial-cooccurrence graph** of the translated native-`F₃` model with `e3`. It is exported as a pure variable renaming, with no solver run, no new equations, no prefix restrictions, and no backend changes.
 
-The distinction between two graphs is essential. In the ordinary
-polynomial-support graph, two variables are adjacent if they appear anywhere
-in the same generator. That graph is already **K95**, with 4465 edges: many
-individual moment generators, including `M2222−1`, use all 95 coupled
-variables. Every order has induced width 94 and adds no edges. There is no
-small factor-graph width or decomposition here.
+Two graphs need to be kept distinct. In the full polynomial-support graph, two variables share an edge if they appear anywhere in the same generator. That graph is already the complete graph **K95** (4,465 edges), because several moment generators (including `M2222 - 1`) contain all 95 coupled variables. Every order therefore has induced width 94 and zero fill, so there is no small factor-graph decomposition.
 
-The finer graph puts an edge only between variables appearing together in
-the **same monomial**. It has 868 edges. It ignores coupling between different
-terms of a global equation; therefore its width is a weaker input heuristic,
-not a width bound for the complete polynomial factor graph.
+The finer monomial-cooccurrence graph connects two variables only when they appear in the **same monomial**, giving 868 edges. Because it ignores coupling across separate terms of an equation, its width is only a weaker heuristic rather than a width bound on the polynomial system.
 
 ## Measured elimination metrics
 
-At each elimination step, connect all remaining neighbors of the selected
-vertex, count newly added edges, and then remove that vertex. Induced width is
-the maximum number of remaining neighbors at any step.
+At each elimination step, connect all remaining neighbors of the chosen vertex, count the newly added fill edges, and remove the vertex. Induced width is the largest remaining neighborhood size across all steps:
 
 | Order | Induced width | Added fill edges |
 |---|---:|---:|
@@ -30,40 +17,22 @@ the maximum number of remaining neighbors at any step.
 | Minimum degree | 44 | 1231 |
 | Minimum fill | **37** | **1077** |
 
-Minimum fill selects the smallest number of missing edges among current
-neighbors, breaking ties by current degree and then original variable index.
-Minimum degree reverses the first two criteria. All choices are deterministic;
-no randomized ordering search was performed. These are widths of particular
-orders, not proofs of the graph's optimal treewidth.
+Minimum fill picks the vertex with the fewest missing edges among its current neighbors (breaking ties by current degree, then original variable index); minimum degree swaps the first two criteria. All choices are deterministic with no randomized search, and they measure particular orders rather than proving optimal treewidth.
 
-The exported variable list follows the selected graph-elimination sequence.
-A grevlex Gröbner-basis calculation is not graph elimination, so these metrics
-do not establish reduced basis size, smaller F4 matrices, or faster runtime.
+The exported variable list follows this elimination order. Because grevlex Gröbner-basis computation does not behave like graph elimination, smaller induced width does not guarantee a smaller basis, smaller F4 matrices, or faster runs.
 
 ## Exact exported input
 
-The frozen source is `exact_f3_translation_e3.ms`, SHA256
-`44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5`.
-It has 96 variables and 176 generators. The independent apex-offset variable
-stays **last**, at index 95, and its field domain remains present.
+The frozen source is `exact_f3_translation_e3.ms` (SHA256 `44e74446e0971a06a40d89fc18446d33e3355d3ef6e42b4197e3ac0686defee5`), with 96 variables and 176 generators. The independent apex-offset variable stays **last** at index 95 with its field equation intact.
 
-- [Renamed complete input](exact_f3_order_selected.ms), SHA256
-  `b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd`.
-- [Complete forward/inverse map](exact_f3_order_selected.json), SHA256
-  `387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e`.
+- [Renamed complete input](exact_f3_order_selected.ms), SHA256 `b73bf1f74eb55a2f7e5d2663471021bc8fa3e3250f208d955d8d97bdfa9190bd`.
+- [Complete forward/inverse map](exact_f3_order_selected.json), SHA256 `387d85417ffb7823ceef2984b506b39f6913169491d7ada2d75343ec1829bc3e`.
 - [Graph metrics and adjacency certificate](exact_f3_order_audit.json).
-- [Generator/checker](exact_f3_order.py).
+- [Generator and checker](exact_f3_order.py).
 
-The map lists both `new_index→old_index` and its full inverse, identifies each
-normalized-prefix coordinate, and provides every original-color linear form
-in the renamed variables. All coefficients, exponents, domains, and generator
-ordering are preserved. Every old and new polynomial is parsed and compared
-under the permutation. Applying the inverse renaming recovers the complete
-source input **byte for byte**. Rebuilding the monomial graph after renaming
-also reproduces width 37 and fill 1077 under its natural order.
+The mapping file stores both `new_index -> old_index` and its inverse, tags every normalized-prefix coordinate, and gives all 100 original-color linear forms in the renamed variables. All coefficients, exponents, domains, and generator positions stay unchanged. Applying the inverse renaming reproduces the source `.ms` file **byte for byte**, and rebuilding the monomial graph on the renamed file reproduces width 37 and fill 1,077 in natural order.
 
-Thus the input still represents the full labeled count with multiplier and
-divisor one. The unrestricted dimension remains unevaluated.
+The quotient dimension therefore still equals the full labeled count directly (multiplier and divisor 1), and the unrestricted count remains unknown.
 
 ```sh
 python experiments/exact_f3_order.py --check

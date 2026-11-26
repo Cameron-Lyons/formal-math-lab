@@ -1,66 +1,49 @@
 # Four disjoint linear sign branches
 
-The full labeled count has the exact decomposition
+The full labeled board count splits cleanly into four branch totals:
 
 ```
 N = N0 + N1 + N2 + N3.
 ```
 
-Each Nk is the quotient dimension of one complete exported ordinary F₃ ideal.
-The independent three-valued offset and two-valued sign are retained inside
-every input, so there is **no additional multiplier or divisor**. The four
-counts are unevaluated. Natural and minimum-fill order are alternative
-representations of the same four branches, not eight contributions.
+Each `Nk` is the quotient dimension of one exported `F₃` ideal. Because the independent three-valued shift and two-valued sign stay inside every ideal, **no extra multiplier or divisor applies**. None of the four unrestricted counts has been computed. Natural and minimum-fill exports are two variable orders of the same four branches, not eight separate summands.
 
 ## Disjoint partition and exact reconstruction
 
-Use the same pair as the quintic construction:
+Using the same placement pair as the quintic selector,
 
 ```
-P0=(0,1,2,3),  P3=(3,6,7,8),
-Delta(z)=pattern(P0,z)−pattern(P3,z),  in T,L,M,R order.
+P0 = (0,1,2,3),  P3 = (3,6,7,8),
+Delta(z) = pattern(P0, z) - pattern(P3, z),  in T,L,M,R order,
 ```
 
-On every valid board the two patterns differ, so Delta is nonzero. Let k be
-its first nonzero coordinate, and define
+every valid board has `Delta != 0`. Let `k` be the index of its first nonzero entry, and set
 
 ```
-a=z_apex,  D=z−a,  s=Delta_k(D),  d=s*D.
+a = z_apex,  D = z - a,  s = Delta_k(D),  d = s*D.
 ```
 
-The sign belongs to {1,−1}, hence s²=1. The canonical board d has apex zero,
-Delta_i(d)=0 for i<k, and Delta_k(d)=1. Conversely, given such a canonical
-d and independent a∈F₃ and s∈{1,−1}, set
+Since `s ∈ {1, -1}`, `s² = 1`, and the canonical board `d` satisfies `d_apex = 0`, `Delta_i(d) = 0` for `i < k`, and `Delta_k(d) = 1`. Conversely, any such `d` with independent `a ∈ F₃` and `s ∈ {1, -1}` gives
 
 ```
-z_cell=a+s*d_cell.
+z_cell = a + s*d_cell,
 ```
 
-The recovered board has first nonzero difference at exactly k; its recovered
-sign is s. These constructions are inverse. Therefore the four images are
-disjoint, exhaustive, and contain each labeled board exactly once.
+which recovers `k` as the first nonzero difference and `s` as the sign. The maps are mutual inverses, so the four branches partition all labeled valid boards without overlap.
 
-Affine palette changes preserve native validity. Translation is already
-separated in the frozen source. Under negation, each moment scales by its
-total-degree parity, and the sole nonzero target is even, at degree eight.
-The elementary-cubic zero equations also remain satisfied. Every coupled
-source polynomial has uniform degree parity after field reduction; the
-exporter checks this directly.
+Affine color permutations preserve validity; shift is already factored out in the frozen source, and negation preserves both the native moments (the only nonzero target sits at even degree 8) and the `e3` zero equations. The exporter checks directly that every coupled source polynomial keeps uniform degree parity after field reduction.
 
-Every variable retains its individual field equation, so all quotients are
-finite products of F₃ and their dimensions count points without multiplicity.
-On branch k the exact algebra factorization is
+Every variable keeps its field cubic, so every quotient is a finite product of copies of `F₃` counting solutions without multiplicity:
 
 ```
-A_k ≅ F₃[a]/(a³−a) ⊗ F₃[s]/(s²−1) ⊗ A_canonical,k.
+A_k ≅ F₃[a]/(a³ - a) ⊗ F₃[s]/(s² - 1) ⊗ A_canonical,k.
 ```
 
-The extra equation s³−s is retained explicitly for input compatibility and
-is redundant by the ordinary identity s³−s=s(s²−1).
+We also include the redundant `s³ - s = s(s² - 1)` for uniform input structure.
 
 ## Four sparse linear systems
 
-In the frozen natural prefix order the selected difference forms are
+In natural prefix order, the four role differences are
 
 ```
 Delta_T = 2*x1,
@@ -69,10 +52,7 @@ Delta_M = 2*x8 + 2*x9 + 2*x10,
 Delta_R = 2*x1 + 2*x2.
 ```
 
-For branch k impose the first k forms equal to zero and form k equal to one.
-The corresponding coefficient and augmented ranks are both k+1. These
-linear conditions are consistent in the ambient prefix space; this does not
-establish a valid completion in any branch.
+Branch `k` sets the first `k` forms to 0 and form `k` to 1. Both coefficient and augmented ranks equal `k + 1`, so the linear system is consistent in the ambient prefix space (though consistency alone does not guarantee valid board completions).
 
 | Branch | First nonzero role | Added linear constraints | Terms in those constraints | Total generators |
 |---|---|---:|---:|---:|
@@ -81,62 +61,24 @@ establish a valid completion in any branch.
 | 2 | M | 3 | 9 | 181 |
 | 3 | R | 4 | 11 | 182 |
 
-Every input has 97 variables: 95 canonical prefix coordinates, offset a at
-zero-based index 95, and sign s at index 96. It contains the exact frozen
-176 translated-plus-e3 source generators, then s³−s, s²−1, and its k+1 linear
-conditions. No quintic selector is included. The source polynomial bodies
-are preserved byte for byte, including in the minimum-fill variant.
+Every input has 97 variables: 95 canonical prefix coordinates, offset `a` at 0-based index 95, and sign `s` at index 96. It appends `s³ - s`, `s² - 1`, and the `k + 1` linear constraints directly after the 176 frozen translated-plus-`e3` generators, with no quintic selector. Source polynomial bodies stay byte-for-byte identical in both variable orders.
 
-Branch 0 directly fixes x1=2. Each branch introduces a nonzero target at
-degree one, compared with degree five for the quintic selector and degree
-eight for the original moment target. This may help early elimination, but
-requires four complete counts. No basis performance has been measured.
+Branch 0 fixes `x1 = 2` directly, and every branch introduces a nonzero constant at degree 1 (versus degree 5 for the quintic selector and degree 8 for `M_2222`). That may help early elimination, at the cost of solving four branches instead of one; no unrestricted solver performance has been measured here.
 
 ## Exports and counting rule
 
-The [manifest](exact_f3_sign_branches_manifest.json) lists all four branch
-IDs, both input orders and hashes, the exact sum rule, and the completion
-rule. The files are `exact_f3_sign_branch{k}_{natural,minfill}.ms`, with
-adjacent JSON metadata. Each records the source hashes, all additional
-polynomials, the coordinate map and bilinear original-color reconstruction.
-Minimum-fill metadata includes both directions of its complete permutation.
+The [manifest](exact_f3_sign_branches_manifest.json) lists all four branch IDs, both variable orders with hashes, the sum rule, and the completion rule. The inputs are `exact_f3_sign_branch{k}_{natural,minfill}.ms` with companion JSON metadata storing source hashes, added polynomials, coordinate maps, bilinear original-color forms, and (for minimum-fill) both directions of the permutation.
 
-An actual original-color fix must use `a+s*d_cell=color`. The known
-81-cell, six-completion prefix has Delta=[1,2,0,2], hence k=0, a=1, s=1.
-Its predicted dimensions are therefore `[6,0,0,0]` across the four branches.
-These are deductions from the previously known prefix count; this exporter
-does not run a solver or claim new fixed-prefix validation.
+Original-color fixes must use `a + s*d_cell = color`. On the known 81-cell six-completion prefix, `Delta = [1, 2, 0, 2]`, so `k = 0`, `a = 1`, `s = 1`, predicting branch counts `[6, 0, 0, 0]` (deduced from the known prefix count; this exporter runs no solver).
 
-Report an unrestricted N only after obtaining a complete certified dimension
-for every branch. Missing, partial or timed-out results are unknown, never
-zero. Do not add both variable orders, and do not multiply a branch count by
-six: the independent offset and sign factors are already present.
+Only report an unrestricted total `N` once every branch has a certified complete count. Missing, partial, or timed-out branches stay unknown, never zero. Never sum both variable orders, and never multiply a branch count by 6, because both shift and sign are already inside each ideal.
 
 ## Symmetry scope and checks
 
-Every global palette permutation over F₃ is affine, z↦alpha*z+beta, with
-alpha∈{1,−1}. It scales Delta by alpha and therefore preserves its first
-nonzero coordinate. Palette symmetry gives no equality between different
-branch counts.
+Every color permutation over `F₃` has the form `z ↦ alpha*z + beta` (`alpha ∈ {1, -1}`), scaling `Delta` by `alpha` and preserving its first nonzero coordinate, so palette symmetry relates no two distinct branches.
 
-Horizontal reflection changes P3 into P1 and swaps the lower left/right
-roles. On existing valid witnesses, branch 0 reflects into both branches
-0 and 1; branch 1 also reflects into both. The audit saves explicit valid
-board pairs certifying this, so reflection does not uniformly exchange
-those branch sets. No equality among branch counts, no impossibility of a
-branch, and no more general symmetry obstruction is claimed.
+Horizontal reflection maps `P3` to `P1` and swaps left and right roles. Explicit valid board pairs stored in the audit show that branch 0 reflects into both branches 0 and 1, and branch 1 reflects into both as well, so reflection does not swap branches uniformly. We claim no equality among `N0..N3`, no empty branch, and no broader symmetry obstruction.
 
-The checker exhausts the 80 nonzero difference vectors. Their branch sizes
-are 54,18,6,2, and their normalized difference-vector sizes are 27,9,3,1.
-These numbers are **not board-count proportions**. It also independently
-checks geometric validity and canonical roundtrips for 161 existing boards,
-including all six affine palettes, and checks five complete polynomial
-fixtures. Those stored witnesses happen to occupy branches 0 and 1 only
-(12 and 149 respectively); absence of branches 2 and 3 is not evidence that
-their unrestricted counts vanish.
+Exhausting all 80 nonzero difference vectors splits them into sizes `54, 18, 6, 2` (and normalized sizes `27, 9, 3, 1`); those reflect vector space slices, **not board-count ratios**. The checker also validates 161 existing boards geometrically, round-trips all six affine palettes for each, and checks five complete polynomial fixtures. Those 161 stored witnesses land solely in branches 0 and 1 (12 and 149 respectively), which does not mean branches 2 or 3 are empty.
 
-Run `python experiments/exact_f3_sign_branches.py --check` to reproduce the
-[audit](exact_f3_sign_branches_audit.json), all eight complete inputs, exact
-source-body retention, all 97 field domains, linear ranks, inverse
-permutations, finite partition and witness checks. No backend or earlier
-frozen model is changed, and no solver is invoked.
+Run `python experiments/exact_f3_sign_branches.py --check` to regenerate the [audit](exact_f3_sign_branches_audit.json) and verify all eight inputs, verbatim source bodies, 97 field domains, linear ranks, inverse permutations, finite partition, and witnesses. No backend or earlier model changed, and no solver ran.

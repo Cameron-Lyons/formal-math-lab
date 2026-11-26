@@ -1,27 +1,27 @@
 # Cubic graphs with an edge cut of size one or two
 
-A terminal is a vertex of degree two. Here all graphs are finite, simple and connected, and every other vertex has degree three. An exhaustive search gives the following bounds. [Checker](scripts/terminal_blocks.cpp)
+Call a vertex of degree two a *terminal*. Every graph on this page is finite, simple, and connected, with all non-terminal vertices of degree three. An exhaustive search in [scripts/terminal_blocks.cpp](scripts/terminal_blocks.cpp) gives the following order bounds:
 
 | Terminals | Every graph through this order has a power-of-two cycle | Lower bound on the order without one |
-|---|---:|---:|
+| --- | ---: | ---: |
 | One | 39 | 41 |
 | Two | 30 | 32 |
 
-The last column follows from parity. A graph with $m$ vertices and $t$ terminals has degree sum $3m-t$, so $m$ and $t$ have the same parity.
+The last column follows from parity: a graph on $m$ vertices with $t$ terminals has degree sum $3m - t$, so $m$ and $t$ have the same parity.
 
 ## Consequences for cuts and terminal paths
 
-Deleting a bridge in a cubic graph leaves one terminal on each side. Each side needs at least 41 vertices to avoid a power-of-two cycle, giving **82** in total. In a bridgeless cubic graph, a two-edge cut has distinct endpoints on each side. Otherwise their common endpoint's third edge would be a bridge. Each side has two terminals and needs at least 32 vertices, giving **64** in total.
+Removing a bridge from a cubic graph leaves one terminal on each side. To avoid a power-of-two cycle, each side needs at least 41 vertices, giving at least **82** vertices overall. In a bridgeless cubic graph, a two-edge cut must have distinct endpoints on each side, because a shared endpoint's third edge would be a bridge. Each side then has two terminals and needs at least 32 vertices, giving at least **64** vertices overall.
 
-There is also a path consequence for three terminals. In a graph on at most 39 vertices with three terminals and no power-of-two cycle, add an edge between any two nonadjacent terminals $u,v$. The resulting one-terminal graph has a power-of-two cycle. Removing the new edge from that cycle gives a simple $u$–$v$ path of length $2^k-1$ with $k\ge2$.
+There is also a path consequence for three terminals. Take a graph on at most 39 vertices with three terminals and no power-of-two cycle, and add an edge between any two nonadjacent terminals $u, v$. The resulting one-terminal graph must contain a power-of-two cycle. Deleting the new edge from that cycle leaves a simple path between $u$ and $v$ of length $2^k - 1$ for some $k \ge 2$.
 
 ## Exhaustive search
 
-With one terminal, expose it and its two neighbors and try the neighbors adjacent and nonadjacent. With two terminals, start with just the terminals and try them adjacent and nonadjacent. The exposed graph always includes every edge of the target between exposed vertices.
+For one terminal, start by exposing the terminal and its two neighbors, trying those two neighbors both adjacent and nonadjacent. For two terminals, start with just the two terminals, again trying them adjacent and nonadjacent. At every stage, the exposed subgraph contains all edges of the target graph between exposed vertices.
 
-Choose a vertex still missing a neighbor. Its required neighbor is fresh. Try every set of at most three exposed neighbors for the fresh vertex that includes the chosen vertex and respects the prescribed degrees. Reject two proposed neighbors if a simple path of length $2^k-2$ already joins them. This test detects every new power-of-two cycle, since removing the fresh vertex from such a cycle leaves exactly that path.
+Pick an exposed vertex that is still missing a neighbor. Its required neighbor must be a fresh vertex. Branch over all sets of at most three exposed neighbors for this fresh vertex that include the chosen vertex and respect the target degrees. Reject any choice containing two neighbors already joined by an exposed simple path of length $2^k - 2$, since adding the fresh vertex would close a power-of-two cycle (and every new power-of-two cycle arises this way).
 
-With $r$ fresh vertices still available, at most $3r$ missing incidences can be filled. For any group of exposed vertices that cannot share a fresh neighbor, at most $r$ of their incidences can be filled. These bounds discard only impossible branches. When all degrees are filled, a connected board is a candidate and a disconnected board can never become connected. Thus every connected candidate would be found.
+With $r$ fresh vertices left, at most $3r$ missing incidences can be filled in total, and any group of exposed vertices that cannot share a fresh neighbor can fill at most $r$ of its missing incidences. Both pruning bounds discard only impossible branches. Once every degree is filled, a connected board is a counterexample and a disconnected board can never become connected, so the search finds every connected counterexample within the order cap.
 
 ```sh
 c++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror scripts/terminal_blocks.cpp -o /tmp/eg64-terminal-blocks
@@ -33,4 +33,4 @@ c++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror -DTERMINAL_NAUTY \
 /tmp/eg64-terminal-cache one-bounded 39
 ```
 
-The two-terminal run visits 57,706,154 states. The one-terminal run visits 10,559,396 using a 64-bit build of nauty 2.9.0. Both exhaust all branches. The one-terminal cache compares full canonical adjacency strings with the terminal distinguished. Hash collisions only evict entries. A path already found persists under extension, and adding a leaf creates no new path between old vertices. These two observations allow the checker to reuse its path tests. The portable executable also runs `one 33` without caching, taking 9,640,915 states. [Source of nauty](https://pallini.di.uniroma1.it/)
+Both runs exhaust all branches: the two-terminal run visits 57,706,154 states, and the one-terminal run visits 10,559,396 states using a 64-bit build of [nauty 2.9.0](https://pallini.di.uniroma1.it/). The one-terminal cache compares full canonical adjacency strings with the terminal distinguished, and hash collisions only evict entries. Because an existing path persists under extension and adding a degree-one leaf creates no new path between old vertices, the checker can safely reuse path tests across steps. Without nauty, the portable binary also checks `one 33` uncached in 9,640,915 states.

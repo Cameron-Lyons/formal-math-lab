@@ -1,38 +1,51 @@
 # A local obstruction at a simple Pell denominator root
 
-Let $F$ be a discretely valued field with residue field $k$ of characteristic different from 2 and 3. Let $X,Y,Z,L$ have integral coefficients and satisfy
+Let $F$ be a discretely valued field whose residue field $k$ does not have characteristic 2 or 3. Suppose $X, Y, Z, L$ have integral coefficients and satisfy
+
 $$
-X^3+ZY^2+Z^2L^3=2L^9.
-$$
-Suppose $\alpha$ is an integral root of $L$ with $L'(\alpha)$ a unit. If $Z(\alpha)$ is a unit and $Y(\alpha),Y'(\alpha)$ vanish in $k$, then
-$$
-Y(\alpha)=Y'(\alpha)=X(\alpha)=0\qquad\text{in }F.
+X^3 + ZY^2 + Z^2 L^3 = 2 L^9.
 $$
 
-Indeed, write $Y(\alpha+s)=B_0+B_1s+\cdots$. If $B_0$ or $B_1$ is nonzero, put $r=\min(v(B_0)/3,v(B_1))>0$, with $v(0)=+\infty$. Adjoin a suitable root of a uniformizer in a totally ramified extension, and choose $\lambda$ of valuation $r$. With $s=\lambda^2 T$, form
+Suppose $\alpha$ is an integral root of $L$ with $L'(\alpha)$ a unit. If $Z(\alpha)$ is a unit and both $Y(\alpha)$ and $Y'(\alpha)$ vanish in $k$, then
+
 $$
-a_1=\lambda^{-2}X(\alpha+\lambda^2T),\quad
-b_1=\lambda^{-3}Y(\alpha+\lambda^2T),\quad
-E=Z(\alpha+\lambda^2T),\quad
-L_1=\lambda^{-2}L(\alpha+\lambda^2T).
+Y(\alpha) = Y'(\alpha) = X(\alpha) = 0 \qquad \text{in } F.
 $$
-The minimum makes $b_1$ integral and ensures that its reduction $b$ is nonzero. Every term of $b_1$ above degree one disappears on reduction. The reductions of $E,L_1$ are $e=\overline{Z(\alpha)}\ne0$ and $k_1T$ with $k_1=\overline{L'(\alpha)}\ne0$. Dividing the original equation by $\lambda^6$ expresses $a_1^3$ as an integral polynomial. Hence $a_1$ is integral. Its reduction $a$ satisfies
+
+To prove this, expand $Y(\alpha + s) = B_0 + B_1 s + \cdots$. Suppose for contradiction that $B_0$ or $B_1$ is nonzero, and put $r = \min(v(B_0)/3, v(B_1)) > 0$ (with $v(0) = +\infty$). Adjoin a root of a uniformizer in a totally ramified extension to pick an element $\lambda$ of valuation $r$. Substitute $s = \lambda^2 T$ and define
+
 $$
-a^3+eb^2+e^2(k_1T)^3=0.
+a_1 = \lambda^{-2} X(\alpha + \lambda^2 T), \quad
+b_1 = \lambda^{-3} Y(\alpha + \lambda^2 T), \quad
+E = Z(\alpha + \lambda^2 T), \quad
+L_1 = \lambda^{-2} L(\alpha + \lambda^2 T).
 $$
-Substitute $T=w^2/k_1$. Then $x=a(w^2/k_1)/w^2$ and $y=b(w^2/k_1)/w^3$ satisfy $x^3+ey^2=-e^2$. This nonsingular cubic admits only constant points over $k(w)$, by the polynomial Fermat–Catalan theorem in characteristic different from 2 and 3. Therefore $b(w^2/k_1)$ is a scalar multiple of $w^3$. Its odd-degree coefficients vanish, so this multiple is zero and $b=0$, a contradiction. This proves $B_0=B_1=0$. Substitution of $\alpha$ in the original equation yields $X(\alpha)=0$. Lean checks polynomial cube integrality, specialization of the scaled identity and the contradiction over the residue field. The selection of the scaling element and the reduced coefficients are given above. [Local obstruction](CubicSimplePole.lean) · [Cube integrality](CubicAnnulus.lean) · [Constant-fiber theorem](PellConstantFiber.lean)
+
+By our choice of $r$, $b_1$ is integral with nonzero reduction $b$, and every term of $b_1$ of degree above 1 drops out on reduction. Meanwhile $E$ reduces to $e = \overline{Z(\alpha)} \ne 0$, and $L_1$ reduces to $k_1 T$ with $k_1 = \overline{L'(\alpha)} \ne 0$.
+
+Dividing the original equation by $\lambda^6$ writes $a_1^3$ as an integral polynomial, so $a_1$ is integral too. Its reduction $a$ satisfies
+
+$$
+a^3 + eb^2 + e^2(k_1 T)^3 = 0.
+$$
+
+Now set $T = w^2/k_1$. Then $x = a(w^2/k_1)/w^2$ and $y = b(w^2/k_1)/w^3$ solve $x^3 + ey^2 = -e^2$. By the polynomial Fermat-Catalan theorem in characteristic not 2 or 3, this smooth cubic has only constant points over $k(w)$. Hence $b(w^2/k_1)$ is a scalar multiple of $w^3$. Because $b(w^2/k_1)$ has only even powers of $w$, that scalar must be 0, giving $b = 0$ and a contradiction.
+
+This proves $B_0 = B_1 = 0$, and plugging $\alpha$ into the original equation gives $X(\alpha) = 0$. The written proof above chooses $\lambda$ and computes the reduced coefficients, while Lean verifies the local obstruction in [CubicSimplePole.lean](CubicSimplePole.lean), cube integrality in [CubicAnnulus.lean](CubicAnnulus.lean), and the constant-fiber theorem in [PellConstantFiber.lean](PellConstantFiber.lean).
 
 ## The split residue classes through $(0,1,1)$
 
-For $L=1-3t^2$ over $\mathbb F_{13}$, the roots $3,-3$ are simple. An independent divisor search over all 804,835 abscissa representatives found one constant model and two nonconstant representatives. The actions on the abscissa are $t\mapsto\pm t$ and $x\mapsto\zeta x$, where $\zeta^3=1$. For each abscissa $X$ the search factors $2L^9-X^3$, enumerates every divisor $Z$ of degree at most six with $Z(0)=1$ and checks if $(2L^9-X^3)/Z-ZL^3$ is a square with the prescribed ordinate at zero. The three orders in the table refer to the numerators $X,Y,Z$. [Exhaustive residue checker](cubic_seed13.py)
+Over $\mathbb{F}_{13}$, the denominator $L = 1 - 3t^2$ has simple roots at $3$ and $-3$. Using the symmetries $t \mapsto \pm t$ and $x \mapsto \zeta x$ ($\zeta^3 = 1$), [cubic_seed13.py](cubic_seed13.py) runs an exhaustive divisor search over all 804,835 normalized abscissas $X$. For each $X$, it factors $2L^9 - X^3$, tests every divisor $Z$ of degree at most 6 with $Z(0) = 1$, and checks whether $(2L^9 - X^3)/Z - ZL^3$ is a square matching $Y(0) = 1$.
+
+The search finds one constant model and two nonconstant representatives. The table gives the vanishing orders of $(X, Y, Z)$ at $3$ and $-3$:
 
 | Representative | Orders at $3$ | Orders at $-3$ | $Z(-3)$ |
-|---|---:|---:|---:|
-| 1 | $(1,2,0)$ | $(1,2,0)$ | 1 |
-| 2 | $(2,0,6)$ | $(1,3,0)$ | 12 |
+| --- | ---: | ---: | ---: |
+| 1 | $(1, 2, 0)$ | $(1, 2, 0)$ | 1 |
+| 2 | $(2, 0, 6)$ | $(1, 3, 0)$ | 12 |
 
-Both representatives meet the criterion at $-3$. Changing $t$ to $-t$ exchanges the two ends. Multiplying $X$ by a cube root of unity leaves the criterion unchanged. Lean checks the requisite values and first derivatives for the two displayed representatives. [Split residue certificate](CubicSimplePole.lean)
+Both representatives satisfy the local criterion at $-3$. Negating $t$ swaps the two roots, and twisting $X$ by a cube root of unity does not change the orders or $Z(-3)$. [CubicSimplePole.lean](CubicSimplePole.lean) checks the required values and first derivatives for both representatives.
 
-Suppose now that $D\in\mathbb Q^\times$ is nonsquare over $\mathbb Q$ and square in $\mathbb Q_{13}$. The substitution $t\mapsto\sqrt{3/D}\,t$ identifies its local denominator with $1-3t^2$, preserving $t=0$. The local integrality and nonconstant-reduction arguments for cubic numerators apply to this normalized coordinate. Hensel's lemma lifts the chosen simple residue root to $\alpha\in\mathbb Q_{13}$. Vanishing of $X$ there means the original rational numerator vanishes at one root of $1-Dt^2$. That polynomial is irreducible over $\mathbb Q$, so it divides the numerator globally and $x=X/(1-Dt^2)^3$ has pole order at most two. The pole-order-two result then forces a constant family. [Integral reduction and global argument](CubicPellAt13.md) · [Pole order two](pole_two.md)
+Now let $D \in \mathbb{Q}^\times$ be nonsquare over $\mathbb{Q}$ and a square in $\mathbb{Q}_{13}$. Replacing $t$ by $\sqrt{3/D}\,t$ turns the local denominator into $1 - 3t^2$ while fixing $t = 0$. As shown in [CubicPellAt13.md](CubicPellAt13.md), the cubic numerators in this coordinate are integral and have a nonconstant reduction. Hensel's lemma lifts the simple residue root to $\alpha \in \mathbb{Q}_{13}$. By our local theorem, $X(\alpha) = 0$, so the original rational numerator vanishes at a root of $1 - Dt^2$. Because $1 - Dt^2$ is irreducible over $\mathbb{Q}$, it divides the numerator globally, dropping the pole order of $x = X/(1 - Dt^2)^3$ to at most 2. The pole-order-2 theorem in [pole_two.md](pole_two.md) then forces the family to be constant.
 
-The local obstruction also works over $\mathbb F_{169}$ after unramified splitting of a nonsquare unit denominator at 13. The same proof permits any unit $e$ and any simple root with nonzero derivative. The nonsplit residue enumeration and the opposite orientation of $z$ are included in the global calculation. [Cubic Pell models at 13](CubicPellAt13.md)
+The same local proof works over $\mathbb{F}_{169}$ after splitting an unramified nonsquare unit denominator at 13, because it allows any unit $e$ and any simple root with nonzero derivative. Both the nonsplit enumeration and the opposite orientation of $z$ are included in the full argument in [CubicPellAt13.md](CubicPellAt13.md).

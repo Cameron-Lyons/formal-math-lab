@@ -1,47 +1,45 @@
 # Arbitrary-precision standard-monomial counter
 
 `exact_standard_monomials.py` counts the finite staircase of a monomial ideal
-using Python integers. It does not call Singular's `vdim` or `hilb` and does
-not use a machine-sized count accumulator.
+using Python arbitrary-precision integers, without calling Singular's `vdim` or
+`hilb` or using fixed-width integer accumulators.
 
-For a polynomial quotient, the supplied monomials **must** be the leading
-monomials of a completed standard/Gröbner basis. The API requires the explicit
-attestation `standard_basis_complete=True`, and the JSON frontend requires
-that same Boolean field. The counter cannot independently certify a standard
-basis from exponent vectors alone. The exporting backend is responsible for
-completing and validating that computation. A partial basis or the leading
-terms of arbitrary polynomial generators must not be used to claim a
+To compute a polynomial quotient dimension, the input monomials **must** be the
+leading monomials of a finished standard or Gröbner basis. Both the Python API
+and the JSON CLI require `standard_basis_complete=True`. The counter cannot
+check whether an exponent list actually came from a standard basis; the backend
+that exports the leading ideal must verify completion first. Leading terms of a
+partial basis or an arbitrary generating set must never be passed off as a
 polynomial quotient dimension.
 
 ## Algorithm and correctness
 
-A standard monomial has an exponent vector that is not coordinatewise above
-any leading generator. A pure leading power `x_i^b_i` bounds its exponent by
-`0 <= a_i < b_i`. Such a bound for every variable is necessary and sufficient
-for finiteness of a non-unit monomial ideal. The unit monomial instead yields
-dimension zero immediately.
+A standard monomial is any exponent vector not coordinatewise greater than or
+equal to any leading generator. A pure leading power `x_i^b_i` restricts that
+variable's exponent to `0 <= a_i < b_i`. Having such a bound for every variable
+is necessary and sufficient for a non-unit monomial ideal to have finite
+staircase; the unit monomial immediately gives dimension 0.
 
-The recursive counter:
+The recursive counter works in four steps:
 
-1. Tightens pure-power bounds, drops generators that cannot divide any
-   monomial within the bounds, and removes generators divisible by another
-   generator. This leaves a minimal antichain of forbidden exponent regions.
-2. Factors components whose generator supports use disjoint variable sets.
-   Their staircase sizes multiply; unused variables contribute their bounds.
-3. Chooses a variable and partitions its bounded exponent range at generator
-   thresholds. Within an interval, the same generators can divide a monomial.
-   Removing this coordinate gives a smaller counting problem, whose count is
-   multiplied by the interval length. The intervals are disjoint and exhaustive.
-4. Memoizes normalized states. Every recursive branch reduces the variable
-   set, and all arithmetic remains integral and exact.
+1. Tighten pure-power bounds, drop generators that cannot divide any monomial
+   inside those bounds, and remove generators divisible by another generator,
+   leaving a minimal antichain of forbidden corners.
+2. Split generators into connected components on disjoint variable sets. Their
+   staircase counts multiply, and unused variables simply contribute their
+   bound sizes.
+3. Pick a variable and split its exponent range at the generator thresholds.
+   Inside each interval, the same subset of generators can divide a monomial.
+   Projecting out that variable leaves a smaller subproblem whose count is
+   multiplied by the interval length, summed over the disjoint intervals.
+4. Memoize normalized states. Each recursive step removes a variable, and all
+   arithmetic stays exact integer arithmetic.
 
-The method has exponential worst-case complexity. A caller can set a
-canonical-state limit; reaching it raises `CountLimitExceeded` and produces
-no partial numerical answer. Missing pure-power bounds raise
-`MissingPurePowerBounds`. Exponent vectors are checked for length and
-nonnegative integer entries. Zero polynomials must be removed by the exporter:
-an all-zero exponent vector means the leading monomial **1**, not a zero
-polynomial.
+Worst-case time is exponential. Callers can pass `max_states`; exceeding it
+raises `CountLimitExceeded` with no partial count. Missing pure-power bounds
+raise `MissingPurePowerBounds`. Exponent vectors are checked for uniform length
+and nonnegative integers. Exporters must drop zero polynomials first, because
+an all-zero exponent vector represents the leading monomial **1**, not zero.
 
 ## API and file contract
 
@@ -59,7 +57,7 @@ dimension = count_standard_monomials(
 assert dimension == 8
 ```
 
-The file schema agreed with the Singular backend is:
+The JSON format shared with the Singular backend is:
 
 ```json
 {
@@ -72,32 +70,32 @@ The file schema agreed with the Singular backend is:
 ```
 
 Run `python experiments/exact_standard_monomials.py INPUT.json --output RESULT.json`.
-The output stores `dimension_decimal` as a string, preventing a downstream JSON
-consumer from rounding integers larger than its numeric type supports. It also
-retains the input SHA256, provenance, and recursion statistics.
+The output saves `dimension_decimal` as a string so downstream JSON parsers do
+not round large integers, along with the input SHA256, provenance, and
+recursion stats.
 
 ## Independent checks
 
-`exact_standard_monomials_check.py` passed 750 randomized comparisons with
-direct finite-box enumeration, ten fixed fixtures, ten rejection tests, and
-two CLI/schema checks. The fixtures themselves are monomial ideals, for which
-the monomial generators are a standard basis automatically.
+`exact_standard_monomials_check.py` passed 750 randomized tests against direct
+finite-box enumeration, 10 fixed fixtures, 10 rejection tests, and 2 CLI/schema
+checks. Each fixture is a monomial ideal, so its monomial generators are
+already a standard basis.
 
-Large arithmetic and structural checks include:
+Large arithmetic and structural fixtures include:
 
-- The pure-cubic ideal in 100 variables: exactly
-  `3^100 = 515377520732011331036461129765621272702107522001`, counted in one state.
-- The pure-tenth-power ideal in 20 variables: exactly
+- Pure-cubic ideal in 100 variables:
+  `3^100 = 515377520732011331036461129765621272702107522001`, in 1 state.
+- Pure-tenth-power ideal in 20 variables:
   `10^20 = 100000000000000000000`.
-- The pure-cubic ideal plus the product of all 100 variables: exactly
-  `3^100 - 2^100`, counted in 199 states.
+- Pure-cubic ideal plus the product of all 100 variables: `3^100 - 2^100`, in
+  199 states.
 - Binary bounds with adjacent-pair generators along a 100-variable path:
-  `Fibonacci(102) = 927372692193078999176`, counted in 197 states with 96 cache
-  hits and 96 component factorizations.
-- Two bounds of `10^80` and generator `xy`: exactly `2*10^80-1`, without
-  iterating through that exponent range.
+  `Fibonacci(102) = 927372692193078999176`, in 197 states with 96 cache hits
+  and 96 component factorizations.
+- Two bounds of `10^80` plus generator `xy`: `2*10^80-1`, counted directly via
+  intervals without looping across `10^80`.
 
-These are arithmetic and algorithm fixtures, **not the ternary T-board count**.
-No count of the T-board polynomial ideal has been computed by this module.
-Results are retained in `exact_standard_monomials_check_results.json`; reproduce
-them with `python experiments/exact_standard_monomials_check.py`.
+These test the counter's arithmetic and algorithm only; **they are not the
+ternary T-board count**. This module has not computed any T-board ideal count.
+Results are saved in `exact_standard_monomials_check_results.json` and can be
+reproduced with `python experiments/exact_standard_monomials_check.py`.

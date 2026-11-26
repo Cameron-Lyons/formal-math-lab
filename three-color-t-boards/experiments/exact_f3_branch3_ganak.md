@@ -1,43 +1,20 @@
 # Bounded full-label branch-3 GANAK probe
 
-The single authorized deterministic probe **timed out without an exact
-count**. Branch 3's count remains unknown. No SAT or UNSAT conclusion is
-inferred from the timeout itself, but branch 3 is nonempty: two valid boards
-in `exact_structure_gauge_rank.json` satisfy its conditions. The `UNKNOWN`
-existence entries in the saved JSON files record only that no solver decided
-the question.
+The single deterministic probe **timed out without an exact count**, so the count for branch 3 is still unknown. Although the timeout itself decides neither SAT nor UNSAT, branch 3 is already known to be nonempty because two valid boards in `exact_structure_gauge_rank.json` satisfy its equations (`UNKNOWN` existence fields in the JSON files only record that the solver did not decide it).
 
-The complete CNF has 13,341 variables and 59,308 clauses. It uses the existing
-parsimonious tree encoding with all 100 original cells free, and appends only
-21 direct one-hot clauses expressing
+The CNF has 13,341 variables and 59,308 clauses: the existing parsimonious tree encoding with all 100 cells free, plus 21 direct one-hot clauses enforcing:
 
 ```
 c0=c3,  c1=c6,  c2=c7,  c3!=c8.
 ```
 
-These are exactly the full-label branch-3 conditions for placements
-P0=(0,1,2,3) and P3=(3,6,7,8). There is no fixed prefix, palette normalization,
-reflection normalization or projected support. Every auxiliary remains
-functional, so a complete ordinary Boolean model count would equal the full
-branch count, with multiplier and divisor one.
+These are the exact full-label branch-3 conditions for placements `P0 = (0, 1, 2, 3)` and `P3 = (3, 6, 7, 8)`. There is no prefix, palette breaking, reflection breaking, or projection support. Every auxiliary remains uniquely determined, so a full model count would equal the branch count directly (multiplier and divisor 1).
 
-The actual clauses were read back from DIMACS and independently checked on
-all 2,187 ternary assignments of cells 0,1,2,3,6,7,8. Exactly 54 satisfy the
-intended local relation; this is not a board count. All base clauses are
-retained unchanged and no new auxiliary variables are introduced.
+Reading the 21 appended clauses back from DIMACS and testing all 2,187 ternary assignments of cells `0, 1, 2, 3, 6, 7, 8` confirmed that exactly 54 assignments satisfy the local relation (a local truth-table check, not a board count). All base clauses stayed unchanged and no new variables were added.
 
-A separate, unsolved check fixture appends the previously known six-completion
-81-cell prefix. It is contradictory with this branch: that prefix fixes
-c0=1 and c3=0. The audit records the exact four clauses consisting of those
-two unit fixes, one equality implication and one cell-3 one-hot exclusion.
-The seven-cell relation table independently rejects the fixed assignment.
-This proves the expected prefix-restricted branch count zero without a second
-solver invocation. These prefix units are absent from the main input.
+A separate unsolved fixture appends the known six-completion 81-cell prefix, which contradicts branch 3 because it fixes `c0 = 1` and `c3 = 0`. The audit records the exact four conflicting clauses (those two unit literals, one equality clause, and one cell-3 one-hot exclusion), and the seven-cell truth table rejects the assignment directly, confirming a restricted count of 0 without needing another solver run. Those prefix units do not appear in the main CNF.
 
-The existing executable matched SHA256
-`e7a3c6a66377db349939ceb01c78783767fbca5a3ef3dad66cbc6cf11f2daf58`.
-Its local help confirmed every option, including one-thread support. The
-count command was:
+The Ganak binary matched SHA256 `e7a3c6a66377db349939ceb01c78783767fbca5a3ef3dad66cbc6cf11f2daf58`, and its help output verified all flags including single-thread mode. Command:
 
 ```
 experiments/exact_count_tools/ganak --prob 0 --mode 0 \
@@ -45,29 +22,12 @@ experiments/exact_count_tools/ganak --prob 0 --mode 0 \
   experiments/exact_f3_branch3_ganak.cnf
 ```
 
-The worker enforced a 512 MiB address-space cap and 60-second child wall
-limit, with a separate 90-second outer guard. Available memory immediately
-before launch was 2,477,596 KiB, above the required 1,536 MiB. The log confirms
-nonparallel counting over all 13,341 Boolean variables. Approximate fallback
-was disabled.
+The worker ran with a 512 MiB address-space cap, a 60-second child wall limit, and a 90-second outer guard (available memory at launch was 2,477,596 KiB, above the 1,536 MiB threshold). The log confirms single-threaded exact counting over all 13,341 variables with approximate fallback disabled.
 
-The child ended by timeout after 60.180 wall seconds and 27.038 CPU seconds.
-It emitted no exact count line. The wrapper killed and waited for it; the
-outer handler completed after 60.761 seconds. The handler's exit zero is not
-an exact counter completion. No solver remains running from this probe.
+The child timed out after 60.180 wall seconds (27.038 CPU seconds) without printing a count. The wrapper killed and reaped it cleanly, exiting at 60.761 seconds (the wrapper's exit code 0 reflects clean cleanup, not solver completion). No solver process remains running.
 
-Artifacts share the prefix `exact_f3_branch3_ganak`: the Python runner, full
-CNF, audit JSON, raw log and status JSON, outer log/status, help/version logs,
-and unsolved known-prefix CNF. The input SHA256 is
-`142ee7f7007dbc9dc1698c6625ccf6c7156f608dfa9529ef380d29b53ded7629`.
-The prepared source and input hashes still match the executed files.
+Artifacts share the prefix `exact_f3_branch3_ganak` (runner, full CNF, audit JSON, raw log/status, outer log/status, help/version logs, and unsolved prefix CNF). Input SHA256: `142ee7f7007dbc9dc1698c6625ccf6c7156f608dfa9529ef380d29b53ded7629` (matching prepared source and executed files).
 
-The raw worker's broad diagnostic scan also matched the word `ASSERTIONS` in
-Ganak's compiler-configuration banner. The separate
-[diagnostic review](exact_f3_branch3_ganak.diagnostic_review.json) identifies
-this as metadata, not a runtime assertion failure; the raw status is preserved.
-The terminal result remains **UNKNOWN_TIMEOUT** regardless of that harmless
-match.
+A broad log scan matched the word `ASSERTIONS` in Ganak's build banner. The [diagnostic review](exact_f3_branch3_ganak.diagnostic_review.json) confirms this is build metadata rather than a runtime assertion failure while leaving the raw status untouched; the terminal status stays **UNKNOWN_TIMEOUT** either way.
 
-No package was installed, no additional decision/count run was made, and no
-existing CNF generator or algebra backend was changed.
+No packages were installed, no extra solver runs were launched, and no existing CNF generator or algebra backend was changed.

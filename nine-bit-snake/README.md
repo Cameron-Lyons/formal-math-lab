@@ -1,8 +1,8 @@
 # Nine-bit snake-in-the-box (Q_9, length 191 / 192)
 
-A *snake-in-the-box* in the 9-dimensional hypercube $Q_9$ is an induced path of distinct 9-bit strings where consecutive vertices differ in 1 bit and all non-consecutive vertices differ in at least 2 bits. Orland et al. (`arXiv:2607.15270`) published 131 inequivalent record snakes of length 191 in $Q_9$ (none admitting a 1-step extension) and asked whether a 192-step snake or another 191-step equivalence class exists. Both questions remain open.
+A *snake-in-the-box* in the 9-dimensional hypercube $Q_9$ is an induced path of distinct 9-bit strings where consecutive vertices differ in 1 bit and non-consecutive vertices differ in at least 2 bits. Orland et al. (`arXiv:2607.15270`) published 131 inequivalent record snakes of length 191 in $Q_9$ (none with a 1-step extension) and asked whether a 192-step snake or another 191-step equivalence class exists. Both questions remain open.
 
-The Lean 4 proofs here check all 131 published 191-step snakes and show that keeping the first 156 steps of any published snake (read from either end) admits no 192-step completion (`Snake.bank_no_192`) and no new 191-step equivalence class (`Snake.bank_no_new_191`). They also give an endpoint test: any 191-step snake whose 17-step endpoint Hamming-distance profiles agree from both ends belongs to a new equivalence class (`Snake.outside_bank_of_end_profiles`).
+The Lean 4 proofs here verify all 131 published 191-step snakes. They prove that keeping the first 156 steps of any published snake (from either end) allows no 192-step completion (`Snake.bank_no_192`) and no new 191-step equivalence class (`Snake.bank_no_new_191`). They also give an endpoint test: any 191-step snake whose 17-step Hamming-distance profiles agree from both ends belongs to a new equivalence class (`Snake.outside_bank_of_end_profiles`).
 
 | Field | Summary |
 | --- | --- |
@@ -14,9 +14,9 @@ The Lean 4 proofs here check all 131 published 191-step snakes and show that kee
 
 ## Lean results
 
-* Prefix closure at step 156 (`Snake.bank_no_192`, `Snake.bank_no_new_191`): take any of the 131 published 191-step snakes, read from either end (262 oriented prefixes), and keep its first 156 steps. Exhausting every valid next bit flip proves that no 36-step continuation (length 192) exists ([Results.lean](Results.lean)) and every 35-step continuation (length 191) is equivalent to one of the 131 published classes under reversal, coordinate permutation, and coordinate bit-flips ([Closure.lean](Closure.lean)).
-* Kernel-checked 171-step exclusion ([KernelChecks.lean](KernelChecks.lean)): Lean's kernel directly checks the validity of all 131 published snakes and excludes any 192-step continuation when the first 171 steps are retained (without `native_decide`).
-* Endpoint test for a new 191-step class (`Snake.outside_bank_of_end_profiles`, [EndProfiles.lean](EndProfiles.lean), [Closure.lean](Closure.lean)): starting from each end of a snake, record the Hamming distances from that endpoint after steps 1 through 17. Reversing the path swaps the two lists while hypercube symmetries preserve them. Lean's kernel verifies that all 131 published snakes have unequal endpoint lists, so any valid 191-step snake in $Q_9$ whose forward and backward 17-step distance profiles agree is inequivalent to all 131 published snakes.
+* Prefix closure at step 156 (`Snake.bank_no_192`, `Snake.bank_no_new_191`): take any of the 131 published 191-step snakes, read from either end (262 oriented prefixes), and keep its first 156 steps. Exhausting every valid next bit flip proves no 36-step continuation (length 192) exists ([Results.lean](Results.lean)). It also proves every 35-step continuation (length 191) is equivalent to one of the 131 published classes under reversal, coordinate permutation, and coordinate bit-flips ([Closure.lean](Closure.lean)).
+* Kernel-checked 171-step exclusion ([KernelChecks.lean](KernelChecks.lean)): Lean's kernel directly checks all 131 published snakes and rules out any 192-step continuation keeping the first 171 steps, without `native_decide`.
+* Endpoint test for a new 191-step class (`Snake.outside_bank_of_end_profiles`, [EndProfiles.lean](EndProfiles.lean), [Closure.lean](Closure.lean)): starting from each end of a snake, record the Hamming distances from that endpoint after steps 1 through 17. Reversing the path swaps the two lists, while hypercube symmetries keep them unchanged. Lean's kernel verifies that all 131 published snakes have unequal endpoint lists, so any valid 191-step snake in $Q_9$ whose forward and backward 17-step profiles match is inequivalent to all 131 published snakes.
 
 ## Build
 

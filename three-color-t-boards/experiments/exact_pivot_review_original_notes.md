@@ -1,8 +1,8 @@
 # Independent original-cell pivot audit
 
-All three frozen variants pass symbolic and actual-input review. No solver
-was run. Their names identify the generator's candidates; this review does
-not certify a global optimization claim for the variant named `best`.
+All three frozen pivot variants pass symbolic and emitted-input review. No
+solver was run. The variant names come from the generator; calling the third
+variant `best` is just a label and is not certified as a global optimum.
 
 | Variant | Eliminated original cells | Substitution lengths | Four pivot-domain terms | 72 moment terms |
 | --- | --- | --- | --- | ---: |
@@ -11,31 +11,31 @@ not certify a global optimization claim for the variant named `best`.
 | best | 20,4,15,86 | 54,17,17,31 | 2863,272,272,930 | 24576 |
 
 `exact_pivot_review_original.py` starts from fresh row-index geometry and
-set-valued Gaussian elimination of the four unary role sums. It derives
-each pivot substitution and the ascending original-cell free-variable map
-independently. Every T contains at most one selected pivot in each variant.
-The latter fact is useful for expansion size, but correctness follows from
-linear elimination and retained domains, not from that sparsity condition.
+set-based Gaussian elimination of the four unary role sums, deriving each pivot
+substitution and ascending free-variable map independently. In all three
+variants, every T placement contains at most one pivot. That keeps expansions
+smaller, though correctness comes from linear elimination and the kept domain
+equations rather than from that sparsity property.
 
-The verifier expands the four substituted original cubic domains, all 80
-Fourier moments, and the eight elementary equations with tuple monomials.
-It reduces powers only modulo the explicitly retained free original-cell
-cubics. Exactly eight unary moments vanish, leaving 72. Ordinary squares
-remain squares; Frobenius partners are reduced with z³=1 in this ring.
+Using ordinary tuple monomials, the verifier expands the four substituted
+original cubic domains, all 80 Fourier moments, and all eight elementary
+equations, reducing powers only modulo the kept free original-cell cubics.
+Eight unary moments vanish, leaving 72. Ordinary squares stay squares, and
+Frobenius partners are reduced using `z³=1` in this ring.
 
-All nine JSON exports and all twelve complete solver input files match these
-independent expressions, including representative/all moments and each e2
-augmentation. Every input retains all 96 free cubic domains and all four
-substituted pivot cubic domains. All 161 saved gauge witnesses round-trip
-through each elimination map; five are also evaluated on every reconstructed
-constraint in each variant.
+All nine JSON exports and all twelve `.ms` solver inputs match these
+independent expansions across representative and all-moments modes, with and
+without the `e2` augmentation. Every input keeps all 96 free cubic domains and
+all four substituted pivot cubic domains. All 161 saved gauge witnesses
+round-trip through each elimination map, and five are also evaluated on every
+reconstructed constraint in each variant.
 
-The quotient is isomorphic to the original full Fourier/domain quotient:
-the unary equations already belong to it, the pivot coefficient matrix is
-invertible, and the images of all original domains remain. Thus each model
-still has the unrestricted labeled count as its quotient dimension, with
-divisor one and multiplier one. These preparation audits provide no
-completed standard basis or numerical count.
+Because the unary equations already lie in the full Fourier and domain ideal,
+the pivot matrix is invertible, and all original domain images are kept, each
+quotient is isomorphic to the original full quotient. Every model keeps the
+unrestricted labeled count as its quotient dimension, with divisor 1 and
+multiplier 1. These preparation checks give no standard basis or numerical
+count.
 
-Exact file hashes and counts are retained in
+Exact file hashes and counts are saved in
 `exact_pivot_review_original_results.json`.

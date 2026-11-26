@@ -1,56 +1,61 @@
 # A quintic substitution on a Pell conic
 
-Take functions \(r,q\) on \(u^2-Dv^2=1\), of pole orders one and two at both points at infinity. For a nonzero rational \(a\), set
+Let $r$ and $q$ be functions on $u^2 - Dv^2 = 1$ with pole orders 1 and 2, respectively, at both points at infinity. For a nonzero rational $a$, set
 
-\[
- z=(2-r^3)/a,\qquad x=r+qz .
-\]
+$$
+z = \frac{2 - r^3}{a}, \qquad x = r + qz.
+$$
 
-Then \(x\) has pole order five. The remaining condition is the single square
+Then $x$ has pole order 5, and the cubic surface equation reduces to a single square condition:
 
-\[
- y^2 = a-z-3r^2q-3rq^2z-q^3z^2 .
-\]
+$$
+y^2 = a - z - 3r^2 q - 3rq^2 z - q^3 z^2.
+$$
 
-Lean verifies the polynomial identity giving this reduction. A square on the right would produce the desired family if it includes an integral point and the Pell conic has infinitely many integral points. [Substitution identity](QuinticFactor.lean)
+Lean verifies this polynomial reduction in [QuinticFactor.lean](QuinticFactor.lean). Finding a square on the right would produce infinitely many integer solutions whenever the family passes through an integer point and the Pell conic has infinitely many integer points.
 
-**One natural way to make the leading term a square fails for every nonsplit Pell conic.** Take \(q=-p^2\) with \(p\) of pole order one. The square condition implies
+**A natural choice that forces the leading term to be a square fails on every nonsplit Pell conic.** Put $q = -p^2$, where $p$ has pole order 1. The square condition rewrites as
 
-\[
-(2y-2p^3z+3rp)(2y+2p^3z-3rp)=4(a-z)+3r^2p^2 .
-\]
+$$
+(2y - 2p^3 z + 3rp)(2y + 2p^3 z - 3rp) = 4(a - z) + 3r^2 p^2.
+$$
 
-The right side has pole order four because \(z\) has order three. The difference of the two factors has order six, so at least one factor has order six or more. Every nonzero rational function regular away from the two conjugate ends has nonnegative pole order there: a negative order would give a nonconstant function regular everywhere on the projective conic. The product therefore cannot have order four. Lean checks this argument for any irreducible quadratic denominator in the rational chart, without a bound on the coefficients or any condition at 7. [Formal exclusion](QuinticSquareObstruction.lean)
+Because $z$ has pole order 3, the right-hand side has pole order 4. The difference between the two factors on the left has pole order 6, so at least one factor has pole order at least 6. Every nonzero function regular away from the two conjugate ends has nonnegative pole order there (a negative pole order would give a nonconstant regular function on the projective conic), so the product cannot drop down to pole order 4. In [QuinticSquareObstruction.lean](QuinticSquareObstruction.lean), Lean verifies this obstruction for every irreducible quadratic denominator in the rational chart, with no height bound and no condition at 7.
 
-There is also an exact exclusion when \(q\) is any quadratic polynomial in \(r\), the marked cubic point is \((0,1,1)\), and the marked value of \(r\) belongs to \(\{0,1,-1,2,-2\}\). It follows by bounding the number of odd-multiplicity roots of the required square on a double cover and eliminating the two coefficients of \(q\). [Discriminant calculation](QuinticInvariant.md)
+There is also a height-free exclusion when $q$ is any quadratic polynomial in $r$, the marked point is $(0, 1, 1)$, and the marked value of $r$ lies in $\{0, 1, -1, 2, -2\}$. That argument bounds the odd-multiplicity roots on a double cover and eliminates both coefficients of $q$; see [QuinticInvariant.md](QuinticInvariant.md).
 
 ## A necessary condition at 7
 
-Assume \(D,a\) are 7-adic units and \(r,q\) are integral at 7 in the Pell basis. **The required square forces \(r\) to reduce to a constant, for every choice of seed.** This includes all possible reductions of \(q\), including constant and zero. The split and nonsplit squareclasses of \(D\bmod7\) give 1,714,314 and 1,411,788 polynomial square tests respectively, each with zero squares. This part uses exact FLINT arithmetic over \(\mathbb F_7\). [Finite-field census](quintic_factor_search.py)
+Assume $D$ and $a$ are 7-adic units and $r, q$ are 7-integral in the Pell basis. **For every choice of seed, the square condition forces $r$ to reduce to a constant modulo 7.** This covers every reduction of $q$, including constant and zero. Exact FLINT arithmetic in [quintic_factor_search.py](quintic_factor_search.py) runs 1,714,314 square tests for the split square class of $D \bmod 7$ and 1,411,788 for the nonsplit class, with zero squares found.
 
-Write \(r=h+mu+nv\). Translation by a point of the norm-one torus preserves \(h\) and \(N=m^2-n^2/D\), and acts transitively on the pairs with a given \(N\ne0\). Indeed the ratio of two elements of norm \(N\) in the split or nonsplit quadratic algebra has norm one. Multiplying \(r,q\) by a cube root of unity leaves \(z\) and the square condition unchanged and carries \((h,N)\) to \((\zeta h,\zeta^2N)\). These actions give \(7\cdot6/3=14\) choices with \(N\ne0\). In the split case \(N=0\) also allows a nonzero \((m,n)\); including the reflection \(v\mapsto-v\) gives three more orbits. The checker constructs the orbits explicitly and checks that they cover all \(7(7^2-1)\) nonconstant linear \(r\). For each representative, test all six nonzero \(a\) and all \(7^5\) quadratics
+To cut down the search space, write $r = h + mu + nv$. Shifting along the norm-1 torus fixes $h$ and $N = m^2 - n^2/D$, and acts transitively on all pairs $(m, n)$ with a given $N \ne 0$ (the ratio of two elements of norm $N$ in the split or nonsplit quadratic algebra has norm 1). Multiplying both $r$ and $q$ by a cube root of unity $\zeta$ preserves $z$ and the square condition while sending $(h, N) \mapsto (\zeta h, \zeta^2 N)$. Together these symmetries leave $7 \cdot 6 / 3 = 14$ orbits with $N \ne 0$. In the split case, $N = 0$ also allows nonzero $(m, n)$, and adding the reflection $v \mapsto -v$ leaves 3 extra orbits. The script builds these orbits explicitly and confirms that they cover all $7(7^2 - 1)$ nonconstant linear polynomials $r$.
 
-\[
- q=q_0+q_1(u-1)+q_2 v+c(u-1)^2+e(u-1)v
-\]
+For each orbit representative, the script tests all 6 nonzero values of $a$ and all $7^5$ quadratics
 
-with arbitrary coefficients. If a rational \(y\) existed, its poles would have order at most six. In \(t\)-coordinates the square test multiplies the right-hand side by \(L_D^{12}\), where \(L_D=1-Dt^2\). The result is an integral polynomial. A rational function whose square is an integral polynomial must itself be a polynomial and be integral at 7, by unique factorization over \(\mathbb Q[t]\) and multiplicativity of the coefficient Gauss norm. Its reduction would pass the finite test.
+$$
+q = q_0 + q_1(u - 1) + q_2 v + c(u - 1)^2 + e(u - 1)v.
+$$
+
+Why is testing mod-7 reductions valid with no assumption on $y$? Any rational $y$ solving the equation has pole order at most 6. In the $t$-chart with $L_D = 1 - Dt^2$, multiplying the right-hand side by $L_D^{12}$ gives a 7-integral polynomial. A rational function whose square is a 7-integral polynomial must itself be a 7-integral polynomial (by unique factorization in $\mathbb{Q}[t]$ and multiplicativity of the Gauss norm), so its reduction modulo 7 would have to pass the census.
 
 ## A rational search also allowing lost poles
 
-At each of \((0,1,1),(1,0,1),(-2,3,1)\), set \(r_0=r(1,0)\) to \(-1,0,1,2\) in turn. Take \(a=2-r_0^3\) and \(q_0=x_0-r_0\), which imposes the required \(x,z\) at the seed. The search takes
+We also ran two bounded rational searches in [quintic_factor_search.py](quintic_factor_search.py) that allow $r$ to reduce to a constant modulo 7. At each of the three seeds $(0, 1, 1)$, $(1, 0, 1)$, and $(-2, 3, 1)$, we try $r_0 = r(1, 0) \in \{-1, 0, 1, 2\}$ and set $a = 2 - r_0^3$ and $q_0 = x_0 - r_0$ so that $x$ and $z$ match the seed. Write
 
-\[
- r=r_0+\frac{A(u-1)+Bv}{d},\qquad
- q=q_0+\frac{C(u-1)+Ev+F(u-1)^2+G(u-1)v}{d},
-\]
+$$
+r = r_0 + \frac{A(u - 1) + Bv}{d}, \qquad
+q = q_0 + \frac{C(u - 1) + Ev + F(u - 1)^2 + G(u - 1)v}{d}.
+$$
 
-with the six numerators between \(-2\) and 2 and a common denominator \(1\le d\le3\) in lowest terms. It tests every squarefree \(2\le D\le30\). At either end the leading term of \(y^2\) is \(-q^3z^2\). Therefore \(-(F+G/\sqrt D)/d\) must be a square in \(\mathbb Q(\sqrt D)\). Exactly 272,448 parameter tuples meet this leading test with \(r,q\) of the stated orders. No tuple survives the polynomial square tests at the applicable primes \(5,7,11,13,17\). [Rational search](quintic_factor_search.py)
+At either end of the conic, the leading term of $y^2$ is $-q^3 z^2$, so $-(F + G/\sqrt{D})/d$ must be a square in $\mathbb{Q}(\sqrt{D})$.
 
-A second search targets cases outside the mod-7 exclusion. It allows numerators between \(-3\) and 3 and denominators \(d=7,49\) for all squarefree \(2\le D\le50\), together with \(d=1\) when \(7\mid D\). Of the 1,128,960 parameter tuples passing the leading test, none survives the polynomial square tests.
+* With all six numerators in $[-2, 2]$ and lowest-terms common denominator $1 \le d \le 3$ across every squarefree $2 \le D \le 30$, exactly 272,448 tuples have the required pole orders and pass the leading square test. None survives the polynomial square tests at the applicable primes $5, 7, 11, 13, 17$.
+* To target cases outside the mod-7 exclusion, a second search takes numerators in $[-3, 3]$ with $d \in \{7, 49\}$ for every squarefree $2 \le D \le 50$, plus $d = 1$ whenever $7 \mid D$. Of the 1,128,960 tuples passing the leading square test, none survives the polynomial square tests.
 
-~~~sh
+To reproduce all three computations, run:
+
+```sh
 uv run --with python-flint==0.9.0 python quintic_factor_search.py --mod7
 uv run --with python-flint==0.9.0 python quintic_factor_search.py
 uv run --with python-flint==0.9.0 python quintic_factor_search.py --height 3 --max-D 50 --at-seven
-~~~
+```

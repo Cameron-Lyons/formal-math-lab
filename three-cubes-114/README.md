@@ -1,8 +1,8 @@
 # Sum of three cubes: x^3 + y^3 + z^3 = 114
 
-No integer solution to $x^3 + y^3 + z^3 = 114$ is known, and existence remains open. For any integer solution, the pair sum $M = |x + y|$ must divide $z^3 - 114$.
+No integer solution to $x^3 + y^3 + z^3 = 114$ is known, and existence remains open. In any integer solution, the pair sum $M = |x + y|$ must divide $z^3 - 114$.
 
-The Lean 4 files here prove a limitation of the full $\mathbb{Z}[\sqrt[3]{114}]$ norm method for selecting candidate moduli $M$ (arbitrarily large $M$ admit a cube root of 114 yet lie outside the norm family), verify modular sieve filters modulo 5, 18, 19, 25, 27, 32, and $19^2$, and record bounded negative searches and discriminant certificates.
+The Lean 4 proofs here show a limit of the full $\mathbb{Z}[\sqrt[3]{114}]$ norm method for picking candidate moduli $M$: arbitrarily large $M$ have a cube root of 114 yet lie outside the norm family. They also verify modular sieve filters modulo 5, 18, 19, 25, 27, 32, and $19^2$, alongside bounded negative searches and discriminant certificates.
 
 | Field | Summary |
 | --- | --- |
@@ -16,15 +16,15 @@ The Lean 4 files here prove a limitation of the full $\mathbb{Z}[\sqrt[3]{114}]$
 
 ### Limitation of the full norm family
 
-Take any integer $n \ge 1$, set $M = 361n^3 + 6 = 19^2 n^3 + 6$, and put $r = -19n$. Then $r^3 - 114 = -19M$, so $114$ has a cube root modulo $M$. However, every absolute norm from $\mathbb{Z}[\sqrt[3]{114}]$ is a cube modulo $19$ (namely $0, \pm 1, \pm 7, \pm 8 \pmod{19}$), whereas $M \equiv 6 \pmod{19}$. Thus arbitrarily large moduli $M$ admitting a cube root of 114 are missed by the full norm family (`ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` in [TernaryFamily.lean](TernaryFamily.lean); norm formula in [TernaryNorm.lean](TernaryNorm.lean)).
+For any integer $n \ge 1$, set $M = 361n^3 + 6 = 19^2 n^3 + 6$ and $r = -19n$. Then $r^3 - 114 = -19M$, so $114$ has a cube root modulo $M$. Every absolute norm from $\mathbb{Z}[\sqrt[3]{114}]$ is a cube modulo $19$ (namely $0, \pm 1, \pm 7, \pm 8 \pmod{19}$), while $M \equiv 6 \pmod{19}$. So arbitrarily large moduli $M$ with a cube root of 114 are missed by the full norm family (`ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` in [TernaryFamily.lean](TernaryFamily.lean); norm formula in [TernaryNorm.lean](TernaryNorm.lean)).
 
 ### Modular sieves and exact recovery
 
-In [ThreeCubes114.lean](ThreeCubes114.lean), Lean kernel-checks the sieve conditions used when searching by pair sum $a = x + y$:
+In [ThreeCubes114.lean](ThreeCubes114.lean), Lean kernel-checks the sieve filters used when searching by pair sum $a = x + y$:
 
 * `progression_congruences`: $(x + y) \equiv 1 \pmod 3$ and $x + y + z \equiv 0 \pmod{18}$.
-* `ramified19_of_solution`: when $19 \mid (x + y)$, $(x + y)/19 \bmod 19$ lies in 9 of the 19 classes (`[2, 3, 8, 10, 12, 13, 14, 15, 18]`), and `ramified19_local_witness` proves this characterizes the mod-$19^2$ obstruction.
-* `even_pair_sieve`: an even pair sum admits only 8 combinations of $(x + y \bmod 32, z \bmod 8)$.
+* `ramified19_of_solution`: when $19 \mid (x + y)$, $(x + y)/19 \bmod 19$ lies in 9 of the 19 residue classes (`[2, 3, 8, 10, 12, 13, 14, 15, 18]`), and `ramified19_local_witness` proves this characterizes the mod-$19^2$ obstruction.
+* `even_pair_sieve`: an even pair sum allows only 8 combinations of $(x + y \bmod 32, z \bmod 8)$.
 * `five_step_filter` and `five_example`: step filters when $5 \mid (x + y)$.
 * `recoverPair_complete`: proves the exact integer square-root check recovers every solution.
 

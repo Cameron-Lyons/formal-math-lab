@@ -1,47 +1,58 @@
 # Ordinary sextic substitutions through an integer point
 
-Suppose $x,y,z\in\mathbb Q[t]$ satisfy $z^2+y^2z+x^3=2$ and take integer values together at a rational parameter $t_0$. **If $\deg x\le6$ and $x(t_0)\not\equiv3\pmod5$, the family is constant.** In particular an ordinary polynomial family through $(0,1,1)$ needs degree at least seven in $x$. This result uses exact finite-field enumerations, a written valuation argument, and a Lean proof of the boundary obstruction. [Finite checker](SexticSearch.py) · [Lean boundary theorem](SexticBoundary.lean)
+Suppose $x, y, z \in \mathbb{Q}[t]$ satisfy $z^2 + y^2 z + x^3 = 2$ identically and take integer values together at some rational $t_0$. **If $\deg x \le 6$ and $x(t_0) \not\equiv 3 \pmod 5$, then the family is constant.** In particular, any ordinary polynomial family through $(0, 1, 1)$ must have $\deg x \ge 7$. The proof combines exact finite-field checks in [SexticSearch.py](SexticSearch.py), a written valuation argument, and a Lean proof of the boundary obstruction in [SexticBoundary.lean](SexticBoundary.lean).
 
 ## Degree patterns
 
-Degrees through five were excluded for every integer seed. Suppose $\deg x=6$. Each irreducible divisor of $z(z+y^2)=2-x^3$ has degree divisible by three because its residue field contains $\sqrt[3]2$. Constant factors would give a constant map by the genus-one argument. The two degrees therefore sum to 18 and are positive multiples of three. If unequal, the larger is even since their difference is $y^2$. Up to the involution $z\mapsto-z-y^2$, this leaves $(6,12)$ and $(9,9)$. In the first case $\deg y=6$ and the smaller choice of $z$ has degree six. Balancing at 13 gives a nonconstant solution over $\mathbb F_{13}$ with all three degrees at most six, already excluded. In the second case $\deg y\le4$. Write $W=2z+y^2$; then $W^2+4x^3=y^4+8$. [Smaller degrees](OrdinaryPolynomial.md) · [All-three-coordinates bound](CubicPellAt13.md#ordinary-polynomial-solutions-modulo-13)
+Degrees up to 5 are ruled out for every integer seed in [OrdinaryPolynomial.md](OrdinaryPolynomial.md). Now suppose $\deg x = 6$. Every irreducible factor of $z(z + y^2) = 2 - x^3$ has degree divisible by 3 because its residue field contains $\sqrt[3]{2}$, and neither $z$ nor $z + y^2$ can be constant (by the genus-1 argument). Thus their degrees are positive multiples of 3 summing to 18, and if they differ, the larger degree equals $2\deg y$ and must be even.
+
+Up to the involution $z \mapsto -z - y^2$, only two degree pairs remain: $(6, 12)$ and $(9, 9)$.
+
+* For $(6, 12)$, $\deg y = 6$ and the smaller choice of $z$ has degree 6. Balancing at 13 gives a nonconstant solution over $\mathbb{F}_{13}$ with all three degrees at most 6, already ruled out in [CubicPellAt13.md](CubicPellAt13.md#ordinary-polynomial-solutions-modulo-13).
+* For $(9, 9)$, $\deg y \le 4$. Setting $W = 2z + y^2$ gives $W^2 + 4x^3 = y^4 + 8$.
 
 ## First scale at 5
 
-Translate $t_0$ to zero. Let $h$ be the largest $-v_5(c_i)/i$ across all nonzero positive-degree coefficients of the three polynomials. In a totally ramified extension take $v(\lambda)=h$ and substitute $t=\lambda T$. All coefficients become integral and at least one nonconstant coefficient remains a unit. The residue field stays $\mathbb F_5$. If $\bar x$ were constant, both factors of $2-\bar x^3$ would be constant because $x(0)\not\equiv3\pmod5$. Then $\bar y$ would also be constant. Thus $\bar x$ is nonconstant.
+Shift $t_0$ to 0, and let $h$ be the largest value of $-v_5(c_i)/i$ over all nonzero positive-degree coefficients of $x, y, z$. Pick $\lambda$ with $v(\lambda) = h$ in a totally ramified extension and substitute $t = \lambda T$. All coefficients become 5-integral, at least one nonconstant coefficient is a unit, and the residue field remains $\mathbb{F}_5$. If $\bar x$ were constant, $x(0) \not\equiv 3 \pmod 5$ would make $2 - \bar x^3 \ne 0$, forcing both factors and $\bar y$ to be constant too. So $\bar x$ is nonconstant.
 
-There are 4075 orbits of nonconstant polynomials $\bar x$ of degree at most six under $T\mapsto cT+d$, $c\ne0$. For each representative, the checker factors $2-\bar x^3$, enumerates its divisors of degree at most nine including every scalar, then tests if $(2-\bar x^3)/\bar z-\bar z$ is a square of degree at most eight. It finds 12 pairs and each has degree profile $(4,3,6)$. Their leading coefficients in $\bar x$ always belong to $\{2,4\}$, independent of the change of variable because $c^4=1$ in $\mathbb F_5^\times$.
+Under $T \mapsto cT + d$ ($c \ne 0$), there are 4,075 orbits of nonconstant polynomials $\bar x \in \mathbb{F}_5[T]$ of degree at most 6. For each representative, [SexticSearch.py](SexticSearch.py) factors $2 - \bar x^3$, tries every divisor $\bar z$ of degree at most 9 (including all scalar multiples), and checks whether $(2 - \bar x^3)/\bar z - \bar z$ is a square of degree at most 8. It finds 12 pairs, every one with degree profile $(\deg \bar x, \deg \bar y, \deg \bar z) = (4, 3, 6)$. Their leading coefficients in $\bar x$ always lie in $\{2, 4\}$ (invariant under $T \mapsto cT + d$ since $c^4 = 1$ in $\mathbb{F}_5^\times$).
 
 ## Second scale at infinity
 
-For the balanced polynomials, put $A(s)=s^6x(1/s)$, $B(s)=s^4y(1/s)$ and $E(s)=s^9W(1/s)$. They satisfy
+Reverse the balanced polynomials by setting $A(s) = s^6 x(1/s)$, $B(s) = s^4 y(1/s)$, and $E(s) = s^9 W(1/s)$, which satisfy
+
 $$
-E^2+4 A^3 = s^2B^4+8s^{18}.
+E^2 + 4 A^3 = s^2 B^4 + 8 s^{18}.
 $$
-Modulo the maximal ideal, $A$ starts at $s^2$ with coefficient $a\in\{2,4\}$, $B$ starts at $s$ with nonzero coefficient $b$, and $E$ is divisible by $s^3$. The constant coefficient of $A$ is nonzero in characteristic zero since $\deg x=6$. Use $v(0)=+\infty$ and take the minimum
+
+Modulo the maximal ideal, $A$ starts with $a s^2$ ($a \in \{2, 4\}$), $B$ starts with $b s$ ($b \ne 0$), and $E$ is divisible by $s^3$. Since $\deg x = 6$ in characteristic zero, $A_0 \ne 0$. With $v(0) = +\infty$, set
+
 $$
-r=\min\{v(A_0)/2,\ v(A_1),\ v(B_0),\ v(E_0)/3,\ v(E_1)/2,\ v(E_2)\}>0.
+r = \min\left\{\frac{v(A_0)}{2},\, v(A_1),\, v(B_0),\, \frac{v(E_0)}{3},\, \frac{v(E_1)}{2},\, v(E_2)\right\} > 0.
 $$
-Take $v(\mu)=r$ in a further totally ramified extension. Substitute $s=\mu T$, dividing $A,B,E$ by $\mu^2,\mu,\mu^3$, respectively. The new coefficients are integral and some lower coefficient survives by the minimum. In the resulting residue identity the term $8s^{18}/\mu^6$ vanishes:
+
+Pick $\mu$ of valuation $r$ in a further totally ramified extension, substitute $s = \mu T$, and divide $A, B, E$ by $\mu^2, \mu, \mu^3$, respectively. Every coefficient is integral, at least one lower coefficient survives by the choice of $r$, and $8s^{18}/\mu^6$ drops out modulo $\mu$, leaving
+
 $$
-e(T)^2=T^2(bT+w)^4-4(aT^2+vT+u)^3 .
+e(T)^2 = T^2 (bT + w)^4 - 4(aT^2 + vT + u)^3.
 $$
-The Lean theorem implies $u=v=w=0$ for every $a\in\{2,4\}$ and $b\ne0$. It evaluates the right-hand side at the five elements of $\mathbb F_5$ and at $\sqrt2,2\sqrt2$ in the quadratic extension, where the norm of a square is a square. Independently, direct polynomial square-root tests reject all $2\cdot4\cdot(5^3-1)=992$ profiles with a surviving lower coefficient of $A$ or $B$. Once $A$ and $B$ reduce to their leading monomials, $e^2$ is a constant times $T^6$. Thus $e$ is zero or a multiple of $T^3$, contradicting the surviving lower coefficient.
+
+[SexticBoundary.lean](SexticBoundary.lean) proves $u = v = w = 0$ for all $a \in \{2, 4\}$ and $b \ne 0$ by evaluating the right-hand side at all five elements of $\mathbb{F}_5$ and at $\sqrt{2}, 2\sqrt{2}$ in $\mathbb{F}_{25}$ (where the norm of a square is a square). Independently, direct polynomial square-root tests rule out all $2 \cdot 4 \cdot (5^3 - 1) = 992$ cases with a surviving lower coefficient in $A$ or $B$. Once $u = v = w = 0$, $e(T)^2$ is a constant multiple of $T^6$, so $e$ is 0 or a multiple of $T^3$, contradicting the surviving lower coefficient.
 
 ## Remaining seeds
 
-When $x(t_0)\equiv3\pmod5$, the first nonconstant reduction can have $\bar x=3$ and $\bar z=0$ or $-\bar y^2$. The previous argument handles every reduction with nonconstant $\bar x$; these two lines remain possible.
+When $x(t_0) \equiv 3 \pmod 5$, the first reduction can have $\bar x = 3$ with $\bar z = 0$ or $\bar z = -\bar y^2$. Every reduction with nonconstant $\bar x$ is still excluded by the argument above, leaving only those two lines.
 
-Independently, balancing at 13 forces the marked triple into a set of 116 out of the 130 surface points over $\mathbb F_{13}$. Indeed $\bar x$ is nonconstant by $2$ being a noncube, and all lower degrees are excluded. Depress the degree-six $\bar x$ by translation and take its leading coefficient as 1 or 2 by scaling the parameter and multiplying $\bar x$ by a cube root of unity. Both factors have degree nine, with equal leading coefficient since $\deg \bar y\le4$. Its square equals $-\bar x_6^3$, forcing $\bar x_6=1$. The checker factors over all $13^5$ remaining abscissas and finds 24 solutions counted by divisor and leading scalar. Evaluating at every field element, both signs of $\bar y$, and all cube-root twists gives the 116 points. This excludes $(1,0,1)$ at 13, but permits $(-2,3,1)$.
+Independently, balancing at 13 restricts the marked triple to 116 of the 130 points of the surface over $\mathbb{F}_{13}$. Since 2 is not a cube modulo 13 and degrees below 6 are ruled out, $\bar x$ must have degree 6. Shift to kill the $T^5$ term and scale $T$ and $\bar x$ (by a cube root of unity) so the leading coefficient $\bar x_6$ is 1 or 2. Both factors have degree 9 and share the same leading coefficient (since $\deg \bar y \le 4$), whose square equals $-\bar x_6^3$, forcing $\bar x_6 = 1$. Factoring across all $13^5$ remaining choices of $\bar x$ yields 24 solutions (counted by divisor and leading scalar). Evaluating at every element of $\mathbb{F}_{13}$, both signs of $\bar y$, and all cube-root twists produces the 116 allowed seeds. This excludes $(1, 0, 1)$ at 13, while still allowing $(-2, 3, 1)$.
 
-Run `uv run --with python-flint==0.9.0 SexticSearch.py --seeds-at-13` to reproduce both finite calculations.
+Run `uv run --with python-flint==0.9.0 SexticSearch.py --seeds-at-13` to reproduce both finite checks.
 
 ## The seed $(-2,3,1)$
 
-For this exceptional seed, translate each of the degree-six candidates at 13 to every parameter value giving the mark, and restore every allowed cube-root twist and sign. Every candidate has nonzero derivative of $x$ at this point. In a hypothesized rational map the balancing radius at 13 must therefore be integral, since the first coefficient of $x$ becomes a unit. A unique rational scaling makes $x'(0)=1$ and preserves integral coefficients at 13. After this normalization all modular candidates through this mark give the same triple.
+At $(-2, 3, 1)$, shifting each degree-6 mod-13 solution to every parameter value hitting the mark (and restoring all cube-root twists and signs) always leaves $x'(0) \ne 0 \pmod{13}$. In any rational sextic map through this seed, the balancing radius at 13 must therefore be an integer, since the linear coefficient of $x$ becomes a 13-adic unit. A unique rational rescaling sets $x'(0) = 1$ while keeping all coefficients 13-integral, and after this normalization all mod-13 candidates collapse to a single triple.
 
-Fix the constant terms exactly at $(-2,3,1)$ and fix $x_1=1$. The remaining 18 coefficients are $x_2,\ldots,x_6$, $y_1,\ldots,y_4$, $z_1,\ldots,z_9$. The equations are the 18 nonconstant coefficients of $x^3+zy^2+z^2-2$. Their Jacobian is invertible modulo 13, so each lift is unique. The checker lifts 699 times and verifies the residual modulo $M=13^{700}$.
+Fixing the constant terms at $(-2, 3, 1)$ and $x_1 = 1$ leaves 18 unknowns ($x_2, \ldots, x_6$, $y_1, \ldots, y_4$, $z_1, \ldots, z_9$) and 18 equations from the nonconstant coefficients of $x^3 + zy^2 + z^2 - 2$. The Jacobian is invertible modulo 13, so the lift is unique. [SexticSearch.py](SexticSearch.py) lifts 699 times and checks the residual modulo $M = 13^{700}$.
 
-For **each of the 18 coefficients**, if it is rational in lowest terms, the larger of its absolute numerator and positive denominator must exceed $10^{388}$. For the computed residue $r$, produce two independent integer pairs $(a_i,b_i)$ satisfying $a_i\equiv rb_i\pmod M$ with $(|a_i|+|b_i|)10^{388}<M$. A fraction $A/B$ of height at most $10^{388}$ with the same residue would make each $a_i B-b_i A$ divisible by $M$ and smaller than $M$ in absolute value. Vanishing of both determinants forces $(A,B)=(0,0)$, a contradiction. The checker verifies the congruences, determinant bounds and independence exactly. This height statement concerns the coordinate normalized by $x'(0)=1$.
+For **each of the 18 coefficients**, if it is rational in lowest terms, the larger of its absolute numerator and positive denominator must exceed $10^{388}$. To prove this for a computed residue $r \bmod M$, the script finds two linearly independent integer pairs $(a_i, b_i)$ with $a_i \equiv r b_i \pmod M$ and $(|a_i| + |b_i|) 10^{388} < M$. Any rational $A/B$ of height at most $10^{388}$ matching $r \bmod M$ makes $a_i B - b_i A$ divisible by $M$ and strictly smaller than $M$ in absolute value, forcing both determinants to vanish and hence $(A, B) = (0, 0)$, a contradiction. The script checks all congruences, bounds, and independence exactly (in the coordinate normalized by $x'(0) = 1$).
 
-Use `uv run --with python-flint==0.9.0 SexticSearch.py --exceptional-seed` for the marked lifts and height certificates.
+Run `uv run --with python-flint==0.9.0 SexticSearch.py --exceptional-seed` to reproduce the marked lifts and height certificates.

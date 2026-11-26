@@ -1,145 +1,79 @@
 # An exact remaining-sign factor in the native F₃ model
 
-A 17-term polynomial of degree five selects one board from each global-negation
-pair in the apex-zero native model. Its equation expands to 180 terms in nine
-of the current prefix variables. Retaining a separate two-valued sign variable
-and the existing three-valued offset gives the **full labeled count N** as the
-quotient dimension, with multiplier and divisor one. This is an exact change
-of representation; the count and any runtime benefit remain unevaluated.
+A 17-term degree-5 polynomial picks one representative from each global-negation pair in the apex-zero native `F₃` model, expanding to 180 terms in nine prefix variables. Keeping a separate two-valued sign variable alongside the three-valued shift keeps the quotient dimension equal to the **full labeled count N** directly (multiplier and divisor 1). Both the unrestricted count and any runtime impact remain unknown.
 
 ## A checked, degree-optimal sign selector
 
-Let K=F₃[t]/(t⁵+t⁴+2t³+2t²+1). The generator checks irreducibility by division
-by every monic polynomial of degrees one and two: every reducible degree-five
-polynomial has such a factor. It also checks all 243 field elements and the
-81 inputs to the following injection:
+Let `K = F₃[t]/(t⁵ + t⁴ + 2t³ + 2t² + 1)`. The script verifies irreducibility by checking divisibility against every monic polynomial of degrees 1 and 2, then checks all 243 field elements and all 81 inputs to the linear embedding
 
 ```
 L(T,L,M,R) = T*t + L*(1+t²) + M*(1+t+t²+t³) + R.
 ```
 
-The four displayed basis vectors are linearly independent. Define
+These four basis vectors are linearly independent. Define
 
 ```
 h(T,L,M,R) = Norm(K/F₃)(L(T,L,M,R)).
 ```
 
-The norm is the product of five conjugate linear forms, hence an ordinary
-homogeneous quintic. It equals the 121st power on field elements. Its only
-zero on F₃⁴ is the origin, and h(−Δ)=−h(Δ). Reducing powers by x³=x gives
-17 monomials, with degrees one, three and five. The exact coefficients,
-38-term homogeneous norm, and four embedding vectors are in the model JSON.
-The checker verifies the full function-ring identity
+As the product of five conjugate linear forms, this norm is a homogeneous quintic (and equals the 121st power on `K`), vanishing on `F₃⁴` only at the origin and obeying `h(-Δ) = -h(Δ)`. Reducing exponents by `x³ = x` leaves 17 monomials of degrees 1, 3, and 5 (the exact coefficients, 38-term homogeneous norm, and embedding vectors live in the model JSON). The checker confirms the exact function-ring identity
 
 ```
-h(Δ)² = 1 − ∏_(i=0..3) (1−Δ_i²).
+h(Δ)² = 1 - ∏_(i=0..3) (1 - Δ_i²).
 ```
 
-There are exactly 40 inputs with value one, 40 with value minus one, and one
-zero. The norm search examined 240 coordinate bases across all 48 irreducible
-monic degree-five moduli, then made deterministic elementary-shear descents
-from 24 starting bases. This is not a global sparsity optimum.
+Across `F₃⁴`, `h` takes value `1` on 40 inputs, `-1` on 40 inputs, and `0` at the origin. The search tested 240 bases across all 48 irreducible monic degree-5 moduli followed by deterministic shear descents from 24 starting bases, without claiming global minimum sparsity.
 
-Degree five is optimal for any odd selector on all of F₃⁴. If such a function
-had a polynomial representation of degree at most four, antisymmetrizing it
-would give one of degree at most three. Its square would have degree at most
-six. Summing each monomial over F₃⁴ gives zero: a nonzero sum needs a positive
-even exponent in every variable, requiring total degree at least eight.
-But the square of a selector is one on 80 inputs and zero at the origin, so
-its sum is 80=2 in F₃, a contradiction.
+No odd selector on `F₃⁴` can have degree below 5. If one had degree at most 4, antisymmetrizing would drop its degree to at most 3, so its square would have degree at most 6. Summing any monomial of degree at most 6 over `F₃⁴` gives 0 (a nonzero sum needs a positive even exponent on all four variables, requiring degree at least 8). Yet the square of any selector equals 1 on 80 points and 0 at the origin, summing to `80 = 2 (mod 3)`, a contradiction.
 
-## Canonical board, independent offset and independent sign
+## Canonical board, independent offset, and independent sign
 
-Use the two geometric T placements with original cell indices
+Take the two T placements with cell indices
 
 ```
 P0 = (0,1,2,3),   P3 = (3,6,7,8),
-Δ(D) = pattern(P0,D) − pattern(P3,D),   in T,L,M,R order.
+Δ(D) = pattern(P0, D) - pattern(P3, D),   in T,L,M,R order.
 ```
 
-Every valid board has distinct patterns at these two placements. Thus Δ is
-nonzero, and h(Δ) is always one or minus one. For an original board z, set
+Because a valid board has distinct patterns at `P0` and `P3`, `Δ` is nonzero, so `h(Δ)` is always `1` or `-1`. Given any valid board `z`, set
 
 ```
 a = z_apex,
-D = z−a,
+D = z - a,
 s = h(Δ(D)),
 d = s*D.
 ```
 
-Then d has apex zero, is valid, and h(Δ(d))=1. Conversely, from any canonical
-d and independent a∈F₃, s∈{1,−1}, recover exactly one original board by
+Then `d` is valid with apex 0 and `h(Δ(d)) = 1`. Conversely, any canonical `d` together with `a ∈ F₃` and `s ∈ {1, -1}` reconstructs a unique board via
 
 ```
 z_cell = a + s*d_cell.
 ```
 
-The sign is recovered uniquely because h is odd and s²=1. Every original
-board is therefore represented exactly once. In particular, this export
-retains both finite factors; multiplying its quotient dimension by two,
-three, or six would be incorrect.
+Because `h` is odd and `s² = 1`, `s` is recovered uniquely, so every original board appears once. Both finite factors stay inside this export, so multiplying its quotient dimension by 2, 3, or 6 would overcount.
 
-Global negation preserves the native moment ideal: each moment scales by
-s raised to its total exponent, and the sole nonzero target has even degree
-eight. The existing elementary-cubic equations also preserve their zero sets.
-After field reduction every term in each source coupled polynomial still has
-the same degree parity; the generator checks this directly.
+Global negation preserves the native moment ideal because each moment scales by `s` to its total degree and the lone nonzero target (`M_2222`) has even degree 8; the `e3` zero equations are also preserved. After field reduction, every coupled source polynomial has uniform degree parity, which the script verifies directly.
 
-All individual field equations are retained. Every quotient is consequently
-a finite product of F₃'s, and every added ideal remains radical. The explicit
-bijection therefore gives an algebra isomorphism
+Since every variable keeps its field equation, each quotient is a finite product of copies of `F₃` and remains radical, turning this bijection into the algebra isomorphism
 
 ```
-A_full ≅ F₃[a]/(a³−a) ⊗ F₃[s]/(s²−1) ⊗ A_canonical.
+A_full ≅ F₃[a]/(a³ - a) ⊗ F₃[s]/(s² - 1) ⊗ A_canonical.
 ```
 
-The redundant ordinary identity s³−s=s(s²−1) justifies also exporting s³−s,
-so the input visibly contains a field equation for every variable. The two
-independent factors have dimensions three and two; neither is an extension
-field or a multiplicity caused by repeated roots.
+We also export the redundant `s³ - s = s(s² - 1)` so every variable visibly has a field cubic. The two independent factors have dimensions 3 and 2 and introduce neither extension fields nor repeated roots.
 
 ## Complete separate inputs and reconstruction
 
-The natural-order and minimum-fill inputs each contain 97 variables and
-179 generators: all 176 frozen translated-plus-e3 generators, followed by
-s³−s, s²−1, and h(Δ(d))−1. The independent offset remains index 95 and the
-new independent sign is index 96 (zero-based). The first 95 variables are the
-existing normalized prefix coordinates of the **canonical** d.
+Both the natural-order input ([exact_f3_sign_model.ms](exact_f3_sign_model.ms)) and minimum-fill input ([exact_f3_sign_minfill.ms](exact_f3_sign_minfill.ms)) have 97 variables and 179 generators: the 176 frozen translated-plus-`e3` generators followed by `s³ - s`, `s² - 1`, and `h(Δ(d)) - 1`. In zero-based indexing, `0..94` are the normalized prefix coordinates of `d`, `95` is `a`, and `96` is `s`.
 
-The complete inputs are [natural order](exact_f3_sign_model.ms) and
-[minimum-fill order](exact_f3_sign_minfill.ms). Their adjacent JSON files
-record source hashes, coefficients, coordinate maps, inverse maps, and
-**bilinear original-color polynomials**. They do not reuse the old linear
-original-color metadata. An original-color prefix fix must be imposed as
-`a+s*d_cell=color`; for example an original apex-one fix is `a−1=0`.
-Original Gray prefixes reconstruct as `Y_j=s*u_j+(j+1)*a` in F₃.
+The paired JSON files record source hashes, coefficients, forward and inverse maps, and **bilinear original-color polynomials** (replacing the older linear metadata). Any original-color prefix fix must use `a + s*d_cell = color` (for example `a - 1 = 0` for apex 1), and original Gray prefixes rebuild as `Y_j = s*u_j + (j + 1)*a` over `F₃`.
 
-The selector expansion was optimized over signed role permutations for eight
-low-support placement-pair shapes. These represent all pairs whose four
-current difference forms have at most 12 nonzero coefficients, modulo an
-ascending-variable relabeling. The selected pair gives 179 terms in h and
-180 in h−1. Its nine-variable support and degree histogram are recorded in
-the audit. Minimum-fill renaming changes no term count or polynomial degree;
-its complete inverse permutation is checked for every generator.
+We optimized the selector expansion over signed role permutations across eight low-support placement-pair shapes (covering all pairs whose four difference forms have at most 12 nonzero coefficients, up to ascending-variable relabeling). The winning pair gives 179 terms in `h` and 180 in `h - 1`, supported on 9 variables (support and degree histogram are in the audit). Minimum-fill renaming keeps every term count and degree unchanged and is verified by full inverse permutation.
 
-This adds a nonzero constant at degree five. In the source native moments,
-the only nonzero target occurs at degree eight. That may improve propagation
-before a degree-eight step, in addition to selecting half the coupled
-solutions. An extra quintic can also increase intermediate basis growth;
-these files provide no runtime evidence either way.
+This adds a nonzero constant term at degree 5 (compared to degree 8 in the source moments), which may help earlier propagation alongside halving the coupled solutions, though an extra quintic can also grow intermediate matrices. No runtime performance is claimed here.
 
 ## Reproduction and scope
 
-Run `python experiments/exact_f3_sign.py --check` to reproduce the finite
-arithmetic, symbolic exports and hash audit. The generator never invokes a
-solver. The audit checks all 81 selector values, the square identity, all 243
-extension-field elements, exact retention of the source equations, all 97
-field domains, and the ordinary redundancy identity for the sign domain.
-It independently checks the geometric validity of 161 existing boards,
-round-trips their canonical coordinates, and checks all six affine-palette
-reconstructions for each. All 179 exported polynomials are additionally
-evaluated on five complete canonical fixtures.
+Run `python experiments/exact_f3_sign.py --check` to rerun the finite-field arithmetic, exports, and [audit](exact_f3_sign_audit.json) without invoking any solver. The check verifies all 81 selector outputs, the square identity, all 243 elements of `K`, verbatim retention of the 176 source equations, all 97 field domains, and `s³ - s = s(s² - 1)`. It also validates 161 known boards geometrically, round-trips their canonical coordinates, checks all six affine-palette reconstructions per board, and evaluates all 179 polynomials on five complete canonical fixtures.
 
-The saved [audit](exact_f3_sign_audit.json) contains every export hash. No
-backend or frozen earlier model is modified, no fixed-prefix trial is run,
-and no unrestricted solution count is claimed.
+No backend or earlier frozen model was changed, no fixed-prefix solver run was started here, and the unrestricted count remains open.

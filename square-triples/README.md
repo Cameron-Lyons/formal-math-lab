@@ -1,12 +1,12 @@
 # Dujella Problem 1.4: two triples producing nine squares
 
-Andrej Dujella's Problem 1.4 (also studied by Batta, Hajdu, and Pongrácz as the $K_{3,3}$ bipartite Diophantine tuple problem) asks whether six distinct positive integers can be partitioned into two triples $\{a, b, c\}$ and $\{x, y, z\}$ such that all nine cross-products plus one are perfect squares:
+Andrej Dujella's Problem 1.4 (also studied by Batta, Hajdu, and Pongrácz as the $K_{3,3}$ bipartite Diophantine tuple problem) asks whether six distinct positive integers can be split into two triples $\{a, b, c\}$ and $\{x, y, z\}$ so that all nine cross-products plus one are perfect squares:
 
 $$
 ax + 1,\; ay + 1,\; az + 1,\; bx + 1,\; by + 1,\; bz + 1,\; cx + 1,\; cy + 1,\; cz + 1 \in \{k^2 : k \in \mathbb{Z}\}.
 $$
 
-Unrestricted existence remains open. The Lean 4 proof here (`SquareTriples.solution_ratio_1000`) shows that in any solution, at least one of the two triples has its largest entry strictly greater than 1,000 times its smallest entry ($c > 1000a$ or $z > 1000x$).
+Unrestricted existence remains open. The Lean 4 proof here (`SquareTriples.solution_ratio_1000`) shows that in any solution, at least one triple has its largest entry strictly greater than 1,000 times its smallest entry ($c > 1000a$ or $z > 1000x$).
 
 | Field | Summary |
 | --- | --- |
@@ -20,15 +20,15 @@ Unrestricted existence remains open. The Lean 4 proof here (`SquareTriples.solut
 
 Order the two triples as $0 < a < b < c$ and $0 < x < y < z$, and write $p = ax$ and $q = by$.
 
-1. Determinant height bound ([SquareTriples/Determinant.lean](SquareTriples/Determinant.lean)): analyzing the $3 \times 3$ determinant of the nine square roots $\sqrt{uv + 1}$ gives
+1. Determinant height bound ([SquareTriples/Determinant.lean](SquareTriples/Determinant.lean)): expanding the $3 \times 3$ determinant of the nine square roots $\sqrt{uv + 1}$ gives
 
    $$
    64 p^3 (q + 1) < cz.
    $$
 
-2. Reducing $p$ below 25 ([SquareTriples/Ratio.lean](SquareTriples/Ratio.lean)): suppose to the contrary that both triples span a factor of at most 1,000, so $c \le 1000a$ and $z \le 1000x$, hence $cz \le 1{,}000{,}000\, p$. Cancelling $p$ gives $64 p^2 (q + 1) < 1{,}000{,}000$. Since $q \ge p$, if $p \ge 25$ then $64 p^2 (q + 1) \ge 64 \cdot 25^2 \cdot 26 = 1{,}040{,}000$, contradiction. Thus $p < 25$.
+2. Reducing $p$ below 25 ([SquareTriples/Ratio.lean](SquareTriples/Ratio.lean)): suppose instead that both triples span a factor of at most 1,000, so $c \le 1000a$ and $z \le 1000x$, giving $cz \le 1{,}000{,}000\, p$. Dividing by $p$ yields $64 p^2 (q + 1) < 1{,}000{,}000$. Since $q \ge p$, having $p \ge 25$ would give $64 p^2 (q + 1) \ge 64 \cdot 25^2 \cdot 26 = 1{,}040{,}000$, a contradiction. So $p < 25$.
 
-3. Kernel-checked finite exhaustion ([SquareTriples/Ratio.lean](SquareTriples/Ratio.lean)): since $p + 1 = ax + 1$ is a square, $p \in \{3, 8, 15, 24\}$. For every valid smallest pair $(a, x)$ with $ax \in \{3, 8, 15, 24\}$, Lean enumerates all partner candidates within the ratio and height bounds and checks with `decide +kernel` that none completes all nine squares.
+3. Kernel-checked finite exhaustion ([SquareTriples/Ratio.lean](SquareTriples/Ratio.lean)): because $p + 1 = ax + 1$ is a square, $p \in \{3, 8, 15, 24\}$. For every valid smallest pair $(a, x)$ with $ax \in \{3, 8, 15, 24\}$, Lean enumerates all candidate partners within the ratio and height bounds and checks with `decide +kernel` that none produces all nine squares.
 
 ## Reproduce
 

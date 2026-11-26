@@ -1,47 +1,31 @@
 # Exact natural-field model over F₃
 
-The unrestricted board count is exactly the quotient dimension of a
-**96-variable ideal over F₃ with 96 field cubics and 76 power-moment equations**.
-No extension field, substituted pivot-domain equations, prefix restriction,
-or symmetry multiplier is needed. This is an exact generating ideal; its
-dimension has not been evaluated here.
+The unrestricted board count equals the exact quotient dimension of a **96-variable ideal over F₃ with 96 field cubics and 76 power-moment equations**. It needs no extension field, no substituted pivot-domain equations, no prefix restriction, and no symmetry multiplier. Its unrestricted dimension has not been computed yet.
 
-The frozen model is [exact_f3_math_model.json](exact_f3_math_model.json), SHA256
-`fe1321842be3bf5bdb8ff91cd5b9c38017d542968fe27a8d5a8952e344564cc4`.
-The ordinary polynomial input is [exact_f3_math_model.ms](exact_f3_math_model.ms),
-SHA256 `e9e1163bd047fdca4000333d917a26e37dbf711abebca29d27fae6d49a2c34ba`.
-Both are generated independently of the earlier F₂ polynomial lists.
+Frozen artifacts (generated independently of the earlier `F₂` exports):
+- Model JSON: [exact_f3_math_model.json](exact_f3_math_model.json), SHA256 `fe1321842be3bf5bdb8ff91cd5b9c38017d542968fe27a8d5a8952e344564cc4`.
+- Polynomial input: [exact_f3_math_model.ms](exact_f3_math_model.ms), SHA256 `e9e1163bd047fdca4000333d917a26e37dbf711abebca29d27fae6d49a2c34ba`.
 
 ## Power moments characterize valid boards exactly
 
-Identify the colors directly with `0,1,2∈F₃`, with cell domains `z³−z=0`.
-For `e∈{0,1,2}⁴`, define
+Represent colors directly as `0, 1, 2 ∈ F₃`, with cell domains `z³ - z = 0`. For each exponent tuple `e ∈ {0, 1, 2}⁴`, define
 
 ```
-M_e = Σ_T placements ∏_(role i) z_i^(e_i).
+M_e = Σ_T placements ∏_(role i) z_i^(e_i),
 ```
 
-As usual an exponent zero contributes one, including at color zero.
-Uniform occurrence of all 81 patterns gives
+with `0⁰ = 1`. When all 81 patterns occur once each,
 
 ```
-M_(2,2,2,2)=1,
-M_e=0 for every other e.
+M_(2,2,2,2) = 1,
+M_e = 0 for every other e.
 ```
 
-Indeed `Σ_c c⁰=0`, `Σ_c c=0`, and `Σ_c c²=−1` in F₃, so the product of
-the four sums vanishes unless every exponent is two, in which case it is one.
-The constant moment `M_0000=81=0` is automatic, leaving 80 equations.
+In `F₃`, `Σ c⁰ = 0`, `Σ c = 0`, and `Σ c² = -1`, so the product of four role sums vanishes unless every exponent is 2 (giving `(-1)⁴ = 1`). Since `M_0000 = 81 = 0` holds automatically, 80 equations remain.
 
-Conversely, the indicator of color `c` is the polynomial
-`δ_c(z)=1−(z−c)²` on F₃. Its quadratic coefficient is always −1. Expand
-the product of four such indicators and sum over all placements. Every moment
-vanishes except `M_2222`, whose coefficient is `(−1)⁴=1`. Thus each integer
-pattern count is congruent to one modulo three. Each count is therefore at
-least one; the 81 counts sum to the 81 available placements, forcing them all
-to equal one.
+In the reverse direction, color `c` has indicator `δ_c(z) = 1 - (z - c)²` over `F₃`, whose leading coefficient is `-1`. Expanding the product of four indicators and summing over all placements eliminates every moment except `M_2222` (with coefficient `(-1)⁴ = 1`), so the 80 equations force every integer pattern count to be `1 (mod 3)`. Each count is therefore at least 1, and since all 81 counts sum to 81 placements, every count must equal 1.
 
-Equivalently, the one-coordinate evaluation matrix
+Equivalently, the single-coordinate evaluation matrix
 
 ```
 1 1 1
@@ -49,96 +33,60 @@ Equivalently, the one-coordinate evaluation matrix
 0 1 1
 ```
 
-has determinant two in F₃. Its fourth tensor power, checked to have rank 81,
-is the complete invertible moment transform. Unlike the F₄ character model,
-there is no reduction to 40 Frobenius-conjugate moments: Frobenius is the
-identity on F₃.
+has determinant 2 in `F₃`, so its fourth tensor power (checked to have rank 81) is an invertible moment transform. Unlike the `F₄` character model, Frobenius is the identity on `F₃`, so there is no pairing down to 40 conjugate moments.
 
 ## Signed prefix coordinates and elimination
 
-Use the same Gray ordering of role-membership signatures as the independently
-audited prefix model, with cells ascending within a signature group. Define
+Using the same Gray ordering of role-membership signatures as the audited prefix model (ascending cell indices inside each signature group), set
 
 ```
-y_j = Σ_(k≤j) z_order[k],
-z_order[j] = y_j−y_(j−1),   y_(-1)=0.
+y_j = Σ_(k ≤ j) z_order[k],
+z_order[j] = y_j - y_(j-1),   y_(-1) = 0.
 ```
 
-The generator derives the four unary equations from geometry and eliminates
-the following prefix variables over F₃:
+Solving the four geometric unary equations over `F₃` eliminates:
 
 ```
 y80 = 0,
 y16 = y97,
-y81 = −y8+y72+y98,
-y99 = −y7+y9−y65+y82.
+y81 = -y8 + y72 + y98,
+y99 = -y7 + y9 - y65 + y82.
 ```
 
-The free variables are the other 96 prefix coordinates, in ascending order.
-All signed original-color forms are recorded explicitly. Their cumulative sums
-are checked symbolically to recover every free coordinate and each eliminated
-coordinate; this is an invertible parametrization of the unary solution space.
+The other 96 prefix coordinates stay free in ascending order. All 100 signed original-color forms are stored explicitly, and symbolic summation checks that their cumulative sums recover every free and eliminated variable.
 
-Exactly four of the 80 moments vanish after substitution: the four unary
-linear moments. The four unary **quadratic** moments remain. There are 76
-retained moments, including the nonzero target at exponent vector `2222`.
+Substituting these four equations makes the 4 unary linear moments vanish identically while keeping the 4 unary **quadratic** moments, leaving 76 nonzero moment equations (including `M_2222 - 1`).
 
 ## Why only 96 independent field cubics are needed
 
-For any F₃-linear form `L=Σ a_i y_i`, Frobenius gives the exact identity
+Over `F₃`, every linear form `L = Σ a_i y_i` obeys
 
 ```
-L³−L = Σ a_i (y_i³−y_i).
+L³ - L = Σ a_i (y_i³ - y_i).
 ```
 
-Consequently an invertible F₃-linear coordinate change preserves the ideal
-generated by all field equations. After eliminating the four unary variables,
-their field equations are already combinations of the remaining 96 equations.
-There are **no additional pivot-domain constraints**. This is specific to the
-natural field domain; it does not use the nonzero-root domain `z³=1` from the
-earlier characteristic-two model.
+Any invertible `F₃`-linear change of variables therefore preserves the field-domain ideal. Once the four unary variables are eliminated, their field equations already lie in the ideal of the remaining 96 field cubics, leaving **no extra pivot-domain constraints** (unlike the `z³ = 1` domain in the characteristic-2 model).
 
-The moment expressions are reduced only by these retained field cubics.
-A positive exponent `n` becomes `1+((n−1) mod 2)`. It must never be reduced
-to zero: zero is a legitimate value of every variable. In particular,
-`y³=y`, `y⁴=y²`, and `y²` is not replaced by `y`.
+Moment polynomials are reduced only by those 96 field cubics, turning any positive exponent `n` into `1 + ((n - 1) mod 2)`: so `y³ = y` and `y⁴ = y²`, while `y²` stays `y²` and positive powers never collapse to 0 (since 0 is a valid value).
 
 ## Quotient dimension and scope
 
-The quotient by the 96 field cubics is a product of one copy of F₃ for every
-point of `F₃⁹⁶`. Adding the moments removes precisely those factors whose
-assignments fail a moment equation. The indicator proof and the invertible
-coordinate map show that the surviving factors correspond bijectively to
-valid labeled boards. Hence the final quotient is reduced, and its F₃ vector
-space dimension is exactly the unrestricted board count `N`, without any
-extension-field degree or conjugacy correction.
+Quotienting by the 96 field cubics produces one copy of `F₃` for each point of `F₃⁹⁶`. Adding the moment equations keeps exactly the coordinates corresponding to valid labeled boards. The final quotient is therefore reduced, and its `F₃`-vector-space dimension equals the unrestricted labeled count `N` directly, with no extension-field degree or symmetry factor.
 
-Every permutation of three colors has the affine form `z↦az+b`, with
-`a∈{1,2}` and `b∈F₃`. Global translations give the familiar exact identity
-`N=3·N_(apex=0)`. No such normalization is imposed in this export.
+Every permutation of three colors is affine (`z ↦ az + b` with `a ∈ {1, 2}`, `b ∈ F₃`). Global shifts give `N = 3 * N_(apex=0)`, though no shift normalization is applied here.
 
 ## Checks and practical limits
 
-[The generator](exact_f3_math.py) and [audit](exact_f3_math_audit.json) verify:
+[exact_f3_math.py](exact_f3_math.py) and [exact_f3_math_audit.json](exact_f3_math_audit.json) verify:
 
-- Fresh Cartesian placement geometry and rank 81 of the power-moment transform.
-- The signed forward/inverse maps as exact linear identities.
-- Every retained moment on 12 arbitrary free assignments, compared with direct
-  evaluation of the reconstructed original board.
-- All moment equations and coordinate round trips on 161 existing valid boards.
+- Fresh Cartesian placement geometry and rank 81 for the moment transform.
+- Exact linear-identity checks on the forward and inverse prefix maps.
+- Direct evaluation of every kept moment against reconstructed boards on 12 arbitrary free assignments.
+- All moment equations and coordinate round trips on 161 valid boards.
 
-The model has 172 generators. Its domain equations contain 192 terms; the
-retained moments contain 96,050 terms, with coefficients one or two. This
-eliminates dense domain expressions but expands the moments more than the
-characteristic-two prefix model. No runtime advantage is claimed here.
+The export has 172 generators: 192 terms across the 96 domain cubics and 96,050 terms across the 76 moments (coefficients 1 or 2). That removes dense domain polynomials at the cost of larger moment polynomials, with no claimed runtime advantage.
 
-The JSON stores complete zero polynomials: the target has **already been
-subtracted**. Thus the `2222` polynomial includes constant coefficient two.
-Its `target_moment` field is descriptive and must not be subtracted again.
-Monomials use four bits per ordinary exponent and explicit scalar coefficients.
-No earlier F₂ elementary constraints are included or reinterpreted.
-The separate [native cubic augmentation](exact_f3_math_e3.md) derives four
-`e3` consequences directly over F₃; it is not included in this frozen base.
+The JSON stores zero polynomials with targets **already subtracted** (so `M_2222` carries constant term `2`, and `target_moment` is informational only). Monomials use 4 bits per exponent with explicit coefficients. No `F₂` elementary equations are included; the separate [native cubic augmentation](exact_f3_math_e3.md) lives outside this frozen base.
 
 ```sh
 python experiments/exact_f3_math.py --check

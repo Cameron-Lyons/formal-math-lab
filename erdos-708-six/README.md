@@ -1,13 +1,13 @@
 # Erdős Problem #708 for six integers: g(6) = 8
 
-Let $A$ be a set of six distinct integers $\ge 2$, and let $M = \max A$. From every block of $M$ consecutive integers, one can choose at most 8 distinct entries whose product is divisible by $\prod_{a \in A} a$, and some sets $A$ and blocks require 8. This gives $g(6) = 8$.
+Let $A$ be a set of six distinct integers $\ge 2$, and let $M = \max A$. From every block of $M$ consecutive integers, some subset of at most 8 distinct entries has a product divisible by $\prod_{a \in A} a$, and some choices of $A$ and blocks need all 8. This gives $g(6) = 8$.
 
-The general Erdős Problem #708 question of whether $g(n) \le 2n$ for all $n$ (or $g(n) = (2 + o(1))n$) remains open. C. Bergström proved $g(6) = 8$ on 19 November 2026; this folder supplies a Lean 4 proof building on John Tripodo's Lean formalizations of $g(4) = 5$ and $g(5) = 6$.
+The general question in Erdős Problem #708, whether $g(n) \le 2n$ for all $n$ (or $g(n) = (2 + o(1))n$), is still open. C. Bergström proved $g(6) = 8$ on 19 November 2026. This folder gives a Lean 4 proof built on John Tripodo's Lean formalizations of $g(4) = 5$ and $g(5) = 6$.
 
 | Field | Summary |
 | --- | --- |
 | Problem | Erdős Problem #708 (`erdosproblems.com/708`), interval products for $n = 6$ integers, $g(6) = 8$ |
-| Status | Case $n = 6$ proved in Lean 4 ($g(6) = 8$). General bound $g(n) \le 2n$ remains open. |
+| Status | Case $n = 6$ proved in Lean 4 ($g(6) = 8$). General bound $g(n) \le 2n$ is still open. |
 | Main theorems | `Erdos708.isLeast_six`, `Erdos708.erdos_708.variants.g_six`, `IntervalSix.six_upper`, `IntervalSix.six_integer` in [Six.lean](Six.lean) |
 | Verification | `lake exe cache get && lake build && lake env lean Six.lean` (Lean 4.36.0 + mathlib + pinned Tripodo development) |
 | Prior art | Checked 23 November 2026: C. Bergström (19 November 2026, `10.5281/zenodo.24366897`) proved $g(6) = 8$. This Lean proof adapts Bergström's lower-bound witness and cumulative-gcd rule and imports John Tripodo's Lean bounds for $n = 4, 5$. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-708-interval-products-for-six-integers). |
@@ -16,23 +16,23 @@ The general Erdős Problem #708 question of whether $g(n) \le 2n$ for all $n$ (o
 
 Take the six products $A = \{13, 17, 19\} \cdot \{19, 23\}$, whose maximum is $M = 19 \cdot 23 = 437$. Center a block of 437 consecutive integers at $h = 2 \cdot 13 \cdot 17 \cdot 19^2 \cdot 23$, so its entries are $h + j$ for $-218 \le j \le 218$.
 
-Only $h$ can supply two different primes from $\{13, 17, 19, 23\}$: their product would divide $j$, and even the smallest pair gives $13 \cdot 17 = 221 > 218$. Away from $h$, no entry supplies $19^2$ or $23^2$ either (the nearest other multiples of $19^2 = 361$ are 361 away, and $h \bmod 23^2 = 253$ puts the nearest other multiple of $23^2$ at distance 253).
+Only $h$ can be divisible by two different primes from $\{13, 17, 19, 23\}$: their product would divide $j$, and even the smallest pair gives $13 \cdot 17 = 221 > 218$. Away from $h$, no entry is divisible by $19^2$ or $23^2$ either (the nearest other multiples of $19^2 = 361$ are 361 away, and $h \bmod 23^2 = 253$ puts the nearest other multiple of $23^2$ at distance 253).
 
 * Choose $h$: the remaining product still needs $13, 17, 19, 19, 19, 23, 23$, each requiring a separate entry, for 8 entries in total.
 * Omit $h$: the five copies of 19 and three copies of 23 already require 8 distinct entries.
 
-Eight entries succeed at offsets $0, 13, 17, 19, 38, 57, 23, 46$. This interchanges 17 and 19 in Bergström's Proposition 3 construction and uses a smaller center ([SixLower.lean](SixLower.lean), [Bergström Proposition 3](https://doi.org/10.5281/zenodo.24366897)).
+Eight entries work at offsets $0, 13, 17, 19, 38, 57, 23, 46$. This swaps 17 and 19 in Bergström's Proposition 3 construction and uses a smaller center ([SixLower.lean](SixLower.lean), [Bergström Proposition 3](https://doi.org/10.5281/zenodo.24366897)).
 
 ## Why eight always suffice ($g(6) \le 8$)
 
-Tripodo's pinned Lean development covers any five integers in at most 6 entries and any four in at most 5 ([preprint](https://hexagonmath.org/pdf/2611.00694v1), [PriorBounds.lean](PriorBounds.lean)). If the sixth integer splits as $uv$ with $7u \le M$ and $8v \le M$, append an unused multiple of $u$ and an unused multiple of $v$; the block offers at least 7 and 8 candidates, respectively.
+Tripodo's pinned Lean development covers any five integers in at most 6 entries and any four in at most 5 ([preprint](https://hexagonmath.org/pdf/2611.00694v1), [PriorBounds.lean](PriorBounds.lean)). If the sixth integer splits as $uv$ with $7u \le M$ and $8v \le M$, we can append an unused multiple of $u$ and an unused multiple of $v$, since the block contains at least 7 multiples of $u$ and 8 multiples of $v$.
 
-For $M \ge 70$, every integer that resists this split has a prime factor $p > M / 8$, except $75$ when $M \le 104$ and $125$ when $125 \le M \le 174$. Any divisor in $[8, M/7]$ gives a split, as does divisibility by $7$; without a large prime, only prime factors $2, 3, 5$ remain and neither $8$ nor $9$ divides it, so it divides $60 = 10 \cdot 6$ and splits unless it is a multiple of $25$ (forcing $M < 175$, leaving only $25, 50, 75, 100, 125, 150$ to check in [Exceptions.lean](Exceptions.lean)).
+For $M \ge 70$, every integer that resists this split has a prime factor $p > M / 8$, except $75$ when $M \le 104$ and $125$ when $125 \le M \le 174$. Any divisor in $[8, M/7]$ gives a split, and so does divisibility by $7$. Without a large prime factor, only the primes $2, 3, 5$ remain and neither $8$ nor $9$ can divide the number. Thus it divides $60 = 10 \cdot 6$ and splits unless it is a multiple of $25$. That forces $M < 175$, leaving only $25, 50, 75, 100, 125, 150$ to check in [Exceptions.lean](Exceptions.lean).
 
-Group the elements of $A$ divisible by a large prime $p > M/8$. Their cofactors lie in $\{1, \ldots, 7\}$ and are distinct. A group of size $d \le 3$ needs at most $d$ entries by a finite check on these cofactors in the interval of multiples of $p$. Joining this cover to a cover for the remaining elements gives their lcm if they overlap; the missing gcd divides the product of the group's cofactors, so one fresh multiple per cofactor suffices ([SixStructure.lean](SixStructure.lean), [SixGroups.lean](SixGroups.lean)).
+Group the elements of $A$ divisible by a large prime $p > M/8$. Their cofactors lie in $\{1, \ldots, 7\}$ and are distinct. A finite check on these cofactors in the interval of multiples of $p$ shows that a group of size $d \le 3$ needs at most $d$ entries. Merging this cover with a cover of the remaining elements gives their LCM if the two covers overlap; the missing gcd divides the product of the group's cofactors, so one fresh multiple per cofactor finishes the product ([SixStructure.lean](SixStructure.lean), [SixGroups.lean](SixGroups.lean)).
 
 * Two or more large primes: their groups are disjoint since their product exceeds $M$. A group of 1 or 2 leaves 5 or 4 originals (covered in 6 or 5 entries by Tripodo); otherwise there are two triples. With overlap, the counts are $1 + 6 - 1 + 1 = 7$, $2 + 5 - 1 + 2 = 8$, and $3 + 3 - 1 + 3 = 8$.
-* One large prime divides all six: take $s = \lfloor M/p \rfloor \le 7$ consecutive multiples of $p$; their quotients have product divisible by $s!$, supplying every cofactor.
+* One large prime divides all six: take $s = \lfloor M/p \rfloor \le 7$ consecutive multiples of $p$; their quotients have product divisible by $s!$, covering every cofactor.
 * Five share a large prime and the sixth is the exception $e \in \{75, 125\}$: cover the five in 6 entries and pick a multiple of $e$. If it overlaps, the missing gcd divides $\gcd(7!, 375) = 15$, and fresh multiples of 3 and 5 finish the cover ([SixLarge.lean](SixLarge.lean)).
 
 For $M < 70$, Lean builds factor sequences using Bergström's cumulative-gcd rule: append $d \le M$ to a product $t$ covered in $k$ entries whenever $(k + 1)\gcd(t, d) \le M$. Two targets use direct greedy selection over every residue start modulo 180 or 120 ([SixFinite.lean](SixFinite.lean), [SixResidues.lean](SixResidues.lean)).

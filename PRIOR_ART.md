@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Seven slabs tiling a cube
+
+Checked **26 November 2026**. Erich Friedman asks which cubes can be tiled using one slab of each order from 1 to $n$. Vamshi Jandhyala’s October 2026 preprint gives the upper bound $s \le n(n+1)/2$ on cube side length in Proposition 6. Proposition 7 rules out $n=4,5,6$. The last sentence of §6 states that the $n=7$ search had not been run. [Friedman’s problem 6](https://erich-friedman.github.io/mathmagic/unsolved.html) · [December 2001 problem](https://erich-friedman.github.io/mathmagic/1201.html) · [Jandhyala, §6, page 6](https://raw.githubusercontent.com/jvvk/mathematics/c6fecab25b6f821a7185bfdaa68c89bfaf54e4c7/math-magic-problems/paper/paper.pdf#page=6)
+
+The Lean theorem rules out $n=7$ for a closed cube of arbitrary real side length, allowing each slab its own orientation. [Formal proof](seven-slabs/SevenSlabs.lean) · [Independent placement search](seven-slabs/verify/placement_search.cpp)
+
 ## Erdős #272, arithmetic progression intersections on thirteen points
 
 Checked **26 November 2026**. Szabó's construction gives $t(13)\ge 82$. In August 2025 Stijn Cambie reported computations through 14, assuming for $10\le n\le14$ that the extremal family contains a singleton. Yang's Theorem 1.1 gives the unrestricted values through $t(12)=69$, and Theorem 1.4 gives the exact maximum for families with a common element for every $n$. [Szabó (1999), §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Cambie's forum post](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang (2026), Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1)

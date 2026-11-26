@@ -10,6 +10,7 @@ Each folder below settles a finite open case, finds an exact value, or proves or
 
 | Problem | Result proved here | Prior art and status |
 | --- | --- | --- |
+| [Seven slabs tiling a cube](seven-slabs/) | One slab of each order $1$ through $7$ cannot tile a cube, even with arbitrary rotations and real positions. | Jandhyala excluded four, five, and six slabs and reported that seven had not been tested. [Preprint, §6](https://github.com/jvvk/mathematics/blob/c6fecab25b6f821a7185bfdaa68c89bfaf54e4c7/math-magic-problems/paper/paper.tex#L300-L336) |
 | [Breaking every rectangle in a five-row matchstick grid](five-row-matchsticks/) | In a grid of $5 \times n$ unit squares, the minimum number of unit edges whose removal breaks every axis-aligned rectangle is $5$ for $n=1$ and $\lfloor(10n+4)/3\rfloor$ for $n\ge2$. | Niu and Tang bounded the height-five minimum to within one edge. [2026 paper](https://doi.org/10.1016/j.tcs.2026.116199) |
 | [Box-free 2-colorings of the 6 x 7 x n grid](box-free-6x7/) (Genkin Question 8.1, `10.5281/zenodo.24457907`) | Maximum height is $n = 52$. Lean's kernel checks a 52-layer box-free coloring and proves $n \le 52$. | Genkin built 50 layers, proved $n \le 52$, and asked whether 52 is reachable (Question 8.1). |
 | [Queen domination on the 48 x 48 chessboard](queen-domination-48/) ($\gamma(Q_{48}) = 25$, Davies §9, `hexagonmath.org/pdf/2611.00830v1`) | $\gamma(Q_{48}) = 25$ queens. Compiled Lean search rules out 24 queens and checks a 25-queen cover of all 2,304 squares. | Östergård and Weakley gave the 25-queen upper bound. Davies listed $48 \times 48$ as the next open even board on 21 November 2026. |
@@ -74,6 +75,7 @@ Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
 * Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
+* Lean 4.35.0 + mathlib v4.35.0: `seven-slabs`.
 * Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
 
 With `elan` installed, run the command below inside that folder. The `E670`, `E677`, and `E1486` SAT checks and the large T-board certificates take noticeable time and memory; see their folder READMEs for details.
@@ -81,6 +83,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | Directory | Build command | Main Lean declaration(s) |
 | --- | --- | --- |
 | `square-triples` | `lake build` | `SquareTriples.solution_ratio_1000` |
+| `seven-slabs` | `lake build` | `SevenSlabs.no_seven_slab_tiling` |
 | `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
 | `erdos-272-thirteen` | `lake build` | `Erdos272.exists_family_82` (lower bound) |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |

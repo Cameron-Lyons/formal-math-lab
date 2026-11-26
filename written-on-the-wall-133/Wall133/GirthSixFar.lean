@@ -1,5 +1,9 @@
-import Wall133.GirthSixOddSharp
-import Wall133.GirthSixTwoEnds
+module
+
+public import Wall133.GirthSixOddSharp
+public import Wall133.GirthSixTwoEnds
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

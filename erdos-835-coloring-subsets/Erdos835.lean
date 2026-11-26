@@ -1,10 +1,14 @@
-import Involution
-import MultiplierCore
-import Order17BoundaryGeometry
-import Order17Coordinates
-import Abelian
-import PrimeSymmetry
-import Steiner
+module
+
+public import Involution
+public import MultiplierCore
+public import Order17BoundaryGeometry
+public import Order17Coordinates
+public import Abelian
+public import PrimeSymmetry
+public import Steiner
+
+@[expose] public section
 
 /-!
 # Symmetry exclusions for Erdős problem 835 at k = 16

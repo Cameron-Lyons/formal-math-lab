@@ -1,8 +1,12 @@
-import Erdos617.PartitionCrossing
-import Erdos617.SquareTuran
-import Erdos617.RankDensity
-import Erdos617.GlobalCliqueEnergy
-import Mathlib.Data.Nat.Sqrt
+module
+
+public import Erdos617.PartitionCrossing
+public import Erdos617.SquareTuran
+public import Erdos617.RankDensity
+public import Erdos617.GlobalCliqueEnergy
+public import Mathlib.Data.Nat.Sqrt
+
+@[expose] public section
 
 namespace Erdos617
 

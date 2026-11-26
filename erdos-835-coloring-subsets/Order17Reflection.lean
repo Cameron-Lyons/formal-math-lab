@@ -1,4 +1,8 @@
-import Order17
+module
+
+public import Order17
+
+@[expose] public section
 
 namespace Erdos835.TwentyPoint
 

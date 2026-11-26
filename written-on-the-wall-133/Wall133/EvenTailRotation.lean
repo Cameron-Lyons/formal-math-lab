@@ -1,4 +1,8 @@
-import Wall133.GeodesicRotation
+module
+
+public import Wall133.GeodesicRotation
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -50,11 +54,11 @@ theorem rotate_even_geodesic_tail (P : Chain G n) (hc : G.Connected) (c : G.Colo
     change (if i<t then i/2-1 else delta+(i-base)/2) = delta+r.val at hcode
     have hti : t ≤ i := by
       by_contra! small
-      rw [if_pos small] at hcode
+      rw [ite_eq_left small] at hcode
       have := hi.2.1; have := hi.2.2.1
       dsimp [delta] at hcode
       omega
-    rw [if_neg (by omega)] at hcode
+    rw [ite_eq_right (by omega)] at hcode
     obtain ⟨hlo,hhi⟩ := window i hi hti
     refine ⟨i,hti,?_,hlo,hhi,hi.2.2.1,by omega,z,hz,hadj,priv⟩
     exact P.block_limit hc q hq t 0 4 hL (fun j _ hj => hsuf j hj) (by decide) hnear hi

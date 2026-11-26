@@ -1,4 +1,8 @@
-import Wall133.Density
+module
+
+public import Wall133.Density
+
+@[expose] public section
 
 /-! # Successors in a core of odd average degree -/
 namespace Wall133
@@ -88,8 +92,11 @@ theorem exists_odd_neighborhood_core [Nonempty V] {d : ℕ} (hd : 2 ≤ d)
     have hh := totalOn_insert G (Finset.notMem_erase x S)
     rw [Finset.insert_erase hx] at hh
     have he : degreeOn G (S.erase x) x = degreeOn G S x := by
-      rw [←Finset.insert_erase hx]
-      simp [degreeOn,Finset.filter_insert]
+      unfold degreeOn
+      congr 1
+      ext y
+      simp only [Finset.mem_filter, Finset.mem_erase]
+      exact ⟨fun ⟨⟨_, hy⟩, hadj⟩ => ⟨hy, hadj⟩, fun ⟨hy, hadj⟩ => ⟨⟨hadj.ne.symm, hy⟩, hadj⟩⟩
     simpa [he] using hh
   have dmin (x : V) (hx : x∈S) : d ≤ degreeOn G S x := by
     obtain ⟨y,hy,hn,_⟩ := two_high_of_density G hne hd hs x
@@ -126,7 +133,7 @@ theorem exists_odd_neighborhood_core [Nonempty V] {d : ℕ} (hd : 2 ≤ d)
         _ = _ := by
           have hxy := (spec y hy).2.1.symm
           have hxB : x.val ∉ B := Finset.notMem_erase _ _
-          simp only [degreeOn,Finset.filter_insert,if_pos hxy,Finset.card_insert_of_notMem
+          simp only [degreeOn,Finset.filter_insert,ite_eq_left hxy,Finset.card_insert_of_notMem
             (show x.val ∉ B.filter (G.Adj y) from fun h => hxB (Finset.mem_filter.mp h).1)]
     have := (spec y hy).2.2
     omega

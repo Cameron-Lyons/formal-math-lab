@@ -1,6 +1,10 @@
-import Erdos617.IndependentSets
-import Mathlib.Combinatorics.SimpleGraph.Finite
-import Mathlib.Basic.Real.Basic
+module
+
+public import Erdos617.IndependentSets
+public import Mathlib.Combinatorics.SimpleGraph.Finite
+public import Mathlib.Basic.Real.Basic
+
+@[expose] public section
 
 namespace Erdos617
 

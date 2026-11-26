@@ -1,4 +1,8 @@
-import Mathlib.Tactic.LinearCombination
+module
+
+public import Mathlib.Tactic.LinearCombination
+
+@[expose] public section
 
 namespace Erdos677
 

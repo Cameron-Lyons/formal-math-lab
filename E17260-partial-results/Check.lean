@@ -1,8 +1,10 @@
-import Equation17260
-import Cancellation17260
-import Affine17260
-import Finite17260
-import Squares17260
+module
+
+public import Equation17260
+public import Cancellation17260
+public import Affine17260
+public import Finite17260
+public import Squares17260
 
 /-! Audit of the proved statements. There is deliberately no claim here that
 all finite models are trivial: that problem remains unresolved in this work. -/

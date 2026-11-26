@@ -1,4 +1,8 @@
-import Wall133.SimplicialPruning
+module
+
+public import Wall133.SimplicialPruning
+
+@[expose] public section
 
 /-! # Low vertices of an odd neighborhood-independence core -/
 
@@ -27,7 +31,7 @@ theorem sum_indep_delete_strict_of_triangle (h4 : NoFourCycle G) {x y z : V}
     change triangleWeight G y z < triangleWeight H y' z'
     rw [weight_of_triangle_edge yz ⟨x,xy.symm,xz.symm⟩]
     unfold triangleWeight
-    rw [if_pos (show H.Adj y' z' from yz)]
+    rw [ite_eq_left (show H.Adj y' z' from yz)]
     split_ifs with yes
     · exact (no yes).elim
     · decide
@@ -114,7 +118,6 @@ theorem exists_minimal_independence_core [Nonempty V] (h4 : NoFourCycle G) {k:�
     have eq := indep_sum_equiv e (noFour_induced h4 un)
     have eq' : (∑ v:un,(G.induce (un:Set V)).indepNeighborsCard v)=∑ v,G.indepNeighborsCard v := by
       convert eq using 1
-      congr 2
     rw [eq']
     simpa only [un,Finset.card_univ] using le_average_iff_sum_indep.mp hav
   obtain ⟨S,hS,best⟩ := sets.exists_min_image Finset.card ⟨un,init⟩
@@ -132,7 +135,7 @@ theorem exists_minimal_independence_core [Nonempty V] (h4 : NoFourCycle G) {k:�
   let iso : ((G.induce (S:Set V)).induce (T:Set S)) ≃g G.induce (A:Set V) :=
     { toEquiv := Equiv.ofBijective f ⟨inj,onto⟩,map_rel_iff' := Iff.rfl }
   have eq := indep_sum_equiv iso (noFour_induced (noFour_induced h4 S) T)
-  have eq' : (∑ u:T,((G.induce (S:Set V)).induce (T:Set S)).indepNeighborsCard u)=∑ v:A,(G.induce (A:Set V)).indepNeighborsCard v := by convert eq using 1 <;> try congr 2
+  have eq' : (∑ u:T,((G.induce (S:Set V)).induce (T:Set S)).indepNeighborsCard u)=∑ v:A,(G.induce (A:Set V)).indepNeighborsCard v := by convert eq using 1
   rw [eq']
   have card : A.card=T.card := Finset.card_map _
   by_contra! high
@@ -269,7 +272,7 @@ theorem exists_odd_independence_core [Nonempty V] (h4 : NoFourCycle G) {d : ℕ}
     +2*(H.indepNeighborsCard x+H.indepNeighborsCard y) at pair
   have w : triangleWeight H x y=2 := by
     unfold triangleWeight
-    rw [if_pos xy]
+    rw [ite_eq_left xy]
     split_ifs with yes
     · obtain ⟨z,xz,yz⟩ := yes
       exact (noTri y z xy xz yz).elim

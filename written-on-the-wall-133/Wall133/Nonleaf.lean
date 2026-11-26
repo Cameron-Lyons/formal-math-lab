@@ -1,5 +1,9 @@
-import Wall133.GeodesicRotation
-import Wall133.CoreReturn
+module
+
+public import Wall133.GeodesicRotation
+public import Wall133.CoreReturn
+
+@[expose] public section
 
 /-!
 # Extending a rotated path through a nonleaf
@@ -69,7 +73,7 @@ theorem exists_degree_anchor [Nonempty V] (c : G.Coloring (Fin 2)) {k : ℕ} (hk
         omega
     obtain ⟨a,ha⟩ := ex
     refine ⟨S,a,base,fun u hu => ?_⟩
-    simpa only [if_pos (hu.trans ha),h] using hm u
+    simpa only [ite_eq_left (hu.trans ha),h] using hm u
 
 /-- The floored conjecture holds at every radius if all but at most one
 vertex have degree at least two. -/

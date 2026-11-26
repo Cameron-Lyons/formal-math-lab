@@ -1,7 +1,11 @@
-import Mathlib.Combinatorics.SimpleGraph.Clique
-import Mathlib.Combinatorics.Enumerative.DoubleCounting
-import Mathlib.Tactic.Linarith
-import Mathlib.Algebra.BigOperators.Ring.Finset
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Clique
+public import Mathlib.Combinatorics.Enumerative.DoubleCounting
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+
+@[expose] public section
 
 namespace Erdos617
 

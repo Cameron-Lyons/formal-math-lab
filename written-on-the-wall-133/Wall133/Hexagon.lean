@@ -1,5 +1,9 @@
-import Wall133.FiveCycle
-import Mathlib.Tactic.FinCases
+module
+
+public import Wall133.FiveCycle
+public import Mathlib.Tactic.FinCases
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

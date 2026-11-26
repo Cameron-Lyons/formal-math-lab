@@ -1,7 +1,11 @@
-import Erdos617.OddPrivateRows
-import Erdos617.OddBags
-import Erdos617.ClusterMultiplicity
-import Mathlib.Data.Nat.Sqrt
+module
+
+public import Erdos617.OddPrivateRows
+public import Erdos617.OddBags
+public import Erdos617.ClusterMultiplicity
+public import Mathlib.Data.Nat.Sqrt
+
+@[expose] public section
 
 namespace Erdos617
 

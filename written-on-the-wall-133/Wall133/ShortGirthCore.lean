@@ -1,4 +1,8 @@
-import Wall133.ShortGirthExact
+module
+
+public import Wall133.ShortGirthExact
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

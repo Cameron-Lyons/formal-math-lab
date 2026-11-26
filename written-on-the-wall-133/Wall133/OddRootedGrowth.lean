@@ -1,5 +1,9 @@
-import Wall133.OddIndependenceCore
-import Wall133.ShortGirthRooted
+module
+
+public import Wall133.OddIndependenceCore
+public import Wall133.ShortGirthRooted
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

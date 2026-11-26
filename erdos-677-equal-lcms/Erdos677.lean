@@ -1,13 +1,17 @@
-import BlockLCM
-import Bounded
-import Displacement
-import Gap
-import Height
-import Initial
-import Period
-import Shift
-import SixCubics
-import SixElliptic
+module
+
+public import BlockLCM
+public import Bounded
+public import Displacement
+public import Gap
+public import Height
+public import Initial
+public import Period
+public import Shift
+public import SixCubics
+public import SixElliptic
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

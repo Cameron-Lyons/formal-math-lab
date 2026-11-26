@@ -1,6 +1,10 @@
-import Erdos617.RankOneDeletion
-import Erdos617.RankOneFamilies
-import Erdos617.RankFiveRange
+module
+
+public import Erdos617.RankOneDeletion
+public import Erdos617.RankOneFamilies
+public import Erdos617.RankFiveRange
+
+@[expose] public section
 
 namespace Erdos617
 

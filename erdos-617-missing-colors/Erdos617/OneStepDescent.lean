@@ -1,5 +1,9 @@
-import Erdos617.OnePairMerge
-import Erdos617.RowDescent
+module
+
+public import Erdos617.OnePairMerge
+public import Erdos617.RowDescent
+
+@[expose] public section
 
 namespace Erdos617
 

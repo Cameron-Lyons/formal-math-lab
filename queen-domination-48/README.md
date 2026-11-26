@@ -9,7 +9,7 @@ The compiled Lean 4 program here (`lake exe queens48`) verifies Östergård and 
 | Problem | Queen domination number $\gamma(Q_{48})$ on the $48 \times 48$ board, Östergård and Weakley (2001), Davies (`hexagonmath.org/pdf/2611.00830v1`, §9) |
 | Status | Solved ($\gamma(Q_{48}) = 25$). Compiled Lean enumeration excludes 24 queens and verifies a 25-queen cover. |
 | Entry point | `main` in [Main.lean](Main.lean) ([Local.lean](Local.lean), [Global.lean](Global.lean)) |
-| Verification | `lake exe queens48` (Lean 4.35.0, stdlib only; compiled exhaustive enumeration rather than a kernel proof term, see argument below) |
+| Verification | `lake exe queens48` (Lean 4.36.0, stdlib only; compiled exhaustive enumeration rather than a kernel proof term, see argument below) |
 | Prior art | Checked 24 November 2026: Östergård and Weakley gave the 25-queen upper bound; Davies listed $48 \times 48$ as open on 21 November 2026. See [PRIOR_ART.md](../PRIOR_ART.md). |
 
 ## Proof that 24 queens cannot dominate the 48 x 48 board
@@ -43,7 +43,7 @@ Hence no 24-queen cover exists. Since any smaller cover could be enlarged to 24 
 
 ## Run the verification
 
-From this directory with the pinned Lean 4.35.0 toolchain (stdlib only):
+From this directory with the pinned Lean 4.36.0 toolchain (stdlib only):
 
 ```sh
 lake exe queens48

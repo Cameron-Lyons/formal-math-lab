@@ -1,8 +1,12 @@
-import PrimeParts
-import Mathlib.Data.Nat.Factorial.BigOperators
-import Mathlib.Algebra.BigOperators.Intervals
-import Mathlib.Data.List.Permutation
-import Mathlib.Tactic
+module
+
+public import PrimeParts
+public import Mathlib.Data.Nat.Factorial.BigOperators
+public import Mathlib.Algebra.BigOperators.Intervals
+public import Mathlib.Data.List.Permutation
+public import Mathlib.Tactic
+
+@[expose] public section
 
 namespace IntervalSix
 open Erdos708Slots

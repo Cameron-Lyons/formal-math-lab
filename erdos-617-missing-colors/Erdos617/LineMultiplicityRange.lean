@@ -1,5 +1,9 @@
-import Erdos617.LineFive
-import Erdos617.ParallelPairBudget
+module
+
+public import Erdos617.LineFive
+public import Erdos617.ParallelPairBudget
+
+@[expose] public section
 
 namespace Erdos617
 

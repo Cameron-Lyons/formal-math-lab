@@ -14,10 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -/
 
-import FormalConjecturesForMathlib.Combinatorics.SimpleGraph.VertexDistance
-import Mathlib.Combinatorics.SimpleGraph.Acyclic
-import Mathlib.Combinatorics.SimpleGraph.Diam
-import Mathlib.Tactic.Linarith
+module
+
+public import FormalConjecturesForMathlib.Combinatorics.SimpleGraph.VertexDistance
+public import Mathlib.Combinatorics.SimpleGraph.Acyclic
+public import Mathlib.Combinatorics.SimpleGraph.Diam
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 -- Adapted from KitaKen1/wowii-graph-conjecture-31-lean, commit
 -- a948e9fc07e11b786aee8dadb1376b4d938454d6, to use the upstream definitions.
@@ -635,7 +639,7 @@ lemma isInducedPath_reverse_append_of_geodesics
     · have heq' :
           q.getVert (q.length - i) = q.getVert (q.length - j) := by
         simpa only [c, Walk.getVert_append, Walk.length_reverse,
-          Walk.getVert_reverse, if_pos hiq, if_pos hjq] using heq
+          Walk.getVert_reverse, ite_eq_left hiq, ite_eq_left hjq] using heq
       have hdi :
           G.dist v0 (q.getVert (q.length - i)) = q.length - i := by
         simpa only [Walk.getVert_zero, Nat.sub_zero] using
@@ -652,7 +656,7 @@ lemma isInducedPath_reverse_append_of_geodesics
           q.getVert (q.length - i) =
             p.getVert (j - q.length) := by
         simpa only [c, Walk.getVert_append, Walk.length_reverse,
-          Walk.getVert_reverse, if_pos hiq, if_neg hjq] using heq
+          Walk.getVert_reverse, ite_eq_left hiq, ite_eq_right hjq] using heq
       have ha : 1 ≤ q.length - i := by omega
       have haj : q.length - i ≤ q.length := Nat.sub_le _ _
       have hb : j - q.length ≤ p.length := by omega
@@ -674,7 +678,7 @@ lemma isInducedPath_reverse_append_of_geodesics
             p.getVert (i - q.length) := by
         symm
         simpa only [c, Walk.getVert_append, Walk.length_reverse,
-          Walk.getVert_reverse, if_neg hiq, if_pos hjq] using heq
+          Walk.getVert_reverse, ite_eq_right hiq, ite_eq_left hjq] using heq
       have ha : 1 ≤ q.length - j := by omega
       have haj : q.length - j ≤ q.length := Nat.sub_le _ _
       have hb : i - q.length ≤ p.length := by omega
@@ -695,7 +699,7 @@ lemma isInducedPath_reverse_append_of_geodesics
           p.getVert (i - q.length) =
             p.getVert (j - q.length) := by
         simpa only [c, Walk.getVert_append, Walk.length_reverse,
-          if_neg hiq, if_neg hjq] using heq
+          ite_eq_right hiq, ite_eq_right hjq] using heq
       have hai : i - q.length ≤ p.length := by omega
       have haj : j - q.length ≤ p.length := by omega
       have hdi :
@@ -721,7 +725,7 @@ lemma isInducedPath_reverse_append_of_geodesics
         G.Adj (q.getVert (q.length - i))
           (q.getVert (q.length - j)) := by
       simpa only [c, Walk.getVert_append, Walk.length_reverse,
-        Walk.getVert_reverse, if_pos hiq, if_pos hjq] using hadj
+        Walk.getVert_reverse, ite_eq_left hiq, ite_eq_left hjq] using hadj
     have hqq :=
       (adj_getVert_iff_consecutive_of_length_eq_dist q hqdist
         (Nat.sub_le _ _) (Nat.sub_le _ _)).mp hadj'
@@ -730,7 +734,7 @@ lemma isInducedPath_reverse_append_of_geodesics
         G.Adj (q.getVert (q.length - i))
           (p.getVert (j - q.length)) := by
       simpa only [c, Walk.getVert_append, Walk.length_reverse,
-        Walk.getVert_reverse, if_pos hiq, if_neg hjq] using hadj
+        Walk.getVert_reverse, ite_eq_left hiq, ite_eq_right hjq] using hadj
     have ha : 1 ≤ q.length - i := by omega
     have haj : q.length - i ≤ q.length := Nat.sub_le _ _
     have hb : j - q.length ≤ p.length := by omega
@@ -749,7 +753,7 @@ lemma isInducedPath_reverse_append_of_geodesics
           (p.getVert (i - q.length)) := by
       symm
       simpa only [c, Walk.getVert_append, Walk.length_reverse,
-        Walk.getVert_reverse, if_neg hiq, if_pos hjq] using hadj
+        Walk.getVert_reverse, ite_eq_right hiq, ite_eq_left hjq] using hadj
     have ha : 1 ≤ q.length - j := by omega
     have haj : q.length - j ≤ q.length := Nat.sub_le _ _
     have hb : i - q.length ≤ p.length := by omega
@@ -767,7 +771,7 @@ lemma isInducedPath_reverse_append_of_geodesics
         G.Adj (p.getVert (i - q.length))
           (p.getVert (j - q.length)) := by
       simpa only [c, Walk.getVert_append, Walk.length_reverse,
-        if_neg hiq, if_neg hjq] using hadj
+        ite_eq_right hiq, ite_eq_right hjq] using hadj
     have hai : i - q.length ≤ p.length := by omega
     have haj : j - q.length ≤ p.length := by omega
     have hpp :=
@@ -949,7 +953,7 @@ theorem chung_bound_nat_of_radius_drop_kernel
     (hconn : G.Connected) :
     2 * G.radius.toNat ≤ path G + 1 := by
   induction hn : Fintype.card α using Nat.strong_induction_on generalizing α with
-  | h n ih =>
+  | ind n ih =>
       by_cases hα : Nontrivial α
       · let : Nontrivial α := hα
         obtain ⟨vr, hdel, hcard⟩ :=

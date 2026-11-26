@@ -1,5 +1,9 @@
-import Wall133.ShortGirthFifthCertificate
-import Wall133.FifthPathConfiguration
+module
+
+public import Wall133.ShortGirthFifthCertificate
+public import Wall133.FifthPathConfiguration
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

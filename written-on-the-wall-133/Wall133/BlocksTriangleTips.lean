@@ -1,5 +1,9 @@
-import Wall133.BlocksBipartiteCore
-import Wall133.NeighborhoodTriangles
+module
+
+public import Wall133.BlocksBipartiteCore
+public import Wall133.NeighborhoodTriangles
+
+@[expose] public section
 
 /-! # Triangles attached along edges of a bipartite graph -/
 

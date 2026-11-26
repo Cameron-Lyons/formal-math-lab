@@ -1,6 +1,10 @@
-import SixGroups
-import PriorBounds
-import Exceptions
+module
+
+public import SixGroups
+public import PriorBounds
+public import Exceptions
+
+@[expose] public section
 
 namespace IntervalSix
 open Erdos708Slots

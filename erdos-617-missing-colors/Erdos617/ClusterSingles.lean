@@ -1,4 +1,8 @@
-import Erdos617.ClusterProximity
+module
+
+public import Erdos617.ClusterProximity
+
+@[expose] public section
 
 namespace Erdos617
 

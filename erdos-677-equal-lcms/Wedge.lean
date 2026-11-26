@@ -1,4 +1,8 @@
-import FixedLength
+module
+
+public import FixedLength
+
+@[expose] public section
 
 namespace Erdos677
 

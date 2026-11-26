@@ -1,5 +1,9 @@
-import Erdos617.ExteriorBlocks
-import Erdos617.CoveringIncidence
+module
+
+public import Erdos617.ExteriorBlocks
+public import Erdos617.CoveringIncidence
+
+@[expose] public section
 
 namespace Erdos617
 

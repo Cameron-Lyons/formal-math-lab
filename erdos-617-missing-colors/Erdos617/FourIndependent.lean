@@ -1,6 +1,10 @@
-import Erdos617.ThreeIndependent
-import Erdos617.TwoBlockBoundary
-import Erdos617.IndependentSets
+module
+
+public import Erdos617.ThreeIndependent
+public import Erdos617.TwoBlockBoundary
+public import Erdos617.IndependentSets
+
+@[expose] public section
 
 /-!
 This is the three-block threshold in the colored density argument for balanced

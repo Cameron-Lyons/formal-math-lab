@@ -1,4 +1,8 @@
-import Erdos617.BlockAccount
+module
+
+public import Erdos617.BlockAccount
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,7 +1,11 @@
-import Erdos617.CliqueRows
-import Erdos617.EightProfile
-import Erdos617.EightRows
-import Erdos617.SmallRange
+module
+
+public import Erdos617.CliqueRows
+public import Erdos617.EightProfile
+public import Erdos617.EightRows
+public import Erdos617.SmallRange
+
+@[expose] public section
 
 namespace Erdos617
 

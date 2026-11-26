@@ -1,4 +1,8 @@
-import Wall133.GirthSix
+module
+
+public import Wall133.GirthSix
+
+@[expose] public section
 
 /-! # Extending geodesics at girth six
 

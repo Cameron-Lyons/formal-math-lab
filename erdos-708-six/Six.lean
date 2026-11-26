@@ -1,8 +1,12 @@
-import SixFinite
-import SixLarge
-import Signed
-import Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset
-import SixLower
+module
+
+public import SixFinite
+public import SixLarge
+public import Signed
+public import Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset
+public import SixLower
+
+@[expose] public section
 
 namespace IntervalSix
 open Erdos708Slots

@@ -1,7 +1,11 @@
-import BlockLCM.Five
-import BlockLCM.Scale
-import BlockLCM.Slope
-import Height
+module
+
+public import BlockLCM.Five
+public import BlockLCM.Scale
+public import BlockLCM.Slope
+public import Height
+
+@[expose] public section
 
 namespace Erdos677
 

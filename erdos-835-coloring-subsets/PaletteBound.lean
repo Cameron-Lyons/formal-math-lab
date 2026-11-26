@@ -1,6 +1,10 @@
-import Cyclic
-import Nine
-import Pairs
+module
+
+public import Cyclic
+public import Nine
+public import Pairs
+
+@[expose] public section
 
 namespace Erdos835
 

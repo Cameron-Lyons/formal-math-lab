@@ -1,6 +1,10 @@
-import Wall133.LabelledPathCertificate
-import Wall133.FifthResolution
-import Wall133.ShortGirthFifthData
+module
+
+public import Wall133.LabelledPathCertificate
+public import Wall133.FifthResolution
+public import Wall133.ShortGirthFifthData
+
+@[expose] public section
 
 namespace Wall133.FifthCertificate
 open SimpleGraph LabelledPathCertificate

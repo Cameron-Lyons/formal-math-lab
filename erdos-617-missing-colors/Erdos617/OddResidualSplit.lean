@@ -1,4 +1,8 @@
-import Erdos617.ClosedNeighborhoodSlack
+module
+
+public import Erdos617.ClosedNeighborhoodSlack
+
+@[expose] public section
 
 namespace Erdos617
 

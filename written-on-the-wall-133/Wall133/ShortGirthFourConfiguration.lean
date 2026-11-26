@@ -1,4 +1,8 @@
-import Wall133.ShortGirthCertificateData
+module
+
+public import Wall133.ShortGirthCertificateData
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph FourthCertificate
@@ -124,7 +128,7 @@ theorem exists_fourth_configuration (P : Chain G 4) (h4 : NoFourCycle G) (hc : G
     | exact X.miss _ _ (by decide) | exact Y.miss _ _ (by decide) | exact Z.miss _ _ (by decide)
     | exact U.miss _ | exact W.miss _
     | exact X.apart | exact Y.apart | exact Z.apart | exact U.apart | exact W.apart
-    | exact X.independent | exact Y.independent | exact Z.independent
+    | exact X.independent | exact Z.independent
     | exact U.independent | exact W.independent
 
 end Wall133

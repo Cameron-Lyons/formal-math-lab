@@ -1,7 +1,11 @@
-import Wall133.GirthSixSharp
-import Wall133.OddNeighborhoodCore
-import Wall133.HereditaryDensity
-import Wall133.LeafPruning
+module
+
+public import Wall133.GirthSixSharp
+public import Wall133.OddNeighborhoodCore
+public import Wall133.HereditaryDensity
+public import Wall133.LeafPruning
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -251,7 +255,7 @@ private theorem noFour_of_six (hg : 6 ≤ G.egirth) : NoFourCycle G := by
   have hq : q.IsPath := by simp [q,Walk.isPath_def,haz.ne,hbz.ne.symm,hab]
   have different : p ≠ q := fun e => ne (congrArg (fun r : G.Walk a b => r.getVert 1) e)
   obtain ⟨_,_,_,r,hr,le⟩ := hp.exists_isCycle_length_le_add_of_ne hq different
-  have hlen : 6 ≤ r.length := ENat.natCast_le_natCast.mp (hg.trans (egirth_le_length hr))
+  have hlen : 6 ≤ r.length := ENat.natCast_le_natCast.mp (hg.trans hr.egirth_le_length)
   change r.length ≤ 2+2 at le
   omega
 
@@ -300,7 +304,7 @@ theorem girth_six_odd_bipartite_induce (hg : 6 ≤ G.egirth) (hc : G.Connected)
     omega
   have gK : 6 ≤ K.egirth := hg.trans (IsContained.egirth_le ⟨Copy.induce G (S : Set V)⟩)
   have h := girth_six_min_degree_bound gK (d:=2) le_rfl base y
-  rw [if_pos deg] at h
+  rw [ite_eq_left deg] at h
   have mK : K.path ≤ G.path := G.path_induce_le (S : Set V)
   omega
 

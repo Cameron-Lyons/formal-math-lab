@@ -1,5 +1,9 @@
-import Erdos617.ClosedNeighborhoodSlack
-import Erdos617.OddPrivateRows
+module
+
+public import Erdos617.ClosedNeighborhoodSlack
+public import Erdos617.OddPrivateRows
+
+@[expose] public section
 
 namespace Erdos617
 

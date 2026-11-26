@@ -1,6 +1,10 @@
-import Mathlib.Data.Finset.Card
-import Mathlib.Data.Fintype.Powerset
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+module
+
+public import Mathlib.Data.Finset.Card
+public import Mathlib.Data.Fintype.Powerset
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+
+@[expose] public section
 
 /-! # The zero-sum partial quadruple system on 17 points
 

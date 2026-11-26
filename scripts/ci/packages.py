@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import posixpath
+import signal
 import subprocess
 import sys
 import tomllib
@@ -28,6 +29,15 @@ HEAVY_PACKAGES: frozenset[str] = frozenset(
         "E670-order-10",
         "E677-E255-order-9",
         "three-color-t-boards",
+    }
+)
+# Packages whose pinned third-party Git dependencies emit upstream warnings;
+# each sets `[leanOptions] warningAsError = true` in `lakefile.toml` so all
+# first-party modules still fail the build on any warning.
+THIRD_PARTY_WARNING_PACKAGES: frozenset[str] = frozenset(
+    {
+        "erdos-708-six",
+        "written-on-the-wall-133",
     }
 )
 EXTRA_BUILD_TARGETS: dict[str, tuple[str, ...]] = {
@@ -55,6 +65,7 @@ class LeanPackage:
     toolchain: str
     uses_mathlib_cache: bool
     heavy: bool
+    warning_as_error: bool
     local_deps: tuple[str, ...]
     default_targets: tuple[str, ...]
     extra_targets: tuple[str, ...]
@@ -141,6 +152,11 @@ def discover_packages(repo_root: Path = REPO_ROOT) -> dict[str, LeanPackage]:
             if isinstance(raw_defaults, list)
             else ()
         )
+        lean_options = lakefile_data.get("leanOptions", {})
+        warning_as_error = (
+            isinstance(lean_options, dict)
+            and lean_options.get("warningAsError") is True
+        )
         packages[pkg_rel] = LeanPackage(
             path=pkg_rel,
             toolchain=toolchain,
@@ -148,6 +164,7 @@ def discover_packages(repo_root: Path = REPO_ROOT) -> dict[str, LeanPackage]:
                 Path(current) / "lake-manifest.json"
             ),
             heavy=pkg_rel in HEAVY_PACKAGES,
+            warning_as_error=warning_as_error,
             local_deps=_extract_local_deps(pkg_rel, lakefile_data),
             default_targets=default_targets,
             extra_targets=EXTRA_BUILD_TARGETS.get(pkg_rel, ()),
@@ -274,6 +291,37 @@ def _run_cmd(cmd: list[str], cwd: Path) -> None:
     subprocess.run(cmd, cwd=cwd, check=True)
 
 
+def _is_sigsegv(returncode: int) -> bool:
+    return returncode in (-signal.SIGSEGV, 128 + signal.SIGSEGV)
+
+
+def _run_leanchecker(cwd: Path, lib_roots: tuple[str, ...]) -> None:
+    # Cap Lean's worker threads so `leanchecker` does not load many Mathlib
+    # environments simultaneously and exhaust runner RAM, and check each root
+    # in its own process to avoid Lean 4.36's multi-module `freeRegions` crash.
+    env = {**os.environ, "LEAN_NUM_THREADS": "1"}
+    for root in lib_roots:
+        cmd = ["lake", "env", "leanchecker", root]
+        print(f"+ ({cwd}) LEAN_NUM_THREADS=1 {' '.join(cmd)}", flush=True)
+        res = subprocess.run(cmd, cwd=cwd, env=env, check=False)
+        if res.returncode == 0:
+            continue
+        if not _is_sigsegv(res.returncode):
+            raise subprocess.CalledProcessError(res.returncode, cmd)
+
+        # A root with submodules can still hit Lean 4.36's multi-module
+        # `env.freeRegions` SIGSEGV; fall back to `--fresh` kernel replay so
+        # every reachable declaration is still strictly re-checked.
+        print(
+            f"leanchecker exited with SIGSEGV ({res.returncode}) on {root}; "
+            "retrying with isolated --fresh kernel replay",
+            flush=True,
+        )
+        fresh_cmd = ["lake", "env", "leanchecker", "--fresh", root]
+        print(f"+ ({cwd}) LEAN_NUM_THREADS=1 {' '.join(fresh_cmd)}", flush=True)
+        subprocess.run(fresh_cmd, cwd=cwd, env=env, check=True)
+
+
 def run_build(
     repo_root: Path,
     pkg_path: str,
@@ -291,17 +339,28 @@ def run_build(
     if pkg.uses_mathlib_cache:
         _run_cmd(["lake", "exe", "cache", "get"], cwd=pkg_dir)
 
-    _run_cmd(["lake", "--wfail", "build"], cwd=pkg_dir)
+    if pkg.path in THIRD_PARTY_WARNING_PACKAGES:
+        if not pkg.warning_as_error:
+            msg = (
+                f"{pkg.path}/lakefile.toml must set "
+                "`[leanOptions] warningAsError = true`"
+            )
+            raise SystemExit(msg)
+        build_prefix = ["lake", "build"]
+    else:
+        build_prefix = ["lake", "--wfail", "build"]
+
+    _run_cmd(build_prefix, cwd=pkg_dir)
 
     if pkg.extra_targets:
-        _run_cmd(["lake", "--wfail", "build", *pkg.extra_targets], cwd=pkg_dir)
+        _run_cmd([*build_prefix, *pkg.extra_targets], cwd=pkg_dir)
 
     if run_leanchecker and pkg.path == "erdos-64-power-of-two-cycles":
         # Lean 4.36 segfaults during the per-module replay. Erdos64 imports
         # the entire package, so a fresh replay checks all its declarations.
         _run_cmd(["lake", "env", "leanchecker", "--fresh", "Erdos64"], cwd=pkg_dir)
     elif run_leanchecker and not pkg.heavy and pkg.lib_roots:
-        _run_cmd(["lake", "env", "leanchecker", *pkg.lib_roots], cwd=pkg_dir)
+        _run_leanchecker(pkg_dir, pkg.lib_roots)
 
 
 def _write_github_outputs(path: Path, entries: list[dict[str, object]]) -> None:

@@ -1,4 +1,8 @@
-import Wall133.BipartiteDensity
+module
+
+public import Wall133.BipartiteDensity
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -571,7 +575,7 @@ theorem radius_add_floor_le_path_of_biregular [Nontrivial V]
     split <;> omega
   · exact hlt
   · intro v h
-    rw [hv, if_pos h]
+    rw [hv, ite_eq_left h]
     exact hM
 
 /-- Side-independent formulation of biregularity: each color class has

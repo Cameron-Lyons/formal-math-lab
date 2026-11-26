@@ -1,5 +1,9 @@
-import Wall133.Chung
-import FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Independence
+module
+
+public import Wall133.Chung
+public import FormalConjecturesForMathlib.Combinatorics.SimpleGraph.Independence
+
+@[expose] public section
 
 namespace Wall133
 

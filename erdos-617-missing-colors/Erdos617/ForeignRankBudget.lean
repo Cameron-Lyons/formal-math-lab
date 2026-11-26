@@ -1,5 +1,9 @@
-import Erdos617.RankObstruction
-import Erdos617.RankEquality
+module
+
+public import Erdos617.RankObstruction
+public import Erdos617.RankEquality
+
+@[expose] public section
 
 namespace Erdos617
 

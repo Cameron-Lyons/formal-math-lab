@@ -1,5 +1,9 @@
-import Erdos617.OneStepDescent
-import Erdos617.VerifiedRange
+module
+
+public import Erdos617.OneStepDescent
+public import Erdos617.VerifiedRange
+
+@[expose] public section
 
 namespace Erdos617
 

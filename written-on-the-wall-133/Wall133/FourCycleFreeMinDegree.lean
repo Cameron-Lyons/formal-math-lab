@@ -1,5 +1,9 @@
-import Wall133.FourCycleFreeRotation
-import Wall133.IndependentContacts
+module
+
+public import Wall133.FourCycleFreeRotation
+public import Wall133.IndependentContacts
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

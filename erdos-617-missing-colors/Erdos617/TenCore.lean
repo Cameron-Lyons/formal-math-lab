@@ -1,4 +1,8 @@
-import Erdos617.RankFiveRange
+module
+
+public import Erdos617.RankFiveRange
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,4 +1,8 @@
-import Coloring
+module
+
+public import Coloring
+
+@[expose] public section
 
 namespace Erdos835
 

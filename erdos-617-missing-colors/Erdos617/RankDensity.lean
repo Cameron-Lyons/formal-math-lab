@@ -1,6 +1,10 @@
-import Erdos617.RankAugment
-import Erdos617.RankBoundary
-import Mathlib.Tactic.Ring
+module
+
+public import Erdos617.RankAugment
+public import Erdos617.RankBoundary
+public import Mathlib.Tactic.Ring
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -46,7 +50,7 @@ theorem rank_density (G : SimpleGraph V) [DecidableRel G.Adj] (S : Finset V)
     d*S.card ≤ blockEdges G S + (d.choose 2+1)*rankOn G S + (d-1) := by
   classical
   induction hn : S.card using Nat.strong_induction_on generalizing G S d with
-  | h n ih =>
+  | ind n ih =>
     subst n
     induction d with
     | zero => simp

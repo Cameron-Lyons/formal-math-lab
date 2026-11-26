@@ -1,5 +1,9 @@
-import Wall133.Basic
-import Mathlib.Combinatorics.SimpleGraph.Bipartite
+module
+
+public import Wall133.Basic
+public import Mathlib.Combinatorics.SimpleGraph.Bipartite
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -41,7 +45,7 @@ theorem totalOn_insert {s : Finset V} {u : V} (hu : u ∉ s) :
   have count : (∑ v ∈ s, if G.Adj v u then 1 else 0) = degreeOn G s u := by
     simp [degreeOn, G.adj_comm u, Finset.sum_boole]
   simp only [totalOn, Finset.sum_insert hu, deg, Finset.sum_add_distrib, count,
-    show ¬ G.Adj u u from G.irrefl, if_false, Nat.add_zero]
+    show ¬ G.Adj u u from G.irrefl, ite_false, Nat.add_zero]
   omega
 
 /-- Removing one vertex subtracts twice its degree from the degree sum. -/

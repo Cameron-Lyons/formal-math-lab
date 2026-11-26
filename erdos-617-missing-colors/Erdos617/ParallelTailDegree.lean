@@ -1,4 +1,8 @@
-import Erdos617.ParallelRowGreedy
+module
+
+public import Erdos617.ParallelRowGreedy
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,8 +1,12 @@
-import BinomialBounds
-import Mathlib.Data.Nat.Factorial.BigOperators
-import Mathlib.Tactic.NormNum
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Positivity
+module
+
+public import BinomialBounds
+public import Mathlib.Data.Nat.Factorial.BigOperators
+public import Mathlib.Tactic.NormNum
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.Positivity
+
+@[expose] public section
 
 namespace Erdos677
 

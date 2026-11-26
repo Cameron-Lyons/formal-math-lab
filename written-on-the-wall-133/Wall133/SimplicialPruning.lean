@@ -1,4 +1,8 @@
-import Wall133.IndependenceCore
+module
+
+public import Wall133.IndependenceCore
+
+@[expose] public section
 
 /-! # Removing vertices of low neighborhood independence -/
 namespace Wall133
@@ -58,7 +62,7 @@ theorem le_l_delete_of_twice_indep_le [Nontrivial V] (h4 : NoFourCycle G) {k : â
     rw [Fintype.card_coe]
     omega
   apply le_average_iff_sum_indep.mpr
-  convert counted using 1 <;> congr 2
+  convert counted using 1
 
 omit [Fintype V] [DecidableEq V] [DecidableRel G.Adj] in
 /-- A shortest path between other vertices cannot pass through a vertex

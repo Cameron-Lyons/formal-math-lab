@@ -9,7 +9,7 @@ The Lean 4 proofs here settle all cases $3 \le r \le 10$, prove the conjecture f
 | Problem | Erdős Problem #617 (`erdosproblems.com/617`), Erdős-Gyárfás balanced coloring on $K_{r^2+1}$, `FormalConjectures/ErdosProblems/617.lean` |
 | Status | Proved for $3 \le r \le 10$ and structural families; $r \ge 11$ remains open. |
 | Main theorems | `Erdos617.missing_of_at_most_ten_colors`, `Erdos617.missing_of_all_but_two_parallel_rows`, `Erdos617.missing_of_almost_parallel_full_cliques`, `Erdos617.missing_of_degree_excess`, `Erdos617.counterexample_rank_window` |
-| Verification | `lake exe cache get && lake build` (Lean 4.35.0-rc2 + mathlib) |
+| Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib) |
 | Prior art | Erdős and Gyárfás proved $r = 3, 4$; a separate formal verification covers $r = 5$. Priority for $6 \le r \le 10$ and the structural obstructions is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-617-missing-colors-in-cliques). |
 
 ## Main Lean results
@@ -28,7 +28,7 @@ Import `Erdos617` to use the library; [Erdos617.lean](Erdos617.lean) lists all 2
 
 ## Build
 
-Run from this directory with the pinned Lean 4.35.0-rc2 toolchain:
+Run from this directory with the pinned Lean 4.36.0 toolchain:
 
 ```sh
 lake exe cache get

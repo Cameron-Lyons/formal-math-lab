@@ -1,4 +1,8 @@
-import Wall133.CoreExterior
+module
+
+public import Wall133.CoreExterior
+
+@[expose] public section
 
 /-!
 # Induced paths from both ends of a geodesic without a four-cycle

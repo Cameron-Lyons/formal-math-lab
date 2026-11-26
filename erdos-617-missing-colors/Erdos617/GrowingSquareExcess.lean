@@ -1,5 +1,9 @@
-import Erdos617.TwoLineWitnessCapacity
-import Erdos617.RankWitnessRows
+module
+
+public import Erdos617.TwoLineWitnessCapacity
+public import Erdos617.RankWitnessRows
+
+@[expose] public section
 
 namespace Erdos617
 

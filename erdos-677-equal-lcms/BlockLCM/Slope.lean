@@ -1,5 +1,9 @@
-import Mathlib.Data.Nat.GCD.Basic
-import Mathlib.Tactic.LinearCombination
+module
+
+public import Mathlib.Data.Nat.GCD.Basic
+public import Mathlib.Tactic.LinearCombination
+
+@[expose] public section
 
 namespace Erdos677
 

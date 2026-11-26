@@ -1,4 +1,8 @@
-import Wall133.ShortGirthGeodesic
+module
+
+public import Wall133.ShortGirthGeodesic
+
+@[expose] public section
 namespace Wall133
 open SimpleGraph
 variable {V : Type*} {G : SimpleGraph V} {n : ℕ}

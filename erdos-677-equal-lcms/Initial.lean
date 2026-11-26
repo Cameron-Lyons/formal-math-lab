@@ -1,6 +1,10 @@
-import PrimePowers
-import FormalBook.Chapter_03.Sylvester
-import Mathlib.Algebra.BigOperators.Associated
+module
+
+public import PrimePowers
+public import FormalBook.Chapter_03.Sylvester
+public import Mathlib.Algebra.BigOperators.Associated
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

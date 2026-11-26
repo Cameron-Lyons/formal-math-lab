@@ -1,4 +1,8 @@
-import Erdos617.DeletionRank
+module
+
+public import Erdos617.DeletionRank
+
+@[expose] public section
 
 namespace Erdos617
 

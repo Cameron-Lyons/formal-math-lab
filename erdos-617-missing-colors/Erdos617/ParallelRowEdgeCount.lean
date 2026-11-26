@@ -1,6 +1,10 @@
-import Erdos617.BlockEdgeBound
-import Erdos617.BlockAccount
-import Erdos617.GlobalCliqueEnergy
+module
+
+public import Erdos617.BlockEdgeBound
+public import Erdos617.BlockAccount
+public import Erdos617.GlobalCliqueEnergy
+
+@[expose] public section
 
 namespace Erdos617
 

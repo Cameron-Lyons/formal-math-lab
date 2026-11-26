@@ -1,5 +1,11 @@
-import Order17BoundaryObstruction
-import Order17Reflection
+module
+
+public import Order17BoundaryObstruction
+public import Order17Reflection
+meta import Order17BoundaryObstruction
+meta import Order17Reflection
+
+@[expose] public section
 
 namespace Erdos835.Order17BoundaryObstruction
 

@@ -1,6 +1,10 @@
-import PrimePowers
-import Mathlib.Data.Nat.Choose.Basic
-import Mathlib.Tactic.Ring
+module
+
+public import PrimePowers
+public import Mathlib.Data.Nat.Choose.Basic
+public import Mathlib.Tactic.Ring
+
+@[expose] public section
 
 namespace Erdos677
 

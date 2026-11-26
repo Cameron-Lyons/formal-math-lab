@@ -1,5 +1,9 @@
-import Erdos617.ColorCounts
-import Mathlib.Combinatorics.SimpleGraph.Clique
+module
+
+public import Erdos617.ColorCounts
+public import Mathlib.Combinatorics.SimpleGraph.Clique
+
+@[expose] public section
 
 namespace Erdos617
 

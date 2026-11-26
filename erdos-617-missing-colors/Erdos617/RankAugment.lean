@@ -1,6 +1,10 @@
-import Erdos617.RankBasic
-import Erdos617.RankEdges
-import Erdos617.IndependentSets
+module
+
+public import Erdos617.RankBasic
+public import Erdos617.RankEdges
+public import Erdos617.IndependentSets
+
+@[expose] public section
 
 namespace Erdos617
 

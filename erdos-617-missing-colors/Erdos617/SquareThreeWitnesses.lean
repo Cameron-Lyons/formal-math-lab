@@ -1,8 +1,12 @@
-import Erdos617.ClusterExtension
-import Erdos617.SquareTuran
-import Erdos617.SquarePaletteBudget
-import Erdos617.GlobalCliqueEnergy
-import Erdos617.OnePairMerge
+module
+
+public import Erdos617.ClusterExtension
+public import Erdos617.SquareTuran
+public import Erdos617.SquarePaletteBudget
+public import Erdos617.GlobalCliqueEnergy
+public import Erdos617.OnePairMerge
+
+@[expose] public section
 
 namespace Erdos617
 

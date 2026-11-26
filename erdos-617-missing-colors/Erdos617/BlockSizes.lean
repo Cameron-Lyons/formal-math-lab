@@ -1,6 +1,10 @@
-import Mathlib.Data.Nat.Choose.Basic
-import Mathlib.Algebra.Order.BigOperators.Group.List
-import Mathlib.Tactic.Linarith
+module
+
+public import Mathlib.Data.Nat.Choose.Basic
+public import Mathlib.Algebra.Order.BigOperators.Group.List
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 namespace Erdos617
 

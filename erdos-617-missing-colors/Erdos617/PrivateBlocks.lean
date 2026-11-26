@@ -1,5 +1,9 @@
-import Erdos617.CheapClique
-import Erdos617.CrossEdgeBudget
+module
+
+public import Erdos617.CheapClique
+public import Erdos617.CrossEdgeBudget
+
+@[expose] public section
 
 namespace Erdos617
 

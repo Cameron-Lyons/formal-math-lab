@@ -1,4 +1,8 @@
-import Erdos617.LocalCliqueEnergy
+module
+
+public import Erdos617.LocalCliqueEnergy
+
+@[expose] public section
 
 namespace Erdos617
 

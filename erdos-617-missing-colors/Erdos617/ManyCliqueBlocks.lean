@@ -1,6 +1,10 @@
-import Erdos617.BlockSizes
-import Erdos617.GreedyBlocks
-import Erdos617.RankEdges
+module
+
+public import Erdos617.BlockSizes
+public import Erdos617.GreedyBlocks
+public import Erdos617.RankEdges
+
+@[expose] public section
 
 namespace Erdos617
 

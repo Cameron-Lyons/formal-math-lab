@@ -1,6 +1,10 @@
-import Wall133.BipartiteRadiusFive
-import Wall133.EvenRadiusSix
-import Wall133.OddRadiusSix
+module
+
+public import Wall133.BipartiteRadiusFive
+public import Wall133.EvenRadiusSix
+public import Wall133.OddRadiusSix
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

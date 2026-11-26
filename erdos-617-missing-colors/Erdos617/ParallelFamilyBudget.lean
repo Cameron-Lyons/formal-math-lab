@@ -1,6 +1,10 @@
-import Erdos617.SquareEditDistance
-import Erdos617.QuadraticObstruction
-import Erdos617.DeletionRank
+module
+
+public import Erdos617.SquareEditDistance
+public import Erdos617.QuadraticObstruction
+public import Erdos617.DeletionRank
+
+@[expose] public section
 
 namespace Erdos617
 

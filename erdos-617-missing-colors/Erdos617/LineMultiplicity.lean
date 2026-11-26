@@ -1,5 +1,9 @@
-import Erdos617.SimpleLineWitness
-import Erdos617.FullCliqueEndpoints
+module
+
+public import Erdos617.SimpleLineWitness
+public import Erdos617.FullCliqueEndpoints
+
+@[expose] public section
 
 namespace Erdos617
 

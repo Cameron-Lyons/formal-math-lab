@@ -1,4 +1,8 @@
-import Wall133.BipartiteGeodesic
+module
+
+public import Wall133.BipartiteGeodesic
+
+@[expose] public section
 
 /-!
 # Growing the end away from a dense subgraph

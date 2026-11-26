@@ -1,5 +1,9 @@
-import Erdos617.BoundedDegree
-import Mathlib.Tactic.FinCases
+module
+
+public import Erdos617.BoundedDegree
+public import Mathlib.Tactic.FinCases
+
+@[expose] public section
 
 namespace Erdos617
 

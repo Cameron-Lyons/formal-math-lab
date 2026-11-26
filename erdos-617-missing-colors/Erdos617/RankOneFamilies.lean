@@ -1,5 +1,9 @@
-import Erdos617.RowDescent
-import Erdos617.QuadraticObstruction
+module
+
+public import Erdos617.RowDescent
+public import Erdos617.QuadraticObstruction
+
+@[expose] public section
 
 namespace Erdos617
 

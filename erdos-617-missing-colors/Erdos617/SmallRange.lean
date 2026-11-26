@@ -1,6 +1,10 @@
-import Erdos617.StrictHalfRange
-import Erdos617.RankObstruction
-import Mathlib.Tactic.IntervalCases
+module
+
+public import Erdos617.StrictHalfRange
+public import Erdos617.RankObstruction
+public import Mathlib.Tactic.IntervalCases
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,7 +1,11 @@
-import SixResidues
-import SixPrune
-import Mathlib.Algebra.BigOperators.Group.Finset.Powerset
-import Mathlib.Data.Nat.Factors
+module
+
+public import SixResidues
+public import SixPrune
+public import Mathlib.Algebra.BigOperators.Group.Finset.Powerset
+public import Mathlib.Data.Nat.Factors
+
+@[expose] public section
 
 namespace Erdos708Slots
 namespace FiniteCheck
@@ -32,7 +36,7 @@ theorem groups_sound {L M : ℕ} (gs : List (List ℕ))
     simpa [groupProd, groupSize] using merge hhead (ih (List.all_eq_true.mpr hrs))
 
 
-private def validGroups (M P : ℕ) (gs : List (List ℕ)) : Bool :=
+def validGroups (M P : ℕ) (gs : List (List ℕ)) : Bool :=
   groupSize gs ≤ 8 && gs.all (slotOK M 0 1) && groupProd gs % P == 0
 
 private theorem validGroups_sound {L M P : ℕ} {gs : List (List ℕ)}
@@ -40,7 +44,7 @@ private theorem validGroups_sound {L M P : ℕ} {gs : List (List ℕ)}
   simp only [validGroups, Bool.and_eq_true, decide_eq_true_eq, beq_iff_eq] at h
   exact (groups_sound gs h.1.2).mono h.1.1 (Nat.dvd_of_mod_eq_zero h.2)
 
-private def residueOK (M P : ℕ) : Bool :=
+def residueOK (M P : ℕ) : Bool :=
   (M == 18 && P == 9*10*12*15*16*18) || (M == 20 && P == 10*12*15*16*18*20)
 
 private theorem residueOK_sound {L M P : ℕ} (h : residueOK M P) : Cover L M 8 P := by
@@ -52,7 +56,7 @@ private theorem residueOK_sound {L M P : ℕ} (h : residueOK M P) : Cover L M 8 
 /-- Build a row from the last factor to the first. At step j the prefix product
 will be r/d, so the required gcd test is already known. A factor of one skips
 an unused slot. -/
-private def greedyRow (M : ℕ) (ds : List ℕ) : ℕ → ℕ → List ℕ → List ℕ
+def greedyRow (M : ℕ) (ds : List ℕ) : ℕ → ℕ → List ℕ → List ℕ
   | 0, _, acc => acc
   | j+1, r, acc =>
     if r=1 then acc else
@@ -62,7 +66,7 @@ private def greedyRow (M : ℕ) (ds : List ℕ) : ℕ → ℕ → List ℕ → L
 /-- First try to cover the whole product with one row. If necessary give each prime
 power its own row, or detach just one prime power and try every possible last
 factor for the complementary row. The resulting certificate is checked by `validGroups`. -/
-private def witness (M P : ℕ) (xs : List ℕ) : List (List ℕ) := Id.run do
+def witness (M P : ℕ) (xs : List ℕ) : List (List ℕ) := Id.run do
   let divisors := (List.range (M+1)).reverse.filter fun d => 1 < d && P%d == 0
   let whole := greedyRow M divisors 8 P []
   if whole.prod == P then return [whole]
@@ -84,7 +88,7 @@ private def witness (M P : ℕ) (xs : List ℕ) : List (List ℕ) := Id.run do
           if rest.prod == r then return [row,rest]
   return []
 
-private def check (M : ℕ) (xs : List ℕ) : Bool :=
+def check (M : ℕ) (xs : List ℕ) : Bool :=
   let P := xs.prod
   pruneSet M xs || residueOK M P || validGroups M P (witness M P xs)
 
@@ -98,7 +102,7 @@ private theorem check_sound {L M : ℕ} {xs : List ℕ} (hn : xs.Nodup)
   · rw [hp]; exact residueOK_sound h
   · rw [hp]; exact validGroups_sound h
 
-private def hardList (M : ℕ) : List ℕ :=
+def hardList (M : ℕ) : List ℕ :=
   (List.range M).filter fun a => 2 ≤ a && !(pruneElem M a)
 
 def windowCheck (M : ℕ) : Bool :=

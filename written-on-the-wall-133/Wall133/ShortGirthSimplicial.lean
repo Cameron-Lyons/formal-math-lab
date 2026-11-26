@@ -1,5 +1,9 @@
-import Wall133.ShortGirthStars
-import Wall133.ShortGirthSeven
+module
+
+public import Wall133.ShortGirthStars
+public import Wall133.ShortGirthSeven
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -83,15 +87,15 @@ private theorem cross_path (P : Chain G 3) (h4 : NoFourCycle G) {x y : V}
   have edges (i j : Fin 7) : G.Adj (f i) (f j) ↔ i.val+1=j.val ∨ j.val+1=i.val := by
     fin_cases i <;> fin_cases j <;> dsimp [f]
     all_goals first
-      | rw [P.edges (by decide) (by decide)] <;> decide
-      | rw [ab.contact _ (by decide)] <;> decide
-      | rw [az.contact _ (by decide)] <;> decide
-      | rw [ax.contact _ (by decide)] <;> decide
-      | rw [ay.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm,ab.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm,az.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm,ax.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm,ay.contact _ (by decide)] <;> decide
+      | rw [P.edges (by decide) (by decide)]; decide
+      | rw [ab.contact _ (by decide)]; decide
+      | rw [az.contact _ (by decide)]; decide
+      | rw [ax.contact _ (by decide)]; decide
+      | rw [ay.contact _ (by decide)]; decide
+      | rw [G.adj_comm,ab.contact _ (by decide)]; decide
+      | rw [G.adj_comm,az.contact _ (by decide)]; decide
+      | rw [G.adj_comm,ax.contact _ (by decide)]; decide
+      | rw [G.adj_comm,ay.contact _ (by decide)]; decide
       | simp only [SimpleGraph.irrefl,r.adj_blocked,r.adj_blocked.symm,s.adj_clean,s.adj_clean.symm,
           nby,mt Adj.symm nby,nzx,mt Adj.symm nzx,cross,mt Adj.symm cross,
           nxy,mt Adj.symm nxy,true_iff,false_iff]; decide

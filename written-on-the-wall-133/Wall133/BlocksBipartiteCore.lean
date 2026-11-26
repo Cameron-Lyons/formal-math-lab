@@ -1,5 +1,9 @@
-import Wall133.BipartiteAll
-import Wall133.LeafPruning
+module
+
+public import Wall133.BipartiteAll
+public import Wall133.LeafPruning
+
+@[expose] public section
 
 /-! # Transferring the bipartite bound to a graph with odd cycles -/
 
@@ -85,7 +89,7 @@ theorem radius_add_threshold_le_path_of_dense_bipartite_core (hc : G.Connected) 
   let H := G.induce (S : Set V)
   let : Nonempty S := hcH.nonempty
   have hf : k ≤ ⌊l H⌋₊ := Nat.le_floor (le_l_of_sum_degree c (k := k) (by
-    convert hd using 1 <;> congr 2))
+    convert hd using 1))
   have h4H : NoFourCycle H := fun _ _ _ _ hne ha hb hc hd =>
     Subtype.ext (h4 (fun he => hne (Subtype.ext he)) ha hb hc hd)
   have hp := radius_add_floor_le_path_of_bipartite hcH ⟨c⟩ h4H

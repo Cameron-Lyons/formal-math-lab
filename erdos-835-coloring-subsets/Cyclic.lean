@@ -1,5 +1,9 @@
-import Coloring
-import Cycles
+module
+
+public import Coloring
+public import Cycles
+
+@[expose] public section
 
 namespace Erdos835
 

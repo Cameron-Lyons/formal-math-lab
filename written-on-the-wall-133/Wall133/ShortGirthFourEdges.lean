@@ -1,4 +1,8 @@
-import Wall133.ShortGirthSingleTail
+module
+
+public import Wall133.ShortGirthSingleTail
+
+@[expose] public section
 namespace Wall133
 open SimpleGraph
 variable {V : Type*} [Fintype V] [DecidableEq V] {G : SimpleGraph V} [DecidableRel G.Adj]

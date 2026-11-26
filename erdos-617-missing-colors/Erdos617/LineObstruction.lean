@@ -1,6 +1,10 @@
-import Erdos617.DoubleCoverBound
-import Erdos617.ObstructionBounds
-import Erdos617.MatchingCertificate
+module
+
+public import Erdos617.DoubleCoverBound
+public import Erdos617.ObstructionBounds
+public import Erdos617.MatchingCertificate
+
+@[expose] public section
 
 namespace Erdos617
 

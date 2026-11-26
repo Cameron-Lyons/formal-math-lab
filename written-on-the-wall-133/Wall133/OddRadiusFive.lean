@@ -1,5 +1,9 @@
-import Wall133.OddThree
-import Wall133.EndpointContact
+module
+
+public import Wall133.OddThree
+public import Wall133.EndpointContact
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -180,7 +184,7 @@ theorem singleDetour (P : Chain G n) (c : G.Coloring (Fin 2)) (h4 : NoFourCycle 
   refine ⟨R, ?_, hY, ?_⟩
   · change (if n-1+2 < u then _ else _) = _
     simp only [show ¬n-1+2 < u by omega, show ¬n-1+2 = u by omega,
-      show ¬n-1+2 = u+1 by omega, show ¬n-1+2 = u+2 by omega, if_false]
+      show ¬n-1+2 = u+1 by omega, show ¬n-1+2 = u+2 by omega, ite_false]
     change P.vertex (n-1+2-2+1) = P.vertex n
     congr 1
     omega
@@ -217,7 +221,7 @@ theorem twoDetours (P : Chain G n) (c : G.Coloring (Fin 2)) (h4 : NoFourCycle G)
   rw [cast_vertex eq F]
   change (if n+3 < v+2 then _ else _) = _
   simp only [show ¬n+3 < v+2 by omega, show ¬n+3 = v+2 by omega,
-    show ¬n+3 = v+2+1 by omega, show ¬n+3 = v+2+2 by omega, if_false]
+    show ¬n+3 = v+2+1 by omega, show ¬n+3 = v+2+2 by omega, ite_false]
   convert hR using 2
   omega
 

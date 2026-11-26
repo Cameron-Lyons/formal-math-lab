@@ -1,4 +1,8 @@
-import Wall133.ShortGirthFifthData
+module
+
+public import Wall133.ShortGirthFifthData
+
+@[expose] public section
 
 namespace Wall133.FifthCertificate
 open SimpleGraph

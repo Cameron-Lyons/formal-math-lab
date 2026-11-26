@@ -1,4 +1,8 @@
-import Erdos617.SquareFourWitnesses
+module
+
+public import Erdos617.SquareFourWitnesses
+
+@[expose] public section
 
 namespace Erdos617
 

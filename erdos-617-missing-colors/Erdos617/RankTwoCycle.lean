@@ -1,5 +1,9 @@
-import Erdos617.NestedObstruction
-import Mathlib.Combinatorics.SimpleGraph.Coloring.Constructions
+module
+
+public import Erdos617.NestedObstruction
+public import Mathlib.Combinatorics.SimpleGraph.Coloring.Constructions
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -44,10 +48,11 @@ private theorem shortest_cycle {G : SimpleGraph V} (hb : ¬ G.Colorable 2) :
     ∃ n : ℕ, Odd n ∧ 3 ≤ n ∧ Nonempty (cycleGraph n ↪g G) := by
   classical
   have hloop : ∃ n : ℕ, ∃ (u : V) (p : G.Walk u u), p.length=n ∧ Odd n := by
-    rw [two_colorable_iff_forall_loop_even] at hb
+    change ¬ G.IsBipartite at hb
+    rw [isBipartite_iff_forall_walk_even_length] at hb
     push Not at hb
     obtain ⟨u,p,h⟩ := hb
-    exact ⟨_,u,p,rfl,Nat.not_even_iff_odd.mp h⟩
+    exact ⟨_,u,p,rfl,h⟩
   obtain ⟨u,p,hp,ho⟩ := Nat.find_spec hloop
   rw [← hp] at ho
   have hmin : ∀ v (q : G.Walk v v), q.length<p.length → Even q.length := by
@@ -89,7 +94,7 @@ private theorem shortest_cycle {G : SimpleGraph V} (hb : ¬ G.Colorable 2) :
   have hij' : i.val < j.val := hij
   constructor
   · intro hadj
-    by_contra! hn
+    by_contra hn
     simp only [cycleNeighbors, not_or, not_and] at hn
     let e : G.Walk (p.getVert i) (p.getVert j) := .cons hadj .nil
     have he : e.length=1 := rfl
@@ -214,7 +219,7 @@ theorem RankProductObstruction.minimal_nonbipartite_of_rank_two
     rw [h₂] at hlo
     omega
   · intro A hA
-    by_contra! hc
+    by_contra hc
     exact (Finset.ssubset_iff_subset_ne.mp hA).2 (obstruction_cycle h h₂ hA.le hc).1
 
 /-- The first graph of a rank-product obstruction whose second rank is two

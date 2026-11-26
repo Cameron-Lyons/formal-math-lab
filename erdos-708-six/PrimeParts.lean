@@ -1,7 +1,11 @@
-import Slots
-import Mathlib.Algebra.GCDMonoid.Nat
-import Mathlib.Data.Nat.Prime.Basic
-import Mathlib.RingTheory.Coprime.Lemmas
+module
+
+public import Slots
+public import Mathlib.Algebra.GCDMonoid.Nat
+public import Mathlib.Data.Nat.Prime.Basic
+public import Mathlib.RingTheory.Coprime.Lemmas
+
+@[expose] public section
 
 namespace Erdos708Slots
 

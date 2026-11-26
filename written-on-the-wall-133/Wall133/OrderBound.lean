@@ -1,4 +1,8 @@
-import Wall133.DiameterTwoDensity
+module
+
+public import Wall133.DiameterTwoDensity
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

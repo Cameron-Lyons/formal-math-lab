@@ -1,5 +1,9 @@
-import Wall133.NeighborhoodTriangles
-import Wall133.Girth
+module
+
+public import Wall133.NeighborhoodTriangles
+public import Wall133.Girth
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

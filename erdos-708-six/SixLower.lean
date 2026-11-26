@@ -1,4 +1,8 @@
-import Erdos708Statement
+module
+
+public import Erdos708Statement
+
+@[expose] public section
 
 namespace SixLower
 
@@ -6,7 +10,7 @@ def originals : Finset ℕ := {13*19, 13*23, 17*19, 17*23, 19*19, 19*23}
 abbrev center : ℕ := 2*13*17*19^2*23
 abbrev start := center - 218
 abbrev window := Finset.Ico start (start + 437)
-private abbrev target := ∏ a ∈ originals, a
+abbrev target := ∏ a ∈ originals, a
 
 /-- If each chosen site supplies a gcd at most C, k sites supply at most C^k. -/
 private theorem gcd_bound (d C : ℕ) (hd : 0 < d) (B : Finset ℕ)

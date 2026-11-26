@@ -1,6 +1,10 @@
-import Erdos617.BlockEdgeBound
-import Erdos617.ColorCounts
-import Erdos617.PaletteMatching
+module
+
+public import Erdos617.BlockEdgeBound
+public import Erdos617.ColorCounts
+public import Erdos617.PaletteMatching
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,5 +1,9 @@
-import Wall133.OddFourSix
-import Wall133.OddSmallSix
+module
+
+public import Wall133.OddFourSix
+public import Wall133.OddSmallSix
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

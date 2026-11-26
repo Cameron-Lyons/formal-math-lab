@@ -1,5 +1,9 @@
-import Erdos617.FullCliquePropagation
-import Erdos617.GlobalCliqueEnergy
+module
+
+public import Erdos617.FullCliquePropagation
+public import Erdos617.GlobalCliqueEnergy
+
+@[expose] public section
 
 namespace Erdos617
 

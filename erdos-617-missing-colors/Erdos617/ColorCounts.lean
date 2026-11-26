@@ -1,8 +1,12 @@
-import Erdos617.ColorGraph
-import Mathlib.Combinatorics.SimpleGraph.Extremal.Turan
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Ring
-import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+module
+
+public import Erdos617.ColorGraph
+public import Mathlib.Combinatorics.SimpleGraph.Extremal.Turan
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.Ring
+public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,6 +1,10 @@
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-import Mathlib.Order.Interval.Finset.Nat
-import Mathlib.Data.Nat.GCD.Basic
+module
+
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Order.Interval.Finset.Nat
+public import Mathlib.Data.Nat.GCD.Basic
+
+@[expose] public section
 
 /-! Extending an interval product cover, including when the new modulus already divides
 an occupied site. The latter argument is the cumulative-gcd step in C. Bergström,

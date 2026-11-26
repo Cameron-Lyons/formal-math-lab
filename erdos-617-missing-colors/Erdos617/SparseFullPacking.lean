@@ -1,5 +1,9 @@
-import Erdos617.GlobalCliqueEnergy
-import Erdos617.PaletteNormalization
+module
+
+public import Erdos617.GlobalCliqueEnergy
+public import Erdos617.PaletteNormalization
+
+@[expose] public section
 
 namespace Erdos617
 

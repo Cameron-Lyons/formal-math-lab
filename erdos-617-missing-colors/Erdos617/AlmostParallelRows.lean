@@ -1,8 +1,12 @@
-import Erdos617.ThreeIndependent
-import Erdos617.ParallelRows
-import Erdos617.ParallelTailDegree
-import Erdos617.ParallelFamilyBudget
-import Erdos617.VerifiedRange
+module
+
+public import Erdos617.ThreeIndependent
+public import Erdos617.ParallelRows
+public import Erdos617.ParallelTailDegree
+public import Erdos617.ParallelFamilyBudget
+public import Erdos617.VerifiedRange
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -119,7 +123,7 @@ theorem missing_of_all_but_two_parallel_rows {V : Type*} [Fintype V] [DecidableE
   obtain ⟨A,sub,ind⟩ := independent_three_in_subset hr c hb k T sizeT
   have cross := parallel_family_cross_floor c k hb (q:=2) (by omega) R full dis A ind
     (fun i => (off i).mono_left sub)
-  have univ_eq : T∪Y=univ := by ext v; by_cases inside : v∈Y <;> simp [T,inside]
+  have univ_eq : T∪Y=univ := by ext v; simp [T]
   have floor := parallel_rows_with_tail_floor (colorGraph c k) R full dis cross T disjoint_compl_left
     univ_eq (parallel_two_tail_degree (by omega : 11≤r) hb k R full dis T sizeT off)
   rw [sizeT,show r-2-1=r-3 by omega] at floor

@@ -1,4 +1,8 @@
-import Erdos617.LowCostSet
+module
+
+public import Erdos617.LowCostSet
+
+@[expose] public section
 
 namespace Erdos617
 

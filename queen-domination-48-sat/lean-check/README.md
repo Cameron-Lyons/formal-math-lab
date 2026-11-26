@@ -13,7 +13,7 @@ which is the hypothesis of the theorem proved in `../Queens48`
 Neither the Python encoder `enc.py`, nor the case list of `geom.py`, nor the records of the SAT run
 are read: the only input is the directory of certificates.
 
-Package `QueenDomCheck`, Lean 4.35.0 (`lean-toolchain`), no Mathlib; the only dependency is the
+Package `QueenDomCheck`, Lean 4.36.0 (`lean-toolchain`), no Mathlib; the only dependency is the
 Mathlib-free package `../lean-sat` (`QueenDomSat`: encoder, case list).
 
 ## Result for (n, k) = (48, 24)

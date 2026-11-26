@@ -1,8 +1,12 @@
-import Wall133.UnitResolution
+module
+
+public import Wall133.UnitResolution
+
+@[expose] public section
 
 namespace Wall133.FourthCertificate
 
-open Std.Sat
+open UnitResolution
 
 /-- Clauses for the labelled graph, followed in the proof database by the
 consequences established using the explicit unit-propagation witnesses. -/

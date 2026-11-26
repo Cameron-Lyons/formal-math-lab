@@ -1,5 +1,9 @@
-import PrimePowers
-import Mathlib.Data.Nat.ModEq
+module
+
+public import PrimePowers
+public import Mathlib.Data.Nat.ModEq
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

@@ -1,5 +1,9 @@
-import Wall133.ShortGirthOptions
-import Wall133.FiveCycle
+module
+
+public import Wall133.ShortGirthOptions
+public import Wall133.FiveCycle
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -90,15 +94,15 @@ private theorem path_of_two_private (P : Chain G 4) (h4 : NoFourCycle G)
   have edges (i j : Fin 7) : G.Adj (f i) (f j) ↔ i.val+1=j.val ∨ j.val+1=i.val := by
     fin_cases i <;> fin_cases j <;> dsimp [f]
     all_goals first
-      | rw [P.edges (by decide) (by decide)] <;> decide
-      | rw [hb.contact _ (by decide)] <;> decide
-      | rw [hc.contact _ (by decide)] <;> decide
-      | rw [ax.contact _ (by decide)] <;> decide
-      | rw [ay.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm, hb.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm, hc.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm, ax.contact _ (by decide)] <;> decide
-      | rw [G.adj_comm, ay.contact _ (by decide)] <;> decide
+      | rw [P.edges (by decide) (by decide)]; decide
+      | rw [hb.contact _ (by decide)]; decide
+      | rw [hc.contact _ (by decide)]; decide
+      | rw [ax.contact _ (by decide)]; decide
+      | rw [ay.contact _ (by decide)]; decide
+      | rw [G.adj_comm, hb.contact _ (by decide)]; decide
+      | rw [G.adj_comm, hc.contact _ (by decide)]; decide
+      | rw [G.adj_comm, ax.contact _ (by decide)]; decide
+      | rw [G.adj_comm, ay.contact _ (by decide)]; decide
       | simp only [SimpleGraph.irrefl,hxb,hxb.symm,hyc,hyc.symm,hby,mt Adj.symm hby,hcx,mt Adj.symm hcx,
           hbc,mt Adj.symm hbc,nxy,mt Adj.symm nxy,true_iff,false_iff]; decide
   apply path_bound_of_indices f _ edges

@@ -12,7 +12,7 @@ In September 2026, Formal Conjectures reinterpreted the source brackets as group
 | Problem | Written on the Wall II, Graph Conjecture 133 (`WOWII #133`, `Graffiti.pc #133`), floored formulation $p \ge r + \lfloor l(G) \rfloor$ |
 | Status | Proved for all connected graphs with $|V(G)| \le 29$, all graphs with $\lfloor l(G) \rfloor \le 4$, and all connected bipartite, regular, or diameter $\le 2$ graphs. First open case has $k = 5$, girth 3 or 5, and at least 30 vertices. |
 | Main theorems | `Wall133.floored_of_order_le_29`, `floored_of_floor_le_four`, `floored_of_bipartite`, `floored_of_regular`, `floored_of_diameter_le_two`, `eight_le_path_of_five_le_average`, `remaining_fifth_band` in [Wall133.lean](Wall133.lean) |
-| Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker -v Wall133` (Lean and mathlib 4.33.1; all 110 modules kernel-verified) |
+| Verification | `lake exe cache get && lake build && lake env leanchecker --fresh Wall133` (Lean and mathlib 4.36.0; all 110 modules kernel-verified) |
 | Prior art | Checked 24 November 2026: Haoyu Chen previously treated $C_4$-containing graphs and floors through 2 (with restrictions at 3), and Kuber Mehta treated special classes; priority of the stronger local bounds ($\le 29$ vertices, floor $\le 4$, bipartite/regular) is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#written-on-the-wall-ii-graph-conjecture-133). |
 
 ## What Lean proves
@@ -33,12 +33,12 @@ A counterexample must have a vertex whose neighborhood independence is strictly 
 
 ## Reproduce
 
-Run from this directory with the pinned Lean 4.33.1 toolchain. Lake builds all 110 modules (including the finite path certificates), and `leanchecker` replays them in the Lean kernel:
+Run from this directory with the pinned Lean 4.36.0 toolchain. Lake builds all 110 modules (including the finite path certificates), and `leanchecker` replays them in the Lean kernel:
 
 ```sh
 lake exe cache get
 lake build
-LEAN_NUM_THREADS=1 lake env leanchecker -v Wall133
+lake env leanchecker --fresh Wall133
 ```
 
 ## References and attribution

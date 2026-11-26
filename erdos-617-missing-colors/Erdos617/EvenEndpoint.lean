@@ -1,5 +1,9 @@
-import Erdos617.OddEndpoint
-import Erdos617.RankIntersection
+module
+
+public import Erdos617.OddEndpoint
+public import Erdos617.RankIntersection
+
+@[expose] public section
 
 namespace Erdos617
 

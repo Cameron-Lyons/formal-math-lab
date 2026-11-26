@@ -1,5 +1,9 @@
-import Erdos617.LineWitness
-import Erdos617.LineEdgeCount
+module
+
+public import Erdos617.LineWitness
+public import Erdos617.LineEdgeCount
+
+@[expose] public section
 
 namespace Erdos617
 

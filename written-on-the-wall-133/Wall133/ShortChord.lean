@@ -1,4 +1,8 @@
-import Wall133.OddRadiusFive
+module
+
+public import Wall133.OddRadiusFive
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -35,14 +39,15 @@ theorem short_chord_detour (P : Chain G 14) (c : G.Coloring (Fin 2)) {t : ℕ}
       G.Adj (f i) (f j) ↔ i+1=j ∨ j+1=i := by
     dsimp [f]; split_ifs
     all_goals first
-      | rw [P.edges (by omega) (by omega)] <;> omega
+      | exact P.edges (by omega) (by omega)
+      | rw [P.edges (by omega) (by omega)]; omega
       | rw [ha.contact _ (by omega)]; omega
       | rw [hb.contact _ (by omega)]; omega
-      | rw [hz.contact _ (by omega)] <;> simp only [false_iff] <;> omega
+      | rw [hz.contact _ (by omega)]; simp only [false_iff]; omega
       | rw [hg.contact _ (by omega)]; omega
       | rw [back ha _ (by omega)]; omega
       | rw [back hb _ (by omega)]; omega
-      | rw [back hz _ (by omega)] <;> simp only [false_iff] <;> omega
+      | rw [back hz _ (by omega)]; simp only [false_iff]; omega
       | rw [back hg _ (by omega)]; omega
       | simp only [SimpleGraph.irrefl,hza,hza.symm,hzb,hzb.symm,hzg,mt Adj.symm hzg,
           hc₁,mt Adj.symm hc₁,hc₂,mt Adj.symm hc₂,hc₃,mt Adj.symm hc₃,true_iff,false_iff]; omega

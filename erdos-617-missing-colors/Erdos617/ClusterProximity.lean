@@ -1,6 +1,10 @@
-import Erdos617.MinimalObstruction
-import Erdos617.SparseTransversal
-import Mathlib.Data.Nat.Sqrt
+module
+
+public import Erdos617.MinimalObstruction
+public import Erdos617.SparseTransversal
+public import Mathlib.Data.Nat.Sqrt
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,5 +1,9 @@
-import Mathlib.Data.Fintype.Card
-import Mathlib.Data.Finset.Card
+module
+
+public import Mathlib.Data.Fintype.Card
+public import Mathlib.Data.Finset.Card
+
+@[expose] public section
 
 /-!
 Equation 17260: structural consequences, without any associativity or cancellation

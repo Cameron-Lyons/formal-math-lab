@@ -1,6 +1,10 @@
-import Mathlib.Combinatorics.SimpleGraph.DegreeSum
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
-import Mathlib.Tactic.Linarith
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 namespace Erdos617
 

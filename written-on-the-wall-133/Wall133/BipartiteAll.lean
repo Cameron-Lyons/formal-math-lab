@@ -1,5 +1,9 @@
-import Wall133.ExactRotation
-import Wall133.CoreIncidence
+module
+
+public import Wall133.ExactRotation
+public import Wall133.CoreIncidence
+
+@[expose] public section
 
 /-!
 # The floored conjecture for connected bipartite graphs

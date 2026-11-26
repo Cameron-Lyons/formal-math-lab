@@ -1,6 +1,10 @@
-import Wall133.ShortGirthExceptions
-import Wall133.ShortGirthFour
-import Wall133.RegularAll
+module
+
+public import Wall133.ShortGirthExceptions
+public import Wall133.ShortGirthFour
+public import Wall133.RegularAll
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

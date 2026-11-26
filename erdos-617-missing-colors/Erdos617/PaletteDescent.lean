@@ -1,5 +1,9 @@
-import Erdos617.NestedObstruction
-import Erdos617.ForeignTotalBudget
+module
+
+public import Erdos617.NestedObstruction
+public import Erdos617.ForeignTotalBudget
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,4 +1,8 @@
-import Wall133.TriangleCycles
+module
+
+public import Wall133.TriangleCycles
+
+@[expose] public section
 
 namespace Wall133
 

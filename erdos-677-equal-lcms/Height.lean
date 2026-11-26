@@ -1,10 +1,15 @@
-import FixedLength
-import Initial
-import LineCheck
-import SlopeChoices
-import Wedge
-import Mathlib.Tactic.Eval
-import Mathlib.Tactic.FinCases
+module
+
+public import FixedLength
+public import Initial
+public import LineCheck
+public import SlopeChoices
+meta import SlopeChoices
+public import Wedge
+public import Mathlib.Tactic.Eval
+public import Mathlib.Tactic.FinCases
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

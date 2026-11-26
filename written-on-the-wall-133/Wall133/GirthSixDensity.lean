@@ -1,6 +1,10 @@
-import Wall133.GirthSixGeodesic
-import Wall133.GirthSixHigh
-import Wall133.Bipartite
+module
+
+public import Wall133.GirthSixGeodesic
+public import Wall133.GirthSixHigh
+public import Wall133.Bipartite
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

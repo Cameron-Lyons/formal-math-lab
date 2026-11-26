@@ -1,12 +1,16 @@
-import certificates.Order17Partial20
-import Mathlib.Data.List.Nodup
-import Mathlib.Data.Nat.Choose.Basic
+module
+
+public import certificates.Order17Partial20
+public import Mathlib.Data.List.Nodup
+public import Mathlib.Data.Nat.Choose.Basic
+
+@[expose] public section
 
 namespace Erdos835.Order17Packings
 
 open Order17Partial20
 
-private def literal (src : String) : Lean.Elab.Term.TermElabM Lean.Expr := do
+private meta def literal (src : String) : Lean.Elab.Term.TermElabM Lean.Expr := do
   let data ← Lean.ofExcept ((Lean.Json.parse src).bind (Lean.fromJson? (α := List (List Nat))))
   return Lean.toExpr data
 

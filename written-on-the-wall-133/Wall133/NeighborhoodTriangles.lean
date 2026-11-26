@@ -1,5 +1,9 @@
-import Wall133.Basic
-import Mathlib.Combinatorics.SimpleGraph.Bipartite
+module
+
+public import Wall133.Basic
+public import Mathlib.Combinatorics.SimpleGraph.Bipartite
+
+@[expose] public section
 
 /-! # Independence inside a four-cycle-free neighborhood -/
 namespace Wall133

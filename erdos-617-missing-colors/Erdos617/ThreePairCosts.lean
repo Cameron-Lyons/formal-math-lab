@@ -1,4 +1,8 @@
-import Erdos617.SevenPairs
+module
+
+public import Erdos617.SevenPairs
+
+@[expose] public section
 
 namespace Erdos617
 

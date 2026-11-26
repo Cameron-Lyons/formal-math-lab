@@ -1,5 +1,10 @@
-import Mathlib.Combinatorics.SimpleGraph.Tutte
-import Mathlib.Data.Finset.Sum
+module
+
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Combinatorics.SimpleGraph.Tutte
+public import Mathlib.Data.Finset.Sum
+
+@[expose] public section
 
 namespace Erdos617
 

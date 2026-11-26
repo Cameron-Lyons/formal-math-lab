@@ -1,5 +1,9 @@
-import Erdos617.MatchingShell
-import Erdos617.MinimumDegreeRange
+module
+
+public import Erdos617.MatchingShell
+public import Erdos617.MinimumDegreeRange
+
+@[expose] public section
 
 namespace Erdos617
 

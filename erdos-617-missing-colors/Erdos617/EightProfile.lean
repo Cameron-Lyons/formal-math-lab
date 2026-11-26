@@ -1,5 +1,9 @@
-import Erdos617.DeletionRank
-import Erdos617.LocalPaletteEnergy
+module
+
+public import Erdos617.DeletionRank
+public import Erdos617.LocalPaletteEnergy
+
+@[expose] public section
 
 namespace Erdos617
 

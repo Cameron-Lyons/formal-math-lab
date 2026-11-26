@@ -9,7 +9,7 @@ The Lean 4 proofs here rule out every regular abelian symmetry group of order 32
 | Problem | Erdős Problem #835 (`erdosproblems.com/835`) at $k = 16$ (32 points, 17 colors, Steiner system $S(15, 16, 32)$), `FormalConjectures/ErdosProblems/835.lean` |
 | Status | Partial results (symmetry obstructions). Existence at $k = 16$ and in general remains open. |
 | Main theorems | `Erdos835.no_regular_abelian_symmetry`, `involution_moves_at_least_thirty`, `no_order11_or_13`, `IsSteinerSystem.no_order11_or_13`, `TwentyPoint.order17_requires_concrete_seed` |
-| Verification | `lake exe cache get && lake build` (Lean 4.35.0-rc2 + mathlib; core symmetry theorems are kernel-checked, two order-17 SAT/LRAT sub-results use `native_decide`) |
+| Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib; core symmetry theorems are kernel-checked, two order-17 SAT/LRAT sub-results use `native_decide`) |
 | Prior art | Checked 23 November 2026: earlier work excludes prime orders 19, 23, 29, 31 and two groups on a single Steiner system, and Kolotoğlu and Magliveras (2014) imply the order-11 and single 13-cycle cases. See [Relation to earlier work](#relation-to-earlier-work) and [PRIOR_ART.md](../PRIOR_ART.md#erdős-835-coloring-subsets). |
 
 ## Main symmetry exclusions in Lean
@@ -72,7 +72,7 @@ Generate the full 20-point SAT instance (4,845 variables, 1,140 triple constrain
 
 ## Verification
 
-Lean and mathlib are pinned to 4.35.0-rc2. From this directory, run:
+Lean and mathlib are pinned to 4.36.0. From this directory, run:
 
 ```sh
 lake exe cache get

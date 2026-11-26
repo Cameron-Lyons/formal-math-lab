@@ -1,5 +1,9 @@
-import Erdos617.IndependentSets
-import Mathlib.Data.Fintype.EquivFin
+module
+
+public import Erdos617.IndependentSets
+public import Mathlib.Data.Fintype.EquivFin
+
+@[expose] public section
 
 namespace Erdos617
 

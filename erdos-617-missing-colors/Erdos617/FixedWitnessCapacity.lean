@@ -1,4 +1,8 @@
-import Erdos617.ExteriorPairCounts
+module
+
+public import Erdos617.ExteriorPairCounts
+
+@[expose] public section
 
 namespace Erdos617
 

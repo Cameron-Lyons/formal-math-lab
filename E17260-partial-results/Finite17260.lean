@@ -1,5 +1,9 @@
-import Equation17260
-import Mathlib.Data.Fintype.BigOperators
+module
+
+public import Equation17260
+public import Mathlib.Data.Fintype.BigOperators
+
+@[expose] public section
 
 namespace Equation17260
 

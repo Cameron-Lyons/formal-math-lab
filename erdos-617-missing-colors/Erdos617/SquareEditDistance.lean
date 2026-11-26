@@ -1,7 +1,11 @@
-import Erdos617.DeepSquareBudget
-import Erdos617.SquareTuran
-import Erdos617.QuadraticObstruction
-import Erdos617.SparseFullPacking
+module
+
+public import Erdos617.DeepSquareBudget
+public import Erdos617.SquareTuran
+public import Erdos617.QuadraticObstruction
+public import Erdos617.SparseFullPacking
+
+@[expose] public section
 
 namespace Erdos617
 

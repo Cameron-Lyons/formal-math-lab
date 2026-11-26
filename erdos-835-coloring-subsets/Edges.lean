@@ -1,4 +1,8 @@
-import Mathlib.Combinatorics.SimpleGraph.Matching
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Matching
+
+@[expose] public section
 
 namespace Erdos835
 

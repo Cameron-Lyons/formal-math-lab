@@ -1,4 +1,8 @@
-import Erdos617.OddBags
+module
+
+public import Erdos617.OddBags
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,7 +1,11 @@
-import Erdos617.DoubleCover
-import Erdos617.DoubleCoverParity
-import Erdos617.DoubleCoverStarSum
-import Erdos617.DoubleCoverTriangles
+module
+
+public import Erdos617.DoubleCover
+public import Erdos617.DoubleCoverParity
+public import Erdos617.DoubleCoverStarSum
+public import Erdos617.DoubleCoverTriangles
+
+@[expose] public section
 
 namespace Erdos617
 

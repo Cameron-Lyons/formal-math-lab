@@ -2,10 +2,18 @@ name = "intervalProductsSix"
 version = "0.1.0"
 defaultTargets = ["IntervalProductsSix"]
 
+[leanOptions]
+warningAsError = true
+
 [[require]]
 name = "erdos708_finite_palomar"
 git = "https://github.com/jjtripodo-lgtm/erdos-708-g4-g5"
-rev = "00fbb23c3084daa88ea420aa9c74177127d5283f"
+rev = "af658b33f0e94f0d11088fd5d07b12af41e1e760"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.36.0"
 
 [[lean_lib]]
 name = "IntervalProductsSix"

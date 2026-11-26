@@ -1,4 +1,8 @@
-import Wall133.GirthSixSharp
+module
+
+public import Wall133.GirthSixSharp
+
+@[expose] public section
 
 /-! # Extending both ends at girth six
 

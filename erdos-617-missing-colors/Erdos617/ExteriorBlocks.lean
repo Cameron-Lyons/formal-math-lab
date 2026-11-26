@@ -1,6 +1,10 @@
-import Erdos617.ClusterExtension
-import Erdos617.OddPrivateRows
-import Erdos617.RankBasic
+module
+
+public import Erdos617.ClusterExtension
+public import Erdos617.OddPrivateRows
+public import Erdos617.RankBasic
+
+@[expose] public section
 
 namespace Erdos617
 

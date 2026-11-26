@@ -1,5 +1,9 @@
-import Erdos617.SquareThreeWitnesses
-import Erdos617.RowDescent
+module
+
+public import Erdos617.SquareThreeWitnesses
+public import Erdos617.RowDescent
+
+@[expose] public section
 
 namespace Erdos617
 

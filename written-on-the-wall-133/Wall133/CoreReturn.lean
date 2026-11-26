@@ -1,5 +1,9 @@
-import Wall133.CoreExterior
-import Wall133.BipartiteRadiusSix
+module
+
+public import Wall133.CoreExterior
+public import Wall133.BipartiteRadiusSix
+
+@[expose] public section
 
 /-! # Reaching the dense subgraph from the opposite end of a geodesic
 

@@ -1,4 +1,8 @@
-import Wall133.RadiusFive
+module
+
+public import Wall133.RadiusFive
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

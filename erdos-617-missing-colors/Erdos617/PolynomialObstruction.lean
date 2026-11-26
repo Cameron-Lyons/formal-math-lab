@@ -1,7 +1,11 @@
-import Erdos617.ClusterCapacity
-import Erdos617.ClusterProximity
-import Erdos617.PrivateBlocks
-import Erdos617.StrictHalfRange
+module
+
+public import Erdos617.ClusterCapacity
+public import Erdos617.ClusterProximity
+public import Erdos617.PrivateBlocks
+public import Erdos617.StrictHalfRange
+
+@[expose] public section
 
 namespace Erdos617
 

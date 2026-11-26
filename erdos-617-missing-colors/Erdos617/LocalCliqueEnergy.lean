@@ -1,7 +1,11 @@
-import Erdos617.LocalCliqueWeights
-import Erdos617.SimplexEnergy
-import Mathlib.Algebra.Field.Basic
-import Mathlib.Tactic.FieldSimp
+module
+
+public import Erdos617.LocalCliqueWeights
+public import Erdos617.SimplexEnergy
+public import Mathlib.Algebra.Field.Basic
+public import Mathlib.Tactic.FieldSimp
+
+@[expose] public section
 
 /-!
 The local clique quadratic inequality below is Theorem 2.2 of

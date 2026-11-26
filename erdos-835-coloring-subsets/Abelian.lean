@@ -1,5 +1,9 @@
-import PaletteBound
-import TranslationGroup
+module
+
+public import PaletteBound
+public import TranslationGroup
+
+@[expose] public section
 
 namespace Erdos835
 

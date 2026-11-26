@@ -1,9 +1,13 @@
-import Mathlib.Tactic.GCongr
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Ring
-import Mathlib.Algebra.Order.Ring.Int
-import Mathlib.Algebra.Order.Ring.Nat
+module
+
+public import Mathlib.Tactic.GCongr
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.Ring
+public import Mathlib.Algebra.Order.Ring.Int
+public import Mathlib.Algebra.Order.Ring.Nat
+
+@[expose] public section
 
 namespace Erdos677
 

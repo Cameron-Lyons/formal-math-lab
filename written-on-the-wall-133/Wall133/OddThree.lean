@@ -1,4 +1,8 @@
-import Wall133.RadiusFive
+module
+
+public import Wall133.RadiusFive
+
+@[expose] public section
 
 /-!
 # The degree-three endpoint switch

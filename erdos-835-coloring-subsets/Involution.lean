@@ -1,7 +1,11 @@
-import Coloring
-import Mathlib.GroupTheory.Perm.Support
-import Mathlib.Dynamics.FixedPoints.Defs
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Coloring
+public import Mathlib.GroupTheory.Perm.Support
+public import Mathlib.Dynamics.FixedPoints.Defs
+public import Mathlib.GroupTheory.OrderOfElement
+
+@[expose] public section
 
 namespace Erdos835
 

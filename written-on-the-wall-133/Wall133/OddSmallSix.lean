@@ -1,4 +1,8 @@
-import Wall133.OddLastDetour
+module
+
+public import Wall133.OddLastDetour
+
+@[expose] public section
 
 /-!
 # Two detours near the end of an odd path

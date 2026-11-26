@@ -1,5 +1,9 @@
-import Erdos617.SquareFourWitnesses
-import Erdos617.TwoLineExcess
+module
+
+public import Erdos617.SquareFourWitnesses
+public import Erdos617.TwoLineExcess
+
+@[expose] public section
 
 namespace Erdos617
 

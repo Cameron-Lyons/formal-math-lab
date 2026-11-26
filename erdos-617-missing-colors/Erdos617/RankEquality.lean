@@ -1,5 +1,9 @@
-import Erdos617.RankDensity
-import Erdos617.ColorCounts
+module
+
+public import Erdos617.RankDensity
+public import Erdos617.ColorCounts
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -114,7 +118,7 @@ private theorem tight_cliques (G : SimpleGraph V) [DecidableRel G.Adj]
     (∀ z, ∃ C ⊆ S.erase z, G.IsNClique d C) ∧ (1 < rankOn G S → TwoCliques G S d) := by
   classical
   induction en : S.card using Nat.strong_induction_on generalizing G S with
-  | h n ih =>
+  | ind n ih =>
     subst n
     by_cases one : rankOn G S = 1
     · refine ⟨fun z => ?_, by omega⟩

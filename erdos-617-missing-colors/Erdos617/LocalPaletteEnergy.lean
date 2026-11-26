@@ -1,5 +1,9 @@
-import Erdos617.LocalCliqueEnergy
-import Erdos617.NestedObstruction
+module
+
+public import Erdos617.LocalCliqueEnergy
+public import Erdos617.NestedObstruction
+
+@[expose] public section
 
 namespace Erdos617
 

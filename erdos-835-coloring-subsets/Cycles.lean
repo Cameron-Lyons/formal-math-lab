@@ -1,4 +1,8 @@
-import Mathlib.GroupTheory.Perm.Cycle.Type
+module
+
+public import Mathlib.GroupTheory.Perm.Cycle.Type
+
+@[expose] public section
 
 namespace Erdos835
 

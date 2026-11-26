@@ -1,6 +1,10 @@
-import Wall133.SixProfiles
-import Wall133.SixRowStalls
-import Wall133.ShortChord
+module
+
+public import Wall133.SixProfiles
+public import Wall133.SixRowStalls
+public import Wall133.ShortChord
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

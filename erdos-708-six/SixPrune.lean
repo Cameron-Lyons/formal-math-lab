@@ -1,10 +1,14 @@
-import SixGroups
+module
+
+public import SixGroups
+
+@[expose] public section
 
 namespace Erdos708Slots.FiniteCheck
 open IntervalSix
 
-private def allBig : List ℕ := [11,13,17,19,23,29,31,37,41,43,47,53,59,61,67]
-private def possibleShared : List ℕ := [11,13,17,19,23]
+def allBig : List ℕ := [11,13,17,19,23,29,31,37,41,43,47,53,59,61,67]
+def possibleShared : List ℕ := [11,13,17,19,23]
 
 private theorem primes_valid : (∀ p ∈ allBig, p.Prime ∧ 11 ≤ p) ∧
     (∀ p ∈ possibleShared, p.Prime ∧ 11 ≤ p) := by decide

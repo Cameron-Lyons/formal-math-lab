@@ -1,5 +1,9 @@
-import Order17Reflection
-import Mathlib.Data.Finset.Preimage
+module
+
+public import Order17Reflection
+public import Mathlib.Data.Finset.Preimage
+
+@[expose] public section
 
 namespace Erdos835.TwentyPoint
 

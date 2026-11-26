@@ -1,5 +1,9 @@
-import BlockLCM.CubeRootTwo
-import BlockLCM.Defect
+module
+
+public import BlockLCM.CubeRootTwo
+public import BlockLCM.Defect
+
+@[expose] public section
 
 /-!
 # Length three

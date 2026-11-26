@@ -1,4 +1,8 @@
-import Wall133.ShortGirthStars
+module
+
+public import Wall133.ShortGirthStars
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

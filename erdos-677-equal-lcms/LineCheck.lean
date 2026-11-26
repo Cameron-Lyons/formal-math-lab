@@ -1,14 +1,18 @@
-import PrimePowers
-import Mathlib.Data.Int.ModEq
-import Mathlib.Data.Nat.Factorial.Basic
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Ring
+module
+
+public import PrimePowers
+public import Mathlib.Data.Int.ModEq
+public import Mathlib.Data.Nat.Factorial.Basic
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.Ring
+
+@[expose] public section
 
 namespace Erdos677
 open Finset
 
-private def lineLCM (n : ℕ) : ℕ → ℕ
+def lineLCM (n : ℕ) : ℕ → ℕ
   | 0 => 1
   | k + 1 => (lineLCM n k).lcm (n + k + 1)
 
@@ -25,7 +29,7 @@ private theorem interval_dvd_product (n k : ℕ) :
     rw [lcmInterval_extend, Nat.ascFactorial_succ, show n + 1 + k = n + k + 1 by omega]
     exact Nat.lcm_dvd (Nat.dvd_mul_left_of_dvd ih _) (dvd_mul_right ..)
 
-private def linePoint (k : ℕ) (x y : ℤ) : Bool :=
+def linePoint (k : ℕ) (x y : ℤ) : Bool :=
   let n := ((x - k - 1) / 2).toNat
   let m := ((y - k - 1) / 2).toNat
   if x = 2 * (n : ℤ) + k + 1 ∧ y = 2 * (m : ℤ) + k + 1 ∧ 0 < k ∧ n + k ≤ m then
@@ -33,7 +37,7 @@ private def linePoint (k : ℕ) (x y : ℤ) : Bool :=
     else true
   else true
 
-private def lineStart (L q z : ℕ) (h : ℤ) : ℤ := L + (- (z : ℤ) * h - L) % q
+def lineStart (L q z : ℕ) (h : ℤ) : ℤ := L + (- (z : ℤ) * h - L) % q
 
 /-- Verify all compatible integer centers on the line `q*y - p*x = h` with
 `L ≤ x < 2*L`. Here `z` is an inverse of `p` modulo `q`. -/

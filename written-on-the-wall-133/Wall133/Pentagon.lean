@@ -1,4 +1,8 @@
-import Wall133.FiveCycle
+module
+
+public import Wall133.FiveCycle
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

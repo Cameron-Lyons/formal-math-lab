@@ -1,7 +1,11 @@
-import Erdos617.ColorCounts
-import Erdos617.TriangleFreeRegular
-import Mathlib.Combinatorics.SimpleGraph.DegreeSum
-import Mathlib.Tactic.Linarith
+module
+
+public import Erdos617.ColorCounts
+public import Erdos617.TriangleFreeRegular
+public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 namespace Erdos617
 

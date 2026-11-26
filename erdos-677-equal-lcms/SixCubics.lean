@@ -1,8 +1,12 @@
-import FixedLength
-import Height
-import Period
-import Mathlib.Data.Nat.Sqrt
-import Mathlib.Tactic.LinearCombination
+module
+
+public import FixedLength
+public import Height
+public import Period
+public import Mathlib.Data.Nat.Sqrt
+public import Mathlib.Tactic.LinearCombination
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

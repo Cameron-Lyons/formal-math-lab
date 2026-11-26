@@ -1,6 +1,10 @@
-import Erdos617.RowDescent
-import Erdos617.DeletionRank
-import Mathlib.Tactic.Positivity
+module
+
+public import Erdos617.RowDescent
+public import Erdos617.DeletionRank
+public import Mathlib.Tactic.Positivity
+
+@[expose] public section
 
 namespace Erdos617
 

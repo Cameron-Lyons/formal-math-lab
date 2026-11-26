@@ -1,4 +1,8 @@
-import Erdos617.LineObstruction
+module
+
+public import Erdos617.LineObstruction
+
+@[expose] public section
 
 namespace Erdos617
 

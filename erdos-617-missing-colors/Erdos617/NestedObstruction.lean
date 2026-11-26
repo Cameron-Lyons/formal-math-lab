@@ -1,6 +1,10 @@
-import Erdos617.RankIntersection
-import Erdos617.ForeignRankBudget
-import Erdos617.QuadraticObstruction
+module
+
+public import Erdos617.RankIntersection
+public import Erdos617.ForeignRankBudget
+public import Erdos617.QuadraticObstruction
+
+@[expose] public section
 
 namespace Erdos617
 

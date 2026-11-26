@@ -1,6 +1,10 @@
-import Erdos617.ThreePairCosts
-import Erdos617.DeletionRank
-import Erdos617.BlockAccount
+module
+
+public import Erdos617.ThreePairCosts
+public import Erdos617.DeletionRank
+public import Erdos617.BlockAccount
+
+@[expose] public section
 
 namespace Erdos617
 

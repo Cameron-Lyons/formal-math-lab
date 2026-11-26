@@ -1,4 +1,8 @@
-import BinomialBounds
+module
+
+public import BinomialBounds
+
+@[expose] public section
 
 namespace Erdos677
 open Finset
@@ -33,8 +37,8 @@ theorem binomial_obstruction {n m k b D : ℕ} (hk : 0 < k) (hd : n+k ≤ m)
 
 -- Move along Pascal's triangle using exact divisions. The checker carries the
 -- two binomial coefficients and the LCM forward so they are computed only once.
-private def alongRow (n r a : ℕ) := a * (n-r) / (r+1)
-private def alongDiagonal (n r a : ℕ) := (n+1) * a / (r+1)
+def alongRow (n r a : ℕ) := a * (n-r) / (r+1)
+def alongDiagonal (n r a : ℕ) := (n+1) * a / (r+1)
 
 private theorem alongRow_choose (n r : ℕ) : alongRow n r (n.choose r) = n.choose (r+1) := by
   simp [alongRow, ← Nat.choose_succ_right_eq]

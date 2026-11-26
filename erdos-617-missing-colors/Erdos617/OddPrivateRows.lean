@@ -1,6 +1,10 @@
-import Erdos617.OddIntersection
-import Erdos617.PrivateBlocks
-import Erdos617.FullCliquePropagation
+module
+
+public import Erdos617.OddIntersection
+public import Erdos617.PrivateBlocks
+public import Erdos617.FullCliquePropagation
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -27,7 +31,7 @@ theorem odd_core_excess (_hs : 1 ≤ s) (hr : r=2*s+1)
     exact disjoint_left.mp (dis S hS) hx hx
   have allD : (↑(insert S P) : Set (Finset V)).PairwiseDisjoint id := by
     rw [coe_insert]
-    exact hd.insert_of_notMem hnot dis
+    exact hd.insert fun T hT _ => dis T hT
   have bound := boundary_edge_count G univ (insert S P) (subset_univ _) allD
   have cliqueEdges (C : Finset V) (hC : C∈P) : blockEdges G C=r.choose 2 := by
     let H := G.induce (C : Set V)

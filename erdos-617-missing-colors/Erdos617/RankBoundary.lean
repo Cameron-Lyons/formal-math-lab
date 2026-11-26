@@ -1,7 +1,11 @@
-import Erdos617.RankBasic
-import Erdos617.RankEdges
-import Mathlib.Combinatorics.Hall.Finite
-import Mathlib.Algebra.BigOperators.Group.Finset.Sigma
+module
+
+public import Erdos617.RankBasic
+public import Erdos617.RankEdges
+public import Mathlib.Combinatorics.Hall.Finite
+public import Mathlib.Algebra.BigOperators.Group.Finset.Sigma
+
+@[expose] public section
 
 namespace Erdos617
 

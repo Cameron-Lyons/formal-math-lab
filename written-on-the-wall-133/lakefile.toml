@@ -2,10 +2,18 @@ name = "wall133"
 version = "0.1.0"
 defaultTargets = ["Wall133"]
 
+[leanOptions]
+warningAsError = true
+
 [[require]]
 name = "formal_conjectures"
 git = "https://github.com/google-deepmind/formal-conjectures"
 rev = "86a2f58a4d7a3a0637d15d5b2ce627592b54b956"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.36.0"
 
 [[lean_lib]]
 name = "Wall133"

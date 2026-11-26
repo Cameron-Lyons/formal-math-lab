@@ -1,7 +1,15 @@
-import CoreCounts
-import AdditiveCore
-import MultiplierSAT
-import Lean
+module
+
+public import CoreCounts
+public import AdditiveCore
+public import MultiplierSAT
+public import Lean
+meta import CoreCounts
+meta import AdditiveCore
+meta import MultiplierSAT
+meta import Lean
+
+@[expose] public section
 
 /-! # The order-eight multiplier on the finite part of a 20-point seed -/
 

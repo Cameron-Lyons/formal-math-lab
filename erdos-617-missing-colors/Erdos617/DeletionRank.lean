@@ -1,5 +1,9 @@
-import Erdos617.BinaryAnchor
-import Erdos617.TwoBlockBoundary
+module
+
+public import Erdos617.BinaryAnchor
+public import Erdos617.TwoBlockBoundary
+
+@[expose] public section
 
 namespace Erdos617
 

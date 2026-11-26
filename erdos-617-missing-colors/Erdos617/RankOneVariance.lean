@@ -1,5 +1,9 @@
-import Erdos617.LineVariance
-import Erdos617.RankOneSquare
+module
+
+public import Erdos617.LineVariance
+public import Erdos617.RankOneSquare
+
+@[expose] public section
 
 namespace Erdos617
 

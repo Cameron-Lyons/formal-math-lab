@@ -1,6 +1,10 @@
-import Erdos617.OddEndpoint
-import Erdos617.RankObstruction
-import Erdos617.RankIntersection
+module
+
+public import Erdos617.OddEndpoint
+public import Erdos617.RankObstruction
+public import Erdos617.RankIntersection
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -195,7 +199,7 @@ theorem odd_endpoint_crossing_edges {c : Sym2 V → Fin r} {k : Fin r} {A : Fins
     exact disjoint_left.mp (disA A h) hx hx
   have dis : (↑(insert A P) : Set (Finset V)).PairwiseDisjoint id := by
     rw [coe_insert]
-    exact hD.insert_of_notMem notA disA
+    exact hD.insert fun C hC _ => disA C hC
   let X := inducedEdgeSet G univ \ (insert A P).biUnion (inducedEdgeSet G)
   have edge := boundary_edge_count G univ (insert A P) (subset_univ _) dis
   change X.card+(∑ C∈insert A P,blockEdges G C)=blockEdges G univ at edge

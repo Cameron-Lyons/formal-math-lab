@@ -1,5 +1,9 @@
-import Order17Reflection
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+module
+
+public import Order17Reflection
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+
+@[expose] public section
 
 namespace Erdos835.TwentyPoint
 

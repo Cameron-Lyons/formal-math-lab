@@ -1,7 +1,11 @@
-import BlockLCM.Defect
-import BlockLCM.Sextic
-import Mathlib.Tactic.Positivity
-import Mathlib.Tactic.Ring
+module
+
+public import BlockLCM.Defect
+public import BlockLCM.Sextic
+public import Mathlib.Tactic.Positivity
+public import Mathlib.Tactic.Ring
+
+@[expose] public section
 
 namespace Erdos677
 
@@ -15,7 +19,7 @@ when the later center is `Y`. -/
 def fiveRatios : Finset (ℕ × ℕ) :=
   {(1, 2), (1, 3), (1, 4), (1, 6), (1, 12), (2, 3), (3, 4)}
 
-private def reducedPair (a b : ℕ) : ℕ × ℕ := (a / a.gcd b, b / a.gcd b)
+def reducedPair (a b : ℕ) : ℕ × ℕ := (a / a.gcd b, b / a.gcd b)
 
 /-- The coefficient pair attached to these two starts, computable modulo twelve. -/
 def fiveRatio (n m : ℕ) : ℕ × ℕ := reducedPair (fiveDefect n) (fiveDefect m)

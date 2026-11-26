@@ -1,5 +1,9 @@
-import Erdos617.PaletteDescent
-import Erdos617.RankTwoCycle
+module
+
+public import Erdos617.PaletteDescent
+public import Erdos617.RankTwoCycle
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,9 +1,13 @@
-import Erdos617.ClusterAmbiguity
-import Erdos617.ClusterAssignment
-import Erdos617.ClusterMultiplicity
-import Erdos617.ClusterSingles
-import Erdos617.PrivateBlocks
-import Erdos617.StrictHalfRange
+module
+
+public import Erdos617.ClusterAmbiguity
+public import Erdos617.ClusterAssignment
+public import Erdos617.ClusterMultiplicity
+public import Erdos617.ClusterSingles
+public import Erdos617.PrivateBlocks
+public import Erdos617.StrictHalfRange
+
+@[expose] public section
 
 /-!
 # A quadratic parameter bound for a balanced coloring

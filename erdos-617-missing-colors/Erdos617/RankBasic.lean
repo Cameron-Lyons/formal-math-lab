@@ -1,5 +1,9 @@
-import Mathlib.Combinatorics.SimpleGraph.Clique
-import Mathlib.Algebra.BigOperators.Ring.Finset
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Clique
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -141,10 +145,10 @@ theorem exists_rank_partition (G : SimpleGraph V) (S : Finset V) :
     · rw [not_nonempty_iff_eq_empty.mp hne]
       exact ⟨∅, by simp, by simp, by simp, by simp⟩
 
-private def IsBlocker (G : SimpleGraph V) (A H : Finset V) : Prop :=
+def IsBlocker (G : SimpleGraph V) (A H : Finset V) : Prop :=
   H ⊆ A ∧ ∀ I ⊆ A, G.IsIndepSet (I : Set V) → I.card = rankOn G A → (I ∩ H).Nonempty
 
-private theorem exists_blocker_card (G : SimpleGraph V) {A : Finset V} (hA : A.Nonempty) :
+theorem exists_blocker_card (G : SimpleGraph V) {A : Finset V} (hA : A.Nonempty) :
     ∃ k : ℕ, ∃ H : Finset V, H.card = k ∧ IsBlocker G A H := by
   refine ⟨A.card, A, rfl, Subset.rfl, fun I hI _ hi => ?_⟩
   rw [inter_eq_left.mpr hI]

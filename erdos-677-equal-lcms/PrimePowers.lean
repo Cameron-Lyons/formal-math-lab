@@ -1,6 +1,10 @@
-import UpstreamInterval
-import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.Order.Interval.Finset.Nat
+module
+
+public import UpstreamInterval
+public import Mathlib.Data.Nat.Factorization.Basic
+public import Mathlib.Order.Interval.Finset.Nat
+
+@[expose] public section
 
 namespace Erdos677
 

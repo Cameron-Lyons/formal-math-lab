@@ -1,5 +1,9 @@
-import Slots
-import FC4388.Bridge
+module
+
+public import Slots
+public import FC4388.Bridge
+
+@[expose] public section
 
 namespace IntervalSix
 open Erdos708Slots

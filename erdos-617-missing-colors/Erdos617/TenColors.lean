@@ -1,5 +1,9 @@
-import Erdos617.TenCore
-import Erdos617.EvenEndpoint
+module
+
+public import Erdos617.TenCore
+public import Erdos617.EvenEndpoint
+
+@[expose] public section
 
 namespace Erdos617
 

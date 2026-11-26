@@ -1,6 +1,10 @@
-import Mathlib.Combinatorics.SimpleGraph.Finite
-import Mathlib.Algebra.BigOperators.Fin
-import Mathlib.Combinatorics.SimpleGraph.Clique
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Finite
+public import Mathlib.Algebra.BigOperators.Fin
+public import Mathlib.Combinatorics.SimpleGraph.Clique
+
+@[expose] public section
 
 namespace Erdos617
 

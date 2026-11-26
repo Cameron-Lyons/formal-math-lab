@@ -1,5 +1,9 @@
-import Mathlib.Combinatorics.Enumerative.DoubleCounting
-import Mathlib.Combinatorics.SimpleGraph.Finite
+module
+
+public import Mathlib.Combinatorics.Enumerative.DoubleCounting
+public import Mathlib.Combinatorics.SimpleGraph.Finite
+
+@[expose] public section
 
 namespace Erdos617
 

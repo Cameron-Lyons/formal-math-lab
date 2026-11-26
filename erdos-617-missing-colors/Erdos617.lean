@@ -1,32 +1,36 @@
-import Erdos617.Affine
-import Erdos617.AffinePalette
-import Erdos617.AlmostParallelRows
-import Erdos617.CriticalSquare
-import Erdos617.ForeignCliquePacking
-import Erdos617.FourIndependent
-import Erdos617.FourWitnessRowSquare
-import Erdos617.FullCliquePropagation
-import Erdos617.FullForeignTransversals
-import Erdos617.GrowingRowSquare
-import Erdos617.LeastCounterexample
-import Erdos617.LineMultiplicityRange
-import Erdos617.MultiCover
-import Erdos617.NearCliqueOverlap
-import Erdos617.ObstructionMatching
-import Erdos617.OddIntersection
-import Erdos617.OddResidualSplit
-import Erdos617.PaletteCycles
-import Erdos617.PolynomialObstruction
-import Erdos617.QuadraticObstruction
-import Erdos617.RankOneVariance
-import Erdos617.RankTwoCycle
-import Erdos617.SmallRange
-import Erdos617.SmallerPalette
-import Erdos617.SquareEditDistance
-import Erdos617.ThreeColors
-import Erdos617.TransversalCliques
-import Erdos617.TransverseNearLines
-import Erdos617.Turan
+module
+
+public import Erdos617.Affine
+public import Erdos617.AffinePalette
+public import Erdos617.AlmostParallelRows
+public import Erdos617.CriticalSquare
+public import Erdos617.ForeignCliquePacking
+public import Erdos617.FourIndependent
+public import Erdos617.FourWitnessRowSquare
+public import Erdos617.FullCliquePropagation
+public import Erdos617.FullForeignTransversals
+public import Erdos617.GrowingRowSquare
+public import Erdos617.LeastCounterexample
+public import Erdos617.LineMultiplicityRange
+public import Erdos617.MultiCover
+public import Erdos617.NearCliqueOverlap
+public import Erdos617.ObstructionMatching
+public import Erdos617.OddIntersection
+public import Erdos617.OddResidualSplit
+public import Erdos617.PaletteCycles
+public import Erdos617.PolynomialObstruction
+public import Erdos617.QuadraticObstruction
+public import Erdos617.RankOneVariance
+public import Erdos617.RankTwoCycle
+public import Erdos617.SmallRange
+public import Erdos617.SmallerPalette
+public import Erdos617.SquareEditDistance
+public import Erdos617.ThreeColors
+public import Erdos617.TransversalCliques
+public import Erdos617.TransverseNearLines
+public import Erdos617.Turan
+
+@[expose] public section
 
 /-!
 # Partial proofs for Erdős problem 617

@@ -1,5 +1,9 @@
-import Wall133.Biregular
-import Wall133.Girth
+module
+
+public import Wall133.Biregular
+public import Wall133.Girth
+
+@[expose] public section
 
 /-!
 # Geodesics and dense induced subgraphs in the bipartite case
@@ -229,9 +233,9 @@ theorem exists_odd_growth_anchor (c : G.Coloring (Fin 2)) (S : Finset V)
   intro u t hcolor hbound hsmall
   have hh := hmin u
   by_cases hu : c u.val = col
-  · simp only [if_pos hu] at hh
+  · simp only [ite_eq_left hu] at hh
     omega
-  · simp only [if_neg hu] at hh
+  · simp only [ite_eq_right hu] at hh
     have hsame : c a.val = c u.val := by
       apply Fin.ext
       have e₁ := Fin.val_ne_of_ne ha

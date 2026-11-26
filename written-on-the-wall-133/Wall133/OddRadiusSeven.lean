@@ -1,6 +1,10 @@
-import Wall133.RootedFour
-import Wall133.TwoSlack
-import Wall133.HighFour
+module
+
+public import Wall133.RootedFour
+public import Wall133.TwoSlack
+public import Wall133.HighFour
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

@@ -1,5 +1,9 @@
-import Erdos617.OnePairMerge
-import Erdos617.ColorGraph
+module
+
+public import Erdos617.OnePairMerge
+public import Erdos617.ColorGraph
+
+@[expose] public section
 
 namespace Erdos617
 

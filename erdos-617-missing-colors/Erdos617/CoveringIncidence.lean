@@ -1,6 +1,10 @@
-import Mathlib.Combinatorics.Enumerative.DoubleCounting
-import Mathlib.Data.Sym.Sym2
-import Mathlib.Tactic.Linarith
+module
+
+public import Mathlib.Combinatorics.Enumerative.DoubleCounting
+public import Mathlib.Data.Sym.Sym2
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 namespace Erdos617
 

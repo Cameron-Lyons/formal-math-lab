@@ -1,4 +1,8 @@
-import Erdos617.ForeignRankBudget
+module
+
+public import Erdos617.ForeignRankBudget
+
+@[expose] public section
 
 namespace Erdos617
 

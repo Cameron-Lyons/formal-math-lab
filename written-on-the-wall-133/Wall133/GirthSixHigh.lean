@@ -1,4 +1,8 @@
-import Wall133.GirthSixRotation
+module
+
+public import Wall133.GirthSixRotation
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

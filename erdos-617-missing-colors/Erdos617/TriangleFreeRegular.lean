@@ -1,5 +1,9 @@
-import Mathlib.Combinatorics.SimpleGraph.Clique
-import Mathlib.Combinatorics.Enumerative.DoubleCounting
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Clique
+public import Mathlib.Combinatorics.Enumerative.DoubleCounting
+
+@[expose] public section
 
 namespace Erdos617
 

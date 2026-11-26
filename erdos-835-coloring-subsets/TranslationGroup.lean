@@ -1,7 +1,11 @@
-import Mathlib.GroupTheory.GroupAction.Quotient
-import Mathlib.GroupTheory.Perm.Cycle.Type
-import Mathlib.Data.Fintype.Pigeonhole
-import Mathlib.Tactic.IntervalCases
+module
+
+public import Mathlib.GroupTheory.GroupAction.Quotient
+public import Mathlib.GroupTheory.Perm.Cycle.Type
+public import Mathlib.Data.Fintype.Pigeonhole
+public import Mathlib.Tactic.IntervalCases
+
+@[expose] public section
 
 namespace Erdos835
 

@@ -1,5 +1,9 @@
-import Erdos617.SparseFullPacking
-import Erdos617.PaletteMatching
+module
+
+public import Erdos617.SparseFullPacking
+public import Erdos617.PaletteMatching
+
+@[expose] public section
 
 namespace Erdos617
 

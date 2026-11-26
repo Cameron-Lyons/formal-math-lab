@@ -76,7 +76,7 @@ Layer 2 is five files of 1,093 lines, to be read in this order; `Gamma48.lean` a
 
 ## Reproduce
 
-Lean 4.35.0 via `elan`; from this directory:
+Lean 4.36.0 via `elan`; from this directory:
 
 ```sh
 lake exe cache get && lake build        # the kernel-checked part

@@ -1,5 +1,9 @@
-import Erdos617.ForeignTotalBudget
-import Mathlib.Data.Nat.Sqrt
+module
+
+public import Erdos617.ForeignTotalBudget
+public import Mathlib.Data.Nat.Sqrt
+
+@[expose] public section
 
 namespace Erdos617
 

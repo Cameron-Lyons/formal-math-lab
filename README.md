@@ -60,12 +60,9 @@ For every entry below, the unrestricted problem remains open. Each package docum
 
 Each folder has its own Lake configuration and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
-* Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `integer-cubic`, `three-column-matrices`, `three-cubes-114`.
-* Lean 4.35.0 (stdlib only): `queen-domination-48`.
-* Lean 4.35.0 + mathlib v4.35.0: `queen-domination-48-sat`.
-* Lean 4.35.0-rc2 + mathlib: `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`.
-* Lean 4.33.1 + mathlib: `written-on-the-wall-133`, and, with the unmodified statements of Formal Conjectures, `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
+* Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `written-on-the-wall-133`.
+* Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
 
 With `elan` installed, run the command in the corresponding directory. The `E670`, `E677`, and `E1486` SAT checks and large T-board certificates take noticeable time and memory; see their individual READMEs for details.
 

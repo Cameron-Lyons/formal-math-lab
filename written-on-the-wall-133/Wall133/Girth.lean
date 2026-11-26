@@ -1,5 +1,9 @@
-import Wall133.Density
-import Mathlib.Combinatorics.SimpleGraph.Girth
+module
+
+public import Wall133.Density
+public import Mathlib.Combinatorics.SimpleGraph.Girth
+
+@[expose] public section
 
 /-!
 # The girth-seven case
@@ -29,7 +33,7 @@ private lemma paths_equal_when_short (hg : (g : ℕ∞) ≤ G.egirth)
     (hlen : p.length + q.length < g) : p = q := by
   by_contra h
   obtain ⟨w, _, _, c, hc, hlen'⟩ := hp.exists_isCycle_length_le_add_of_ne hq h
-  have h := hg.trans (egirth_le_length hc)
+  have h := hg.trans hc.egirth_le_length
   have : g ≤ c.length := ENat.natCast_le_natCast.mp h
   omega
 
@@ -381,7 +385,7 @@ theorem radius_add_le_path_of_girth_seven_density [Fintype V] [DecidableEq V]
       omega
     obtain ⟨a, ha⟩ := h₄
     have h := girth_seven_min_degree_bound hg' (d := m+1) (by omega) hregular a
-    rw [if_pos (by omega : m+1 < H.degree a)] at h
+    rw [ite_eq_left (by omega : m+1 < H.degree a)] at h
     omega
   · obtain ⟨a⟩ := ‹Nonempty S›
     have h := girth_seven_min_degree_bound hg' (d := m+1) (by dsimp [m]; omega) hregular a

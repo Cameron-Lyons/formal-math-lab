@@ -1,6 +1,10 @@
-import Wall133.GirthSixDensity
-import Wall133.CoreExterior
-import Wall133.CoreIncidence
+module
+
+public import Wall133.GirthSixDensity
+public import Wall133.CoreExterior
+public import Wall133.CoreIncidence
+
+@[expose] public section
 
 /-! # Sharp even thresholds at girth six
 

@@ -9,7 +9,7 @@ The general Erdős Problem #708 question of whether $g(n) \le 2n$ for all $n$ (o
 | Problem | Erdős Problem #708 (`erdosproblems.com/708`), interval products for $n = 6$ integers, $g(6) = 8$ |
 | Status | Case $n = 6$ proved in Lean 4 ($g(6) = 8$). General bound $g(n) \le 2n$ remains open. |
 | Main theorems | `Erdos708.isLeast_six`, `Erdos708.erdos_708.variants.g_six`, `IntervalSix.six_upper`, `IntervalSix.six_integer` in [Six.lean](Six.lean) |
-| Verification | `lake exe cache get && lake build && lake env lean Six.lean` (Lean 4.35.0-rc2 + mathlib + pinned Tripodo development) |
+| Verification | `lake exe cache get && lake build && lake env lean Six.lean` (Lean 4.36.0 + mathlib + pinned Tripodo development) |
 | Prior art | Checked 23 November 2026: C. Bergström (19 November 2026, `10.5281/zenodo.24366897`) proved $g(6) = 8$. This Lean proof adapts Bergström's lower-bound witness and cumulative-gcd rule and imports John Tripodo's Lean bounds for $n = 4, 5$. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-708-interval-products-for-six-integers). |
 
 ## Why seven can fail ($g(6) \ge 8$)
@@ -39,7 +39,7 @@ For $M < 70$, Lean builds factor sequences using Bergström's cumulative-gcd rul
 
 ## Reproduce
 
-With `elan` installed (pinned Lean 4.35.0-rc2), run from this directory:
+With `elan` installed (pinned Lean 4.36.0), run from this directory:
 
 ```sh
 lake exe cache get
@@ -47,7 +47,7 @@ lake build
 lake env lean Six.lean
 ```
 
-The last command prints the axioms for `Erdos708.isLeast_six` and `IntervalSix.six_integer`. The package pins [Tripodo's Lean development](https://github.com/jjtripodo-lgtm/erdos-708-g4-g5/tree/00fbb23c3084daa88ea420aa9c74177127d5283f).
+The last command prints the axioms for `Erdos708.isLeast_six` and `IntervalSix.six_integer`. The package pins [Tripodo's Lean development](https://github.com/jjtripodo-lgtm/erdos-708-g4-g5/tree/af658b33f0e94f0d11088fd5d07b12af41e1e760).
 
 ## References
 

@@ -1,6 +1,10 @@
-import PrimePowers
-import Mathlib.Data.Finset.Max
-import Mathlib.Tactic.Ring
+module
+
+public import PrimePowers
+public import Mathlib.Data.Finset.Max
+public import Mathlib.Tactic.Ring
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

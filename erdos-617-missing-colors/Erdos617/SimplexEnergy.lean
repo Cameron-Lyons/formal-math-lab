@@ -1,9 +1,13 @@
-import Mathlib.Analysis.Convex.StdSimplex
-import Mathlib.Data.Matrix.Mul
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Positivity
-import Mathlib.Tactic.FunProp
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Analysis.Convex.StdSimplex
+public import Mathlib.Data.Matrix.Mul
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.Positivity
+public import Mathlib.Tactic.FunProp
+public import Mathlib.Tactic.Ring
+
+@[expose] public section
 
 namespace Erdos617
 

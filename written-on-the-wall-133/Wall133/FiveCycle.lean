@@ -1,5 +1,9 @@
-import Wall133.Holes
-import Wall133.Bipartite
+module
+
+public import Wall133.Holes
+public import Wall133.Bipartite
+
+@[expose] public section
 
 namespace Wall133
 
@@ -105,7 +109,10 @@ lemma Ring.average_le_two_of_surjective [Fintype V] [Nonempty V] [DecidableRel G
   rw [← G.card_neighborSet_eq_degree]
   apply le_trans _ (bound i)
   let f (w : G.neighborSet (C.label i)) : {j : Fin n // CyclicEdge i j} :=
-    ⟨e.symm w.1, (C.edge_iff hC i _).1 (by simpa [← show ∀ j, e j = C.label j from fun _ => rfl] using w.2)⟩
+    ⟨e.symm w.1, (C.edge_iff hC i _).1 (by
+      have hw : G.Adj (C.label i) w.1 := w.2
+      have happly : C.label (e.symm w.1) = w.1 := e.apply_symm_apply w.1
+      rwa [happly])⟩
   exact Fintype.card_le_of_injective f (fun x y h => Subtype.ext (e.symm.injective (congrArg Subtype.val h)))
 
 /-- In a connected four-cycle-free graph an average strictly above two forces

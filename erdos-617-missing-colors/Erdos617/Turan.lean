@@ -1,6 +1,10 @@
-import Mathlib.Combinatorics.SimpleGraph.Extremal.Turan
-import Mathlib.Tactic.Convert
-import Mathlib.Tactic.Linarith
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Extremal.Turan
+public import Mathlib.Tactic.Convert
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 namespace Erdos617
 

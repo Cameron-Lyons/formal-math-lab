@@ -1,7 +1,11 @@
-import Erdos617.SevenColors
-import Erdos617.EightColors
-import Erdos617.NineColors
-import Erdos617.TenColors
+module
+
+public import Erdos617.SevenColors
+public import Erdos617.EightColors
+public import Erdos617.NineColors
+public import Erdos617.TenColors
+
+@[expose] public section
 
 namespace Erdos617
 

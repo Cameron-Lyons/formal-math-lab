@@ -1,21 +1,25 @@
-import Wall133.BipartiteAll
-import Wall133.RegularAll
-import Wall133.StrictOrderBound
-import Wall133.BlocksBranchVertices
-import Wall133.BlocksTriangleTips
-import Wall133.GirthSixFar
-import Wall133.GirthSixSevenRing
-import Wall133.FourCycleFreeMinDegree
-import Wall133.ShortGirthFourthBand
-import Wall133.ShortGirthFive
-import Wall133.FifthDensity
-import Wall133.FifthEccentricity
-import Wall133.CoreExterior
-import Wall133.HereditaryDensity
-import Wall133.GirthSixDensity
-import Wall133.NeighborhoodTriangles
-import Wall133.Pentagon
-import Wall133.Hexagon
+module
+
+public import Wall133.BipartiteAll
+public import Wall133.RegularAll
+public import Wall133.StrictOrderBound
+public import Wall133.BlocksBranchVertices
+public import Wall133.BlocksTriangleTips
+public import Wall133.GirthSixFar
+public import Wall133.GirthSixSevenRing
+public import Wall133.FourCycleFreeMinDegree
+public import Wall133.ShortGirthFourthBand
+public import Wall133.ShortGirthFive
+public import Wall133.FifthDensity
+public import Wall133.FifthEccentricity
+public import Wall133.CoreExterior
+public import Wall133.HereditaryDensity
+public import Wall133.GirthSixDensity
+public import Wall133.NeighborhoodTriangles
+public import Wall133.Pentagon
+public import Wall133.Hexagon
+
+@[expose] public section
 
 /-!
 # Written on the Wall II, conjecture 133 (floored version)
@@ -56,14 +60,14 @@ omit [Nontrivial V] [DecidableRel G.Adj] in
 theorem floored_iff_of_noFourCycle (h4 : NoFourCycle G) :
     FlooredConjecture G ↔ G.radius.toNat + ⌊l G⌋₊ ≤ G.path := by
   classical
-  simp only [FlooredConjecture, if_pos h4, pow_one, ← Int.natCast_floor_eq_floor (average_nonneg (G := G)),
+  simp only [FlooredConjecture, ite_eq_left h4, pow_one, ← Int.natCast_floor_eq_floor (average_nonneg (G := G)),
     Int.cast_natCast]
   exact_mod_cast (Iff.rfl : G.radius.toNat + ⌊l G⌋₊ ≤ G.path ↔ _)
 
 omit [Nontrivial V] [DecidableRel G.Adj] in
 theorem floored_of_fourCycle (hc : G.Connected) (h4 : ¬ NoFourCycle G) : FlooredConjecture G := by
   classical
-  simp only [FlooredConjecture, if_neg h4, pow_zero]
+  simp only [FlooredConjecture, ite_eq_right h4, pow_zero]
   exact_mod_cast radius_add_one_le_path G hc
 
 omit [Nontrivial V] in

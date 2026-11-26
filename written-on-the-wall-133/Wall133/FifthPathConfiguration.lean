@@ -1,4 +1,8 @@
-import Wall133.FifthBranches
+module
+
+public import Wall133.FifthBranches
+
+@[expose] public section
 
 namespace Wall133.FifthCertificate
 open SimpleGraph

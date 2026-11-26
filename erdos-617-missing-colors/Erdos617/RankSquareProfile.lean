@@ -1,6 +1,10 @@
-import Erdos617.GoodSquareBlocks
-import Erdos617.QuadraticObstruction
-import Erdos617.LineVariance
+module
+
+public import Erdos617.GoodSquareBlocks
+public import Erdos617.QuadraticObstruction
+public import Erdos617.LineVariance
+
+@[expose] public section
 
 namespace Erdos617
 

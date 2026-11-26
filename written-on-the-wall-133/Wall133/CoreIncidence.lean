@@ -1,5 +1,9 @@
-import Wall133.Density
-import Mathlib.Combinatorics.Enumerative.DoubleCounting
+module
+
+public import Wall133.Density
+public import Mathlib.Combinatorics.Enumerative.DoubleCounting
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

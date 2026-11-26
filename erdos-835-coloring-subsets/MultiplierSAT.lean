@@ -1,7 +1,12 @@
-import Lean.Data.Json
-import Lean.Elab.Term
-import Std.Tactic.BVDecide.Reflect
-import Mathlib.Data.List.Basic
+module
+
+public meta import Lean.Data.Json
+public meta import Lean.Elab.Term
+public import Std.Tactic.BVDecide.Reflect
+meta import Std.Tactic.BVDecide.Reflect
+import all Std.Sat.CNF.Sat
+
+@[expose] public section
 
 /-! # A certified unsatisfiable CNF for the order-eight multiplier obstruction
 
@@ -36,7 +41,7 @@ theorem of_verified (cs : List (List Lit)) (trace : String)
   rw [represented _ a allTrue] at negative
   contradiction
 
-private def fileFromSource (relative : String) : Elab.Term.TermElabM System.FilePath := do
+private meta def fileFromSource (relative : String) : Elab.Term.TermElabM System.FilePath := do
   let source := System.FilePath.mk (← readThe Lean.Core.Context).fileName
   return source.parent.getD "." / relative
 

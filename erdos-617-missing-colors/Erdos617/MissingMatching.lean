@@ -1,6 +1,10 @@
-import Erdos617.OddBags
-import Erdos617.MatchingCertificate
-import Erdos617.RankEdges
+module
+
+public import Erdos617.OddBags
+public import Erdos617.MatchingCertificate
+public import Erdos617.RankEdges
+
+@[expose] public section
 
 namespace Erdos617
 

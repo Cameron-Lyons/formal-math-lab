@@ -14,6 +14,7 @@ from scripts.ci.packages import (
     CANARY_PACKAGE,
     HEAVY_PACKAGES,
     REPO_ROOT,
+    THIRD_PARTY_WARNING_PACKAGES,
     affected_packages,
     build_matrix,
     discover_packages,
@@ -85,6 +86,9 @@ class PackageDiscoveryTests(unittest.TestCase):
         self.assertFalse(packages["26-unit-fractions"].uses_mathlib_cache)
         for heavy in HEAVY_PACKAGES:
             self.assertTrue(packages[heavy].heavy)
+        for pkg_name in THIRD_PARTY_WARNING_PACKAGES:
+            self.assertIn(pkg_name, packages)
+            self.assertTrue(packages[pkg_name].warning_as_error)
 
     def test_reverse_dependencies_propagate(self) -> None:
         packages = discover_packages(REPO_ROOT)

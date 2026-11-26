@@ -1,9 +1,13 @@
-import Mathlib.Combinatorics.SimpleGraph.Finite
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-import Mathlib.Algebra.BigOperators.Ring.Finset
-import Mathlib.Data.Fintype.EquivFin
-import Mathlib.Data.Fintype.Pi
+module
+
+public import Mathlib.Combinatorics.SimpleGraph.Finite
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Data.Fintype.EquivFin
+public import Mathlib.Data.Fintype.Pi
+
+@[expose] public section
 
 namespace Erdos617
 

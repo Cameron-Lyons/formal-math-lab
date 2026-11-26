@@ -1,6 +1,15 @@
-import certificates.Order17Partial20
-import MultiplierSAT
-import Std.Sat.CNF.Dimacs
+module
+
+public import certificates.Order17Partial20
+public import MultiplierSAT
+public import Std.Sat.CNF.Dimacs
+public import Mathlib.Basic.ExistsUnique
+meta import certificates.Order17Partial20
+meta import MultiplierSAT
+meta import Std.Sat.CNF.Dimacs
+meta import Std.Tactic.BVDecide.Reflect
+
+@[expose] public section
 
 /-! # No cyclic completion of the specified 145-block boundary
 
@@ -80,10 +89,28 @@ private theorem givesAssignment (chosen : Nat → Bool) (h : Completes chosen) :
 
 open Lean in
 elab "boundaryLRAT%" : term => do
+  let mOrbitKey (b : Nat) : Nat :=
+    (List.range 17).foldl (fun best s =>
+      min best (((b <<< s) % 131072) ||| (b >>> (17 - s)))) b
+  let mUsedTriples : List Nat := (seed.flatMap faces).map mask
+  let mCandidates : List Nat :=
+    ((subsets 4 (List.range 17)).filter fun q =>
+      (faces q).all (fun t => !(mUsedTriples.contains (mask t)))).map mask
+  let mTriples := ((subsets 3 (List.range 17)).map mask).filter fun t => !(mUsedTriples.contains t)
+  let mOrbits := ((subsets 4 (List.range 17)).map fun q => mOrbitKey (mask q)).eraseDups
+  let mOpts (p : Nat → Bool) : List Nat := mCandidates.filter p
+  let mExcl (xs : List Nat) : List (List Lit) :=
+    xs.flatMap fun b => (xs.filter (b < ·)).map fun c => [(b, false), (c, false)]
+  let mReqOpts : List (List Nat) :=
+    (mTriples.map fun t => mOpts fun b => (b &&& t) == t) ++
+    (mOrbits.map fun o => mOpts fun b => mOrbitKey b == o)
+  let mClauses : List (List Lit) :=
+    (mReqOpts.map fun os => os.map (·, true)) ++
+    (mReqOpts.flatMap mExcl)
   let proof ← IO.FS.withTempDir fun dir => do
     let cnfFile := dir / "boundary.cnf"
     let proofFile := dir / "boundary.lrat"
-    IO.FS.writeFile cnfFile (toCNF clauses).dimacs
+    IO.FS.writeFile cnfFile (toCNF mClauses).dimacs
     let solver := (← IO.appDir) / "cadical"
     let run ← IO.Process.output {
       cmd := solver.toString

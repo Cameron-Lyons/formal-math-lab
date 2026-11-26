@@ -1,6 +1,10 @@
-import Wall133.ShortGirthFourEdges
-import Wall133.ShortGirthSimplicialFour
-import Wall133.ShortGirthThree
+module
+
+public import Wall133.ShortGirthFourEdges
+public import Wall133.ShortGirthSimplicialFour
+public import Wall133.ShortGirthThree
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

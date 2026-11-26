@@ -1,4 +1,8 @@
-import Wall133.PendantForest
+module
+
+public import Wall133.PendantForest
+
+@[expose] public section
 
 /-! # Deleting a peripheral leaf while preserving a counterexample -/
 namespace Wall133
@@ -55,7 +59,7 @@ theorem floor_le_floor_delete_leaf [Nonempty V] (c : G.Coloring (Fin 2))
     change 2 ≤ k at hk
     omega
   exact Nat.le_floor (le_l_of_sum_degree C (k := k) (by
-    convert bound using 1 <;> congr 2))
+    convert bound using 1))
 
 /-- A leaf can be pruned whenever each remaining vertex still has a
 remaining vertex at least the old radius away. -/

@@ -1,4 +1,8 @@
-import Wall133.EvenTailRotation
+module
+
+public import Wall133.EvenTailRotation
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

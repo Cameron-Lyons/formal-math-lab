@@ -1,5 +1,9 @@
-import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.Tactic
+module
+
+public import Mathlib.Data.Nat.Factorization.Basic
+public import Mathlib.Tactic
+
+@[expose] public section
 
 namespace Erdos708Slots
 

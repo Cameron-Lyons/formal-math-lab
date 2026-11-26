@@ -1,5 +1,9 @@
-import Erdos617.RankFiveShell
-import Erdos617.MissingMatching
+module
+
+public import Erdos617.RankFiveShell
+public import Erdos617.MissingMatching
+
+@[expose] public section
 
 namespace Erdos617
 

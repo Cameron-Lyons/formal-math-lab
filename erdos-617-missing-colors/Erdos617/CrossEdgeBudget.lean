@@ -1,5 +1,9 @@
-import Erdos617.RankEdges
-import Erdos617.ColorCounts
+module
+
+public import Erdos617.RankEdges
+public import Erdos617.ColorCounts
+
+@[expose] public section
 
 namespace Erdos617
 

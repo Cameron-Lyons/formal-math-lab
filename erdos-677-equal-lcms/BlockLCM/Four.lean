@@ -1,8 +1,12 @@
-import BlockLCM.Defect
-import Mathlib.NumberTheory.LegendreSymbol.JacobiSymbol
-import Mathlib.NumberTheory.Zsqrtd.Basic
-import Mathlib.Tactic.NormNum.LegendreSymbol
-import Mathlib.Tactic
+module
+
+public import BlockLCM.Defect
+public import Mathlib.NumberTheory.LegendreSymbol.JacobiSymbol
+public import Mathlib.NumberTheory.Zsqrtd.Basic
+public import Mathlib.Tactic.NormNum.LegendreSymbol
+public import Mathlib.Tactic
+
+@[expose] public section
 
 /-!
 # Length four

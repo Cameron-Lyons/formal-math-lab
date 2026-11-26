@@ -1,5 +1,9 @@
-import Wall133.FirstBands
-import Mathlib.Combinatorics.SimpleGraph.Acyclic
+module
+
+public import Wall133.FirstBands
+public import Mathlib.Combinatorics.SimpleGraph.Acyclic
+
+@[expose] public section
 
 namespace Wall133
 

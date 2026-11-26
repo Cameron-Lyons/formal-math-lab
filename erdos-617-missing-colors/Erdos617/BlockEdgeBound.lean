@@ -1,5 +1,9 @@
-import Erdos617.BlockSizes
-import Erdos617.GreedyBlocks
+module
+
+public import Erdos617.BlockSizes
+public import Erdos617.GreedyBlocks
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,4 +1,8 @@
-import PrimePowers
+module
+
+public import PrimePowers
+
+@[expose] public section
 
 namespace Erdos677
 

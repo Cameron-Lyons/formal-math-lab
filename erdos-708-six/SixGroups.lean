@@ -1,6 +1,10 @@
-import SixStructure
-import PriorBounds
-import Mathlib.Algebra.BigOperators.Associated
+module
+
+public import SixStructure
+public import PriorBounds
+public import Mathlib.Algebra.BigOperators.Associated
+
+@[expose] public section
 
 namespace IntervalSix
 open Erdos708Slots

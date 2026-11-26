@@ -1,4 +1,8 @@
-import Wall133.BlocksBipartiteCore
+module
+
+public import Wall133.BlocksBipartiteCore
+
+@[expose] public section
 
 /-! # Bipartiteness on vertices of degree at least three -/
 
@@ -129,7 +133,7 @@ theorem exists_bipartite_core_of_bipartite_branch_vertices (hc : G.Connected)
   have transfer {z : V} (hz : z ∉ S) (w : S) (hw : G.Adj z w.val) : H.Reachable (rep z) w := by
     let a := (pairs z hz).choose
     obtain ⟨b,_,_,_,hr,ends⟩ := (pairs z hz).choose_spec
-    rw [show rep z=a from dif_neg hz]
+    rw [show rep z=a from dite_eq_right hz]
     rcases ends w.val hw with h | h
     · exact (show w=a from Subtype.ext h) ▸ .refl _
     · exact (show w=b from Subtype.ext h) ▸ hr

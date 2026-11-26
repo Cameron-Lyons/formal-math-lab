@@ -1,10 +1,28 @@
-import Std.Sat.CNF.Basic
+module
+
+@[expose] public section
 
 namespace Wall133.UnitResolution
-open Std.Sat
 
 private abbrev Lit := Nat × Bool
-abbrev Clause := CNF.Clause Nat
+abbrev Clause := List (Nat × Bool)
+
+/-- A CNF formula represented as an array of literal-list clauses. -/
+structure CNF (α : Type) where
+  clauses : Array (List (α × Bool))
+deriving DecidableEq
+
+/-- Evaluate a single clause under an assignment. -/
+def evalClause {α : Type} (c : List (α × Bool)) (p : α → Bool) : Bool :=
+  c.any (fun l => p l.1 == l.2)
+
+/-- Evaluate a CNF formula under an assignment. -/
+def CNF.eval {α : Type} (f : CNF α) (p : α → Bool) : Bool :=
+  f.clauses.all (fun c => evalClause c p)
+
+/-- A CNF formula is unsatisfiable if every assignment falsifies it. -/
+def CNF.Unsat {α : Type} (f : CNF α) : Prop :=
+  ∀ p, f.eval p = false
 
 /-- Every literal of c is false under the assignment p. -/
 private def Falsified (p : Nat → Bool) (c : Clause) : Prop := ∀ l∈c, p l.1 = !l.2
@@ -13,7 +31,7 @@ private def AllValid (p : Nat → Bool) : List Clause → Prop
   | [] => True
   | c :: cs => (¬ Falsified p c) ∧ AllValid p cs
 
-private def trace (dead : Clause) : List Clause → Bool
+def trace (dead : Clause) : List Clause → Bool
   | [] => false
   | c :: cs =>
     match c.filter (fun l => !(dead.contains l)) with
@@ -55,7 +73,7 @@ private theorem trace_sound {p : Nat → Bool} {hints : List Clause} {dead : Cla
       · exact hd _ h
     next => contradiction
 
-private theorem valid_of_eval {p : Nat → Bool} {c : Clause} (h : c.eval p = true) :
+private theorem valid_of_eval {p : Nat → Bool} {c : Clause} (h : evalClause c p = true) :
     ¬Falsified p c := by
   intro falsified
   obtain ⟨l,hl,truth⟩ := List.any_eq_true.mp h
@@ -96,14 +114,14 @@ theorem unsat (f : CNF Nat) (derived : Array Clause) (witness : Array (List Nat)
       induction n using Nat.strongRecOn with
       | ind n earlier =>
         by_cases base : n < f.clauses.size
-        · simp only [line,dif_pos base]
+        · simp only [line,dite_eq_left base]
           exact valid_of_eval (Array.all_eq_true.mp he n base)
         · let i := n - f.clauses.size
           have hi : i < derived.size := by dsimp [i]; omega
           have ni : n = f.clauses.size+i := by dsimp [i]; omega
           have ok := verified i hi
           simp only [checkLine,Bool.and_eq_true_iff] at ok
-          simp only [line,dif_neg base]
+          simp only [line,dite_eq_right base]
           apply trace_sound ok.2
           apply allValid_of_mem
           intro c hc

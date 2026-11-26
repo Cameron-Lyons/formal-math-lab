@@ -1,6 +1,10 @@
-import Erdos617.MinimalObstruction
-import Erdos617.MultiCoverDegree
-import Erdos617.MultiCoverPartition
+module
+
+public import Erdos617.MinimalObstruction
+public import Erdos617.MultiCoverDegree
+public import Erdos617.MultiCoverPartition
+
+@[expose] public section
 
 namespace Erdos617
 

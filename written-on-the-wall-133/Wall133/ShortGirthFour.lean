@@ -1,5 +1,9 @@
-import Wall133.ShortGirthCore
-import Wall133.IndependenceCore
+module
+
+public import Wall133.ShortGirthCore
+public import Wall133.IndependenceCore
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -26,7 +30,7 @@ theorem half_floor_add_four_le_path (h4 : NoFourCycle G) {k : ℕ} (hk : 4≤k) 
     omega
   obtain ⟨a,ha⟩ := high
   have hp := min_neighborhood_independence_path_bound (G := H) hg (by omega) hmin a
-  rw [if_pos ha] at hp
+  rw [ite_eq_left ha] at hp
   have mono : H.path ≤ G.path := G.path_induce_le (S : Set V)
   omega
 

@@ -1,4 +1,8 @@
-import Erdos617.RankSquareProfile
+module
+
+public import Erdos617.RankSquareProfile
+
+@[expose] public section
 
 namespace Erdos617
 

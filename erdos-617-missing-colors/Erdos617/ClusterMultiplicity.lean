@@ -1,6 +1,10 @@
-import Erdos617.ColorGraph
-import Mathlib.Combinatorics.Enumerative.DoubleCounting
-import Mathlib.Tactic.Linarith
+module
+
+public import Erdos617.ColorGraph
+public import Mathlib.Combinatorics.Enumerative.DoubleCounting
+public import Mathlib.Tactic.Linarith
+
+@[expose] public section
 
 namespace Erdos617
 

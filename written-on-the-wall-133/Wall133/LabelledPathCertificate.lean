@@ -1,8 +1,12 @@
-import Wall133.ShortGirthCertificateData
-import Std.Sat.CNF.Basic
+module
+
+public import Wall133.ShortGirthCertificateData
+public import Wall133.UnitResolution
+
+@[expose] public section
 
 namespace Wall133.LabelledPathCertificate
-open SimpleGraph FourthCertificate
+open SimpleGraph FourthCertificate UnitResolution
 
 
 /-- Graph constraints used to certify an induced path of order eight. -/
@@ -35,21 +39,21 @@ private def ruleBit (A E : ℕ → ℕ → Bool) : Rule → Bool
   | .path a b c d e f g h => !(pathBit A a b c d e f g h)
 
 
-private structure Literal where
+structure Literal where
   equality : Bool
   left : ℕ
   right : ℕ
   sign : Bool
 
-private def edge (i j : ℕ) (b : Bool) : Literal := ⟨false,i,j,b⟩
-private def eqn (i j : ℕ) (b : Bool) : Literal := ⟨true,i,j,b⟩
+def edge (i j : ℕ) (b : Bool) : Literal := ⟨false,i,j,b⟩
+def eqn (i j : ℕ) (b : Bool) : Literal := ⟨true,i,j,b⟩
 
-private def factLiterals : Fact → List Literal
+def factLiterals : Fact → List Literal
   | .edge i j => [edge i j true]
   | .nonedge i j => [edge i j false]
   | .distinct i j => [eqn i j false]
 
-private def ruleLiterals : Rule → List Literal
+def ruleLiterals : Rule → List Literal
   | .tip i => [edge i 4 false,eqn i 3 true,edge i 3 true]
   | .transfer i j k => [eqn i j false,edge i k false,edge j k true]
   | .square i j c d => [eqn i j true,eqn c d true,edge i c false,edge i d false,edge j c false,edge j d false]
@@ -64,15 +68,15 @@ private def ruleLiterals : Rule → List Literal
 private def Literal.value (A E : ℕ → ℕ → Bool) (t : Literal) : Bool :=
   sym (if t.equality then E else A) t.left t.right == t.sign
 
-private def Literal.encode (n : ℕ) (t : Literal) : ℕ × Bool :=
+def Literal.encode (n : ℕ) (t : Literal) : ℕ × Bool :=
   ((if t.equality then n*n else 0) + max t.left t.right*n + min t.left t.right,t.sign)
 
-private def Literal.bounded (n : ℕ) (t : Literal) : Bool := decide (t.left<n ∧ t.right<n)
+def Literal.bounded (n : ℕ) (t : Literal) : Bool := decide (t.left<n ∧ t.right<n)
 
-private def clauses (inputs : List Fact) (rules : List Rule) := inputs.map factLiterals ++ rules.map ruleLiterals
+def clauses (inputs : List Fact) (rules : List Rule) := inputs.map factLiterals ++ rules.map ruleLiterals
 
 /-- Numerical variables encode unordered vertex-label pairs and their equalities. -/
-def formulaOf (n : ℕ) (inputs : List Fact) (rules : List Rule) : Std.Sat.CNF ℕ :=
+def formulaOf (n : ℕ) (inputs : List Fact) (rules : List Rule) : UnitResolution.CNF ℕ :=
   ⟨((clauses inputs rules).map (List.map (Literal.encode n))).toArray⟩
 
 def fits (n : ℕ) (inputs : List Fact) (rules : List Rule) : Bool :=
@@ -105,13 +109,13 @@ private theorem assignment_encode (n : ℕ) (A E : ℕ → ℕ → Bool) (t : Li
   have rem : x % n = min i j := by simp [x,Nat.mod_eq_of_lt small]
   have quo : x / n = max i j := by
     rw [show x=n*(max i j)+min i j by simp [x,Nat.mul_comm],Nat.mul_add_div hn,Nat.div_eq_of_lt small,Nat.add_zero]
-  cases q <;> simp only [Literal.encode,Literal.value,sym,assignment,Bool.false_eq_true,if_false,if_true,
+  cases q <;> simp only [Literal.encode,Literal.value,sym,assignment,Bool.false_eq_true,ite_false,ite_true,
     Nat.zero_add,Nat.add_assoc]
   · change ((if x<n*n then A (x%n) (x/n) else _) == s) = (A (min i j) (max i j) == s)
-    simp only [if_pos lt,rem,quo]
+    simp only [ite_eq_left lt,rem,quo]
   · change ((if n*n+x<n*n then _ else E ((n*n+x-n*n)%n) ((n*n+x-n*n)/n)) == s) =
       (E (min i j) (max i j) == s)
-    simp only [show ¬n*n+x<n*n by omega,if_false,Nat.add_sub_cancel_left,rem,quo]
+    simp only [show ¬n*n+x<n*n by omega,ite_false,Nat.add_sub_cancel_left,rem,quo]
 
 private theorem inconsistent (n : ℕ) (inputs : List Fact) (rules : List Rule)
     (bounded : fits n inputs rules) (unsat : (formulaOf n inputs rules).Unsat) (A E : ℕ → ℕ → Bool)
@@ -123,7 +127,7 @@ private theorem inconsistent (n : ℕ) (inputs : List Fact) (rules : List Rule)
     · obtain ⟨r,hr',rfl⟩ := List.mem_map.mp h
       exact (ruleValue A E r).trans (List.all_eq_true.mp hr r hr')
   have sat : (formulaOf n inputs rules).eval (assignment n A E) = true := by
-    unfold Std.Sat.CNF.eval formulaOf
+    unfold UnitResolution.CNF.eval UnitResolution.evalClause formulaOf
     apply Array.all_eq_true_iff_forall_mem.mpr
     intro d hd
     obtain ⟨c,hc,rfl⟩ := List.mem_map.mp (List.mem_toArray.mp hd)

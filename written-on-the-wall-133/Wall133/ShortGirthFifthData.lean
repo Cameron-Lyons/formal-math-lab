@@ -1,4 +1,8 @@
-import Wall133.ShortGirthCertificateData
+module
+
+public import Wall133.ShortGirthCertificateData
+
+@[expose] public section
 
 namespace Wall133.FifthCertificate
 

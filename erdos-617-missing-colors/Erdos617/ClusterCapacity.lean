@@ -1,6 +1,10 @@
-import Erdos617.ColorGraph
-import Mathlib.Algebra.BigOperators.Ring.Finset
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
+module
+
+public import Erdos617.ColorGraph
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
+
+@[expose] public section
 
 namespace Erdos617
 

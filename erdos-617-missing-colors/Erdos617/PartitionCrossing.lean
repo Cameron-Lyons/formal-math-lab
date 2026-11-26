@@ -1,6 +1,10 @@
-import Erdos617.ClusterExtension
-import Erdos617.SparseTransversal
-import Erdos617.RankEdges
+module
+
+public import Erdos617.ClusterExtension
+public import Erdos617.SparseTransversal
+public import Erdos617.RankEdges
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,7 +1,11 @@
-import Wall133.GirthSixOddDensity
-import Wall133.FiveCycle
-import Wall133.OddNeighborhoodCore
-import Wall133.LeafPruning
+module
+
+public import Wall133.GirthSixOddDensity
+public import Wall133.FiveCycle
+public import Wall133.OddNeighborhoodCore
+public import Wall133.LeafPruning
+
+@[expose] public section
 
 /-! # The odd threshold five at girth six -/
 
@@ -9,9 +13,9 @@ namespace Wall133
 open SimpleGraph
 variable {V : Type*} {G : SimpleGraph V}
 
-private abbrev Near (i j : Fin 7) := CyclicEdge i j
-private abbrev Two (i j : Fin 7) := i ≠ j ∧ ∃ k : Fin 7, Near i k ∧ Near j k
-private abbrev Far (i j : Fin 7) := i ≠ j ∧ ¬Near i j ∧ ¬Two i j
+abbrev Near (i j : Fin 7) := CyclicEdge i j
+abbrev Two (i j : Fin 7) := i ≠ j ∧ ∃ k : Fin 7, Near i k ∧ Near j k
+abbrev Far (i j : Fin 7) := i ≠ j ∧ ¬Near i j ∧ ¬Two i j
 
 private theorem far_pair : ∀ i j k : Fin 7, Far i j → Far i k → j=k ∨ Near j k := by decide
 set_option maxRecDepth 5000 in
@@ -24,7 +28,7 @@ private theorem six_arc : ∀ i j : Fin 7, Two i j → ∃ b : Bool,
     t 0=i ∧ t 5=j ∧ Function.Injective t ∧
     ∀ a b : Fin 6, Near (t a) (t b) ↔ a.val+1=b.val ∨ b.val+1=a.val := by decide
 
-private structure Seven (G : SimpleGraph V) where
+structure Seven (G : SimpleGraph V) where
   v : Fin 7 → V
   inj : Function.Injective v
   edge (i j) : G.Adj (v i) (v j) ↔ Near i j
@@ -254,7 +258,7 @@ theorem noFourCycle_of_girth_five (hg : 5 ≤ G.egirth) : NoFourCycle G := by
   by_contra ne
   have uneq : p≠q := fun e => ne (congrArg (fun w : G.Walk x y => w.getVert 1) e)
   obtain ⟨_,_,_,c,hc,hlen⟩ := hp.exists_isCycle_length_le_add_of_ne hq uneq
-  have lb : 5≤c.length := ENat.natCast_le_natCast.mp (hg.trans (egirth_le_length hc))
+  have lb : 5≤c.length := ENat.natCast_le_natCast.mp (hg.trans hc.egirth_le_length)
   change c.length≤2+2 at hlen
   omega
 
@@ -276,11 +280,11 @@ theorem ten_le_path_of_girth_six_density [Nonempty V] (hg : 6≤G.egirth)
   by_cases bip : H.IsBipartite
   · obtain ⟨c⟩ := bip
     have dens : 5*Fintype.card S ≤ ∑ x : S,H.degree x := by simpa using dense
-    have avg := le_l_of_sum_degree c (k:=5) (by convert dens using 1 <;> congr 2)
+    have avg := le_l_of_sum_degree c (k:=5) (by convert dens using 1)
     exact add_five_le_path_of_bipartite_density ⟨c⟩ four (k:=5) (by decide) avg
   obtain ⟨C⟩ := exists_shortestOddWalk bip
   have hgH : 6≤H.egirth := hg.trans (IsContained.egirth_le ⟨Copy.induce G (S : Set V)⟩)
-  have bound : 6≤C.walk.length := ENat.natCast_le_natCast.mp (hgH.trans (egirth_le_length C.isCycle))
+  have bound : 6≤C.walk.length := ENat.natCast_le_natCast.mp (hgH.trans C.isCycle.egirth_le_length)
   have odd := C.odd
   by_cases sev : C.walk.length=7
   · apply ten_of_seven C four sev hmin

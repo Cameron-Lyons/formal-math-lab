@@ -1,4 +1,8 @@
-import Erdos617.StrictHalfRange
+module
+
+public import Erdos617.StrictHalfRange
+
+@[expose] public section
 
 namespace Erdos617
 

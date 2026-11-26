@@ -1,5 +1,9 @@
-import Erdos617.ForeignTotalBudget
-import Erdos617.LineVariance
+module
+
+public import Erdos617.ForeignTotalBudget
+public import Erdos617.LineVariance
+
+@[expose] public section
 
 namespace Erdos617
 

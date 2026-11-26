@@ -1,5 +1,9 @@
-import Erdos617.IndependentSets
-import Erdos617.ColorCounts
+module
+
+public import Erdos617.IndependentSets
+public import Erdos617.ColorCounts
+
+@[expose] public section
 
 namespace Erdos617
 

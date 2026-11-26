@@ -1,4 +1,8 @@
-import Wall133.BipartiteDensity
+module
+
+public import Wall133.BipartiteDensity
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -233,7 +237,7 @@ theorem two_mul_minDegree_add_three_le_path_of_high_degree [DecidableEq V]
     have ht1 : t ≠ 1 := by dsimp [t]; omega
     change G.Adj (if t=1 then a else if t=2 then w else P.vertex t) z at hk
     by_cases ht2 : t = 2
-    · have hwz : G.Adj w z := by simpa only [if_neg ht1, if_pos ht2] using hk
+    · have hwz : G.Adj w z := by simpa only [ite_eq_right ht1, ite_eq_left ht2] using hk
       exact ⟨w, haw, hw 0 (by omega), ((hwAdj 3 (by omega)).2 rfl).symm, hwz.symm⟩
     · have ht' : G.Adj (P.vertex t) z := by simpa [ht1, ht2] using hk
       exact (ht2 (only2 t ht ht')).elim

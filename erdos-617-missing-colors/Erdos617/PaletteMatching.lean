@@ -1,6 +1,10 @@
-import Erdos617.OddIntersection
-import Erdos617.MatchingCertificate
-import Erdos617.SmallRange
+module
+
+public import Erdos617.OddIntersection
+public import Erdos617.MatchingCertificate
+public import Erdos617.SmallRange
+
+@[expose] public section
 
 namespace Erdos617
 

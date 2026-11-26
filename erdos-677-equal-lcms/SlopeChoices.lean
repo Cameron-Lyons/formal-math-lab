@@ -1,4 +1,8 @@
-import Init
+module
+
+public import Init
+
+@[expose] public section
 
 namespace Erdos677
 
@@ -12,7 +16,7 @@ structure SlopeChoice where
   deriving Repr, Inhabited
 
 -- Integer Newton iteration, initialized from the bit length of the radicand.
-private def rootNewton (k value : Nat) : Nat → Nat → Nat
+def rootNewton (k value : Nat) : Nat → Nat → Nat
   | 0, x => x
   | fuel+1, x =>
     let y := ((k-1)*x + value / x^(k-1)) / k
@@ -20,7 +24,7 @@ private def rootNewton (k value : Nat) : Nat → Nat → Nat
 
 -- Return the most recent convergent with denominator ≤ L, together with the
 -- preceding denominator. The latter gives an inverse, up to a sign.
-private def convergent (L : Nat) : Nat → Nat → Nat → Nat → Nat → Nat → Nat → Nat × Nat × Nat
+def convergent (L : Nat) : Nat → Nat → Nat → Nat → Nat → Nat → Nat → Nat × Nat × Nat
   | 0, _, _, _, p, qPrev, q => (p, q, qPrev)
   | fuel+1, a, b, pPrev, p, qPrev, q =>
     if b = 0 then (p, q, qPrev) else
@@ -29,7 +33,7 @@ private def convergent (L : Nat) : Nat → Nat → Nat → Nat → Nat → Nat �
       if L < qNext then (p, q, qPrev) else
         convergent L fuel b (a % b) p (c*p+pPrev) q qNext
 
-private def chooseError (k u v L p q : Nat) : Nat → Nat → Nat
+def chooseError (k u v L p q : Nat) : Nat → Nat → Nat
   | 0, E => E
   | fuel+1, E =>
     if (p*L-E)^k * v * L^2 ≤ (q*L)^k * u * (L^2-35) ∧

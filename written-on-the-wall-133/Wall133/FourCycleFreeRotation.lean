@@ -1,5 +1,9 @@
-import Wall133.FourCycleFreeGeodesic
-import Wall133.GeodesicRotation
+module
+
+public import Wall133.FourCycleFreeGeodesic
+public import Wall133.GeodesicRotation
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -130,8 +134,8 @@ theorem four_cycle_free_pointed_core (hc : G.Connected) (h4 : NoFourCycle G) (S 
   have capacity (i) (hi : Site P i) : f i < (t-1)+5 := by
     dsimp [f]
     by_cases h : i<t
-    · rw [if_pos h]; omega
-    · rw [if_neg h]; have := window i hi (by omega); omega
+    · rw [ite_eq_left h]; omega
+    · rw [ite_eq_right h]; have := window i hi (by omega); omega
   have fi (i j) (hi : Site P i) (hj : Site P j) (he : f i=f j) : i=j := by
     have w₁ := window i hi; have w₂ := window j hj
     have := hi.2.1; have := hj.2.1
@@ -167,9 +171,9 @@ theorem four_cycle_free_pointed_core (hc : G.Connected) (h4 : NoFourCycle G) (S 
     obtain ⟨i,hi,he,w,hw,hadj,only⟩ := fill ⟨t-1+s.val,by have := s.isLt; omega⟩
     change (if i<t then i-1 else (t-1)+(i-lo))=t-1+s.val at he
     by_cases h : i<t
-    · rw [if_pos h] at he
+    · rw [ite_eq_left h] at he
       have := hi.2.1; omega
-    · rw [if_neg h] at he
+    · rw [ite_eq_right h] at he
       have win := window _ hi (by omega)
       exact ⟨i,by omega,by omega,hi,w,hw,hadj,only⟩
   obtain ⟨i₀,ht₀,he₀,_,_⟩ := slot 0

@@ -1,5 +1,9 @@
-import Erdos617.BoundedDegree
-import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+module
+
+public import Erdos617.BoundedDegree
+public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,4 +1,8 @@
-import Erdos617.RankObstruction
+module
+
+public import Erdos617.RankObstruction
+
+@[expose] public section
 
 namespace Erdos617
 

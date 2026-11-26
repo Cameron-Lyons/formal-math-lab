@@ -1,5 +1,9 @@
-import Erdos617.ParallelRowGreedy
-import Erdos617.ParallelRowEdgeCount
+module
+
+public import Erdos617.ParallelRowGreedy
+public import Erdos617.ParallelRowEdgeCount
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -30,6 +34,6 @@ theorem missing_of_parallel_full_cliques {V : Type*} [Fintype V] [DecidableEq V]
       change {x}∪Y=univ
       rw [←last]
       ext u
-      by_cases h : u∈Y <;> simp [h]) spokes cross)
+      simp) spokes cross)
 
 end Erdos617

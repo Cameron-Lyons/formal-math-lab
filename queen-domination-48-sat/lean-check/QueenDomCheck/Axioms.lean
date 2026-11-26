@@ -17,7 +17,7 @@ import QueenDomCheck.Verify
 #guard_msgs in
 #print axioms QueenDomCheck.caseFormula_eq
 
-/-- info: 'QueenDomCheck.Prepared.unsat' depends on axioms: [propext, Quot.sound] -/
+/-- info: 'QueenDomCheck.Prepared.unsat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in
 #print axioms QueenDomCheck.Prepared.unsat
 

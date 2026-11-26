@@ -1,5 +1,9 @@
-import Wall133.CoreReturn
-import Wall133.BipartiteRadiusSix
+module
+
+public import Wall133.CoreReturn
+public import Wall133.BipartiteRadiusSix
+
+@[expose] public section
 
 /-! # Low degrees on a forest attached at a single vertex -/
 
@@ -43,7 +47,7 @@ theorem core_disjoint_of_pendant_forest (T S : Finset V) (e : V)
     (hforest : (G.induce (T : Set V)).IsAcyclic)
     (hd : ∀ z : S, 3 ≤ (G.induce (S : Set V)).degree z) : Disjoint S T := by
   classical
-  by_contra! hn
+  by_contra hn
   obtain ⟨x,hxS,hxT⟩ := Finset.not_disjoint_iff.mp hn
   let I := S ∩ T
   let H := G.induce (S : Set V)

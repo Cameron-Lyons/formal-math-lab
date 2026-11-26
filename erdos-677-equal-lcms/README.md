@@ -10,7 +10,7 @@ The Lean 4 proofs here classify lengths $k = 2, 3, 4$ inside Lean (no external c
 | Status | Lengths $k = 2, 3, 4$ proved in Lean 4; length $k = 6$ settled computer-assisted (Lean checks the reduction and finite cases; external elliptic-curve arithmetic proves the affine bound). General $k$ remains open. |
 | Classifications | For distinct starts $m > n$: $k = 2$, none; $k = 3$, only $(n, m) = (2, 3)$ ($\operatorname{lcm} = 60$, overlapping); $k = 4$, only $(1, 2)$ ($\operatorname{lcm} = 60$, overlapping); $k = 6$, only $(3, 4)$, $(5, 6)$, $(13, 15)$ (all overlapping). |
 | Main theorems | `Erdos677.erdos_677_two`, `erdos_677_three`, `erdos_677_four`, `three_collision_iff`, `four_collision_iff`, `six_collision_iff_three_of_affine_cover`, `no_collision_shift_le_52` |
-| Verification | `lake exe cache get && lake build` (Lean 4.35.0-rc2 + mathlib); see [cubic/LengthSix.md](cubic/LengthSix.md#reproduction) for length-6 elliptic-curve arithmetic |
+| Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib); see [cubic/LengthSix.md](cubic/LengthSix.md#reproduction) for length-6 elliptic-curve arithmetic |
 | Prior art | Checked 23-24 November 2026: classifications at $k = 3, 4$, the three overlapping pairs at $k = 6$, and the four-cubic reduction were recorded previously; no earlier Lean proof of $k = 3$ or $k = 4$ or complete $k = 6$ integral-point proof was located (priority unverified). See [PRIOR_ART.md](../PRIOR_ART.md#erdős-677-equal-lcms-of-six-consecutive-integers). |
 
 ## Results
@@ -46,7 +46,7 @@ For length 6, the Lean files state both hypotheses explicitly, and the external 
 
 ## Proof methods and verification
 
-Run from this directory with `elan` installed (pinned Lean 4.35.0-rc2):
+Run from this directory with `elan` installed (pinned Lean 4.36.0):
 
 ```sh
 lake exe cache get

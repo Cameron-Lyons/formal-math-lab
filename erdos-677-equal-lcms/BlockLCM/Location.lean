@@ -1,6 +1,10 @@
-import BlockLCM.Defect
-import Mathlib.Tactic.Ring
-import Mathlib.Tactic.Positivity
+module
+
+public import BlockLCM.Defect
+public import Mathlib.Tactic.Ring
+public import Mathlib.Tactic.Positivity
+
+@[expose] public section
 
 namespace Erdos677
 

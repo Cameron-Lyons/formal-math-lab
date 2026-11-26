@@ -1,4 +1,8 @@
-import Wall133.BipartiteGeodesic
+module
+
+public import Wall133.BipartiteGeodesic
+
+@[expose] public section
 
 /-! # Density inside a part of the graph
 
@@ -56,13 +60,12 @@ theorem exists_odd_colored_core_of_induce (U : Finset V) (hU : U.Nonempty)
   obtain ⟨S,hS,sub,bound⟩ := lift_core (G := G) U T hT (fun v => m+1+(if color v=col then 1 else 0))
     (fun z => by
       simp only [color_in]
-      convert hmin z using 1
-      congr 1)
+      convert hmin z using 1)
   let c : (G.induce (S:Set V)).Coloring (Fin 2) := ⟨fun x => color x.val,by
     intro x y h
     have e : C (⟨x.val,sub x.property⟩:U) ≠ C (⟨y.val,sub y.property⟩:U) := C.valid h
     change color x.val ≠ color y.val
-    simpa only [color, dif_pos (sub x.property), dif_pos (sub y.property)] using e⟩
+    simpa only [color, dite_eq_left (sub x.property), dite_eq_left (sub y.property)] using e⟩
   exact ⟨S,hS,c,col,bound⟩
 
 /-- Any induced subgraph of average degree at least `k` supplies the

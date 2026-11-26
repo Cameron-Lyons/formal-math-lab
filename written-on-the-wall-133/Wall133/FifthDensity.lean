@@ -1,5 +1,9 @@
-import Wall133.OddRootedGrowth
-import Wall133.FifthConfiguration
+module
+
+public import Wall133.OddRootedGrowth
+public import Wall133.FifthConfiguration
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

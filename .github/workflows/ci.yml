@@ -18,7 +18,7 @@ concurrency:
 jobs:
   workflow-lint:
     name: Workflow and shell lint
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -41,7 +41,7 @@ jobs:
 
   repo-integrity:
     name: Repository and Lean static integrity
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -52,14 +52,14 @@ jobs:
 
   python:
     name: Python (Ruff, ty, tests)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Install uv
-        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         with:
           enable-cache: true
       - name: Sync locked Python 3.15 environment
@@ -79,24 +79,26 @@ jobs:
 
   c-cpp:
     name: C23 and C++23 strict build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Install GCC 14 and Clang 18
+      - name: Ensure GCC 15 and Clang 22 are installed
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends gcc-14 g++-14 clang-18
-      - name: Compile and link C23/C++23 sources with GCC 14
-        run: python3 -m scripts.ci.check_c_cpp --cc gcc-14 --cxx g++-14 --mode link
-      - name: Compile and link C23/C++23 sources with Clang 18
-        run: python3 -m scripts.ci.check_c_cpp --cc clang-18 --cxx clang++-18 --mode link
+          if ! command -v gcc-15 >/dev/null 2>&1 || ! command -v g++-15 >/dev/null 2>&1 || ! command -v clang-22 >/dev/null 2>&1 || ! command -v clang++-22 >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends gcc-15 g++-15 clang-22
+          fi
+      - name: Compile and link C23/C++23 sources with GCC 15
+        run: python3 -m scripts.ci.check_c_cpp --cc gcc-15 --cxx g++-15 --mode link
+      - name: Compile and link C23/C++23 sources with Clang 22
+        run: python3 -m scripts.ci.check_c_cpp --cc clang-22 --cxx clang++-22 --mode link
 
   detect-lean-changes:
     name: Detect affected Lean packages
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
@@ -140,7 +142,7 @@ jobs:
     name: Lean (${{ matrix.pkg }})
     needs: detect-lean-changes
     if: needs.detect-lean-changes.outputs.has_packages == 'true'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: ${{ matrix.timeout_minutes }}
     strategy:
       fail-fast: false
@@ -177,7 +179,7 @@ jobs:
       - detect-lean-changes
       - lean
     if: always()
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
       - name: Require all checks to pass

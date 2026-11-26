@@ -1,5 +1,9 @@
-import Erdos617.BudgetedGoodColor
-import Erdos617.GrowingSquareExcess
+module
+
+public import Erdos617.BudgetedGoodColor
+public import Erdos617.GrowingSquareExcess
+
+@[expose] public section
 
 namespace Erdos617
 

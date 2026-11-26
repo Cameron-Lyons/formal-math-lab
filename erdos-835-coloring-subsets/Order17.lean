@@ -1,4 +1,8 @@
-import Cyclic
+module
+
+public import Cyclic
+
+@[expose] public section
 
 namespace Erdos835
 

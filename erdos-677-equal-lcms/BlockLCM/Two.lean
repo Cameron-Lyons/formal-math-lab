@@ -1,5 +1,9 @@
-import PrimePowers
-import Mathlib.Data.Nat.GCD.Basic
+module
+
+public import PrimePowers
+public import Mathlib.Data.Nat.GCD.Basic
+
+@[expose] public section
 
 namespace Erdos677
 open Finset

@@ -1,6 +1,10 @@
-import Wall133.Bipartite
-import Wall133.Density
-import Wall133.FirstBands
+module
+
+public import Wall133.Bipartite
+public import Wall133.Density
+public import Wall133.FirstBands
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

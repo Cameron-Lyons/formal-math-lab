@@ -1,5 +1,9 @@
-import Erdos617.RankDensity
-import Erdos617.ObstructionBounds
+module
+
+public import Erdos617.RankDensity
+public import Erdos617.ObstructionBounds
+
+@[expose] public section
 
 namespace Erdos617
 

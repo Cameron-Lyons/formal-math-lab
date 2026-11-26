@@ -1,5 +1,9 @@
-import Erdos617.SquarePaletteBudget
-import Erdos617.LocalPaletteEnergy
+module
+
+public import Erdos617.SquarePaletteBudget
+public import Erdos617.LocalPaletteEnergy
+
+@[expose] public section
 
 namespace Erdos617
 

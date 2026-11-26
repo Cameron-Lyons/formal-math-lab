@@ -1,4 +1,8 @@
-import Cancellation17260
+module
+
+public import Cancellation17260
+
+@[expose] public section
 
 namespace Equation17260
 

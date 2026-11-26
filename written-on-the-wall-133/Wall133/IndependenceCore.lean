@@ -1,6 +1,10 @@
-import Wall133.RegularAll
-import Wall133.NeighborhoodTriangles
-import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+module
+
+public import Wall133.RegularAll
+public import Wall133.NeighborhoodTriangles
+public import Mathlib.Combinatorics.SimpleGraph.DegreeSum
+
+@[expose] public section
 
 /-!
 # Peeling by neighborhood independence
@@ -29,11 +33,11 @@ lemma weight_induce_le (s : Finset V) (x y : s) :
   unfold triangleWeight
   change (if G.Adj x.val y.val then _ else 0) ≤ (if G.Adj x.val y.val then _ else 0)
   by_cases he : G.Adj x.val y.val
-  · simp only [if_pos he]
+  · simp only [ite_eq_left he]
     have lift : (∃ z:s, (G.induce (s:Set V)).Adj x z ∧ (G.induce (s:Set V)).Adj y z) →
         ∃ z,G.Adj x.val z ∧ G.Adj y.val z := fun ⟨z,hx,hy⟩ => ⟨z.val,hx,hy⟩
-    split_ifs <;> first | decide | contradiction | (expose_names; exact False.elim (‹¬_› (lift ‹_›)))
-  · simp only [if_neg he,le_refl]
+    split_ifs <;> first | decide | (expose_names; exact False.elim (‹¬_› (lift ‹_›)))
+  · simp only [ite_eq_right he,le_refl]
 
 theorem weight_of_triangle_edge {x y : V} (ha : G.Adj x y)
     (h : ∃ z,G.Adj x z ∧ G.Adj y z) : triangleWeight G x y = 1 := by simp [triangleWeight,ha,h]

@@ -1,5 +1,9 @@
-import Wall133.BipartiteGeodesic
-import Wall133.BipartiteRadiusSix
+module
+
+public import Wall133.BipartiteGeodesic
+public import Wall133.BipartiteRadiusSix
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph
@@ -530,7 +534,7 @@ theorem radius_add_odd_density_le_path_add_one [Nonempty V] (hc : G.Connected)
   by_contra! hshort
   obtain ⟨y,hy,hlow⟩ := h.2 (by omega)
   have hh := hmin y
-  rw [if_pos (hy.trans ha)] at hh
+  rw [ite_eq_left (hy.trans ha)] at hh
   omega
 
 /-- The floored conjecture is within one vertex for all connected bipartite

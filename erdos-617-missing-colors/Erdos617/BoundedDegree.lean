@@ -1,5 +1,9 @@
-import Erdos617.ColorGraph
-import Erdos617.CliqueBoundary
+module
+
+public import Erdos617.ColorGraph
+public import Erdos617.CliqueBoundary
+
+@[expose] public section
 
 namespace Erdos617
 

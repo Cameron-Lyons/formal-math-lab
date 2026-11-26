@@ -1,4 +1,8 @@
-import Erdos617.PaletteMatching
+module
+
+public import Erdos617.PaletteMatching
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -91,7 +95,7 @@ theorem one_pair_merge_or_obstruction (hr : 2≤r) (d : Sym2 V → Fin r)
   · rintro ⟨a,b,ab,p,q⟩
     have sub : bad⊆{a,b} := by
       intro j hj
-      by_contra! no
+      by_contra no
       simp only [mem_insert,mem_singleton,not_or] at no
       exact (mem j).mp hj (q j no.1 no.2)
     refine ⟨(card_le_card sub).trans_eq (card_pair ab),?_⟩

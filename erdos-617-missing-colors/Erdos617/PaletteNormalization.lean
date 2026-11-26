@@ -1,4 +1,8 @@
-import Erdos617.OddIntersection
+module
+
+public import Erdos617.OddIntersection
+
+@[expose] public section
 
 namespace Erdos617
 
@@ -121,7 +125,7 @@ theorem rankOn_cliques_and_core (G : SimpleGraph V) (A : Finset V) (ha : A.Nonem
   have hA : A ∉ P := fun h => ha.ne_empty (disjoint_self.mp (disA A h))
   have dis : (↑(insert A P) : Set (Finset V)).PairwiseDisjoint id := by
     rw [coe_insert]
-    exact hd.insert_of_notMem hA disA
+    exact hd.insert fun B hB _ => disA B hB
   have cover : U ⊆ (insert A P).biUnion id := by
     rw [biUnion_insert,show id A=A from rfl,hu,union_sdiff_self_eq_union]
     exact (subset_univ U).trans subset_union_right

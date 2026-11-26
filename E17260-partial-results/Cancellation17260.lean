@@ -1,4 +1,8 @@
-import Equation17260
+module
+
+public import Equation17260
+
+@[expose] public section
 
 namespace Equation17260
 

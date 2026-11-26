@@ -1,5 +1,9 @@
-import Slots
-import Mathlib.Data.List.MinMax
+module
+
+public import Slots
+public import Mathlib.Data.List.MinMax
+
+@[expose] public section
 
 namespace Erdos708Slots
 

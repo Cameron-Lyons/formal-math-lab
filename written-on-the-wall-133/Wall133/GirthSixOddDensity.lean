@@ -1,5 +1,9 @@
-import Wall133.GirthSixSharp
-import Mathlib.Combinatorics.SimpleGraph.Coloring.Constructions
+module
+
+public import Wall133.GirthSixSharp
+public import Mathlib.Combinatorics.SimpleGraph.Coloring.Constructions
+
+@[expose] public section
 
 /-! # Induced paths through a shortest odd cycle -/
 namespace Wall133
@@ -19,7 +23,7 @@ theorem exists_shortestOddWalk (h : ¬ G.IsBipartite) : Nonempty (ShortestOddWal
   have hex : ∃ n : ℕ, n % 2 = 1 ∧ ∃ v, ∃ p : G.Walk v v, p.length=n := by
     by_contra! hn
     apply h
-    rw [IsBipartite, two_colorable_iff_forall_loop_even]
+    rw [isBipartite_iff_forall_walk_even_length]
     intro v p
     exact Nat.even_iff.mpr (by by_contra! he; exact hn _ (by omega) v p rfl)
   let n := Nat.find hex

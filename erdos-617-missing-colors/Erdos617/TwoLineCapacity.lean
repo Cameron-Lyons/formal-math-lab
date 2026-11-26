@@ -1,4 +1,8 @@
-import Erdos617.ExteriorBlocks
+module
+
+public import Erdos617.ExteriorBlocks
+
+@[expose] public section
 
 namespace Erdos617
 

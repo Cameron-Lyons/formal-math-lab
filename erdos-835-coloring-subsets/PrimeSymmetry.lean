@@ -1,6 +1,10 @@
-import Coloring
-import Cycles
-import Edges
+module
+
+public import Coloring
+public import Cycles
+public import Edges
+
+@[expose] public section
 
 namespace Erdos835
 

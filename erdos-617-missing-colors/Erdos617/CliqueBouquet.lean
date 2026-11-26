@@ -1,5 +1,9 @@
-import Erdos617.LocalPaletteEnergy
-import Mathlib.Combinatorics.Hall.Finite
+module
+
+public import Erdos617.LocalPaletteEnergy
+public import Mathlib.Combinatorics.Hall.Finite
+
+@[expose] public section
 
 namespace Erdos617
 

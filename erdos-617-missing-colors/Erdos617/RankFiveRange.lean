@@ -1,4 +1,8 @@
-import Erdos617.RankFiveShell
+module
+
+public import Erdos617.RankFiveShell
+
+@[expose] public section
 
 namespace Erdos617
 

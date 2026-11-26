@@ -1,6 +1,10 @@
-import Equation17260
-import Mathlib.Algebra.Group.Hom.End
-import Mathlib.Tactic.Abel
+module
+
+public import Equation17260
+public import Mathlib.Algebra.Group.Hom.End
+public import Mathlib.Tactic.Abel
+
+@[expose] public section
 
 namespace Equation17260
 

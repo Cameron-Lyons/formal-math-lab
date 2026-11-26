@@ -1,4 +1,8 @@
-import Wall133.ShortGirthReroute
+module
+
+public import Wall133.ShortGirthReroute
+
+@[expose] public section
 namespace Wall133
 open SimpleGraph
 open scoped Classical

@@ -1,6 +1,10 @@
-import PrimePowers
-import Mathlib.Tactic.Eval
-import Mathlib.Tactic.FinCases
+module
+
+public import PrimePowers
+public import Mathlib.Tactic.Eval
+public import Mathlib.Tactic.FinCases
+
+@[expose] public section
 
 set_option Elab.async false
 

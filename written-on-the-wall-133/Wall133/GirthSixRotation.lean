@@ -1,5 +1,9 @@
-import Wall133.GirthSix
-import Wall133.GeodesicRotation
+module
+
+public import Wall133.GirthSix
+public import Wall133.GeodesicRotation
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

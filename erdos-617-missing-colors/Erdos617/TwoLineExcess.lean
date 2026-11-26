@@ -1,6 +1,10 @@
-import Erdos617.GoodSquareBlocks
-import Erdos617.TwoLineCapacity
-import Erdos617.ExteriorPairCounts
+module
+
+public import Erdos617.GoodSquareBlocks
+public import Erdos617.TwoLineCapacity
+public import Erdos617.ExteriorPairCounts
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,4 +1,9 @@
-import Lean
+module
+
+public meta import Lean
+import all Init.Data.List.Sort.Basic
+
+@[expose] public section
 
 /-! A compatible set of all three links at the fixed points 17, 18 and 19.
 The blocks containing 19 recover the previously checked 19-point certificate.
@@ -10,7 +15,7 @@ set_option maxRecDepth 50000
 set_option maxHeartbeats 50000000
 set_option cbv.maxSteps 8000000
 
-private def readBlocks (source : String) : Lean.Elab.Term.TermElabM Lean.Expr := do
+private meta def readBlocks (source : String) : Lean.Elab.Term.TermElabM Lean.Expr := do
   match (Lean.Json.parse source).bind (Lean.fromJson? (α := List (List Nat))) with
   | .ok blocks => return Lean.toExpr blocks
   | .error e => throwError "invalid seed: {e}"

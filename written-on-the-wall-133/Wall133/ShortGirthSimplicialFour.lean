@@ -1,5 +1,9 @@
-import Wall133.ShortGirthCertificate
-import Wall133.ShortGirthFourConfiguration
+module
+
+public import Wall133.ShortGirthCertificate
+public import Wall133.ShortGirthFourConfiguration
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

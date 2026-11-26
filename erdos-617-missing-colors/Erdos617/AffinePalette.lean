@@ -1,5 +1,9 @@
-import Erdos617.Affine
-import Erdos617.BipartiteColor
+module
+
+public import Erdos617.Affine
+public import Erdos617.BipartiteColor
+
+@[expose] public section
 
 namespace Erdos617
 

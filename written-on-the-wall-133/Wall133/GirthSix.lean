@@ -1,4 +1,8 @@
-import Wall133.Girth
+module
+
+public import Wall133.Girth
+
+@[expose] public section
 
 /-!
 # Girth-six graphs at small radius
@@ -99,7 +103,7 @@ theorem girth_six_density_bound [Fintype V] [DecidableEq V] [DecidableRel G.Adj]
   obtain ⟨a,ha⟩ := high
   have hg' : 6 ≤ H.egirth := hg.trans (IsContained.egirth_le ⟨Copy.induce G (S : Set V)⟩)
   have bound := girth_six_min_degree_bound hg' (d := m+1) (by dsimp [m]; omega) minH a
-  rw [if_pos ha] at bound
+  rw [ite_eq_left ha] at bound
   have mono : H.path ≤ G.path := G.path_induce_le (S : Set V)
   dsimp [m] at bound
   omega

@@ -1,5 +1,9 @@
-import Erdos617.LineMultiplicity
-import Erdos617.SmallRange
+module
+
+public import Erdos617.LineMultiplicity
+public import Erdos617.SmallRange
+
+@[expose] public section
 
 namespace Erdos617
 

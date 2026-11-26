@@ -1,5 +1,9 @@
-import Wall133.Girth
-import Wall133.GeodesicRotation
+module
+
+public import Wall133.Girth
+public import Wall133.GeodesicRotation
+
+@[expose] public section
 
 /-!
 # Girth-five graphs at small radius
@@ -100,7 +104,7 @@ theorem girth_five_density_bound [Fintype V] [DecidableEq V] [DecidableRel G.Adj
   obtain ⟨a,ha⟩ := high
   have hg' : 5 ≤ H.egirth := hg.trans (IsContained.egirth_le ⟨Copy.induce G (S : Set V)⟩)
   have bound := girth_five_min_degree_bound hg' (d := m+1) (by dsimp [m]; omega) minH a
-  rw [if_pos ha] at bound
+  rw [ite_eq_left ha] at bound
   have mono : H.path ≤ G.path := G.path_induce_le (S : Set V)
   dsimp [m] at bound
   omega

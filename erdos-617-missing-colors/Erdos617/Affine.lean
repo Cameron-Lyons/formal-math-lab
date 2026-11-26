@@ -1,13 +1,17 @@
-import Mathlib.Algebra.Field.ZMod
-import Mathlib.Data.Finset.Card
-import Mathlib.Data.Fintype.Card
-import Mathlib.Data.Fintype.Pigeonhole
-import Mathlib.Data.Fintype.Prod
-import Mathlib.Data.Nat.PrimeFin
-import Mathlib.Data.Sym.Sym2
-import Mathlib.Tactic.Choose
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.Push
+module
+
+public import Mathlib.Algebra.Field.ZMod
+public import Mathlib.Data.Finset.Card
+public import Mathlib.Data.Fintype.Card
+public import Mathlib.Data.Fintype.Pigeonhole
+public import Mathlib.Data.Fintype.Prod
+public import Mathlib.Data.Nat.PrimeFin
+public import Mathlib.Data.Sym.Sym2
+public import Mathlib.Tactic.Choose
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.Push
+
+@[expose] public section
 
 namespace Erdos617
 

@@ -1,4 +1,8 @@
-import Wall133.OddRadiusSeven
+module
+
+public import Wall133.OddRadiusSeven
+
+@[expose] public section
 
 namespace Wall133
 open SimpleGraph

@@ -1,7 +1,11 @@
-import Erdos617.NestedObstruction
-import Erdos617.SevenCore
-import Erdos617.SevenPairs
-import Erdos617.SevenProfile
+module
+
+public import Erdos617.NestedObstruction
+public import Erdos617.SevenCore
+public import Erdos617.SevenPairs
+public import Erdos617.SevenProfile
+
+@[expose] public section
 
 namespace Erdos617
 

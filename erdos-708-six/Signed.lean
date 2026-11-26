@@ -1,7 +1,11 @@
-import Slots
-import Mathlib.Data.Int.Interval
-import Mathlib.Algebra.BigOperators.ModEq
-import Mathlib.Algebra.BigOperators.Ring.Finset
+module
+
+public import Slots
+public import Mathlib.Data.Int.Interval
+public import Mathlib.Algebra.BigOperators.ModEq
+public import Mathlib.Algebra.BigOperators.Ring.Finset
+
+@[expose] public section
 
 namespace IntervalSix
 open Erdos708Slots

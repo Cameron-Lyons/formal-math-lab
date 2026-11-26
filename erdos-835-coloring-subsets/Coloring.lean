@@ -1,8 +1,12 @@
-import Mathlib.Data.Finset.Card
-import Mathlib.Data.Finset.Image
-import Mathlib.Data.Fintype.EquivFin
-import Mathlib.Data.Fintype.Powerset
-import Mathlib.GroupTheory.Perm.Basic
+module
+
+public import Mathlib.Data.Finset.Card
+public import Mathlib.Data.Finset.Image
+public import Mathlib.Data.Fintype.EquivFin
+public import Mathlib.Data.Fintype.Powerset
+public import Mathlib.GroupTheory.Perm.Basic
+
+@[expose] public section
 
 namespace Erdos835
 

@@ -1,4 +1,8 @@
-import Wall133.ShortGirthStars
+module
+
+public import Wall133.ShortGirthStars
+
+@[expose] public section
 namespace Wall133
 open SimpleGraph
 variable {V : Type*} [Fintype V] [DecidableEq V] {G : SimpleGraph V} [DecidableRel G.Adj]

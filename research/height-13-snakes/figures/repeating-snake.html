@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repeating an optimal height-13 snake</title>
+<div id="h13-snake">
+  <div class="h13-header">
+    <strong aria-live="polite" id="h13-summary"></strong>
+    <label for="h13-copies">Six-column blocks
+      <select class="form-select" id="h13-copies">
+        <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option>
+      </select>
+    </label>
+  </div>
+  <svg id="h13-board" role="img" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="h13-legend"><span><i></i>Fixed ends</span><span><i></i>Repeatable block · 48 squares</span></div>
+</div>
+<style>
+#h13-snake { --h13-ink: var(--foreground, CanvasText); --h13-block: var(--chart-2,var(--viz-series-1, Highlight)); display: grid; gap: .7rem; color: var(--h13-ink); }
+#h13-snake .h13-header, #h13-snake .h13-legend, #h13-snake label, #h13-snake .h13-legend span { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+#h13-snake .h13-header, #h13-snake .h13-legend { justify-content: center; gap: 1rem; }
+#h13-snake .h13-legend i { width: .8rem; height: .8rem; background: var(--h13-ink); }
+#h13-snake .h13-legend span + span i { background: var(--h13-block); }
+#h13-board { width: 100%; height: 284px; }
+#h13-board .grid { stroke: var(--border, GrayText); fill: none; stroke-width: .035; }
+#h13-board .fixed { fill: color-mix(in srgb, var(--h13-ink) 36%, transparent); }
+#h13-board .repeat { fill: color-mix(in srgb, var(--h13-block) 57%, transparent); }
+#h13-board .path { fill: none; stroke: var(--h13-ink); stroke-width: .105; stroke-linecap: round; }
+#h13-board .seam { stroke: var(--h13-block); stroke-width: .07; stroke-dasharray: .17 .13; }
+#h13-board .end { fill: var(--h13-ink); }
+</style>
+<script>
+(() => {
+  const root = document.getElementById('h13-snake');
+  const canvas = root.querySelector('svg');
+  const input = root.querySelector('select');
+  const start = [8119, 4317, 5987], middle = [5554, 5851, 6765, 2997, 6365, 5987], end = [7614];
+  function draw() {
+    const copies = Number(input.value);
+    const masks = [...start, ...Array.from({length: copies}, () => middle).flat(), ...end];
+    const width = masks.length;
+    const cells = [];
+    const edges = [];
+    const endpoints = [];
+    let count = 0;
+    function filled(x,y) { return x >= 0 && x < width && y >= 0 && y < 13 && ((masks[x] >> y) & 1); }
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < 13; y++) {
+        if (!filled(x,y)) continue;
+        count++;
+        const cls = x >= start.length && x < width - end.length ? 'repeat' : 'fixed';
+        cells.push('<rect class="'+cls+'" x="'+x+'" y="'+y+'" width="1" height="1"/>');
+        const center = 'M'+(x+.5)+' '+(y+.5);
+        if (filled(x+1,y)) edges.push(center+'h1');
+        if (filled(x,y+1)) edges.push(center+'v1');
+        if ([filled(x-1,y),filled(x+1,y),filled(x,y-1),filled(x,y+1)].filter(Boolean).length === 1)
+          endpoints.push('<circle class="end" cx="'+(x+.5)+'" cy="'+(y+.5)+'" r=".21"/>');
+      }
+    }
+    const grid = [];
+    for (let x=0; x<=width; x++) grid.push('M'+x+' 0v13');
+    for (let y=0; y<=13; y++) grid.push('M0 '+y+'h'+width);
+    const seams = [];
+    if (copies) for (let x=start.length; x<=width-end.length; x+=middle.length) seams.push('M'+x+' 0v13');
+    const summary = '13 × '+width+' · '+count+' squares';
+    root.querySelector('#h13-summary').textContent = summary;
+    canvas.setAttribute('viewBox', '-.15 -.15 '+(width+.3)+' 13.3');
+    canvas.setAttribute('aria-label', 'An optimal snake of '+count+' squares on a 13 by '+width+' board. The first three and last columns are fixed. Each highlighted six-column block adds 48 squares.');
+    canvas.innerHTML = cells.join('')+'<path class="grid" d="'+grid.join('')+'"/><path class="path" d="'+edges.join('')+'"/>'+endpoints.join('')+'<path class="seam" d="'+seams.join('')+'"/>';
+  }
+  function restore(state) {
+    const n = state?.modelContent?.copies;
+    if (Number.isInteger(n) && n >= 0 && n <= 4) input.value = String(n);
+    draw();
+  }
+  input.addEventListener('change', () => {
+    draw();
+    window.openai?.setWidgetState?.({modelContent:{copies:Number(input.value)}})?.catch(() => {});
+  });
+  window.addEventListener('openai:set_globals', e => { if(e.detail?.globals?.widgetState) restore(e.detail.globals.widgetState); });
+  restore(window.openai?.widgetState);
+})();
+</script>
+</html>

@@ -1,6 +1,6 @@
 # Prior proofs, originality, and research status
 
-First checked **22 November 2026** (America/Chicago; some retrievals carry 23 November UTC timestamps), with follow-up checks through **25 November 2026**. This audit compares each local Lean statement against existing proofs and public formalizations.
+First checked **22 November 2026** (America/Chicago; some retrievals carry 23 November UTC timestamps), with follow-up checks through **26 November 2026**. This audit compares local results against existing proofs and public formalizations.
 
 Summary of the checked entries:
 
@@ -23,6 +23,10 @@ Checked **24 November 2026**. Genkin's version 2 builds a box-free 6 × 7 × 50 
 ## Two triples producing nine squares
 
 Checked **24 November 2026**. Dujella asks the six-integer question as [Problem 1.4](https://web.math.pmf.unizg.hr/~duje/pdf/open2.pdf#page=2). Batta, Hajdu, and Pongrácz list the case of three vertices on each side as open ([§6](https://arxiv.org/html/2410.20120v1#S6)). The [Lean proof](square-triples/SquareTriples/Ratio.lean) rules out any solution where both triples span a factor of at most 1,000. Priority of this bound is unverified.
+
+## Longest snakes on a 13 × n grid
+
+Checked **26 November 2026**. Tong Niu proves the maximum area of a snake polyomino at each fixed height through 12 and identifies height 13 as a next computational case. OEIS A360917 tabulates longest induced paths in rectangular grids. The local C++ computation gives a formula for every width at height 13. [Niu, §8](https://arxiv.org/html/2611.26640v1#S8) · [OEIS A360917](https://oeis.org/A360917) · [Height-13 proof and verifiers](research/height-13-snakes/)
 
 ## Nine-bit snake-in-the-box
 

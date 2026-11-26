@@ -2,7 +2,7 @@
 
 A collection of Lean 4 proofs, finite-case solutions, obstructions, and computational checks in combinatorics, Ramsey theory, finite algebra (the Equational Theories Project), number theory, Erdős problems, OEIS conjectures, and discrete geometry.
 
-Each folder is a standalone Lake package. Its README states the math problem, source references (arXiv, DOI, OEIS, Erdős problem, or ETP equation), Lean theorem names, build commands, and trust boundaries. Literature checks are logged in [PRIOR_ART.md](PRIOR_ART.md) (updated 25 November 2026). When a note says no earlier proof was found, that covers only the sources checked and does not claim absolute priority.
+Each Lean project is a standalone Lake package. Its README states the math problem, source references (arXiv, DOI, OEIS, Erdős problem, or ETP equation), Lean theorem names, build commands, and trust boundaries. Literature checks are logged in [PRIOR_ART.md](PRIOR_ART.md) (updated 26 November 2026). When a note says no earlier proof was found, that covers only the sources checked and does not claim absolute priority.
 
 ## Settled problems, exact values, and proved recurrences
 
@@ -57,9 +57,13 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 | [Triple covering design `C(61, 25, 3)`](covering-61-25-3/) (26 vs. 27 blocks of size 25, Caleb Ashton) | Any 26-block cover can keep at most 20 of the 27 published blocks (Lean rules out all 296,010 choices of 21); checks an 84-missing-triple candidate. | Whether $C(61, 25, 3)$ is 26 or 27 is still open. |
 | [Equation 17260](E17260-partial-results/) (`x = (y ◇ x) ◇ (z ◇ (x ◇ (z ◇ z)))`, dual E28740) | Any model with surjective squaring, an idempotent, a square 2-cycle, left or right cancellation, or an affine operation has at most one element (`Subsingleton`), plus finite counting bounds. | Infinite models exist (`arXiv:2609.05690`); existence of a finite nontrivial model is still open. |
 
+## Computational proofs
+
+The longest snake on a $13\times n$ grid gains 48 squares every six columns for $n\ge7$. Two C++17 verifiers check the formula for every width, and a Python constructor gives a longest snake for any requested width. [Height-13 snakes](research/height-13-snakes/)
+
 ## Find and check a theorem
 
-Each folder has its own Lake setup and pinned `lean-toolchain`:
+Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
 * Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.

@@ -14,6 +14,21 @@ The same formula holds at smaller positive widths with exactly eight exceptions.
 
 Outside those eight exceptions the formula is equivalently $L(n)=\lfloor(26n+11-(-1)^n)/3\rfloor$. In particular, $L(n+6)=L(n)+52$ for every $n\ge18$. The onset is sharp since $L(23)-L(17)=203-150=53$. The first 16 values agree with the rectangular grid table in the OEIS. Niu gives all-width formulas through height 12, and the lab's preceding computation handles height 13. [OEIS A360917 data](https://oeis.org/A360917/b360917.txt) · [Niu, §8](https://arxiv.org/html/2611.26640v1#S8) · [Height-13 proof](../height-13-snakes/README.md)
 
+## Lean proof
+
+The theorem `Height14.longest_snake` states that for every positive width some snake attains `formula n` and every snake has at most that length. A snake is a nonempty list of distinct grid squares. Two squares in the list share an edge exactly when they are consecutive. [Main theorem](lean/Height14.lean) · [Grid path definition](lean/Height14/Path.lean) · [Length formula](lean/Height14/Formula.lean)
+
+The lower bound inserts an explicit 52-square path segment. For the upper bound, Lean proves that scanning a grid path follows the boundary transitions. Lean then checks the transition table and computes its scores backwards. At each boundary, the best continuation through 46 columns adds at most 52 more squares than the best continuation through 40. The same inequality propagates when another column is added. [Construction](lean/Height14/Witness.lean) · [Grid-to-boundary proof](lean/Height14/Grid.lean) · [Propagation](lean/Height14/Pumping.lean)
+
+From this directory, run
+
+```sh
+cd lean
+lake build
+```
+
+The package uses Lean 4.36.0 and its standard library. The finite checks use `native_decide`, so they trust Lean's compiler and native runtime. Lean computes the tables from source. The C++ programs and Python constructor below give separate checks. [Transition check](lean/Height14/RefinementCert.lean) · [Score check](lean/Height14/Certificate.lean)
+
 ## Why one finite check proves the formula
 
 Scan the board a column at a time. A prefix of a snake may have several connected components because later columns can join them. Each component of the prefix is a path, possibly a single square. At the last column record which squares are occupied, which already have degree two, and which belong to the same component. These data decide every possible continuation. A new occupied square must join all its occupied neighbors. Connecting twice to the same component creates a cycle, and adding an edge to a degree-two square creates a branch. When a component leaves the boundary, it can never meet a later square. We keep such a prefix only if that component is the whole snake, and then permit only empty squares.

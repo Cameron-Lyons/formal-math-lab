@@ -10,6 +10,7 @@ Each folder below settles a finite open case, finds an exact value, or proves or
 
 | Problem | Result proved here | Prior art and status |
 | --- | --- | --- |
+| [Breaking every rectangle in a five-row matchstick grid](five-row-matchsticks/) | In a grid of $5 \times n$ unit squares, the minimum number of unit edges whose removal breaks every axis-aligned rectangle is $5$ for $n=1$ and $\lfloor(10n+4)/3\rfloor$ for $n\ge2$. | Niu and Tang bounded the height-five minimum to within one edge. [2026 paper](https://doi.org/10.1016/j.tcs.2026.116199) |
 | [Box-free 2-colorings of the 6 x 7 x n grid](box-free-6x7/) (Genkin Question 8.1, `10.5281/zenodo.24457907`) | Maximum height is $n = 52$. Lean's kernel checks a 52-layer box-free coloring and proves $n \le 52$. | Genkin built 50 layers, proved $n \le 52$, and asked whether 52 is reachable (Question 8.1). |
 | [Queen domination on the 48 x 48 chessboard](queen-domination-48/) ($\gamma(Q_{48}) = 25$, Davies §9, `hexagonmath.org/pdf/2611.00830v1`) | $\gamma(Q_{48}) = 25$ queens. Compiled Lean search rules out 24 queens and checks a 25-queen cover of all 2,304 squares. | Östergård and Weakley gave the 25-queen upper bound. Davies listed $48 \times 48$ as the next open even board on 21 November 2026. |
 | [Queen domination on the 48 x 48 board by SAT certificates](queen-domination-48-sat/) ($\gamma(Q_{48}) = i(Q_{48}) = 25$, Jason Davies frame method) | $\gamma(Q_{48}) = i(Q_{48}) = 25$ (independent second proof, plus independent domination). Lean's kernel proves the reduction and encoding into 47,580 CNF formulas and checks a 25-queen independent dominating set; a compiled Lean checker verifies the LRAT proofs outside the kernel. | Östergård and Weakley bounded both numbers to $\{24, 25\}$. Uses Jason Davies' frame method and encoder. No earlier value for $i(Q_{48})$ was found in a brief search. |
@@ -67,7 +68,7 @@ The longest snake on a $13\times n$ grid gains 48 squares every six columns for 
 
 Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `book-ramsey`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-556-cycle-ramsey`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
 * Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
 
@@ -76,6 +77,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | Directory | Build command | Main Lean declaration(s) |
 | --- | --- | --- |
 | `square-triples` | `lake build` | `SquareTriples.solution_ratio_1000` |
+| `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |
 | `queen-domination-48` | `lake exe queens48` | `main` runs the exhaustive search ruling out 24 and checks the 25-queen cover |
 | `queen-domination-48-sat` | `lake exe cache get && lake build` | `QueenDom.gamma_48_eq_25_of_formulas_unsat`, `QueenDom.igamma_48_eq_25_of_formulas_unsat` |

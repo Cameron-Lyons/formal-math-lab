@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Breaking every rectangle in a five-row matchstick grid
+
+Checked **26 November 2026**. Dreyer and Biedl introduced the minimum number of unit edges whose removal breaks all axis-aligned rectangular outlines in a grid. Niu and Tang gave upper and lower bounds differing by at most one edge for grids of height five. [Dreyer and Biedl, DIMACS Technical Report 97-53, §4 (1997)](https://archive.dimacs.rutgers.edu/TechnicalReports/abstracts/1997/97-53.html). [Niu and Tang (2026)](https://doi.org/10.1016/j.tcs.2026.116199).
+
+For a grid of $5 \times n$ unit squares, the Lean theorem proves the minimum is $5$ for $n=1$ and $\lfloor(10n+4)/3\rfloor$ for every $n\ge2$. Historical priority of this exact formula is unverified. [Formal theorem](five-row-matchsticks/Matchsticks.lean).
+
 ## Queen domination on the 48 × 48 board
 
 Checked **24 November 2026**. Östergård and Weakley give a 25-queen placement ([pp. 10-11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/)). Davies lists 48 as the next open even board in [§9 of his 21 November preprint](https://hexagonmath.org/pdf/2611.00830v1#page=19). This project checks the published placement and rules out 24 by exhaustive enumeration in compiled Lean ([proof and checker](queen-domination-48/README.md)).

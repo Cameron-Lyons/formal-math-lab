@@ -166,6 +166,12 @@ Lean also proves that a rational quartic substitution on $u^2 - 3v^2 = 1$ with n
 
 Earlier Lean work on this problem exists. Korea Superintelligence Labs' [Machina Mathematica](https://lean.up.railway.app/) lists certified reciprocal Rado values at smaller parameters and a general lower bound ([data](https://lean.up.railway.app/api/data)). Fabian Arevalo's [research note](https://fabianarevalo.com/reciprocal-rado) and [repository](https://github.com/farev/Matematica/blob/main/conjectures/reciprocal-rado/README.md) also cover smaller values; the general even-parameter mechanism there is a sketch rather than a proof covering 26. This collection does not claim the first Lean work on reciprocal Rado numbers.
 
+## Reciprocal Rado number f₂(28) = 2352
+
+Checked **26 November 2026**. Gaiser and Ramezanpour proved the lower bound $f_2(k)\ge 3k^2$ for $k\ge3$ and calculated the two-color values through $k=25$. Their Conjecture 1.3 predicts $2352$ at $k=28$. [Theorem 1.1 and Conjecture 1.3](https://arxiv.org/html/2607.04373v1#S1.Thmtheorem1)
+
+The six-sum upper bound here adapts the opening pair of identities from Case 1 of their Theorem 3.3. Arevalo's separate project certifies two-color values through $k=8$ and sketches an argument for even $k$. [Case 1](https://arxiv.org/html/2607.04373v1#S3.Thmtheorem3) · [Arevalo’s results](https://github.com/farev/Matematica/blob/main/conjectures/reciprocal-rado/README.md) · [28-term proof](28-unit-fractions/)
+
 ## Erdős #64, power-of-two cycles
 
 Checked **25 November 2026**. Erdős and Gyárfás asked whether every nonempty finite simple graph with minimum degree at least 3 contains a cycle of power-of-two length ([Erdős Problem #64](https://www.erdosproblems.com/64)). The general conjecture is still open. [Ducoffe and Dumitru](https://arxiv.org/abs/2609.28594) checked every graph on at most 40 vertices.

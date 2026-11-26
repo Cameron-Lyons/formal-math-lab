@@ -319,6 +319,10 @@ Checked **25 November 2026**. Justin Gilmer (`arXiv:2211.09055`, 2022) proved th
 
 The local Lean 4 proof builds on the Sadhu-Ursin and single-order shared-budget framework, simplifies the local inequality suite (removing $J_b$, $F_{\mathrm{pos}}$, `Line2`, `Cut1`, and Option C), and proves the stronger bound $1533 / 4000 = 0.38325 > c_* + 3.647 \times 10^{-4}$ with every analytic, 1D, 2D, covariance, and polytope inequality checked inside Lean's kernel (`decide`, no `native_decide`). No earlier proof of $0.38325$ or Lean formalization of a bound past $c_*$ was found in the sources checked; the conjectured constant $1/2$ is still open. See [Costa-Sadhu (`arXiv:2610.02295`)](https://arxiv.org/abs/2610.02295), [Jiang (`arXiv:2609.08291`)](https://arxiv.org/abs/2609.08291), the [Quantavane announcement](https://quantavane.com/results/union-closed-sets/), the [Lean proof](union-closed-sets/UCBound/Main.lean), and the [project notes](union-closed-sets/README.md).
 
+## Covering every trio among 14 people
+
+Checked **26 November 2026**. The La Jolla data give $24\le C(14,6,3)\le25$. Dai, Li and Toulouse report a 24-group arrangement with one uncovered trio. The two C++ verifiers in this repository rule out complete coverage with 24 groups. [La Jolla Covering Repository](https://zenodo.org/records/24119701) · [Dai, Li and Toulouse](https://w1.cirrelt.ca/~toulouse/CD-BL-MT.pdf) · [Proof and reproduction commands](research/covering-14-6-3/)
+
 ## Search scope and limits
 
 This audit checked primary papers, version records, published code and catalogues, GitHub code searches, and web searches for exact statements and alternate phrasing. Representative queries included:

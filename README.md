@@ -59,6 +59,8 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 ## Computational proofs
 
+Covering every trio among 14 people requires exactly 25 six-person groups. Two independent C++20 verifiers rule out 24 groups, and an explicit 25-group construction covers all 364 trios. [Proof and group list](research/covering-14-6-3/)
+
 The longest snake on a $13\times n$ grid gains 48 squares every six columns for $n\ge7$. Two C++17 verifiers check the formula for every width, and a Python constructor gives a longest snake for any requested width. [Height-13 snakes](research/height-13-snakes/)
 
 ## Find and check a theorem

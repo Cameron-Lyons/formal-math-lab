@@ -29,6 +29,7 @@ HEAVY_PACKAGES: frozenset[str] = frozenset(
         "E670-order-10",
         "E677-E255-order-9",
         "three-color-t-boards",
+        "union-closed-sets",
     }
 )
 # Packages whose pinned third-party Git dependencies emit upstream warnings;

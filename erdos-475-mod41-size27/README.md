@@ -1,6 +1,8 @@
-# Graham’s rearrangement problem modulo 41
+# Graham’s rearrangement problem modulo 41 and 43
 
-**Every subset of the nonzero residues modulo 41 has an ordering with distinct nonempty partial sums.** The proof uses one reduction and one finite check. The same reduction gives a computer-free proof at every prime for sets omitting at most three nonzero residues. [All-prime proof](paired-triple.md) · [Erdős problem #475](https://www.erdosproblems.com/475)
+**At both 41 and 43, every subset of the nonzero residues has an ordering with distinct nonempty partial sums.** In each field it suffices to check zero-sum sets whose reciprocal sum is 0 or 1. [Modulo-43 proof and reproduction commands](modulo-43.md)
+
+**At every prime, the conclusion holds for every set omitting at most four nonzero residues.** One alternating ordering handles any collection of opposite pairs together with three or four unpaired residues of sum zero. [Constructive proof](paired-quartet.md) · [Erdős problem #475](https://www.erdosproblems.com/475)
 
 ## Reduction to sets of sum zero
 
@@ -12,7 +14,7 @@ $$B=(A\setminus\{a\})\cup\{b\}.$$
 
 Rotate a cycle for $B$ to put $b$ first, then change that step to $a$. Every nonempty partial sum increases by the same $s$, so they stay distinct. If $a=0$, discard the leading zero. This gives the desired ordering of $A$. Since $|B|$ is either $|A|$ or $|A|+1$, the reduction also works within any family of sizes $k,k+1,\ldots,p-1$. [Earlier related replacement argument](https://github.com/Atomicium-org/graham-rearrangement-certificates/blob/23cb1d03e718d0798ff79161bff516444e7ca335/paper/graham_rearrangement_candidate.tex#L3513-L3575)
 
-## The finite check
+## The finite check at 41
 
 For a zero-sum set $A$, let $t=\sum_{a\in A}a^{-1}$ modulo 41. If $t\ne0$, the scaled set $tA$ has reciprocal sum $1$. Scaling preserves distinct partial sums. It therefore suffices to check the zero-sum sets whose reciprocal sum is **0 or 1**.
 

@@ -1,4 +1,4 @@
-// Check the zero-sum subsets modulo 41 whose reciprocal sum is 0 or 1.
+// Check the zero-sum subsets whose reciprocal sum is 0 or 1.
 #include <array>
 #include <bit>
 #include <cstdint>
@@ -6,7 +6,11 @@
 #include <iostream>
 #include <vector>
 
-constexpr int p = 41;
+#ifndef GRAHAM_PRIME
+#define GRAHAM_PRIME 41
+#endif
+constexpr int p = GRAHAM_PRIME;
+static_assert(p == 41 || p == 43);
 using Mask = std::uint64_t;
 using Table = std::array<std::array<std::vector<Mask>, p>, p>;
 constexpr Mask bit(int x) { return Mask{1} << x; }
@@ -65,7 +69,7 @@ bool verified(Mask set) {
 }
 
 int main() {
-    const Table left = subsets(1, 20), right = subsets(21, 40);
+    const Table left = subsets(1, p / 2), right = subsets(p / 2 + 1, p - 1);
     std::uint64_t checked = 0;
 #ifdef _OPENMP
     #pragma omp parallel for collapse(2) reduction(+:checked)
@@ -87,6 +91,9 @@ int main() {
         }
     }
     std::cout << checked << " sets verified\n";
-    // Independent subset counts for reciprocal sums 0 and 1, respectively.
-    return checked == 654'162'296 + 654'079'862 ? EXIT_SUCCESS : EXIT_FAILURE;
+    // Independently count by starting with D[0,0] = 1 and the rest zero.
+    // For each x, D_new[s,t] = D[s,t] + D[s-x,t-inverse(x)], with indices modulo p.
+    // The expected number of sets is then D[0,0] + D[0,1].
+    constexpr std::uint64_t expected = p == 41 ? 1'308'242'158ULL : 4'757'514'809ULL;
+    return checked == expected ? EXIT_SUCCESS : EXIT_FAILURE;
 }

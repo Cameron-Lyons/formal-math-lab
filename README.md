@@ -67,7 +67,7 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 ## Computational proofs
 
-Every subset of the nonzero residues modulo 41 admits an ordering with distinct nonempty partial sums (Erdős #475). An exhaustive cycle search and independent counts cover all subset sizes. A separate construction proves the conjecture at size $p-4$ for every prime $p\ge5$. [Modulo-41 proof and verifiers](erdos-475-mod41-size27/) · [All-prime construction](erdos-475-mod41-size27/paired-triple.md)
+At both 41 and 43, every subset of the nonzero residues admits an ordering with distinct nonempty partial sums (Erdős #475). A separate construction proves the result at every prime when at most four nonzero residues are omitted. [Modulo-43 proof and counts](erdos-475-mod41-size27/modulo-43.md) · [Modulo-41 proof](erdos-475-mod41-size27/) · [Four-omission construction](erdos-475-mod41-size27/paired-quartet.md)
 
 For Erdős problem #272, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82 on thirteen points** and **95 on fourteen points**. Lean checks the constructions. A rank bound and a C++ search give the thirteen-point upper bound. A direct clique search gives the fourteen-point upper bound. The fourteen-point proof also establishes the conjectured formula at every $N$ for families with at most $\lfloor(N-1)/4\rfloor$ members containing a seven-term progression. [Thirteen-point proof](erdos-272-thirteen/) · [Fourteen-point proof and general bound](erdos-272-fourteen/)
 

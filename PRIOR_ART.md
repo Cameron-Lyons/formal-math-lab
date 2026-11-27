@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Erdős #475, all sizes modulo 43 and four omitted residues at every prime
+
+Checked **27 November 2026**. Arévalo reports complete finite verification through prime 37. Costa, Della Fiore, Fontana and Vena prove sequenceability through size 20 and through size 22 for zero-sum sets. The computation here independently covers every size at 43. Pham and Sauermann, together with earlier results, cover all sufficiently large primes. [Arévalo's computations](https://fabianarevalo.com/graham-rearrangement) · [Costa et al.](https://arxiv.org/abs/2603.20961) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Modulo-43 proof](erdos-475-mod41-size27/modulo-43.md)
+
+The four-omission construction extends the opposite-pair folding argument. Padding a triple with zero gives the same ordering rule for three or four unpaired residues of sum zero together with any collection of opposite pairs. This proves Graham's conclusion at size $p-5$ for every prime $p\ge5$. [Earlier folded cycle and attribution](erdos-475-mod41-size27/paired-triple.md) · [Four-omission proof](erdos-475-mod41-size27/paired-quartet.md)
+
 ## Erdős #475, all sizes modulo 41 and three omitted residues at every prime
 
 Checked **27 November 2026**. Arévalo reports exhaustive checks for all primes through 37 and for sizes 28 through 40 at 41. The present search covers the entire prime 41, including the middle sizes. Pham and Sauermann, with earlier work, prove the conjecture for sufficiently large primes. Kuang and Wang treat sufficiently large subsets of finite abelian groups. These asymptotic results give no verified overlap with the finite range checked here. [Arévalo, results R1 and R3](https://fabianarevalo.com/graham-rearrangement) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Kuang and Wang](https://arxiv.org/abs/2610.34424) · [Modulo-41 proof](erdos-475-mod41-size27/README.md)

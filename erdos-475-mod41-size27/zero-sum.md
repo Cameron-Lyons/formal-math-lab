@@ -14,3 +14,17 @@ Run from this directory. The verification took 3.1 seconds on one Intel Core Ult
 c++ -std=c++20 -O3 -march=native verify_zero_sum.cpp -o /tmp/erdos475-zero
 /tmp/erdos475-zero
 ~~~
+
+For the original verification across all sizes modulo 41, pass `--all` and check the transcript with `python3 verify_counts.py`. The same rotation argument applies with weights $k$ and $k-40$ at size $k$. The program checks sizes 2 through 38. The full set has a cycle by the opposite-pair construction, a set missing one residue has nonzero sum, and the empty set is immediate. [Opposite-pair construction](paired-triple.md#make-a-cycle-from-opposite-pairs)
+
+~~~sh
+/tmp/erdos475-zero --all > /tmp/graham41-counts.txt
+python3 verify_counts.py /tmp/graham41-counts.txt
+~~~
+
+A separate direct computation at size 27 scales every nonzero total to 1 and checks all 586,986,481 sets of total 0 or 1. [Direct verifier](verify.cpp)
+
+~~~sh
+c++ -std=c++20 -O3 -march=native -fopenmp verify.cpp -o /tmp/erdos475-direct
+/tmp/erdos475-direct
+~~~

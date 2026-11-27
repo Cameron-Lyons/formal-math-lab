@@ -1,35 +1,28 @@
 # Graham orderings with at most three omitted residues
 
-**Theorem.** For every prime $p$, every $A\subseteq\mathbb F_p^\times$ that omits at most three nonzero residues has an ordering with distinct nonempty partial sums. In particular this holds at size $p-4$ for every prime $p\ge5$.
+**Theorem.** At every prime $p$, any $A\subseteq\mathbb F_p^\times$ that omits at most three nonzero residues has an ordering with distinct nonempty partial sums.
 
-The construction also applies to much smaller sets. If a zero-sum set consists of any number of complete pairs $\{a,-a\}$ together with three unpaired elements, its steps form a simple cycle. The proof below is independent of the modulo-41 computation. [Erdős problem #475](https://www.erdosproblems.com/475) · [Witness constructor](paired_triple.py)
+The case $p=2$ is immediate. At an odd prime the zero-sum reduction lets us assume that $A$ sums to zero. Its complement in $\mathbb F_p^\times$ also sums to zero and has at most three elements. It is empty, an opposite pair, or a triple containing no opposite pair. In the first two cases $A$ consists of pairs $\{d,-d\}$. In the third it also has three unpaired elements, the negatives of the omitted triple. They sum to zero. [Zero-sum reduction](README.md#reduction-to-sets-of-sum-zero)
 
-## A cycle for inverse pairs
+### Make a cycle from opposite pairs
 
-Write $p=2m+1$. Represent each pair by its unique positive magnitude in $[1,m]$. Let $D$ be the largest magnitude of a nonempty collection of pairs. List the smaller magnitudes as $d_1>d_2>\cdots>d_j$. Start an integer path $P$ at zero and take steps $d_1,-d_2,d_3,-d_4,\ldots$. After the first step, each new point lies strictly inside the interval spanned by the preceding edge. Thus the vertices are distinct, lie in $[0,d_1]$, and the intervals between successive vertices are nested. If $j=0$, take $P$ to be the single vertex zero.
+Write the positive representatives of the pairs in decreasing order $D=d_1>d_2>\cdots>d_n$, with $D\le(p-1)/2$. Start at $x_0=0$ and walk by $+D,-d_2,+d_3,\ldots$ to get $x_1,\ldots,x_n$. Each new endpoint after $x_1$ lies strictly inside the preceding edge. Thus $x_1,\ldots,x_n$ are distinct and lie in $[1,D]$.
 
-Traverse $P$, jump by $D$, traverse the translated path $P+D$ backwards, then jump by $-D$ to zero. The two paths are disjoint, one in $[0,D-1]$ and one in $[D,2D-1]$. These integer positions stay distinct modulo $p$. Each smaller magnitude occurs once in each direction, and the bridges use $D$ and $-D$. This folding construction occurs in the proof of Lemma 3.4 of Alspach, Gavlas, Šajna, and Verrall. [Cycle decompositions IV (2003), pp. 170–171](https://core.ac.uk/download/pdf/81154598.pdf#page=6)
+Close the walk by appending $x_n-D,x_{n-1}-D,\ldots,x_1-D=0$. These vertices are distinct and lie in $[1-D,0]$. The whole interval $[1-D,D]$ has fewer than $p$ integers, so the cycle stays simple modulo $p$. Its steps use each magnitude once in each direction. The empty set needs no steps. [Alspach, Gavlas, Šajna and Verrall, proof of Lemma 3.4](https://core.ac.uk/download/pdf/81154598.pdf#page=6)
 
-## Inserting three unpaired elements
+### Split one edge to insert the triple
 
-Suppose the three unpaired elements sum to zero. Multiply all the residues by the inverse of one of them. In the signed representatives $[-m,m]$, the triple is now $1,r,-(r+1)$ for some $2\le r<m$. Indeed, the other two representatives sum to $-1$ modulo $p$. Their integer sum cannot equal $2m$ since they are distinct, and cannot be as small as $-1-p$. It is therefore $-1$. Their signs are opposite and neither can be $1$ or $-1$.
+Scale one unpaired element to $1$. The least positive representatives of the other two sum to $p-1$, so the triple is $1,r,-(r+1)$, where $r$ is the smaller representative and $2\le r<(p-1)/2$. Put $L=r+1$. Temporarily replace the triple by the pair $\{L,-L\}$ and make the cycle above. It has no pair of magnitude $r$.
 
-Keep all the original pairs and introduce the pair $\pm L$, where $L=r+1$. This gives a symmetric set of steps containing neither magnitude $1$ nor magnitude $r$. Construct the folded cycle above. We will replace its positive step $L$ by two steps $1$ and $r$, in a suitable order. Its negative step $-L$ stays in the cycle.
+On the alternating part of the walk, take the edge $u\to v$ of length $L$. **The point one unit from $u$ toward $v$ is free.** Earlier vertices lie outside the open edge by nesting. Later vertices on the alternating walk stay within $L-2$ of $v$, since the next magnitude, if any, is smaller than $L$ and cannot be $r=L-1$. The proposed point is $L-1$ from $v$. The return part lies at or below zero, and the point is strictly positive.
 
-* If $L<D$, consider the edge of length $L$ from $u$ to $v$ on the original path $P$. The integer point one unit inside the edge from $u$ is free. Earlier vertices lie outside the open interval between $u$ and $v$ by nesting. If another edge follows, its length is at most $L-2$, since magnitude $L-1=r$ is absent. All later points therefore lie in a subinterval within $L-2$ of $v$. Our point is $L-1$ from $v$. The same free point exists on the translated copy. The positively directed occurrence of this edge can now pass through the free point in its own copy, using $1,r$ or $r,1$ according to the direction of traversal.
-* If $L=D$, reverse the folded cycle so that its bridge from $0$ to $L$ is traversed in the positive direction. Reversal preserves the symmetric step set. All smaller magnitudes are at most $L-2$, so $L-1=r$ is free between the two paths. Replace the bridge by $0,r,L$.
+Insert that point and traverse the cycle in the direction that makes the split edge positive. Its steps are now $1,r$ in some order, and the other copy still gives $-L$. Undoing the scaling gives the required ordering. This also proves the construction for any number of opposite pairs together with three unpaired elements of sum zero.
 
-In both cases the extra vertex is distinct from every old vertex. The resulting closed cycle uses exactly the required steps. Undo the scaling to obtain a cycle for the original set.
+For example, modulo 11 the cycle $0,5,1,4,-1,-4,0$ uses the pairs $\pm3,\pm4,\pm5$. Inserting $2$ between $1$ and $4$ splits the step $3$ into $1,2$. The seven nonempty partial sums are $5,1,2,4,-1,-4,0$.
 
-For example modulo 13, the steps $5,9,2,6,11,3,1,8,7$ give running sums $5,1,3,9,7,10,11,6,0$. Here the unpaired triple is $1,3,-4$, and the positive step $4$ in the symmetric cycle was split into $3,1$.
-
-## Passing from zero total to all totals
-
-Suppose $p\ge7$. The sum of all nonzero residues is zero. If a set of size $p-4$ has sum zero, its three omitted elements sum to zero. No two of them are opposites, as that would force the third to be zero. Hence their three negatives are the only unpaired elements of the set, and the preceding construction applies. At size $p-3$, the two omitted elements of a zero-sum set must be opposites, leaving only complete pairs. The same-size replacement argument now covers all nonzero totals at both sizes. Sizes $p-2$ and $p-1$ follow from the geometric ordering. At $p=5$ every ordering of two distinct nonzero steps has distinct nonempty partial sums, and the size $p-4$ case is a singleton. At $p=2,3$ all cases are immediate. [Replacement argument and endpoint sizes](README.md#reduction-to-sets-of-sum-zero)
-
-The constructor uses integer arithmetic and rechecks the running sums of each witness. The first command below prints a witness. The second tests all 43,118 sets omitting at most three residues at primes through 43. It also exercises the normalized triple construction through prime 257.
+The Python constructor implements these two steps and checks each resulting ordering. [Witness constructor](paired_triple.py)
 
 ~~~sh
-python3 paired_triple.py --example 13 1 2 3 5 6 7 8 9 11
+python3 paired_triple.py --example 11 1 2 4 5 6 7 8
 python3 paired_triple.py --through 257
 ~~~

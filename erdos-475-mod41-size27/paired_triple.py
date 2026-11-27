@@ -8,7 +8,7 @@ through 257 and all sets with at most three omissions at primes up to 43.
 from __future__ import annotations
 
 import argparse
-from itertools import accumulate, combinations
+from itertools import accumulate, combinations, pairwise
 from math import isqrt
 from typing import TYPE_CHECKING
 
@@ -39,13 +39,11 @@ def check_order(p: int, elements: set[int], order: tuple[int, ...]) -> None:
 
 
 def folded_vertices(lengths: list[int]) -> list[int]:
-    # The first length bridges a path of decreasing alternating steps and
-    # its translate. The two paths live in disjoint integer intervals.
-    bridge, *steps = sorted(lengths, reverse=True)
+    """Build a closed cycle for strictly decreasing positive lengths."""
     path = [0]
-    for i, step in enumerate(steps):
+    for i, step in enumerate(lengths):
         path.append(path[-1] + (step if i % 2 == 0 else -step))
-    return [*path, *(bridge + x for x in reversed(path))]
+    return [*path, *(x - lengths[0] for x in reversed(path[1:]))]
 
 
 def paired_triple_order(p: int, residues: Iterable[int]) -> tuple[int, ...]:
@@ -60,32 +58,23 @@ def paired_triple_order(p: int, residues: Iterable[int]) -> tuple[int, ...]:
             "expected inverse pairs and three unmatched residues summing to 0"
         )
 
-    # After scaling by a^{-1}, the triple is 1, r, -(r+1), with 2 <= r < p/2.
+    # After scaling by a^{-1}, the other two residues sum to p-1 as integers.
     a = unmatched[0]
     scale = pow(a, -1, p)
     r = min(scale * x % p for x in unmatched[1:])
     length = r + 1
     normalized = {scale * x % p for x in elements}
     pair_lengths = [x for x in normalized if x < p - x and p - x in normalized]
-    lengths = [*pair_lengths, length]
+    lengths = sorted([*pair_lengths, length], reverse=True)
     vertices = folded_vertices(lengths)
-    if length == max(lengths):
-        vertices.reverse()  # Use the positive bridge 0 -> D.
-    occupied = set(vertices)
-    order: list[int] = []
-    for left, right in zip(vertices, [*vertices[1:], vertices[0]], strict=True):
-        step = (right - left) % p
-        if step != length:
-            order.append(step)
-        elif (left + 1) % p not in occupied:
-            order.extend((1, r))
-        elif (left + r) % p not in occupied:
-            order.extend((r, 1))
-        else:
-            raise ArithmeticError(
-                "both insertion sites on the folded edge are occupied"
-            )
-    original_order = tuple(a * x % p for x in order)
+    edge = lengths.index(length)
+    start, end = vertices[edge : edge + 2]
+    if start < end:
+        vertices.insert(edge + 1, start + 1)
+    else:
+        vertices.insert(edge + 1, start - 1)
+        vertices.reverse()
+    original_order = tuple(a * (v - u) % p for u, v in pairwise(vertices))
     check_order(p, elements, original_order)
     return original_order
 
@@ -95,11 +84,8 @@ def _dense_zero_sum_order(p: int, elements: set[int]) -> tuple[int, ...]:
         return paired_triple_order(p, elements)
     if not elements:
         return ()
-    vertices = folded_vertices([x for x in elements if x < p - x])
-    return tuple(
-        (right - left) % p
-        for left, right in zip(vertices, [*vertices[1:], vertices[0]], strict=True)
-    )
+    lengths = sorted((x for x in elements if x < p - x), reverse=True)
+    return tuple((v - u) % p for u, v in pairwise(folded_vertices(lengths)))
 
 
 def dense_order(p: int, residues: Iterable[int]) -> tuple[int, ...]:
@@ -112,24 +98,16 @@ def dense_order(p: int, residues: Iterable[int]) -> tuple[int, ...]:
         order = tuple(elements)
     elif total == 0:
         order = _dense_zero_sum_order(p, elements)
-    elif len(elements) == p - 2:
-        full = set(range(1, p))
-        (missing,) = full - elements
-        cycle = _dense_zero_sum_order(p, full)
-        index = cycle.index(missing)
-        order = cycle[index + 1 :] + cycle[:index]
     else:
-        # A failed replacement would force the initial segment 1,...,k
-        # after scaling by total^{-1}, hence k=1 or p-2.
-        for x in elements:
-            replacement = (x - total) % p
-            if replacement != 0 and replacement not in elements:
-                cycle = _dense_zero_sum_order(p, (elements - {x}) | {replacement})
-                index = cycle.index(replacement)
-                order = (x, *cycle[index + 1 :], *cycle[:index])
-                break
-        else:
-            raise ArithmeticError("no replacement gives a zero-sum set")
+        extended = elements | {0}
+        # Subtracting total visits the entire field, so some step leaves extended.
+        a = next(x for x in extended if (x - total) % p not in extended)
+        b = (a - total) % p
+        cycle = _dense_zero_sum_order(p, (elements - {a}) | {b})
+        index = cycle.index(b)
+        order = cycle[index + 1 :] + cycle[:index]
+        if a:
+            order = (a, *order)
     check_order(p, elements, order)
     return order
 

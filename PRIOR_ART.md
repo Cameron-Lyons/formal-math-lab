@@ -10,6 +10,10 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Erdős #475, all sizes modulo 47
+
+Checked **27 November 2026**. Arévalo reports a computation at size 44 modulo 47 and for all sizes through prime 37. Costa, Della Fiore, Fontana and Vena cover all sets of size at most 20 and zero-sum sets of size at most 22. Pham and Sauermann, together with earlier work, cover sufficiently large primes. Searches for Graham’s rearrangement conjecture, sequenceability, and exhaustive verification at 47 found no earlier check covering every size at this prime in the sources examined. The computation here covers all sizes directly. [Arévalo’s computations](https://fabianarevalo.com/graham-rearrangement) · [Costa et al.](https://arxiv.org/abs/2603.20961) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Modulo-47 proof](erdos-475-mod41-size27/modulo-47.md)
+
 ## Erdős #475, all sizes modulo 43 and four omitted residues at every prime
 
 Checked **27 November 2026**. Arévalo reports complete finite verification through prime 37. Costa, Della Fiore, Fontana and Vena prove sequenceability through size 20 and through size 22 for zero-sum sets. The computation here independently covers every size at 43. Pham and Sauermann, together with earlier results, cover all sufficiently large primes. [Arévalo's computations](https://fabianarevalo.com/graham-rearrangement) · [Costa et al.](https://arxiv.org/abs/2603.20961) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Modulo-43 proof](erdos-475-mod41-size27/modulo-43.md)

@@ -39,13 +39,22 @@ theorem rectangle_coverage : ∀ (r s : Fin 5), r < s → ∀ (i j : Fin 8), i <
   unfold Rectangle
   decide +kernel
 
-/-- The first n layers of the witness give every height through 45, including 43. -/
-theorem exists_boxFree_of_le {n : Nat} (h : n ≤ 45) : ∃ C : Coloring n, BoxFree C := by
-  refine ⟨fun z => coloring45 (z.castLE h), ?_⟩
+/-- Keep the first m layers of a coloring. -/
+def firstLayers {m n : Nat} (C : Coloring n) (h : m ≤ n) : Coloring m :=
+  fun z => C (z.castLE h)
+
+/-- A box in the first m layers would also be a box in the full coloring. -/
+theorem BoxFree.restrict {m n : Nat} {C : Coloring n} (free : BoxFree C) (h : m ≤ n) :
+    BoxFree (firstLayers C h) := by
   intro r s hrs i j hij v z hz w hzw
-  exact coloring45_boxFree r s hrs i j hij v (z.castLE h) hz (w.castLE h) hzw
+  exact free r s hrs i j hij v (z.castLE h) hz (w.castLE h) hzw
+
+theorem exists_boxFree_of_le {n : Nat} (h : n ≤ 45) : ∃ C : Coloring n, BoxFree C :=
+  ⟨firstLayers coloring45 h, coloring45_boxFree.restrict h⟩
+
+def coloring43 : Coloring 43 := firstLayers coloring45 (by decide)
 
 theorem exists_boxFree_43 : ∃ C : Coloring 43, BoxFree C :=
-  exists_boxFree_of_le (by decide)
+  ⟨coloring43, coloring45_boxFree.restrict (by decide)⟩
 
 end BoxFree5x8

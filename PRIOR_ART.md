@@ -156,6 +156,12 @@ This folder proves a degree bound for polynomial families through an integer tri
 
 Lean also proves that a rational quartic substitution on $u^2 - 3v^2 = 1$ with nonconstant $x$ and one integral seed yields infinitely many integer triples ([quartic theorem](integer-cubic/pell/MixedPellAmplification.lean)). Bounded coefficient searches found no such substitution in the classes tested ([search scope](integer-cubic/pell/QuarticFreeMark.md)). A separate Lean theorem rules out the quintic substitution $az = 2 - r^3$, $x = r - p^2z$ for nonzero rational $a$ when $r, p$ have simple poles at both conjugate ends of a nonsplit Pell conic and all coordinates are regular away from those ends ([quintic exclusion](integer-cubic/pell/QuinticSquareObstruction.lean)). Priority for these results is unverified.
 
+## Reciprocal Rado numbers $f_2(k) = 3k^2$ for all even $k \ge 4$
+
+Checked **26 November 2026**. For every even integer $k \ge 4$, [`EvenUnitFractions.forces_iff`](even-unit-fractions/EvenUnitFractions.lean) proves in pure Lean 4 stdlib (axioms `[propext, Classical.choice, Quot.sound]`, no `native_decide`) that every 2-coloring of $\{1, \ldots, N\}$ has a monochromatic solution to $1/x_1 + \cdots + 1/x_k = 1/y$ (with repetitions allowed) if and only if $N \ge 3k^2$.
+
+[Gaiser and Ramezanpour, arXiv:2607.04373v1](https://arxiv.org/abs/2607.04373) (submitted 5 July 2026; 0 citations in OpenAlex on 26 November 2026) prove the lower bound $f_2(k) \ge 3k^2$ for all $k \ge 3$ (Theorem 1.1), compute $f_2(k)$ through $k = 25$, prove equality $f_2(k) = 3k^2$ for the family $k = 3 \cdot 2^m$ (Theorem 3.3), and conjecture $f_2(k) = 3k^2$ for every $k \ge 4$ that is not an odd prime power (Conjecture 1.3). Fabian Arevalo's [repository](https://github.com/farev/Matematica/blob/main/conjectures/reciprocal-rado/README.md) certifies values through $k = 8$ and states $f_2(k) = 3k^2$ for all even $k \ge 4$ as Conjecture B with an unproved mechanism sketch. OpenAlex and web searches on 26 November 2026 found no earlier proof covering all even $k \ge 4$. Odd composite non-prime-power values of $k$ remain open in general.
+
 <a id="reciprocal-rado"></a>
 
 ## Reciprocal Rado number f₂(26) = 2028

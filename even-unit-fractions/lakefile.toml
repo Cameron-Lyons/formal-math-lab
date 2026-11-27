@@ -1,0 +1,6 @@
+name = "even_unit_fractions"
+version = "0.1.0"
+defaultTargets = ["EvenUnitFractions"]
+
+[[lean_lib]]
+name = "EvenUnitFractions"

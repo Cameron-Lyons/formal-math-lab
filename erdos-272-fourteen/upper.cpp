@@ -119,7 +119,9 @@ int main() {
 
     int roots = 0, witnesses = 0;
     // Orient the clique so its union with its reflection has its first vertex in the clique.
+#ifdef _OPENMP
     #pragma omp parallel for schedule(dynamic) reduction(+:roots,witnesses)
+#endif
     for (int i = 0; i < limit - 1; ++i) {
         #ifdef REPORT_PROGRESS
         if (i % 256 == 0) std::cerr << "Root position " << i << " / " << limit - 1 << '\n';

@@ -24,8 +24,9 @@ constexpr int limit = 1 << N;
 constexpr int pair_dimension = 1 + N * (N - 1) / 2;
 constexpr int target = pair_dimension + (N - 1) / 4 + 1;
 constexpr int exceptional_needed = target - pair_dimension;
-constexpr int exceptional_count = std::array{300, 752, 1712}[N - 13];
-constexpr int canonical_pairs = std::array{3224, 12394, 46886}[N - 13];
+constexpr int seven_term_supersets = std::array{300, 752, 1712}[N - 13];
+constexpr int exceptional_count = std::array{300, 752, 1733}[N - 13];
+constexpr int canonical_pairs = std::array{3224, 12394, 59836}[N - 13];
 constexpr int words = limit / 64;
 
 struct Bits {
@@ -51,91 +52,68 @@ int active_words = 0;
 std::uint64_t nodes = 0;
 std::vector<int> selected;
 
-// Direct check of the starred bound via non-AP triple buckets.
-// For a star centre x, every non-AP of size ≥ 4 contains a non-AP triple t ∋ x
-// whose AP-hull is not contained in it, so each triple t forms an independent
-// bucket with all such sets and at most one matched AP of size ≥ 4.
+// Each class is independent, so a family through one point uses at most one
+// member per class. The order only affects how many classes first fit uses.
 bool verify_star_bound() {
-    int max_deficit = 0;
-    for (int centre = 0; centre < N; ++centre) {
-        int bit = 1 << centre;
-        std::vector<int> triples, big_aps;
-        for (int m = 1; m < limit; ++m) {
-            if (!(m & bit)) continue;
-            int sz = std::popcount((unsigned)m);
-            if (sz == 3 && !ap[m]) triples.push_back(m);
-            if (sz >= 4 && ap[m]) big_aps.push_back(m);
-        }
-        std::vector<int> hull(triples.size(), limit - 1);
-        for (std::size_t i = 0; i < triples.size(); ++i)
-            for (int p = 1; p < limit; ++p)
-                if (ap[p] && (triples[i] & p) == triples[i]) hull[i] &= p;
-
-        for (int a = 1; a < limit; ++a) {
-            if (!(a & bit) || std::popcount((unsigned)a) < 4 || ap[a]) continue;
-            bool covered = false;
-            for (std::size_t i = 0; i < triples.size(); ++i)
-                if ((a & triples[i]) == triples[i] && (a & hull[i]) != hull[i]) {
-                    covered = true;
-                    break;
-                }
-            if (!covered) return false;
-        }
-
-        std::vector<int> match(triples.size(), -1);
-        auto augment = [&](auto &self, int u, std::vector<char> &seen) -> bool {
-            int p = big_aps[u];
-            for (std::size_t i = 0; i < triples.size(); ++i) {
-                if ((p & triples[i]) != triples[i] || seen[i]) continue;
-                seen[i] = 1;
-                if (match[i] < 0 || self(self, match[i], seen)) {
-                    match[i] = u;
-                    return true;
-                }
-            }
-            return false;
-        };
-        int matched = 0;
-        for (int u = 0; u < (int)big_aps.size(); ++u) {
-            std::vector<char> seen(triples.size(), 0);
-            if (augment(augment, u, seen)) ++matched;
-        }
-        max_deficit = std::max(max_deficit, (int)big_aps.size() - matched);
+    std::array<std::vector<int>, 3> groups;
+    for (int mask = 1; mask < limit; ++mask) {
+        const int size = std::popcount(static_cast<unsigned>(mask));
+        const int group = size <= 3 ? 0 : (ap[mask] ? 1 : 2);
+        groups[group].push_back(mask);
     }
-    return max_deficit == (N - 1) / 4;
+    for (int point = 0; point < N; ++point) {
+        std::vector<std::vector<int>> classes;
+        for (const auto &group : groups) {
+            for (int mask : group) {
+                if (!(mask & (1 << point))) continue;
+                auto color = std::find_if(classes.begin(), classes.end(), [mask](const auto &members) {
+                    return std::none_of(members.begin(), members.end(),
+                        [mask](int other) { return ap[mask & other]; });
+                });
+                if (color == classes.end()) classes.push_back({mask});
+                else color->push_back(mask);
+            }
+        }
+        if (classes.size() >= target) return false;
+    }
+    return true;
 }
 
 // Check q(S) = 1 + C(|S|,2) - |S| - a3(S) - a4(S) - a6(S) on all nonempty
 // subsets avoiding a seven-term AP: q(S) = 0 on APs and q(S) > 0 otherwise.
-bool verify_score_bound() {
-    std::vector<int> negative_aps;
+bool classify_masks_and_check_score() {
+    std::vector<int> negative_aps, sevens;
     for (int p = 1; p < limit; ++p) {
         int len = std::popcount((unsigned)p);
         if (ap[p] && (len == 3 || len == 4 || len == 6)) negative_aps.push_back(p);
+        if (ap[p] && len == 7) sevens.push_back(p);
     }
     int short_count = 0;
     for (int mask = 1; mask < limit; ++mask) {
-        if (exceptional[mask]) continue;
+        const int sz = std::popcount(static_cast<unsigned>(mask));
+        const bool contains_seven = std::any_of(sevens.begin(), sevens.end(),
+            [mask](int p) { return (mask & p) == p; });
+        exceptional[mask] = contains_seven || (N == 15 && ap[mask] && sz == 5);
+        if (contains_seven) continue;
         ++short_count;
-        int sz = std::popcount((unsigned)mask);
         int score = (sz - 1) * (sz - 2) / 2;
         for (int p : negative_aps)
             if ((mask & p) == p) --score;
         if ((ap[mask] && score != 0) || (!ap[mask] && score <= 0)) return false;
     }
-    return short_count == limit - 1 - exceptional_count;
+    return short_count == limit - 1 - seven_term_supersets;
 }
 
-bool search(Bits candidates, int needed, int exceptional_needed, int common) {
+bool search(Bits candidates, int needed, int exceptional_needed, int to_omit) {
     ++nodes;
-    if (needed == 0) return exceptional_needed <= 0 && common == 0;
+    if (needed == 0) return exceptional_needed <= 0 && to_omit == 0;
 
     int total = 0;
     for (int i = 0; i < active_words; ++i) total += std::popcount(candidates.bits[i]);
     if (total < needed) return false;
 
     // Necessary-pool checks: a completion needs exceptional_needed more exceptional
-    // sets and must omit every currently common element at least once.
+    // sets and must omit each point in to_omit at least once.
     Bits best_pool;
     int best_pool_size = total + 1;
     auto check_pool = [&](const Bits &pool, int minimum) {
@@ -155,7 +133,7 @@ bool search(Bits candidates, int needed, int exceptional_needed, int common) {
     if (exceptional_needed > 0 && !check_pool(exceptional_candidates, exceptional_needed))
         return false;
     for (int m = 0; m < N; ++m)
-        if ((common >> m & 1) && !check_pool(avoids[m], 1)) return false;
+        if ((to_omit >> m & 1) && !check_pool(avoids[m], 1)) return false;
 
     // Greedily peel needed - 1 independent sets; any clique must hit the remainder.
     Bits branches = candidates;
@@ -192,7 +170,7 @@ bool search(Bits candidates, int needed, int exceptional_needed, int common) {
             if (count < needed - 1) continue;
             int mask = labels[v];
             selected.push_back(mask);
-            if (search(next, needed - 1, exceptional_needed - exceptional[mask], common & mask))
+            if (search(next, needed - 1, exceptional_needed - exceptional[mask], to_omit & mask))
                 return true;
             selected.pop_back();
         }
@@ -282,26 +260,22 @@ int main(int argc, char **argv) {
                 ap[mask] = true;
             }
         }
-    for (int p = 1; p < limit; ++p)
-        if (ap[p] && std::popcount((unsigned)p) == 7)
-            for (int mask = 1; mask < limit; ++mask)
-                if ((p & mask) == p) exceptional[mask] = true;
-
     if (!verify_star_bound()) {
         std::cerr << "Starred bound check failed.\n";
         return 2;
     }
     std::cout << "Starred upper bound at n = " << N << ": " << target - 1 << '\n';
 
-    if (!verify_score_bound()) {
+    if (!classify_masks_and_check_score()) {
         std::cerr << "Score check failed.\n";
         return 2;
     }
-    std::cout << "Score check passed on " << limit - 1 - exceptional_count
+    std::cout << "Score check passed on " << limit - 1 - seven_term_supersets
               << " nonempty masks avoiding seven-term APs.\n";
 
     for (int mask = 1; mask < limit; ++mask) {
-        if (std::popcount((unsigned)mask) >= 2) masks.push_back(mask);
+        if (N == 15 || !std::has_single_bit(static_cast<unsigned>(mask)))
+            masks.push_back(mask);
         if (exceptional[mask]) exceptional_masks.push_back(mask);
     }
     if (exceptional_masks.size() != exceptional_count) {

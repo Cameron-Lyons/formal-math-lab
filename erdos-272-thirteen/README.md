@@ -8,7 +8,7 @@ Start with the 79 sets of size at most three that contain 7. For each $d=1,2,3$,
 
 ## Why 83 is impossible
 
-For families with a common element, Yang's starred-family theorem gives the upper bound 82; the C++ verifier also checks this directly at $n=13$ via non-AP triple buckets and a matching of large progressions with deficit at most 3. [Yang, Theorem 1.4](https://arxiv.org/abs/2607.23004)
+For families with a common element, Yang's starred-family theorem gives the upper bound 82. The C++ verifier checks this directly. For each point it greedily partitions the sets containing that point into at most 82 classes, placing two sets in the same class only when their intersection is not a progression. A family takes at most one set from each class. [Yang, Theorem 1.4](https://arxiv.org/abs/2607.23004)
 
 For families with no common element, set aside the 300 subsets containing a seven-term progression. Record a constant 1 and the indicators of the 78 pairs for each remaining member. The squared-norm identity and an explicit analysis of the 15 five-term progression relations in the one-page proof show that these vectors are linearly independent, so at most 79 remaining members can occur. [Dimension bound](proof.pdf)
 

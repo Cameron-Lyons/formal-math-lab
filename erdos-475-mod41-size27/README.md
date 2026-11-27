@@ -1,6 +1,6 @@
 # Graham’s rearrangement problem modulo 41, 43, and 47
 
-**At 41, 43, and 47, every subset of the nonzero residues has an ordering with distinct nonempty partial sums.** At 47, paths through disjoint sets of vertices give a short exhaustive check covering every size. At 41 and 43, the verifiers enumerate zero-sum sets whose reciprocal sum is 0 or 1. [Modulo-47 proof and reproduction commands](modulo-47.md) · [Modulo-43 verification](modulo-43.md)
+**At 41, 43, and 47, every subset of the nonzero residues has an ordering with distinct nonempty partial sums.** At 47, each half of a zero-sum set works in at least eight of fifteen regions. A shared region gives an ordering of the whole set. At 41 and 43, the verifiers enumerate zero-sum sets whose reciprocal sum is 0 or 1. [Modulo-47 proof and reproduction commands](modulo-47.md) · [Modulo-43 verification](modulo-43.md)
 
 **At every prime, the conclusion holds for every set omitting at most four nonzero residues.** One alternating ordering handles any collection of opposite pairs together with three or four unpaired residues of sum zero. [Constructive proof](paired-quartet.md) · [Erdős problem #475](https://www.erdosproblems.com/475)
 

@@ -1,4 +1,3 @@
-sum 1: 31855467361 ordered pairs, 1158 direct cycles
-sum -1: 31855467361 ordered pairs, 364077 direct cycles
-sum 0 after transfer: 15927912162 ordered pairs, 269132 direct cycles
-All zero-sum subsets modulo 47 covered, including the empty set.
+Sum-one subsets of the squares: 178481
+Sum-one subsets of the nonsquares with 1 adjoined: 356963
+Every subset passed in at least 8 of the 15 regions.

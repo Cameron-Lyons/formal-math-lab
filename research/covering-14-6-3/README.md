@@ -33,7 +33,10 @@ from itertools import combinations
 from pathlib import Path
 
 people = set(range(1, 15))
-groups = [frozenset(map(int, line.split())) for line in Path("groups.txt").read_text().splitlines()]
+groups = [
+    frozenset(map(int, line.split()))
+    for line in Path("groups.txt").read_text().splitlines()
+]
 assert len(groups) == len(set(groups)) == 25
 assert all(len(group) == 6 and group <= people for group in groups)
 trios = set(combinations(sorted(people), 3))

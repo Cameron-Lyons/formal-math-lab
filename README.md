@@ -67,6 +67,8 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 ## Computational proofs
 
+Every 27-element set of nonzero residues modulo 41 admits an ordering with distinct nonempty partial sums. Scaling reduces the proof to checking sets whose total is 0 or 1. [Erdős #475 proof and verifiers](erdos-475-mod41-size27/)
+
 For Erdős problem #272 on thirteen points, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82**. Lean checks the 82-set construction. A dimension bound and an exhaustive C++ search exclude 83. [One-page proof and verifier](erdos-272-thirteen/)
 
 Covering every trio among 14 people requires exactly 25 six-person groups. Two independent C++20 verifiers rule out 24 groups, and an explicit 25-group construction covers all 364 trios. [Proof and group list](research/covering-14-6-3/)

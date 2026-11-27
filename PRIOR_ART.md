@@ -36,7 +36,7 @@ OEIS A401861 lists the unrestricted values through $n=12$. A search for the thir
 
 ## Erdős #272, fourteen points and seven-term progressions
 
-Checked **27 November 2026**. Szabó's construction gives 95 on fourteen points. Cambie's computation at this order assumed a singleton, and Yang proved the exact bound for all families with a common point. The searches for an unrestricted fourteen-point result found no earlier upper bound of 95. The local proof treats families with empty total intersection by a rank argument and an exhaustive search. [Cambie's discussion](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang, Theorems 1.1–1.4](https://arxiv.org/abs/2607.23004) · [Proof and replay](erdos-272-fourteen/)
+Checked **27 November 2026**. Szabó's construction gives 95 on fourteen points. Cambie's computation at this order assumed a singleton, and Yang proved the exact bound for all families with a common point. The searches for an unrestricted fourteen-point result found no earlier upper bound of 95. The local upper bound follows from an exhaustive clique search over all nonempty subsets. [Cambie's discussion](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang, Theorems 1.1–1.4](https://arxiv.org/abs/2607.23004) · [Proof and replay](erdos-272-fourteen/)
 
 Conjectures.io records a verified proof of Szabó's linear-error asymptotic. The local result gives the exact value at every $N$ under a restriction on the number of members containing seven-term progressions. Priority of this restricted theorem is unverified. The unrestricted exact formula remains open. [Linear-error result](https://conjectures.io/problems/erdos272-erdos-272-variants-szabo-strong) · [Restricted theorem](erdos-272-fourteen/rank.md)
 

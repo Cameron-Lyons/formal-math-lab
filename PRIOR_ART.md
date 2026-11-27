@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Erdős #475, all sizes modulo 41 and three omitted residues at every prime
+
+Checked **27 November 2026**. Arévalo reports exhaustive checks for all primes through 37 and for sizes 28 through 40 at 41. The present search covers the entire prime 41, including the middle sizes. Pham and Sauermann, with earlier work, prove the conjecture for sufficiently large primes. Kuang and Wang treat sufficiently large subsets of finite abelian groups. These asymptotic results give no verified overlap with the finite range checked here. [Arévalo, results R1 and R3](https://fabianarevalo.com/graham-rearrangement) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Kuang and Wang](https://arxiv.org/abs/2610.34424) · [Modulo-41 proof](erdos-475-mod41-size27/README.md)
+
+The folded cycle for complete inverse pairs comes from the construction in Alspach, Gavlas, Šajna and Verrall, Lemma 3.4. Hicks, Ollis and Schmitt prove Alspach’s stronger nonzero-total result at size $p-3$. The argument here inserts a normalized triple into a folded cycle and proves Graham’s conclusion at size $p-4$ for every prime $p\ge5$. Searches under partial sums, sequenceability, difference cycles, and omitted residues found no earlier full modulo-41 check or all-prime proof specifically at size $p-4$. Priority and independent expert review are unconfirmed. [Alspach et al. (2003)](https://doi.org/10.1016/S0097-3165(03)00098-0) · [Hicks, Ollis and Schmitt, Theorem 4.6](https://arxiv.org/abs/1809.02684) · [Three-element insertion proof](erdos-475-mod41-size27/paired-triple.md)
+
 ## Erdős #475, size 27 modulo 41
 
 Checked **27 November 2026**. Graham's problem concerns nonzero residues and nonempty partial sums. Arévalo's result R3 reports 227,999,052 dilation classes for sizes 28 through 40 modulo 41. Pham and Sauermann, together with earlier results, settle the conjecture for sufficiently large primes. I found no earlier verification of the size-27 case modulo 41 in the sources checked. [Problem statement](https://www.erdosproblems.com/475) · [Arévalo, R3](https://fabianarevalo.com/graham-rearrangement) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797)

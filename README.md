@@ -67,7 +67,7 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 ## Computational proofs
 
-Every 27-element set of nonzero residues modulo 41 admits an ordering with distinct nonempty partial sums. Scaling reduces the proof to checking sets whose total is 0 or 1. [Erdős #475 proof and verifiers](erdos-475-mod41-size27/)
+Every subset of the nonzero residues modulo 41 admits an ordering with distinct nonempty partial sums (Erdős #475). An exhaustive cycle search and independent counts cover all subset sizes. A separate construction proves the conjecture at size $p-4$ for every prime $p\ge5$. [Modulo-41 proof and verifiers](erdos-475-mod41-size27/) · [All-prime construction](erdos-475-mod41-size27/paired-triple.md)
 
 For Erdős problem #272 on thirteen points, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82**. Lean checks the 82-set construction. A dimension bound and an exhaustive C++ search exclude 83. [One-page proof and verifier](erdos-272-thirteen/)
 

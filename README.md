@@ -69,7 +69,7 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 Every subset of the nonzero residues modulo 41 admits an ordering with distinct nonempty partial sums (Erdős #475). An exhaustive cycle search and independent counts cover all subset sizes. A separate construction proves the conjecture at size $p-4$ for every prime $p\ge5$. [Modulo-41 proof and verifiers](erdos-475-mod41-size27/) · [All-prime construction](erdos-475-mod41-size27/paired-triple.md)
 
-For Erdős problem #272 on thirteen points, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82**. Lean checks the 82-set construction. A dimension bound and an exhaustive C++ search exclude 83. [One-page proof and verifier](erdos-272-thirteen/)
+For Erdős problem #272, the maximum number of distinct subsets with pairwise nonempty arithmetic-progression intersections is **82 on thirteen points** and **109 on fifteen points**. Lean checks both constructions. Rank bounds and exhaustive searches exclude larger families. [Thirteen-point proof](erdos-272-thirteen/) · [Fifteen-point proof and verifiers](erdos-272-fifteen/)
 
 Covering every trio among 14 people requires exactly 25 six-person groups. Two independent C++20 verifiers rule out 24 groups, and an explicit 25-group construction covers all 364 trios. [Proof and group list](research/covering-14-6-3/)
 
@@ -83,7 +83,7 @@ On a $15\times n$ grid the longest snake has $\lfloor(28n+10)/3\rfloor$ cells fo
 
 Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `28-unit-fractions`, `33-unit-fractions`, `book-ramsey`, `box-free-5x8`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-556-cycle-ramsey`, `even-unit-fractions`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-one`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `28-unit-fractions`, `33-unit-fractions`, `book-ramsey`, `box-free-5x8`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-272-fifteen`, `erdos-556-cycle-ramsey`, `even-unit-fractions`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-one`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
 * Lean 4.35.0 + mathlib v4.35.0: `seven-slabs`.
 * Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
@@ -97,6 +97,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | `seven-slabs` | `lake build` | `SevenSlabs.no_seven_slab_tiling` |
 | `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
 | `erdos-272-thirteen` | `lake build` | `Erdos272.exists_family_82` (lower bound) |
+| `erdos-272-fifteen` | `lake build` | `Erdos272Fifteen.exists_family_109` (lower bound) |
 | `box-free-5x8` | `lake build` | `BoxFree5x8.coloring45_boxFree`, `BoxFree5x8.exists_boxFree_43` |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |
 | `queen-domination-48` | `lake exe queens48` | `main` runs the exhaustive search ruling out 24 and checks the 25-queen cover |

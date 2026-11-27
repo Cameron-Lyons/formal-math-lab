@@ -1,22 +1,31 @@
-// Exhaustive upper-bound verifier for Erdős problem #272 at n = 13.
+// Exhaustive upper-bound verifier for Erdős problem #272 at n = 13, 14, or 15.
 // Compile: c++ -O3 -std=c++23 -march=native clique_search/verify.cpp -o /tmp/erdos272-verify
 // Run:     /tmp/erdos272-verify
-// Bit i represents element i + 1 of {1, ..., 13}.
+// Set ERDOS272_N at compile time to select the ground-set size. Bit i represents element i + 1.
 #include <algorithm>
 #include <array>
 #include <bit>
+#include <charconv>
 #include <cstdint>
 #include <iostream>
+#include <string_view>
 #include <tuple>
-#include <utility>
 #include <vector>
 
 namespace {
 
 using Word = std::uint64_t;
-constexpr int N = 13;
+#ifndef ERDOS272_N
+#define ERDOS272_N 13
+#endif
+constexpr int N = ERDOS272_N;
+static_assert(13 <= N && N <= 15);
 constexpr int limit = 1 << N;
-constexpr int target = 83;
+constexpr int pair_dimension = 1 + N * (N - 1) / 2;
+constexpr int target = pair_dimension + (N - 1) / 4 + 1;
+constexpr int exceptional_needed = target - pair_dimension;
+constexpr int exceptional_count = std::array{300, 752, 1712}[N - 13];
+constexpr int canonical_pairs = std::array{3224, 12394, 46886}[N - 13];
 constexpr int words = limit / 64;
 
 struct Bits {
@@ -35,13 +44,14 @@ int reflect(int mask) {
 bool ap[limit], exceptional[limit];
 std::vector<int> masks, exceptional_masks;
 int degree[limit];
-Bits edges[limit], avoids[N], exceptional_candidates;
+std::vector<Word> edges;
+Bits avoids[N], exceptional_candidates;
 std::vector<int> labels;
 int active_words = 0;
-std::uint64_t pairs_checked = 0, nodes = 0;
+std::uint64_t nodes = 0;
 std::vector<int> selected;
 
-// Direct check of the starred bound (≤ 82) at n = 13 via non-AP triple buckets.
+// Direct check of the starred bound via non-AP triple buckets.
 // For a star centre x, every non-AP of size ≥ 4 contains a non-AP triple t ∋ x
 // whose AP-hull is not contained in it, so each triple t forms an independent
 // bucket with all such sets and at most one matched AP of size ≥ 4.
@@ -92,10 +102,10 @@ bool verify_star_bound() {
         }
         max_deficit = std::max(max_deficit, (int)big_aps.size() - matched);
     }
-    return max_deficit == 3;
+    return max_deficit == (N - 1) / 4;
 }
 
-// Check q(S) = 1 + C(|S|,2) - |S| - a3(S) - a4(S) - a6(S) on all 7,891 nonempty
+// Check q(S) = 1 + C(|S|,2) - |S| - a3(S) - a4(S) - a6(S) on all nonempty
 // subsets avoiding a seven-term AP: q(S) = 0 on APs and q(S) > 0 otherwise.
 bool verify_score_bound() {
     std::vector<int> negative_aps;
@@ -113,7 +123,7 @@ bool verify_score_bound() {
             if ((mask & p) == p) --score;
         if ((ap[mask] && score != 0) || (!ap[mask] && score <= 0)) return false;
     }
-    return short_count == 7891;
+    return short_count == limit - 1 - exceptional_count;
 }
 
 bool search(Bits candidates, int needed, int exceptional_needed, int common) {
@@ -158,8 +168,9 @@ bool search(Bits candidates, int needed, int exceptional_needed, int common) {
                 branches.remove(v);
                 available.remove(v);
                 --uncolored;
+                const Word *neighbors = edges.data() + v * active_words;
                 for (int j = i; j < active_words; ++j)
-                    available.bits[j] &= ~edges[v].bits[j];
+                    available.bits[j] &= ~neighbors[j];
             }
         }
         if (uncolored < needed - k) return false;
@@ -173,8 +184,9 @@ bool search(Bits candidates, int needed, int exceptional_needed, int common) {
             candidates.remove(v);
             Bits next;
             int count = 0;
+            const Word *neighbors = edges.data() + v * active_words;
             for (int j = 0; j < active_words; ++j) {
-                next.bits[j] = candidates.bits[j] & edges[v].bits[j];
+                next.bits[j] = candidates.bits[j] & neighbors[j];
                 count += std::popcount(next.bits[j]);
             }
             if (count < needed - 1) continue;
@@ -188,10 +200,31 @@ bool search(Bits candidates, int needed, int exceptional_needed, int common) {
     return false;
 }
 
+// A smallest-last order makes the greedy independent-set covers tighter.
+// Every candidate is kept. This only changes the order in which it is visited.
+void order_candidates() {
+    const int size = static_cast<int>(labels.size());
+    std::vector<int> degrees(size);
+    for (int i = 0; i < size; ++i)
+        for (int b : labels)
+            degrees[i] += (labels[i] != b && ap[labels[i] & b]);
+
+    std::vector<int> ordered(size);
+    for (int pos = size - 1; pos >= 0; --pos) {
+        int best = -1;
+        for (int i = 0; i < size; ++i)
+            if (degrees[i] >= 0 && (best < 0 || degrees[i] < degrees[best])) best = i;
+        const int mask = labels[best];
+        ordered[pos] = mask;
+        degrees[best] = -1;
+        for (int i = 0; i < size; ++i)
+            if (degrees[i] >= 0 && ap[mask & labels[i]]) --degrees[i];
+    }
+    labels.swap(ordered);
+}
+
 bool check_pair(int r, int s) {
     int first = exceptional_masks[r], second = exceptional_masks[s];
-    if (!ap[first & second]) return false;
-    ++pairs_checked;
     labels.clear();
     for (int mask : masks)
         if (!exceptional[mask] && ap[first & mask] && ap[second & mask])
@@ -203,37 +236,44 @@ bool check_pair(int r, int s) {
     int size = (int)labels.size();
     if (size < target - 2) return false;
 
-    std::vector<std::pair<int, int>> order;
-    order.reserve(size);
-    for (int a : labels) {
-        int d = 0;
-        for (int b : labels) d += (a != b && ap[a & b]);
-        order.emplace_back(-d, a);
-    }
-    std::sort(order.begin(), order.end());
-    for (int v = 0; v < size; ++v) labels[v] = order[v].second;
+    order_candidates();
 
     active_words = (size + 63) / 64;
+    edges.assign(size * active_words, 0);
     for (Bits &pool : avoids) pool = {};
     exceptional_candidates = {};
     Bits candidates;
     for (int v = 0; v < size; ++v) {
         int mask = labels[v];
-        edges[v] = {};
+        Word *neighbors = edges.data() + v * active_words;
         for (int w = 0; w < size; ++w)
-            if (w != v && ap[mask & labels[w]]) edges[v].add(w);
+            if (w != v && ap[mask & labels[w]]) neighbors[w / 64] |= Word{1} << (w % 64);
         for (int m = 0; m < N; ++m)
             if (!(mask >> m & 1)) avoids[m].add(v);
         if (exceptional[mask]) exceptional_candidates.add(v);
         candidates.add(v);
     }
     selected = {first, second};
-    return search(candidates, target - 2, 2, first & second);
+    return search(candidates, target - 2, exceptional_needed - 2, first & second);
+}
+
+bool parse_index(std::string_view input, int &index) {
+    const char *end = input.data() + input.size();
+    const auto [ptr, error] = std::from_chars(input.data(), end, index);
+    return error == std::errc{} && ptr == end;
 }
 
 }  // namespace
 
-int main() {
+int main(int argc, char **argv) {
+    int begin = 0, end = canonical_pairs;
+    if (argc != 1 && (argc != 3 || !parse_index(argv[1], begin) || !parse_index(argv[2], end)
+                      || begin < 0 || begin >= end || end > canonical_pairs)) {
+        std::cerr << "Usage: verifier [begin end], zero-based, half-open, within [0, "
+                  << canonical_pairs << ").\n";
+        return 2;
+    }
+
     for (int start = 0; start < N; ++start)
         for (int step = 1; step <= N; ++step) {
             int mask = 0;
@@ -251,32 +291,34 @@ int main() {
         std::cerr << "Starred bound check failed.\n";
         return 2;
     }
-    std::cout << "Starred bound verified directly at n = 13 (max deficit 3 => size <= 82).\n";
+    std::cout << "Starred upper bound at n = " << N << ": " << target - 1 << '\n';
 
     if (!verify_score_bound()) {
         std::cerr << "Score check failed.\n";
         return 2;
     }
-    std::cout << "Score check passed on 7891 nonempty masks avoiding seven-term APs.\n";
+    std::cout << "Score check passed on " << limit - 1 - exceptional_count
+              << " nonempty masks avoiding seven-term APs.\n";
 
     for (int mask = 1; mask < limit; ++mask) {
         if (std::popcount((unsigned)mask) >= 2) masks.push_back(mask);
         if (exceptional[mask]) exceptional_masks.push_back(mask);
     }
-    if (exceptional_masks.size() != 300u) {
+    if (exceptional_masks.size() != exceptional_count) {
         std::cerr << "Unexpected exceptional mask count: " << exceptional_masks.size() << '\n';
         return 2;
     }
     for (int a : exceptional_masks)
         for (int b : masks) degree[a] += (a != b && ap[a & b]);
 
-    // Group each set with its reflection i -> 14 - i, keeping min(a, reflect(a)) first.
+    // Group each set with its reflection i -> N + 1 - i, keeping min(a, reflect(a)) first.
     // Every prefix before a canonical representative is reflection-invariant, so each
     // valid clique (or its reflection) has canonical first choice (and second if palindromic).
     std::sort(exceptional_masks.begin(), exceptional_masks.end(), [](int a, int b) {
         int ca = std::min(a, reflect(a)), cb = std::min(b, reflect(b));
         return std::tuple(degree[a], ca, a) < std::tuple(degree[b], cb, b);
     });
+    int pair_index = 0, pairs_checked = 0;
     for (int r = 0; r < (int)exceptional_masks.size(); ++r) {
         int first = exceptional_masks[r];
         if (first > reflect(first)) continue;
@@ -284,6 +326,10 @@ int main() {
         for (int s = r + 1; s < (int)exceptional_masks.size(); ++s) {
             int second = exceptional_masks[s];
             if (palindromic && second > reflect(second)) continue;
+            if (!ap[first & second]) continue;
+            const int index = pair_index++;
+            if (index < begin || index >= end) continue;
+            ++pairs_checked;
             if (check_pair(r, s)) {
                 std::cout << "Clique found (masks):";
                 for (int mask : selected) std::cout << ' ' << mask;
@@ -292,12 +338,20 @@ int main() {
             }
         }
     }
-    if (pairs_checked != 3224u) {
-        std::cerr << "Unexpected compatible pair count: " << pairs_checked << '\n';
+    if (pair_index != canonical_pairs || pairs_checked != end - begin) {
+        std::cerr << "Unexpected pair totals: " << pair_index << " enumerated, "
+                  << pairs_checked << " checked.\n";
         return 2;
     }
     std::cout << "Exceptional masks: " << exceptional_masks.size()
-              << "\nCanonical compatible first pairs: " << pairs_checked
-              << "\nSearch nodes: " << nodes
-              << "\nNo 83-clique with empty total intersection and four or more exceptional sets.\n";
+              << "\nCanonical compatible first pairs: " << pair_index
+              << "\nPairs checked in [" << begin << ", " << end << "): " << pairs_checked
+              << "\nSearch nodes: " << nodes << '\n';
+    if (pairs_checked == canonical_pairs) {
+        std::cout << "No " << target << "-clique with empty total intersection and "
+                  << exceptional_needed << " or more exceptional sets.\n";
+    } else {
+        std::cout << "No completion in this range.\n";
+    }
+    return 0;
 }

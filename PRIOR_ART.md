@@ -34,6 +34,10 @@ Checked **26 November 2026**. Erich Friedman asks which cubes can be tiled using
 
 The Lean theorem rules out $n=7$ for a closed cube of arbitrary real side length, allowing each slab its own orientation. [Formal proof](seven-slabs/SevenSlabs.lean) · [Independent placement search](seven-slabs/verify/placement_search.cpp)
 
+## Erdős #272, arithmetic progression intersections on fifteen points
+
+Checked **27 November 2026**. Szabó's construction gives 109 on fifteen points. Yang's Theorem 1.4 proves this upper bound whenever all members share a point, and his Theorem 1.1 computes the unrestricted maximum through twelve points. The lab's fourteen-point argument in local commit `b8f6e31` supplies the rank and search strategy used for the fifteen-point case. [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Yang, Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1) · [Fifteen-point proof and verifiers](erdos-272-fifteen/)
+
 ## Erdős #272, arithmetic progression intersections on thirteen points
 
 Checked **26 November 2026**. Szabó's construction gives $t(13)\ge 82$. In August 2025 Stijn Cambie reported computations through 14, assuming for $10\le n\le14$ that the extremal family contains a singleton. Yang's Theorem 1.1 gives the unrestricted values through $t(12)=69$, and Theorem 1.4 gives the exact maximum for families with a common element for every $n$. [Szabó (1999), §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Cambie's forum post](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang (2026), Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1)

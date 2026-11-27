@@ -69,7 +69,7 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 At both 41 and 43, every subset of the nonzero residues admits an ordering with distinct nonempty partial sums (Erdős #475). A separate construction proves the result at every prime when at most four nonzero residues are omitted. [Modulo-43 proof and counts](erdos-475-mod41-size27/modulo-43.md) · [Modulo-41 proof](erdos-475-mod41-size27/) · [Four-omission construction](erdos-475-mod41-size27/paired-quartet.md)
 
-For Erdős problem #272, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82 on thirteen points** and **95 on fourteen points**. Lean checks the constructions. A rank bound and a C++ search give the thirteen-point upper bound. A direct clique search gives the fourteen-point upper bound. The fourteen-point proof also establishes the conjectured formula at every $N$ for families with at most $\lfloor(N-1)/4\rfloor$ members containing a seven-term progression. [Thirteen-point proof](erdos-272-thirteen/) · [Fourteen-point proof and general bound](erdos-272-fourteen/)
+For Erdős problem #272, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82 on thirteen points**, **95 on fourteen points**, and **109 on fifteen points**. Lean checks the constructions. A rank bound and a C++ search give the thirteen-point upper bound. Direct clique searches give the fourteen- and fifteen-point upper bounds. The fourteen-point proof also establishes the conjectured formula at every $N$ for families with at most $\lfloor(N-1)/4\rfloor$ members containing a seven-term progression. [Thirteen-point proof](erdos-272-thirteen/) · [Fourteen-point proof and general bound](erdos-272-fourteen/) · [Fifteen-point proof](erdos-272-fifteen/)
 
 On sixteen points the verified range is **124 to 132**. The maximum is exactly 124 when every intersection has at most six terms. For every ground-set size, Szabó’s formula is exact when every intersection has at most five terms. [Sixteen-point results and verifiers](erdos-272-sixteen/)
 
@@ -85,7 +85,7 @@ On a $15\times n$ grid the longest snake has $\lfloor(28n+10)/3\rfloor$ cells fo
 
 Each Lean project has its own Lake setup and pinned `lean-toolchain`:
 
-* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `28-unit-fractions`, `33-unit-fractions`, `book-ramsey`, `box-free-5x8`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-272-sixteen`, `erdos-556-cycle-ramsey`, `even-unit-fractions`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-one`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
+* Lean 4.36.0 (stdlib only): `26-unit-fractions`, `28-unit-fractions`, `33-unit-fractions`, `book-ramsey`, `box-free-5x8`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-272-fourteen`, `erdos-272-fifteen`, `erdos-272-sixteen`, `erdos-556-cycle-ramsey`, `even-unit-fractions`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-one`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
 * Lean 4.36.0 + mathlib v4.36.0: `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
 * Lean 4.35.0 + mathlib v4.35.0: `seven-slabs`.
 * Lean 4.33.1 + mathlib (with the unmodified statements of Formal Conjectures): `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
@@ -100,6 +100,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
 | `erdos-272-thirteen` | `lake build` | `Erdos272.exists_family_82` (lower bound) |
 | `erdos-272-fourteen` | `lake build` | `Erdos272Fourteen.exists_family_95` (lower bound) |
+| `erdos-272-fifteen` | `lake build` | `Erdos272Fifteen.exists_family_109` (lower bound) |
 | `erdos-272-sixteen` | `lake build` | `Erdos272Sixteen.exists_family_124` (lower bound) |
 | `box-free-5x8` | `lake build` | `BoxFree5x8.coloring45_boxFree`, `BoxFree5x8.exists_boxFree_43` |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |

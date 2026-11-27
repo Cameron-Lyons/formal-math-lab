@@ -1,6 +1,6 @@
 # Singleton intersections at both endpoints
 
-**Proposition.** Let $t(15)$ denote the unrestricted maximum on fifteen points. In any admissible family of $f\ge125$ subsets of $[16]$, at least $\lceil(f-11-t(15))/2\rceil$ disjoint pairs of members intersect in exactly $\{1\}$. The same holds for $\{16\}$. In particular, if $t(15)=109$, then three disjoint pairs witness each endpoint when $f=125$.
+**Proposition.** Let $t(15)$ denote the unrestricted maximum on fifteen points. In any admissible family of $f\ge125$ subsets of $[16]$, at least $\lceil(f-11-t(15))/2\rceil$ disjoint pairs of members intersect in exactly $\{1\}$. The same holds for $\{16\}$. Since $t(15)=109$, at least three disjoint pairs witness each endpoint when $f=125$. [Fifteen-point bound](../erdos-272-fifteen/)
 
 Consider deletion of the endpoint 1. A *duplicate pair* consists of $P$ and $P\cup\{1\}$ both belonging to the family, with $1\notin P$. Their common trace $P$ is a nonempty progression. We first establish that a family of 125 can have at most 11 such pairs.
 

@@ -9,71 +9,49 @@ three containing 8. For each $d=1,2,3$, take the five-term progression
 $P_d=\{8-2d,8-d,8,8+d,8+2d\}$. Remove the two triples through 8 in $P_d$
 that are not progressions. Add $P_d$ and the two four-term progressions obtained
 by dropping one endpoint. Every changed set has smallest gap $d$, so the three
-exchanges give $106-6+9=109$. Every intersection contains 8. Two distinct small sets
-meet in at most two points, and every retained triple inside an added progression
-is a progression. The intersection of two added progressions is also a progression.
+exchanges give $106-6+9=109$.
+
+Every intersection contains 8. Two distinct small sets meet in at most two
+points, and every retained triple inside an added progression is a progression.
+The common terms of two added progressions also form a progression.
 Lean checks all 5,886 intersections. [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf) · [Lean witness](Erdos272Fifteen.lean)
 
-**Upper bound.** Mark the sets containing a seven-term progression and the
-five-term progressions themselves. At most **106 unmarked sets** can occur in
-one family, as shown below. A family of 110 therefore needs four marked members.
-The finite search checks all **59,836** possibilities for its first two marked
-members up to reflection. None extends to 110. Since every larger family contains
-one of size 110, this proves the bound. [C++ verifier](../erdos-272-thirteen/clique_search/verify.cpp)
+**Upper bound.** Make a graph on the 32,767 nonempty subsets. Join two sets when
+their intersection is a nonempty arithmetic progression. A family of size 110
+is exactly a clique of size 110 in this graph.
 
-### Why there are at most 106 unmarked sets
+Suppose a clique still needs $k$ vertices. Greedily remove $k-1$ classes of
+candidates, with no two vertices in a class adjacent. A clique takes at most one
+from each class, so every completion uses an uncovered vertex. Try each such
+vertex in turn, keeping only its neighbors and skipping vertices already tried.
+For each point $x$, the verifier also partitions all sets containing $x$ into
+$c_x\le109$ such classes. At least $110-c_x$ clique members must therefore omit
+$x$. Whenever the clique still needs a member omitting $x$, the verifier can
+branch on those candidates.
 
-Let $U$ consist of the empty set and all 105 pairs. Let $V$ consist of the
-singletons and the progressions of lengths 3, 4, and 6. Define $q(S)$ by
-counting the members of $U$ contained in $S$ and subtracting the number of
-members of $V$ contained in $S$. On all 31,055 nonempty sets containing no
-seven-term progression, the verifier checks that $q(S)=0$ for progressions and
-$q(S)>0$ otherwise.
+Reflection $i\mapsto16-i$ reduces the number of starting cases. In a fixed order, let
+$A$ be the first set in the union of a clique and its reflection. Search the
+orientation containing $A$. A reflection-invariant set is determined by seven
+mirrored pairs and the middle point, giving $2^8-1=255$ nonempty fixed sets.
+Thus $(32{,}767+255)/2=16{,}511$ first sets need checking.
 
-Suppose there are more than 106 unmarked members $A$. Give them real weights
-$c_A$, and write $w(T)=\sum_{A\supseteq T}c_A$. The 106 homogeneous equations
-$w(T)=0$ for $T\in U$ have a nonzero solution. Expanding squares gives
-
-$$
-0=\sum_{T\in U}w(T)^2=\sum_{T\in V}w(T)^2+\sum_A c_A^2 q(A).
-$$
-
-Indeed, each cross term cancels because $A\cap B$ is a progression of length
-at most six and $q(A\cap B)=0$. Both sums on the right are nonnegative. Thus
-$w(T)=0$ for $T\in V$, and only progressions can have nonzero weight. Take a
-largest such progression $P$. Its length is 1, 2, 3, 4, or 6, so $P\in U\cup V$.
-But then $0=w(P)=c_P$, a contradiction.
-
-### What the search checks
-
-Join two distinct nonempty subsets by an edge when their intersection is a
-nonempty progression. For each point, the verifier greedily partitions the sets
-containing it into at most 109 independent classes. A 110-clique must therefore
-omit each point somewhere.
-
-Order the marked sets in consecutive reflection orbits under $i\mapsto16-i$,
-smaller bit mask first. Up to reflection the first marked member is the smaller
-one in its orbit. If reflection fixes it, the same rule applies to the second.
-For each such pair the verifier seeks 108 mutually adjacent common neighbors,
-including at least two later marked sets. To seek $k$ vertices, it removes
-$k-1$ independent sets. Every $k$-clique must use an uncovered vertex, so it
-suffices to try each such vertex with its remaining neighbors. The search can
-also branch on any choice still required, such as a set omitting a given point.
-
-There are **1,733** marked sets, including the 21 five-term progressions. The
-completed search visited **367,041,673** nodes. An independent enumeration
-reproduced the common-neighbor counts for all 59,836 starting pairs.
+The verifier checked all **16,511** starting sets in **156,880,055** recursive
+calls. None extends to 110. Every larger family would contain a family of 110,
+so the maximum is 109. [Exhaustive verifier](upper.cpp) ·
+[Fourteen-point search](https://github.com/Cameron-Lyons/formal-math-lab/blob/3709189f2c4c414134811f58668a7bba6ad7cc92/erdos-272-fourteen/upper.cpp)
 
 ## Reproduce
 
-Run from this directory with Lean 4.36.0 and a C++23 compiler.
+Run from this directory with a C++20 compiler and Lean 4.36.0. With OpenMP,
+the verifier checks independent starting cases in parallel. Lean checks the construction.
 
 ```sh
+c++ -O3 -std=c++20 -march=native -fopenmp upper.cpp -o /tmp/erdos272-check15
+/tmp/erdos272-check15
 lake --wfail build
 lake env leanchecker --fresh Erdos272Fifteen
-c++ -O3 -std=c++23 -march=native -DERDOS272_N=15 ../erdos-272-thirteen/clique_search/verify.cpp -o /tmp/erdos272-check15
-/tmp/erdos272-check15
 ```
 
-The last command checks every pair. To split the search, pass two zero-based
-indices for a half-open range and cover all of $[0,59836)$.
+The default run covers all starting sets. For a partial run, pass the endpoints
+of a zero-based half-open range in $[0,16511)$. Omit `-fopenmp` to build a
+serial verifier.

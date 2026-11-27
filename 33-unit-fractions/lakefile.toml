@@ -1,0 +1,10 @@
+name = "unit_fractions_33"
+version = "0.1.0"
+defaultTargets = ["UnitFractions33"]
+
+[[require]]
+name = "even_unit_fractions"
+path = "../even-unit-fractions"
+
+[[lean_lib]]
+name = "UnitFractions33"

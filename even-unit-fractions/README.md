@@ -13,7 +13,7 @@ This proves the complete even half of Gaiser and Ramezanpour's Conjecture 1.3 (`
 | Field | Summary |
 | --- | --- |
 | Problem | Two-color reciprocal Rado numbers $f_2(k) = 3k^2$ for all even $k \ge 4$ (Gaiser–Ramezanpour `arXiv:2607.04373v1` Conjecture 1.3, even case; Arevalo Conjecture B) |
-| Status | Proved in full for all even $k \ge 4$ in pure Lean 4. Odd non-prime-power $k$ (e.g., $k = 15, 21, 33, 35, \dots$) remain open in general. |
+| Status | Proved in full for all even $k \ge 4$ in pure Lean 4. The odd non-prime-power case remains open in general. A separate certificate settles $k=33$. [33-term proof](../33-unit-fractions/) |
 | Main theorem | `EvenUnitFractions.forces_iff {k : Nat} (heven : k % 2 = 0) (hk : 4 ≤ k) (N : Nat) : Forces k N ↔ 3 * k * k ≤ N` in [EvenUnitFractions.lean](EvenUnitFractions.lean) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; pure kernel proof, no `sorry`, no `native_decide`, standard axioms only) |
 | Prior art | Checked 26 November 2026: Gaiser and Ramezanpour proved $k = 3 \cdot 2^m$ and computed $k \le 25$; Arevalo certified through $k = 8$ and left all even $k \ge 4$ as Conjecture B; this repository previously settled $k = 26$ and $k = 28$. No earlier proof covering all even $k \ge 4$ was found. |

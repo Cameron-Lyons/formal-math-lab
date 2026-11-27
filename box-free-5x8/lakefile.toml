@@ -1,0 +1,6 @@
+name = "BoxFree5x8"
+version = "0.1.0"
+defaultTargets = ["BoxFree5x8"]
+
+[[lean_lib]]
+name = "BoxFree5x8"

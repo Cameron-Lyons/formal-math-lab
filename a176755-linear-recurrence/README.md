@@ -15,10 +15,10 @@ $$
 | Field | Summary |
 | --- | --- |
 | Problem | OEIS A176755, R. J. Mathar's five-term linear recurrence conjecture for $a_{n+1} = \sum_{p=0}^n a_p a_{n-p} - 2$ |
-| Status | Proved in Lean 4 for all $n \ge 4$ (formalizing a result already covered by Georg Fischer's January 2020 recurrence). |
+| Status | Proved in Lean 4 for all $n \ge 4$ (formalizing a result already covered by Georg Fischer's January 2020 recurrence and Artūras Dubickas's June 2026 paper). |
 | Main theorems | `A176755.mathar`, `A176755.mathar_of_recurrence` in [A176755.lean](A176755.lean) |
 | Verification | `lake exe cache get && lake build && lake env lean Check.lean` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
-| Prior art | Checked 23 November 2026: already covered by Georg Fischer's January 2020 recurrence for OEIS A176604/A176755. No claim of mathematical novelty or first formalization. See [Prior work and attribution](#prior-work-and-attribution) and [PRIOR_ART.md](../PRIOR_ART.md#nonlinear-to-linear-recurrence-oeis-a176755). |
+| Prior art | Checked 23 November 2026 and re-audited 26 November 2026: covered by Georg Fischer (January 2020, OEIS A176604/A176755) and Artūras Dubickas (June 2026, general $k = 0$ Choulet sequences). No claim of mathematical novelty or first formalization. See [Prior work and attribution](#prior-work-and-attribution) and [PRIOR_ART.md](../PRIOR_ART.md#nonlinear-to-linear-recurrence-oeis-a176755). |
 
 ## Prior work and attribution
 
@@ -30,7 +30,7 @@ $$
 (n+1)a_n + (2-7n)a_{n-1} + (7n-5)a_{n-2} + (19n-68)a_{n-3} + (150-36n)a_{n-4} + (16n-80)a_{n-5} = 0.
 $$
 
-Let $R_n$ be the left-hand side of Mathar's five-term formula. Expanding directly shows Fischer's six-term expression is $R_n - R_{n-1}$. Because the initial values give $R_4 = 260 - 330 + 28 + 42 = 0$, the earlier recurrence implies $R_n = 0$ for all $n \ge 4$. The remaining "Conjecture" label in OEIS A176755 does not mean the mathematical problem was still open.
+Let $R_n$ be the left-hand side of Mathar's five-term formula. Expanding directly shows Fischer's six-term expression is $R_n - R_{n-1}$. Because the initial values give $R_4 = 260 - 330 + 28 + 42 = 0$, the earlier recurrence implies $R_n = 0$ for all $n \ge 4$. In addition, Artūras Dubickas (*Recurrence Formulas for Choulet Sequences*, *Mathematics* 14(12): 2177, 17 June 2026, [10.3390/math14122177](https://doi.org/10.3390/math14122177)) directly proved the exact five-term recurrence for all $k = 0$ Choulet sequences (including A176755), and Tong Niu ([arXiv:2605.04369](https://arxiv.org/abs/2605.04369), 6 May 2026) published the same generating-function and differential-equation method for sibling A176677. The remaining "Conjecture" label in OEIS A176755 does not mean the mathematical problem was still open.
 
 ## Formal statements
 

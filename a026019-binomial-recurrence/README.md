@@ -20,7 +20,7 @@ $$
 | Status | Proved in Lean 4 for all $n \ge 2$. |
 | Main theorems | `A026019.recurrence` ([A026019.lean](A026019.lean)), `A026019.a_eq` ([A026019/Sequence.lean](A026019/Sequence.lean)) |
 | Verification | `lake exe cache get && lake build && lake env lean Check.lean` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
-| Prior art | Checked 23 November 2026: no earlier explicit proof was found, though Georg Fischer's first-order recurrence in jOEIS (6 November 2026) algebraically implies it. This folder provides a checked Lean proof, not a claim of a first mathematical proof. See [PRIOR_ART.md](PRIOR_ART.md) and the [collection audit](../PRIOR_ART.md#binomial-recurrence-oeis-a026019). |
+| Prior art | Checked 23 November 2026 and re-audited 26 November 2026: Georg Fischer's first-order recurrence in jOEIS (6 November 2026) algebraically implies the recurrence, and Robert Israel independently verified the conjecture via Maple on 24 November 2026 (MathSE `q/5156049`, OEIS A026019 rev. 30). This folder provides a checked Lean proof, not a claim of a first mathematical proof. See [PRIOR_ART.md](PRIOR_ART.md) and the [collection audit](../PRIOR_ART.md#binomial-recurrence-oeis-a026019). |
 
 ## Proof overview
 

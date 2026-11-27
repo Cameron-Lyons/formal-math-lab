@@ -21,25 +21,60 @@ theorem mex_spec (a b c : Nat) :
   all_goals constructor
   all_goals first | omega | (intro j hj; omega)
 
+namespace ThirdMove
+
+/-- One step for the subtraction moves 3, 8, and `c`. Zero is never a legal move. -/
+def step (c : Nat) (f : Nat → Nat) (n : Nat) : Nat :=
+  mex (if 3 ≤ n then f (n - 3) else 4)
+      (if 8 ≤ n then f (n - 8) else 4)
+      (if 0 < c ∧ c ≤ n then f (n - c) else 4)
+
+/-- Grundy value of a single heap with third move `c`. -/
+def grundy (c n : Nat) : Nat :=
+  mex (if 3 ≤ n then grundy c (n - 3) else 4)
+      (if 8 ≤ n then grundy c (n - 8) else 4)
+      (if 0 < c ∧ c ≤ n then grundy c (n - c) else 4)
+termination_by n
+decreasing_by all_goals omega
+
+theorem grundy_eq_step (c n : Nat) : grundy c n = step c (grundy c) n := by
+  rw [grundy]
+  rfl
+
+/-- Agreement across a full window of predecessors propagates to the entire tail. -/
+theorem periodic_from_window {c q p : Nat} (hc : 8 ≤ c)
+    (h : ∀ n, q ≤ n → n < q + c → grundy c (n + p) = grundy c n) :
+    ∀ n, q ≤ n → grundy c (n + p) = grundy c n := by
+  intro n
+  induction n using Nat.strongRecOn with
+  | ind n ih =>
+    intro hqn
+    by_cases hn : n < q + c
+    · exact h n hqn hn
+    have shift (d : Nat) (hd : 0 < d) (hle : d ≤ c) :
+        grundy c (n + p - d) = grundy c (n - d) := by
+      rw [show n + p - d = (n - d) + p by omega]
+      exact ih _ (by omega) (by omega)
+    rw [grundy_eq_step c (n + p), grundy_eq_step c n]
+    simp (disch := omega) only [step, ite_eq_left]
+    rw [shift 3 (by decide) (by omega), shift 8 (by decide) hc,
+        shift c (by omega) (Nat.le_refl _)]
+
+end ThirdMove
+
 /-- One evaluation of the subtraction recurrence for a putative value function. -/
 def step (k : Nat) (f : Nat → Nat) (n : Nat) : Nat :=
   mex (if 3 ≤ n then f (n - 3) else 4)
       (if 8 ≤ n then f (n - 8) else 4)
       (if largeMove k ≤ n then f (n - largeMove k) else 4)
 
-/-- Grundy value of a single heap. -/
-def grundy (k n : Nat) : Nat :=
-  mex (if 3 ≤ n then grundy k (n - 3) else 4)
-      (if 8 ≤ n then grundy k (n - 8) else 4)
-      (if largeMove k ≤ n then grundy k (n - largeMove k) else 4)
-termination_by n
-decreasing_by
-  all_goals try unfold largeMove at *
-  all_goals omega
+/-- Grundy value of a single heap with third move `11 * k + 7`. -/
+def grundy (k n : Nat) : Nat := ThirdMove.grundy (largeMove k) n
 
 theorem grundy_eq_step (k n : Nat) : grundy k n = step k (grundy k) n := by
-  rw [grundy]
-  rfl
+  have hc : 0 < largeMove k := by unfold largeMove; omega
+  simpa only [grundy, ThirdMove.step, step, hc, true_and] using
+    ThirdMove.grundy_eq_step (largeMove k) n
 
 /-- A one-move follower of heap `n` has value `v`. -/
 def reachableValue (k n v : Nat) : Prop :=
@@ -82,20 +117,6 @@ theorem grundy_spec (k n : Nat) :
 theorem periodic_from_window {k q p : Nat}
     (h : ∀ n, q ≤ n → n < q + largeMove k → grundy k (n + p) = grundy k n)
     (hk : 1 ≤ k) : ∀ n, q ≤ n → grundy k (n + p) = grundy k n := by
-  intro n
-  induction n using Nat.strongRecOn with
-  | ind n ih =>
-    intro hqn
-    by_cases hn : n < q + largeMove k
-    · exact h n hqn hn
-    have hmax : 8 ≤ largeMove k := by unfold largeMove; omega
-    have shift (d : Nat) (hd : 0 < d) (hle : d ≤ largeMove k) :
-        grundy k (n + p - d) = grundy k (n - d) := by
-      rw [show n + p - d = (n - d) + p by omega]
-      exact ih _ (by omega) (by omega)
-    rw [grundy_eq_step k (n + p), grundy_eq_step k n]
-    simp (disch := omega) only [step, ite_eq_left]
-    rw [shift 3 (by decide) (by omega), shift 8 (by decide) hmax,
-        shift (largeMove k) (by omega) (Nat.le_refl _)]
+  exact ThirdMove.periodic_from_window (c := largeMove k) (by unfold largeMove; omega) h
 
 end SubtractionGame

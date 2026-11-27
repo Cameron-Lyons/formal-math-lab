@@ -1,11 +1,11 @@
 # Prior proofs, originality, and research status
 
-First checked **22 November 2026** (America/Chicago; some retrievals carry 23 November UTC timestamps), with follow-up checks through **26 November 2026**. This audit compares local results against existing proofs and public formalizations.
+First checked **22 November 2026** (America/Chicago; some retrievals carry 23 November UTC timestamps), with follow-up checks through **27 November 2026**. This audit compares local results against existing proofs and public formalizations.
 
 Summary of the checked entries:
 
 * **No earlier proof or model found in checked sources:** E1486 at order 15, unit fractions, seven-cycles, and T-tetromino boards (checked **22 November 2026**); E670 at order 10, the 17-element E1486 model, and E1486 at order 12 (checked **23 November 2026**); the 26-element E1486 model and E1486 at order 14 (checked **24 November 2026**); and Erdős #602 plus the variants of Erdős #211, #338, #344, #387, and #1066 in limited searches through **25 November 2026** (the #1066 disproof is a short corollary of D. de Caen's 2000 theorem).
-* **Formalizations of earlier results:** the three-column matrix formula follows from an earlier inclusion-exclusion theorem; the A026019 recurrence follows from a first-order recurrence already in jOEIS (first-proof status unverified); the A176755 recurrence is covered by Georg Fischer's January 2020 general recurrence; E677 at order 10 formalizes José Brox's January 2025 report (no earlier Lean proof found on **24 November 2026**); and Erdős #708 formalizes C. Bergström's proved value $g(6) = 8$, importing John Tripodo's Lean bounds for four and five integers.
+* **Formalizations or independent proofs of earlier results:** $\gamma(Q_{48}) = 25$ was published and certified by Aleksej Đukić on **22 November 2026** (which together with Östergård and Weakley's 2001 independent 25-queen set also implied $i(Q_{48}) = 25$); the three-column matrix formula follows from an earlier inclusion-exclusion theorem; the A026019 recurrence follows from Georg Fischer's first-order jOEIS recurrence (6 November 2026) and was also verified by Robert Israel on OEIS on 24 November 2026; the A176755 recurrence is covered by Georg Fischer (January 2020) and Artūras Dubickas (June 2026); E677 at order 10 formalizes José Brox's January 2025 report (no earlier Lean proof found on **24 November 2026**); and Erdős #708 formalizes C. Bergström's proved value $g(6) = 8$, importing John Tripodo's Lean bounds for four and five integers.
 * **Open partial work:** E17260 gives partial obstructions, and finite nontrivial existence remained open in sources checked on **23 November 2026**.
 
 None of these searches can prove that no earlier or unpublished result exists.
@@ -36,9 +36,15 @@ For a grid of $5 \times n$ unit squares, the Lean theorem proves the minimum is 
 
 ## Queen domination on the 48 × 48 board
 
-Checked **24 November 2026**. Östergård and Weakley give a 25-queen placement ([pp. 10-11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/)). Davies lists 48 as the next open even board in [§9 of his 21 November preprint](https://hexagonmath.org/pdf/2611.00830v1#page=19). This project checks the published placement and rules out 24 by exhaustive enumeration in compiled Lean ([proof and checker](queen-domination-48/README.md)).
+Checked **24 November 2026** and re-audited **26 November 2026**. Östergård and Weakley (2001) gave an explicit independent 25-queen dominating set ([pp. 10-11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/)), bounding both $\gamma(Q_{48})$ and $i(Q_{48})$ to $\{24, 25\}$. Davies listed 48 as the next open even board in [§9 of his 21 November preprint](https://hexagonmath.org/pdf/2611.00830v1#page=19).
 
-The SAT project gives an independent second proof of $\gamma(Q_{48}) = 25$ using Davies' frame method, and also proves $i(Q_{48}) = 25$ for independent dominating sets; Östergård and Weakley bounded both numbers to $\{24, 25\}$. No earlier value for $i(Q_{48})$ was found, though only Davies' paper and a brief web search were checked. See [proof and certificates](queen-domination-48-sat/README.md).
+**Earlier public solution (22 November 2026):** Aleksej Đukić publicly proved and certified $\gamma(Q_{48}) = 25$ on **22 November 2026**, two days before `queen-domination-48` (24 November) and three days before `queen-domination-48-sat` (25 November). He posted `a(48) = 25` to [OEIS A075458](https://oeis.org/A075458) (revision 125) with a certificate summary ([a075458_1.txt](https://oeis.org/A075458/a075458_1.txt)) reporting that CaDiCaL and `drat-trim` refuted all 47,580 canonical cases of Davies' frame reduction, alongside his [GitLab repository](https://gitlab.com/aleksejdj2019/queen-domination-extension), [project paper](https://queen-domination-extension.vercel.app/paper.pdf) (dated 22 November 2026), and Zenodo preprint ([10.5281/zenodo.24537292](https://zenodo.org/records/24537292), deposited 25 November 2026).
+
+Because $\gamma(Q_n) \le i(Q_n)$ holds universally and Östergård and Weakley's 25-queen placement is already independent, Đukić's proof of $\gamma(Q_{48}) = 25$ immediately implied $i(Q_{48}) = 25$ on 22 November 2026 (although neither Đukić nor [OEIS A075324](https://oeis.org/A075324) explicitly wrote out that corollary). Neither local project is therefore the first mathematical solution of $\gamma(Q_{48}) = 25$ or $i(Q_{48}) = 25$. Locally, [queen-domination-48](queen-domination-48/README.md) contributes an independent, non-SAT mod-3 grid-partition proof in compiled Lean, and [queen-domination-48-sat](queen-domination-48-sat/README.md) formalizes Davies' Layer-2 CNF-encoding soundness in Lean's kernel, replays the 47,580 LRAT certificates with a compiled Lean checker, and explicitly proves $i(Q_{48}) = 25$.
+
+## Box-free colorings of the 5 × 8 grid
+
+Checked **27 November 2026**. Genkin’s version 2 constructs 42 layers and gives the upper bound 46. Question 8.4 asks for the exact height. The three seeds in this project give 45 layers, verified both in Lean and with the paper’s supplementary checker. [Genkin, Lemma 2.1 and Theorem 5.1](https://doi.org/10.5281/zenodo.24457907) · [Construction and certificate](box-free-5x8/README.md)
 
 ## Box-free colorings of the 6 × 7 grid
 
@@ -315,6 +321,12 @@ For every `n ≥ 0`, the count of labeled `n × 3` binary matrices with at most 
 
 Mathar derived a rectangle recurrence in 2014 and tabulated the three-column counts for `n = 3, ..., 9` ([Mathar, §2 and Table 2](https://oeis.org/A247158/a247158.pdf#page=2)). The search found no earlier Lean formalization of this polynomial.
 
+## Manabe's subtraction game at residue one
+
+Checked **27 November 2026**. For moves 3, 8, and $11k+1$, where $k \ge 1$, Manabe predicts that the Grundy sequence has a positive preperiod. The Lean proof shows that the value 3 occurs exactly once, at heap $11k+4$, and that the least preperiod is $11k+5$. The optional bridge verifies the singleton statement for Manabe's original Lean definition. [Example 1 and the necessity conjecture](https://arxiv.org/html/2609.05358v2#S1) · [Lean proof](manabe-residue-one/ResidueOne.lean) · [Bridge](manabe-residue-one/ManabeBridge.lean)
+
+Searches for this exact move set and for general results on three-move subtraction games found no earlier public proof of the singleton statement for every positive $k$. The REUF project describes proofs in regions with periodicity from the start. Pan studies how adjoining a move affects periodicity and gives exact formulas for several other bases in Theorem 12. [REUF project notes](https://github.com/ZacharyHenderson111/AIM2024/blob/0083e70bc0145e1aaef2cd77fa72fef20557fa6f/AIMsummarypaper/AIMJuly2024summary.tex#L381-L386) · [Pan, §8](https://arxiv.org/html/2611.31336v1#S8.SS2)
+
 ## Manabe's subtraction game
 
 Checked **23 November 2026**. For the move set `{3, 8, 11k+7}` with `k ≥ 1`, the only heap with Grundy value 3 has size `11k+10`. Manabe predicts a positive preperiod for this residue in [Manabe, arXiv:2609.05358v2, Example 1](https://arxiv.org/html/2609.05358v2#S1), and the singleton theorem proves that prediction for every `k ≥ 1`.
@@ -323,19 +335,19 @@ The [REUF working notes](https://github.com/ZacharyHenderson111/AIM2024/blob/mai
 
 ## Binomial recurrence (OEIS A026019)
 
-Checked **23 November 2026**. For `a(n) = C(3n,n) − C(3n,n−3)` (taking binomial coefficients with negative lower index as zero), [`A026019.recurrence`](a026019-binomial-recurrence/A026019.lean) proves the three-term recurrence attributed to Mathar (20 June 2013) for every `n ≥ 2`. The retrieved [OEIS entry](https://oeis.org/A026019) still marks it as a conjecture; live revision history could not be fetched during the check.
+Checked **23 November 2026** and re-audited **26 November 2026**. For `a(n) = C(3n,n) − C(3n,n−3)` (taking binomial coefficients with negative lower index as zero), [`A026019.recurrence`](a026019-binomial-recurrence/A026019.lean) proves the three-term recurrence attributed to Mathar (20 June 2013) for every `n ≥ 2`.
 
 Georg Fischer's first-order recurrence implementation entered jOEIS on **6 November 2026**, before this project ([introducing commit](https://github.com/archmageirvine/joeis/commit/06f94740c2d0d4b0815dedce8d41dd008ef0c1b8), [dated source](https://github.com/archmageirvine/joeis/blob/06f94740c2d0d4b0815dedce8d41dd008ef0c1b8/src/irvine/oeis/a026/A026019.java)). An exact polynomial calculation in the audit confirms that this earlier recurrence implies the three-term recurrence. The inspected source has no derivation or proof-assistant certificate.
 
-No earlier explicit proof of the exact recurrence or matching Lean formalization was found. Historical priority and first-formalization status are unverified; this folder contributes a checked Lean proof. See the project's [detailed prior-art audit](a026019-binomial-recurrence/PRIOR_ART.md) for the algebraic check, established methods, sources, and search limits.
+One day after this folder's initial commit (23 November 2026), Robert Israel independently verified the exact conjecture via Maple's `simplify` command on Math StackExchange ([question 5156049](https://math.stackexchange.com/questions/5156049/mathars-recurrence-conjecture), **24 November 2026**) and updated [OEIS A026019](https://oeis.org/A026019) (revision 30, 24-25 November 2026). No earlier Lean formalization was found; first-formalization status is unverified, and this folder contributes a checked Lean proof rather than a first mathematical solution. See the project's [detailed prior-art audit](a026019-binomial-recurrence/PRIOR_ART.md) for the algebraic check, established methods, sources, and search limits.
 
 ## Nonlinear-to-linear recurrence (OEIS A176755)
 
-Checked **23 November 2026**. For the integer sequence `a₀ = 1`, `a₁ = 3`, `aₙ₊₁ = Σₚ₌₀ⁿ aₚaₙ₋ₚ − 2` for `n ≥ 1`, [`A176755.mathar`](a176755-linear-recurrence/A176755.lean) proves Mathar's five-term recurrence for every `n ≥ 4`.
+Checked **23 November 2026** and re-audited **26 November 2026**. For the integer sequence `a₀ = 1`, `a₁ = 3`, `aₙ₊₁ = Σₚ₌₀ⁿ aₚaₙ₋ₚ − 2` for `n ≥ 1`, [`A176755.mathar`](a176755-linear-recurrence/A176755.lean) proves Mathar's five-term recurrence for every `n ≥ 4`.
 
-[OEIS A176604](https://oeis.org/A176604) credits Georg Fischer with a proof for 85 related sequences on **26 January 2020** and links [the derivation](https://oeis.org/A176604/a176604_2.txt). That file returned HTTP 403 during this check, so only OEIS's attribution was seen. Fischer committed his A176755 implementation to jOEIS on **25 January 2020** ([dated source](https://github.com/archmageirvine/joeis/blob/e072e99444a75d6f2a1d48100932e999994d5a48/src/irvine/oeis/a176/A176755.java)).
+[OEIS A176604](https://oeis.org/A176604) credits Georg Fischer with a proof for 85 related sequences on **26 January 2020** and links [the derivation](https://oeis.org/A176604/a176604_2.txt). That file returned HTTP 403 during this check, so only OEIS's attribution was seen. Fischer committed his A176755 implementation to jOEIS on **25 January 2020** ([dated source](https://github.com/archmageirvine/joeis/blob/e072e99444a75d6f2a1d48100932e999994d5a48/src/irvine/oeis/a176/A176755.java)). The implemented six-term recurrence is `Rₙ − Rₙ₋₁ = 0`, where `Rₙ` is Mathar's five-term left-hand side; since `R₄ = 260 − 330 + 28 + 42 = 0`, it implies Mathar's recurrence.
 
-The implemented six-term recurrence is `Rₙ − Rₙ₋₁ = 0`, where `Rₙ` is Mathar's five-term left-hand side. Since the initial values give `R₄ = 260 − 330 + 28 + 42 = 0`, the earlier recurrence implies the result here. This folder is an independent Lean proof of a result already covered by prior work, with no first-formalization claim. See the project's [prior-work notes](a176755-linear-recurrence/README.md#prior-work-and-attribution).
+In addition, Artūras Dubickas (*Recurrence Formulas for Choulet Sequences*, *Mathematics* 14(12): 2177, **17 June 2026**, [10.3390/math14122177](https://doi.org/10.3390/math14122177)) directly proved the exact five-term recurrence for all $k = 0$ Choulet sequences (covering A176755), and Tong Niu ([arXiv:2605.04369](https://arxiv.org/abs/2605.04369), **6 May 2026**) published the same generating-function and differential-equation proof method for the sibling sequence A176677. This folder is an independent Lean proof of a result already covered by prior work, with no first-formalization claim. See the project's [prior-work notes](a176755-linear-recurrence/README.md#prior-work-and-attribution).
 
 ## Arctangent-sum conjecture
 

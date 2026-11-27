@@ -10,7 +10,7 @@ This gives a second proof of γ(Q₄₈) = 25, independent of the enumeration in
 | Kernel-checked | `gamma_48_le`, `igamma_48_le` (≤ 25, unconditional); `gamma_48_eq_25_of_formulas_unsat`, `igamma_48_eq_25_of_formulas_unsat` (= 25 assuming the 47,580 formulas are unsatisfiable). Axioms: `propext`, `Classical.choice`, `Quot.sound`. |
 | Outside the kernel | Unsatisfiability of all 47,580 formulas, refuted by CaDiCaL + drat-trim and verified from LRAT certificates by a compiled Lean checker ([lean-check](lean-check/)). |
 | Closed statement | `gamma_48 : gamma 48 = 25` in [Certified48.lean](Certified48.lean), assuming one named axiom for the certificate check. |
-| Prior art | Checked 24 November 2026; see [PRIOR_ART.md](../PRIOR_ART.md). |
+| Prior art | Re-audited 26 November 2026: Aleksej Đukić proved $\gamma(Q_{48}) = 25$ on 22 November 2026 (OEIS A075458, `10.5281/zenodo.24537292`) using the same 47,580-case Davies frame split, which together with Östergård and Weakley's (2001) independent 25-queen set implied $i(Q_{48}) = 25$. This folder adds Lean kernel soundness for the CNF encoding, compiled Lean LRAT verification, and an explicit proof of $i(Q_{48}) = 25$. See [PRIOR_ART.md](../PRIOR_ART.md). |
 | Review | Produced and re-checked by AI agents ([CHECKS.md](CHECKS.md)); no human has reviewed it. |
 
 ## The statements

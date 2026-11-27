@@ -1,0 +1,10 @@
+name = "manabe-residue-one"
+version = "0.1.0"
+defaultTargets = ["ResidueOne"]
+
+[[require]]
+name = "manabe-residue-seven"
+path = "../manabe-residue-seven"
+
+[[lean_lib]]
+name = "ResidueOne"

@@ -1,0 +1,14 @@
+{"version": "1.3.0",
+ "packagesDir": ".lake/packages",
+ "packages":
+ [{"type": "path",
+   "scope": "",
+   "name": "«manabe-residue-seven»",
+   "manifestFile": "lake-manifest.json",
+   "inherited": false,
+   "dir": "../manabe-residue-seven",
+   "copy": false,
+   "configFile": "lakefile.toml"}],
+ "name": "«manabe-residue-one»",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

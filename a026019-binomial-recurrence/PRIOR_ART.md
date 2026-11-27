@@ -1,8 +1,8 @@
 # A026019: prior-art and novelty audit
 
-Checked **November 23, 2026**. The target is the exact three-term recurrence in `A026019.recurrence` for the binomially defined sequence and every `n ≥ 2`.
+Checked **November 23, 2026** and re-audited **November 26, 2026**. The target is the exact three-term recurrence in `A026019.recurrence` for the binomially defined sequence and every `n ≥ 2`.
 
-We found no earlier explicit proof of this exact three-term recurrence and no matching Lean formalization. That is not a guarantee of historical priority, and jOEIS already contained a first-order recurrence that implies it before this project began. Treat this folder as a checked Lean proof, not as a first mathematical proof or a new recurrence.
+Georg Fischer's first-order recurrence in jOEIS already implied the recurrence on **November 6, 2026**, before this project began. One day after this folder's initial commit, Robert Israel also independently verified the exact conjecture via Maple's `simplify` command on Math StackExchange ([question 5156049](https://math.stackexchange.com/questions/5156049/mathars-recurrence-conjecture), **November 24, 2026**) and updated [OEIS A026019](https://oeis.org/A026019) (revision 30, November 24-25, 2026). Treat this folder as a checked Lean proof, not as a first mathematical proof or a new recurrence.
 
 ## OEIS and the exact statement
 

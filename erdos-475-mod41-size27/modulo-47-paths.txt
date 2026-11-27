@@ -1,0 +1,4 @@
+sum 1: 31855467361 ordered pairs, 1158 direct cycles
+sum -1: 31855467361 ordered pairs, 364077 direct cycles
+sum 0 after transfer: 15927912162 ordered pairs, 269132 direct cycles
+All zero-sum subsets modulo 47 covered, including the empty set.

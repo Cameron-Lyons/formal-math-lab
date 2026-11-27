@@ -32,6 +32,14 @@ HEAVY_PACKAGES: frozenset[str] = frozenset(
         "union-closed-sets",
     }
 )
+# Non-heavy packages whose Lean 4.36 `leanchecker --fresh` replay can approach
+# or exceed the default 45-minute CI timeout.
+EXTENDED_TIMEOUT_PACKAGES: frozenset[str] = frozenset(
+    {
+        "erdos-556-cycle-ramsey",
+        "queen-domination-48-sat",
+    }
+)
 # Packages whose pinned third-party Git dependencies emit upstream warnings;
 # each sets `[leanOptions] warningAsError = true` in `lakefile.toml` so all
 # first-party modules still fail the build on any warning.
@@ -41,6 +49,19 @@ THIRD_PARTY_WARNING_PACKAGES: frozenset[str] = frozenset(
         "written-on-the-wall-133",
     }
 )
+# Heavy kernel-reduction modules that must be built sequentially before the
+# final `lake build` so 16 GiB CI runners do not OOM during parallel checking.
+SEQUENTIAL_PREBUILD_TARGETS: dict[str, tuple[str, ...]] = {
+    "union-closed-sets": (
+        "UCBound.CertCovChk",
+        "UCBound.CertFRChk1",
+        "UCBound.CertFRChk2",
+        "UCBound.CertFvChk1",
+        "UCBound.CertFvChk2",
+        "UCBound.CertFsimChk1",
+        "UCBound.CertFsimChk2",
+    ),
+}
 EXTRA_BUILD_TARGETS: dict[str, tuple[str, ...]] = {
     "three-color-t-boards": (
         "ExactSymmetry",
@@ -53,8 +74,24 @@ EXTRA_BUILD_TARGETS: dict[str, tuple[str, ...]] = {
 }
 CI_TRIGGER_PATHS: tuple[str, ...] = (
     ".github/workflows/ci.yml",
+    ".github/workflows/lean-full.yml",
     "scripts/ci/",
 )
+# Files inside a Lean package directory that cannot affect `lake build` or
+# `leanchecker` outputs (documentation, licenses, and standalone scripts/C++).
+NON_LEAN_SUFFIXES: tuple[str, ...] = (
+    ".md",
+    ".pdf",
+    ".typ",
+    ".py",
+    ".c",
+    ".cpp",
+    ".h",
+    ".hpp",
+    ".sh",
+    ".patch",
+)
+NON_LEAN_FILENAMES: frozenset[str] = frozenset({"LICENSE"})
 ZERO_SHA = "0" * 40
 
 
@@ -69,6 +106,7 @@ class LeanPackage:
     warning_as_error: bool
     local_deps: tuple[str, ...]
     default_targets: tuple[str, ...]
+    prebuild_targets: tuple[str, ...]
     extra_targets: tuple[str, ...]
     lib_roots: tuple[str, ...]
 
@@ -123,8 +161,83 @@ def _manifest_has_mathlib(manifest_path: Path) -> bool:
     )
 
 
-def discover_packages(repo_root: Path = REPO_ROOT) -> dict[str, LeanPackage]:
+def _load_package(repo_root: Path, pkg_rel: str) -> LeanPackage:
+    pkg_dir = repo_root / pkg_rel
+    toolchain = (pkg_dir / "lean-toolchain").read_text(encoding="utf-8").strip()
+    lakefile_data = tomllib.loads(
+        (pkg_dir / "lakefile.toml").read_text(encoding="utf-8")
+    )
+    raw_defaults = lakefile_data.get("defaultTargets", [])
+    default_targets = (
+        tuple(t for t in raw_defaults if isinstance(t, str))
+        if isinstance(raw_defaults, list)
+        else ()
+    )
+    lean_options = lakefile_data.get("leanOptions", {})
+    warning_as_error = (
+        isinstance(lean_options, dict) and lean_options.get("warningAsError") is True
+    )
+    return LeanPackage(
+        path=pkg_rel,
+        toolchain=toolchain,
+        uses_mathlib_cache=_manifest_has_mathlib(pkg_dir / "lake-manifest.json"),
+        heavy=pkg_rel in HEAVY_PACKAGES,
+        warning_as_error=warning_as_error,
+        local_deps=_extract_local_deps(pkg_rel, lakefile_data),
+        default_targets=default_targets,
+        prebuild_targets=SEQUENTIAL_PREBUILD_TARGETS.get(pkg_rel, ()),
+        extra_targets=EXTRA_BUILD_TARGETS.get(pkg_rel, ()),
+        lib_roots=_extract_lib_roots(lakefile_data),
+    )
+
+
+def _tracked_package_dirs(repo_root: Path) -> list[str] | None:
+    if not (repo_root / ".git").exists():
+        return None
+    res = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=repo_root,
+        capture_output=True,
+        check=False,
+    )
+    if res.returncode != 0:
+        return None
+    dir_files: dict[str, set[str]] = {}
+    for rel in res.stdout.decode("utf-8").split("\0"):
+        if not rel:
+            continue
+        parts = Path(rel).parts
+        if len(parts) < 2:
+            continue
+        if any(part in EXCLUDED_ROOT_DIRS for part in parts[:-1]):
+            continue
+        name = parts[-1]
+        if name in {"lean-toolchain", "lakefile.toml"}:
+            parent = Path(*parts[:-1]).as_posix()
+            dir_files.setdefault(parent, set()).add(name)
+    return sorted(
+        pkg_rel
+        for pkg_rel, files in dir_files.items()
+        if {"lean-toolchain", "lakefile.toml"} <= files
+    )
+
+
+def discover_packages(
+    repo_root: Path = REPO_ROOT,
+    *,
+    tracked_only: bool = True,
+) -> dict[str, LeanPackage]:
     """Discover all tracked Lean 4 Lake packages under ``repo_root``."""
+    if tracked_only:
+        tracked_dirs = _tracked_package_dirs(repo_root)
+        if tracked_dirs is not None:
+            return {
+                pkg_rel: _load_package(repo_root, pkg_rel)
+                for pkg_rel in tracked_dirs
+                if (repo_root / pkg_rel / "lean-toolchain").is_file()
+                and (repo_root / pkg_rel / "lakefile.toml").is_file()
+            }
+
     packages: dict[str, LeanPackage] = {}
     for current, dirs, files in os.walk(repo_root):
         rel_dir = Path(current).relative_to(repo_root)
@@ -141,37 +254,15 @@ def discover_packages(repo_root: Path = REPO_ROOT) -> dict[str, LeanPackage]:
         if rel_dir == Path():
             continue
         pkg_rel = rel_dir.as_posix()
-        toolchain = (
-            (Path(current) / "lean-toolchain").read_text(encoding="utf-8").strip()
-        )
-        lakefile_data = tomllib.loads(
-            (Path(current) / "lakefile.toml").read_text(encoding="utf-8")
-        )
-        raw_defaults = lakefile_data.get("defaultTargets", [])
-        default_targets = (
-            tuple(t for t in raw_defaults if isinstance(t, str))
-            if isinstance(raw_defaults, list)
-            else ()
-        )
-        lean_options = lakefile_data.get("leanOptions", {})
-        warning_as_error = (
-            isinstance(lean_options, dict)
-            and lean_options.get("warningAsError") is True
-        )
-        packages[pkg_rel] = LeanPackage(
-            path=pkg_rel,
-            toolchain=toolchain,
-            uses_mathlib_cache=_manifest_has_mathlib(
-                Path(current) / "lake-manifest.json"
-            ),
-            heavy=pkg_rel in HEAVY_PACKAGES,
-            warning_as_error=warning_as_error,
-            local_deps=_extract_local_deps(pkg_rel, lakefile_data),
-            default_targets=default_targets,
-            extra_targets=EXTRA_BUILD_TARGETS.get(pkg_rel, ()),
-            lib_roots=_extract_lib_roots(lakefile_data),
-        )
+        packages[pkg_rel] = _load_package(repo_root, pkg_rel)
     return dict(sorted(packages.items()))
+
+
+def _affects_lean_build(rel_path: str) -> bool:
+    name = posixpath.basename(rel_path)
+    if name in NON_LEAN_FILENAMES or name.startswith("LICENSE-"):
+        return False
+    return not name.endswith(NON_LEAN_SUFFIXES)
 
 
 def _owner_package(file_path: str, package_paths: Iterable[str]) -> str | None:
@@ -193,6 +284,8 @@ def affected_packages(
     changed_list = [f.strip().removeprefix("./") for f in changed_files if f.strip()]
     direct: set[str] = set()
     for changed in changed_list:
+        if not _affects_lean_build(changed):
+            continue
         owner = _owner_package(changed, packages)
         if owner is not None:
             direct.add(owner)
@@ -275,13 +368,16 @@ def build_matrix(
             msg = f"Unknown Lean package: {pkg_path}"
             raise ValueError(msg)
         pkg = packages[pkg_path]
+        timeout_minutes = (
+            180 if pkg.heavy else 90 if pkg.path in EXTENDED_TIMEOUT_PACKAGES else 45
+        )
         entries.append(
             {
                 "pkg": pkg.path,
                 "toolchain": pkg.toolchain,
                 "mathlib": pkg.uses_mathlib_cache,
                 "heavy": pkg.heavy,
-                "timeout_minutes": 180 if pkg.heavy else 45,
+                "timeout_minutes": timeout_minutes,
             }
         )
     return entries
@@ -330,11 +426,18 @@ def run_build(
     run_leanchecker: bool = False,
 ) -> None:
     """Strictly build a Lean package with warnings treated as errors."""
+    norm_pkg = posixpath.normpath(pkg_path.strip().removeprefix("./"))
     packages = discover_packages(repo_root)
-    if pkg_path not in packages:
-        msg = f"Unknown Lean package: {pkg_path}"
-        raise SystemExit(msg)
-    pkg = packages[pkg_path]
+    pkg = packages.get(norm_pkg)
+    if pkg is None:
+        candidate = repo_root / norm_pkg
+        if (candidate / "lakefile.toml").is_file() and (
+            candidate / "lean-toolchain"
+        ).is_file():
+            pkg = _load_package(repo_root, norm_pkg)
+        else:
+            msg = f"Unknown Lean package: {pkg_path}"
+            raise SystemExit(msg)
     pkg_dir = repo_root / pkg.path
 
     if pkg.uses_mathlib_cache:
@@ -350,6 +453,9 @@ def run_build(
         build_prefix = ["lake", "build"]
     else:
         build_prefix = ["lake", "--wfail", "build"]
+
+    for target in pkg.prebuild_targets:
+        _run_cmd([*build_prefix, target], cwd=pkg_dir)
 
     _run_cmd(build_prefix, cwd=pkg_dir)
 

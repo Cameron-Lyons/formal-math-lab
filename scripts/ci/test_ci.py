@@ -12,8 +12,10 @@ from scripts.ci.check_c_cpp import (
 from scripts.ci.check_repo import scan_lean_source, strip_lean_comments_and_strings
 from scripts.ci.packages import (
     CANARY_PACKAGE,
+    EXTENDED_TIMEOUT_PACKAGES,
     HEAVY_PACKAGES,
     REPO_ROOT,
+    SEQUENTIAL_PREBUILD_TARGETS,
     THIRD_PARTY_WARNING_PACKAGES,
     affected_packages,
     build_matrix,
@@ -89,6 +91,15 @@ class PackageDiscoveryTests(unittest.TestCase):
         for pkg_name in THIRD_PARTY_WARNING_PACKAGES:
             self.assertIn(pkg_name, packages)
             self.assertTrue(packages[pkg_name].warning_as_error)
+        for pkg_name in EXTENDED_TIMEOUT_PACKAGES:
+            self.assertIn(pkg_name, packages)
+            self.assertFalse(packages[pkg_name].heavy)
+        for pkg_name, targets in SEQUENTIAL_PREBUILD_TARGETS.items():
+            self.assertIn(pkg_name, packages)
+            self.assertEqual(packages[pkg_name].prebuild_targets, targets)
+            for target in targets:
+                mod_file = REPO_ROOT / pkg_name / f"{target.replace('.', '/')}.lean"
+                self.assertTrue(mod_file.is_file(), f"Missing {mod_file}")
 
     def test_reverse_dependencies_propagate(self) -> None:
         packages = discover_packages(REPO_ROOT)
@@ -107,19 +118,52 @@ class PackageDiscoveryTests(unittest.TestCase):
             ],
         )
 
+    def test_non_lean_files_do_not_trigger_lean_builds(self) -> None:
+        packages = discover_packages(REPO_ROOT)
+        self.assertEqual(
+            affected_packages(
+                packages,
+                [
+                    "queen-domination-48-sat/README.md",
+                    "erdos-272-thirteen/clique_search/verify.cpp",
+                    "three-stacks/verify/build_witnesses.py",
+                    "E1486-order-15/LICENSE",
+                ],
+            ),
+            [],
+        )
+        self.assertEqual(
+            affected_packages(
+                packages,
+                [
+                    "erdos-835-coloring-subsets/certificates/order17-19.json",
+                    "ramsey-3-10/certificates/two-orbits.lrat",
+                ],
+            ),
+            ["erdos-835-coloring-subsets", "ramsey-3-10"],
+        )
+
     def test_ci_change_triggers_canary_only(self) -> None:
         packages = discover_packages(REPO_ROOT)
         self.assertEqual(
             affected_packages(packages, [".github/workflows/ci.yml"]),
             [CANARY_PACKAGE],
         )
+        self.assertEqual(
+            affected_packages(packages, ["scripts/ci/install_elan.sh"]),
+            [CANARY_PACKAGE],
+        )
         self.assertEqual(affected_packages(packages, ["README.md"]), [])
 
     def test_matrix_timeouts(self) -> None:
         packages = discover_packages(REPO_ROOT)
-        matrix = build_matrix(packages, ["26-unit-fractions", "E670-order-10"])
+        matrix = build_matrix(
+            packages,
+            ["26-unit-fractions", "erdos-556-cycle-ramsey", "E670-order-10"],
+        )
         self.assertEqual(matrix[0]["timeout_minutes"], 45)
-        self.assertEqual(matrix[1]["timeout_minutes"], 180)
+        self.assertEqual(matrix[1]["timeout_minutes"], 90)
+        self.assertEqual(matrix[2]["timeout_minutes"], 180)
 
 
 class CCppClassificationTests(unittest.TestCase):

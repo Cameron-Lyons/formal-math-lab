@@ -158,12 +158,10 @@ jobs:
           sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android /usr/local/share/boost
           df -h
       - name: Install pinned Lean toolchain
-        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
-        with:
-          auto-config: 'false'
-          use-github-cache: 'false'
-          use-mathlib-cache: 'false'
-          lake-package-directory: ${{ matrix.pkg }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PKG: ${{ matrix.pkg }}
+        run: bash scripts/ci/install_elan.sh "$PKG"
       - name: Build and verify Lean package
         env:
           PKG: ${{ matrix.pkg }}

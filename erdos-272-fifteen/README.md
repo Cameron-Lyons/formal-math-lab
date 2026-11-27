@@ -38,7 +38,7 @@ Thus $(32{,}767+255)/2=16{,}511$ first sets need checking.
 The verifier checked all **16,511** starting sets in **156,880,055** recursive
 calls. None extends to 110. Every larger family would contain a family of 110,
 so the maximum is 109. [Exhaustive verifier](upper.cpp) ·
-[Fourteen-point search](https://github.com/Cameron-Lyons/formal-math-lab/blob/3709189f2c4c414134811f58668a7bba6ad7cc92/erdos-272-fourteen/upper.cpp)
+[Fourteen-point search](../erdos-272-fourteen/upper.cpp) · [Alternative upper bound by rank](rank.md)
 
 ## Reproduce
 

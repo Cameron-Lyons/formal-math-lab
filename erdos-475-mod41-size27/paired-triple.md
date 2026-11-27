@@ -2,6 +2,8 @@
 
 **Theorem.** At every prime $p$, any $A\subseteq\mathbb F_p^\times$ that omits at most three nonzero residues has an ordering with distinct nonempty partial sums.
 
+A single ordering rule now covers both three and four omissions. Padding a triple with a zero lets it use the same rule as a quartet. The original edge-insertion proof follows below. [Unified proof](paired-quartet.md)
+
 The case $p=2$ is immediate. At an odd prime the zero-sum reduction lets us assume that $A$ sums to zero. Its complement in $\mathbb F_p^\times$ also sums to zero and has at most three elements. It is empty, an opposite pair, or a triple containing no opposite pair. In the first two cases $A$ consists of pairs $\{d,-d\}$. In the third it also has three unpaired elements, the negatives of the omitted triple. They sum to zero. [Zero-sum reduction](README.md#reduction-to-sets-of-sum-zero)
 
 ### Make a cycle from opposite pairs
@@ -20,7 +22,7 @@ Insert that point and traverse the cycle in the direction that makes the split e
 
 For example, modulo 11 the cycle $0,5,1,4,-1,-4,0$ uses the pairs $\pm3,\pm4,\pm5$. Inserting $2$ between $1$ and $4$ splits the step $3$ into $1,2$. The seven nonempty partial sums are $5,1,2,4,-1,-4,0$.
 
-The Python constructor implements these two steps and checks each resulting ordering. [Witness constructor](paired_triple.py)
+The Python constructor uses the unified ordering rule and checks each resulting ordering. [Witness constructor](paired_triple.py)
 
 ~~~sh
 python3 paired_triple.py --example 11 1 2 4 5 6 7 8

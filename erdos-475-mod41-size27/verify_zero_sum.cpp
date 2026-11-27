@@ -1,4 +1,4 @@
-// Check simple cycles for zero-sum subsets, covering all dilations modulo 41.
+// Check simple cycles for zero-sum subsets, covering all dilations at 41 or 43.
 #include <array>
 #include <bit>
 #include <cstdint>
@@ -8,7 +8,12 @@
 #include <vector>
 
 using Mask = std::uint64_t;
-constexpr int prime = 41, length = prime - 1, half = length / 2;
+#ifndef GRAHAM_PRIME
+#define GRAHAM_PRIME 41
+#endif
+constexpr int prime = GRAHAM_PRIME, length = prime - 1, half = length / 2;
+static_assert(prime == 41 || prime == 43);
+constexpr int generator = prime == 41 ? 6 : 3;
 constexpr Mask bit(int i) { return Mask{1} << i; }
 constexpr Mask universe = bit(prime) - 2;
 using Order = std::array<int, length>;
@@ -99,19 +104,19 @@ int main(int argc, char** argv) {
     for (int& power : powers) {
         power = d;
         generated |= bit(d);
-        d = 6 * d % prime;
+        d = generator * d % prime;
     }
     if (generated != universe || d != 1) fail("bad generator", generated);
 
     const int first = all_sizes ? 2 : 27;
-    const int last = all_sizes ? 38 : 27;
+    const int last = all_sizes ? length - 2 : 27;
 #ifdef _OPENMP
     #pragma omp parallel for schedule(dynamic, 1)
 #endif
     for (int size = first; size <= last; ++size) {
         Enumeration enumeration{size, length - size};
         const auto verified = enumeration.run();
-        if (size == 27 && verified != 7337331) fail("wrong size-27 count", 0);
+        if (prime == 41 && size == 27 && verified != 7337331) fail("wrong size-27 count", 0);
 #ifdef _OPENMP
         #pragma omp critical
 #endif
@@ -119,7 +124,9 @@ int main(int argc, char** argv) {
             if (all_sizes)
                 std::cout << size << ' ' << verified << std::endl;
             else
-                std::cout << verified << " zero-sum dilation classes verified, one cycle per class\n";
+                std::cout << verified << (prime == 41
+                    ? " zero-sum dilation classes verified, one cycle per class\n"
+                    : " zero-sum representatives verified, one cycle per subset\n");
         }
     }
 }

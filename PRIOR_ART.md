@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Erdős #475, all sizes modulo 43 and four omitted residues at every prime
+
+Checked **27 November 2026**. Arévalo reports complete finite verification through prime 37. Costa, Della Fiore, Fontana and Vena prove sequenceability through size 20 and through size 22 for zero-sum sets. The computation here independently covers every size at 43. Pham and Sauermann, together with earlier results, cover all sufficiently large primes. [Arévalo's computations](https://fabianarevalo.com/graham-rearrangement) · [Costa et al.](https://arxiv.org/abs/2603.20961) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Modulo-43 proof](erdos-475-mod41-size27/modulo-43.md)
+
+The four-omission construction extends the opposite-pair folding argument. Padding a triple with zero gives the same ordering rule for three or four unpaired residues of sum zero together with any collection of opposite pairs. This proves Graham's conclusion at size $p-5$ for every prime $p\ge5$. [Earlier folded cycle and attribution](erdos-475-mod41-size27/paired-triple.md) · [Four-omission proof](erdos-475-mod41-size27/paired-quartet.md)
+
 ## Erdős #475, all sizes modulo 41 and three omitted residues at every prime
 
 Checked **27 November 2026**. Arévalo reports exhaustive checks for all primes through 37 and for sizes 28 through 40 at 41. The present search covers the entire prime 41, including the middle sizes. Pham and Sauermann, with earlier work, prove the conjecture for sufficiently large primes. Kuang and Wang treat sufficiently large subsets of finite abelian groups. These asymptotic results give no verified overlap with the finite range checked here. [Arévalo, results R1 and R3](https://fabianarevalo.com/graham-rearrangement) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797) · [Kuang and Wang](https://arxiv.org/abs/2610.34424) · [Modulo-41 proof](erdos-475-mod41-size27/README.md)
@@ -34,15 +40,25 @@ Checked **26 November 2026**. Erich Friedman asks which cubes can be tiled using
 
 The Lean theorem rules out $n=7$ for a closed cube of arbitrary real side length, allowing each slab its own orientation. [Formal proof](seven-slabs/SevenSlabs.lean) · [Independent placement search](seven-slabs/verify/placement_search.cpp)
 
+## Erdős #272, arithmetic progression intersections on sixteen points
+
+Checked **27 November 2026**. Szabó's construction gives 124 on sixteen points. Yang proved the matching bound for families with a common point and determined the unrestricted values through twelve points. This repo verifies Szabó's witness in Lean and proves an unrestricted upper bound of 132 by a computer-assisted search. It also proves that 124 is the exact maximum on sixteen points if every intersection has at most six terms. [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf) · [Yang](https://arxiv.org/abs/2607.23004) · [Sixteen-point proofs and verifiers](erdos-272-sixteen/)
+
 ## Erdős #272, arithmetic progression intersections on fifteen points
 
-Checked **27 November 2026**. Szabó's construction gives 109 on fifteen points. Yang's Theorem 1.4 proves this upper bound whenever all members share a point, and his Theorem 1.1 computes the unrestricted maximum through twelve points. The lab's fourteen-point argument in local commit `b8f6e31` supplies the rank and search strategy used for the fifteen-point case. [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Yang, Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1) · [Fifteen-point proof and verifiers](erdos-272-fifteen/)
+Checked **27 November 2026**. Szabó's construction gives 109 on fifteen points. Yang's Theorem 1.4 proves this upper bound whenever all members share a point, and his Theorem 1.1 computes the unrestricted maximum through twelve points. A direct clique search on all nonempty subsets rules out a family of 110, giving the unrestricted maximum on fifteen points. [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Yang, Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1) · [Fifteen-point proof and verifiers](erdos-272-fifteen/)
 
 ## Erdős #272, arithmetic progression intersections on thirteen points
 
 Checked **26 November 2026**. Szabó's construction gives $t(13)\ge 82$. In August 2025 Stijn Cambie reported computations through 14, assuming for $10\le n\le14$ that the extremal family contains a singleton. Yang's Theorem 1.1 gives the unrestricted values through $t(12)=69$, and Theorem 1.4 gives the exact maximum for families with a common element for every $n$. [Szabó (1999), §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf#page=21) · [Cambie's forum post](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang (2026), Theorems 1.1 and 1.4](https://arxiv.org/html/2607.23004v1#S1)
 
 OEIS A401861 lists the unrestricted values through $n=12$. A search for the thirteen-point case and for exact bounds on well-intersecting families found no earlier unrestricted upper bound of 82. The local computer-assisted proof rules out 83 when the total intersection is empty, completing the case $n=13$. The general formula remains open. [OEIS A401861](https://oeis.org/A401861) · [Proof and verification](erdos-272-thirteen/)
+
+## Erdős #272, fourteen points and seven-term progressions
+
+Checked **27 November 2026**. Szabó's construction gives 95 on fourteen points. Cambie's computation at this order assumed a singleton, and Yang proved the exact bound for all families with a common point. The searches for an unrestricted fourteen-point result found no earlier upper bound of 95. The local upper bound follows from an exhaustive clique search over all nonempty subsets. [Cambie's discussion](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang, Theorems 1.1–1.4](https://arxiv.org/abs/2607.23004) · [Proof and replay](erdos-272-fourteen/)
+
+Conjectures.io records a verified proof of Szabó's linear-error asymptotic. The local result gives the exact value at every $N$ under a restriction on the number of members containing seven-term progressions. Priority of this restricted theorem is unverified. The unrestricted exact formula remains open. [Linear-error result](https://conjectures.io/problems/erdos272-erdos-272-variants-szabo-strong) · [Restricted theorem](erdos-272-fourteen/rank.md)
 
 ## Breaking every rectangle in a five-row matchstick grid
 

@@ -69,7 +69,7 @@ In every entry below, the full problem is still open. Each folder lists what Lea
 
 Every 27-element set of nonzero residues modulo 41 admits an ordering with distinct nonempty partial sums. Scaling reduces the proof to checking sets whose total is 0 or 1. [Erdős #475 proof and verifiers](erdos-475-mod41-size27/)
 
-For Erdős problem #272 on thirteen points, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82**. Lean checks the 82-set construction. A dimension bound and an exhaustive C++ search exclude 83. [One-page proof and verifier](erdos-272-thirteen/)
+For Erdős problem #272, the maximum number of distinct subsets with nonempty arithmetic-progression intersections is **82 on thirteen points** and **95 on fourteen points**. Lean checks the constructions. Rank bounds and exhaustive C++ searches give the upper bounds. The fourteen-point proof also establishes the conjectured formula at every $N$ for families with at most $\lfloor(N-1)/4\rfloor$ members containing a seven-term progression. [Thirteen-point proof](erdos-272-thirteen/) · [Fourteen-point proof and general bound](erdos-272-fourteen/)
 
 Covering every trio among 14 people requires exactly 25 six-person groups. Two independent C++20 verifiers rule out 24 groups, and an explicit 25-group construction covers all 364 trios. [Proof and group list](research/covering-14-6-3/)
 
@@ -97,6 +97,7 @@ With `elan` installed, run the command below inside that folder. The `E670`, `E6
 | `seven-slabs` | `lake build` | `SevenSlabs.no_seven_slab_tiling` |
 | `five-row-matchsticks` | `lake build` | `Matchsticks.five_row_matchstick_theorem` |
 | `erdos-272-thirteen` | `lake build` | `Erdos272.exists_family_82` (lower bound) |
+| `erdos-272-fourteen` | `lake build` | `Erdos272Fourteen.exists_family_95` (lower bound) |
 | `box-free-5x8` | `lake build` | `BoxFree5x8.coloring45_boxFree`, `BoxFree5x8.exists_boxFree_43` |
 | `box-free-6x7` | `lake build` | `BoxFree.exists_boxFree_iff` |
 | `queen-domination-48` | `lake exe queens48` | `main` runs the exhaustive search ruling out 24 and checks the 25-queen cover |

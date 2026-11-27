@@ -34,6 +34,12 @@ Checked **26 November 2026**. Szabó's construction gives $t(13)\ge 82$. In Augu
 
 OEIS A401861 lists the unrestricted values through $n=12$. A search for the thirteen-point case and for exact bounds on well-intersecting families found no earlier unrestricted upper bound of 82. The local computer-assisted proof rules out 83 when the total intersection is empty, completing the case $n=13$. The general formula remains open. [OEIS A401861](https://oeis.org/A401861) · [Proof and verification](erdos-272-thirteen/)
 
+## Erdős #272, fourteen points and seven-term progressions
+
+Checked **27 November 2026**. Szabó's construction gives 95 on fourteen points. Cambie's computation at this order assumed a singleton, and Yang proved the exact bound for all families with a common point. The searches for an unrestricted fourteen-point result found no earlier upper bound of 95. The local proof treats families with empty total intersection by a rank argument and an exhaustive search. [Cambie's discussion](https://www.erdosproblems.com/forum/thread/272#post-150) · [Yang, Theorems 1.1–1.4](https://arxiv.org/abs/2607.23004) · [Proof and replay](erdos-272-fourteen/)
+
+Conjectures.io records a verified proof of Szabó's linear-error asymptotic. The local result gives the exact value at every $N$ under a restriction on the number of members containing seven-term progressions. Priority of this restricted theorem is unverified. The unrestricted exact formula remains open. [Linear-error result](https://conjectures.io/problems/erdos272-erdos-272-variants-szabo-strong) · [Restricted theorem](erdos-272-fourteen/rank.md)
+
 ## Breaking every rectangle in a five-row matchstick grid
 
 Checked **26 November 2026**. Dreyer and Biedl introduced the minimum number of unit edges whose removal breaks all axis-aligned rectangular outlines in a grid. Niu and Tang gave upper and lower bounds differing by at most one edge for grids of height five. [Dreyer and Biedl, DIMACS Technical Report 97-53, §4 (1997)](https://archive.dimacs.rutgers.edu/TechnicalReports/abstracts/1997/97-53.html). [Niu and Tang (2026)](https://doi.org/10.1016/j.tcs.2026.116199).

@@ -10,6 +10,12 @@ Summary of the checked entries:
 
 None of these searches can prove that no earlier or unpublished result exists.
 
+## Erdős #475, size 27 modulo 41
+
+Checked **27 November 2026**. Graham's problem concerns nonzero residues and nonempty partial sums. Arévalo's result R3 reports 227,999,052 dilation classes for sizes 28 through 40 modulo 41. Pham and Sauermann, together with earlier results, settle the conjecture for sufficiently large primes. I found no earlier verification of the size-27 case modulo 41 in the sources checked. [Problem statement](https://www.erdosproblems.com/475) · [Arévalo, R3](https://fabianarevalo.com/graham-rearrangement) · [Pham and Sauermann](https://arxiv.org/abs/2602.15797)
+
+The direct computation checks all sets of total 0 or 1 and also keeps every proper nonempty partial sum away from zero. An independent proof uses a fixed-cardinality zero-sum reduction. A related replacement argument occurs in the Atomicium draft. [Computations and proof](erdos-475-mod41-size27/) · [Earlier reduction](https://github.com/Atomicium-org/graham-rearrangement-certificates/blob/23cb1d03e718d0798ff79161bff516444e7ca335/paper/graham_rearrangement_candidate.tex#L3513-L3575)
+
 ## Three stacks in series
 
 Checked **26 November 2026**. Vatter attributes Question 5.4 to Waton. In the November update, Vatter reports with Jay Pantone that every 16-card order sorts and that a 21-card order fails. Their MathFest slides give the permutation. [Vatter, Question 5.4 and update](https://arxiv.org/html/2602.16355v4) · [MathFest slides](https://vincevatter.com/talks/2026-mathfest-stacks/)

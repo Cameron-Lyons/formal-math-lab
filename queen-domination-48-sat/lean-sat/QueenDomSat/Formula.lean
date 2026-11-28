@@ -18,10 +18,4 @@ def CaseT.base (n k : Nat) (cs : CaseT) : Base := mkBase n k cs.dR cs.dC cs.dT c
 def caseFormula (n k : Nat) (cs : CaseT) : Std.Sat.CNF Nat :=
   caseCNF (cs.base n k) cs.ml cs.mr cs.mb cs.mt
 
-/-- The DIMACS text of the case `cs` for `(n, k)`: `enc.dimacs(B, *enc.case_extra(B, cs))`. -/
-def caseDimacs (n k : Nat) (cs : CaseT) : String :=
-  let B := cs.base n k
-  let E := caseExtra B cs.ml cs.mr cs.mb cs.mt
-  dimacs B E.1 E.2
-
 end QueenDomSat

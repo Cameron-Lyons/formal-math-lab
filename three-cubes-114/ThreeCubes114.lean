@@ -1,9 +1,6 @@
 import Std
 
-/-! Search filters for the integer equation x³ + y³ + z³ = 114.
-Run `lean ThreeCubes114.lean` to check the proofs, or `lean --run ThreeCubes114.lean`
-to also search the prime interval specified in `searchSlice`.
--/
+/-! Search filters for the integer equation x³ + y³ + z³ = 114. -/
 
 namespace ThreeCubes114
 
@@ -248,52 +245,4 @@ theorem recoverPair_complete (x y z : Int) (h : x^3 + y^3 + z^3 = 114)
   have hy : x+y-x = y := by omega
   simp [guard, recoverPair, hid, hne, Int.mul_ediv_cancel_left _ hden, hsquare, hsqrt, hpar, hx, hy, h]
 
-private structure Counts where
-  pairSums : Nat := 0
-  rejected : Nat := 0
-  tested : Nat := 0
-  solutions : Nat := 0
-
-/-- Search every d = 19p for primes p ≡ 2 mod 3 in [10^16, 10^16 + 10^6),
-with |z| ≤ 10^21. The Fermat tests screen integers for this enumeration. Every prime
-in the target interval passes both. A separate segmented sieve in SearchSlice.py
-checks the prime enumeration and the result independently. -/
-def searchSlice : IO Unit := do
-  let start := 10^16
-  let stop := start + 10^6
-  let maxZ := 10^21
-  let mut counts : Counts := {}
-  -- start ≡ 4 mod 6, so start + 1 is the first potential prime ≡ 2 mod 3.
-  for p in [start+1:stop:6] do
-    if Nat.powMod 2 (p-1) p != 1 || Nat.powMod 3 (p-1) p != 1 then continue
-    counts := { counts with pairSums := counts.pairSums + 1 }
-    let d := 19*p
-    -- Modulo 9 every coordinate is -1 mod 3, so x+y ≡ 1 mod 3 forces x+y = -d.
-    let a := -(d : Int)
-    if !pass19 a then
-      counts := { counts with rejected := counts.rejected + 1 }
-      continue
-    -- Cubing permutes residues mod p for these primes. The root modulo d also
-    -- vanishes modulo 19. Modulo 27 and modulo 2, the cubes imply z ≡ d mod 18.
-    let rootP := Nat.powMod 114 ((2*p-1)/3) p
-    let some j := (List.range (19*18)).find? (fun j =>
-        let z := rootP + j*p
-        z % 19 == 0 && z % 18 == d % 18)
-      | throw (IO.userError s!"CRT failed for p = {p}")
-    let first := rootP + j*p
-    if first^3 % d != 114 then throw (IO.userError s!"Invalid root for p = {p}")
-    -- x³+y³ = -d(x²-xy+y²) < 0, so z is positive.
-    let stride := 18*d
-    let steps := if first > maxZ then 0 else (maxZ-first)/stride + 1
-    for i in [:steps] do
-      let z := first + i*stride
-      counts := { counts with tested := counts.tested + 1 }
-      if let some (x, y) := recoverPair a z then
-        IO.println s!"Solution ({x}, {y}, {z})"
-        counts := { counts with solutions := counts.solutions + 1 }
-  IO.println s!"Pair sums considered {counts.pairSums}, rejected {counts.rejected}"
-  IO.println s!"Exact candidate checks {counts.tested}, solutions {counts.solutions}"
-
 end ThreeCubes114
-
-def main : IO Unit := ThreeCubes114.searchSlice

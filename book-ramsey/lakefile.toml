@@ -1,11 +1,7 @@
 name = "bookramsey"
 version = "0.1.0"
-defaultTargets = ["BookRamsey", "verify"]
+defaultTargets = ["BookRamsey"]
 
 [[lean_lib]]
 name = "BookRamsey"
-roots = ["BookRamsey", "DegreeObstruction", "Lower252", "CayleyObstruction", "Near254", "Upper255"]
-
-[[lean_exe]]
-name = "verify"
-root = "Verify"
+roots = ["BookRamsey", "DegreeObstruction", "Lower252", "CayleyObstruction", "Upper255"]

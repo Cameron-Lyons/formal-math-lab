@@ -30,7 +30,7 @@ Rather than searching directly over all choices of 24 committees (far too many t
 
 Fix one person, say Alice. In each committee Alice attends, she sits with 5 companions chosen from the remaining 13 people. For every trio containing Alice (that is, $\{\text{Alice}, x, y\}$) to be covered, Alice's committees — with Alice removed — must form a collection of 5-person sets covering **every pair** $\{x, y\}$ among the other 13 people.
 
-Each 5-person set covers $\binom{5}{2} = 10$ of the $\binom{13}{2} = 78$ pairs, so you might hope 8 or 9 sets could work. However, the pair-covering number is $C(13, 5, 2) = 10$ ([pair-covering reference](https://ljcr.dmgordon.org/cover/show_cover.php?k=5&t=2&v=13)), and both C++ verifiers prove directly from scratch that **9 five-person sets never suffice**. Therefore:
+Each 5-person set covers $\binom{5}{2} = 10$ of the $\binom{13}{2} = 78$ pairs, so you might hope 8 or 9 sets could work. However, the pair-covering number is $C(13, 5, 2) = 10$ ([pair-covering reference](https://ljcr.dmgordon.org/cover/show_cover.php?k=5&t=2&v=13)), and the C++ verifier proves directly from scratch that **9 five-person sets never suffice**. Therefore:
 
 - **Every person must appear in at least 10 groups.**
 - Across 24 six-person groups, there are $24 \cdot 6 = 144$ total seats, while giving all 14 people 10 appearances already uses $14 \cdot 10 = 140$ seats.

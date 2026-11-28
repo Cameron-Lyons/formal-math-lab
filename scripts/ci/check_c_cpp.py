@@ -13,8 +13,6 @@ from pathlib import Path
 
 from scripts.ci.packages import REPO_ROOT
 
-THIRD_PARTY_PREFIXES: tuple[str, ...] = ()
-THIRD_PARTY_FILES: frozenset[str] = frozenset()
 # First-party sources whose builds require external untracked source trees
 # (nauty 2.9.3) rather than the repository alone.
 EXTERNAL_DEP_FILES: frozenset[str] = frozenset(
@@ -30,7 +28,6 @@ class SourceClassification:
 
     c_files: tuple[str, ...]
     cpp_files: tuple[str, ...]
-    skipped_third_party: tuple[str, ...]
     skipped_external_deps: tuple[str, ...]
     stale_exclusions: tuple[str, ...]
 
@@ -38,25 +35,16 @@ class SourceClassification:
 def classify_sources(tracked_files: list[str]) -> SourceClassification:
     """Partition tracked C/C++ source files into checked vs explicitly skipped."""
     tracked_set = set(tracked_files)
-    stale = sorted(
-        path
-        for path in (THIRD_PARTY_FILES | EXTERNAL_DEP_FILES)
-        if path not in tracked_set
-    )
+    stale = sorted(path for path in EXTERNAL_DEP_FILES if path not in tracked_set)
 
     c_files: list[str] = []
     cpp_files: list[str] = []
-    skipped_third_party: list[str] = []
     skipped_external_deps: list[str] = []
 
     for rel in sorted(tracked_files):
         if not rel.endswith((".c", ".cpp")):
             continue
-        if rel in THIRD_PARTY_FILES or any(
-            rel.startswith(prefix) for prefix in THIRD_PARTY_PREFIXES
-        ):
-            skipped_third_party.append(rel)
-        elif rel in EXTERNAL_DEP_FILES:
+        if rel in EXTERNAL_DEP_FILES:
             skipped_external_deps.append(rel)
         elif rel.endswith(".c"):
             c_files.append(rel)
@@ -66,7 +54,6 @@ def classify_sources(tracked_files: list[str]) -> SourceClassification:
     return SourceClassification(
         c_files=tuple(c_files),
         cpp_files=tuple(cpp_files),
-        skipped_third_party=tuple(skipped_third_party),
         skipped_external_deps=tuple(skipped_external_deps),
         stale_exclusions=tuple(stale),
     )
@@ -191,8 +178,7 @@ def main(argv: list[str] | None = None) -> int:
     print(
         f"C/C++ strict check OK ({args.cc}/{args.cxx}, mode={args.mode}): "
         f"{len(classified.c_files)} C23 files, {len(classified.cpp_files)} C++23 files "
-        f"(skipped {len(classified.skipped_third_party)} third-party, "
-        f"{len(classified.skipped_external_deps)} external-dep)."
+        f"(skipped {len(classified.skipped_external_deps)} external-dep)."
     )
     return 0
 

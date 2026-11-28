@@ -6,7 +6,6 @@ import unittest
 
 from scripts.ci.check_c_cpp import (
     EXTERNAL_DEP_FILES,
-    THIRD_PARTY_FILES,
     classify_sources,
 )
 from scripts.ci.check_repo import scan_lean_source, strip_lean_comments_and_strings
@@ -169,7 +168,6 @@ class PackageDiscoveryTests(unittest.TestCase):
 class CCppClassificationTests(unittest.TestCase):
     def test_classifies_new_files_automatically(self) -> None:
         tracked = [
-            *sorted(THIRD_PARTY_FILES),
             *sorted(EXTERNAL_DEP_FILES),
             "demo/new_tool.c",
             "demo/new_search.cpp",

@@ -26,7 +26,7 @@ here.
 
 ## Proof outline
 
-The human-readable proof is in `Erdos344.md`, with the same lemma numbers. List `A` as
+List `A` as
 `a 0 < a 1 < ...`. The hypothesis gives `2 * a k ≤ k ^ 2 + 2` for large `k` (Lemma 1). `P(J)` is the
 set of sums of `a i` over finite sets of indices in `J`; `J` is good if every `a m`, `m ∈ J`, is at
 most a constant plus the sum of the earlier `a i`, `i ∈ J`. If `C` is infinite and good, then `P(C)`
@@ -72,12 +72,12 @@ progressions with one fixed difference (Lemma 4).
   impossible at `N = 1`. This is the right repair and the stronger theorem. No degenerate case is
   used. The set `{1, 2, 3, 5, 9, 13, ...}` with `a k = ⌊(k ^ 2 + 2) / 2⌋` for `k ≥ 2` satisfies the
   hypothesis (a reviewer of the earlier file checked this in Lean).
-* No constant below `√2` would do (a remark of Erdős, 1961/62, p. 346; Remark 2 of `Erdos344.md`;
-  not formalized). `√(2N)` is not claimed to be the exact threshold.
+* No constant below `√2` would do (a remark of Erdős, 1961/62, p. 346; not formalized). `√(2N)` is
+  not claimed to be the exact threshold.
 * The question is Folkman's (1966, p. 655): if `a_n ≤ M n ^ 2` for large `n`, where `M ≤ 1/2`, is
   `A` subcomplete? `main` gives the answer yes for `M < 1/2` (on paper, not formalized here), not
   literally for `M = 1/2`. The proof also works for `2 * a k ≤ k ^ 2 + c * k + 2` with any constant
-  `c`, which covers `M = 1/2`; see Remark 1 of `Erdos344.md`. That is not part of this file. A copy
+  `c`, which covers `M = 1/2`. That is not part of this file. A copy
   of this file with these changes compiles, but it is not included in this repository and has
   not been reviewed.
 * How much follows from published work (paper deductions by a reviewer, not formalized). V.

@@ -33,9 +33,8 @@ absolute value `√q` when the `c`'s differ, so their real parts are `±A` (Lemm
 orthogonal when the `c`'s agree and the `b`'s differ; an additional entry `√A`, in a place that
 depends on `c` only, turns this `0` into `A` (Lemma 5).
 
-A text version with the same numbering is `Erdos1066.md`. This file defines `W` over
-every field and keeps the signs in `c - c'`, `b - b'` and `-(a, b) = (-a, -b + a²)`; the text, in
-characteristic `2`, has plus signs instead.
+This file defines `W` over every field and keeps the signs in `c - c'`, `b - b'` and
+`-(a, b) = (-a, -b + a²)`.
 
 ## Scope
 

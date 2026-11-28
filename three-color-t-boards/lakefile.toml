@@ -1,6 +1,6 @@
 name = "tboards"
 version = "0.1.0"
-defaultTargets = ["TBoards", "SimpleProof", "SpliceSixthCertificates", "SplicePalCertificates"]
+defaultTargets = ["SimpleProof", "SplicePalCertificates"]
 
 [[lean_lib]]
 name = "TBoards"

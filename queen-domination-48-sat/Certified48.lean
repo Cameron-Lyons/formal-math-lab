@@ -19,9 +19,8 @@ value of type `PLift H`:
     $ qdcheck 48 24 runs/d_48_24.jsonl.lrat --jobs 5
     s ALL VERIFIED n=48 k=24 cases=47580
 
-(records: `data/frame/lean_check_48_24.summary.json`, `lean_check_48_24.jsonl`).  Accepting that run
-means trusting the Lean compiler and runtime, as `native_decide` does, but here the fact enters as the
-named axiom below, so that `#print axioms` shows it.
+Accepting that run means trusting the Lean compiler and runtime, as `native_decide` does, but here the
+fact enters as the named axiom below, so that `#print axioms` shows it.
 
 This file is deliberately NOT part of the library `Queens48` (it is not imported by `Queens48.lean`):
 check it with `lake env lean Certified48.lean`.

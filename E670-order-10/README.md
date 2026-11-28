@@ -1,12 +1,16 @@
 # Equation 670 at order 10
 
-No 10-element magma satisfies Equation 670 of the [Equational Theories Project](https://teorth.github.io/equational_theories/):
+A **finite magma** of order $n$ is a set of $n$ elements with an $n \times n$ multiplication table $a \star b$, with no associativity or commutativity assumed. In the [Equational Theories Project](https://teorth.github.io/equational_theories/), **Equation 670** (opposite-operation dual **Equation 2937**, obtained by transposing the table) is the law
 
 $$
 x = y \star \bigl(x \star ((x \star y) \star y)\bigr)
 $$
 
-for all $x, y$, written in ETP notation as `x = y ◇ (x ◇ ((x ◇ y) ◇ y))`, with opposite-operation dual Equation 2937.
+for all $x, y$ — written in ETP notation as `x = y ◇ (x ◇ ((x ◇ y) ◇ y))`.
+
+Models of Equation 670 exist at sizes 1, 4, 5, 9, 11, and every sufficiently large size, whereas sizes 2, 3, 6, 7, and 8 were already ruled out—leaving **order 10** as the smallest undecided size in the finite spectrum catalogue we checked. This Lean 4 project proves that **no 10-element magma satisfies Equation 670** (`E670.no_model_of_order_ten`).
+
+## At a glance
 
 | Field | Summary |
 | --- | --- |
@@ -23,59 +27,66 @@ for all $x, y$, written in ETP notation as `x = y ◇ (x ◇ ((x ◇ y) ◇ y))`
 `E670.no_model_of_order_ten` proves that no binary operation on 10 elements satisfies
 
 $$
-y\star\bigl(x\star((x\star y)\star y)\bigr)=x
+y \star \bigl(x \star ((x \star y) \star y)\bigr) = x
 $$
 
 for all $x, y$.
 
-A binary operation on 10 elements is a $10\times 10$ table with entries from those same 10 elements. Row $a$, column $b$ holds $a\star b$, with no associativity or commutativity assumed. Models exist at sizes 1, 4, 5, 9, 11, and every sufficiently large size, while none exist at 2, 3, 6, 7, or 8. Order 10 was the smallest open size in the catalogue we checked.
+The proof is computer-assisted and splits cleanly into two verified halves:
 
-The proof is computer-assisted. Lean's kernel proves that the elements of any 10-element model can be renamed so its table satisfies a fixed CNF formula, and Lean then checks solver certificates showing that the formula is unsatisfiable.
+1. **Kernel-checked reduction:** Lean's kernel proves that any 10-element model can be renamed so its multiplication table satisfies a fixed Boolean formula in conjunctive normal form (CNF).
+2. **Checked SAT/LRAT refutation:** Lean runs a SAT solver on 1,043 subcases plus 1 covering check and replays all 1,044 step-by-step LRAT unsatisfiability certificates with a verified proof checker, proving that the CNF formula has no solution.
 
 ## Proof overview
 
-### Rows are permutations
+**Proof strategy.** Searching $10^{100}$ multiplication tables blindly is hopeless, and even a single SAT proof for order 10 would be too large to replay. Four steps make the proof both fast and airtight: (1) deduce from the law that every row is a permutation, giving extra algebraic clauses; (2) relabel the 10 elements canonically to crush symmetry without losing any counterexample; (3) encode the normalized table into 1,000 Boolean variables; and (4) split the search into 1,043 small cases plus an untrusted-split covering check.
 
-Fix $y$. The law writes every $x$ as $y\star(\text{something})$, so row $y$ hits all 10 elements and therefore hits each once. Every row is a permutation, so we can cancel on the left: $y\star u=y\star v$ implies $u=v$.
+### Step 1: Rows are permutations (left cancellation)
 
-Set $a=x\star y$, $b=a\star y$, and $c=x\star b$. The law says $y\star c=x$. Because rows are permutations, the same four equalities work in two more directions:
+Fix any row index $y$. As $x$ ranges over all 10 elements, the law $x = y \star \bigl(x \star ((x \star y) \star y)\bigr)$ writes every element $x$ as an entry in row $y$. Since a surjective map from a 10-element set to itself must be injective, **every row is a permutation** — every value appears once per row, and **left cancellation** holds ($y \star u = y \star v \implies u = v$).
 
-* if $x\star y=a$, $a\star y=b$, and $y\star c=x$, then $x\star b=c$;
-* if $x\star y=a$, $x\star b=c$, and $y\star c=x$, then $a\star y=b$.
+Set $a = x \star y$, $b = a \star y$, and $c = x \star b$, so the law states $y \star c = x$. Because left cancellation holds in every row, the same four equalities work in two extra directions that significantly strengthen SAT unit propagation:
 
-### Naming the elements
+* **Cancel row $y$:** if $x \star y = a$, $a \star y = b$, and $y \star c = x$, then $y \star (x \star b) = x = y \star c$, so $x \star b = c$.
+* **Cancel rows $y$ and $x$:** if $x \star y = a$, $x \star b = c$, and $y \star c = x$, then $y \star (x \star (a \star y)) = x = y \star c$, so $x \star (a \star y) = c = x \star b$, and hence $a \star y = b$.
 
-Renaming elements preserves the law, so we can choose convenient names.
+### Step 2: Canonical naming (symmetry breaking)
 
-If some element has $a\star a\ne a$, call it $0$. Otherwise every element satisfies $x\star x=x$, and any element can be called $0$.
+Renaming the 10 elements $\{0, 1, \ldots, 9\}$ (applying a permutation simultaneously to rows, columns, and entries) preserves the law. Therefore, if *any* model exists, a canonically named model exists as well:
 
-Next scan $k=0,1,2,\ldots$ in order. If $0\star k > k+1$, swap the names $k+1$ and $0\star k$. Both are larger than $k$, and all entries $0\star y$ with $y<k$ are at most $k$, so earlier columns stay fixed. Afterward,
+1. **Choose $0$:** if some element is non-idempotent ($a \star a \ne a$), name it $0$. Otherwise every element satisfies $x \star x = x$, and any element can be named $0$.
+2. **Normalize row $0$:** scan columns $k = 0, 1, 2, \ldots$ from left to right. Whenever $0 \star k > k + 1$, swap the labels $k + 1$ and $0 \star k$. Because both swapped labels are strictly greater than $k$, and every earlier column $y < k$ already satisfies $0 \star y \le y + 1 \le k$, earlier columns and their outputs stay completely untouched.
+
+When the scan ends, row $0$ obeys
 
 $$
-0\star y\le y+1\quad\text{for every }y.
+0 \star y \le y + 1 \quad \text{for every } y.
 $$
 
-This is `exists_normal` in [E670/Normal.lean](E670/Normal.lean).
+This single normalization slashes the number of allowed first rows from $10! = 3,628,800$ down to just $2^9 = 512$ (for each $y \le 8$, only two unused values lie in $\{0, \ldots, y + 1\}$). Lean proves this in `exists_normal` ([E670/Normal.lean](E670/Normal.lean)).
 
-### The Boolean formula
+### Step 3: The Boolean formula
 
-Create 1,000 Boolean variables, one for each statement $x\star y=z$. The CNF clauses say that:
+Introduce $10^3 = 1,000$ Boolean variables, one for each triple $(x, y, z)$ representing the statement "$x \star y = z$". The CNF clauses assert:
 
-* every cell has a unique value;
-* every row takes every value once;
-* the law holds in all three directions listed above for all $x,y,a,b,c$;
-* $0\star y\le y+1$ for every $y$;
-* if $0\star 0=0$, then $x\star x=x$ for every $x$.
+* every cell $(x, y)$ holds a unique value;
+* every row contains each value once (permutation rows);
+* the law holds in all three directions from Step 1 for all $x, y, a, b, c$;
+* $0 \star y \le y + 1$ for every $y$;
+* if $0 \star 0 = 0$, then $x \star x = x$ for every $x$ (encoding our choice of $0$).
 
-Lean proves that any model named as above satisfies all 309,246 clauses (`sat_formula` in [E670/Encoding.lean](E670/Encoding.lean)). It remains to show that no assignment to the 1,000 variables satisfies them.
+Lean's kernel proves (`sat_formula` in [E670/Encoding.lean](E670/Encoding.lean)) that every normalized model satisfies all **309,246 clauses**. It remains to show that no truth assignment to the 1,000 variables satisfies them.
 
-### Case-split refutation
+### Step 4: Case-split refutation (cube-and-conquer)
 
-A single SAT run would produce a certificate too large to check, so we split the problem into 1,043 cases. Each case is a short list of equations $x\star y=z$ or disequations $x\star y\ne z$ on the first row and first column, stored in [E670/Cases.lean](E670/Cases.lean). A search script built them by fixing entries in the first row and then the first column until CaDiCaL refuted each case in a few seconds.
+A single SAT run would produce a certificate too large to replay, so we partition the search into **1,043 cases** stored in [E670/Cases.lean](E670/Cases.lean). Each case is a short list of equations $x \star y = z$ and disequations $x \star y \ne z$ on the first row and first column, generated by a search script that fixed entries until CaDiCaL refuted each subcase in a few seconds.
 
-The case list is not trusted. Lean checks one certificate per case (showing no solution fits that case) and one covering certificate showing no solution falls outside all cases (`unsat_of_cubes` in [E670/Cubes.lean](E670/Cubes.lean)).
+**Why the case list does not need to be trusted.** Lean verifies two things (`unsat_of_cubes` in [E670/Cubes.lean](E670/Cubes.lean)):
 
-Certificates are not stored in the repository. During the build, the tactic `refute` runs the CaDiCaL binary bundled with Lean and passes its trimmed LRAT proofs as string literals to `Std.Tactic.BVDecide.Reflect.verifyCert`, the verified LRAT checker behind `bv_decide`. Because the checker runs by native evaluation, Lean's compiler and runtime are inside the trust boundary; the solver, the tactic, and the case list are not.
+* **1,043 case certificates:** no assignment satisfies the CNF *and* case $i$.
+* **1 covering certificate:** no assignment satisfies the CNF while *avoiding* all 1,043 cases.
+
+Certificates are not stored in the repository. During `lake build`, the `refute` tactic invokes the CaDiCaL binary bundled with Lean and passes its trimmed LRAT proofs as string literals to `Std.Tactic.BVDecide.Reflect.verifyCert`, the formally verified LRAT checker behind `bv_decide`. Because the checker runs via native evaluation (`native_decide`), Lean's compiler and runtime lie inside the trust boundary; the SAT solver, the tactic, and the case list do not.
 
 ## Reproduce
 
@@ -123,7 +134,7 @@ The renaming, table encoding, case-split machinery, and finite surjection-is-inj
 
 ### Independent check
 
-[scripts/check.py](scripts/check.py) generates the formula directly from the law with no shared Lean code, and splits it by the first row alone. Under the naming above, the first row is a permutation $r$ with $r(y)\le y+1$, giving 512 possible rows. The script runs CaDiCaL on each (using Python 3 and CaDiCaL from `PATH` or the Lean toolchain):
+[scripts/check.py](scripts/check.py) generates the formula directly from the law with no shared Lean code, and splits it by the first row alone. Under the naming above, the first row is a permutation $r$ with $r(y) \le y + 1$, giving 512 possible rows. The script runs CaDiCaL on each (using Python 3 and CaDiCaL from `PATH` or the Lean toolchain):
 
 ```sh
 python3 scripts/check.py --jobs 4
@@ -145,11 +156,11 @@ This prints `order 10: 512 first rows, all UNSAT, all proofs verified`. With fou
 
 ## Six further sizes with models
 
-[E670/Examples.lean](E670/Examples.lean) also verifies that $x\star y=ax+by\pmod n$ satisfies Equation 670 for:
+[E670/Examples.lean](E670/Examples.lean) also verifies that the linear table $x \star y = ax + by \pmod n$ satisfies Equation 670 for six prime orders:
 
 | $n$ | 19 | 29 | 31 | 41 | 59 | 61 |
 | --- | --- | --- | --- | --- | --- | --- |
-| $(a,b)$ | $(9,11)$ | $(3,27)$ | $(6,2)$ | $(12,37)$ | $(20,40)$ | $(6,58)$ |
+| $(a, b)$ | $(9, 11)$ | $(3, 27)$ | $(6, 2)$ | $(12, 37)$ | $(20, 40)$ | $(6, 58)$ |
 
 These models are not new; they appear in the [survey data](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/data/spectrum/open_survey_20260927.json) of the spectrum work below. The catalogue snapshot cited in the [audit](../PRIOR_ART.md#e670-at-order-10) still lists all six sizes as undecided.
 
@@ -157,4 +168,4 @@ These models are not new; they appear in the [survey data](https://github.com/Ti
 
 The law is Equation 670 of the [Equational Theories Project](https://teorth.github.io/equational_theories/). Its finite spectrum is tracked in a [spectrum catalogue](https://ohaithe.re/equational_theories/spectrum/?eq=670) on the `definability-negative` branch of [Timeroot/equational_theories](https://github.com/Timeroot/equational_theories), outside the main repository. That Lean development proves exclusions at 2, 3, 6, 7, and 8 and existence at all large enough sizes. Its [order-ten notes](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/docs/order_ten_followup_20261007.md#what-remains-at-ten) record a 10-minute full search plus searches over 97 first rows capped at 100,000 conflicts per row. The [accompanying data](https://github.com/Timeroot/equational_theories/blob/6a653268c6f6173a00e5d7e9d61ad33aca8e52c3/data/spectrum/order_ten_followup_20261007.json) lists 61 rows refuted and 36 undecided.
 
-Our choice of $0$, the bound $0\star y\le y+1$, and one variable per statement $x\star y=z$ follow that work. Three details differ: we write clauses directly on table entries without auxiliary variables for $(x\star y)\star y$; we give the solver more time; and we skip sorting the first row's cycles by length (which cuts 512 first rows down to 97, trading 2 to 2.5 times more solver time for a simpler renaming proof).
+Our choice of $0$, the bound $0 \star y \le y + 1$, and one variable per statement $x \star y = z$ follow that work. Three details differ: we write clauses directly on table entries without auxiliary variables for $(x \star y) \star y$; we give the solver more time; and we skip sorting the first row's cycles by length (which cuts 512 first rows down to 97, trading 2 to 2.5 times more solver time for a simpler renaming proof).

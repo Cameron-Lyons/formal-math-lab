@@ -1,12 +1,14 @@
 # OEIS A176755: Mathar's five-term linear recurrence
 
-Lean 4 proof of the five-term linear polynomial recurrence conjectured by R. J. Mathar in [OEIS A176755](https://oeis.org/A176755). Starting from the nonlinear convolution recurrence
+Start with a Catalan-like **nonlinear convolution recurrence**, where each new integer sums products of all earlier pairs (minus $2$):
 
 $$
-a_0 = 1, \qquad a_1 = 3, \qquad a_{n+1} = \sum_{p=0}^{n} a_p a_{n-p} - 2 \quad (n \ge 1)
+a_0 = 1, \qquad a_1 = 3, \qquad a_{n+1} = \sum_{p=0}^{n} a_p a_{n-p} - 2 \quad (n \ge 1),
 $$
 
-(initial terms $1, 3, 4, 15, 52, \ldots$), `A176755.mathar` proves for every integer $n \ge 4$:
+generating $1, 3, 4, 15, 52, \ldots$ ([OEIS A176755](https://oeis.org/A176755)). Even though the definition multiplies all previous terms together, R. J. Mathar conjectured that from $n = 4$ onward the sequence obeys a fixed-window **five-term linear recurrence** with linear polynomial coefficients in $n$ — so only the four most recent terms are ever needed to compute the next one.
+
+Here, `A176755.mathar` proves in Lean 4 that for every integer $n \ge 4$,
 
 $$
 (n+1)a_n + 2(1-3n)a_{n-1} + (n+3)a_{n-2} + 2(10n-33)a_{n-3} + 16(4-n)a_{n-4} = 0.
@@ -30,7 +32,9 @@ $$
 (n+1)a_n + (2-7n)a_{n-1} + (7n-5)a_{n-2} + (19n-68)a_{n-3} + (150-36n)a_{n-4} + (16n-80)a_{n-5} = 0.
 $$
 
-Let $R_n$ be the left-hand side of Mathar's five-term formula. Expanding directly shows Fischer's six-term expression is $R_n - R_{n-1}$. Because the initial values give $R_4 = 260 - 330 + 28 + 42 = 0$, the earlier recurrence implies $R_n = 0$ for all $n \ge 4$. In addition, Artūras Dubickas (*Recurrence Formulas for Choulet Sequences*, *Mathematics* 14(12): 2177, 17 June 2026, [10.3390/math14122177](https://doi.org/10.3390/math14122177)) directly proved the exact five-term recurrence for all $k = 0$ Choulet sequences (including A176755), and Tong Niu ([arXiv:2605.04369](https://arxiv.org/abs/2605.04369), 6 May 2026) published the same generating-function and differential-equation method for sibling A176677. The remaining "Conjecture" label in OEIS A176755 does not mean the mathematical problem was still open.
+Let $R_n$ be the left-hand side of Mathar's five-term formula. Expanding directly shows that Fischer's six-term expression is simply $R_n - R_{n-1}$. Because the initial values give $R_4 = 260 - 330 + 28 + 42 = 0$, the earlier recurrence implies $R_n = 0$ for all $n \ge 4$.
+
+In addition, Artūras Dubickas (*Recurrence Formulas for Choulet Sequences*, *Mathematics* 14(12): 2177, 17 June 2026, [10.3390/math14122177](https://doi.org/10.3390/math14122177)) directly proved the exact five-term recurrence for all $k = 0$ Choulet sequences (including A176755), and Tong Niu ([arXiv:2605.04369](https://arxiv.org/abs/2605.04369), 6 May 2026) published the same generating-function and differential-equation method for sibling A176677. The remaining "Conjecture" label in OEIS A176755 does not mean the mathematical problem was still open.
 
 ## Formal statements
 
@@ -40,35 +44,37 @@ Let $R_n$ be the left-hand side of Mathar's five-term formula. Expanding directl
 
 The proof works over $\mathbb{Z}$, with `4 ≤ n` so natural-number subtraction matches the displayed indices. The generating-function identity is proved from the recurrence, not assumed.
 
-## Proof overview
+## How the proof works
 
-Work in the formal power series ring $\mathbb{Z}[[x]]$ with $F = \sum_{n \ge 0} a_n x^n$. The defining recurrence says $F - xF^2$ has coefficients $1, 2, -2, -2, \ldots$, so
+**The big idea:** Pack the entire sequence into a **formal power series** $F(x) = \sum_{n \ge 0} a_n x^n$ in the algebraic ring $\mathbb{Z}[[x]]$ (infinite polynomials manipulated purely by coefficient rules, with no convergence or analytic calculus required). Three algebraic transformations turn the nonlinear convolution into Mathar's linear recurrence:
 
-$$
-(1 - x)(F - xF^2) = 1 + x - 4x^2.
-$$
+1. **Convolution becomes a quadratic equation:** Multiplying $F$ by itself produces the convolution sums $\sum_{p=0}^n a_p a_{n-p}$ as the coefficients of $F^2$. Comparing term by term, the defining recurrence says $F - xF^2$ has coefficients $1, 2, -2, -2, \ldots$ ($a_0 = 1$, $a_1 - a_0^2 = 3 - 1 = 2$, and $-2$ thereafter). Multiplying by $(1 - x)$ telescopes that infinite tail of $-2$'s into a quadratic polynomial:
 
-Differentiating this quadratic equation and eliminating $F^2$ yields the linear differential equation
+   $$
+   (1 - x)(F - xF^2) = 1 + x - 4x^2.
+   $$
 
-$$
-x(1 - 6x + x^2 + 20x^3 - 16x^4) F' + (1 - 4x + 5x^2 - 6x^3) F = 1 + 2x - 13x^2 + 8x^3.
-$$
+2. **Formal differentiation eliminates $F^2$:** Differentiating this quadratic equation formally produces a relation involving $F'$ and $F$, and eliminating $F^2$ between the quadratic and its derivative yields a **first-order linear differential equation** for $F$:
 
-For $n \ge 4$, the coefficient of $x^n$ is $0$ on the right and
+   $$
+   x(1 - 6x + x^2 + 20x^3 - 16x^4) F' + (1 - 4x + 5x^2 - 6x^3) F = 1 + 2x - 13x^2 + 8x^3.
+   $$
 
-$$
-(n+1)a_n + [-6(n-1) - 4]a_{n-1} + [(n-2) + 5]a_{n-2} + [20(n-3) - 6]a_{n-3} - 16(n-4)a_{n-4}
-$$
+3. **Extract the $x^n$ coefficient:** For $n \ge 4$, the degree-$3$ polynomial on the right has coefficient $0$, while the left-hand side has coefficient
 
-on the left, which is Mathar's recurrence. No convergence, analytic differentiation, or square-root construction is needed.
+   $$
+   (n+1)a_n + [-6(n-1) - 4]a_{n-1} + [(n-2) + 5]a_{n-2} + [20(n-3) - 6]a_{n-3} - 16(n-4)a_{n-4},
+   $$
 
-To check the elimination algebraically, set $H = x(1-x)F^2 - (1-x)F + 1 + x - 4x^2$ and let $E$ be the left side minus the right side of the differential equation. Lean verifies the polynomial identity
+   which simplifies directly to Mathar's recurrence. No convergence, analytic differentiation, or square-root construction is needed.
+
+**How Lean checks the elimination cleanly:** Set $H = x(1-x)F^2 - (1-x)F + 1 + x - 4x^2$ (the quadratic residual) and let $E$ be the left side minus the right side of the differential equation. Lean verifies the single polynomial identity
 
 $$
 (1 - 2xF) E = (-1 - 4x^2 + 32x^3) H - x(1 - 5x - 4x^2 + 16x^3) H'.
 $$
 
-Since $H = H' = 0$ and $1 - 2xF$ has constant term $1$, cancellation in the integral domain $\mathbb{Z}[[x]]$ gives $E = 0$. The main proof chains these three steps:
+Since $H = H' = 0$, the right-hand side vanishes; and because $1 - 2xF$ has constant term $1$ (hence is nonzero), cancellation in the integral domain $\mathbb{Z}[[x]]$ gives $E = 0$. The main proof chains these three steps verbatim:
 
 ```lean
   have hq := quadratic_of_recurrence b h0 h1 hrec

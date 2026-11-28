@@ -1,6 +1,6 @@
 # Frankl's union-closed sets conjecture: certified lower bound `1533 / 4000 = 0.38325`
 
-A finite family $\mathcal{F}$ of finite sets is *union-closed* if $A \cup B \in \mathcal{F}$ for all $A, B \in \mathcal{F}$. Frankl's union-closed sets conjecture (1979) asks whether every finite union-closed family containing a nonempty set has an element belonging to at least half of its members. The full conjecture remains open.
+A finite collection $\mathcal{F}$ of finite sets is called a **union-closed family** if taking the union of any two sets in the collection keeps you inside it: $A \cup B \in \mathcal{F}$ for all $A, B \in \mathcal{F}$. (For instance, $\{\emptyset, \{1\}, \{2\}, \{1, 2\}\}$ is union-closed, and both $1$ and $2$ belong to $2$ of its $4$ sets — exactly half.) Peter Frankl's 1979 conjecture asks whether *every* finite union-closed family containing at least one nonempty set has some element belonging to at least half ($50\%$) of its members. The full conjecture remains open.
 
 The Lean 4 proof here establishes the unconditional lower bound
 
@@ -8,7 +8,7 @@ $$
 \frac{1533}{4000} = 0.38325 > c_* + 3.647 \times 10^{-4},
 $$
 
-where $c_* \approx 0.38288525996679$ is the Costa-Sadhu single-coordinate entropy threshold. Every analytical, univariate, bivariate, covariance, and polytope inequality in the proof is verified inside Lean's kernel using 50-bit scaled-integer interval arithmetic, with zero `sorry`, zero custom axioms, and zero `native_decide`.
+where $c_* \approx 0.38288525996679$ is the Costa-Sadhu single-coordinate entropy threshold (the ceiling that purely single-coordinate entropy arguments cannot pass). Every analytical, univariate, bivariate, covariance, and polytope inequality in the proof is verified inside Lean's kernel using 50-bit scaled-integer interval arithmetic, with zero `sorry`, zero custom axioms, and zero `native_decide`.
 
 | Field | Summary |
 | --- | --- |
@@ -46,11 +46,15 @@ theorem UCBound.frankl_union_closed_bound
 | [UCBound/CertPolytope.lean](UCBound/CertPolytope.lean), [UCBound/CertPolytopeTrees.lean](UCBound/CertPolytopeTrees.lean) | Witness-carrying 2D polytope trees proving $\Phi_G > 0$ at all 3 vertices and $\Phi_T > 0$ on $(0, z]$ using only Option A (exact $U$) and Option B (Boppana $U$), plus the analytic small-$e$ proof |
 | [UCBound/Main.lean](UCBound/Main.lean) | Assembles `localInequalities_proof` and proves `UCBound.frankl_union_closed_bound` |
 
-## Proof outline
+## How the proof works
 
-1. **Reduction to AND-closed boolean cubes.** Taking complements converts a finite union-closed family with a nonempty set into an AND-closed subset $\Omega \subseteq \{0, 1\}^n$ with $|\Omega| \ge 2$ whose coordinate marginals satisfy $s_i \ge m_* - \varepsilon$ (`epsParam = 365 / 1000000`).
-2. **Single-order shared-budget accounting.** Coordinates are peeled into a high-entropy core $G$ ($e_i \ge z = 21/50$) and a low-entropy tail $T$ ($e_i < z$). Averaging the fibre inequality, the two-copy independent protocol, and the CIID fair-sign protocol over all permutations of $G$ against a beta-weighted subset density yields a nonpositive sum of single-coordinate objectives $\Phi_G$ (at the three vertices $(w, \omega) \in \{(0, 3/8), (1, 3/8), (1, -5/8)\}$) and $\Phi_T$.
-3. **Kernel-certified local and polytope bounds.** Seven 1D inequalities, the covariance inequality `hCov`, and three bivariate $F$-bounds (`hF_R`, `hF_v`, `hF_sim`) define the feasible relaxation `ValidPoint`. Witness-carrying 50-bit scaled-integer branch-and-bound trees certify $\Phi_G > 0$ on $[z, \ln 2] \times [0, 1]$ and $\Phi_T > 0$ on $[1/10, z] \times [0, 1]$ using only exact $U$ and Boppana $U$ bounds; an analytic convex combination $(17/20)\,\mathrm{OptA} + (3/20)\,\mathrm{OptB}$ certifies $\Phi_T > 0$ for $0 < e \le 1/10$, giving a contradiction.
+**The big idea (entropy contradiction past $c_*$):** Modern progress on Frankl's conjecture stems from Justin Gilmer's 2022 information-theoretic breakthrough. If you sample two independent random sets from a union-closed family, their union also lands inside the family — so the Shannon entropy of the union cannot exceed the entropy of a single uniform draw. Yet if every element appeared too rarely, taking unions would *increase* entropy, forcing a contradiction. Pushing past the single-coordinate barrier $c_* \approx 0.382885$ requires coupling coordinates together across multiple protocols and splitting coordinates into high-entropy and low-entropy regimes.
+
+The formal proof executes this strategy in three stages:
+
+1. **Reduction to AND-closed boolean cubes:** Taking set complements turns unions into intersections, converting a finite union-closed family with a nonempty set into an AND-closed subset $\Omega \subseteq \{0, 1\}^n$ with $\lvert\Omega\rvert \ge 2$ (closed under bitwise AND). Assuming for contradiction that every element appears in fewer than $1533/4000$ of the sets translates to coordinate marginals satisfying $s_i \ge m_* - \varepsilon$ (`epsParam = 365 / 1000000`).
+2. **Single-order shared-budget accounting:** Coordinates are peeled into a high-entropy core $G$ ($e_i \ge z = 21/50$) and a low-entropy tail $T$ ($e_i < z$). Averaging three information-theoretic bounds — the fibre inequality, the two-copy independent protocol, and the CIID (conditionally independent and identically distributed) fair-sign protocol — over all permutations of $G$ against a beta-weighted subset density produces a **nonpositive** weighted sum of single-coordinate objectives: $\Phi_G$ (evaluated at the three vertices $(w, \omega) \in \{(0, 3/8), (1, 3/8), (1, -5/8)\}$) and $\Phi_T$.
+3. **Kernel-certified local and polytope bounds:** Seven 1D inequalities, the covariance inequality `hCov`, and three bivariate $F$-bounds (`hF_R`, `hF_v`, `hF_sim`) define the feasible relaxation `ValidPoint`. Witness-carrying 50-bit scaled-integer branch-and-bound trees certify $\Phi_G > 0$ on $[z, \ln 2] \times [0, 1]$ and $\Phi_T > 0$ on $[1/10, z] \times [0, 1]$ using only exact $U$ and Boppana $U$ bounds; an analytic convex combination $(17/20)\,\mathrm{OptA} + (3/20)\,\mathrm{OptB}$ certifies $\Phi_T > 0$ for $0 < e \le 1/10$. Because every term in the nonpositive sum is strictly positive, we reach a contradiction.
 
 ## Reproduce
 

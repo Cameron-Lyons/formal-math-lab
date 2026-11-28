@@ -1,6 +1,8 @@
 # Erdős Problem #1066 in higher dimensions
 
-Let $g_d(n)$ be the largest $m$ such that every set of $n$ points in $\mathbb{R}^d$ with pairwise distances at least 1 contains $m$ points with pairwise distances strictly greater than 1. Pollack (1985) reports that Erdős asked for a proof or disproof of $g_d(n) > cn/d$. Our Lean 4 proof disproves this when $c$ must be independent of both $d$ and $n$: for $A = 2^m$, $d = 6A^2$, and $n = 4A^4$, we prove $g_d(n) \le 2A + 2$. The planar ($d = 2$) headline problem is not addressed.
+Imagine placing $n$ points in $d$-dimensional Euclidean space so that no two are closer than distance $1$ (equivalently, packing $n$ non-overlapping spheres of diameter $1$). Some pairs of points may sit at distance *exactly* $1$, and we want to pick as large a subset as possible in which *no* two points are at distance $1$ — every remaining pairwise distance is strictly greater than $1$.
+
+Let $g_d(n)$ denote the largest $m$ such that every set of $n$ points in $\mathbb{R}^d$ with pairwise distances at least $1$ contains $m$ points with pairwise distances strictly greater than $1$. Pollack (1985) reports that Erdős asked for a proof or disproof of $g_d(n) > cn/d$. Our Lean 4 proof disproves this when $c > 0$ must be an absolute constant independent of both $d$ and $n$: for every $A = 2^m$, in dimension $d = 6A^2$ with $n = 4A^4$ points, we construct a configuration giving $g_d(n) \le 2A + 2$ (which drops below $cn/d = \frac{2}{3}cA^2$ for large $m$). The planar ($d = 2$) headline problem is not addressed.
 
 | Field | Summary |
 | --- | --- |
@@ -20,7 +22,10 @@ Let $g_d(n)$ be the largest $m$ such that every set of $n$ points in $\mathbb{R}
 
 ## Idea of the proof
 
-Suppose we have $n$ vectors of squared length $2A^2 + A$ whose pairwise inner products are all $+A$ or $-A$. Only pairs with inner product $+A$ sit at the minimum distance. If $k$ of the vectors have pairwise inner products equal to $-A$, expanding $0 \le \lVert \sum w \rVert^2$ gives $k \le 2A + 2$. To finish, we construct $4A^4$ such vectors in $\mathbb{R}^{6A^2}$ using characters over the finite field with $2A^2$ elements.
+The refutation combines a two-line norm bound with a dense family of vectors having only two pairwise inner products (a scaled system of *equiangular lines*, meaning lines through the origin that all meet at the same acute angle):
+
+1. **From two inner products to a sharp cap on kept points.** Suppose we have $n$ vectors of squared length $2A^2 + A$ whose pairwise inner products are all either $+A$ or $-A$. Because $\lVert u - v \rVert^2 = \lVert u \rVert^2 + \lVert v \rVert^2 - 2\langle u, v \rangle$, only pairs with inner product $+A$ sit at the minimum distance (which rescales to $1$), while pairs with inner product $-A$ sit strictly farther apart. If $k$ of the points have all pairwise distances strictly greater than $1$, their $k$ vectors must all have pairwise inner product $-A$. Expanding the non-negative squared norm $0 \le \lVert \sum w \rVert^2 = k(2A^2 + A) - k(k - 1)A$ immediately forces $k \le 2A + 2$.
+2. **Packing $4A^4$ such vectors into $\mathbb{R}^{6A^2}$.** To beat $cn/d$, we need quadratically many vectors ($n \asymp d^2$) so that $n/d$ grows like $A^2$ while $k$ grows only like $A$. We construct $4A^4$ vectors with these exact lengths and inner products in $\mathbb{R}^{6A^2}$ using characters (homomorphisms to the complex unit circle) on a twisted product $F \times F$ over the finite field $F$ with $2A^2$ elements, plus an extra real coordinate slot that adjusts orthogonal pairs from $0$ to $+A$.
 
 ## Reproduce
 

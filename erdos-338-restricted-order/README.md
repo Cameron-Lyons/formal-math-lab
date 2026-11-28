@@ -1,6 +1,8 @@
 # Erdős Problem #338: restricted order bounded by the order
 
-A set $A$ of non-negative integers is a basis of order $h$ if every large integer is a sum of at most $h$ elements of $A$, repetition allowed. Its restricted order is the least $t$, if one exists, such that every large integer is a sum of at most $t$ distinct elements of $A$. Erdős and Graham (1980, question 3(ii)) asked whether the restricted order, when it exists, is bounded in terms of $h$ alone. Our Lean 4 proof shows that it is. We do not address the headline question.
+A set $A$ of non-negative integers is an *additive basis of order $h$* if every sufficiently large integer can be written as a sum of at most $h$ elements of $A$, with repetition allowed (for instance, the squares form a basis of order $4$). What if we forbid repeats and require *distinct* elements of $A$? The *restricted order* of $A$ is the least $t$, if one exists, such that every sufficiently large integer is a sum of at most $t$ distinct elements of $A$.
+
+Erdős and Graham (1980, question 3(ii)) asked whether the restricted order, whenever it exists, is bounded by a function $f(h)$ depending only on $h$ — not on the particular set $A$. Our Lean 4 proof shows that it is. We do not address the headline question.
 
 | Field | Summary |
 | --- | --- |
@@ -13,9 +15,12 @@ A set $A$ of non-negative integers is a basis of order $h$ if every large intege
 
 ## Idea of the proof
 
-Call a number *robust* if it can still be written as a sum of at most $k$ distinct elements of $A$ even after any $q$ elements are forbidden. Robust numbers can be added with repetition, because each copy can use fresh elements. Counting shows that at every large scale $N$, at least a $1/c$ fraction of the numbers up to $2N$ are robust, where $c$ belongs to a finite set of constants depending only on $h$.
+The central trick is to build a supply of numbers that can safely be added *with repetition* even though the final sum must use distinct elements of $A$:
 
-A pigeonhole argument then represents all multiples of a modulus $g(c)$ in a long interval as sums of boundedly many robust numbers. To represent a target integer, we first fix its residue modulo $g(c)$ using fewer than $g(c)$ distinct elements of $A$. Since $q$ is chosen after $g(c)$, the robust summands avoid those elements. Comparing consecutive scales bridges the gaps between intervals.
+1. **Robust numbers unlock repetition.** Call a number *robust* if it can still be written as a sum of at most $k$ distinct elements of $A$ even after any $q$ elements are forbidden. Robust numbers can be added with repetition, because each copy can draw on fresh elements of $A$ disjoint from all elements already used.
+2. **Dense robust sets at every large scale.** A double-counting argument shows that at every large scale $N$, at least a $1/c$ fraction of the numbers up to $2N$ are robust (with $k = 2h$ and a chosen forbidden-element budget $q = Q(c)$), where $c$ belongs to a finite list of constants depending only on $h$.
+3. **Covering all multiples of a modulus in a long interval.** A pigeonhole argument on that dense set represents every multiple of a modulus $g(c)$ in a long interval as a sum of boundedly many robust numbers. Crucially, the forbidden-element budget $q = Q(c)$ is chosen *after* $g(c)$ and the summand bound, so all those robust summands can be realized using pairwise disjoint elements of $A$.
+4. **Fixing residues and bridging scales.** To represent a large target integer $n$, we first fix its residue modulo $g(c)$ using fewer than $g(c)$ distinct elements of $A$; because $q$ is chosen after $g(c)$, the robust summands automatically avoid those elements. Finally, comparing consecutive scales $N$ and $N+1$ bridges any gaps between covered intervals when $c$ jumps.
 
 ## Reproduce
 

@@ -1,14 +1,27 @@
 # More than sixty three-color T boards
 
-**Theorem.** There are at least **72 distinct labeled colorings** of the centered board with row lengths $1,3,\ldots,19$, using colors $0,1,2$, in which each of the $3^4=81$ ordered T patterns occurs once. A T consists of one cell directly above the middle of three consecutive cells. Only translates of this orientation are counted; color names and horizontal reflections count separately.
+Consider a 10-row triangular pyramid (the **ziggurat** $Z_9$) of 100 unit cells, with centered rows of lengths $1, 3, 5, \ldots, 19$. Color each cell with one of three colors (`0` = red, `1` = green, `2` = blue), and examine every upright **T-tetromino** — one top cell $t$ sitting directly above the middle of three consecutive cells $l, m, u$ in the row below:
 
-Write `0 = red`, `1 = green`, and `2 = blue`, and read each pattern in the order (top, left, middle, right).
+```text
+      t
+    l m u
+```
 
-This shows there are more than 60 valid boards. The proof uses six explicit boards, a finite validity table, and a short symmetry check. Below, we also show directly that board A falls outside all five published families.
+Only translates of this single upright orientation are counted, and each pattern is read in the order $(t, l, m, u)$ (top, left, middle, right). There are $81$ placements on the board and $3^4 = 81$ possible color patterns, so a board is **valid** when every pattern appears exactly once. Qiyuan Ma's founding paper exhibited 60 labeled boards (5 symmetry families of 12). Here we give a short, completely self-contained proof that strictly more than 60 valid boards exist.
 
-## Six boards
+**Theorem.** There are at least **72 distinct labeled colorings** of the centered board with row lengths $1, 3, \ldots, 19$, using colors $0, 1, 2$, in which each of the $3^4 = 81$ ordered T patterns occurs once. Color names and horizontal reflections are counted separately.
 
-Number the rows from 0 at the top to 9 at the bottom, and read each row from left to right. All six boards start with the same seven rows:
+**Proof roadmap.** The proof requires no computer search and does not rely on Ma's 60-board list:
+
+1. **Six explicit boards (A through F)** all share the same first seven rows and differ only in their bottom three rows.
+2. **A finite pattern check** translates each of the 81 T windows into a base-3 integer from $0$ to $80$ and confirms every integer appears once on each board.
+3. **A short symmetry check** applies the 6 color permutations and horizontal reflection ($6 \cdot 2 = 12$ valid transformations) to each board and proves that all $6 \cdot 12 = 72$ resulting boards are distinct, inspecting only the apex, row 2, and the first three cells of row 7.
+
+After proving the theorem, we also show directly — using just three rows — that board A lies outside all 60 published boards.
+
+## Six explicit boards
+
+Number the rows from $0$ at the top to $9$ at the bottom, and read each row from left to right. All six boards begin with the same seven rows (centered one above the next):
 
 ```text
 row   colors
@@ -21,7 +34,7 @@ row   colors
  6    0120111221110
 ```
 
-Attach one of these endings:
+Attach any one of the six three-row endings below to complete the board:
 
 | Board | Row 7 | Row 8 | Row 9 |
 |---|---|---|---|
@@ -32,48 +45,59 @@ Attach one of these endings:
 | E | `201002000212101` | `10110202100020220` | `1001200102120220110` |
 | F | `212021210220200` | `00021000100201101` | `1022012020010110021` |
 
-Each row has the required length, giving six 100-cell boards.
+Every row $r$ has length $2r + 1$, giving six 100-cell boards.
 
-## Every pattern occurs exactly once
+## Step 1: Every pattern occurs exactly once
 
-Write $a_r(j)$ for entry $j$ of row $r$, indexed from 0. That cell sits at $(j-r,-r)$, so every translated T has the form
-
-$$
-W_{r,j}=\bigl(a_{r-1}(j),a_r(j),a_r(j+1),a_r(j+2)\bigr),
-\qquad 1\le r\le9,\quad 0\le j\le2r-2.
-$$
-
-The lower middle cell lies at $(j+1-r,-r)$, and the top cell shares its horizontal coordinate. The three lower cells stay inside row $r$ exactly for $0\le j\le 2r-2$, which keeps the top cell inside row $r-1$. In the other direction, any T is determined by its lower row $r$ and its leftmost lower cell $j$. So this lists all placements once each, and there are
+Write $a_r(j)$ for entry $j$ of row $r$ (indexed from $0$). Placing cell $a_r(j)$ at integer coordinates $(j - r, -r)$ centers row $r$ horizontally around $x = 0$. Every translated upright T-tetromino then takes the form
 
 $$
-1+3+5+\cdots+17=81
+W_{r,j} = \bigl(a_{r-1}(j),\, a_r(j),\, a_r(j+1),\, a_r(j+2)\bigr),
+\qquad 1 \le r \le 9,\quad 0 \le j \le 2r - 2.
 $$
 
-placements in total. Encode an ordered color pattern in base three as
+Why does this list every placement once and only once? The lower middle cell $a_r(j+1)$ sits at $(j + 1 - r, -r)$, and the top cell $a_{r-1}(j)$ sits directly above it at $(j - (r - 1), -(r - 1)) = (j + 1 - r, -r + 1)$. The three lower cells lie inside row $r$ (length $2r + 1$) precisely when $0 \le j \le 2r - 2$, which simultaneously keeps the top cell inside row $r - 1$ (length $2r - 1$). Conversely, every T is uniquely determined by its lower row $r$ and leftmost lower index $j$. Thus there are
 
 $$
-E(t,l,m,u)=27t+9l+3m+u.
+1 + 3 + 5 + \cdots + 17 = 81
 $$
 
-This maps the 81 color patterns bijectively to $0,\ldots,80$. The table below lists $E(W_{r,j})$ from left to right for every row. For each of the six boards, the six shared lines plus its three own lines contain every integer from 0 to 80 once. All six boards are therefore valid.
+placements in total.
 
-For instance, board A's first window in row 7 is $(0,0,0,1)$, which has code 1, and its first window in row 8 is $(0,1,0,1)$, with code 10.
+To check that all 81 placements carry distinct color quadruples, encode each pattern $(t, l, m, u)$ as a 4-digit base-3 integer:
 
-## Why these give 72 different boards
+$$
+E(t, l, m, u) = 27t + 9l + 3m + u.
+$$
 
-Permuting the three colors preserves validity because it permutes the 81 ordered patterns bijectively. Reflecting every row also preserves validity: it permutes the T placements and turns each pattern $(t,l,m,u)$ into $(t,u,m,l)$. So each of the six boards produces $3!\cdot2=12$ valid symmetry images (before checking for duplicates).
+This maps the 81 ordered patterns bijectively onto $\{0, 1, \ldots, 80\}$. The [Complete finite check](#complete-finite-check) below lists $E(W_{r,j})$ from left to right for every row. Let us sanity-check a few entries by hand:
 
-We now check that all 72 images are distinct. Suppose two images are equal. Undoing one transformation turns one of the six boards into another by a color permutation, possibly followed by a reflection.
+* In row 1, the sole window is $(a_0(0), a_1(0), a_1(1), a_1(2)) = (0, 0, 0, 0)$, giving code $0$.
+* In row 2, the first window is $(a_1(0), a_2(0), a_2(1), a_2(2)) = (0, 2, 1, 1)$, giving $0 + 18 + 3 + 1 = 22$.
+* On board A, the first window in row 7 is $(0, 0, 0, 1)$, which has code $1$, and the first window in row 8 is $(0, 1, 0, 1)$, with code $9 + 1 = 10$.
 
-A reflection cannot happen. Every one of the six boards has row 2 equal to `21121`, where entries 0 and 2 differ. In the reversed row `12112`, entries 0 and 2 are equal, and a color permutation cannot make equal entries unequal. So no recolored reflection can match row 2.
+For each of the six boards, the six shared lines (36 codes) together with its three individual ending lines (45 codes) contain every integer from $0$ to $80$ once. Hence all six boards are valid.
 
-Without reflection, the color permutation must fix 0 (from the apex cell) and also fix 2 and 1 (from entries 0 and 1 of row 2). It must be the identity. Finally, the six boards themselves are distinct because row 7 begins with `001`, `002`, `100`, `101`, `201`, and `212`.
+## Step 2: Why these give 72 different boards
 
-Two images therefore agree only when they come from the same board and the same transformation. That gives at least $6\cdot12=72>60$ valid boards. **QED.**
+Two global symmetries preserve validity:
+
+* **Color permutations ($3! = 6$ ways):** relabeling $\{0, 1, 2\}$ permutes the 81 ordered patterns bijectively.
+* **Horizontal reflection ($2$ orientations):** reversing every row permutes the 81 T placements bijectively while mapping each pattern $(t, l, m, u)$ to $(t, u, m, l)$, which is also a bijection on the 81 patterns.
+
+Combining the two gives $3! \cdot 2 = 12$ valid symmetry images per board (72 images in all before checking for duplicates).
+
+We now verify that all 72 images are pairwise distinct. Suppose two images coincide. Applying the inverse of one transformation turns one of the six boards into another via a single color permutation, possibly followed by a horizontal reflection.
+
+1. **No reflection can occur.** Every one of the six boards has row 2 equal to `21121`, where entry $0$ (`2`) and entry $2$ (`1`) are *different*. In the reflected row `12112`, entry $0$ (`1`) and entry $2$ (`1`) are *equal*. Since a color permutation is a bijection, it can never turn equal entries into unequal ones, so no recolored reflection of row 2 can equal `21121`.
+2. **No nontrivial color permutation can occur.** Without reflection, matching the apex (row 0, `0`) forces the permutation to fix `0`. Matching entries $0$ and $1$ of row 2 (`21121`) forces it to fix `2` and `1` as well. The color permutation must therefore be the identity.
+3. **The six boards themselves are distinct.** Their row 7 entries begin with six different triples: `001` (A), `002` (B), `100` (C), `101` (D), `201` (E), and `212` (F).
+
+Consequently, two images agree only when they come from the same board and the same transformation. This yields at least $6 \cdot 12 = 72 > 60$ distinct valid boards. **QED.**
 
 ## Board A is outside all five published families
 
-This also answers the specific request for a new board. The five published representatives in [the supplied certificate](sources/anc/certificates.json) all have apex color 0 and split into two groups (rows numbered from 0):
+The same quick inspection also answers the direct question of whether a valid board exists outside the 60 published ones. The five published representatives in [the supplied certificate](sources/anc/certificates.json) all have apex color `0` and fall into two groups (rows numbered from $0$):
 
 | Published representatives | Row 2 | Row 6 |
 |---|---|---|
@@ -81,15 +105,17 @@ This also answers the specific request for a new board. The five published repre
 | The other two representatives | `21121` | `0201201111202` |
 | Board A | `21121` | `0120111221110` |
 
-Suppose a recoloring of a published representative, with or without reflection, produced board A. Matching the apex forces the recoloring to fix color 0. The three representatives in the first group contain zeros in row 2, while board A has none, so they cannot produce A even after reflection.
+Suppose a color permutation of a published representative, with or without horizontal reflection, produced board A:
 
-For the other two representatives, reflecting row 2 gives `12112`. Its entries 0 and 2 match, whereas those entries in A's `21121` differ, and recoloring cannot change that. Without reflection, matching row 2 fixes colors 1 and 2 as well, leaving only the identity. Row 6 then disagrees with A's row 6, ruling out those two representatives too.
+* Matching the apex (`0` in every board) forces the color permutation to fix color `0`.
+* **First group (three representatives):** their row 2 (`00100`) contains zeros, whereas board A's row 2 (`21121`) contains none. Because color `0` is fixed and reflection preserves the number of zeros, none of these three can produce A.
+* **Second group (two representatives):** reflecting row 2 (`21121`) yields `12112`, whose entries $0$ and $2$ match while board A's differ — ruling out reflection. Without reflection, matching row 2 fixes colors `1` and `2` as well, leaving only the identity transformation. Row 6 then disagrees (`0201201111202` vs. `0120111221110`), ruling out these two representatives too.
 
-Board A is therefore unequal to **every one of the 60 published boards**. Since the code table checks that A is valid, board A together with the published 60 already proves more than 60 boards exist. The six-board proof above gives the stronger bound of 72 without depending on the published count.
+Board A is therefore unequal to **every one of the 60 published boards**. Since the code table confirms A is valid, board A together with the 60 published boards already establishes $> 60$ valid boards; the six-board proof above proves the stronger bound of 72 completely independently of the published list.
 
 ## Complete finite check
 
-The numbers below are decimal codes; leading zeros are only for alignment. The shared block applies to all six boards A through F.
+The numbers below are decimal base-3 pattern codes $E(W_{r,j})$ listed from left to right (leading zeros are for column alignment only). The shared block applies to all six boards A through F.
 
 ```text
 Shared rows:
@@ -125,14 +151,14 @@ F:
   9: 11 08 24 73 32 15 20 06 45 01 03 64 04 39 36 02 34
 ```
 
-To make checking easier, the shared lines contain these 36 distinct codes:
+Sorted for easy hand checking, the six shared lines contain these **36 distinct codes**:
 
 ```text
 0 5 13 14 16 17 22 25 26 28 31 35 37 38 40 41 44 46
 49 52 53 57 59 66 67 68 69 70 71 72 75 76 77 78 79 80
 ```
 
-Each three-line ending contains the remaining 45 codes:
+Each three-line ending contains the exact remaining **45 codes**:
 
 ```text
 1 2 3 4 6 7 8 9 10 11 12 15 18 19 20 21 23 24 27 29
@@ -142,19 +168,21 @@ Each three-line ending contains the remaining 45 codes:
 
 ## Optional machine verification
 
-The proof above contains all its data and can be checked by hand. [simple_proof.py](simple_proof.py) reproduces the code table and checks all 72 boards independently using Cartesian coordinates:
+Although every line of the proof can be checked by hand, two independent mechanized verifications are provided.
+
+First, [simple_proof.py](simple_proof.py) reproduces the code table and checks all 72 boards independently using Cartesian coordinates:
 
 ```sh
 python simple_proof.py --codes
 ```
 
-To also read the five published certificates, verify their 60 symmetry images, and compare every new board against them:
+To also read the five published certificates, verify their 60 symmetry images, and confirm every new board lies outside them:
 
 ```sh
 python simple_proof.py --published
 ```
 
-[SimpleProof.lean](SimpleProof.lean) checks the same six boards, all 72 distinct images, and A's inequality with all 60 published boards inside Lean's kernel, with no search or external solver:
+Second, [SimpleProof.lean](SimpleProof.lean) checks the same six boards, all 72 distinct images, and A's inequality against all 60 published boards inside Lean's kernel, with no search or external solver:
 
 ```sh
 lake build SimpleProof
@@ -168,7 +196,7 @@ The combined theorem is `TBoards.Simple.problem_solved`:
 MoreThanSixty ∧ Valid board0 ∧ board0 ∉ TBoards.published
 ```
 
-Here `board0` is A, and `published` lists all color permutations and both orientations of the five published representatives. The individual theorems `TBoards.Simple.at_least_72`, `TBoards.Simple.board0_valid`, and `TBoards.Simple.board0_not_published` prove the bound, validity, and novelty separately. This small proof does not depend on the 17,160-board certificate or its search. The larger proof is still available via `lake build ExtendedCertificates`. Both are lower bounds; neither determines the exact unrestricted count.
+Here `board0` is A, and `published` lists all color permutations and both orientations of the five published representatives. The individual theorems `TBoards.Simple.at_least_72`, `TBoards.Simple.board0_valid`, and `TBoards.Simple.board0_not_published` prove the bound, validity, and novelty separately. This small proof does not depend on the 17,160-board certificate or its search. The larger proof remains available via `lake build ExtendedCertificates`. Both are lower bounds; neither determines the exact unrestricted count.
 
 The six boards are entries 841, 842, 843, 845, 846, and 849 of [extended_seeds.json](extended_seeds.json), found in this workspace. Their first six rows come from a certificate of Qiyuan Ma, *Explicit Three- and Four-Color Prismatic T-Tetrominoes* (2026), DOI 10.5281/zenodo.23631079. The adapted color-table data keep the source's CC-BY-4.0 attribution; see [the source notices](sources/README.txt).
 

@@ -4,121 +4,204 @@
 
 ## The theorem
 
-Take any family, of arbitrary size, consisting of countably infinite sets. Suppose any two sets in the family share only finitely many points, and never exactly one. Then the ground set can be coloured with two colours so that every set in the family contains both colours. This answers "yes" to a question of Komjáth published by Erdős in 1987. The proof uses only the axiom of choice, with no extra assumptions such as CH.
+Take any family—of arbitrary size, even uncountable—consisting of countably infinite sets. Suppose any two distinct sets in the family share only finitely many points, and never share **exactly one** point. Can we colour the ground set with two colours so that every set in the family contains both colours (that is, does the family have **Property B**)?
 
-Throughout, $X$ is a set whose elements are called *points*, and $(A_i)_{i\in I}$ is a family of subsets of $X$. *Countable* means finite or countably infinite.
+We prove that the answer is **yes**. This settles a question of Komjáth published by Erdős in 1987, working purely in ZFC (using only the axiom of choice, with no extra assumptions such as the Continuum Hypothesis, CH).
 
-**Theorem.** *Suppose every $A_i$ is countable with at least two points, and for all $i\ne j$ the intersection $A_i\cap A_j$ is finite and does not have size $1$. Then there is a colouring of $X$ with colours $0$ and $1$ such that every $A_i$ contains a point of colour $0$ and a point of colour $1$.*
+Throughout, $X$ is a set whose elements are called *points*, and $(A_i)_{i \in I}$ is a family of subsets of $X$. *Countable* means finite or countably infinite.
 
-The opening statement is the special case where every $A_i$ is infinite. We use the intersection assumption in two pieces, always for $i\neq j$:
+**Theorem.** *Suppose every $A_i$ is countable with at least two points, and for all $i \ne j$ the intersection $A_i \cap A_j$ is finite and does not have size $1$. Then there is a colouring of $X$ with colours $0$ and $1$ such that every $A_i$ contains a point of colour $0$ and a point of colour $1$.*
 
-* **(F)** $A_i\cap A_j$ is finite;
-* **(H)** if $u\in A_i\cap A_j$, then there is some $x\ne u$ in $A_i\cap A_j$.
+The opening statement is the special case where every $A_i$ is infinite. We split the intersection hypothesis into two separate conditions, always for $i \ne j$:
 
-## Idea of the proof
+* **(F)** $A_i \cap A_j$ is finite;
+* **(H)** if $u \in A_i \cap A_j$, then there is some $x \ne u$ in $A_i \cap A_j$ (no singleton intersections).
 
-We colour countably many points at a time, calling a set *split* once it contains both colours. Whenever a point $y$ of colour $c$ still lies in unsplit sets, we give the opposite colour $c'$ to a set $J$ of uncoloured points that meets every unsplit set through $y$ and contains no redundant point: for each $w\in J$, some unsplit set through $y$ meets $J$ only at $w$.
+---
 
-Two invariants must hold: unsplit sets must still have uncoloured points available when needed, and every point of $J$ must be treatable in the same way later. Both come from one condition: each coloured point $z$ has a *guard*, meaning finitely many split sets whose union contains an uncoloured point of every unsplit set through $z$. We draw $J$ from the sets in $y$'s guard. We also label each split set $0$ or $1$: points of colour $c$ are guarded only by sets of label $c$, and every set that becomes split when $J$ is painted receives label $c'$.
+## Big picture: why guards and 0/1 labels work
 
-* *New points in $J$ get single-set guards.* Here (H) does the work. If $w$ is the sole point of colour $c'$ in a split set $A_k$, then every unsplit set through $w$ meets $A_k$ in a second point. That point cannot have colour $c'$ (as $w$ is alone in $A_k$) or colour $c$ (as the set through $w$ is unsplit), so it must be uncoloured. Hence $A_k$ alone guards $w$ once it carries label $c'$. Every $w\in J$ is such a lone point: some unsplit set through $y$ meets $J$ only at $w$. Before painting $J$, that set contained $y$ and was unsplit, so it had no point of colour $c'$; after painting $J$, it is split, receives label $c'$, and has $w$ as its unique point of colour $c'$.
-* *Existing guards survive.* Any set through a point of colour $c$ that remains unsplit after painting $J$ contains no point of colour $c'$, so it lost no uncoloured point to $J$. For points $z$ of colour $c'$, we must repair any points lost from their guards, which works as long as the loss is finite. That is the role of the labels: $J$ is contained in finitely many sets of label $c$, so by (F) it intersects every set of label $c'$ in a finite set. Thus $z$'s guard loses only finitely many points, and we repair it by adding the single-set guards of those points.
+A natural attempt to prove the theorem is to build the 2-colouring piecemeal using **Zorn's lemma** on *closed* partial colourings—partial colourings in which every coloured point is **settled** (every set $A_i$ containing it is already **split**, meaning it has points of both colours). If a maximal closed partial colouring still leaves some set $A_a$ unsplit, we would like to colour two points of $A_a$ with $0$ and $1$, and then iteratively settle every unsettled coloured point until we reach a larger closed partial colouring.
 
-To start on a set with no coloured points, we colour two of its points $v$ and $w$ differently. If it meets another uncoloured set, (H) lets us choose $v$ and $w$ in their intersection, so each of the two sets guards one of $v,w$; otherwise $v$ and $w$ need no guards. Settling points one by one in $\omega$ steps closes off a countable piece, and Zorn's lemma then reaches all sets.
+To settle a point $y$ of colour $c$, we must give the opposite colour $c'$ to a set $J$ of uncoloured points that meets every unsplit set through $y$. Why might this naive process fail?
+
+1. **Uncountable explosion:** If $y$ lies in uncountably many unsplit sets, $J$ could be uncountable, preventing us from closing off in $\omega$ steps.
+2. **Accidental monochromatic sets / infinite repair cascades:** When we paint $J$ with colour $c'$, we could steal the last uncoloured points needed to settle other already-coloured points—or damage infinitely many points at once!
+
+The proof solves both obstacles with a single invariant: every coloured point $z$ carries a **guard** (finitely many split sets whose union contains an uncoloured point of every unsplit set through $z$), and every split set carries a **label** in $\{0, 1\}$, obeying two rules:
+
+* **Colour-matching rule:** A point of colour $c$ is guarded *only* by split sets of label $c$.
+* **New-label rule:** When we paint $J$ with colour $c'$, every set that becomes newly split receives label $c'$.
+
+Now watch how the pieces click together when we settle $y$ (of colour $c$):
+
+1. **Draw $J$ from $y$'s guard as a minimal hitting set (Lemmas 1 and 3).** Let $U$ be the uncoloured points inside the finite union of split sets in $y$'s guard $G$. Because every set in $G$ is countable, $U$ (and hence $J$) is **countable**. Moreover, because each set in $G$ is split while every $A_i$ we need to hit is unsplit, $i \notin G$, so by **(F)** the set $F_i = A_i \cap U$ is **finite** and nonempty! A greedy transfinite recursion (Lemma 1) therefore picks a **minimal hitting set** $J \subseteq U$: every $w \in J$ has a "private" unsplit set $A_{q(w)}$ through $y$ that meets $J$ *only* at $w$.
+2. **New points in $J$ get 1-set guards from (H) (Lemma 2).** Before painting $J$ with colour $c'$, the private set $A_{q(w)}$ contained $y$ (colour $c$) and was unsplit, so it had *no* point of colour $c'$. After painting $J$, $A_{q(w)}$ becomes split, receives label $c'$, and has $w$ as its **unique** point of colour $c'$. Now take *any* unsplit set $A_i$ containing $w$: then $i \ne q(w)$, so **(H)** gives a second point $x \ne w$ in $A_i \cap A_{q(w)}$. Can $x$ have colour $c'$? No—$w$ is alone in $A_{q(w)}$! Can $x$ have colour $c$? No—$A_i$ is unsplit and contains $w$ (colour $c'$)! Hence $x$ is **uncoloured**, meaning $\{q(w)\}$ alone guards $w$!
+3. **Existing guards survive, and the 0/1 labels stop infinite cascades (Lemma 4).**
+   * *Existing points $z$ of colour $c$:* Any set $A_i$ through $z$ that stays unsplit after painting $J$ contains no point of colour $c'$, hence no point of $J$. Thus the uncoloured point provided by $z$'s old guard cannot be in $J$; **$z$'s guard needs zero repair.**
+   * *Existing points $z$ of colour $c'$:* An uncoloured point in $z$'s old guard $H$ *might* belong to $J$ (and get painted $c'$). Why can't this happen at *infinitely many* points? **Because of the labels!** Every set in $y$'s guard $G$ has label $c$, whereas every set in $z$'s guard $H$ has label $c' \ne c$. Thus $G$ and $H$ are completely disjoint index sets! By **(F)**, each set in $H$ meets $\bigcup_{j \in G} A_j$—and hence meets $J$—in only **finitely many** points. Repairing $z$'s guard therefore requires adding only the finitely many 1-set guards $\{q(w)\}$ (which also have label $c'$!) for the finitely many points $w \in J$ that landed in $\bigcup_{k \in H} A_k$.
+
+To start on an unsplit set $A_a$ from a closed partial colouring (Lemma 6), we colour two of its points $v$ and $w$ with $0$ and $1$: if $A_a$ meets another unsplit set $A_b$, **(H)** lets us pick $v, w \in A_a \cap A_b$, so giving $A_a$ label $0$ and $A_b$ label $1$ immediately makes $\{a\}$ guard $v$ and $\{b\}$ guard $w$; otherwise $v$ and $w$ are already settled and need no guards. Settling points one by one in $\omega$ steps via a pairing function closes off a countable piece (Lemma 5), and Zorn's lemma finishes the theorem.
+
+---
 
 ## Definitions
 
-A *partial colouring* $f$ assigns a colour $f(x)\in\{0,1\}$ to some points $x\in X$, leaving the rest *uncoloured*. The opposite colour to $c$ is $c'=1-c$. We write $f\le g$, and say $g$ extends $f$, if every point coloured by $f$ keeps the same colour under $g$. If $J$ is a set of points uncoloured by $f$, *painting* $J$ with colour $c$ produces the extension of $f$ that assigns colour $c$ to every point in $J$ and leaves all other points unchanged. With respect to $f$:
+A **partial colouring** $f$ assigns a colour $f(x) \in \{0, 1\}$ to some points $x \in X$, leaving the rest *uncoloured*. The opposite colour to $c$ is $c' = 1 - c$. We write $f \le g$, and say $g$ extends $f$, if every point coloured by $f$ keeps the same colour under $g$. If $J$ is a set of points uncoloured by $f$, **painting** $J$ with colour $c$ produces the extension of $f$ that assigns colour $c$ to every point in $J$ and leaves all other points unchanged.
+
+With respect to a partial colouring $f$:
 
 * a set $A_i$ is **split** if it contains points of both colours, and **unsplit** otherwise;
 * a point $y$ is **settled** if every $A_i$ containing $y$ is split;
 * $f$ is **closed** if every coloured point is settled.
 
-Let $f$ be a partial colouring, let $\ell(i)\in\{0,1\}$ ($i\in I$) be arbitrary labels, and let $z$ be a point of colour $c$. A **guard** of $z$ in $(f,\ell)$ is a finite set $G\subseteq I$ such that:
+Let $f$ be a partial colouring, let $\ell(i) \in \{0, 1\}$ ($i \in I$) be arbitrary labels, and let $z$ be a point of colour $c$. A **guard** of $z$ in $(f, \ell)$ is a finite set $G \subseteq I$ such that:
 
-* for every $k\in G$, the set $A_k$ is split and $\ell(k)=c$;
-* for every unsplit $A_i$ containing $z$, the set $A_i\cap\bigcup_{k\in G}A_k$ contains an uncoloured point.
+* for every $k \in G$, the set $A_k$ is split and $\ell(k) = c$;
+* for every unsplit $A_i$ containing $z$, the set $A_i \cap \bigcup_{k \in G} A_k$ contains an uncoloured point.
 
-A **state** is a pair $(f,\ell)$ of a partial colouring and labels such that only countably many coloured points are unsettled and every coloured point has a guard in $(f,\ell)$. (Labels of unsplit sets play no role in guards.)
+A **state** is a pair $(f, \ell)$ of a partial colouring and labels such that only countably many coloured points are unsettled and every coloured point has a guard in $(f, \ell)$. *(Note: labels of unsplit sets play no role in guards.)*
 
-Four properties follow straight from the definitions:
+Four basic properties follow immediately from the definitions:
 
-* **(a)** If $f\le g$, then every set split under $f$ stays split under $g$, and every point settled under $f$ stays settled under $g$.
+* **(a)** If $f \le g$, then every set split under $f$ stays split under $g$, and every point settled under $f$ stays settled under $g$.
 * **(b)** An unsplit set containing a point of colour $c$ contains no point of colour $c'$.
-* **(c)** The empty set is a guard of every settled coloured point.
-* **(d)** Any set of partial colourings totally ordered by $\le$ has a *union*: the partial colouring giving $x$ colour $c$ if and only if some member gives $x$ colour $c$. (Two members never conflict at $x$, since one extends the other.) This union extends every member.
+* **(c)** The empty set $\emptyset$ is a guard of every settled coloured point.
+* **(d)** Any set of partial colourings totally ordered by $\le$ has a **union**: the partial colouring giving $x$ colour $c$ if and only if some member gives $x$ colour $c$. (Two members never conflict at $x$, since one extends the other.) This union extends every member.
+
+---
 
 ## Lemma 1 (greedy hitting set)
 
-*Let $(F_i)_{i\in E}$ be a family of nonempty finite sets of points. There exists $J\subseteq\bigcup_{i\in E} F_i$ meeting every $F_i$ such that every $w\in J$ has an index $i\in E$ with $F_i\cap J=\{w\}$.*
+*(A **hitting set** of a family is a set meeting every member, and it is **minimal** if removing any point destroys this property. The lemma states that every family of nonempty finite sets has a minimal hitting set.)*
 
-(A *hitting set* of a family is a set meeting every member, and it is *minimal* if removing any point destroys this property. The lemma states that every family of nonempty finite sets has a minimal hitting set.)
+**Lemma 1.** *Let $(F_i)_{i \in E}$ be a family of nonempty finite sets of points. There exists $J \subseteq \bigcup_{i \in E} F_i$ meeting every $F_i$ such that every $w \in J$ has an index $i \in E$ with $F_i \cap J = \{w\}$.*
 
-*Proof.* Well-order the points and decide by transfinite recursion which points to pick: include $w$ if and only if there is some $i\in E$ for which $w$ is the last point of $F_i$ and no earlier point of $F_i$ was included. Let $J$ be the set of picked points. If $w\in J$ and $i$ witnesses this rule, then $F_i\cap J=\{w\}$. Conversely, given $i\in E$, let $w$ be the last point of $F_i$. If $w\notin J$, then by definition some earlier point of $F_i$ was included, so $J$ meets $F_i$. $\square$
+*Proof.* Fix a well-ordering of the points $\bigcup_{i \in E} F_i$. Because each $F_i$ is nonempty and finite, it has a unique last (greatest) point in this well-ordering. Decide by transfinite recursion which points to include in $J$:
+> Include $w \in J$ if and only if there is some $i \in E$ for which $w$ is the last point of $F_i$ and no earlier point of $F_i$ was included in $J$.
+
+Now check both claims:
+
+* **Minimality (private sets):** If $w \in J$ and $i \in E$ witnesses the inclusion rule, then $w$ is the last point of $F_i$ and no earlier point of $F_i$ belongs to $J$, so $F_i \cap J = \{w\}$.
+* **Hitting property:** Given any $i \in E$, let $w$ be the last point of $F_i$. If $w \in J$, then $J$ meets $F_i$ at $w$. If $w \notin J$, then by the inclusion rule some earlier point of $F_i$ must already belong to $J$, so $J$ meets $F_i$ there. $\square$
+
+---
 
 ## Lemma 2 (lone points)
 
-*Let $f$ be a partial colouring with labels $\ell$. Suppose $A_k$ is split with $\ell(k)=c$, and $w$ is the only point of colour $c$ in $A_k$. Then $\{k\}$ is a guard of $w$: every unsplit $A_i$ containing $w$ has an uncoloured point in $A_k$.*
+This lemma is where **(H)** ("no singleton intersections") enters: a point that sits alone in its colour inside a split set is automatically guarded by that single set.
 
-*Proof.* Let $A_i$ be unsplit with $w\in A_i$. Then $i\ne k$, so (H) gives a point $x\ne w$ in $A_i\cap A_k$. The point $x$ cannot have colour $c$, because $w$ is the only colour-$c$ point in $A_k$. It cannot have colour $c'$ either, by (b), since $A_i$ is unsplit and contains $w$. Hence $x$ is uncoloured. $\square$
+**Lemma 2.** *Let $f$ be a partial colouring with labels $\ell$. Suppose $A_k$ is split with $\ell(k) = c$, and $w$ is the only point of colour $c$ in $A_k$. Then $\{k\}$ is a guard of $w$: every unsplit $A_i$ containing $w$ has an uncoloured point in $A_k$.*
+
+*Proof.* Let $A_i$ be unsplit with $w \in A_i$. Because $A_k$ is split and $A_i$ is unsplit, we have $i \ne k$. By **(H)**, since $w \in A_i \cap A_k$, there exists a second point $x \ne w$ in $A_i \cap A_k$.
+
+* The point $x$ cannot have colour $c$, because $w$ is the unique point of colour $c$ in $A_k$.
+* The point $x$ cannot have colour $c'$ either, by **(b)**, because $A_i$ is unsplit and already contains $w$ of colour $c$.
+
+Therefore $x$ must be uncoloured. Since $A_k$ is split with $\ell(k) = c$, the singleton $\{k\}$ is a guard of $w$. $\square$
+
+---
 
 ## Lemma 3 (settling sets)
 
-*Let $(f,\ell)$ be a state and let $y$ be a point of colour $c$. There is a countable set $J$ of uncoloured points such that:*
+Combining a guard of $y$ with Lemma 1 produces a countable minimal hitting set $J$ that hits every unsplit set through $y$ while colliding with every label-$c'$ set only finitely often.
+
+**Lemma 3.** *Let $(f, \ell)$ be a state and let $y$ be a point of colour $c$. There is a countable set $J$ of uncoloured points such that:*
 
 1. *every unsplit $A_i$ containing $y$ meets $J$;*
-2. *every $w\in J$ has an index $j$ such that $A_j$ is unsplit, $y\in A_j$, and $A_j\cap J=\{w\}$;*
-3. *whenever $\ell(k)=c'$, the intersection $A_k\cap J$ is finite (whether $A_k$ is split or not).*
+2. *every $w \in J$ has an index $j$ such that $A_j$ is unsplit, $y \in A_j$, and $A_j \cap J = \{w\}$;*
+3. *whenever $\ell(k) = c'$, the intersection $A_k \cap J$ is finite (whether $A_k$ is split or not).*
 
 *We call such a $J$ a settling set for $y$.*
 
-*Proof.* Choose a guard $G$ of $y$, and let $U$ be the set of uncoloured points in $\bigcup_{k\in G}A_k$. For any $i\notin G$, the set $A_i\cap U$ is finite, since by (F) it lies inside the finite union of finite sets $\bigcup_{k\in G}(A_i\cap A_k)$.
+*Proof.* Choose a guard $G$ of $y$ in $(f, \ell)$, and let $U$ be the set of uncoloured points in $\bigcup_{k \in G} A_k$. First note a key consequence of **(F)**: for any index $i \notin G$, the set $A_i \cap U$ is finite, because it sits inside the finite union of finite sets $\bigcup_{k \in G} (A_i \cap A_k)$.
 
-Let $E$ be the set of indices $i$ for which $A_i$ is unsplit and contains $y$. For each $i\in E$, put $F_i=A_i\cap U$. Then $F_i$ is nonempty (as $G$ guards $y$) and finite (as every index in $G$ corresponds to a split set, so $i\notin G$). Let $J\subseteq U$ be the set given by Lemma 1. Then $J$ consists of uncoloured points and is countable (being a subset of a finite union of countable sets). Property (1) holds because $J$ meets every $F_i$. Property (2) holds because $J\subseteq U$ implies $A_j\cap J=F_j\cap J$ for every $j\in E$. For (3), every index in $G$ has label $c$, so $\ell(k)=c'$ implies $k\notin G$, making $A_k\cap J\subseteq A_k\cap U$ finite. $\square$
+Let $E$ be the set of indices $i \in I$ for which $A_i$ is unsplit and $y \in A_i$. For each $i \in E$, set $F_i = A_i \cap U$.
+* Each $F_i$ is **nonempty**, because $G$ guards $y$.
+* Each $F_i$ is **finite**, because every index in $G$ names a split set, so $i \notin G$.
+
+Apply Lemma 1 to the family $(F_i)_{i \in E}$ to obtain $J \subseteq U$. Then $J$ consists of uncoloured points and is countable (as a subset of the finite union $\bigcup_{k \in G} A_k$ of countable sets). Now verify all three properties:
+
+1. For every $i \in E$, $J$ meets $F_i \subseteq A_i$.
+2. For every $w \in J$, Lemma 1 supplies $j \in E$ with $F_j \cap J = \{w\}$; since $J \subseteq U$, we have $A_j \cap J = (A_j \cap U) \cap J = F_j \cap J = \{w\}$.
+3. Every index in $G$ has label $c$ (by definition of a guard for $y$), so $\ell(k) = c'$ implies $k \notin G$. Hence $A_k \cap J \subseteq A_k \cap U$ is finite. $\square$
+
+---
 
 ## Lemma 4 (settling one point)
 
-*Let $(f,\ell)$ be a state and let $y$ be a coloured point. There is a state $(g,m)$ with $f\le g$ in which $y$ is settled.*
+We now paint a settling set $J$ for $y$ with colour $c'$ and update the labels of newly split sets to $c'$, checking that all state invariants survive.
 
-*Proof.* Let $c=f(y)$ and take a settling set $J$ for $y$ from Lemma 3. Obtain $g$ from $f$ by painting $J$ with colour $c'$. Define $m(i)=\ell(i)$ whenever $A_i$ is split under $f$, and $m(i)=c'$ otherwise. Thus sets split under $f$ stay split and keep their labels.
+**Lemma 4.** *Let $(f, \ell)$ be a state and let $y$ be a coloured point. There is a state $(g, m)$ with $f \le g$ in which $y$ is settled.*
 
-First, $y$ is settled under $g$. Take any $A_i$ containing $y$. If $A_i$ was split under $f$, it stays split. Otherwise $A_i$ meets $J$ by (1), so under $g$ it contains both $y$ (colour $c$) and a point of $J$ (colour $c'$).
+*Proof.* Let $c = f(y)$ and choose a settling set $J$ for $y$ from Lemma 3. Obtain $g$ from $f$ by painting $J$ with colour $c'$. Define the updated labels by
+$$m(i) = \begin{cases} \ell(i) & \text{if } A_i \text{ is split under } f, \\ c' & \text{otherwise.} \end{cases}$$
+Thus every set already split under $f$ stays split under $g$ and keeps its label.
 
-Second, only countably many points coloured by $g$ are unsettled under $g$. Any such point $z$ either lies in the countable set $J$, or was already coloured by $f$ and (by (a)) unsettled under $f$; only countably many points are of the second kind because $(f,\ell)$ is a state.
+1. **$y$ is settled under $g$.** Take any $A_i$ containing $y$. If $A_i$ was split under $f$, it stays split under $g$ by **(a)**. Otherwise $A_i$ meets $J$ by property (1), so under $g$ it contains both $y$ (colour $c$) and a point of $J$ (colour $c'$), making it split.
+2. **Only countably many coloured points are unsettled under $g$.** Any point $z$ coloured and unsettled under $g$ either belongs to the countable set $J$, or was already coloured under $f$ and (by **(a)**) was already unsettled under $f$; only countably many points are of the second kind because $(f, \ell)$ is a state.
+3. **One-set guards for new points $w \in J$.** For each $w \in J$, pick an index $j = q(w)$ as in property (2): $A_j$ is unsplit under $f$, $y \in A_j$, and $A_j \cap J = \{w\}$. Since $A_j$ contains $y$ (colour $c$) and $w$ (colour $c'$), $A_j$ is split under $g$, and $m(j) = c'$ because $A_j$ was unsplit under $f$. By **(b)** applied to $f$, $A_j$ contained no point of colour $c'$ under $f$ (as $y \in A_j$). Combined with $A_j \cap J = \{w\}$, this makes $w$ the sole point of colour $c'$ in $A_j$ under $g$. By Lemma 2, $\{q(w)\}$ is a guard of $w$ in $(g, m)$.
+4. **Every point $z$ coloured by $g$ has a guard in $(g, m)$.** There are three cases:
+   * **(i) $f(z) = c$ (same colour as $y$).** Let $G$ be a guard of $z$ in $(f, \ell)$. Every $k \in G$ names a set split under $f$ with label $c$, which stays split with label $c$ under $(g, m)$. Let $A_i$ contain $z$ and be unsplit under $g$; by **(a)** it was unsplit under $f$, so there are $k \in G$ and $x \in A_i \cap A_k$ uncoloured by $f$. By **(b)** for $g$, $A_i$ contains no point of colour $c'$, so $x \notin J$ and hence $x$ stays uncoloured under $g$. Thus $G$ still guards $z$.
+   * **(ii) $z \in J$ (newly painted with colour $c'$).** By Step 3, $\{q(z)\}$ guards $z$ in $(g, m)$.
+   * **(iii) $f(z) = c'$ (opposite colour from $y$).** Let $H$ be a guard of $z$ in $(f, \ell)$, and let $T = J \cap \bigcup_{k \in H} A_k$ be the set of points in $z$'s guard that were just painted. Because $H$ is finite and every $k \in H$ has $\ell(k) = c'$, property (3) guarantees that each $A_k \cap J$ is finite, so $T$ is finite.
 
-Next, we build a one-set guard for each $w\in J$. Pick an index $q(w)$ as in (2) and put $j=q(w)$. Since $A_j$ contains $y$ and meets $J$, $A_j$ is split under $g$, and $m(j)=c'$ because $A_j$ was unsplit under $f$. By (b) applied to $f$, $A_j$ had no point of colour $c'$ under $f$ (as $y\in A_j$). Combined with $A_j\cap J=\{w\}$, this shows that $w$ is the sole point of colour $c'$ in $A_j$ under $g$. By Lemma 2, $\{q(w)\}$ is a guard of $w$ in $(g,m)$.
+     We claim that the finite set $H \cup \{q(w) : w \in T\}$ guards $z$ in $(g, m)$. Every index in this union names a set split under $g$ with label $c'$ under $m$ (for $k \in H$ as in case (i), and for $q(w)$ by Step 3). Now let $A_i$ contain $z$ and be unsplit under $g$, hence unsplit under $f$. Since $H$ guarded $z$ in $(f, \ell)$, there are $k \in H$ and $x \in A_i \cap A_k$ uncoloured by $f$.
+     * If $x \notin J$, then $x$ remains uncoloured under $g$ (and $k \in H$).
+     * If $x \in J$, then $x \in T$, and by Step 3 $\{q(x)\}$ guards $x$ in $(g, m)$; since $A_i$ contains $x$ and is unsplit under $g$, $A_i$ contains a point of $A_{q(x)}$ uncoloured by $g$.
 
-Finally, we check that every point $z$ coloured by $g$ has a guard in $(g,m)$. There are three cases:
+Thus $(g, m)$ is a state extending $f$ in which $y$ is settled. $\square$
 
-(i) $f(z)=c$. Let $G$ be a guard of $z$ in $(f,\ell)$. Every $k\in G$ names a set split under $f$ with label $c$, which stays split with label $c$ under $(g,m)$. If $A_i$ contains $z$ and is unsplit under $g$, then by (a) it is unsplit under $f$, so there are $k\in G$ and $x\in A_i\cap A_k$ uncoloured by $f$. By (b) for $g$, $A_i$ contains no point of colour $c'$, so $x\notin J$ and hence $x$ stays uncoloured under $g$. Thus $G$ still guards $z$.
-
-(ii) $z\in J$. By the claim above, $\{q(z)\}$ guards $z$ in $(g,m)$.
-
-(iii) $f(z)=c'$. Let $H$ be a guard of $z$ in $(f,\ell)$, and put $T=J\cap\bigcup_{k\in H}A_k$. Because $H$ is finite and every $k\in H$ has $\ell(k)=c'$, property (3) implies each $A_k\cap J$ is finite, so $T$ is finite. We claim that $H\cup\{q(w):w\in T\}$ guards $z$ in $(g,m)$. Every index in this finite set names a set split under $g$ with label $c'$ under $m$ (for $k\in H$ as in (i), and for $q(w)$ by the claim above). Now let $A_i$ contain $z$ and be unsplit under $g$, hence unsplit under $f$. Then there are $k\in H$ and $x\in A_i\cap A_k$ uncoloured by $f$. If $x\notin J$, then $x$ remains uncoloured under $g$. If $x\in J$, then $x\in T$, and $\{q(x)\}$ guards $x$ in $(g,m)$; since $A_i$ contains $x$ and is unsplit under $g$, $A_i$ contains a point of $A_{q(x)}$ uncoloured by $g$. $\square$
+---
 
 ## Lemma 5 (closing off)
 
-*For every state $(f,\ell)$, there is a closed partial colouring $g\ge f$.*
+Because each state has only countably many unsettled coloured points, a standard dovetailing schedule settles all of them—and all new points created along the way—in $\omega$ steps.
 
-*Proof.* Write $\mathbb N=\{0,1,2,\dots\}$ and fix a bijection $(p,r)\mapsto\langle p,r\rangle$ from $\mathbb N\times\mathbb N$ to $\mathbb N$ satisfying $p\le\langle p,r\rangle$ (for example $\langle p,r\rangle=2^p(2r+1)-1$). For every state, enumerate its unsettled coloured points by natural numbers $0,1,\dots$ (the list may be empty, finite, or infinite). Construct states $s_0=(f,\ell),s_1,s_2,\dots$ with colourings $f_0\le f_1\le\dots$ recursively as follows. Given $n=\langle p,r\rangle$, we have $p\le n$, so $s_p$ is already defined. If entry $r$ exists on the list of $s_p$, say $y$, then $y$ is coloured by $f_p$ and hence by $f_n$; let $s_{n+1}$ be a state given by Lemma 4 for $s_n$ and $y$. Otherwise set $s_{n+1}=s_n$.
+**Lemma 5.** *For every state $(f, \ell)$, there is a closed partial colouring $g \ge f$.*
 
-Let $g$ be the union of the colourings $f_n$ (remark (d)). Take any point $y$ coloured by $g$, so $y$ is coloured by some $f_p$. If $y$ is settled under $f_p$, then $y$ stays settled under $g$ by (a). Otherwise $y$ appears at some position $r$ on the list of $s_p$; for $n=\langle p,r\rangle$, $y$ becomes settled under $f_{n+1}$ and therefore stays settled under $g$. $\square$
+*Proof.* Write $\mathbb{N} = \{0, 1, 2, \dots\}$ and fix a bijection $(p, r) \mapsto \langle p, r \rangle$ from $\mathbb{N} \times \mathbb{N}$ to $\mathbb{N}$ satisfying $p \le \langle p, r \rangle$ (for example, $\langle p, r \rangle = 2^p(2r + 1) - 1$). For every state, fix an enumeration of its unsettled coloured points by natural numbers $0, 1, \dots$ (the list may be empty, finite, or infinite).
+
+Construct states $s_0 = (f, \ell), s_1, s_2, \dots$ with partial colourings $f_0 \le f_1 \le \dots$ recursively:
+* At step $n$, unpack $n = \langle p, r \rangle$. Because $p \le n$, state $s_p$ is already defined.
+* If entry $r$ exists on the list of $s_p$, say $y$, then $y$ is coloured by $f_p$ and hence by $f_n$; let $s_{n+1}$ be a state given by Lemma 4 for $s_n$ and $y$ (so $y$ is settled under $f_{n+1}$).
+* Otherwise set $s_{n+1} = s_n$.
+
+Let $g$ be the union of the increasing chain of colourings $f_0 \le f_1 \le \dots$ (property **(d)**). Then $g \ge f_0 = f$. Take any point $y$ coloured by $g$; by definition of union, $y$ is coloured by some $f_p$. If $y$ is already settled under $f_p$, then $y$ stays settled under $g$ by **(a)**. Otherwise $y$ appears at some position $r$ on the list of $s_p$; at step $n = \langle p, r \rangle$, $y$ becomes settled under $f_{n+1}$ and therefore stays settled under $g$ by **(a)**. Hence $g$ is closed. $\square$
+
+---
 
 ## Lemma 6 (starting)
 
-*Let $f$ be a closed partial colouring and let $A_a$ be unsplit under $f$. There is a state $(g,m)$ with $f\le g$ in which $A_a$ is split.*
+Finally, we show how to kick off a new stage from any closed partial colouring that still leaves some set $A_a$ unsplit.
 
-*Proof.* Because $f$ is closed, no unsplit set contains any point coloured by $f$. Given any two distinct points $v,w\in A_a$, let $g$ arise from $f$ by painting $v$ with colour $0$ and $w$ with colour $1$. Every set containing both $v$ and $w$, in particular $A_a$, is then split under $g$. Every point coloured by $f$ was settled under $f$ and remains settled under $g$ by (a), so it has the empty guard by (c), and at most $v$ and $w$ are coloured and unsettled under $g$. It remains to choose $v,w$ and labels $m$ so that $v$ and $w$ have guards in $(g,m)$.
+**Lemma 6.** *Let $f$ be a closed partial colouring and let $A_a$ be unsplit under $f$. There is a state $(g, m)$ with $f \le g$ in which $A_a$ is split.*
 
-First, suppose some $A_b$ ($b\ne a$) is unsplit under $f$ and meets $A_a$. By (H), pick distinct points $v,w\in A_a\cap A_b$, and set $m(a)=0$ and $m(i)=1$ for $i\ne a$. Under $g$, both $A_a$ and $A_b$ are split. Since neither set contained a point coloured by $f$, $v$ is the sole point of colour $0$ in $A_a$, and $w$ is the sole point of colour $1$ in $A_b$. By Lemma 2, $\{a\}$ guards $v$ and $\{b\}$ guards $w$.
+*Proof.* Because $f$ is closed, no unsplit set contains any point coloured by $f$ (any coloured point would already be settled, making every set through it split).
 
-Otherwise, no such $b$ exists. Pick any distinct $v,w\in A_a$ and arbitrary labels $m$. Every $A_i$ ($i\ne a$) containing $v$ or $w$ meets $A_a$, so it was already split under $f$ and stays split under $g$. Thus $v$ and $w$ are settled under $g$ and have the empty guard. $\square$
+Given any two distinct points $v, w \in A_a$ (which are necessarily uncoloured by $f$), let $g$ arise from $f$ by painting $v$ with colour $0$ and $w$ with colour $1$. Then:
+* Every set containing both $v$ and $w$—in particular $A_a$—is split under $g$.
+* Every point previously coloured by $f$ was settled under $f$, remains settled under $g$ by **(a)**, and therefore has the empty guard by **(c)**.
+* At most two coloured points ($v$ and $w$) are unsettled under $g$ (certainly countable!).
+
+It remains only to choose $v, w \in A_a$ and labels $m$ so that $v$ and $w$ have guards in $(g, m)$:
+
+* **Case 1: some other unsplit set $A_b$ ($b \ne a$) meets $A_a$.** By **(H)**, $A_a \cap A_b$ has at least two points, so we can pick distinct $v, w \in A_a \cap A_b$. Define $m(a) = 0$ and $m(i) = 1$ for all $i \ne a$. Under $g$, both $A_a$ and $A_b$ are split. Since neither set contained any point coloured by $f$, $v$ is the sole point of colour $0$ in $A_a$, and $w$ is the sole point of colour $1$ in $A_b$. By Lemma 2, $\{a\}$ guards $v$ and $\{b\}$ guards $w$.
+* **Case 2: no other unsplit set meets $A_a$.** Pick any two distinct points $v, w \in A_a$ (which exist because $|A_a| \ge 2$) and arbitrary labels $m$. Every $A_i$ ($i \ne a$) containing $v$ or $w$ meets $A_a$, so by assumption it was already split under $f$ and stays split under $g$. Since $A_a$ is also split under $g$, both $v$ and $w$ are already settled under $g$ and have the empty guard by **(c)**. $\square$
+
+---
 
 ## Proof of the Theorem
 
-Order the closed partial colourings by $\le$. The union of any chain of closed partial colourings is again closed: any point coloured by the union is coloured, hence settled, in some member of the chain, and therefore settled in the union. (The empty chain has the empty colouring as its union.) By Zorn's lemma, there exists a maximal closed partial colouring $f$.
+Order the collection of all closed partial colourings by extension ($\le$).
 
-Suppose some $A_a$ were unsplit under $f$. Lemma 6 would give a state $(g,m)$ with $f\le g$ in which $A_a$ is split, and Lemma 5 would give a closed partial colouring $h$ with $f\le g\le h$. Then $A_a$ would be split under $h$, so $h\neq f$, contradicting the maximality of $f$. Hence every $A_i$ is split under $f$. Giving colour $0$ to all remaining uncoloured points completes the colouring. $\square$
+1. **Chains have upper bounds.** The union of any chain of closed partial colourings (property **(d)**) is again closed: any point coloured by the union is coloured—hence settled—in some member of the chain, and therefore remains settled in the union by **(a)**. (The empty chain has the empty partial colouring as its union, which is trivially closed.)
+2. **Apply Zorn's lemma.** By Zorn's lemma, there exists a maximal closed partial colouring $f$.
+3. **Every $A_i$ is split under $f$.** Suppose for contradiction that some $A_a$ were unsplit under $f$. Lemma 6 would yield a state $(g, m)$ with $f \le g$ in which $A_a$ is split, and Lemma 5 would yield a closed partial colouring $h$ with $f \le g \le h$. Then $A_a$ would be split under $h$ (by **(a)**), so $h \ne f$, contradicting the maximality of $f$.
+
+Giving colour $0$ to all remaining uncoloured points of $X$ completes the desired 2-colouring. $\square$
+
+---
 
 ## What is new and what is borrowed
 
@@ -142,6 +225,8 @@ What appears to be new is the combination: the guards and labels that let these 
 10. J. Klimó, Discrete Appl. Math. 45 (1993) 161-168 (as quoted in [3]).
 11. P. Komjáth, *Set systems with finite chromatic number*, European J. Combin. 10 (1989) 543-549.
 
+---
+
 ## Correspondence with the Lean file
 
 All names except `main` are in the namespace `E602`.
@@ -149,7 +234,7 @@ All names except `main` are in the namespace `E602`.
 | Here | Lean |
 |---|---|
 | hypotheses of the Theorem, (F), (H) | `Family` |
-| partial colouring, $f\le g$ | `Colouring`, its `Preorder` instance |
+| partial colouring, $f \le g$ | `Colouring`, its `Preorder` instance |
 | painting | `Colouring.paint`, `paint_mem`, `paint_notMem`, `le_paint` |
 | split, settled, closed | `Split`, `Settled`, `Closed` |
 | guard, state | `Guard`, `State` |
@@ -158,7 +243,7 @@ All names except `main` are in the namespace `E602`.
 | Lemma 1 | `Taken`, `exists_hitting` |
 | Lemma 2 | `guard_of_lone` |
 | Lemma 3 | `SettlingSet`, `exists_settlingSet` |
-| Lemma 4: $m$, $f\le g$, $y$ settled | `State.relabel`, `SettlingSet.le`, `SettlingSet.settled` |
+| Lemma 4: $m$, $f \le g$, $y$ settled | `State.relabel`, `SettlingSet.le`, `SettlingSet.settled` |
 | Lemma 4: claim and case (ii) | `SettlingSet.guard_new` |
 | Lemma 4: cases (i), (iii) | `SettlingSet.guard_same`, `SettlingSet.guard_other` |
 | Lemma 4 | `exists_settle` |
@@ -168,4 +253,4 @@ All names except `main` are in the namespace `E602`.
 | Theorem | `exists_colouring` |
 | statement in words | `main` |
 
-In Lemma 5, the Lean file makes two technical adjustments: a list is an infinite sequence that may contain blanks (and possibly more points than needed), and whenever a step's entry is blank or not coloured by $f_n$, $s_{n+1}$ is only required to extend $s_n$. The pairing bijection $\langle p,r\rangle$ in Lean is `Nat.pair`.
+In Lemma 5, the Lean file makes two technical adjustments: a list is an infinite sequence that may contain blanks (and possibly more points than needed), and whenever a step's entry is blank or not coloured by $f_n$, $s_{n+1}$ is only required to extend $s_n$. The pairing bijection $\langle p, r \rangle$ in Lean is `Nat.pair`.

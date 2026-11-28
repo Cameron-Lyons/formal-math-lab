@@ -1,19 +1,43 @@
 # Checking marked cases at 125 members
 
-A putative admissible family of size 125 has at least four marked members. Fix one of maximum size if that size is at least eight. Otherwise fix four of its seven-term progressions. Reflection gives 178 cases of the first kind and 248 of the second. Other marks of the same cardinality remain eligible. Of these 426 cases, the private-triple search excludes 78, the independent large-member argument covers 13 further cases, and 335 remain pending in this search. [Case ledger](full-root-status.txt) · [Marked-set proof](rank-mark.md)
+What happens when we attack the conjectured boundary $t(16) = 124$ directly—trying to rule out an unrestricted 125-member family case by case? This note documents the partial elimination search across the **426 canonical root cases** induced by the 363-mask rank certificate, along with the replayable status ledger for the cases solved so far and those left open for resumption.
 
-The [replay program](small_root_search.cpp) uses the 504 private nonprogression triples to bound the possible completions of the fixed root sets. It first tests the current candidate family. It then tries each possible nonprogression triple as an additional fixed member. A triple whose inclusion rules out 125 members can be removed from the candidate list for all subsequent tests. Once all such triples have been excluded, the case closes because every 125-family must contain one. [Compulsory triple proof](nonprogression-triples.md)
+## The 426 root cases and current progress
 
-Each test uses the following bounds.
+By the [marked-set proof](rank-mark.md), any hypothetical admissible family $F$ of 125 subsets of $[16]$ has empty total intersection and contains **at least four marked members** from the fixed list of 363 masks (every marked set contains a seven-term progression, so has size at least 7). Partition all possibilities by the maximum size $m$ of a marked member in $F$:
 
-- At most 93 members have five or more elements. A second application of the private-triple bound to the available large candidates may lower this upper bound in a particular case. The remaining members must have at most four elements. [Five-element bound](five-or-more.md)
-- At least two members have at most three elements. [Four-element bound](four-or-more.md)
-- A completion must contain enough mutually compatible small candidates and enough marked candidates to meet both requirements. Partitioning each pool into classes of mutually incompatible candidates tests these requirements.
-- For each remaining candidate of size two through four, fix it temporarily and apply the same private-triple budget used in the four-element proof. Price only triples meeting every fixed member of size at most four. The total discount is bounded by partitioning the low-cost candidates into classes of incompatible sets. Remove a candidate if the resulting bound is below 125. Repeating this step can remove further candidates. [Private-triple argument](four-or-more.md#excluding-four-element-candidates) · [Shared implementation](private_triples.hpp)
+- **Large singleton root ($m \ge 8$):** Fix a marked member of maximum size $m$. Identifying sets with their reflections ($i \mapsto 17 - i$) gives **178** canonical cases. (Other marked sets of size up to $m$ remain eligible.)
+- **Seven-term quartet root ($m = 7$):** Every marked member is itself a seven-term progression; fix four distinct marked members. Among the 14 seven-term progressions, there are **248** pairwise-compatible quartets up to reflection.
 
-## Replay
+That gives $178 + 248 = \mathbf{426}$ canonical cases in total. Current status recorded in the [case ledger](full-root-status.txt):
 
-Compile with a C++20 compiler in this directory. An unrestricted singleton-root ID is its numerical mask. For a quartet, sort the fourteen seven-term progressions by increasing mask, encode the indices of the four selected ones as a 14-bit signature, and add 65,536. A quartet and its reflection use the lexicographically smaller of the two sorted lists of four masks.
+| Status | Cases | How handled |
+| --- | ---: | --- |
+| Closed by private-triple search (`closed`) | 78 | Excluded directly by `small_root_search.cpp` |
+| Closed by large-member bound (`large`) | 13 | Root has size $\ge 13$, excluded by `large_members.cpp` |
+| **Total excluded** | **91** | — |
+| Pending (`open` / `budget`) | 335 | Recorded in `full-root-status.txt` for resumption |
+
+## How the private-triple search works
+
+The [replay program](small_root_search.cpp) uses the 504 private nonprogression triples ([shared implementation](private_triples.hpp)) to bound completions of each root case:
+
+1. **Test the root pool directly.** First run the bounds below on the full candidate pool compatible with the fixed root(s).
+2. **Eliminate nonprogression triples one by one.** Every 125-member family must contain at least one nonprogression triple ([compulsory triple proof](nonprogression-triples.md)). The program temporarily fixes each still-available nonprogression triple $T$ as an additional member. If fixing $T$ yields an upper bound below 125, $T$ is permanently deleted from the candidate pool for all subsequent tests in that case. If every nonprogression triple is eliminated, the case closes!
+
+Each bound evaluation combines four constraints:
+
+- **Five-element ceiling:** At most 93 members can have size $\ge 5$ ([five-element bound](five-or-more.md)). Applying the private-triple bound locally to the available size-$\ge 5$ candidates can tighten this ceiling further in a given case, forcing even more members of size $\le 4$.
+- **Small-set floor:** At least 2 members must have size at most three ([four-element bound](four-or-more.md)).
+- **Pool colorings:** Any valid completion must pick enough mutually compatible small candidates and enough marked candidates to satisfy the size and mark requirements. Partitioning each pool into classes of mutually incompatible candidates (each supplying at most one member) tests both requirements directly.
+- **Iterative small-candidate pruning:** For each remaining candidate of size 2 through 4, fix it temporarily and run the localized private-triple budget from the [four-element proof](four-or-more.md#excluding-four-element-candidates)—pricing only nonprogression triples that intersect *every* currently fixed member of size at most four, and bounding low-cost discounts via incompatible color classes. Whenever the resulting upper bound is below 125, discard that candidate permanently and repeat until convergence.
+
+## Case ID encoding and replay
+
+Compile with a C++20 compiler from this directory. Each of the 426 canonical cases has a unique integer ID:
+
+- **Singleton root ($m \ge 8$):** The case ID is simply the 16-bit numerical bit mask of the root (in the range $0$ through $65{,}535$, where bit $i$ represents element $i + 1$).
+- **Seven-term quartet ($m = 7$):** Sort the 14 seven-term progressions by increasing bit mask (indices $0$ through $13$), encode the four chosen indices as a 14-bit signature (with 4 bits set), and add $65{,}536$. Between a quartet and its reflection, the canonical representative is whichever has the lexicographically smaller sorted list of four masks.
 
 ```sh
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic small_root_search.cpp -o /tmp/erdos272-roots
@@ -23,13 +47,23 @@ c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic small_root_search.cpp -o /tmp
 /tmp/erdos272-roots full rank.weights 1400
 ```
 
-The replay command validates that the ledger contains every canonical case exactly once and reruns every case marked closed. A `large` entry is a distinct case covered by the independent exclusion of members of size 13 or greater. The ledger checks the size and counts these entries separately. Run the large-member verifier to reproduce their exclusion. [Large-member proof and verifier](README.md#excluding-large-members) The optional numerical case arguments are either a single ID or inclusive lower and upper IDs. One work unit is one call to the private-triple bound. A work limit of zero allows the elimination to run to completion. Each result gives the case ID, state, work used and number of nonprogression triples removed. A `closed` result excludes a 125-family in that case. The state `budget` records a reached work limit. The state `open` means elimination reached a fixed point with candidates still present.
+**Understanding the commands and output:**
+
+- `list` prints all 426 canonical case IDs.
+- `replay full-root-status.txt` validates that the ledger contains every canonical case exactly once and reruns every case marked `closed`.
+- A `large` entry in the ledger marks one of the 13 distinct root cases of size $\ge 13$, which are covered independently by the [large-member proof and verifier](README.md#excluding-large-members); the ledger checks the root size and counts these entries separately (run `large_members.cpp` to reproduce their exclusion).
+- Passing a single numeric argument (like `1400`) or an inclusive range (`0 65535`) runs those case IDs directly. One *work unit* is one call to the private-triple bound; setting the work limit to `0` lets elimination run to completion.
+- Each result line prints the case ID, final state, work units used, and number of nonprogression triples removed:
+  - `closed`: a 125-member family is ruled out in this case.
+  - `budget`: the work limit was reached before elimination finished.
+  - `open`: elimination reached a fixed point with candidates still surviving.
 
 ## Intersections of length at most six
 
-In `quartets` mode the checker takes the first four marked members in the order supplied by the enumerator. It allows all later marks, of any size. The private-triple bound on the eligible large sets gives the number of small sets needed. The checker tries fixing individual nonprogression triples and also tests the candidates left after the proved exclusions. [Proof and full replay](short-intersections.md)
+The same executable also supports the shorter-intersection computations:
 
-The `short` mode below checks individual quartets of seven-term progressions, using the same 248 IDs as the unrestricted search.
+- **`quartets` mode:** Takes the first four marked members (from the 101-mark list) in the enumerator's order, allowing all later marks of any size. The private-triple bound on eligible sets of size $\ge 5$ sets the required number of small sets; the checker then fixes individual nonprogression triples and re-checks the remaining pool after proved exclusions. See [short-intersections.md](short-intersections.md) for the proof and full replay command.
+- **`short` mode:** Checks individual quartets of seven-term progressions under the length-$\le 6$ intersection restriction, using the same 248 quartet IDs as the unrestricted search:
 
 ```sh
 /tmp/erdos272-roots short list

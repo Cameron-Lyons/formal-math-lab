@@ -1,6 +1,8 @@
 # Erdős Problem #602: Property B for countable sets without singleton intersections
 
-Take a family of any size consisting of countably infinite sets, where any two sets share finitely many points and never exactly one. In a 1987 paper of Erdős, Komjáth asked whether the points can always be 2-colored so that every set in the family contains both colors. Our Lean 4 proof answers yes in full, working in ZFC with no extra assumptions.
+Take a family of **any** size (possibly uncountable) consisting of countably infinite sets, such that any two distinct sets share only finitely many points and never share **exactly one** point. Can we always 2-color the underlying points so that every set in the family contains both colors (that is, does the family have **Property B**, named after Felix Bernstein)?
+
+In a 1987 paper of Erdős, Komjáth asked whether the answer is always yes. This project gives a machine-checked Lean 4 proof answering **yes in full**, working in ZFC with no extra set-theoretic assumptions such as the Continuum Hypothesis.
 
 | Field | Summary |
 | --- | --- |
@@ -18,11 +20,17 @@ Take a family of any size consisting of countably infinite sets, where any two s
 | `main` | Every family of countably infinite sets with finite pairwise intersections, none of size 1, has Property B. |
 | `E602.exists_colouring` (internal) | Same conclusion for countable sets with at least two points each. |
 
-## Idea of the proof
+## How the proof works
 
-We color countably many points at a time, calling a set *split* once it contains both colors. To settle a colored point $y$, we assign the opposite color to a minimal set $J$ of uncolored points that meets every unsplit set through $y$.
+We build the 2-coloring in countable stages and extend to the entire family by **Zorn's lemma**. Call a set **split** once it contains points of both colors, and call a colored point **settled** once every set through it is split.
 
-Each colored point carries a *guard*: finitely many split sets that contain an uncolored point of every unsplit set through it. Because no two sets meet in a single point, every newly colored point gets a guard consisting of a single set. Labels on the split sets ensure that old guards lose only finitely many points, so they can be repaired. Repeating this $\omega$ times closes off a countable piece, and Zorn's lemma extends the coloring to every set.
+To settle a point $y$ of color $c$, we choose a **minimal hitting set** $J$ of uncolored points meeting every unsplit set through $y$ (meaning every $w \in J$ is the sole point of $J$ in some "private" unsplit set $A_{q(w)}$ through $y$) and paint $J$ with the opposite color $c'$. Two mechanisms—**guards** and **0/1 labels**—prevent this process from ever getting stuck or blowing up into an infinite cascade:
+
+* **Guards keep $J$ countable and intersections finite.** Every colored point $z$ carries a *guard*: finitely many split sets whose union contains an uncolored point of every unsplit set through $z$. Drawing $J$ from the sets in $y$'s guard ensures that $J$ is countable and meets each unsplit set through $y$ in a nonempty *finite* set, so a minimal hitting set $J$ always exists.
+* **No singleton intersections $\implies$ instant 1-set guards for new points.** After painting $J$ with color $c'$, each $w \in J$ becomes the unique point of color $c'$ in its private newly split set $A_{q(w)}$. Because no two sets meet in a single point, every unsplit set through $w$ shares a second point with $A_{q(w)}$, which can have neither color $c'$ nor color $c$—so it must be uncolored! Thus $\{q(w)\}$ alone guards $w$.
+* **0/1 labels keep guard repairs finite.** Each split set carries a label $0$ or $1$: points of color $c$ are guarded only by sets of label $c$, and every set newly split by painting $J$ receives label $c'$. Existing points of color $c$ need no guard repair at all. Meanwhile, because $J$ lives inside finitely many label-$c$ sets and every guard of a color-$c'$ point consists of label-$c'$ sets (hence distinct sets!), finite pairwise intersections guarantee that each old guard loses only *finitely many* points to $J$. Adding the 1-set guards of those finitely many points repairs the guard cleanly!
+
+Repeating this settling step $\omega$ times closes off a countable piece (settling every newly colored point), and Zorn's lemma on closed partial colorings splits every set in the family. For the complete written proof with intuition and Lean correspondence, see [Erdos602.md](Erdos602.md).
 
 ## Reproduce
 
@@ -34,9 +42,12 @@ lake build
 LEAN_NUM_THREADS=1 lake env leanchecker Erdos602
 ```
 
-`lake build` checks the proof, confirms that `main` matches the upstream statement type (via `type_of%`), and verifies that `main` uses only `propext`, `Classical.choice`, and `Quot.sound`. `leanchecker` replays the module in the Lean kernel. The first build also compiles the imported part of Formal Conjectures (pinned at commit `9097e2f9`). We use only its statements, definitions, and proved lemmas, never any theorem left as `sorry`.
+**Trust boundary and verification notes:**
 
-The mathematics, Lean proof, and literature searches were produced by AI agents. No human has reviewed this project.
+* `lake build` checks the proof, confirms that `main` matches the upstream statement type (via `type_of%`), and verifies that `main` uses only the standard axioms `propext`, `Classical.choice`, and `Quot.sound`.
+* `leanchecker` replays the compiled module independently in the Lean kernel.
+* The first build also compiles the imported part of Formal Conjectures (pinned at commit `9097e2f9`). We use only its statements, definitions, and proved lemmas, never any theorem left as `sorry`.
+* The mathematics, Lean proof, and literature searches were produced by AI agents. No human has reviewed this project.
 
 ## References and attribution
 

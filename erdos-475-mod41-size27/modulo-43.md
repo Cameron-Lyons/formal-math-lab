@@ -1,17 +1,36 @@
 # Graham's rearrangement problem modulo 43
 
-**Theorem.** Every subset of the nonzero residues modulo 43 has an ordering with distinct nonempty partial sums.
+Every subset of the nonzero residues modulo $43$ can be ordered so that its walk of running sums never revisits a vertex (except on the final return to $0$ when the set sums to zero).
 
-By the zero-sum reduction, it suffices to order sets $A$ with $\sum A=0$. For such a set, let $t=\sum_{a\in A}a^{-1}$ modulo 43. If $t\ne0$, multiplying every element of $A$ by $t$ makes its reciprocal sum $1$. Scaling also multiplies every partial sum by the same factor. Thus it suffices to check zero-sum sets with reciprocal sum **0 or 1**. [Zero-sum reduction](README.md#reduction-to-sets-of-sum-zero)
+**Theorem.** Every subset of the nonzero residues modulo $43$ has an ordering with distinct nonempty partial sums.
 
-The verifier lists subsets of $\{1,\ldots,21\}$ and of $\{22,\ldots,42\}$ and joins halves with the required totals. Each qualifying set occurs exactly once, including the empty and full sets. It found and replayed a valid ordering for **all 4,757,514,809 qualifying sets**. This proves the theorem. [Verifier](verify_reciprocal.cpp)
+## Proof via reciprocal-sum normalization
+
+Two elementary reductions collapse the $2^{42}$ subsets of $\mathbb{F}_{43}^\times$ into a tractable exhaustive check:
+
+1. **Reduce to sum zero.** By the [zero-sum reduction](README.md#reduction-to-sets-of-sum-zero), it suffices to find a valid ordering for every subset $A \subseteq \mathbb{F}_{43}^\times$ with $\sum_{a \in A} a \equiv 0 \pmod{43}$.
+2. **Normalize the reciprocal sum.** For such a zero-sum set $A$, define its reciprocal sum
+   $$t = \sum_{a \in A} a^{-1} \pmod{43}.$$
+   Multiplying every element of $A$ by a nonzero constant multiplies every partial sum by that same constant, preserving distinctness and the zero-sum property, while dividing the reciprocal sum by that constant. Whenever $t \ne 0$, the scaled set $tA$ has reciprocal sum $1$. It therefore suffices to verify only zero-sum sets whose reciprocal sum is **0 or 1**.
+
+**Exhaustive check.** The C++20 verifier ([verify_reciprocal.cpp](verify_reciprocal.cpp)) splits $\mathbb{F}_{43}^\times$ into two equal halves, $\{1, \ldots, 21\}$ and $\{22, \ldots, 42\}$, lists all $2^{21}$ subsets of each half, and joins pairs whose ordinary sums total $0$ and whose reciprocal sums total $0$ or $1$. Every qualifying set splits uniquely across the two halves and therefore appears exactly once, including the empty and full sets.
+
+The verifier found and independently replayed a valid ordering for **all 4,757,514,809 qualifying sets**, completing the proof of the theorem. $\square$
+
+## Reproduction
+
+Run from this directory with a C++20 compiler (OpenMP is optional):
 
 ~~~sh
 c++ -std=c++20 -O3 -march=native -fopenmp -DGRAHAM_PRIME=43 verify_reciprocal.cpp -o /tmp/graham43
 /tmp/graham43
 ~~~
 
-An independent verification used rotations of subsets in the order of powers of 3. It found 2,784,081,790 cycles and matched the expected count at every searched size. To reproduce that check, compile the rotation verifier with the same flags and run it with `--all`. The command below audits its saved transcript. [Rotation argument](zero-sum.md) · [Rotation verifier](verify_zero_sum.cpp) · [Per-size counts](modulo-43-counts.txt)
+## Independent rotation cross-check
+
+A completely independent verification uses multiplicative rotations — ordering $\mathbb{F}_{43}^\times$ by successive powers of the primitive root $3$, so scaling corresponds to cyclically rotating a 42-bit word (see [zero-sum.md](zero-sum.md) for the weighting argument). That check found **2,784,081,790** cycles and matched the exact expected count at every searched size.
+
+To reproduce the rotation search, compile [verify_zero_sum.cpp](verify_zero_sum.cpp) with the same compiler flags (including `-DGRAHAM_PRIME=43`) and run it with `--all`. The command below audits its saved per-size transcript ([modulo-43-counts.txt](modulo-43-counts.txt)):
 
 ~~~sh
 python3 verify_counts.py --prime 43 modulo-43-counts.txt

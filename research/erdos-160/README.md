@@ -626,7 +626,8 @@ c++ -O3 -std=c++20 -Wall -Wextra -Werror cyclic_block.cpp -o /tmp/erdos160-cycli
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic puncture54.cpp -o /tmp/erdos160-puncture54
 /tmp/erdos160-puncture54 six_color_punctures.txt
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic puncture71.cpp -o /tmp/erdos160-puncture71
-python3 puncture78.py --solver /tmp/erdos160-puncture71 --jobs 3 --checkpoint /tmp/erdos160-puncture78
+checkpoint_dir=$(mktemp -d)
+python3 puncture78.py --solver /tmp/erdos160-puncture71 --jobs 3 --checkpoint "$checkpoint_dir"
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic class_extensions.cpp -o /tmp/erdos160-classes
 /tmp/erdos160-classes colorings.txt
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic class_bounds.cpp -o /tmp/erdos160-class-bounds
@@ -650,6 +651,7 @@ python3 verify_deletions.py --check-repairs /tmp/erdos160-repair --radius 14
 ### Trust boundaries and notes
 
 - The proper-subset theorem (`Erdos160.proper_subset_colorable`) is verified inside Lean 4's kernel ([Deletions.lean](Deletions.lean)) and cross-checked in Python ([verify_deletions.py](verify_deletions.py)).
+- The six-color exclusion for single deletions from $[78]$ uses the compiled puncture solver. A fresh checkpoint directory runs every solver case. Reuse the directory to resume an interrupted run.
 - The class-extension exclusions, periodic exclusions and edit-distance lower bounds rely on compiled C++20 exhaustive checks running outside Lean. The periodic verifier also checks the length-69 positive witness; to test a single period and length directly (for example, period 41 on $[78]$), run `/tmp/erdos160-periods 41 78`.
 - The reflection census at lengths 71 and 73 was also replayed using CaDiCaL 2.1.2 with internal checking. The script accepts an external binary through `--solver` and can export the CNF through `--dimacs`. The arbitrary-palette one-transposition proof uses a separate Python constraint search.
 - **Open status:** The unrestricted search has produced neither a 7-color witness on $[78]$ nor an exclusion of all such witnesses.

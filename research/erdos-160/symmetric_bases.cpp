@@ -36,6 +36,7 @@ class PrefixSearch {
     const int cyclic_max;
     std::string word;
     std::uint64_t nodes = 0;
+    std::uint64_t longest_words = 0;
     int longest = 0;
     int largest_cycle = 0;
     std::set<std::string> interval_extremals;
@@ -48,6 +49,7 @@ class PrefixSearch {
         if (n > interval_max)
             throw std::logic_error("longer interval found: " + word);
         if (n == interval_max) {
+            ++longest_words;
             std::string reversed(word.rbegin(), word.rend());
             interval_extremals.insert(std::min(word, normalize(reversed)));
         }
@@ -97,9 +99,9 @@ class PrefixSearch {
         }
         std::cout << palette << " colors, maximum interval " << longest
                   << ", maximum cyclic modulus " << largest_cycle << ", " << nodes
-                  << " prefixes. At maximum length: " << interval_extremals.size()
-                  << " interval words up to color renaming and reversal; "
-                  << cyclic_extremals.size() << " cyclic words up to color renaming.\n";
+                  << " prefixes. At maximum length: interval words up to color renaming = "
+                  << longest_words << ", reversal classes = " << interval_extremals.size()
+                  << ", cyclic words up to color renaming = " << cyclic_extremals.size() << ".\n";
         std::cout << "Interval witness: " << *interval_extremals.begin() << '\n';
     }
 };

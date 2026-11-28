@@ -1,7 +1,0 @@
-name = "nine-bit-snake"
-version = "1.0.0"
-defaultTargets = ["Snake"]
-
-[[lean_lib]]
-name = "Snake"
-roots = ["Snake", "Bank", "Results", "Closure", "KernelChecks", "EndProfiles"]

@@ -1,6 +1,0 @@
-name = "e670_order10"
-version = "1.0.0"
-defaultTargets = ["E670"]
-
-[[lean_lib]]
-name = "E670"

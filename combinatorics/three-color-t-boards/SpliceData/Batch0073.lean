@@ -1,0 +1,18 @@
+import SpliceData.Batch0070
+
+set_option Elab.async false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 0
+
+namespace TBoards.SpliceData
+open Splice
+
+private def batch0073Codes : List Nat := [
+  573718689154]
+
+def batch0073 : Group.Batch template4.capOK where
+  codes := batch0073Codes
+  values := batch0073Codes.map (decodePiece 0 5)
+  valid := by decide +kernel
+  fingerprints := by decide +kernel
+end TBoards.SpliceData

@@ -1,8 +1,13 @@
 # Independent tool repository; linked from the collection README.
 /lake-compat/
 
+# Local SAT run artifacts and downloaded solver binaries.
+/combinatorics/queen-domination-48/sat/runs/
+/combinatorics/queen-domination-48/sat/tools/
+
 # Lean build caches and local environments.
 .lake/
+.ruff_cache/
 .venv/
 __pycache__/
 *.pyc

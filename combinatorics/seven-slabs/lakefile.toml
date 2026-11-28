@@ -1,0 +1,16 @@
+name = "seven-slabs"
+version = "0.1.0"
+defaultTargets = ["SevenSlabs"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+[[lean_lib]]
+name = "SlabSearch"
+roots = ["SlabSearch.Shapes", "SlabSearch.Enumerate", "SlabSearch.Sections"]
+precompileModules = true
+
+[[lean_lib]]
+name = "SevenSlabs"

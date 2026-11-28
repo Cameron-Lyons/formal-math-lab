@@ -1,7 +1,0 @@
-name = "height14"
-version = "1.0.0"
-defaultTargets = ["Height14"]
-precompileModules = true
-
-[[lean_lib]]
-name = "Height14"

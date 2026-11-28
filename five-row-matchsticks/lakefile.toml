@@ -1,6 +1,0 @@
-name = "matchstick_proof"
-version = "1.0.0"
-defaultTargets = ["Matchsticks"]
-
-[[lean_lib]]
-name = "Matchsticks"

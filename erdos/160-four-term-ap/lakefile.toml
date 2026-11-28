@@ -1,0 +1,16 @@
+name = "erdos160"
+version = "0.1.0"
+defaultTargets = ["Erdos160Growth"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+[[lean_lib]]
+name = "Erdos160Growth"
+roots = [
+  "ShortLift", "CyclicTransfer", "CyclicProduct", "PaletteMinima", "GrowthLimit",
+  "SymmetricTransfer", "SymmetricProduct", "SymmetricMinima",
+  "Critical54", "Deletions", "ProgressionFamilies"
+]

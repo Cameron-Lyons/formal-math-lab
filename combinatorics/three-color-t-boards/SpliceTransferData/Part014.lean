@@ -1,0 +1,122 @@
+import SpliceTransferData.Part012
+
+set_option Elab.async false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 0
+
+namespace TBoards.SpliceTransferData
+open Splice
+
+private def template112 : Group where
+  k := 5
+  pivot := [1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 1]
+  caps := ([34888846537] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 18451832136215459355
+  lowerMask := 2417833187397122133952996
+private def selection112 : List Nat := [3, 839, 60, 1254]
+
+def group112 := Transfer.assemble SpliceExtensionData.group13 template112 selection112
+theorem group112_checked : group112.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group13_checked <;> decide +kernel
+theorem group112_size : group112.size = 4 := by decide +kernel
+
+private def template113 : Group where
+  k := 5
+  pivot := [1, 2, 2, 2, 0, 1, 0, 1, 2, 2, 0]
+  caps := ([200475064396] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 335607994384004665
+  lowerMask := 2417851303621263965407686
+private def selection113 : List Nat := [1154, 119, 0, 0]
+
+def group113 := Transfer.assemble SpliceExtensionData.group9 template113 selection113
+theorem group113_checked : group113.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group9_checked <;> decide +kernel
+theorem group113_size : group113.size = 4 := by decide +kernel
+
+private def template114 : Group where
+  k := 5
+  pivot := [1, 1, 2, 2, 2, 1, 1, 0, 1, 1, 2]
+  caps := ([136544743179, 294224527935] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 1211287007926671689020955
+  lowerMask := 1206564631302586660391396
+private def selection114 : List Nat := [205, 722]
+
+def group114 := Transfer.assemble SpliceExtensionData.group13 template114 selection114
+theorem group114_checked : group114.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group13_checked <;> decide +kernel
+theorem group114_size : group114.size = 4 := by decide +kernel
+
+private def template115 : Group where
+  k := 5
+  pivot := [1, 1, 1, 0, 1, 2, 2, 0, 1, 1, 1]
+  caps := ([272113206859] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 311676386047234327328315
+  lowerMask := 2106175253182024022084036
+private def selection115 : List Nat := [7726, 75, 0, 35]
+
+def group115 := Transfer.assemble SpliceExtensionData.group7 template115 selection115
+theorem group115_checked : group115.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group7_checked <;> decide +kernel
+theorem group115_size : group115.size = 4 := by decide +kernel
+
+private def template116 : Group where
+  k := 5
+  pivot := [1, 1, 0, 0, 2, 2, 0, 0, 0, 2, 2]
+  caps := ([3621513844] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 83084694734690854687
+  lowerMask := 2417768554534523658557664
+private def selection116 : List Nat := [2572, 42, 60, 52]
+
+def group116 := Transfer.assemble SpliceExtensionData.group6 template116 selection116
+theorem group116_checked : group116.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group6_checked <;> decide +kernel
+theorem group116_size : group116.size = 4 := by decide +kernel
+
+private def template117 : Group where
+  k := 5
+  pivot := [1, 0, 1, 0, 1, 2, 2, 0, 1, 1, 0]
+  caps := ([272375759497] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 28429062265708885523
+  lowerMask := 2417823210166992640526828
+private def selection117 : List Nat := [129, 0, 2290, 31]
+
+def group117 := Transfer.assemble SpliceExtensionData.group7 template117 selection117
+theorem group117_checked : group117.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group7_checked <;> decide +kernel
+theorem group117_size : group117.size = 4 := by decide +kernel
+
+private def template118 : Group where
+  k := 5
+  pivot := [1, 0, 0, 0, 2, 2, 0, 0, 1, 1, 0]
+  caps := ([35448354010] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 27915599229944608027
+  lowerMask := 2417823723630028404804324
+private def selection118 : List Nat := [407, 0, 82, 0]
+
+def group118 := Transfer.assemble SpliceExtensionData.group8 template118 selection118
+theorem group118_checked : group118.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group8_checked <;> decide +kernel
+theorem group118_size : group118.size = 4 := by decide +kernel
+
+private def template119 : Group where
+  k := 5
+  pivot := [1, 0, 0, 0, 2, 2, 0, 0, 0, 2, 2]
+  caps := ([41474975167] : List Nat).map Packed.cap
+  tails := []
+  upperMask := 239809960736928834335
+  lowerMask := 2417611829268521420578016
+private def selection119 : List Nat := [3380, 0, 39, 0]
+
+def group119 := Transfer.assemble SpliceExtensionData.group6 template119 selection119
+theorem group119_checked : group119.Checked := by
+  apply Transfer.assemble_checked _ _ _ SpliceExtensionData.group6_checked <;> decide +kernel
+theorem group119_size : group119.size = 4 := by decide +kernel
+
+end TBoards.SpliceTransferData

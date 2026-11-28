@@ -1,0 +1,8 @@
+name = "covering61"
+version = "0.1.0"
+defaultTargets = ["CoveringProofs"]
+
+[[lean_lib]]
+name = "CoveringProofs"
+roots = ["Covering", "Repairs", "RepairCount", "RepairSearch"]
+precompileModules = true

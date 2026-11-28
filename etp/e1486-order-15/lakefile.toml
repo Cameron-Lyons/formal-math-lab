@@ -1,0 +1,18 @@
+name = "e1486_simple"
+version = "0.1.0"
+defaultTargets = ["Simple"]
+
+[[lean_lib]]
+name = "E1486"
+roots = ["E1486", "Normalize", "LabelMoves", "MaxKey", "Moves", "SymmetryCore"]
+
+[[lean_lib]]
+name = "Simple"
+roots = [
+  "Simple.NoTable",
+  "Simple.Order12.NoTable",
+  "Simple.Order14.NoTable",
+  "Simple.Order17",
+  "Simple.Order26",
+]
+globs = ["Simple.+"]

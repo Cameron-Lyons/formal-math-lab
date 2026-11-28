@@ -1,0 +1,7 @@
+name = "height14"
+version = "0.1.0"
+defaultTargets = ["Height14"]
+precompileModules = true
+
+[[lean_lib]]
+name = "Height14"

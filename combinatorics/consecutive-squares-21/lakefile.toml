@@ -1,0 +1,7 @@
+name = "squares42"
+version = "0.1.0"
+defaultTargets = ["Squares42"]
+
+[[lean_lib]]
+name = "Squares42"
+roots = ["Squares", "Width43", "Projection", "Bridge", "Guillotine"]

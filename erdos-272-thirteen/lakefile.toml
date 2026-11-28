@@ -1,6 +1,0 @@
-name = "erdos-272-thirteen"
-version = "1.0.0"
-defaultTargets = ["Erdos272"]
-
-[[lean_lib]]
-name = "Erdos272"

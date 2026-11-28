@@ -14,7 +14,7 @@ The Lean 4 proofs here formally verify all 131 published 191-step snakes and sho
 | Status | Partial results (156-step prefix closure and endpoint novelty test). Existence of a 192-step snake or a new 191-step class in $Q_9$ remains open. |
 | Main theorems | `Snake.bank_no_192` ([Results.lean](Results.lean)), `Snake.bank_no_new_191`, `Snake.outside_bank_of_end_profiles` ([Closure.lean](Closure.lean)); kernel-checked 171-step exclusion and bank validity in [KernelChecks.lean](KernelChecks.lean) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; 131-bank validity, 17-step endpoint test, and 171-step exclusion are kernel-checked; 156-step exhaustive closures and pairwise inequivalence use `native_decide`) |
-| Prior art | Checked 24 November 2026: Orland et al. published the 131 classes of length 191 and noted no 1-step extension exists; Kunt, Koch, and Park also identify dimension 9 as the smallest open case. See [PRIOR_ART.md](../PRIOR_ART.md#nine-bit-snake-in-the-box). |
+| Prior art | Checked 24 November 2026: Orland et al. published the 131 classes of length 191 and noted no 1-step extension exists; Kunt, Koch, and Park also identify dimension 9 as the smallest open case. |
 
 ## Lean results
 
@@ -39,4 +39,4 @@ lake build
 
 - [Orland et al., `arXiv:2607.15270v3`, §8](https://arxiv.org/html/2607.15270v3#S8) and [pinned published data (`Math-AI-Caltech/Snake-in-the-Box`)](https://github.com/Math-AI-Caltech/Snake-in-the-Box/tree/46c765399353a588ea50444a5d6610f53102b1c2)
 - [Kunt, Koch, and Park, `arXiv:2611.25268`](https://arxiv.org/abs/2611.25268)
-- [Bank.lean](Bank.lean) and [prior-art audit](../PRIOR_ART.md#nine-bit-snake-in-the-box)
+- [Bank.lean](Bank.lean)

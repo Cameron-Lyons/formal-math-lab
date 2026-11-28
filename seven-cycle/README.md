@@ -12,7 +12,7 @@ The Ramsey threshold $R_3^2(C_7)$ is the smallest number of vertices $n$ such th
 | Status | Case $C_7$ proved in Lean 4 ($R_3^2(C_7) = 11$). The general odd-cycle family in Problem 22 remains open. |
 | Main theorems | `SevenCycle.exact_threshold (n : Nat) : ForcesSeven n ↔ 11 ≤ n`, `SevenCycle.eleven_forces` in [SevenCycle.lean](SevenCycle.lean) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; pure kernel proof) |
-| Prior art | Checked 22 November 2026: no earlier proof or Lean formalization of $R_3^2(C_7) = 11$ was found (bounded search, not a claim of absolute priority). The lower-bound coloring specializes the paper's colored-$K_4$ template. See [PRIOR_ART.md](../PRIOR_ART.md#seven-cycle). |
+| Prior art | Checked 22 November 2026: no earlier proof or Lean formalization of $R_3^2(C_7) = 11$ was found (bounded search, not a claim of absolute priority). The lower-bound coloring specializes the paper's colored-$K_4$ template. |
 
 ## Proof overview
 
@@ -36,4 +36,3 @@ lake build
 
 - [Allen, Böttcher, Clemens, Hamann, Skokan, and Taraz, `arXiv:2607.03243v1`, Problem 22](https://arxiv.org/html/2607.03243v1#Thmtheorem22)
 - [SevenCycle.lean](SevenCycle.lean)
-- [Prior-art audit](../PRIOR_ART.md#seven-cycle)

@@ -36,7 +36,7 @@ $$
 L_{S, h, k}(r, c) = S\big((r + h) \bmod 5,\ p^k(c)\big), \qquad 0 \le h < 5,\ 0 \le k < 3.
 $$
 
-The expanded 45-layer stack lists the seeds in table order (A, then B, then C), with the row shift $h$ varying fastest ([All 45 layers in plain text](stack45.txt)).
+The expanded 45-layer stack lists the seeds in table order (A, then B, then C), with the row shift $h$ varying fastest.
 
 ## Why no monochromatic box can occur
 
@@ -79,8 +79,7 @@ Since no colored rectangle can repeat across layers, any box-free stack has heig
 
 ## Reproduce
 
-Run `lake build` in this directory with Lean 4.36.0. Lean's kernel directly verifies both `BoxFree5x8.coloring45_boxFree` and the exact 540-rectangle partition in `BoxFree5x8.rectangle_coverage` straight from the three seeds, and `BoxFree5x8.exists_boxFree_43` follows by restricting to the first 43 layers. Genkin's independent `check_boxfree.py` also accepts `stack45.txt` and reports zero monochromatic boxes.
+Run `lake build` in this directory with Lean 4.36.0. Lean's kernel directly verifies both `BoxFree5x8.coloring45_boxFree` and the exact 540-rectangle partition in `BoxFree5x8.rectangle_coverage` straight from the three seeds, and `BoxFree5x8.exists_boxFree_43` follows by restricting to the first 43 layers.
 
 - [Lean construction and proof](BoxFree5x8.lean)
-- [All 45 layers in plain text](stack45.txt)
 - [Genkin's checker in supplementary.zip](https://zenodo.org/records/24457907)

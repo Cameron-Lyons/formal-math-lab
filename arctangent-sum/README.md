@@ -16,7 +16,7 @@ The Lean 4 proofs here strengthen the known partial results on several fronts: t
 | Status | Partial results (sparsity and lower bounds). Ruling out all $n \ge 5$ remains open. |
 | Main theorems | `Arxiv.«2607.05739».positive_integer_count_isBigO`, `counterexample_constraints`, `bounded_integer_iff`, `tan_int_exponential`, `not_isIntegerValue_of_residue` in [ArctanSum.lean](ArctanSum.lean) |
 | Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib v4.36.0) |
-| Prior art | Checked 23 November 2026: Ken Ono proved $O(\log N)$, and Formal Conjectures links the earlier Lean formalization of Ono's results while listing the full conjecture as open. See [PRIOR_ART.md](../PRIOR_ART.md#arctangent-sum-conjecture). |
+| Prior art | Checked 23 November 2026: Ken Ono proved $O(\log N)$, and Formal Conjectures links the earlier Lean formalization of Ono's results while listing the full conjecture as open. |
 
 ## How the mathematics works
 
@@ -64,4 +64,3 @@ lake build
 * [Ken Ono, `arXiv:2607.05739`](https://arxiv.org/abs/2607.05739)
 * [Formal Conjectures `TanArctanSum.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Arxiv/2607.05739/TanArctanSum.lean) and [docs](https://google-deepmind.github.io/formal-conjectures/src/FormalConjectures/Arxiv/%C2%AB2607.05739%C2%BB/TanArctanSum/)
 * Four definitions in the Gaussian-integer model in [ArctanBridge.lean](ArctanBridge.lean) come from Formal Conjectures (copyright 2026 The Formal Conjectures Authors, [Apache-2.0 license](https://github.com/google-deepmind/formal-conjectures/blob/main/LICENSE)).
-* [Prior-art audit](../PRIOR_ART.md#arctangent-sum-conjecture)

@@ -1,6 +1,0 @@
-{"order": 2, "result": "unsat", "seconds": 0.002}
-{"order": 3, "result": "unsat", "seconds": 0.003}
-{"order": 4, "result": "unsat", "seconds": 0.011}
-{"order": 5, "result": "unsat", "seconds": 0.106}
-{"order": 6, "result": "unsat", "seconds": 0.635}
-{"order": 7, "result": "interrupted", "reason": "search stopped to redirect research; not an exclusion"}

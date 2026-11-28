@@ -8,9 +8,9 @@ The Lean 4 proof here computes the exact Sprague-Grundy sequence for every $k \g
 | --- | --- |
 | Problem | Manabe's subtraction game with move set $\{3, 8, 11k + 7\}$ ($k \ge 1$), `arXiv:2609.05358v2` Example 1 (residue $7 \bmod 11$) |
 | Status | Proved in Lean 4 for all $k \ge 1$. |
-| Main theorems | `SubtractionGame.grundy_eq_three_iff`, `prefix_formula`, `tail_formula`, `tail_period`, `lower_bound_on_preperiod`, `not_purely_periodic` ([UniqueThree.lean](UniqueThree.lean)); `manabe_eq_three_iff` ([ManabeBridge.lean](ManabeBridge.lean)) |
+| Main theorems | `SubtractionGame.grundy_eq_three_iff`, `prefix_formula`, `tail_formula`, `tail_period`, `lower_bound_on_preperiod`, `not_purely_periodic` ([UniqueThree.lean](UniqueThree.lean)) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; pure kernel proof) |
-| Prior art | Checked 23 November 2026: no earlier proof of the singleton-3 statement for all $k \ge 1$ was found; REUF working notes anticipate the repeating block. See [PRIOR_ART.md](../PRIOR_ART.md#manabes-subtraction-game). |
+| Prior art | Checked 23 November 2026: no earlier proof of the singleton-3 statement for all $k \ge 1$ was found; REUF working notes anticipate the repeating block. |
 
 ## Exact Grundy sequence
 
@@ -49,10 +49,8 @@ Run from this directory with Lean 4.36.0 (stdlib only):
 lake build
 ```
 
-An optional bridge file ([ManabeBridge.lean](ManabeBridge.lean)) contains commands to fetch Manabe's own Lean Grundy definition and check `SubtractionGame.manabe_eq_three_iff` against it.
-
 ## References
 
 * [Manabe, `arXiv:2609.05358v2`, Example 1](https://arxiv.org/html/2609.05358v2#S1)
 * [REUF working notes (`AIM2024`)](https://github.com/ZacharyHenderson111/AIM2024/blob/main/CollectiveNotes/oldVerifiedCases/verifiedcases2023.tex#L374-L418)
-* [UniqueThree.lean](UniqueThree.lean), [Window.lean](Window.lean), and [prior-art audit](../PRIOR_ART.md#manabes-subtraction-game)
+* [UniqueThree.lean](UniqueThree.lean) and [Window.lean](Window.lean)

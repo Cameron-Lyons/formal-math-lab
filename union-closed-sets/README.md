@@ -17,7 +17,7 @@ where $c_* \approx 0.38288525996679$ is the Costa-Sadhu single-coordinate entrop
 | Main theorem | `UCBound.frankl_union_closed_bound` in [UCBound/Main.lean](UCBound/Main.lean) (re-exported by [UCBound.lean](UCBound.lean)) |
 | Axioms | `[propext, Classical.choice, Quot.sound]` only (pure kernel `decide`, zero `native_decide`) |
 | Verification | `lake exe cache get && lake --wfail build && LEAN_NUM_THREADS=1 lake env leanchecker --fresh UCBound` (Lean 4.36.0 + mathlib v4.36.0) |
-| Prior art | Checked 25 November 2026: improves on Gilmer (2022, $0.01$), $(3 - \sqrt{5})/2 \approx 0.38197$, Liu ($0.382709$), Costa and Sadhu (`arXiv:2610.02295`, $0.3828852549667978$), the unrefereed Sadhu-Ursin preprint ($c_* + 9.2 \times 10^{-5}$), and Quantavane's November 2026 announcement ($c_* + 2.9 \times 10^{-4} \approx 0.383175$). No earlier proof of $0.38325$ or Lean formalization of a bound past $c_*$ was located in the sources checked. See [PRIOR_ART.md](../PRIOR_ART.md#frankls-union-closed-sets-conjecture). |
+| Prior art | Checked 25 November 2026: improves on Gilmer (2022, $0.01$), $(3 - \sqrt{5})/2 \approx 0.38197$, Liu ($0.382709$), Costa and Sadhu (`arXiv:2610.02295`, $0.3828852549667978$), the unrefereed Sadhu-Ursin preprint ($c_* + 9.2 \times 10^{-5}$), and Quantavane's November 2026 announcement ($c_* + 2.9 \times 10^{-4} \approx 0.383175$). No earlier proof of $0.38325$ or Lean formalization of a bound past $c_*$ was located in the sources checked. |
 
 ## What Lean proves
 
@@ -97,4 +97,3 @@ Expected output:
 * Simone Costa and Ankan Sadhu (2026), *Beyond Liu's $0.382709$ threshold for the union-closed sets conjecture* (`arXiv:2610.02295`, $0.3828852549667978$ and the single-coordinate limit $c_*$).
 * Ankan Sadhu and Touko Ursin (2026), *An improved lower bound for union-closed families* (preprint, $c_* + 9.2 \times 10^{-5}$): fibre inequality, peeling, and subset-averaging framework.
 * Quantavane (November 2026), [Union-closed sets conjecture announcement](https://quantavane.com/results/union-closed-sets/) ($c_* + 2.9 \times 10^{-4} \approx 0.383175$): single-order shared-budget accounting and Cauchy-Schwarz low-entropy fibre bound.
-* [Prior-art audit](../PRIOR_ART.md#frankls-union-closed-sets-conjecture)

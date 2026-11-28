@@ -20,8 +20,7 @@ In particular, adding 3 columns adds **28 cells** — $L(n + 3) = L(n) + 28$ —
 | --- | --- |
 | **Result** | Exact closed-form formula $L(n) = \lfloor (28n + 10)/3 \rfloor$ for every $15 \times n$ grid ($n \ge 1$), with 11 small-width exceptions |
 | **Periodicity** | $L(n + 3) = L(n) + 28$ for $n \ge 26$ (sharp onset); repeating tile and transfer-matrix period are **6 columns / +56 cells** |
-| **Exact boundary verifiers** | Two independent C++17 transfer-matrix checkers: [frontier.cpp](frontier.cpp) (4,473,453 states) and [crossings.cpp](crossings.cpp) |
-| **Degree-only upper bound** | Third independent proof via degree-deficit relaxation + cycle pruning: [degree_bound.cpp](degree_bound.cpp) (2,764,097 states) |
+| **Exact boundary verifier** | C++17 transfer-matrix checker: [frontier.cpp](frontier.cpp) (4,473,453 states) |
 | **Explicit construction** | [construct_snake.py](construct_snake.py) (direct grid-adjacency verification) |
 | **Trust boundary** | Compiled C++17 exact integer arithmetic outside any proof-assistant kernel |
 
@@ -83,8 +82,7 @@ Start from an empty grid and process cells one at a time, scanning each column f
 
 **Mid-column subtlety:** Partway through scanning a column, the cell most recently scanned still has two unprocessed neighbors (below and to the right), so the mid-column state also tracks whether that cell currently has degree 0. Once a full column finishes, the simpler between-column boundary from the proof suffices.
 
-- **Primary verifier ([Frontier verifier](frontier.cpp)):** The between-column transition graph has **4,473,453** states, of which **4,470,124** are reachable at both widths 40 and 46.
-- **Independent verifier ([Crossing-edge verifier](crossings.cpp)):** Uses a completely separate representation that pairs up the horizontal edges crossing the vertical cut between columns, and independently confirms the exact same 56-cell identity.
+- **Verifier ([Frontier verifier](frontier.cpp)):** The between-column transition graph has **4,473,453** states, of which **4,470,124** are reachable at both widths 40 and 46.
 
 ---
 
@@ -109,61 +107,16 @@ The Python script verifies geometry directly from the raw occupied squares: for 
 
 ---
 
-## A third proof: an upper bound using only degrees
-
-The exact boundary verifiers need ~4.5 million states mainly because they must track **connectivity** to prevent cycles. Remarkably, you can obtain an almost-everywhere sharp upper bound by **ignoring connectivity completely** and tracking only local degrees!
-
-### The degree-deficit relaxation
-
-In any snake (path) on $m$ cells, every cell has degree at most 2 and there are $m - 1$ edges. By the handshaking lemma ($\sum \deg v = 2(m - 1)$), the total **degree deficit** is always exactly 2:
-
-$$
-\sum_{v \text{ occupied}} (2 - \deg v) = 2.
-$$
-
-*(Intuitively, every internal cell has degree 2 and contributes 0; the two endpoints have degree 1 and contribute 1 each; a 1-cell path has one cell of degree 0 and contributes 2.)*
-
-Conversely, any set of occupied cells with maximum degree $\le 2$ and total degree deficit 2 is a union of **one path plus zero or more disjoint cycles** (each cycle has degree 2 everywhere, contributing 0 to the deficit). Allowing those extra cycles relaxes the problem and yields a valid **upper bound** on $L(n)$ with a dramatically simpler cut state:
-
-- A vertical cut now needs only the **accumulated degree deficit** (so far) and the **local occupancy requirement** forced by each cell across the cut (whether that old neighbor forces the next cell to be occupied, forces it to be vacant, or leaves it free).
-
-### Backward DP shift and closing the four 1-cell gaps
-
-Let $U_w(s)$ be the maximum number of cells that can be added in $w$ columns starting from cut state $s$ and ending with total deficit 2. A backward dynamic program ([Degree and cycle checks](degree_bound.cpp)) verifies the upper-bound maxima through width **34** and establishes
-
-$$
-U_{34}(s) \le U_{28}(s) + 56
-$$
-
-across all **2,764,097** cut states. Prepending the same $k$ columns preserves this inequality, and since the floor formula also gains 56 every six columns, the checked widths **28 through 33** prove the floor-formula upper bound for every larger width!
-
-Allowing cycles overshoots the true snake length by **1 cell at only four small widths**:
-
-| Width $n$ | Degree-only upper bound | True $L(n)$ |
-| ---: | ---: | ---: |
-| 11 | 106 | 105 |
-| 15 | 143 | 142 |
-| 19 | 180 | 179 |
-| 25 | 236 | 235 |
-
-To eliminate those four 1-cell gaps, [degree_bound.cpp](degree_bound.cpp) runs a guided search from the empty board, following only moves that can still attain that width's degree-bound maximum and pruning any branch the moment it closes a cycle. Every optimal branch at widths $11, 15, 19, 25$ hits a cycle, ruling out $106, 143, 180, 236$ and capping snakes at $105, 142, 179, 235$. Together with the explicit snakes in [Matching constructions](construct_snake.py), this yields a completely independent proof of $L(n)$ for every width.
-
----
-
 ## Reproduce
 
 Run from this directory on a POSIX system with GCC or Clang and Python 3.10 or later.
 
-**Resource notes:** On the test machine, each of the two exact boundary verifiers (`frontier.cpp` and `crossings.cpp`) used about **2 GiB of RAM**, and `degree_bound.cpp` used about **3 GiB of RAM**. The crossing-edge program also uses temporary disk space in its working directory and removes its scratch files automatically.
+**Resource notes:** On the test machine, `frontier.cpp` used about **2 GiB of RAM**.
 
 ```sh
 build_dir=$(mktemp -d)
 c++ -std=c++17 -O3 frontier.cpp -o "$build_dir/frontier"
 "$build_dir/frontier"
-c++ -std=c++17 -O3 crossings.cpp -o "$build_dir/crossings"
-"$build_dir/crossings"
-c++ -std=c++17 -O3 degree_bound.cpp -o "$build_dir/degree_bound"
-"$build_dir/degree_bound"
 python3 construct_snake.py
 ```
 

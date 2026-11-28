@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-CANARY_PACKAGE = "26-unit-fractions"
+CANARY_PACKAGE = "even-unit-fractions"
 EXCLUDED_ROOT_DIRS: frozenset[str] = frozenset(
     {".git", ".lake", ".ruff_cache", ".venv", "lake-compat"}
 )

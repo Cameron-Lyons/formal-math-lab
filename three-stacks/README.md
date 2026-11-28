@@ -12,7 +12,7 @@ This project tightens the window to **20 or 21 cards** by a computer-assisted bo
 - **Upper bound ($\le 21$, proved unconditionally in Lean):** Lean's kernel verifies that the 21-card deck above has no physical sorting run and that deleting any single card leaves a sortable 20-card deck.
 - **Lower bound ($\ge 20$, conditional on one explicit coverage premise):** Every deck of length $\le 19$ is sortable, modulo one named Lean premise (`ThreeStacks.Bulk19Coverage`) asserting that the external exhaustive computation over all $18! = 6{,}402{,}373{,}705{,}728{,}000$ normalized 19-card decks covers all remaining cases.
 
-[Theorems](ThreeStacks/Bounds.lean) · [Coverage premise](ThreeStacks/Coverage.lean) · [Question and update](https://arxiv.org/html/2602.16355v4) · [MathFest slides](https://vincevatter.com/talks/2026-mathfest-stacks/) · [Prior-art note](../PRIOR_ART.md#three-stacks-in-series)
+[Theorems](ThreeStacks/Bounds.lean) · [Coverage premise](ThreeStacks/Coverage.lean) · [Question and update](https://arxiv.org/html/2602.16355v4) · [MathFest slides](https://vincevatter.com/talks/2026-mathfest-stacks/)
 
 ## What Lean checks (and where the trust boundary sits)
 
@@ -57,7 +57,6 @@ printf '%s\n' 'import ThreeStacks' '#check ThreeStacks.published_no_physical_run
 
 The computation archive contains the search sources, group ledgers, individual sorting schedules, and the SAT refutation. These commands audit the saved records in Python (to regenerate the full 19-card search from scratch, follow `coverage/ordered19.md` inside the archive):
 
-- [Audit totals](evidence/n19-audit.json)
 - [Computation archive](evidence/three-stack-bound-proof.tar.gz)
 
 ```sh
@@ -67,19 +66,4 @@ evidence="$work/three-stack-bound"
 python3 "$evidence/coverage/audit18.py"
 python3 "$evidence/coverage/audit19.py"
 python3 "$evidence/verify/replay.py"
-```
-
-### 3. Regenerate the Lean certificates byte for byte
-
-Using the same `$work` and `$evidence` variables, regenerate both the witness schedules and the order-proof modules (converting the DRAT SAT proof to an LRAT proof via `drat-trim`). Both comparisons should report identical files:
-
-- [Schedule generator](verify/build_witnesses.py)
-- [Order proof generator](verify/generate_order_proof.py)
-
-```sh
-python3 verify/build_witnesses.py --evidence-root "$evidence" "$work/Witnesses.lean"
-cmp ThreeStacks/Data/Witnesses.lean "$work/Witnesses.lean"
-drat-trim "$evidence/verify/published/pv21.cnf" "$evidence/verify/published/pv21.drat" -L "$work/pv21.lrat"
-python3 verify/generate_order_proof.py --evidence-root "$evidence" "$work/pv21.lrat" "$work/OrderProof"
-diff -qr ThreeStacks/OrderProof "$work/OrderProof"
 ```

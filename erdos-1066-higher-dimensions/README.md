@@ -9,9 +9,8 @@ Let $g_d(n)$ denote the largest $m$ such that every set of $n$ points in $\mathb
 | Problem | Erdős Problem #1066, higher-dimensional variant (`erdosproblems.com/1066`), `erdos_1066.variants.higher_dim` in `FormalConjectures/ErdosProblems/1066.lean` |
 | Status | Variant refuted. The planar problem (the limit of $g_2(n)/n$) is not addressed. |
 | Main theorems | `main : ¬ type_of% @Erdos1066.erdos_1066.variants.higher_dim`, `Sol1066.gDim_upper` in [Erdos1066.lean](Erdos1066.lean) |
-| Written proof | [Erdos1066.md](Erdos1066.md), with the same lemma numbers as the Lean file |
 | Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos1066` (Lean 4.33.1 + Formal Conjectures) |
-| Prior art | Checked 25 November 2026: follows quickly from D. de Caen's 2000 theorem on equiangular lines. We found no source drawing this conclusion, though experts may know it. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-1066-minimum-distances-in-higher-dimensions). |
+| Prior art | Checked 25 November 2026: follows quickly from D. de Caen's 2000 theorem on equiangular lines. We found no source drawing this conclusion, though experts may know it. |
 
 ## What Lean proves
 
@@ -47,5 +46,4 @@ The mathematics, Lean proof, and literature searches were produced by AI agents.
 * [Erdős Problems #1066](https://www.erdosproblems.com/1066) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/1066.lean#L126)
 * The vectors are not new: D. de Caen, *Large equiangular sets of lines in Euclidean space*, Electron. J. Combin. 7 (2000) R55, constructs twice as many vectors with the same inner products in one fewer dimension. Combined with the norm argument above, that already yields the refutation. Our construction is a self-contained alternative based on the $\mathbb{Z}/4$ description of Kerdock codes.
 * The same norm argument is used for one special system of lines by D. Ismailescu, S. Lee, and T. Lee, [arXiv:2611.23767](https://arxiv.org/abs/2611.23767) (18 November 2026).
-* Full credits and unread sources are listed in [Erdos1066.lean](Erdos1066.lean) and [Erdos1066.md](Erdos1066.md#what-is-borrowed).
-* [Prior-art audit](../PRIOR_ART.md#erdős-1066-minimum-distances-in-higher-dimensions)
+* Full credits and unread sources are listed in [Erdos1066.lean](Erdos1066.lean).

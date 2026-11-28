@@ -28,7 +28,7 @@ Let $H \subset \mathbb{F}_{47}^\times$ be the set of 23 nonzero squares (quadrat
 
 **How the finite lemma is verified.** The C++20 program [verify_half_paths.cpp](verify_half_paths.cpp) lists the 15 regions and enumerates every sum-one subset of the two families. To test whether a subset has a valid walk in a given region, it recursively tries each remaining element as the next step, checks that the new vertex lies in the available interior set, removes that vertex from the available pool, and continues until the final step lands at $1$.
 
-All **178,481** sum-one subsets tested in $H$ and all **356,963** in $(-H) \cup \{1\}$ passed ([recorded output](modulo-47-paths.txt)). In the second family, the verifier permits the midpoint $24$ *only* when the subset actually contains $1$; hence the subsets of $(-H) \cup \{1\}$ that omit $1$ simultaneously verify the stricter claim for $-H$ without using $24$.
+All **178,481** sum-one subsets tested in $H$ and all **356,963** in $(-H) \cup \{1\}$ passed. In the second family, the verifier permits the midpoint $24$ *only* when the subset actually contains $1$; hence the subsets of $(-H) \cup \{1\}$ that omit $1$ simultaneously verify the stricter claim for $-H$ without using $24$.
 
 ## Proof of the theorem
 
@@ -49,9 +49,5 @@ Run from this directory with a C++20 compiler:
 
 ~~~sh
 c++ -std=c++20 -O3 -Wall -Wextra -Werror -pedantic verify_half_paths.cpp -o /tmp/graham47-paths
-/tmp/graham47-paths > /tmp/graham47-paths.txt && diff -u modulo-47-paths.txt /tmp/graham47-paths.txt
+/tmp/graham47-paths
 ~~~
-
-## Independent splice verification
-
-A second C++ verifier ([verify_splices.cpp](verify_splices.cpp)) independently checks all **1,497,207,322,930** zero-sum subsets of $\mathbb{F}_{47}^\times$ directly by inserting pairs of opposite steps into cycles ([recorded output](modulo-47-splices.txt)).

@@ -1,6 +1,6 @@
 name = "tboards"
 version = "0.1.0"
-defaultTargets = ["TBoards", "SimpleProof", "Certificates", "ExtendedCertificates", "SpliceCertificates", "SpliceExtensionCertificates", "SpliceFurtherCertificates", "SpliceNextCertificates", "SpliceSixthCertificates", "SplicePalCertificates"]
+defaultTargets = ["TBoards", "SimpleProof", "SpliceSixthCertificates", "SplicePalCertificates"]
 
 [[lean_lib]]
 name = "TBoards"
@@ -12,9 +12,6 @@ name = "SimpleProof"
 name = "BoardData"
 
 [[lean_lib]]
-name = "Certificates"
-
-[[lean_lib]]
 name = "EfficientCheck"
 
 [[lean_lib]]
@@ -22,15 +19,6 @@ name = "ColorSymmetry"
 
 [[lean_lib]]
 name = "SortedFamily"
-
-[[lean_lib]]
-name = "CertifiedFamily"
-
-[[lean_lib]]
-name = "Extended"
-
-[[lean_lib]]
-name = "ExtendedCertificates"
 
 [[lean_lib]]
 name = "Splice"
@@ -42,22 +30,13 @@ name = "SpliceSymmetry"
 name = "SpliceData"
 
 [[lean_lib]]
-name = "SpliceCertificates"
-
-[[lean_lib]]
 name = "SplicePacked"
 
 [[lean_lib]]
 name = "SpliceExtensionData"
 
 [[lean_lib]]
-name = "SpliceExtensionCertificates"
-
-[[lean_lib]]
 name = "SpliceFurtherData"
-
-[[lean_lib]]
-name = "SpliceFurtherCertificates"
 
 [[lean_lib]]
 name = "SpliceTransfer"
@@ -69,19 +48,10 @@ name = "SpliceTransferData"
 name = "SplicePrefixSymmetry"
 
 [[lean_lib]]
-name = "SplicePrefixData"
-
-[[lean_lib]]
 name = "SpliceRanges"
 
 [[lean_lib]]
 name = "SpliceNextData"
-
-[[lean_lib]]
-name = "SpliceNextPrefixData"
-
-[[lean_lib]]
-name = "SpliceNextCertificates"
 
 [[lean_lib]]
 name = "ExactSymmetry"

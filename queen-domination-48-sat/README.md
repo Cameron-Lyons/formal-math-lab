@@ -16,8 +16,8 @@ This provides a second proof of $\gamma(Q_{48}) = 25$, independent of the non-SA
 | Kernel-checked | `gamma_48_le`, `igamma_48_le` ($\le 25$, unconditional); `gamma_48_eq_25_of_formulas_unsat`, `igamma_48_eq_25_of_formulas_unsat` ($= 25$ assuming the 47,580 formulas are unsatisfiable). Axioms: `propext`, `Classical.choice`, `Quot.sound`. |
 | Outside the kernel | Unsatisfiability of all 47,580 formulas, refuted by CaDiCaL + `drat-trim` and verified from LRAT certificates by a compiled Lean checker ([lean-check](lean-check/)). |
 | Closed statement | `gamma_48 : gamma 48 = 25` in [Certified48.lean](Certified48.lean), assuming one named axiom for the certificate check. |
-| Prior art | Re-audited 26 November 2026: Aleksej Đukić proved $\gamma(Q_{48}) = 25$ on 22 November 2026 (OEIS A075458, `10.5281/zenodo.24537292`) using the same 47,580-case Davies frame split, which together with Östergård and Weakley's (2001) independent 25-queen set implied $i(Q_{48}) = 25$. This folder adds Lean kernel soundness for the CNF encoding, compiled Lean LRAT verification, and an explicit proof of $i(Q_{48}) = 25$. See [PRIOR_ART.md](../PRIOR_ART.md). |
-| Review | Produced and re-checked by AI agents ([CHECKS.md](CHECKS.md)); no human has reviewed it. |
+| Prior art | Re-audited 26 November 2026: Aleksej Đukić proved $\gamma(Q_{48}) = 25$ on 22 November 2026 (OEIS A075458, `10.5281/zenodo.24537292`) using the same 47,580-case Davies frame split, which together with Östergård and Weakley's (2001) independent 25-queen set implied $i(Q_{48}) = 25$. This folder adds Lean kernel soundness for the CNF encoding, compiled Lean LRAT verification, and an explicit proof of $i(Q_{48}) = 25$. |
+| Review | Produced and re-checked by AI agents; no human has reviewed it. |
 
 ## The Lean statements
 
@@ -44,7 +44,7 @@ Instead of asking a SAT solver to handle one giant $48 \times 48$ formula direct
 
 | Step | Statement | Checked by |
 | --- | --- | --- |
-| Upper bound | The 25 squares of `data/frame/q48_25_indep.json` dominate $Q_{48}$ and do not attack each other | Kernel (`decide +kernel`) |
+| Upper bound | The 25 squares of `q48i` in [Gamma48.lean](Queens48/Gamma48.lean) dominate $Q_{48}$ and do not attack each other | Kernel (`decide +kernel`) |
 | Layer 1 (Davies) | Any dominating set of 24 queens satisfies, up to board symmetry, the geometric constraints `CaseSat` of one of 47,580 cases | Kernel (pinned dependency) |
 | Layer 2 (here) | If a dominating set `D` satisfies `CaseSat n k cs D`, then `caseFormula n k cs` is satisfiable | Kernel (`Queens48/`) |
 | Certificates | Each of the 47,580 formulas is unsatisfiable | CaDiCaL + `drat-trim`; compiled Lean checker |
@@ -64,7 +64,7 @@ Layer 2 spans five short modules totaling 1,093 lines (intended to be read in or
 - **Verified by Lean's kernel:** The 25-queen independent upper bound, Layer 1's case split (`enumCases 48 24`), Layer 2's CNF encoding soundness, and the conditional main theorems (using only `propext`, `Classical.choice`, `Quot.sound`).
 - **Verified by compiled Lean code (`qdcheck`):** CaDiCaL 3.1.0 refuted all 47,580 formulas with DRAT proofs trimmed into LRAT by `drat-trim`. Independently of both tools, `qdcheck` builds every formula with the verified Lean encoder and replays its LRAT certificate using the verified step functions of Lean's `Std.Tactic.BVDecide.LRAT`. By type-checking, `qdcheck` can print success *only* by constructing a value of type `PLift (∀ cs ∈ enumCases 48 24, (caseFormula 48 24 cs).Unsat)`—the exact hypothesis `H` above. The recorded run printed `s ALL VERIFIED n=48 k=24 cases=47580` in 810 s on 5 threads.
 - **Compiler/runtime trust and named axiom:** Accepting that run trusts the Lean compiler and runtime, including `implemented_by` and `extern` replacements in Lean core and Std (the same trust model as `native_decide`). Because the 47,580 LRAT certificates total **148 GB** of text—far too large for Lean's kernel to replay—the closed theorem `gamma_48 : gamma 48 = 25` in [Certified48.lean](Certified48.lean) isolates that certificate check as one named axiom.
-- **Certificate storage:** The 25 GB of compressed certificates are not stored in this repository; `data/frame/d_48_24.jsonl.xz` records the SHA-256 hash of every formula and certificate.
+- **Certificate storage:** The 25 GB of compressed certificates are not stored in this repository.
 - **Scope note:** Layer 2 covers the plain encoding only (not the symmetry-breaking clauses and cubes used upstream for part of the $n = 35$ run). The value of $\gamma(Q_{47}) \in \{24, 25\}$ remains open.
 
 ## Reproduce
@@ -75,9 +75,7 @@ With Lean 4.36.0 via `elan`, run from this directory:
 
 ```sh
 lake exe cache get && lake build        # the kernel-checked part
-lake env lean Axioms48.lean             # axiom report (AXIOMS48.txt)
 lake env lean Certified48.lean          # the closed statements, modulo the named axiom
-lake env lean Replay48.lean             # kernel replay of the compiled modules (several minutes; REPLAY48.txt)
 ```
 
 ### 2. Full SAT solving and Lean LRAT verification
@@ -105,11 +103,10 @@ Breakdown of the 47,580 cases in the recorded SAT run:
 
 ## Files
 
-- `Queens48/`: Layer 2 and the main theorems. `Cases48*.lean` (generated by `scripts/gen_cases.py 48 24 data/frame Queens48 data/frame the`) also proves that the table of 47,580 recorded cases equals the case list, though the main theorems above do not depend on it.
+- `Queens48/`: Layer 2 and the main theorems.
 - `lean-sat/` and `lean-check/`: the Mathlib-free Lean CNF encoder and proof-carrying LRAT certificate checker.
-- `code/frame/` and `data/frame/`: the run driver, the search for 25-queen sets, Davies' unmodified `enc.py` and `geom.py`, the 25-queen sets, and records of the SAT run, its final check, and the Lean certificate check.
-- `lean-sat/scripts/compare_enc.py` compares the Lean encoder byte for byte against `enc.py`. Comparing against the $n = 26, 32, 46$ records requires the data files from Davies' repository, as does running his independent case-list checker `code/frame/final_check40.py` (which lives in that repository).
+- `code/frame/`: the run driver (`run_cases48.py`) and Davies' unmodified `enc.py` and `geom.py`.
 
 ## Source and license
 
-Davies' Lean development (Layer 1) is a Lake dependency pinned at commit `bc37cb0`. The files `enc.py`, `geom.py`, `scripts/get_tools.sh`, and `scripts/runlog.py` are taken from his repository unmodified. `scripts/gen_cases.py` and `code/frame/run_cases48.py` are modified from his versions, and `lean-sat` transcribes his encoder and case list into Lean. His repository uses the Apache-2.0 license, and this directory keeps that license (see [LICENSE](LICENSE)).
+Davies' Lean development (Layer 1) is a Lake dependency pinned at commit `bc37cb0`. The files `enc.py`, `geom.py`, and `scripts/get_tools.sh` are taken from his repository unmodified. `code/frame/run_cases48.py` is modified from his version, and `lean-sat` transcribes his encoder and case list into Lean. His repository uses the Apache-2.0 license, and this directory keeps that license (see [LICENSE](LICENSE)).

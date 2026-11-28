@@ -23,8 +23,8 @@ $$
 | Problem | OEIS A026019, R. J. Mathar's three-term polynomial recurrence conjecture for $a(n) = \binom{3n}{n} - \binom{3n}{n-3}$ |
 | Status | Proved in Lean 4 for all $n \ge 2$. |
 | Main theorems | `A026019.recurrence` ([A026019.lean](A026019.lean)), `A026019.a_eq` ([A026019/Sequence.lean](A026019/Sequence.lean)) |
-| Verification | `lake exe cache get && lake build && lake env lean Check.lean` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
-| Prior art | Checked 23 November 2026 and re-audited 26 November 2026: Georg Fischer's first-order recurrence in jOEIS (6 November 2026) algebraically implies the recurrence, and Robert Israel independently verified the conjecture via Maple on 24 November 2026 (MathSE `q/5156049`, OEIS A026019 rev. 30). This folder provides a checked Lean proof, not a claim of a first mathematical proof. See [PRIOR_ART.md](PRIOR_ART.md) and the [collection audit](../PRIOR_ART.md#binomial-recurrence-oeis-a026019). |
+| Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
+| Prior art | Checked 23 November 2026 and re-audited 26 November 2026: Georg Fischer's first-order recurrence in jOEIS (6 November 2026) algebraically implies the recurrence, and Robert Israel independently verified the conjecture via Maple on 24 November 2026 (MathSE `q/5156049`, OEIS A026019 rev. 30). This folder provides a checked Lean proof, not a claim of a first mathematical proof. |
 
 ## How the proof works
 
@@ -54,8 +54,6 @@ $$
 * [A026019/Sequence.lean](A026019/Sequence.lean): definition, initial values, and closed form.
 * [A026019/BinomialStep.lean](A026019/BinomialStep.lean): factorial cancellation.
 * [A026019/RecurrenceAlgebra.lean](A026019/RecurrenceAlgebra.lean): polynomial elimination.
-* [Check.lean](Check.lean): axiom audit for the main results.
-* [PRIOR_ART.md](PRIOR_ART.md): algebraic comparison with jOEIS and literature check.
 
 ## Check the proof
 
@@ -64,7 +62,6 @@ Lean and mathlib are pinned to v4.36.0 (`lake-manifest.json` pins exact commits)
 ```sh
 lake exe cache get
 lake build
-lake env lean Check.lean
 ```
 
-You can skip the first command if the mathlib build cache is already present. The proof uses no `sorry`, `admit`, custom axioms, or `native_decide`; [Check.lean](Check.lean) reports only `propext`, `Classical.choice`, and `Quot.sound`.
+You can skip the first command if the mathlib build cache is already present. The proof uses no `sorry`, `admit`, custom axioms, or `native_decide` (only `propext`, `Classical.choice`, and `Quot.sound`).

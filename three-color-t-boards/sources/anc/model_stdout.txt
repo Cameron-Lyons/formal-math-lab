@@ -1,5 +1,0 @@
-binary cycle B=0000100110101111: all 16 cyclic length-four words PASS
-high-bit groups=16; windows per group=16 PASS
-CNF variables=2747; clauses=11754; compared_window_pairs=1920; shared_XORs=2458
-provided four-color certificate satisfies every clause PASS
-scope: fixed high-bit mask; no unrestricted nonexistence claim

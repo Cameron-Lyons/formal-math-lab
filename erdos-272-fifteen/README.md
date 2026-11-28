@@ -15,7 +15,7 @@
 | Theorem | Maximum family size on $[15] = \{1, \ldots, 15\}$ is **109** |
 | Lower bound (Lean 4) | [Erdos272Fifteen.lean](Erdos272Fifteen.lean) (all 5,886 pairwise intersections checked) |
 | Upper bound (C++20) | [Exhaustive verifier](upper.cpp) (16,511 starting sets, 156,880,055 recursive calls) |
-| Related references | [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf) · [Fourteen-point search](../erdos-272-fourteen/upper.cpp) · [Alternative upper bound by rank](rank.md) |
+| Related references | [Szabó, §5](https://page.mi.fu-berlin.de/szabo/PDF/aps.pdf) · [Fourteen-point search](../erdos-272-fourteen/upper.cpp) |
 
 ## Why 109 is attainable (construction)
 
@@ -46,7 +46,7 @@ Three pruning and symmetry-breaking techniques make an exhaustive search feasibl
 
    starting sets to check.
 
-The [exhaustive verifier](upper.cpp) (modeled on the [fourteen-point search](../erdos-272-fourteen/upper.cpp)) checked all **16,511** starting sets in **156,880,055** recursive calls and found that none extends to a 110-clique. Since any larger family would contain a 110-element subfamily, the maximum is **109**. (For an independent rank-based upper-bound proof on $[15]$, see [rank.md](rank.md).)
+The [exhaustive verifier](upper.cpp) (modeled on the [fourteen-point search](../erdos-272-fourteen/upper.cpp)) checked all **16,511** starting sets in **156,880,055** recursive calls and found that none extends to a 110-clique. Since any larger family would contain a 110-element subfamily, the maximum is **109**.
 
 ## Reproduce
 

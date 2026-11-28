@@ -1,4 +1,0 @@
-{"order": 11, "vars": 4114, "clauses": 35619, "setup_seconds": 0.02470001000619959}
-{"order": 11, "result": "unknown", "seconds": 241.71854247100418, "stats": {"restarts": 96367, "conflicts": 2000000, "decisions": 4015352, "propagations": 582861183}}
-{"order": 12, "vars": 5328, "clauses": 49735, "setup_seconds": 0.08906887200282654}
-{"order": 12, "result": "interrupted", "reason": "search stopped to redirect research; not an exclusion"}

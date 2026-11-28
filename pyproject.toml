@@ -21,7 +21,6 @@ package = false
 [tool.ruff]
 target-version = "py315"
 line-length = 88
-extend-exclude = ["three-color-t-boards/sources"]
 
 [tool.ruff.lint]
 extend-select = [
@@ -57,14 +56,9 @@ ignore = [
 [tool.ruff.format]
 docstring-code-format = true
 
-[tool.ty.src]
-exclude = ["three-color-t-boards/sources"]
-
 [tool.ty.environment]
 python-version = "3.15"
 extra-paths = [
-    "three-color-t-boards/sources/anc",
-    "three-cubes-114",
     "queen-domination-48-sat/code/frame",
 ]
 

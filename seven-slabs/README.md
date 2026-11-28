@@ -6,14 +6,13 @@ The Lean 4 theorem `SevenSlabs.no_seven_slab_tiling` ([Main theorem](SevenSlabs.
 
 > **Why small $n$ works and $n = 7$ is subtle:** For $n = 3$, stacking three full-width layers of thicknesses $1, 2, 3$—namely $1 \times 6 \times 6$, $2 \times 6 \times 6$, and $3 \times 6 \times 6$—effortlessly tiles a $6 \times 6 \times 6$ cube because $1 + 2 + 3 = 6$ is divisible by all of $1, 2, 3$. For $n = 7$, the cube side is bounded by $s \le 1 + 2 + \cdots + 7 = 28$, which is far smaller than $\operatorname{lcm}(1, \ldots, 7) = 420$, so no flat stack is possible and slabs would have to interlock in 3D.
 
-Erich Friedman's *Math Magic* Problem 6 asks which cubes can be tiled by one slab of each order through $n$. Vamshi Jandhyala previously excluded $n = 4, 5, 6$ and explicitly flagged $n = 7$ as untested ([Friedman's problem 6](https://erich-friedman.github.io/mathmagic/unsolved.html) · [Jandhyala, §6, p. 6](https://raw.githubusercontent.com/jvvk/mathematics/c6fecab25b6f821a7185bfdaa68c89bfaf54e4c7/math-magic-problems/paper/paper.pdf#page=6) · [Repository prior-art note](../PRIOR_ART.md#seven-slabs-tiling-a-cube)).
+Erich Friedman's *Math Magic* Problem 6 asks which cubes can be tiled by one slab of each order through $n$. Vamshi Jandhyala previously excluded $n = 4, 5, 6$ and explicitly flagged $n = 7$ as untested ([Friedman's problem 6](https://erich-friedman.github.io/mathmagic/unsolved.html) · [Jandhyala, §6, p. 6](https://raw.githubusercontent.com/jvvk/mathematics/c6fecab25b6f821a7185bfdaa68c89bfaf54e4c7/math-magic-problems/paper/paper.pdf#page=6)).
 
 | Field | Summary |
 | --- | --- |
 | Problem | Tiling a cube with one order-$k$ slab ($k \times k a_k \times k b_k$) for each $k = 1, \ldots, 7$ (Friedman Problem 6; Jandhyala §6) |
 | Result | Impossible (`SevenSlabs.no_seven_slab_tiling` in [SevenSlabs.lean](SevenSlabs.lean)) |
 | Lean verification | `lake exe cache get && lake build` (Lean + mathlib 4.35.0; geometric reductions kernel-checked, finite axis-test check uses `native_decide`) |
-| External cross-check | Independent C++17 placement search (17,366 shape lists, 0 tilings) plus two transverse-section C++ checkers |
 
 ## Proof strategy
 
@@ -40,12 +39,4 @@ Run the Lean build from this directory with pinned Lean and mathlib 4.35.0:
 ```sh
 lake exe cache get
 lake build
-```
-
-- **Independent C++17 verification (outside Lean):** A standalone C++ placement search independently tests all 17,366 volume-compatible shape lists and returns zero tilings. As a positive control, the exact same executable finds the 3-slab tiling of a side-6 cube. Two additional C++ programs independently confirm the conclusion using transverse sections ([Placement search](verify/placement_search.cpp) · [Section-area test](verify/bound_profiles.cpp) · [Plane sweep](verify/geom_projection.cpp)):
-
-```sh
-c++ -std=c++17 -O2 verify/placement_search.cpp -o /tmp/place-seven-slabs
-/tmp/place-seven-slabs
-/tmp/place-seven-slabs 3 6
 ```

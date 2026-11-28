@@ -30,7 +30,7 @@ Previously, five finite orders — **12, 14, 15, 17, and 26** — remained unres
 | Problem | Equational Theories Project Equation 1486 (opposite dual Equation 2126), finite magma spectrum (`Timeroot/equational_theories` remaining small orders `[12, 14, 15, 17, 26]`) |
 | Law | `x = (y ◇ x) ◇ (x ◇ (z ◇ z))` |
 | Spectrum status | Together with the ETP fork's proved bounds (no model at 2, 3, 5, 6, 7, 8, 10; model at all other orders outside `{12, 14, 15, 17, 26}`), the finite orders with no model of Equation 1486 are 2, 3, 5, 6, 7, 8, 10, 12, 14, and 15. The two developments are checked separately, not as one combined Lean theorem. |
-| Prior art | Checked 22-24 November 2026: no earlier proof or model was found for orders 12, 14, 15, 17, or 26 (bounded search, not a claim of absolute priority). Audits: [order 12](../PRIOR_ART.md#e1486-at-order-12), [order 14](../PRIOR_ART.md#e1486-at-order-14), [order 15](../PRIOR_ART.md#e1486-at-order-15), [order 17](../PRIOR_ART.md#e1486-at-order-17), [order 26](../PRIOR_ART.md#e1486-at-order-26). |
+| Prior art | Checked 22-24 November 2026: no earlier proof or model was found for orders 12, 14, 15, 17, or 26 (bounded search, not a claim of absolute priority). |
 
 ## Background and overview
 
@@ -176,7 +176,7 @@ The pattern with no squares ($k = 0$) fails the first condition immediately. The
 * [Simple/Order12/Cases.lean](Simple/Order12/Cases.lean): refutes the 49 patterns.
 * [Simple/Order12/NoTable.lean](Simple/Order12/NoTable.lean): combines them into `E1486.Order12.noTable`.
 
-Prior art (checked 23 November 2026): no earlier exclusion or model at order 12 was found. The research notes and live spectrum data list 12 as unresolved; their recorded solver runs stopped at 60 or 900 seconds (apart from one restricted family), and a Mace4 run reported on the Lean Zulip stopped after 14 hours. See the [audit](../PRIOR_ART.md#e1486-at-order-12).
+Prior art (checked 23 November 2026): no earlier exclusion or model at order 12 was found. The research notes and live spectrum data list 12 as unresolved; their recorded solver runs stopped at 60 or 900 seconds (apart from one restricted family), and a Mace4 run reported on the Lean Zulip stopped after 14 hours.
 
 ## No model with 14 elements
 
@@ -204,13 +204,13 @@ The pattern with no squares fails the first condition outright. With these swap 
 * [Simple/Order14/Cases.lean](Simple/Order14/Cases.lean): refutes the 64 patterns.
 * [Simple/Order14/NoTable.lean](Simple/Order14/NoTable.lean): proves `E1486.Order14.noTable`.
 
-Prior art (checked 24 November 2026): no earlier exclusion or model at order 14 was found. The research notes and live spectrum data list 14 as unresolved, recording only one solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-14).
+Prior art (checked 24 November 2026): no earlier exclusion or model at order 14 was found. The research notes and live spectrum data list 14 as unresolved, recording only one solver run stopped after 60 seconds.
 
 ## A model with 17 elements
 
 Order 17 goes the other way: a 17-element magma **does** satisfy Equation 1486. [Simple/Order17.lean](Simple/Order17.lean) gives an explicit $17 \times 17$ multiplication table, and Lean checks all $17^3 = 4,913$ instances of the law directly inside its kernel. This verification uses no SAT certificate, no native evaluation, and no imports (`E1486.Order17.exists_table`, depending only on `propext`).
 
-Prior art (checked 23 November 2026): no earlier 17-element model was found. The research notes and live spectrum data list 17 as unresolved, recording only one solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-17).
+Prior art (checked 23 November 2026): no earlier 17-element model was found. The research notes and live spectrum data list 17 as unresolved, recording only one solver run stopped after 60 seconds.
 
 ## A model with 26 elements
 
@@ -218,7 +218,7 @@ Order 26 also admits a model. [Simple/Order26.lean](Simple/Order26.lean) gives a
 
 **From arrows back to a multiplication table.** This model was found by running the graph test above on 26 vertices with square pattern $(k, j) = (6, 2)$. The arrow reduction is reversible: any directed graph obeying the four conditions produces a valid Equation 1486 magma by setting $a \star b$ to the unique middle vertex on the two-step route $a \to i \to b$ whenever one exists, and otherwise to any square with an arrow to $b$.
 
-Prior art (checked 24 November 2026): no earlier 26-element model or exclusion was found. The research notes and live spectrum data list 26 as unresolved, recording three restricted searches (each refuted) and one unrestricted solver run stopped after 60 seconds. See the [audit](../PRIOR_ART.md#e1486-at-order-26).
+Prior art (checked 24 November 2026): no earlier 26-element model or exclusion was found. The research notes and live spectrum data list 26 as unresolved, recording three restricted searches (each refuted) and one unrestricted solver run stopped after 60 seconds.
 
 ## Reproduce
 
@@ -241,7 +241,7 @@ lake build Simple.Order17
 lake build Simple.Order26
 ```
 
-A plain `lake build` checks everything in this directory: all five settled orders plus [Simple/AdditionalResults.lean](Simple/AdditionalResults.lean) (extra results not needed for the main proofs: converse graph constructions, extra square-row lemmas, and the older symmetry argument).
+A plain `lake build` checks all five settled orders in this directory.
 
 To inspect the axioms of each theorem:
 
@@ -256,34 +256,6 @@ printf '%s\n' 'import Simple.Order26' '#print axioms E1486.Order26.exists_table'
 The three exclusions use Lean's standard logical axioms plus the native-evaluation axioms for their SAT/LRAT checks (36, 48, and 63 checks respectively), with no admitted lemmas. The order-17 and order-26 models depend only on `propext`.
 
 To read the order-15 Lean proof, start with [Simple/NoTable.lean](Simple/NoTable.lean), which combines the graph reduction, the two counting bounds, and the finite exclusions. The three equalities are `recover_source`, `return_to_square`, and `recover_target` in [E1486.lean](E1486.lean); [Simple/Graph.lean](Simple/Graph.lean) derives the arrow rules from them; [Simple/FiniteBase.lean](Simple/FiniteBase.lean) encodes each graph condition.
-
-### Independent Python + CaDiCaL check
-
-An independent Python implementation of the graph test lives in [Simple/check.py](Simple/check.py). It needs Python 3 and CaDiCaL (on `PATH` or inside the pinned Lean installation):
-
-```sh
-python3 Simple/check.py 15
-python3 Simple/check.py 12
-python3 Simple/check.py 14
-python3 Simple/check.py 17
-python3 Simple/check.py --pattern 6:2 26
-```
-
-Expected summaries:
-
-* `order 15: 71 cases, all UNSAT` (all 71 patterns for $1 \le k \le 15$; Lean eliminates $k \le 3$ and $k \ge 12$ by counting, leaving 36).
-* `order 12: 48 cases, all UNSAT` (takes seconds; Python adds ordering conditions that Lean omits at order 12).
-* `order 14: 63 cases, all UNSAT` (~20 seconds; Python uses the order-15 ordering conditions rather than Lean's shorter swap list).
-* `order 17: model verified on all 4913 triples (k=6, j=4)` (~1 minute; differs from the Lean model, which has 8 squares).
-* `order 26: model verified on all 17576 triples (k=6, j=2)` (under 1 minute; without `--pattern 6:2`, pattern `6:0` did not finish within 10 minutes).
-
-To replay every order-15 refutation with an external certificate checker, use `lrat-trim` **0.2.1-rc3**, pinned to [revision `423194927df747528d5b7364806b5b77b2660c12`](https://github.com/arminbiere/lrat-trim/tree/423194927df747528d5b7364806b5b77b2660c12) (which supports `--rup`, unlike 0.2.0):
-
-```sh
-python3 Simple/check.py --verify-with /path/to/lrat-trim 15
-```
-
-This reports `order 15: 71 cases, all RUP proofs verified`.
 
 ## Attribution and license
 

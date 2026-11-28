@@ -9,9 +9,8 @@ In a 1987 paper of Erdős, Komjáth asked whether the answer is always yes. This
 | Problem | Erdős Problem #602 (`erdosproblems.com/602`), Property B for almost disjoint countable sets with $\lvert A_i \cap A_j \rvert \ne 1$, `FormalConjectures/ErdosProblems/602.lean` |
 | Status | Headline statement proved for arbitrary index and ground types in independent universes. |
 | Main theorems | `main : type_of% @Erdos602.erdos_602`; general form `E602.exists_colouring` in [Erdos602.lean](Erdos602.lean) |
-| Written proof | [Erdos602.md](Erdos602.md), with the same lemma numbers as the Lean file |
 | Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos602` (Lean 4.33.1 + Formal Conjectures) |
-| Prior art | Checked 25 November 2026: two limited searches found no earlier proof of the unrestricted statement. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-602-countable-sets-with-no-singleton-intersections). |
+| Prior art | Checked 25 November 2026: two limited searches found no earlier proof of the unrestricted statement. |
 
 ## What Lean proves
 
@@ -30,7 +29,7 @@ To settle a point $y$ of color $c$, we choose a **minimal hitting set** $J$ of u
 * **No singleton intersections $\implies$ instant 1-set guards for new points.** After painting $J$ with color $c'$, each $w \in J$ becomes the unique point of color $c'$ in its private newly split set $A_{q(w)}$. Because no two sets meet in a single point, every unsplit set through $w$ shares a second point with $A_{q(w)}$, which can have neither color $c'$ nor color $c$—so it must be uncolored! Thus $\{q(w)\}$ alone guards $w$.
 * **0/1 labels keep guard repairs finite.** Each split set carries a label $0$ or $1$: points of color $c$ are guarded only by sets of label $c$, and every set newly split by painting $J$ receives label $c'$. Existing points of color $c$ need no guard repair at all. Meanwhile, because $J$ lives inside finitely many label-$c$ sets and every guard of a color-$c'$ point consists of label-$c'$ sets (hence distinct sets!), finite pairwise intersections guarantee that each old guard loses only *finitely many* points to $J$. Adding the 1-set guards of those finitely many points repairs the guard cleanly!
 
-Repeating this settling step $\omega$ times closes off a countable piece (settling every newly colored point), and Zorn's lemma on closed partial colorings splits every set in the family. For the complete written proof with intuition and Lean correspondence, see [Erdos602.md](Erdos602.md).
+Repeating this settling step $\omega$ times closes off a countable piece (settling every newly colored point), and Zorn's lemma on closed partial colorings splits every set in the family.
 
 ## Reproduce
 
@@ -53,6 +52,5 @@ LEAN_NUM_THREADS=1 lake env leanchecker Erdos602
 
 * P. Erdős, [*Some problems on finite and infinite graphs*](https://www.renyi.hu/~p_erdos/1987-28.pdf), Contemp. Math. 65 (1987) 223-228, item 12 (the question is Komjáth's).
 * [Erdős Problems #602](https://www.erdosproblems.com/602) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/602.lean#L78)
-* Every ingredient is known: minimal hitting sets with private members (Klimó 1993; Ahlswede-Khachatrian; P. L. Erdős 1997; Komjáth 2019) and the local step for finite families (Lovász). The Lean precedent for minimal hitting sets is [grandchallenge/MATHSOLVE #1290](https://github.com/grandchallenge/MATHSOLVE/pull/1290) by fyremael, which was read before this work started. Full credits are in [Erdos602.lean](Erdos602.lean) and [Erdos602.md](Erdos602.md#what-is-new-and-what-is-borrowed).
+* Every ingredient is known: minimal hitting sets with private members (Klimó 1993; Ahlswede-Khachatrian; P. L. Erdős 1997; Komjáth 2019) and the local step for finite families (Lovász). The Lean precedent for minimal hitting sets is [grandchallenge/MATHSOLVE #1290](https://github.com/grandchallenge/MATHSOLVE/pull/1290) by fyremael, which was read before this work started. Full credits are in [Erdos602.lean](Erdos602.lean).
 * To be checked by an expert: the full text of Komjáth, *Set systems with finite chromatic number*, [European J. Combin. 10 (1989) 543-549](https://doi.org/10.1016/S0195-6698(89)80071-X), of which only the abstract was read.
-* [Prior-art audit](../PRIOR_ART.md#erdős-602-countable-sets-with-no-singleton-intersections)

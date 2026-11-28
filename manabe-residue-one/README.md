@@ -12,7 +12,7 @@ For the move set $\{3, 8, 11k + 1\}$ (with any integer $k \ge 1$), we prove in L
 | Status | Proved in Lean 4 for all $k \ge 1$. |
 | Main theorems | `SubtractionGame.ResidueOne.grundy_eq_three_iff` and `SubtractionGame.ResidueOne.periodic_from_iff` in [ResidueOne.lean](ResidueOne.lean) |
 | Verification | `lake --wfail build && lake env leanchecker --fresh ResidueOne` (Lean 4.36.0, stdlib only; pure kernel proofs) |
-| Prior art | See [Prior-art check](../PRIOR_ART.md#manabes-subtraction-game-at-residue-one). |
+| Prior art | |
 
 ## How the proof works
 
@@ -72,4 +72,4 @@ lake --wfail build
 lake env leanchecker --fresh ResidueOne
 ```
 
-The main theorems are `SubtractionGame.ResidueOne.grundy_eq_three_iff` and `SubtractionGame.ResidueOne.periodic_from_iff`. Both use kernel-checked proofs and the standard library. The optional comparison proves the singleton theorem for `SubGame.grundy3` from Manabe’s own ancillary files. [Comparison and reproduction commands](ManabeBridge.lean) · [Prior-art check](../PRIOR_ART.md#manabes-subtraction-game-at-residue-one)
+The main theorems are `SubtractionGame.ResidueOne.grundy_eq_three_iff` and `SubtractionGame.ResidueOne.periodic_from_iff`. Both use kernel-checked proofs and the standard library.

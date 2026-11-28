@@ -9,9 +9,8 @@ In 1984, Erdős wondered whether $c = 1/6$ works and suggested looking for a cou
 | Problem | Erdős Problem #211, $1/6$ variant (`erdosproblems.com/211`), `erdos_211.variants.one_sixth` in `FormalConjectures/ErdosProblems/211.lean` |
 | Status | Variant refuted, even in the weak form with a $(1 - \varepsilon)$ factor and for large $n$. The counterexample needs $k$ close to $n$ (above about $0.996\,n$); nothing is proved for smaller $k$. |
 | Main theorems | `main : ¬ type_of% @Erdos211.erdos_211.variants.one_sixth` in [Erdos211.lean](Erdos211.lean); quantitative form `E211.counterexample` |
-| Written proof | [Erdos211.md](Erdos211.md), with the same lemma numbers as the Lean file |
 | Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos211` (Lean 4.33.1 + Formal Conjectures) |
-| Prior art | Checked 25 November 2026: two limited searches found no earlier disproof of the constant $1/6$. The line count itself is not claimed as new mathematics. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-211-the-constant-one-sixth). |
+| Prior art | Checked 25 November 2026: two limited searches found no earlier disproof of the constant $1/6$. The line count itself is not claimed as new mathematics. |
 
 ## What Lean proves
 
@@ -50,5 +49,4 @@ The mathematics, Lean proof, and literature searches were produced by AI agents.
 * P. Erdős, [*Research problems*](https://users.renyi.hu/~p_erdos/1984-18.pdf), Period. Math. Hungar. 15 (1984) 101-103.
 * [Erdős Problems #211](https://www.erdosproblems.com/211) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/211.lean#L67)
 * J. Beck, Combinatorica 3 (1983) 281-297; E. Szemerédi and W. T. Trotter, Combinatorica 3 (1983) 381-392; F. de Zeeuw, [arXiv:1802.08015](https://arxiv.org/abs/1802.08015) (lower bound constant $1/9$).
-* The ingredients are classical. For a close variant of our point set, the line count follows from W. M. Schmidt's count of primitive sublattices (1998); we found no source drawing this conclusion. Full credits are in [Erdos211.lean](Erdos211.lean) and [Erdos211.md](Erdos211.md#what-is-new-and-what-is-borrowed).
-* [Prior-art audit](../PRIOR_ART.md#erdős-211-the-constant-one-sixth)
+* The ingredients are classical. For a close variant of our point set, the line count follows from W. M. Schmidt's count of primitive sublattices (1998); we found no source drawing this conclusion. Full credits are in [Erdos211.lean](Erdos211.lean).

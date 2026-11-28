@@ -18,7 +18,7 @@ Color every edge of the complete graph $K_N$ (where every pair of $N$ vertices i
 | Status | Partial and conditional results. Verifies $R_3(C_9) \ge 33$ and proves the 15-vertex conditional bound on $K_{33}$; unrestricted $R_3(C_9) \le 33$ is still open. |
 | Main theorems | `Ramsey556.lowerColoring_no_monoC9`, `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases`, `Ramsey556.splitForcesC9_iff` |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; checks proofs and included binary certificates) |
-| Prior art | Checked 23 November 2026. The lower bound 33 is known, and Kohayakawa, Simonovits, and Skokan proved $R_3(C_n) = 4n - 3$ for all sufficiently large odd $n$. Priority for the 15-vertex conditional theorem is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-556-three-color-nine-cycle-ramsey-number). |
+| Prior art | Checked 23 November 2026. The lower bound 33 is known, and Kohayakawa, Simonovits, and Skokan proved $R_3(C_n) = 4n - 3$ for all sufficiently large odd $n$. Priority for the 15-vertex conditional theorem is unverified. |
 
 ## Lean results
 
@@ -39,14 +39,10 @@ Run from this directory with Lean 4.36.0 (stdlib only):
 lake build
 ```
 
-The default target imports all proofs and checks the included certificates ([Ramsey556.lean](Ramsey556.lean)). Two optional generators reproduce the finite witnesses from scratch:
-
-* [Dense 16-vertex $C_9$-free graph certificate (`Ramsey556.Certified16`)](research/cert16/README.md)
-* [Split-graph certificate generator](research/split17/generate_traces.py)
+The default target imports all proofs and checks the included binary certificates ([Ramsey556.lean](Ramsey556.lean)).
 
 ## References
 
 * [Erdős Problems #556](https://www.erdosproblems.com/556)
 * [Radziszowski, *Small Ramsey Numbers*, §6.3.1](https://www.cs.rit.edu/~spr/ElJC/ejcram18.pdf#page=61)
 * [Kohayakawa, Simonovits, and Skokan, *The 3-colored Ramsey number of odd cycles*](https://users.renyi.hu/~miki/KohaSimSkokGraco.pdf)
-* [Prior-art audit](../PRIOR_ART.md#erdős-556-three-color-nine-cycle-ramsey-number)

@@ -79,13 +79,13 @@ class PackageDiscoveryTests(unittest.TestCase):
     def test_discovers_all_repo_packages(self) -> None:
         packages = discover_packages(REPO_ROOT)
         self.assertGreaterEqual(len(packages), 40)
-        self.assertIn("26-unit-fractions", packages)
+        self.assertIn("even-unit-fractions", packages)
         self.assertIn("queen-domination-48-sat", packages)
         self.assertIn("queen-domination-48-sat/lean-sat", packages)
         self.assertIn("queen-domination-48-sat/lean-check", packages)
         self.assertNotIn("lake-compat", packages)
         self.assertTrue(packages["a026019-binomial-recurrence"].uses_mathlib_cache)
-        self.assertFalse(packages["26-unit-fractions"].uses_mathlib_cache)
+        self.assertFalse(packages["even-unit-fractions"].uses_mathlib_cache)
         for heavy in HEAVY_PACKAGES:
             self.assertTrue(packages[heavy].heavy)
         for pkg_name in THIRD_PARTY_WARNING_PACKAGES:
@@ -126,7 +126,7 @@ class PackageDiscoveryTests(unittest.TestCase):
                 [
                     "queen-domination-48-sat/README.md",
                     "erdos-272-thirteen/clique_search/verify.cpp",
-                    "three-stacks/verify/build_witnesses.py",
+                    "erdos-677-equal-lcms/search/height.py",
                     "E1486-order-15/LICENSE",
                 ],
             ),
@@ -159,7 +159,7 @@ class PackageDiscoveryTests(unittest.TestCase):
         packages = discover_packages(REPO_ROOT)
         matrix = build_matrix(
             packages,
-            ["26-unit-fractions", "erdos-556-cycle-ramsey", "E670-order-10"],
+            ["even-unit-fractions", "erdos-556-cycle-ramsey", "E670-order-10"],
         )
         self.assertEqual(matrix[0]["timeout_minutes"], 45)
         self.assertEqual(matrix[1]["timeout_minutes"], 90)

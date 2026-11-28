@@ -40,7 +40,7 @@ That single geometric fact gives the whole lower bound:
    When $n \equiv 0$ or $1 \pmod 3$, $\lceil (10n + 1)/3 \rceil$ already equals $\lfloor (10n + 4)/3 \rfloor$.
 4. **The extra stick when $n = 3k + 2$.** Here $3e \ge 10n + 1 = 3(10k + 7)$ only gives $e \ge 10k + 7$, one shy of $\lfloor (10n + 4)/3 \rfloor = 10k + 8$. Achieving equality $e = 10k + 7$ forces zero slack everywhere: $c_0 = 1$ (only one cell joins the exterior) and every interior component has size exactly 3. Because straight $1 \times 3$ and $3 \times 1$ trominoes are rectangles, every interior component must be an **L-tromino**. Pick an end column (left or right) that avoids the single exterior cell. That column has 5 cells (an odd number), and each L-tromino covers either 1 or 2 cells of an end column; by parity, some L-tromino covers just 1 cell of that end column, which forces an adjacent L-tromino to pair with it into an intact $3 \times 2$ rectangle—contradiction!
 
-Lean formalizes this entire dual-graph proof directly, with no lookup certificates or search tables ([Lower bound](Matchsticks/Lower.lean) · [Illustrated proof (PDF)](matchstick-proof.pdf) · [Typst source](matchstick-proof.typ)).
+Lean formalizes this entire dual-graph proof directly, with no lookup certificates or search tables ([Lower bound](Matchsticks/Lower.lean)).
 
 ### Upper bound: periodic construction and 15-bit column scan
 
@@ -65,4 +65,3 @@ Dreyer and Biedl introduced the rectangle-breaking problem in 1997; Niu and Tang
 
 - [Dreyer and Biedl, DIMACS 97-53](https://archive.dimacs.rutgers.edu/TechnicalReports/abstracts/1997/97-53.html)
 - [Niu and Tang, *Theoretical Computer Science*](https://doi.org/10.1016/j.tcs.2026.116199)
-- [Prior-art notes](../PRIOR_ART.md)

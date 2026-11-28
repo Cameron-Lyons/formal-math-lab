@@ -17,7 +17,7 @@ The floored formulation of **Written on the Wall II, Graph Conjecture 133** (`WO
 | Status | Proved for all connected graphs with $\lvert V(G) \rvert \le 29$, all graphs with $\lfloor l(G) \rfloor \le 4$, and all connected bipartite, regular, or diameter $\le 2$ graphs. The first open case has $k = 5$, girth 3 or 5, and at least 30 vertices. |
 | Main theorems | `Wall133.floored_of_order_le_29`, `floored_of_floor_le_four`, `floored_of_bipartite`, `floored_of_regular`, `floored_of_diameter_le_two`, `eight_le_path_of_five_le_average`, `remaining_fifth_band` in [Wall133.lean](Wall133.lean) |
 | Verification | `lake exe cache get && lake build && lake env leanchecker --fresh Wall133` (Lean and mathlib 4.36.0; all 110 modules kernel-verified) |
-| Prior art | Checked 24 November 2026: Haoyu Chen previously treated $C_4$-containing graphs and floors through 2 (with restrictions at 3), and Kuber Mehta treated special classes; priority of the stronger local bounds ($\le 29$ vertices, floor $\le 4$, bipartite/regular) is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#written-on-the-wall-ii-graph-conjecture-133). |
+| Prior art | Checked 24 November 2026: Haoyu Chen previously treated $C_4$-containing graphs and floors through 2 (with restrictions at 3), and Kuber Mehta treated special classes; priority of the stronger local bounds ($\le 29$ vertices, floor $\le 4$, bipartite/regular) is unverified. |
 
 ## What Lean proves
 
@@ -52,4 +52,3 @@ lake env leanchecker --fresh Wall133
 - [DeLaViña's Graffiti.pc / Written on the Wall II catalogue, Conjecture 133](https://www.uhd.edu/academics/sciences/mathematics-statistics/wowii/index.html)
 - [Haoyu Chen's report (`10.5281/zenodo.22054835`)](https://doi.org/10.5281/zenodo.22054835) and [Kuber Mehta's regular/low-average notes](https://github.com/Kuberwastaken/c5-k4/blob/f0f912c17bde0aa1b1f4b59845cf018eea696452/results/expansion/method_v09_133_regular.md)
 - The radius estimate $p \ge 2r - 1$ is Theorem 2.2 of Erdős, Saks, and Sós (proof credited to Fan Chung, [paper](https://real.mtak.hu/110576/1/1-s2.0-0095895686900286-main.pdf#page=4)). This package adapts KitaKen1's Lean formalization ([original Lean proof](https://github.com/KitaKen1/wowii-graph-conjecture-31-lean/blob/a948e9fc07e11b786aee8dadb1376b4d938454d6/lean/GraphConjecture31.lean), [Wall133/Chung.lean](Wall133/Chung.lean)) and keeps the [Apache-2.0 license](LICENSE).
-- [Prior-art audit](../PRIOR_ART.md#written-on-the-wall-ii-graph-conjecture-133)

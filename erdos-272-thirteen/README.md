@@ -5,7 +5,7 @@
 For $n = 13$, this directory proves that the exact maximum is **82**:
 
 * **Lower bound ($\ge 82$) — Lean 4:** `Erdos272.exists_family_82` in [Erdos272.lean](Erdos272.lean) verifies Szabó's 82-set construction (distinctness and all $\binom{82}{2} = 3,321$ pairwise intersections) using only Lean's built-in `Init` prelude.
-* **Upper bound ($\le 82$) — Written proof + exhaustive C++23 computation:** the [one-page proof (PDF)](proof.pdf) ([Typst source](proof.typ)) establishes a linear-algebraic dimension bound, and the standalone [C++ verifier](clique_search/verify.cpp) exhaustively rules out every candidate 83-set family.
+* **Upper bound ($\le 82$) — Written proof + exhaustive C++23 computation:** the [one-page proof (Typst source)](proof.typ) establishes a linear-algebraic dimension bound, and the standalone [C++ verifier](clique_search/verify.cpp) exhaustively rules out every candidate 83-set family.
 
 ## At a glance
 
@@ -14,8 +14,7 @@ For $n = 13$, this directory proves that the exact maximum is **82**:
 | Problem | [Erdős Problem #272](https://www.erdosproblems.com/272) at $n = 13$ |
 | Theorem | Maximum family size on $\{1, \ldots, 13\}$ is **82** |
 | Lower bound (Lean 4) | `Erdos272.exists_family_82` in [Erdos272.lean](Erdos272.lean) (`Init` prelude only) |
-| Upper bound (Proof + C++) | [One-page proof (PDF)](proof.pdf) ([Typst source](proof.typ)) + [C++ verifier](clique_search/verify.cpp) |
-| Prior art | [Dated prior-art notes](../PRIOR_ART.md#erdős-272-arithmetic-progression-intersections-on-thirteen-points) |
+| Upper bound (Proof + C++) | [One-page proof (Typst)](proof.typ) + [C++ verifier](clique_search/verify.cpp) |
 
 ## Why 82 is attainable
 
@@ -38,11 +37,11 @@ Any hypothetical family of size 83 either shares a common point across all membe
 
 ### Case 2: Families with no common element
 
-1. **Linear-algebraic dimension bound:** Set aside the **300** subsets of $\{1, \ldots, 13\}$ that contain a 7-term arithmetic progression. For each remaining member of the family, record a 79-entry vector consisting of a constant $1$ plus the indicator bits of all $\binom{13}{2} = 78$ pairs of points. A squared-norm identity and an explicit analysis of the 15 five-term progression relations in the [one-page proof](proof.pdf) prove that these vectors are linearly independent—so at most **79** non-distinguished members can appear.
+1. **Linear-algebraic dimension bound:** Set aside the **300** subsets of $\{1, \ldots, 13\}$ that contain a 7-term arithmetic progression. For each remaining member of the family, record a 79-entry vector consisting of a constant $1$ plus the indicator bits of all $\binom{13}{2} = 78$ pairs of points. A squared-norm identity and an explicit analysis of the 15 five-term progression relations in the [one-page proof](proof.typ) prove that these vectors are linearly independent—so at most **79** non-distinguished members can appear.
 2. **Reduction to 3,224 canonical starting pairs:** Any 83-set counterexample must therefore contain at least $83 - 79 = 4$ of the 300 distinguished sets. Ordering those 300 sets in reflection pairs under $i \mapsto 14 - i$ leaves **3,224** canonical compatible choices for the first two distinguished sets.
 3. **Exhaustive C++ check:** The [C++ verifier](clique_search/verify.cpp) checks the 7,891-mask score bound, the direct starred bound at 13, and every one of the 3,224 initial pairs for an 83-clique with empty total intersection. None exists.
 
-**Trust boundary:** The written argument and exhaustive C++ computation establish the upper bound ($\le 82$); the Lean theorem establishes the lower bound ($\ge 82$). See also the [dated prior-art notes](../PRIOR_ART.md#erdős-272-arithmetic-progression-intersections-on-thirteen-points).
+**Trust boundary:** The written argument and exhaustive C++ computation establish the upper bound ($\le 82$); the Lean theorem establishes the lower bound ($\ge 82$).
 
 ## Reproduce
 

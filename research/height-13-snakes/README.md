@@ -26,8 +26,8 @@ In particular, adding 6 columns adds **exactly 48 squares** ($L(n + 6) = L(n) + 
 | --- | --- |
 | **Result** | Exact closed-form formula for $L(n)$ on every $13 \times n$ grid ($n \ge 1$) |
 | **Periodicity** | $L(n + 6) = L(n) + 48$ for every $n \ge 7$ |
-| **Exhaustive verifiers** | Two independent C++ frontier/transfer-matrix checkers: [frontier.cpp](frontier.cpp) (514,021 states) and [alt_snake.cpp](alt_snake.cpp) (620,950 states) |
-| **Explicit construction** | [construct_snake.py](construct_snake.py) · [Interactive example for widths 4, 10, 16, 22, and 28](figures/repeating-snake.html) |
+| **Exhaustive verifier** | C++ frontier/transfer-matrix checker: [frontier.cpp](frontier.cpp) (514,021 states) |
+| **Explicit construction** | [construct_snake.py](construct_snake.py) |
 | **Trust boundary** | Compiled C++17/C++23 exact integer arithmetic outside the Lean kernel |
 
 ---
@@ -76,16 +76,6 @@ $$
 
 Combined with the direct check for widths 1 through 59 (which already seeds all six residue classes modulo 6 at widths 53–58), this proves the formula for **every positive width $n$**.
 
-### Independent verification
-
-A second C++ program ([alt_snake.cpp](alt_snake.cpp)) re-derives the entire result using a completely different state representation — an **edge-crossing mate encoding** (tracking horizontal edges that cross the vertical cut between columns and pairing the exposed ends of each unfinished path). On its own state space of **620,950** boundary states (**619,869** reachable), it independently confirms widths 1 through 59 and the exact coordinate-wise identity
-
-$$
-V(59) = V(53) + 48.
-$$
-
----
-
 ## Constructing an optimal snake
 
 To witness the lower bound constructively for every width $n \ge 1$, [construct_snake.py](construct_snake.py) provides:
@@ -93,7 +83,7 @@ To witness the lower bound constructively for every width $n \ge 1$, [construct_
 - **Individual optimal snakes** for widths 1 through 14, and
 - **A modular tiling for all widths $n \ge 15$:** six pairs of fixed left/right end caps (one pair per residue class modulo 6, with combined widths **15 through 20**), plus a single repeatable **6-column middle block**. Inserting as many copies of the 6-column block as needed between the ends adds **48 squares** per copy and restores the exact same boundary state.
 
-The Python script directly verifies the six base snakes and the repeatable boundary directly from raw grid adjacency (no reliance on the C++ code). You can also inspect the repeating motif visually in the [interactive example for widths 4, 10, 16, 22, and 28](figures/repeating-snake.html).
+The Python script directly verifies the six base snakes and the repeatable boundary directly from raw grid adjacency (no reliance on the C++ code).
 
 ---
 
@@ -105,8 +95,6 @@ Run these commands from this directory with a C++23 compiler (also valid C++17) 
 build_dir=$(mktemp -d)
 c++ -std=c++23 -O3 frontier.cpp -o "$build_dir/frontier"
 "$build_dir/frontier"
-c++ -std=c++23 -O3 alt_snake.cpp -o "$build_dir/alt_snake"
-"$build_dir/alt_snake"
 python3 construct_snake.py
 ```
 

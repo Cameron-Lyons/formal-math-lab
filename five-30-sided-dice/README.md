@@ -12,7 +12,7 @@ The Lean 4 proofs here establish two structural obstructions for `5 d30`—a nec
 | Status | Partial results (modulo-4 condition and mirrored-block exclusion). Unrestricted existence of five 30-sided Go First Dice remains open. |
 | Main theorems | `FiveDice.EqualCuts.needs_distinct_residues` ([EqualCuts.lean](EqualCuts.lean)), `FiveDice.Mirrored.no_fifteen_mirrored` ([MirroredObstruction.lean](MirroredObstruction.lean)), `FiveDice.check30_iff` ([FiveDice.lean](FiveDice.lean)), `FiveDice.meyer60_fair` ([Meyer60.lean](Meyer60.lean)) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; `check30_iff`, `needs_distinct_residues`, and `meyer60_fair` are kernel-checked; `no_fifteen_mirrored` uses `native_decide` for 5,400 finite inequalities) |
-| Prior art | Checked 24 November 2026: an earlier exhaustive search by the Go First Dice team already ruled out all column-grouped labelings (which include the 15 mirrored blocks); priority of the modulo-4 cut condition is unconfirmed. See [PRIOR_ART.md](../PRIOR_ART.md#five-30-sided-go-first-dice). |
+| Prior art | Checked 24 November 2026: an earlier exhaustive search by the Go First Dice team already ruled out all column-grouped labelings (which include the 15 mirrored blocks); priority of the modulo-4 cut condition is unconfirmed. |
 
 ## Lean results
 
@@ -48,4 +48,3 @@ lake build
 - Go First Dice: [Open Questions (`#d30`)](http://gofirstdice.ericharshbarger.org/doku.php?id=open_questions#d30) and [column-paired search counts](http://gofirstdice.ericharshbarger.org/doku.php?id=homogeneous_solutions#column_paired)
 - [Gavenčiak, Haeupler, and Rozhoň, `arXiv:2610.15421v1`, §1.2](https://arxiv.org/html/2610.15421v1#S1.SS2)
 - [The Dice Lab: Paul Meyer's 5 d60 Go First Dice](https://www.mathartfun.com/thedicelab.com/GFD5.html)
-- [Prior-art audit](../PRIOR_ART.md#five-30-sided-go-first-dice)

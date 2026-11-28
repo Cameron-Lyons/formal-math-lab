@@ -1,1 +1,0 @@
-{"result": "PASS", "independent_geometric_windows": 81, "induced_disjoint_T_placements": 17, "equal_initial_component_shapes": {"singletons": 92, "pairs": 4}, "different_class_counts_after_same_external_collision": [93, 92], "unrestricted_exact_count": null}

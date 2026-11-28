@@ -1,9 +1,0 @@
-group=1 prefix=000000100002011001202102210110211112 mode=baseline_cpu
-component row=6 calls=0 disconnected=0 pruned=0
-component row=7 calls=0 disconnected=0 pruned=0
-component row=8 calls=0 disconnected=0 pruned=0
-component row=9 calls=0 disconnected=0 pruned=0
-component_prune=0 elapsed_seconds=18.7304
-138 boards (prefix exhausted)
-child_cpu_seconds=15.792244
-Saved complete ordered tail list matches PASS

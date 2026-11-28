@@ -116,14 +116,13 @@ def main():
         "exact-symmetry-lean-build.log",
         "ExactOrbit.lean",
         "exact-orbit-lean-build.log",
-    ]
-    # Keep the README's exact-count companion and its small source and evidence files together.
-    experiments = ROOT / "experiments"
-    files += [
-        str(p.relative_to(ROOT))
-        for p in sorted(experiments.glob("exact_*"))
-        if p.is_file()
-        and p.suffix in {".cpp", ".hpp", ".py", ".md", ".json", ".log", ".txt"}
+        "ExactMarginals.lean",
+        "exact-marginals-lean-build.log",
+        "MarginalCounterexample.lean",
+        "marginal-counterexample-lean-build.log",
+        "ExactParity.lean",
+        "exact-parity-lean-build.log",
+        "ExactNativeMoments.lean",
     ]
     files += [
         str(p.relative_to(ROOT)) for p in sorted((ROOT / "Extended").glob("*.lean"))

@@ -1,9 +1,0 @@
-{
-  "available_mb": 4704,
-  "required_available_mb": 4608,
-  "memory_cap_mb": 4096,
-  "seconds": 900,
-  "time_unix": 1795429362.1773906,
-  "executable_sha256": "63e52125aba520101ccc7f4f188c626824cf867ebbd80390fbd03ec8c606da76",
-  "status": "LAUNCH"
-}

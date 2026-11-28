@@ -1,8 +1,0 @@
-ℹ [6/10] Replayed ExactParity
-info: ExactParity.lean:105:0: 'TBoards.ExactParity.valid_iff_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
-info: ExactParity.lean:106:0: 'TBoards.ExactParity.valid_iff_congruent_one' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [8/10] Replayed ExactNativeMoments
-info: ExactNativeMoments.lean:252:0: 'TBoards.ExactNativeMoments.valid_iff_all_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
-info: ExactNativeMoments.lean:253:0: 'TBoards.ExactNativeMoments.valid_iff_native_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
-info: ExactNativeMoments.lean:254:0: 'TBoards.ExactNativeMoments.valid_iff_power_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
-Build completed successfully (10 jobs).

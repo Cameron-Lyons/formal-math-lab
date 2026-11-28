@@ -1,6 +1,0 @@
-unrestricted binary168: allthree primary modes and allfilters/factoring PASS
-all16 binary prefixfibers agree with independent rowenumeration PASS
-published ternary prefix C count2 PASS {"status": "COMPLETE", "colors": "3", "prefix": "0000211212102221010122001221112122220201201111202", "mode": "0", "count": "2", "nodes": "93097", "forced": "59087", "dead": "48490", "memo_entries": "44605", "memo_hits": "0", "cell_prunes": "733268", "hall_calls": "45629", "hall_failed": "31", "hall_removed": "24470", "cell_branches": "7062", "flow_failed": "1930", "flow_removed": "437280", "component_splits": "0", "component_max": "0", "elapsed": "8.98982"}
-published ternary prefix P count2 PASS {"status": "COMPLETE", "colors": "3", "prefix": "0000001000112101201121220001222212022121122111110", "mode": "0", "count": "2", "nodes": "144861", "forced": "57082", "dead": "79480", "memo_entries": "65379", "memo_hits": "0", "cell_prunes": "1080878", "hall_calls": "66586", "hall_failed": "12", "hall_removed": "38729", "cell_branches": "15641", "flow_failed": "9238", "flow_removed": "888400", "component_splits": "0", "component_max": "0", "elapsed": "6.72205"}
-full valid board1 and independently invalid board0 PASS
-independent16-assignment fixture:4solutions, factor2x2 PASS

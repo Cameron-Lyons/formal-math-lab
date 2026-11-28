@@ -1,9 +1,0 @@
-{
-  "url": "https://geo.mirror.pkgbuild.com/extra/os/x86_64/msolve-0.11.0-1-x86_64.pkg.tar.zst",
-  "version": "0.11.0-1",
-  "archive_sha256": "7a0ff10c03fb86869470a39068271f3291221cddfe1b100507a5d3b68ff50fab",
-  "executable_sha256": "6d577c94b3a36a83333b7dfa40409a4371301b495c1858d4f08e4f121ffbfb4a",
-  "repository_database": "/var/lib/pacman/sync/extra.db",
-  "repository_sha256": "7a0ff10c03fb86869470a39068271f3291221cddfe1b100507a5d3b68ff50fab",
-  "checksum_verified": true
-}

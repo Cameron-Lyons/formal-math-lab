@@ -1,9 +1,0 @@
-{
-  "status": "UNKNOWN",
-  "colors": 3,
-  "prefix_rows": 6,
-  "seed": 0,
-  "solver": "cadical195",
-  "requested_seconds": 120,
-  "reason": "The installed PySAT CaDiCaL195 interrupt method is unsupported; the owned process was manually terminated after the requested limit. No SAT or UNSAT result was obtained. The script now offers only tested interruptible solvers."
-}

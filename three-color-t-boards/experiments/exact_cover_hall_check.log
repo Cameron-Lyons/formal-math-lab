@@ -1,2 +1,0 @@
-PASS: perfect-matching feasibility and every supported edge agree on 67579 graphs, including all square graphs up to size4.
-PASS: full, unique, and impossible size81 matching instances.

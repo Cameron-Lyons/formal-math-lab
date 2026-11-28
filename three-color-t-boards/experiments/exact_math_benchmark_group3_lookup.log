@@ -1,8 +1,0 @@
-group=3 prefix=000000100011210120112122000122221202 mode=lookup
-component row=6 calls=1 disconnected=0 pruned=0
-component row=7 calls=26104 disconnected=0 pruned=0
-component row=8 calls=42059981 disconnected=187720 pruned=187720
-component row=9 calls=21294 disconnected=5236 pruned=5236
-component_prune=1 connectivity_lookup=1 prepare_seconds=0.0315023 elapsed_seconds=36.9658
-36 boards (prefix exhausted)
-Saved complete ordered tail list matches PASS

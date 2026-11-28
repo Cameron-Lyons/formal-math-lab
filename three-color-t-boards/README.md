@@ -62,7 +62,7 @@ python verify_splice.py --all --native --jobs 4
 
 Earlier certified lower bounds and write-ups remain available for reference: [32,155,680 boards](SPLICE_RANGES.md), [21,158,736 boards](SPLICE_FURTHER.md), [10,485,708 boards](BINARY_CAPS.md), and [348,960 boards](SPLICE_PROOF.md).
 
-The [exact-count investigation](EXACT_COUNT.md) documents the kernel-checked global orbit-size-12 proof (`lake build ExactSymmetry ExactOrbit`), reduced marginal and parity characterizations, and every exhaustive counting model we tested. The unrestricted ternary total is still unknown.
+The [exact-count theorems](EXACT_COUNT.md) document the kernel-checked global orbit-size-12 proof (`lake build ExactSymmetry ExactOrbit`), reduced marginal characterization and counterexample (`ExactMarginals`, `MarginalCounterexample`), modular/parity saturation (`ExactParity`), and $\mathbb{F}_3$ moment equivalence (`ExactNativeMoments`). The unrestricted ternary total is still unknown.
 
 ## The six-board standalone proof (> 60 boards)
 

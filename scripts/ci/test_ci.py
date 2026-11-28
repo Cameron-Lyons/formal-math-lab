@@ -173,7 +173,6 @@ class CCppClassificationTests(unittest.TestCase):
             *sorted(EXTERNAL_DEP_FILES),
             "demo/new_tool.c",
             "demo/new_search.cpp",
-            "three-color-t-boards/experiments/exact_parity_sources/foo.cpp",
         ]
         result = classify_sources(tracked)
         self.assertEqual(result.stale_exclusions, ())

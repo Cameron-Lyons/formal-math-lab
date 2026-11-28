@@ -1,1 +1,0 @@
-{"status": "COMPLETE", "native_sign_branch": 1, "variables": 95, "generators": 257, "dimension_decimal": "0", "child_cpu_seconds": 0.21336299999999997, "child_wall_seconds": 0.2880394300009357, "basis_size": 1, "export_marker_count": 1, "error_diagnostics": [], "basis_complete": true, "standard_basis_complete": true}

@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_elementary_analysis_fiber.py", line 90, in <module>
-    if __name__=='__main__':main()
-                            ~~~~^^
-  File "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_elementary_analysis_fiber.py", line 71, in main
-    leading=parse_leading(basis.read_text(),97,2)
-  File "/home/cam/formal-math-lab/three-color-t-boards/experiments/exact_msolve_backend.py", line 186, in parse_leading
-    raise ValueError('variable order mismatch')
-ValueError: variable order mismatch

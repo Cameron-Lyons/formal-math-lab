@@ -1,0 +1,62 @@
+name = "tboards"
+version = "0.1.0"
+defaultTargets = [
+  "SimpleProof",
+  "SplicePalCertificates",
+  "ExactSymmetry",
+  "ExactOrbit",
+  "MarginalCounterexample",
+  "ExactMarginals",
+  "ExactParity",
+  "ExactNativeMoments",
+]
+
+[[lean_lib]]
+name = "TBoards"
+roots = [
+  "TBoards",
+  "BoardData",
+  "EfficientCheck",
+  "ColorSymmetry",
+  "SortedFamily",
+  "Splice",
+  "SpliceSymmetry",
+  "SpliceData",
+  "SplicePacked",
+  "SpliceExtensionData",
+  "SpliceFurtherData",
+  "SpliceTransfer",
+  "SpliceTransferData",
+  "SplicePrefixSymmetry",
+  "SpliceRanges",
+  "SpliceNextData",
+  "SpliceSixthData",
+  "SpliceSixthPrefixData",
+  "SpliceSixthCertificates",
+  "SplicePal",
+  "SplicePalData",
+]
+
+[[lean_lib]]
+name = "SimpleProof"
+
+[[lean_lib]]
+name = "SplicePalCertificates"
+
+[[lean_lib]]
+name = "ExactSymmetry"
+
+[[lean_lib]]
+name = "ExactOrbit"
+
+[[lean_lib]]
+name = "MarginalCounterexample"
+
+[[lean_lib]]
+name = "ExactMarginals"
+
+[[lean_lib]]
+name = "ExactParity"
+
+[[lean_lib]]
+name = "ExactNativeMoments"

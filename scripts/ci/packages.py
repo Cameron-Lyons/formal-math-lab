@@ -19,25 +19,25 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-CANARY_PACKAGE = "even-unit-fractions"
+CANARY_PACKAGE = "number-theory/unit-fractions/even"
 EXCLUDED_ROOT_DIRS: frozenset[str] = frozenset(
     {".git", ".lake", ".ruff_cache", ".venv", "lake-compat"}
 )
 HEAVY_PACKAGES: frozenset[str] = frozenset(
     {
-        "E1486-order-15",
-        "E670-order-10",
-        "E677-E255-order-9",
-        "three-color-t-boards",
-        "union-closed-sets",
+        "etp/e1486-order-15",
+        "etp/e670-order-10",
+        "etp/e677-e255-order-9",
+        "combinatorics/three-color-t-boards",
+        "combinatorics/union-closed-sets",
     }
 )
 # Non-heavy packages whose Lean 4.36 `leanchecker --fresh` replay can approach
 # or exceed the default 45-minute CI timeout.
 EXTENDED_TIMEOUT_PACKAGES: frozenset[str] = frozenset(
     {
-        "erdos-556-cycle-ramsey",
-        "queen-domination-48-sat",
+        "erdos/556-cycle-ramsey",
+        "combinatorics/queen-domination-48/sat",
     }
 )
 # Packages whose pinned third-party Git dependencies emit upstream warnings;
@@ -45,14 +45,14 @@ EXTENDED_TIMEOUT_PACKAGES: frozenset[str] = frozenset(
 # first-party modules still fail the build on any warning.
 THIRD_PARTY_WARNING_PACKAGES: frozenset[str] = frozenset(
     {
-        "erdos-708-six",
-        "written-on-the-wall-133",
+        "erdos/708-six",
+        "combinatorics/written-on-the-wall-133",
     }
 )
 # Heavy kernel-reduction modules that must be built sequentially before the
 # final `lake build` so 16 GiB CI runners do not OOM during parallel checking.
 SEQUENTIAL_PREBUILD_TARGETS: dict[str, tuple[str, ...]] = {
-    "union-closed-sets": (
+    "combinatorics/union-closed-sets": (
         "UCBound.CertCovChk",
         "UCBound.CertFRChk1",
         "UCBound.CertFRChk2",
@@ -62,15 +62,10 @@ SEQUENTIAL_PREBUILD_TARGETS: dict[str, tuple[str, ...]] = {
         "UCBound.CertFsimChk2",
     ),
 }
-EXTRA_BUILD_TARGETS: dict[str, tuple[str, ...]] = {
-    "three-color-t-boards": (
-        "ExactSymmetry",
-        "ExactOrbit",
-        "MarginalCounterexample",
-        "ExactMarginals",
-        "ExactParity",
-        "ExactNativeMoments",
-    ),
+# Standalone Lean files intentionally excluded from the package library
+# (e.g., axiom-wrapping entrypoints) that CI must still typecheck strictly.
+EXTRA_LEAN_CHECK_FILES: dict[str, tuple[str, ...]] = {
+    "combinatorics/queen-domination-48/sat": ("Certified48.lean",),
 }
 CI_TRIGGER_PATHS: tuple[str, ...] = (
     ".github/workflows/ci.yml",
@@ -78,11 +73,12 @@ CI_TRIGGER_PATHS: tuple[str, ...] = (
     "scripts/ci/",
 )
 # Files inside a Lean package directory that cannot affect `lake build` or
-# `leanchecker` outputs (documentation, licenses, and standalone scripts/C++).
+# `leanchecker` outputs (documentation, licenses, external archives, scripts/C++).
+# Note: `.txt` is NOT globally ignored because `erdos/160-four-term-ap` uses
+# `include_str` on `.txt` certificate files.
 NON_LEAN_SUFFIXES: tuple[str, ...] = (
     ".md",
     ".pdf",
-    ".typ",
     ".py",
     ".c",
     ".cpp",
@@ -90,8 +86,20 @@ NON_LEAN_SUFFIXES: tuple[str, ...] = (
     ".hpp",
     ".sh",
     ".patch",
+    ".gp",
+    ".weights",
+    ".gz",
 )
-NON_LEAN_FILENAMES: frozenset[str] = frozenset({"LICENSE"})
+NON_LEAN_FILENAMES: frozenset[str] = frozenset(
+    {
+        ".gitignore",
+        "LICENSE",
+        "LICENSE_SCOPE.txt",
+        "CC-BY-4.0.txt",
+        "SHA256SUMS",
+        "deletions.txt",
+    }
+)
 ZERO_SHA = "0" * 40
 
 
@@ -107,7 +115,7 @@ class LeanPackage:
     local_deps: tuple[str, ...]
     default_targets: tuple[str, ...]
     prebuild_targets: tuple[str, ...]
-    extra_targets: tuple[str, ...]
+    extra_check_files: tuple[str, ...]
     lib_roots: tuple[str, ...]
 
 
@@ -186,7 +194,7 @@ def _load_package(repo_root: Path, pkg_rel: str) -> LeanPackage:
         local_deps=_extract_local_deps(pkg_rel, lakefile_data),
         default_targets=default_targets,
         prebuild_targets=SEQUENTIAL_PREBUILD_TARGETS.get(pkg_rel, ()),
-        extra_targets=EXTRA_BUILD_TARGETS.get(pkg_rel, ()),
+        extra_check_files=EXTRA_LEAN_CHECK_FILES.get(pkg_rel, ()),
         lib_roots=_extract_lib_roots(lakefile_data),
     )
 
@@ -459,10 +467,12 @@ def run_build(
 
     _run_cmd(build_prefix, cwd=pkg_dir)
 
-    if pkg.extra_targets:
-        _run_cmd([*build_prefix, *pkg.extra_targets], cwd=pkg_dir)
+    for extra_file in pkg.extra_check_files:
+        _run_cmd(
+            ["lake", "env", "lean", "-DwarningAsError=true", extra_file], cwd=pkg_dir
+        )
 
-    if run_leanchecker and pkg.path == "erdos-64-power-of-two-cycles":
+    if run_leanchecker and pkg.path == "erdos/64-power-of-two-cycles":
         # Lean 4.36 segfaults during the per-module replay. Erdos64 imports
         # the entire package, so a fresh replay checks all its declarations.
         _run_cmd(["lake", "env", "leanchecker", "--fresh", "Erdos64"], cwd=pkg_dir)

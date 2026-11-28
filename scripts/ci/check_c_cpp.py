@@ -17,7 +17,7 @@ from scripts.ci.packages import REPO_ROOT
 # (nauty 2.9.3) rather than the repository alone.
 EXTERNAL_DEP_FILES: frozenset[str] = frozenset(
     {
-        "erdos-64-power-of-two-cycles/scripts/geng_terminals.c",  # Linked into nauty's geng.
+        "erdos/64-power-of-two-cycles/scripts/geng_terminals.c",  # Linked into nauty's geng.
     }
 )
 

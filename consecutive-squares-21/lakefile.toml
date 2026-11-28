@@ -1,6 +1,0 @@
-name = "squares42"
-defaultTargets = ["Squares42"]
-
-[[lean_lib]]
-name = "Squares42"
-roots = ["Squares", "Width43", "Projection", "Bridge", "Guillotine"]

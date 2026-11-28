@@ -1,8 +1,15 @@
 # Erdős Problem #617: missing colors in cliques
 
-Erdős and Gyárfás (1999) asked whether every $r$-edge-coloring of $K_{r^2 + 1}$ (for $r \ge 3$) has $r + 1$ vertices whose induced edges omit at least one color. The general conjecture is still open.
+Color every edge of the complete graph $K_{r^2 + 1}$ (a graph on $r^2 + 1$ vertices where every pair of vertices is joined) with $r$ colors, where $r \ge 3$. **Erdős Problem #617**—posed by Erdős and Gyárfás (1999)—asks whether there must always exist $r + 1$ vertices whose **induced edges** (all edges with both endpoints inside those $r + 1$ vertices) **omit at least one color**.
 
-This Lean 4 project proves the conjecture for $3 \le r \le 10$, settles all $r \ge 3$ under several clique or degree assumptions (including $r - 2$ disjoint monochromatic copies of $K_r$ in one color), and restricts the structure of any counterexample.
+The general conjecture remains **open** for $r \ge 11$. This Lean 4 library settles all small cases up through $r = 10$, proves the conjecture for *every* $r \ge 3$ under several clique, degree, or line-graph assumptions, and tightly constrains any hypothetical counterexample:
+
+* **Proved unconditionally in Lean 4:** the conjecture holds for every **$3 \le r \le 10$** (`missing_of_at_most_ten_colors`), extending prior results for $r = 3, 4$ (Erdős–Gyárfás) and $r = 5$ (prior formal verification).
+* **Proved for all $r \ge 3$ under structural hypotheses:** holds whenever one color contains $r - 2$ vertex-disjoint copies of $K_r$, or $r - q$ vertex-disjoint copies of $K_r$ with $1000(2q + 1)^2 < r$, or has small degree excess, or contains a spanning line graph of a low-multiplicity multigraph.
+* **Obstructions on any counterexample:** forces $r \ge 11$ and extracts a minimal obstruction of order $tr + 1$ inside a narrow parameter window.
+* **Still open:** unrestricted $r \ge 11$.
+
+## At a glance
 
 | Field | Summary |
 | --- | --- |
@@ -15,6 +22,8 @@ This Lean 4 project proves the conjecture for $3 \le r \le 10$, settles all $r \
 ## Main Lean results
 
 Import `Erdos617` to use the library. [Erdos617.lean](Erdos617.lean) lists all 29 modules and the counterexample obstructions.
+
+*Terminology note:* A color class is **regular** if every vertex has the same number of incident edges of that color; **vertex-disjoint copies of $K_r$** are groups of $r$ vertices that share no vertices and are internally monochromatic; and the **line graph** of a loopless multigraph turns each edge of the multigraph into a vertex, joining two vertices whenever their corresponding edges share an endpoint (with **multiplicity at most 5** meaning at most 5 parallel edges between any pair of vertices).
 
 | Lean declaration (namespace `Erdos617`) | Result |
 | --- | --- |

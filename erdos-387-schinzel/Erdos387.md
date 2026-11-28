@@ -4,301 +4,504 @@
 
 ## The theorem
 
-If $k$ is sufficiently large and not a prime power, then there is an integer $n$ such that none of the $k$ numbers $n,n-1,\dots,n-k+1$ divides $\binom{n}{k}$. This is the eventual form of Schinzel's 1958 conjecture (Colloq. Math., Problem P 217). The proof does not make the lower bound on $k$ explicit.
+Consider the binomial coefficient $\binom{n}{k} = \frac{n(n-1)\cdots(n-k+1)}{k!}$. Given an integer $k$, can we find an integer $n$ such that **none** of the $k$ numerator factors $n, n-1, \dots, n-k+1$ divides $\binom{n}{k}$?
 
-**Theorem.** *There is $k_0$ such that for every $k\ge k_0$ that is not a prime power there exists $n$ with $(n-i)\nmid\binom{n}{k}$ for all $0\le i<k$.*
+If $k$ is sufficiently large and not a prime power, the answer is **yes**. This proves the eventual form of Schinzel's 1958 conjecture (*Colloq. Math.*, Problem P 217). Our proof does not make the lower bound on $k$ explicit.
 
-When $k$ is a prime power, no such $n$ exists (Schinzel [1, Theorem 1]). No such $n$ exists for certain small non-prime-powers either, such as $k=6$ [1, Corollary 2] and $k=34$ [2], which is why the explicit conjecture starts at $k\ge 35$. Our proof uses that $k$ is not a prime power only to pick a second prime factor $q'$ of $k$. This statement is a variant attached to Erdős Problem 387. The headline question of Problem 387 (whether there is a constant $c>0$ such that $\binom{n}{k}$ always has a divisor in $(cn,n]$) is a separate question, answered negatively by Bui, Naprienko, Pratt, and Zaharescu [3].
+**Theorem.** *There is $k_0$ such that for every $k \ge k_0$ that is not a prime power there exists $n$ with $(n - i) \nmid \binom{n}{k}$ for all $0 \le i < k$.*
 
-## Idea of the proof
+When $k$ is a prime power, no such $n$ exists (Schinzel [1, Theorem 1]). No such $n$ exists for certain small non-prime-powers either, such as $k = 6$ [1, Corollary 2] and $k = 34$ [2], which is why the explicit conjecture starts at $k \ge 35$. Our proof uses the hypothesis that $k$ is not a prime power in only one place: to guarantee a second prime factor $q'$ of $k$ distinct from its largest prime factor $q$.
 
-By Kummer's theorem and the Chinese remainder theorem, it is enough to pick for each prime $p\le k$ a residue class $a_p$ with $k\bmod p<a_p\le p$ so that these classes cover $1,\dots,k$ (Schinzel). Start with $a_p=p$ (class zero) for all $p$. Move the largest prime factor $q$ of $k$ to class $1$, and move one auxiliary prime $p_0$ to a class $c_0$ containing many large primes. Any number left uncovered must be composed of the moved primes. We cover these numbers one by one in order of their level $\min(n,k-n)$, up to level $k/5$: a number at level $l$ receives its own fresh prime $p>l$ that divides an even number $k-i$ with $i<l$. Moving $p$ uncovers multiples of $p$, but a parity argument shows that all newly uncovered numbers have level at least $p$.
+*(This statement is a variant attached to Erdős Problem 387. The headline question of Problem 387—whether there is a constant $c > 0$ such that $\binom{n}{k}$ always has a divisor in $(cn, n]$—is a separate question, answered negatively by Bui, Naprienko, Pratt, and Zaharescu [3].)*
 
-The main task is showing that fresh primes never run out. The supply at level $l$ comes from Chebyshev's bounds (and from Størmer's theorem at bounded levels). The demand is the number of uncovered numbers up to level $l$. At bounded levels, those are powers of $q$. Below a threshold level $X$ (a power of $\log k$), we count them by Rankin's method. From $X$ onward, each moved prime can uncover many numbers, so we put a decreasing weight on levels such that all multiples of a moved prime together weigh at most half as much as the number that prime was moved to cover. This keeps the total weight small.
+## Big picture and proof roadmap
 
-At the end, very few uncovered numbers remain, all of level at least $k/5$. We cover them with distinct large primes $P\equiv c_0\pmod{p_0}$. Moving such a $P$ uncovers only $P$ itself, which is already covered by $p_0$.
+Here is how the twelve sections fit together before we dive into the estimates:
+
+1. **From binomial divisibility to a covering system (Section 1).** By Kummer's theorem (the exponent of a prime $p$ in $\binom{n}{k}$ equals the number of base-$p$ carries when adding $k$ and $n - k$) and the Chinese remainder theorem, it suffices to assign each prime $p \le k$ an *admissible* residue class $a_p$ satisfying $k \bmod p < a_p \le p$ so that every integer in $\{1, \dots, k\}$ satisfies $j \equiv a_p \pmod p$ for some $p \le k$ (Schinzel).
+2. **Start at class zero and move two special primes (Sections 4 & 7).** Begin with $a_p = p$ (residue class $0$) for every prime $p \le k$. This already covers $2, \dots, k$, leaving only $1$ uncovered. Move the largest prime factor $q$ of $k$ to class $1$ (covering $1$, while a second prime factor $q' < q$ remains at class $0$ to keep $k$ covered). Also move one **auxiliary prime** $p_0$ (found via Turán's second moment in Section 4) to an admissible class $c_0$ that contains at least $k/(\log k)^{14}$ large primes in $(k - \lfloor k/5 \rfloor, k]$.
+3. **Greedy covering by level with parity lifting (Sections 7 & 12).** Once a set $T^*$ of primes has been moved off class $0$, any integer in $\{2, \dots, k-1\}$ left uncovered must be **smooth**—composed entirely of primes in $T^*$. Measure how close a number $n$ is to the endpoints $0$ and $k$ by its **level** $\operatorname{lv}(n) = \min(n, k - n)$. We cover uncovered numbers one by one in increasing order of level up to $k/5$, assigning each level-$l$ number $n$ its own fresh odd prime $p > l$ dividing an *even* number $k - i$ with $i < l$. Because all moved primes are odd, every smooth number is odd, and a simple **parity lifting argument** (Lemma 9(b)) forces every newly uncovered multiple of $p$ to have level at least $p > l$—so we never disturb lower levels!
+4. **Ensuring fresh primes never run out across three level regimes (Sections 2, 3, 5, 6, 8–11).** The heart of the proof is showing that supply beats demand at every level $l < k/5$:
+   * **Supply (Section 6):** Chebyshev's bounds (Section 3) applied to the binomial coefficient $\binom{\lfloor k/2 \rfloor}{h(l)}$ supply plenty of fresh primes $p \ge \tau(l)$ for large levels $l \ge L_0$, while Størmer's theorem (Section 2) supplies primes $> J$ for bounded levels $l < L_0$.
+   * **Demand at bounded levels ($l < L_0$, Lemma 14):** Only powers of $q$ can have level $< L_0$, and Størmer's theorem prevents two of them from sharing a level, keeping demand within the bounded-level supply.
+   * **Demand at small levels ($L_0 \le l < X = (\log k)^{M/8}$, Section 9):** Rankin's method (Lemma 10) counts smooth numbers near $0$, while a short-window prime assignment (Lemma 11) counts those near $k$.
+   * **Demand at large levels ($X \le l \le k$, Sections 5 & 10):** Here each moved prime can uncover many multiples. We introduce a decreasing **weight function** $\varphi$ and threshold $\tau(l)$ such that whenever $p \ge \tau(l)$, all smooth multiples of $p$ together weigh at most $\frac{1}{2}\varphi(l)$—half the weight of the number $p$ was moved to cover (Lemma 6). This creates a self-bounding inequality $W \le \frac{1}{2}W + W'$ that keeps the total weight—and hence the number of smooth integers at large levels—tiny (Lemma 13).
+5. **Cleanup with large primes (Section 12).** Once no uncovered number remains below level $k/5$, Lemma 13 guarantees at most $k/(\log k)^{14}$ uncovered numbers remain in total, all at level $\ge k/5$. We cover each remaining $n$ with a distinct large prime $P_n \in (k - \lfloor k/5 \rfloor, k]$ satisfying $P_n \equiv c_0 \pmod{p_0}$. Moving $P_n$ off class $0$ uncovers only multiples of $P_n$ up to $k$—namely $P_n$ itself—which is already covered by $p_0$!
+
+---
 
 ## 0. Notation
 
-Throughout, $k\ge 2$ is an integer, $L=\log k$, and $A=1+L$, where $\log$ is the natural logarithm. The letters $p,q,r,P$ denote primes, and $k\bmod p$ is the remainder in $\{0,\dots,p-1\}$. For a set $R$ of primes, a positive integer is **composed of $R$** if all its prime factors belong to $R$ (so $1$ is composed of $R$). Write $\vartheta(x)=\sum_{p\le x}\log p$, let $\pi(x)$ be the number of primes up to $x$, and let $v_p(n)$ be the exponent of $p$ in $n$.
+Throughout, $k \ge 2$ is an integer, $L = \log k$, and $A = 1 + L$, where $\log$ is the natural logarithm.
 
-We use Kummer's theorem: $v_p\binom{n}{j}$ equals the number of carries when $j$ and $n-j$ are added in base $p$. In particular, $p\nmid\binom{n}{j}$ whenever there are no carries, and $p^{v_p\binom{n}{j}}\le n$.
+* The letters $p, q, r, P$ always denote primes, and $k \bmod p$ is the remainder of $k$ modulo $p$ in $\{0, \dots, p - 1\}$.
+* For a set $R$ of primes, a positive integer is **composed of $R$** if all of its prime factors belong to $R$ (in particular, $1$ is composed of $R$).
+* We write $\vartheta(x) = \sum_{p \le x} \log p$ (the first Chebyshev function), $\pi(x)$ for the number of primes $\le x$, and $v_p(n)$ for the exponent of $p$ in the prime factorization of $n$ (the $p$-adic valuation).
+
+We use **Kummer's theorem**: for any prime $p$ and integers $0 \le j \le n$, the exponent $v_p\binom{n}{j}$ equals the number of carries when $j$ and $n - j$ are added in base $p$. Two immediate consequences are:
+
+* $p \nmid \binom{n}{j}$ whenever adding $j$ and $n - j$ in base $p$ produces no carries;
+* $p^{v_p\binom{n}{j}} \le n$ (since there are at most $\lfloor \log_p n \rfloor$ base-$p$ additions that can carry).
+
+---
 
 ## 1. Reduction to a covering problem
 
-**Lemma 1 (Schinzel).** *Suppose $k\bmod p<a_p\le p$ for every prime $p\le k$, and for every $1\le j\le k$ there is a prime $p\le k$ with $j\equiv a_p\pmod p$. Then there exists $n$ with $(n-i)\nmid\binom{n}{k}$ for all $0\le i<k$.*
+To make $(n - i) \nmid \binom{n}{k}$ for every $0 \le i < k$, it suffices to find for each $i$ a prime $p \le k$ that *divides* $n - i$ while *not dividing* $\binom{n}{k}$. Writing $n = x + k$ and placing $x \bmod p^{k+1}$ in $\{0, \dots, p - 1 - (k \bmod p)\}$ prevents base-$p$ carries when adding $x$ and $k$, while steering $n \bmod p$ to hit a chosen residue class.
 
-*Proof.* For each prime $p\le k$, put $c_p=a_p-1-(k\bmod p)$, so $c_p\ge 0$ and $c_p+(k\bmod p)\le p-1$. By the Chinese remainder theorem there is $x\ge 0$ with $x\equiv c_p\pmod{p^{k+1}}$ for all $p\le k$. Set $n=x+k$. When we add $x$ and $k$ in base $p$, the units digits are $c_p$ and $k\bmod p$, which sum to less than $p$. The next $k$ base-$p$ digits of $x$ are $0$, and since $k<p^k$, all higher digits of $k$ are $0$. Thus there are no carries, so $p\nmid\binom{n}{k}$. Given $0\le i<k$, choose $p\le k$ with $i+1\equiv a_p\pmod p$. Then $n\equiv c_p+(k\bmod p)=a_p-1\equiv i\pmod p$. Thus $p\mid (n-i)$ while $p\nmid\binom{n}{k}$, so $(n-i)\nmid\binom{n}{k}$. $\square$
+*Sanity check:* Take $k = 7$ and $p = 5$. Then $k \bmod 5 = 2$, so admissible choices are $a_5 \in \{3, 4, 5\}$. Pick $a_5 = 4$, giving $c_5 = 4 - 1 - 2 = 1$, and choose $x \equiv 1 \pmod{5^8}$ with $n = x + 7$. In base $5$, $k = 12_5$ and $x$ ends in $00000001_5$, so adding $x + k$ gives $2 + 1 = 3 < 5$ in the units place and zero carries everywhere, hence $5 \nmid \binom{n}{7}$. Meanwhile $n \equiv 1 + 2 = 3 = a_5 - 1 \pmod 5$, so $5 \mid (n - i)$ whenever $i \equiv 3 \pmod 5$, i.e., $i + 1 \equiv 4 = a_5 \pmod 5$.
+
+**Lemma 1 (Schinzel).** *Suppose $k \bmod p < a_p \le p$ for every prime $p \le k$, and for every $1 \le j \le k$ there is a prime $p \le k$ with $j \equiv a_p \pmod p$. Then there exists $n$ with $(n - i) \nmid \binom{n}{k}$ for all $0 \le i < k$.*
+
+*Proof.* For each prime $p \le k$, set $c_p = a_p - 1 - (k \bmod p)$. By the hypothesis $k \bmod p < a_p \le p$, we have $c_p \ge 0$ and $c_p + (k \bmod p) \le p - 1$.
+
+1. **Construct $n$ by the Chinese remainder theorem.** Since the moduli $p^{k+1}$ ($p \le k$) are pairwise coprime, there exists an integer $x \ge 0$ satisfying $x \equiv c_p \pmod{p^{k+1}}$ for all primes $p \le k$. Set $n = x + k$.
+2. **Verify $p \nmid \binom{n}{k}$ for all $p \le k$.** When we add $x$ and $k$ in base $p$, their units digits are $c_p$ and $k \bmod p$, whose sum is at most $p - 1$, producing no carry. The next $k$ base-$p$ digits of $x$ (places $p^1, \dots, p^k$) are all $0$, and since $k < 2^k \le p^k$, every digit of $k$ at place $p^k$ or higher is $0$. Thus no carry occurs at any position, so $p \nmid \binom{n}{k}$ by Kummer's theorem.
+3. **Verify $(n - i) \nmid \binom{n}{k}$ for all $0 \le i < k$.** Given $0 \le i < k$, set $j = i + 1 \in \{1, \dots, k\}$ and choose a prime $p \le k$ with $i + 1 \equiv a_p \pmod p$. Then
+   $$n = x + k \equiv c_p + (k \bmod p) = a_p - 1 \equiv i \pmod p.$$
+   Hence $p \mid (n - i)$ while $p \nmid \binom{n}{k}$, which forces $(n - i) \nmid \binom{n}{k}$. $\square$
+
+---
 
 ## 2. Størmer's theorem
 
-**Lemma 2 (Størmer 1897).** *For every positive integer $J$ there exists $m_J$ such that for all $m\ge m_J$, the product $m(m+1)$ has a prime factor greater than $J$.*
+We will need a classical finiteness theorem about smooth consecutive integers (used later to handle bounded levels in Lemmas 8 and 14):
 
-This is a classical result; a short proof is included in the appendix.
+**Lemma 2 (Størmer 1897).** *For every positive integer $J$ there exists $m_J$ such that for all $m \ge m_J$, the product $m(m + 1)$ has a prime factor greater than $J$.*
+
+This is a classical result; a short self-contained proof via Pell's equation is included in the appendix.
+
+---
 
 ## 3. Chebyshev's bounds
 
-**Lemma 3 (Chebyshev 1852).** *For all large real $x$, $0.91\,x\le\vartheta(x)\le 1.11\,x$ and $\pi(x)\le 1.12\,x/\log x$.*
+We also use explicit linear bounds on $\vartheta(x)$ and an upper bound on $\pi(x)$:
 
-This follows immediately from the prime number theorem, and Chebyshev proved the tighter bounds $0.9212$ and $1.1056$. Chebyshev's elementary proof, which is what we formalize in Lean, appears in the appendix.
+**Lemma 3 (Chebyshev 1852).** *For all large real $x$, $0.91\,x \le \vartheta(x) \le 1.11\,x$ and $\pi(x) \le 1.12\,x / \log x$.*
+
+This follows immediately from the prime number theorem, and Chebyshev proved the tighter constants $0.9212$ and $1.1056$. Chebyshev's elementary proof—which is what we formalize in Lean—appears in the appendix.
+
+---
 
 ## 4. The auxiliary prime
 
-For a prime $r$, set $\varepsilon_r=(r-1-(k\bmod r))/r$, the fraction of residues modulo $r$ strictly exceeding $k\bmod r$.
+Our goal in this section is to find a single auxiliary prime $p_0$ and an admissible residue class $c_0$ ($L^2 \le k \bmod p_0 < c_0 < p_0$) that catches at least $k/L^{14}$ large primes $P \in (k - \lfloor k/5 \rfloor, k]$.
 
-**Lemma 4 (Turán's second moment).** *Let $R$ be a finite set of primes $r\le Q$, and put $V=\sum_{r\in R}\varepsilon_r$. Let $Z$ be the number of integers $0\le n<N$ satisfying $n\bmod r\le k\bmod r$ for every $r\in R$. Then $V^2Z\le NV+Q^4$.*
+The idea is simple: take a pool $R$ of moderate-sized primes $r \le L^6$ for which $k \bmod r$ is neither too close to $0$ nor too close to $r$, so each $r \in R$ has a decent fraction $\varepsilon_r$ of admissible residues strictly above $k \bmod r$. By Turán's second moment method (Lemma 4), almost every integer $n \le k$—and therefore almost every large prime $P \in (k - \lfloor k/5 \rfloor, k]$—lands in an admissible residue class for *some* $r \in R$. Pigeonhole over all pairs $(r, c)$ then yields our $(p_0, c_0)$!
 
-*Proof.* Define $f_r(n)=1-\varepsilon_r$ if $n\bmod r>k\bmod r$, and $f_r(n)=-\varepsilon_r$ otherwise. Then $f_r$ has period $r$, mean $0$, and values in $[-1,1]$. For distinct $p,r\in R$, the product $f_pf_r$ has period $pr$, values in $[-1,1]$, and mean $0$ by the Chinese remainder theorem, so $\sum_{n<N}f_p(n)f_r(n)\le pr\le Q^2$. Also $f_r^2=\varepsilon_r(1-\varepsilon_r)+(1-2\varepsilon_r)f_r$, which yields $\sum_{n<N}f_r(n)^2\le N\varepsilon_r+r\le N\varepsilon_r+Q^2$. Since $|R|\le Q$, expanding the square gives
-$$\sum_{n<N}\Big(\sum_{r\in R}f_r(n)\Big)^2\le NV+|R|^2Q^2\le NV+Q^4.$$
-For each of the $Z$ integers $n$ counted above, the inner sum equals $-V$, giving $V^2Z\le NV+Q^4$. $\square$
+For a prime $r$, set
+$$\varepsilon_r = \frac{r - 1 - (k \bmod r)}{r},$$
+the fraction of residue classes modulo $r$ strictly exceeding $k \bmod r$.
 
-**Lemma 5 (auxiliary prime).** *Let $k$ be large. There exist a prime $p_0\le k$ and an integer $c_0$ with $L^2\le k\bmod p_0<c_0<p_0$ such that at least $k/L^{14}$ primes $P\in(k-\lfloor k/5\rfloor,k]$ satisfy $P\equiv c_0\pmod{p_0}$.*
+**Lemma 4 (Turán's second moment).** *Let $R$ be a finite set of primes $r \le Q$, and put $V = \sum_{r \in R} \varepsilon_r$. Let $Z$ be the number of integers $0 \le n < N$ satisfying $n \bmod r \le k \bmod r$ for every $r \in R$. Then $V^2 Z \le NV + Q^4$.*
 
-*Proof.* Set $t=\lfloor L\rfloor$, and let $R$ be the set of primes $r\le t^6$ with $t^3\le k\bmod r$ and $(k\bmod r)+t^3<r$. Any prime $r\le t^6$ outside $R$ divides either $k-i$ for some $0\le i<t^3$ (take $i=k\bmod r$) or $k+i$ for some $1\le i\le t^3$ (take $i=r-(k\bmod r)$). The product of these $2t^3$ numbers is at most $(2k)^{2t^3}$, so it has at most $2t^3\log(2k)/\log 2\le 4t^3L\le 8t^4$ distinct prime factors. By Lemma 3, $\pi(t^6)\ge\vartheta(t^6)/\log(t^6)\ge 0.91\,t^6/(6\log t)\ge t^5$, hence $|R|\ge t^5-8t^4\ge t^5/2$. Every $r\in R$ has $\varepsilon_r\ge t^3/r\ge t^{-3}$, so $V:=\sum_{r\in R}\varepsilon_r\ge t^2/2\ge L^2/4$.
+*Proof.* For each $r \in R$, define the centered indicator function
+$$f_r(n) = \begin{cases} 1 - \varepsilon_r & \text{if } n \bmod r > k \bmod r, \\ -\varepsilon_r & \text{if } n \bmod r \le k \bmod r. \end{cases}$$
+Each $f_r$ has period $r$, mean $0$ over a full period, and values in $[-1, 1]$.
 
-Let $Z$ count the integers $0\le n\le k$ with $n\bmod r\le k\bmod r$ for all $r\in R$. Applying Lemma 4 with $N=k+1$ and $Q=t^6$, and using $t^{24}\le L^{24}\le k$, gives $V^2Z\le (k+1)V+k\le 3kV$, so $Z\le 3k/V\le 12k/L^2$. By Lemma 3,
-$$\vartheta(k)-\vartheta(k-\lfloor k/5\rfloor)\ge 0.91k-1.11(0.8k+0.8)\ge 0.02k,$$
-so $(k-\lfloor k/5\rfloor,k]$ contains at least $0.02k/L$ primes. At least $0.02k/L-12k/L^2\ge 0.01k/L$ of them satisfy $P\bmod r>k\bmod r$ for some $r\in R$. There are at most $t^6\cdot t^6\le L^{12}$ pairs $(r,c)$ with $r\in R$ and $k\bmod r<c<r$. By the pigeonhole principle, some pair $(p_0,c_0)$ captures at least $0.01k/L^{13}\ge k/L^{14}$ of these primes. Finally, $p_0\le L^6\le k$ and $k\bmod p_0\ge t^3\ge L^2$. $\square$
+1. **Off-diagonal pairs ($p \ne r$).** By the Chinese remainder theorem, $f_p f_r$ has period $pr$, values in $[-1, 1]$, and mean $0$ over any full period of length $pr$. Summing over $0 \le n < N$ leaves at most one incomplete period of length $< pr$, so
+   $$\sum_{n < N} f_p(n) f_r(n) \le pr \le Q^2.$$
+2. **Diagonal terms ($p = r$).** Using the identity $f_r^2 = \varepsilon_r(1 - \varepsilon_r) + (1 - 2\varepsilon_r) f_r$, the mean-$0$ term contributes at most $r$ over an incomplete period and $\varepsilon_r(1 - \varepsilon_r) \le \varepsilon_r$, giving
+   $$\sum_{n < N} f_r(n)^2 \le N\varepsilon_r + r \le N\varepsilon_r + Q^2.$$
+3. **Second moment bound.** Expanding the square and using $|R| \le Q$ yields
+   $$\sum_{n < N} \left(\sum_{r \in R} f_r(n)\right)^2 = \sum_{r \in R} \sum_{n < N} f_r(n)^2 + \sum_{\substack{p, r \in R \\ p \ne r}} \sum_{n < N} f_p(n) f_r(n) \le NV + |R|^2 Q^2 \le NV + Q^4.$$
+   On the other hand, for each of the $Z$ integers $n < N$ where $n \bmod r \le k \bmod r$ for all $r \in R$, we have $\sum_{r \in R} f_r(n) = -\sum_{r \in R} \varepsilon_r = -V$, contributing $V^2$ to the left side. Hence $V^2 Z \le NV + Q^4$. $\square$
+
+**Lemma 5 (auxiliary prime).** *Let $k$ be large. There exist a prime $p_0 \le k$ and an integer $c_0$ with $L^2 \le k \bmod p_0 < c_0 < p_0$ such that at least $k/L^{14}$ primes $P \in (k - \lfloor k/5 \rfloor, k]$ satisfy $P \equiv c_0 \pmod{p_0}$.*
+
+*Proof.* Set $t = \lfloor L \rfloor$, and let $R$ be the set of primes $r \le t^6$ satisfying both $t^3 \le k \bmod r$ and $(k \bmod r) + t^3 < r$.
+
+1. **Size of $R$ and lower bound on $V$.** Any prime $r \le t^6$ outside $R$ divides either $k - i$ for some $0 \le i < t^3$ (take $i = k \bmod r$) or $k + i$ for some $1 \le i \le t^3$ (take $i = r - (k \bmod r)$). The product of these $2t^3$ numbers is at most $(2k)^{2t^3}$, so it has at most $2t^3 \log(2k) / \log 2 \le 4t^3 L \le 8t^4$ distinct prime factors. By Lemma 3,
+   $$\pi(t^6) \ge \frac{\vartheta(t^6)}{\log(t^6)} \ge \frac{0.91\,t^6}{6 \log t} \ge t^5,$$
+   hence $|R| \ge t^5 - 8t^4 \ge t^5/2$. Every $r \in R$ has $\varepsilon_r \ge t^3 / r \ge t^{-3}$, so
+   $$V := \sum_{r \in R} \varepsilon_r \ge \frac{t^5}{2} \cdot t^{-3} = \frac{t^2}{2} \ge \frac{L^2}{4}.$$
+2. **Few integers evade all primes in $R$.** Let $Z$ count the integers $0 \le n \le k$ with $n \bmod r \le k \bmod r$ for all $r \in R$. Applying Lemma 4 with $N = k + 1$ and $Q = t^6$ (and using $Q^4 = t^{24} \le L^{24} \le k$ for large $k$) gives $V^2 Z \le (k + 1)V + k \le 3kV$, so
+   $$Z \le \frac{3k}{V} \le \frac{12k}{L^2}.$$
+3. **Pigeonhole over large primes.** By Lemma 3,
+   $$\vartheta(k) - \vartheta(k - \lfloor k/5 \rfloor) \ge 0.91k - 1.11(0.8k + 0.8) \ge 0.02k,$$
+   so the interval $(k - \lfloor k/5 \rfloor, k]$ contains at least $0.02k / L$ primes. Subtracting the at most $Z \le 12k/L^2$ evading integers leaves at least $0.02k/L - 12k/L^2 \ge 0.01k/L$ primes $P \in (k - \lfloor k/5 \rfloor, k]$ satisfying $P \bmod r > k \bmod r$ for some $r \in R$.
+
+   There are at most $t^6 \cdot t^6 \le L^{12}$ pairs $(r, c)$ with $r \in R$ and $k \bmod r < c < r$. By the pigeonhole principle, some pair $(p_0, c_0)$ captures at least $0.01k/L^{13} \ge k/L^{14}$ of these primes. Finally, $p_0 \le t^6 \le L^6 \le k$ and $k \bmod p_0 \ge t^3 \ge L^2$. $\square$
+
+---
 
 ## 5. The weight
 
 ### Motivation
 
-This paragraph is motivation only; the exact definitions of levels and fresh primes appear in Section 7. A prime $p$ moved for a number of level $l$ uncovers multiples of $p$, and for each $m\le k/p$ at most two multiples have a level in $[mp,(m+1)p)$. We want a positive decreasing weight $\varphi$ and a threshold $\tau(l)$ such that $2\sum_{m\le k/p}\varphi(mp)\le\frac{1}{2}\varphi(l)$ whenever $p\ge\tau(l)$, meaning all multiples of $p$ together weigh at most half as much as the number $p$ was moved for. Let $W$ be the total weight of all numbers of level at least $X$ composed of moved primes. Distinct primes are moved for distinct such numbers, so multiples of primes moved at levels $\ge X$ contribute at most $\frac{1}{2}W$ to $W$. The remaining numbers are composed of $q$, $p_0$, and primes moved below $X$; those few primes give a small weight $W'$. Then $W\le\frac{1}{2}W+W'$, keeping $W$ small (Lemma 13).
+*(This subsection is motivation only; the exact definitions of levels and fresh primes appear in Section 7.)*
 
-At the same time, $\tau(l)$ cannot be too large, because we need enough fresh primes $p\ge\tau(l)$. As Section 6 shows, we can take $\tau(l)$ on the order of $l$ times $\min(\log l,\log(k/l))$. Writing $\varphi=-\Phi'$, we have $\sum_{2\le m\le k/p}\varphi(mp)\le\Phi(p)/p$, so we need $\Phi(l)/\tau(l)\le\frac{1}{8}\varphi(l)$, or $-\Phi'/\Phi\ge 8/\tau(l)$. For $w(x)=(A-\log x)/\log x$, the ratio $-w'/w=A/(x\log x\,(A-\log x))$ has the right order $1/\tau(x)$, so taking $\Phi$ to be a large power of $w$ works. Of the exponent $b=10^6$ below, only two facts matter: $\frac{20}{b+1}\le\frac{1}{8}$, and $b\ge 33000\log 8$ (which forces $\varphi(p)\le\frac{1}{8}\varphi(l)$ even when $p$ is just $1.01\,l$).
+When we move a prime $p$ to cover a number of level $l$, we uncover multiples of $p$. For each $1 \le m \le k/p$, at most two smooth multiples of $p$ have a level in $[mp, (m + 1)p)$—one near $0$ and one near $k$.
+
+We want to design a positive decreasing **weight function** $\varphi$ and a **threshold** $\tau(l)$ such that whenever $p \ge \tau(l)$,
+$$2 \sum_{1 \le m \le k/p} \varphi(mp) \le \frac{1}{2}\,\varphi(l),$$
+meaning that *all multiples of $p$ combined weigh at most half as much as the single number $p$ was moved to cover*. Look at what happens if $W$ is the total weight of all smooth numbers at levels $\ge X$: because distinct primes are moved for distinct such numbers, multiples of primes moved at levels $\ge X$ contribute at most $\frac{1}{2}W$ back into $W$. The remaining numbers are composed solely of $q$, $p_0$, and primes moved below $X$, which contribute a tiny weight $W'$. Then $W \le \frac{1}{2}W + W'$ immediately implies $W \le 2W'$ (Lemma 13)!
+
+At the same time, $\tau(l)$ cannot be too large, because Section 6 needs plenty of fresh primes $p \ge \tau(l)$. As Section 6 shows, we can afford $\tau(l)$ on the order of $l \cdot \min(\log l, \log(k/l))$. Writing $\varphi = -\Phi'$ (where $\Phi$ is positive and decreasing), an integral comparison bounds the tail sum: $\sum_{2 \le m \le k/p} \varphi(mp) \le \Phi(p)/p$. To keep this at most $\frac{1}{8}\varphi(l)$, we need $\Phi(l)/\tau(l) \le \frac{1}{8}\varphi(l)$, i.e., $-\Phi'/\Phi \ge 8/\tau(l)$.
+
+Now notice that for $w(x) = \frac{A - \log x}{\log x}$, the logarithmic derivative
+$$-\frac{w'(x)}{w(x)} = \frac{A}{x \log x \,(A - \log x)}$$
+has the exact right order $1/\tau(x)$! Raising $w$ to a large power $b + 1$ multiplies $-\Phi'/\Phi$ by $b + 1$ while keeping the same shape. Of the exponent $b = 10^6$ below, only two inequalities matter: $\frac{20}{b+1} \le \frac{1}{8}$ (for the tail sum $\Phi(p)/p$) and $b \ge 33000 \log 8$ (which forces the leading term $\varphi(p) \le \frac{1}{8}\varphi(l)$ even when $p$ is just $1.01\,l$).
 
 ### Definition and bound
 
-Let $b=10^6$. For $1<x\le k$, define
-$$w(x)=\frac{A-\log x}{\log x},\qquad\varphi(x)=w(x)^b\,\frac{A}{x\log^2x},\qquad\Phi(x)=\frac{w(x)^{b+1}}{b+1}.$$
-Since $w$ is positive and decreasing, so are $\varphi$ and $\Phi$. Because $w'(x)=-A/(x\log^2x)$, we have $\Phi'=-\varphi$. The **threshold** of an integer $1\le l\le k$ is
-$$\tau(l)=l\cdot\max\Big(1.01,\ \frac{\log l\,(A-\log l)}{20A}\Big).$$
+Let $b = 10^6$. For $1 < x \le k$, define
+$$w(x) = \frac{A - \log x}{\log x}, \qquad \varphi(x) = w(x)^b\,\frac{A}{x \log^2 x}, \qquad \Phi(x) = \frac{w(x)^{b+1}}{b + 1}.$$
+Since $w$ is positive and decreasing on $(1, k]$ (recall $A = 1 + \log k$), so are $\varphi$ and $\Phi$. Differentiating $w(x) = A/\log x - 1$ gives $w'(x) = -A / (x \log^2 x)$, and hence $\Phi' = -\varphi$.
 
-**Lemma 6 (weight).** *Let $l,p\le k$ be positive integers with $\log l\ge 320$ and $p\ge\tau(l)$. Then $4\sum_{1\le m\le k/p}\varphi(mp)\le\varphi(l)$.*
+Define the **threshold** of an integer $1 \le l \le k$ by
+$$\tau(l) = l \cdot \max\left(1.01,\ \frac{\log l \,(A - \log l)}{20A}\right).$$
 
-*Proof.* By the mean value theorem, $p\,\varphi(mp)\le\Phi((m-1)p)-\Phi(mp)$ for $2\le m\le k/p$. Summing over $m$ gives $\sum_{m\le k/p}\varphi(mp)\le\varphi(p)+\Phi(p)/p$. We show each term is at most $\varphi(l)/8$. Set $v=\log l$, so $v+1\le A$.
+**Lemma 6 (weight).** *Let $l, p \le k$ be positive integers with $\log l \ge 320$ and $p \ge \tau(l)$. Then $4 \sum_{1 \le m \le k/p} \varphi(mp) \le \varphi(l)$.*
 
-For the second term,
-$$\Phi(p)\le\Phi(l)=\varphi(l)\cdot\frac{1}{b+1}\cdot\frac{l\,v(A-v)}{A}\le\varphi(l)\cdot\frac{20p}{b+1}\le\frac{p}{8}\,\varphi(l).$$
+*Proof.* Because $\varphi$ is decreasing and $\Phi' = -\varphi$, the mean value theorem gives $p\,\varphi(mp) \le \Phi((m - 1)p) - \Phi(mp)$ for every $2 \le m \le k/p$. Summing over $m$ telescopes the tail (dropping the negative term $-\Phi(\lfloor k/p \rfloor p)$):
+$$\sum_{1 \le m \le k/p} \varphi(mp) \le \varphi(p) + \frac{\Phi(p)}{p}.$$
+It suffices to show that each of the two terms on the right is at most $\varphi(l)/8$. Set $v = \log l$, so $320 \le v \le A - 1$.
 
-For the first term, suppose first that $v(A-v)\ge 160A$. Then $p\ge 8l$, and since $w(p)\le w(l)$ and $\log p\ge v$, we get $\varphi(p)\le w(l)^bA/(8lv^2)=\varphi(l)/8$. Suppose instead that $v(A-v)<160A$. Then $A-v<320$, because otherwise both $v$ and $A-v$ are at least $320$ and one of them is at least $A/2$. Since $p\ge 1.01\,l$, we also have $\log p\ge v+\log 1.01\ge v+\frac{1}{101}$, giving
-$$w(p)\le\frac{A-v-\frac{1}{101}}{v}\le w(l)\Big(1-\frac{1}{33000}\Big),\qquad
-\varphi(p)\le\varphi(l)\Big(1-\frac{1}{33000}\Big)^b\le\varphi(l)\,e^{-b/33000}\le\frac{\varphi(l)}{8}.\qquad\square$$
+1. **The tail term $\Phi(p)/p$.** Since $p \ge l$ and $\Phi$ is decreasing, and $p \ge l\,v(A - v)/(20A)$ by definition of $\tau(l)$, we have
+   $$\Phi(p) \le \Phi(l) = \varphi(l) \cdot \frac{1}{b + 1} \cdot \frac{l\,v(A - v)}{A} \le \varphi(l) \cdot \frac{20p}{b + 1} \le \frac{p}{8}\,\varphi(l),$$
+   so $\Phi(p)/p \le \varphi(l)/8$.
+2. **The leading term $\varphi(p)$.** Split according to whether $v(A - v) \ge 160A$:
+   * *Case 1: $v(A - v) \ge 160A$.* Then $p \ge \tau(l) \ge 8l$. Since $w(p) \le w(l)$ and $\log p \ge v$, we immediately get
+     $$\varphi(p) = w(p)^b\,\frac{A}{p \log^2 p} \le w(l)^b\,\frac{A}{8lv^2} = \frac{\varphi(l)}{8}.$$
+   * *Case 2: $v(A - v) < 160A$.* Then $A - v < 320$: otherwise both $v \ge 320$ and $A - v \ge 320$, and since their sum is $A$, one of them is at least $A/2$, forcing $v(A - v) \ge 320 \cdot (A/2) = 160A$. Now $p \ge 1.01\,l$ implies $\log p \ge v + \log 1.01 \ge v + \frac{1}{101}$, so
+     $$w(p) \le \frac{A - v - \frac{1}{101}}{v} = w(l)\left(1 - \frac{1}{101(A - v)}\right) \le w(l)\left(1 - \frac{1}{33000}\right).$$
+     Since $p \ge l$ and $\log p \ge v$, raising to the $b$-th power yields
+     $$\varphi(p) \le \varphi(l)\left(1 - \frac{1}{33000}\right)^b \le \varphi(l)\,e^{-b/33000} \le \frac{\varphi(l)}{8}.$$
+
+Adding the two bounds gives $\sum_{1 \le m \le k/p} \varphi(mp) \le \frac{1}{4}\varphi(l)$. $\square$
+
+---
 
 ## 6. Supply of fresh primes
 
-Let $K=\lfloor k/2\rfloor$ and $\kappa=k\bmod 2$. For an integer $l\ge 0$, set $h(l)=\lfloor(l+1-\kappa)/2\rfloor$, which counts the integers $0\le i<l$ for which $k-i$ is even. For real $y$, let $\Pi(l,y)$ be the set of primes $p$ with $y\le p\le k$ such that $k\bmod p<l$ and $k-(k\bmod p)$ is even. Note that:
+Now we count how many fresh primes are available at each level $l$. Let $K = \lfloor k/2 \rfloor$ and $\kappa = k \bmod 2 \in \{0, 1\}$, so $k = 2K + \kappa$. For an integer $l \ge 0$, define
+$$h(l) = \left\lfloor \frac{l + 1 - \kappa}{2} \right\rfloor,$$
+which counts the integers $0 \le i < l$ for which $k - i$ is even (namely $i = \kappa, \kappa + 2, \dots, \kappa + 2(h(l) - 1)$).
 
-(1) *If $l\le k$, $0\le i<h(l)$, and a prime $p\ge l$ divides $K-i$, then $k\bmod p=2i+\kappa<l$, and $k-(k\bmod p)=2(K-i)$ is even. Hence $p\in\Pi(l,y)$ for every $y\le p$.*
+For real $y$, define the **supply set** $\Pi(l, y)$ to be the set of primes $p$ with $y \le p \le k$ such that
+$$k \bmod p < l \qquad\text{and}\qquad k - (k \bmod p) \text{ is even}.$$
+Why are primes in $\Pi(l, y)$ easy to harvest? Because any large prime divisor of one of the $h(l)$ consecutive integers $K, K - 1, \dots, K - h(l) + 1$ automatically lands in $\Pi(l, y)$:
 
-Indeed, $i<h(l)\le h(k)=K$, so $K-i$ is a positive integer and $p\le K-i\le k$. We also have $k=2(K-i)+(2i+\kappa)$ with $2i+\kappa\le 2h(l)-2+\kappa\le l-1<p$.
+**(1)** *If $l \le k$, $0 \le i < h(l)$, and a prime $p \ge l$ divides $K - i$, then $k \bmod p = 2i + \kappa < l$, and $k - (k \bmod p) = 2(K - i)$ is even. Hence $p \in \Pi(l, y)$ for every $y \le p$.*
 
-For integers $1\le l\le k$, put $\beta(l)=\dfrac{l\,(A-\log l)}{10^4A}$.
+*Check of (1):* Since $i < h(l) \le h(k) = K$, the number $K - i$ is a positive integer, so $p \le K - i \le k$. Writing $k = 2(K - i) + (2i + \kappa)$ with $0 \le 2i + \kappa \le 2h(l) - 2 + \kappa \le l - 1 < p$ shows immediately that $k \bmod p = 2i + \kappa < l$ and $k - (k \bmod p) = 2(K - i)$ is even.
 
-**Lemma 7.** *There is an absolute constant $L_0$ such that $|\Pi(l,\tau(l))|\ge\beta(l)$ for all integers $k,l$ with $l\ge L_0$ and $5l\le k$.*
+### Supply at large levels (Chebyshev + binomial coefficients)
 
-*Proof.* Assume $l$ exceeds a suitable absolute constant. Put $h=h(l)$, $v=\log l$, and $C=\binom{K}{h}$. Every prime factor of $C$ divides $K-i$ for some $0\le i<h$, and every prime power $p^{v_p(C)}$ is at most $K\le k$. Thus $C$ has at least $\log C/L$ distinct prime factors. Any such prime factor that is at least $\tau(l)\ge l$ belongs to $\Pi(l,\tau(l))$ by (1), giving
-$$|\Pi(l,\tau(l))|\,L\ \ge\ \log C-\pi(\tau(l))\,L.\tag{2}$$
+For integers $1 \le l \le k$, put
+$$\beta(l) = \frac{l\,(A - \log l)}{10^4 A}.$$
 
-First, we bound $\log C$ from below. From $C\ge (K+1-h)^h/h!$ and $\log h!\le h\log h-h+\log h+1$, we get $\log C\ge h\big(\log\frac{K+1-h}{h}+1\big)-\log h-1$. Since $2(K+1-h)\ge k-l\ge\frac{4}{5}k$ and $2h\le l+1$, we have $\frac{K+1-h}{h}\ge 0.79\,\frac{k}{l}$. As $\log 0.79>-0.24$, setting $\delta=A-v-0.24$ gives $\log C\ge h\delta-v-1$. Here $\delta\ge 1+\log 5-0.24\ge 2.36$ and $h\ge (l-1)/2$, so $\log C\ge 0.49\,l\,\delta$.
+**Lemma 7.** *There is an absolute constant $L_0$ such that $|\Pi(l, \tau(l))| \ge \beta(l)$ for all integers $k, l$ with $l \ge L_0$ and $5l \le k$.*
 
-Next, we bound $\pi(\tau(l))$ from above. Since $\tau(l)\ge l$, Lemma 3 gives $\pi(\tau(l))\le 1.12\,\tau(l)/v$. We may assume $v\ge 10^4$.
+*Proof.* Assume $l$ exceeds a sufficiently large absolute constant (so that Lemma 3 applies at $\tau(l) \ge l$ and the numerical simplifications below hold). Put $h = h(l)$, $v = \log l$, and $C = \binom{K}{h}$.
 
-* If $\tau(l)=1.01\,l$, then $v(A-v)\le 20.2A=20.2\,v+20.2(A-v)$, which yields $A-v\le 20.3$ and $L=A-1\le 1.002\,v$. Then $\pi(\tau(l))L\le 1.12\cdot 1.01\cdot 1.002\,l\le 1.135\,l$, while $\log C\ge 0.49\cdot 2.36\,l\ge 1.156\,l$. By (2), $|\Pi(l,\tau(l))|\,L\ge 0.02\,l\ge 20.3\,l/10^4\ge l(A-v)/10^4=A\,\beta(l)$.
-* If $\tau(l)=l\,v(A-v)/(20A)$, then $\pi(\tau(l))L\le 0.056\,l(A-v)$. Since $A-v\ge 1+\log 5\ge 2.6$, we have $\log C\ge 0.49\,l(A-v)(1-\frac{0.24}{2.6})\ge 0.44\,l(A-v)$. By (2), $|\Pi(l,\tau(l))|\,L\ge 0.38\,l(A-v)\ge A\,\beta(l)$.
+1. **Connecting $\Pi(l, \tau(l))$ to $\log C$.** Every prime factor $p$ of $C = \frac{K(K-1)\cdots(K-h+1)}{h!}$ divides $K - i$ for some $0 \le i < h$. By Kummer's theorem, every prime power dividing $C$ satisfies $p^{v_p(C)} \le K \le k$, so each distinct prime factor contributes at most $\log k = L$ to $\log C$. Thus $C$ has at least $\log C / L$ distinct prime factors in total. At most $\pi(\tau(l))$ of them are below $\tau(l)$, and every remaining prime factor $p \ge \tau(l) \ge l$ belongs to $\Pi(l, \tau(l))$ by (1). Hence
+   $$|\Pi(l, \tau(l))|\,L \ge \log C - \pi(\tau(l))\,L. \tag{2}$$
+2. **Lower bound on $\log C$.** From $C \ge (K + 1 - h)^h / h!$ and $\log h! \le h \log h - h + \log h + 1$, we get
+   $$\log C \ge h\left(\log\frac{K + 1 - h}{h} + 1\right) - \log h - 1.$$
+   Since $2(K + 1 - h) \ge k - l \ge \frac{4}{5}k$ and $2h \le l + 1$, for large $l$ we have $\frac{K + 1 - h}{h} \ge 0.79\,\frac{k}{l}$. As $\log 0.79 > -0.24$, setting $\delta = A - v - 0.24$ (recall $A - v = 1 + \log(k/l)$) gives $\log C \ge h\delta - v - 1$. Here $\delta \ge 1 + \log 5 - 0.24 \ge 2.36$ and $h \ge (l - 1)/2$, so for large $l$,
+   $$\log C \ge 0.49\,l\,\delta.$$
+3. **Upper bound on $\pi(\tau(l))L$ in both regimes of $\tau(l)$.** Since $\tau(l) \ge l$, Lemma 3 gives $\pi(\tau(l)) \le 1.12\,\tau(l) / v$. We may assume $v \ge 10^4$.
+   * *Case 1: $\tau(l) = 1.01\,l$.* Then $v(A - v) \le 20.2\,A = 20.2\,v + 20.2(A - v)$, which gives $(v - 20.2)(A - v) \le 20.2\,v$ and hence $A - v \le 20.3$ and $L = A - 1 \le 1.002\,v$. Thus
+     $$\pi(\tau(l))\,L \le 1.12 \cdot 1.01 \cdot 1.002\,l \le 1.135\,l, \qquad \log C \ge 0.49 \cdot 2.36\,l \ge 1.156\,l.$$
+     By (2), $|\Pi(l, \tau(l))|\,L \ge 0.02\,l \ge 20.3\,l / 10^4 \ge l(A - v) / 10^4 = A\,\beta(l)$.
+   * *Case 2: $\tau(l) = l\,v(A - v) / (20A)$.* Since $L < A$, we have $\pi(\tau(l))\,L \le 1.12 \cdot \frac{l(A - v)}{20} = 0.056\,l(A - v)$. Meanwhile, $A - v \ge 1 + \log 5 \ge 2.6$ gives
+     $$\log C \ge 0.49\,l(A - v)\left(1 - \frac{0.24}{2.6}\right) \ge 0.44\,l(A - v).$$
+     By (2), $|\Pi(l, \tau(l))|\,L \ge 0.38\,l(A - v) \ge A\,\beta(l)$.
 
-In both cases, dividing by $L\le A$ proves the lemma. $\square$
+In both cases, dividing by $L \le A$ yields $|\Pi(l, \tau(l))| \ge \beta(l)$. $\square$
 
-*Remark (not used in the proof).* Much weaker bounds than Lemma 3 would fail in two places. Replacing $\frac{1}{5}$ by $c$, Lemma 5 needs primes in $((1-c)k,k]$, requiring $1-c<0.91/1.11$. Meanwhile, for $l$ near $ck$, the case $\tau(l)=1.01\,l$ above (with our bound on $\log C$) needs $\frac{1}{2}\big(1+\log\frac{1-c}{c}\big)>1.01\cdot 1.12$. Together these pin $c$ between $0.180$ and $0.221$; weaker constants such as $\log 2$ and $\log 4$ in place of $0.91$ and $1.11$ would leave no valid $c$. In that same case, $0.49$, $0.79$, and $1.002$ are fairly tight, though they approach $\frac{1}{2}$, $\frac{4}{5}$, and $1$ as closely as desired for larger $l$. All other constants have plenty of slack.
+*Remark (not used in the proof).* Much weaker bounds than Lemma 3 would fail in two places. Replacing $\frac{1}{5}$ by $c$, Lemma 5 needs primes in $((1 - c)k, k]$, requiring $1 - c < 0.91/1.11$. Meanwhile, for $l$ near $ck$, the case $\tau(l) = 1.01\,l$ above (with our bound on $\log C$) needs $\frac{1}{2}\big(1 + \log\frac{1 - c}{c}\big) > 1.01 \cdot 1.12$. Together these pin $c$ between $0.180$ and $0.221$; weaker constants such as $\log 2$ and $\log 4$ in place of $0.91$ and $1.11$ would leave no valid $c$. In that same case, $0.49$, $0.79$, and $1.002$ are fairly tight, though they approach $\frac{1}{2}$, $\frac{4}{5}$, and $1$ as closely as desired for larger $l$. All other constants have plenty of slack.
 
-**Lemma 8.** *Let $J$ be a positive integer. If $k$ is large, then $|\Pi(l,J)|\ge\lfloor h(l)/2\rfloor$ for every integer $0\le l\le J$.*
+### Supply at bounded levels (Størmer's theorem)
 
-*Proof.* For each $0\le i<\lfloor h(l)/2\rfloor$, apply Lemma 2 to $m=K-2i-1$ to obtain a prime $p_i>J$ dividing $K-2i-e_i$ for some $e_i\in\{0,1\}$. Since $2i+e_i<h(l)$ and $p_i>J\ge l$, statement (1) places $p_i$ in $\Pi(l,J)$. If $p_i=p_j$ for $i\ne j$, then $p_i$ divides the nonzero difference $(K-2i-e_i)-(K-2j-e_j)$, whose absolute value is less than $h(l)\le l\le J$, a contradiction. $\square$
+When $l \le J$ is bounded, Chebyshev's asymptotic bounds do not apply at scale $l$, so we instead pair consecutive integers among $K, K - 1, \dots, K - h(l) + 1$ and apply Størmer's theorem to each pair.
+
+**Lemma 8.** *Let $J$ be a positive integer. If $k$ is large, then $|\Pi(l, J)| \ge \lfloor h(l)/2 \rfloor$ for every integer $0 \le l \le J$.*
+
+*Proof.* For each $0 \le i < \lfloor h(l)/2 \rfloor$, set $m = K - 2i - 1$ (which is large when $k$ is large, since $2i + 1 < h(l) \le J$). By Lemma 2, $m(m + 1) = (K - 2i - 1)(K - 2i)$ has a prime factor $p_i > J$, so $p_i \mid (K - 2i - e_i)$ for some $e_i \in \{0, 1\}$.
+
+Since $2i + e_i < h(l)$ and $p_i > J \ge l$, statement (1) places $p_i$ in $\Pi(l, J)$. Moreover, the primes $p_i$ are pairwise distinct: if $p_i = p_j$ for $i \ne j$, then $p_i$ would divide the nonzero difference $(K - 2i - e_i) - (K - 2j - e_j)$, whose absolute value is strictly less than $h(l) \le l \le J < p_i$, a contradiction. $\square$
+
+---
 
 ## 7. Standing assumptions and states
+
+We now fix our hierarchy of absolute constants and define the **states** that our greedy covering algorithm maintains.
 
 ### Absolute constants
 
 Set
-$$M=16b+150,\quad\sigma=\frac{1}{M},\quad S=\frac{2}{1-3^{-\sigma}}+3,\quad G=(4S)^M.$$
-Fix an integer $L_0\ge 10$ such that Lemma 7 holds for $L_0$, $\log L_0\ge 40G$, and $S\,l^\sigma+1<l/(2\cdot 10^4)$ for all integers $l\ge L_0$. Fix an integer $J\ge GL_0$; since $S\ge 3$, we have $G\ge 1$ and thus $J\ge L_0$.
+$$M = 16b + 150, \qquad \sigma = \frac{1}{M}, \qquad S = \frac{2}{1 - 3^{-\sigma}} + 3, \qquad G = (4S)^M.$$
+Fix an integer $L_0 \ge 10$ such that:
+* Lemma 7 holds for $L_0$,
+* $\log L_0 \ge 40G$, and
+* $S\,l^\sigma + 1 < l / (2 \cdot 10^4)$ for all integers $l \ge L_0$.
+
+Fix an integer $J \ge G L_0$; since $S \ge 3$, we have $G \ge 1$ and thus $J \ge L_0$.
 
 ### The number $k$
 
-From now on, $k$ is large and not a prime power. Put
-$$u=L^{1/8},\quad X=u^M,\qquad\text{so that }L=u^8\text{ and }X^\sigma=u.$$
-Here "large" means that Lemma 5 holds for $k$, Lemma 8 holds for $k$ and $J$, $m(m+1)$ has a prime factor greater than $J$ whenever $m+1\ge k/L_0$ (by Lemma 2), and
-$$u\ge L_0,\quad u\ge S+2,\quad u\ge 4^M,\quad u\ge 2^{2b+4},\quad 2u^8+1\le e^u,\quad u^M\le e^u.$$
-These inequalities imply $u\ge 10$, $A\le 2u^8$, $X\ge u$, and $5X\le 5e^u\le e^{u^8}=k$. Also, whenever $1\le l<X$, we have $\log l\le u$ and hence $2\log l\le A$.
+From now on, $k$ is a sufficiently large integer that is not a prime power. Put
+$$u = L^{1/8}, \qquad X = u^M, \qquad\text{so that } L = u^8 \text{ and } X^\sigma = u.$$
+Specifically, "large" means that:
+* Lemma 5 holds for $k$;
+* Lemma 8 holds for $k$ and $J$;
+* $m(m + 1)$ has a prime factor greater than $J$ whenever $m + 1 \ge k/L_0$ (by Lemma 2); and
+* $u$ satisfies the six inequalities
+  $$u \ge L_0, \quad u \ge S + 2, \quad u \ge 4^M, \quad u \ge 2^{2b+4}, \quad 2u^8 + 1 \le e^u, \quad u^M \le e^u.$$
 
-Let $q$ be the largest prime factor of $k$. Let $q'=2$ if $k$ is even, and let $q'$ be any other prime factor of $k$ if $k$ is odd. Because $k$ is not a prime power, $q'$ exists and $q'<q$. Let $p_0,c_0$ be as in Lemma 5. Then $k\bmod p_0\ge L^2\ge u$, so $k\bmod p_0\ge L_0$ and $k\bmod p_0\ge 4^M$; in particular $p_0\nmid k$.
+These inequalities immediately imply $u \ge 10$, $A \le 2u^8$, $X \ge u$, and $5X \le 5e^u \le e^{u^8} = k$. Also, whenever $1 \le l < X$, we have $\log l \le u$ and hence $2 \log l \le A$.
 
-### Levels
+Now select our initial special primes:
+* Let **$q$** be the largest prime factor of $k$.
+* Let **$q'$** be $2$ if $k$ is even, and any other prime factor of $k$ if $k$ is odd. Because $k$ is not a prime power, $q'$ exists and $q' < q$.
+* Let **$p_0, c_0$** be given by Lemma 5. Then $k \bmod p_0 \ge L^2 \ge u$, so $k \bmod p_0 \ge L_0$ and $k \bmod p_0 \ge 4^M$; in particular $p_0 \nmid k$.
 
-The **level** of $n$ ($1\le n<k$) is $\operatorname{lv}(n)=\min(n,k-n)$. We call $n$ a **bottom** if $n\le k-n$, and a **top** otherwise. Define $\gamma(l)=J$ for $l<L_0$, and $\gamma(l)=\tau(l)$ for $l\ge L_0$. For all $1\le l\le k$:
+### Levels and the unified threshold $\gamma(l)$
 
-(3) $\gamma(l)>l$ and $\gamma(l)\ge L_0$. Whenever $l\ge X$, $\gamma(l)=\tau(l)$ because $X\ge u\ge L_0$.
+For $1 \le n < k$, define the **level** of $n$ by $\operatorname{lv}(n) = \min(n, k - n)$. Call $n$ a **bottom** if $n \le k - n$, and a **top** otherwise. Define the unified prime threshold
+$$\gamma(l) = \begin{cases} J & \text{if } l < L_0, \\ \tau(l) & \text{if } l \ge L_0. \end{cases}$$
+For all $1 \le l \le k$, two key properties hold:
 
-(4) If $l<X$, then $\gamma(l)\ge G\,l$. This is immediate for $l<L_0$ since $J\ge GL_0$. For $L_0\le l<X$, we have $A-\log l\ge A/2$, so $\tau(l)\ge\frac{1}{40}l\log l\ge\frac{1}{40}l\log L_0\ge G\,l$.
+**(3)** $\gamma(l) > l$ and $\gamma(l) \ge L_0$. Whenever $l \ge X$, we have $\gamma(l) = \tau(l)$ because $X \ge u \ge L_0$.
+
+**(4)** If $l < X$, then $\gamma(l) \ge G\,l$.
+
+*Check of (4):* For $l < L_0$, this is immediate from $\gamma(l) = J \ge G L_0 > G l$. For $L_0 \le l < X$, we have $2\log l \le A$ so $A - \log l \ge A/2$, giving
+$$\gamma(l) = \tau(l) \ge l\,\frac{\log l\,(A - \log l)}{20A} \ge \frac{1}{40}\,l \log l \ge \frac{1}{40}\,l \log L_0 \ge G\,l.$$
 
 ### Where the conditions are used
 
 | | choice | used in |
 |---|---|---|
-| $b$ | $10^6$ | Lemma 6: $\frac{20}{b+1}\le\frac{1}{8}$ and $b\ge 33000\log 8$ |
-| $M$ | $16b+150$ | Lemma 13: $X=u^M$ is much larger than $A^{2b+2}$ |
-| | $M\ge 320$ | Section 10: $M\log u\ge 320$ |
-| | $M\ge 120$ | Lemma 15: $X\ge u^{120}$ |
-| | $M\ge 1$ | $X\ge u$: (3) |
-| $\sigma$ | $1/M$ | $X^\sigma=u$ |
-| $S$ | $2/(1-3^{-\sigma})+3$ | Lemma 12(b): the part $2/(1-3^{-\sigma})$; Lemma 12(d): the part $3$; $S\ge 3$: $G\ge 1$ |
-| $G$ | $(4S)^M$ | Lemma 12(a): $G^{-\sigma}=1/(4S)$ |
+| $b$ | $10^6$ | Lemma 6: $\frac{20}{b+1} \le \frac{1}{8}$ and $b \ge 33000\log 8$ |
+| $M$ | $16b + 150$ | Lemma 13: $X = u^M$ is much larger than $A^{2b+2}$ |
+| | $M \ge 320$ | Section 10: $M\log u \ge 320$ |
+| | $M \ge 120$ | Lemma 15: $X \ge u^{120}$ |
+| | $M \ge 1$ | $X \ge u$: (3) |
+| $\sigma$ | $1/M$ | $X^\sigma = u$ |
+| $S$ | $2/(1 - 3^{-\sigma}) + 3$ | Lemma 12(b): the part $2/(1 - 3^{-\sigma})$; Lemma 12(d): the part $3$; $S \ge 3$: $G \ge 1$ |
+| $G$ | $(4S)^M$ | Lemma 12(a): $G^{-\sigma} = 1/(4S)$ |
 | $L_0$ | large, given $S$ and $G$ | Lemma 7 |
-| | $\log L_0\ge 40G$ | (4) |
-| | $S\,l^\sigma+1<l/(2\cdot 10^4)$ for $l\ge L_0$ | Lemma 15 |
-| | $L_0\ge 10$ | $p_0\ge 10$, and $p\ge 10$ for $p\in T$: Lemmas 9(a) and 16; $u\ge 10$ |
-| $J$ | $J\ge GL_0$ | (4); and $J\ge L_0$: (3), Lemmas 14 and 15 |
+| | $\log L_0 \ge 40G$ | (4) |
+| | $S\,l^\sigma + 1 < l/(2 \cdot 10^4)$ for $l \ge L_0$ | Lemma 15 |
+| | $L_0 \ge 10$ | $p_0 \ge 10$, and $p \ge 10$ for $p \in T$: Lemmas 9(a) and 16; $u \ge 10$ |
+| $J$ | $J \ge G L_0$ | (4); and $J \ge L_0$: (3), Lemmas 14 and 15 |
 | $k$ | large, given all these | Lemma 5; Lemma 8; Lemma 2 for Lemma 14; and the following |
-| $u$ | $u\ge L_0$ | (3); $k\bmod p_0\ge L_0$: Lemmas 9(a), 14 and 15; $u\ge 10$ |
-| | $u\ge 10$ | $A\le 2u^8$; Section 10: $M\log u\ge 320$; Lemma 15: $4\cdot 10^4<u^{110}$; powers of $u$ everywhere |
-| | $u\ge S+2$ | Lemmas 12(a), 13 and 15 |
-| | $u\ge 4^M$ | $k\bmod p_0\ge 4^M$: Lemma 12(b) |
-| | $u\ge 2^{2b+4}$, $2u^8+1\le e^u$ | Lemma 13 |
-| | $u^M\le e^u$ | $X\le e^u$: $5X\le k$, (4), Lemmas 12(d), 13 and 18 |
+| $u$ | $u \ge L_0$ | (3); $k \bmod p_0 \ge L_0$: Lemmas 9(a), 14 and 15; $u \ge 10$ |
+| | $u \ge 10$ | $A \le 2u^8$; Section 10: $M\log u \ge 320$; Lemma 15: $4 \cdot 10^4 < u^{110}$; powers of $u$ everywhere |
+| | $u \ge S + 2$ | Lemmas 12(a), 13 and 15 |
+| | $u \ge 4^M$ | $k \bmod p_0 \ge 4^M$: Lemma 12(b) |
+| | $u \ge 2^{2b+4}$, $2u^8 + 1 \le e^u$ | Lemma 13 |
+| | $u^M \le e^u$ | $X \le e^u$: $5X \le k$, (4), Lemmas 12(d), 13 and 18 |
 
-### States
+### States and parity lifting
 
-Let $T$ be a finite set of primes not containing $q$ or $p_0$, paired with an integer $d_p$ for each $p\in T$. Set $T^*=T\cup\{q,p_0\}$. An integer $n$ is **smooth** if $2\le n<k$ and $n$ is composed of $T^*$. A smooth number $n$ is **uncovered** if $n\not\equiv 1\pmod q$, $n\not\equiv c_0\pmod{p_0}$, and $n\not\equiv d_p\pmod p$ for all $p\in T$. In particular:
+Let $T$ be a finite set of primes not containing $q$ or $p_0$, paired with an integer $d_p$ for each $p \in T$ (the number that prime $p$ was moved to cover). Set $T^* = T \cup \{q, p_0\}$.
 
-(5) Every uncovered number differs from all $d_p$ ($p\in T$).
+* An integer $n$ is **smooth** if $2 \le n < k$ and $n$ is composed of $T^*$.
+* A smooth number $n$ is **uncovered** if $n \not\equiv 1 \pmod q$, $n \not\equiv c_0 \pmod{p_0}$, and $n \not\equiv d_p \pmod p$ for all $p \in T$. In particular:
 
-Writing $l_p=\operatorname{lv}(d_p)$, we call $T$ (together with the values $d_p$) a **state** if:
+**(5)** Every uncovered number differs from all $d_p$ ($p \in T$).
 
-* (S1) the numbers $d_p$ ($p\in T$) are smooth and pairwise distinct;
-* (S2) $p\in\Pi(l_p,\gamma(l_p))$ for every $p\in T$, meaning $\gamma(l_p)\le p\le k$, $k\bmod p<l_p$, and $k-(k\bmod p)$ is even;
-* (S3) every uncovered number $n$ satisfies $\operatorname{lv}(n)\ge l_p$ for all $p\in T$;
-* (S4) $\sum_{p\in T,\,l_p<X}l_p^{-\sigma}\le S$.
+Writing $l_p = \operatorname{lv}(d_p)$, we call $T$ (together with the values $d_p$) a **state** if:
 
-Here $d_p$ is the number that prime $p$ was moved to cover. The empty set is a state, and Lemma 16 shows how to add one prime at a time. In any state, (S2) and (3) guarantee $p>l_p$ and $p\ge L_0\ge 10$ for all $p\in T$.
+* **(S1)** the numbers $d_p$ ($p \in T$) are smooth and pairwise distinct;
+* **(S2)** $p \in \Pi(l_p, \gamma(l_p))$ for every $p \in T$, meaning $\gamma(l_p) \le p \le k$, $k \bmod p < l_p$, and $k - (k \bmod p)$ is even;
+* **(S3)** every uncovered number $n$ satisfies $\operatorname{lv}(n) \ge l_p$ for all $p \in T$;
+* **(S4)** $\sum_{p \in T,\, l_p < X} l_p^{-\sigma} \le S$.
+
+The empty set $T = \emptyset$ is trivially a state, and Lemma 16 will show how to add one prime at a time. In any state, (S2) and (3) guarantee $p > l_p$ and $p \ge L_0 \ge 10$ for all $p \in T$.
+
+*Sanity check for Lemma 9(b) (parity lifting):* Suppose $k = 100$ and $p = 7$. Then $k \bmod 7 = 2$, so $k - (k \bmod 7) = 98$ is even. The only multiple of $7$ in $(0, 100)$ within distance $< 7$ of $100$ is $98$ itself—which is *even*! Thus every *odd* multiple of $7$ in $(0, 100)$ lies in $[7, 91]$, forcing $\operatorname{lv}(n) = \min(n, 100 - n) \ge 7$.
 
 **Lemma 9 (lifting).** *In any state:*
 
-(a) *$T^*$ consists of odd primes, every smooth number is odd, and $q'\notin T^*$.*
+*(a) $T^*$ consists of odd primes, every smooth number is odd, and $q' \notin T^*$.*
 
-(b) *If a prime $p$ satisfies $k-(k\bmod p)$ even, $n$ is odd, $0<n<k$, and $p\mid n$, then $\operatorname{lv}(n)\ge p$. In particular, if $p\in T$ divides a smooth number $n$, then $\operatorname{lv}(n)\ge p$.*
+*(b) If a prime $p$ satisfies $k - (k \bmod p)$ even, $n$ is odd, $0 < n < k$, and $p \mid n$, then $\operatorname{lv}(n) \ge p$. In particular, if $p \in T$ divides a smooth number $n$, then $\operatorname{lv}(n) \ge p$.*
 
-(c) *$k\bmod p<d_p\bmod p$ for every $p\in T$.*
+*(c) $k \bmod p < d_p \bmod p$ for every $p \in T$.*
 
-*Proof.* (a) We have $q>q'\ge 2$, $p_0>k\bmod p_0\ge L_0\ge 10$, and $p\ge 10$ for all $p\in T$, so every prime in $T^*$ is odd and hence every smooth number is odd. Also $q'\ne q$, and $q'\ne p_0$ since $p_0\nmid k$. If $q'\in T$, then (S2) says $k-(k\bmod q')=k$ is even, forcing $q'=2$, which is impossible since $T$ contains only odd primes.
+*Proof.* **(a)** We have $q > q' \ge 2$, $p_0 > k \bmod p_0 \ge L_0 \ge 10$, and $p \ge 10$ for all $p \in T$. Thus every prime in $T^*$ is odd, and therefore every smooth number is odd. Clearly $q' \ne q$, and $q' \ne p_0$ because $p_0 \nmid k$. Finally, if $q' \in T$, then (S2) would say $k - (k \bmod q') = k$ is even; by our choice of $q'$, even $k$ forces $q' = 2$, contradicting that $T$ contains only odd primes.
 
-(b) Clearly $n\ge p$. If $k-n<p$, then $0<k-n<p$ and $k-n\equiv k\pmod p$ force $k-n=k\bmod p$, making $n=k-(k\bmod p)$ even, a contradiction. The second claim follows because $k-(k\bmod p)$ is even by (S2) and $n$ is odd by (a).
+**(b)** Clearly $n \ge p$ (since $p \mid n$ and $n > 0$). Suppose for contradiction that $k - n < p$. Because $0 < k - n < p$ and $k - n \equiv k \pmod p$, we must have $k - n = k \bmod p$, which gives $n = k - (k \bmod p)$—an even number, contradicting that $n$ is odd. Thus $k - n \ge p$ as well, so $\operatorname{lv}(n) \ge p$. The second claim follows immediately because $k - (k \bmod p)$ is even by (S2) and every smooth number $n$ is odd by (a).
 
-(c) Put $i=k\bmod p$ and $l=l_p$, so $i<l<p$. If $d_p=l$, then $d_p\bmod p=l>i$. If $d_p=k-l$, then $d_p\equiv i-l\equiv p-(l-i)\pmod p$, and $i<p-(l-i)<p$. $\square$
+**(c)** Put $i = k \bmod p$ and $l = l_p$; by (S2) and (3) we have $i < l < p$.
+* If $d_p$ is a bottom, $d_p = l$, so $d_p \bmod p = l > i$.
+* If $d_p$ is a top, $d_p = k - l \equiv i - l \equiv p - (l - i) \pmod p$. Since $0 < l - i < p - i$, we have $i < p - (l - i) < p$, so $d_p \bmod p = p - (l - i) > i$. $\square$
+
+---
 
 ## 8. Two tools
 
-**Lemma 10 (Rankin).** *If $R$ is a finite set of primes, $s>0$, and $B$ is a finite set of positive integers composed of $R$, then $\sum_{n\in B}n^{-s}\le\prod_{p\in R}(1-p^{-s})^{-1}$.*
+Before bounding smooth numbers at small and large levels, we record two short, classical counting tools: Rankin's Euler-product bound for smooth numbers near $0$, and a short-window injection for smooth numbers near $k$.
 
-*Proof.* Expanding the product of geometric series $\sum_{a\ge 0}p^{-as}$ gives the sum of $n^{-s}$ over all positive integers $n$ composed of $R$. $\square$
+**Lemma 10 (Rankin).** *If $R$ is a finite set of primes, $s > 0$, and $B$ is a finite set of positive integers composed of $R$, then $\sum_{n \in B} n^{-s} \le \prod_{p \in R} (1 - p^{-s})^{-1}$.*
 
-**Lemma 11 (window).** *Let $R$ be a finite set of primes and $Y\ge 1$ a real number with $Y^{|R|}<k-Y$. To each integer $n\in(k-Y,k)$ composed of $R$, one can assign a prime $f(n)\in R$ dividing $n$ such that $f(n)\ne f(n')$ whenever $n\ne n'$.*
+*Proof.* Expanding the finite product of geometric series $\prod_{p \in R} \sum_{a \ge 0} p^{-as}$ yields the sum of $n^{-s}$ over *all* positive integers $n$ composed of $R$, which dominates the finite subsum over $B$. $\square$
 
-*Proof.* Because $n=\prod_{p\in R}p^{v_p(n)}>Y^{|R|}$, some prime $f(n)=p\in R$ satisfies $p^{v_p(n)}>Y\ge 1$. If $f(n)=f(n')=p$ with $n<n'$, then $p^{\min(v_p(n),v_p(n'))}>Y$ divides $n'-n$, contradicting $0<n'-n<Y$. $\square$
+*Intuition for Lemma 11:* If $n \in (k - Y, k)$ is composed of $|R|$ primes and $n > Y^{|R|}$, then by the pigeonhole principle at least one prime power $p^{v_p(n)}$ dividing $n$ must exceed $Y$. No two numbers in an interval of width $Y$ can both be divisible by a prime power $> Y$ for the same prime $p$—otherwise their difference would be a positive multiple of that prime power, smaller than $Y$!
+
+**Lemma 11 (window).** *Let $R$ be a finite set of primes and $Y \ge 1$ a real number with $Y^{|R|} < k - Y$. To each integer $n \in (k - Y, k)$ composed of $R$, one can assign a prime $f(n) \in R$ dividing $n$ such that $f(n) \ne f(n')$ whenever $n \ne n'$.*
+
+*Proof.* For any $n \in (k - Y, k)$ composed of $R$, we have
+$$\prod_{p \in R} p^{v_p(n)} = n > k - Y > Y^{|R|},$$
+so some prime $p \in R$ satisfies $p^{v_p(n)} > Y \ge 1$ (in particular $p \mid n$). Define $f(n) = p$. If $f(n) = f(n') = p$ with $n < n'$, then $p^{\min(v_p(n), v_p(n'))} > Y$ divides $n' - n$, contradicting $0 < n' - n < Y$. $\square$
+
+---
 
 ## 9. Small levels
 
-Given a state, set $T_1=\{p\in T:l_p<X\}$ and $T_1^*=T_1\cup\{q,p_0\}$.
+Given a state, restrict attention to the primes moved below $X$:
+$$T_1 = \{p \in T : l_p < X\}, \qquad T_1^* = T_1 \cup \{q, p_0\}.$$
+Because of the state invariant (S4), $\sum_{p \in T_1} l_p^{-\sigma} \le S$, and the multiplicative gap $p \ge G\,l_p$ from (4), the reciprocal $\sigma$-power sum over $T_1$ shrinks by a factor of $G^{-\sigma} = 1/(4S)$ to at most $\frac{1}{4}$. Combining Rankin's method for bottoms with the window lemma for tops then proves that the sum of $\operatorname{lv}(n)^{-\sigma}$ over *all* smooth numbers below level $X$ stays bounded by $S$—confirming that invariant (S4) is self-sustaining!
 
 **Lemma 12.** *In any state:*
 
-(a) *$\sum_{p\in T_1}p^{-\sigma}\le\frac{1}{4}$ and $|T_1^*|\le u^2$.*
+*(a) $\sum_{p \in T_1} p^{-\sigma} \le \frac{1}{4}$ and $|T_1^*| \le u^2$.*
 
-(b) *$\sum_{n\in B}n^{-\sigma}\le S-3$ for every finite set $B$ of positive integers composed of $T_1^*$.*
+*(b) $\sum_{n \in B} n^{-\sigma} \le S - 3$ for every finite set $B$ of positive integers composed of $T_1^*$.*
 
-(c) *To each integer $n\in(k-e^{u^4},k)$ composed of $T_1^*$, one can assign distinct primes $f(n)\in T_1^*$ with $f(n)\mid n$.*
+*(c) To each integer $n \in (k - e^{u^4}, k)$ composed of $T_1^*$, one can assign distinct primes $f(n) \in T_1^*$ with $f(n) \mid n$.*
 
-(d) *$\sum\operatorname{lv}(n)^{-\sigma}\le S$, where $n$ runs over all smooth numbers of level less than $X$.*
+*(d) $\sum \operatorname{lv}(n)^{-\sigma} \le S$, where $n$ runs over all smooth numbers of level less than $X$.*
 
-(e) *For every real $x\ge 1$, at most $S\,x^\sigma$ smooth numbers $n$ satisfy $\operatorname{lv}(n)<X$ and $\operatorname{lv}(n)\le x$.*
+*(e) For every real $x \ge 1$, at most $S\,x^\sigma$ smooth numbers $n$ satisfy $\operatorname{lv}(n) < X$ and $\operatorname{lv}(n) \le x$.*
 
-*Proof.* (a) For $p\in T_1$, (S2) and (4) give $p\ge G\,l_p$. Using $G^{-\sigma}=1/(4S)$ and (S4), we obtain $\sum_{p\in T_1}p^{-\sigma}\le\frac{1}{4S}\sum_{p\in T_1}l_p^{-\sigma}\le\frac{1}{4}$. Every term $l_p^{-\sigma}$ with $p\in T_1$ is at least $X^{-\sigma}=1/u$, so $|T_1|\le Su$ and $|T_1^*|\le Su+2\le (S+2)u\le u^2$.
+*Proof.* **(a)** For every $p \in T_1$, (S2) and (4) give $p \ge \gamma(l_p) \ge G\,l_p$. Using $G^{-\sigma} = 1/(4S)$ and (S4),
+$$\sum_{p \in T_1} p^{-\sigma} \le G^{-\sigma} \sum_{p \in T_1} l_p^{-\sigma} \le \frac{1}{4S} \cdot S = \frac{1}{4}.$$
+Also, every $p \in T_1$ has $l_p < X$, so $l_p^{-\sigma} \ge X^{-\sigma} = 1/u$. Hence $|T_1| \le Su$, and $|T_1^*| \le Su + 2 \le (S + 2)u \le u^2$.
 
-(b) By Lemma 10, the sum is at most $\prod_{p\in T_1^*}(1-p^{-\sigma})^{-1}$. Since $q\ge 3$, the factor for $q$ is at most $(1-3^{-\sigma})^{-1}$. Since $p_0\ge 4^M$, we have $p_0^{-\sigma}\le\frac{1}{4}$. Combined with (a),
-$$\prod_{p\in T_1^*,\,p\ne q}(1-p^{-\sigma})\ge 1-p_0^{-\sigma}-\sum_{p\in T_1}p^{-\sigma}\ge\frac{1}{2}.$$
-The product is therefore at most $2/(1-3^{-\sigma})=S-3$.
+**(b)** By Lemma 10, $\sum_{n \in B} n^{-\sigma} \le \prod_{p \in T_1^*} (1 - p^{-\sigma})^{-1}$. Since $q \ge 3$, the factor for $q$ is at most $(1 - 3^{-\sigma})^{-1}$. Since $p_0 > k \bmod p_0 \ge 4^M$, we have $p_0^{-\sigma} \le \frac{1}{4}$. Combining this with (a) via the elementary inequality $\prod (1 - x_i) \ge 1 - \sum x_i$,
+$$\prod_{p \in T_1^*,\, p \ne q} (1 - p^{-\sigma}) \ge 1 - p_0^{-\sigma} - \sum_{p \in T_1} p^{-\sigma} \ge 1 - \frac{1}{4} - \frac{1}{4} = \frac{1}{2}.$$
+Therefore $\prod_{p \in T_1^*} (1 - p^{-\sigma})^{-1} \le 2 / (1 - 3^{-\sigma}) = S - 3$.
 
-(c) Put $Y=e^{u^4}$. By (a), $Y^{|T_1^*|}\le e^{u^6}<e^{u^8}-e^{u^4}=k-Y$, so Lemma 11 applies.
+**(c)** Set $Y = e^{u^4}$. By (a), $Y^{|T_1^*|} \le e^{u^6} < e^{u^8} - e^{u^4} = k - Y$, so Lemma 11 applies directly with $R = T_1^*$.
 
-(d) Let $n$ be smooth with $\operatorname{lv}(n)<X$. Any prime $p\in T$ dividing $n$ satisfies $l_p<p\le\operatorname{lv}(n)<X$ by Lemma 9(b), so $n$ is composed of $T_1^*$. By (b), the bottoms contribute at most $S-3$. The tops lie in $(k-X,k)\subseteq(k-e^{u^4},k)$ (as $X\le e^u\le e^{u^4}$); let $f(n)$ be as in (c). If $f(n)\in T_1$, then $\operatorname{lv}(n)\ge f(n)$ by Lemma 9(b), so $\operatorname{lv}(n)^{-\sigma}\le f(n)^{-\sigma}$. Otherwise ($f(n)\in\{q,p_0\}$), $\operatorname{lv}(n)^{-\sigma}\le 1$. Because the primes $f(n)$ are distinct, (a) bounds the contribution of tops by $\frac{1}{4}+2$, giving a total at most $S$.
+**(d)** Let $n$ be smooth with $\operatorname{lv}(n) < X$. Any prime $p \in T$ dividing $n$ satisfies $l_p < p \le \operatorname{lv}(n) < X$ by (3) and Lemma 9(b), so $p \in T_1$. Thus every smooth number of level $< X$ is composed of $T_1^*$. Split the sum into bottoms and tops:
+* **Bottoms:** Here $\operatorname{lv}(n) = n$, so (b) bounds the contribution of bottoms by $S - 3$.
+* **Tops:** Since $X \le e^u \le e^{u^4}$, every top with $\operatorname{lv}(n) < X$ lies in $(k - X, k) \subseteq (k - e^{u^4}, k)$. Let $f(n) \in T_1^*$ be the distinct primes from (c). If $f(n) \in T_1$, then $\operatorname{lv}(n) \ge f(n)$ by Lemma 9(b), so $\operatorname{lv}(n)^{-\sigma} \le f(n)^{-\sigma}$. Otherwise $f(n) \in \{q, p_0\}$, and trivially $\operatorname{lv}(n)^{-\sigma} \le 1$. Because the primes $f(n)$ are distinct, (a) bounds the contribution of all tops by $\frac{1}{4} + 2 \le 3$.
 
-(e) Every such $n$ contributes at least $x^{-\sigma}$ to the sum in (d). $\square$
+Adding both parts yields $\sum_{\operatorname{lv}(n) < X} \operatorname{lv}(n)^{-\sigma} \le (S - 3) + 3 = S$.
+
+**(e)** Every smooth number $n$ with $\operatorname{lv}(n) < X$ and $\operatorname{lv}(n) \le x$ contributes at least $x^{-\sigma}$ to the sum in (d), so there are at most $S\,x^\sigma$ such numbers. $\square$
+
+---
 
 ## 10. Large levels
 
-For integers $X\le l\le k$, we have $\log l\ge M\log u\ge 320$, $\log l\le A-1$, and
-$$\frac{1}{l\,A^{b+1}}\le\varphi(l)\le\frac{A^{b+1}}{l},\tag{6}$$
-since $\frac{1}{A}\le w(l)\le A$ and $1\le\log l\le A$. Recall that $\varphi$ is positive and decreasing.
+Now we control smooth numbers of level $l \ge X$. For every integer $X \le l \le k$, we have $\log l \ge M \log u \ge 320$, $\log l \le A - 1$, and $\frac{1}{A} \le w(l) \le A$ together with $1 \le \log l \le A$, giving the coarse sandwich
+$$\frac{1}{l\,A^{b+1}} \le \varphi(l) \le \frac{A^{b+1}}{l}. \tag{6}$$
+Recall that $\varphi$ is positive and decreasing.
 
-**Lemma 13.** *In any state, let $W=\sum\varphi(\operatorname{lv}(n))$ summed over all smooth numbers $n$ with $\operatorname{lv}(n)\ge X$. Then $W\le 6A^{b+1}u^2/X$. Also, for every integer $X\le l\le k$, at most $l/u^{120}$ smooth numbers $n$ satisfy $X\le\operatorname{lv}(n)\le l$.*
+We now execute the weight-damping strategy motivated in Section 5: split all smooth numbers of level $\ge X$ into those divisible by some prime moved at level $\ge X$ (whose weight is bounded by $\frac{1}{2}W$ via Lemma 6) and those composed solely of $T_1^*$ (whose weight is tiny by Lemma 12 and crude exponent counting).
 
-*Proof.* First, fix a prime $p\in T$ with $l_p\ge X$, and consider the smooth multiples $n$ of $p$ with $\operatorname{lv}(n)\ge X$. By Lemma 9(b), $m=\lfloor\operatorname{lv}(n)/p\rfloor\ge 1$. For each $m\le k/p$, at most two such multiples occur: $mp$ (if $n$ is a bottom) and $k-(mp+(k\bmod p))$ (if $n$ is a top, since then $\operatorname{lv}(n)=k-n\equiv k\pmod p$). In both cases $\varphi(\operatorname{lv}(n))\le\varphi(mp)$. Since $p\ge\gamma(l_p)=\tau(l_p)$ by (3), Lemma 6 bounds the total weight of these multiples by $2\sum_{m\le k/p}\varphi(mp)\le\frac{1}{2}\varphi(l_p)$. By (S1), the numbers $d_p$ are distinct smooth numbers, so summing over all $p\in T$ with $l_p\ge X$ contributes at most $\frac{1}{2}W$.
+**Lemma 13.** *In any state, let $W = \sum \varphi(\operatorname{lv}(n))$ summed over all smooth numbers $n$ with $\operatorname{lv}(n) \ge X$. Then $W \le 6A^{b+1} u^2 / X$. Also, for every integer $X \le l \le k$, at most $l / u^{120}$ smooth numbers $n$ satisfy $X \le \operatorname{lv}(n) \le l$.*
 
-Next, consider all remaining smooth numbers $n$ with $\operatorname{lv}(n)\ge X$. They are composed of $T_1^*$, so by (6) their total weight is at most $A^{b+1}H$, where $H=\sum 1/\operatorname{lv}(n)$. We split $H$ into three parts:
+*Proof.* Partition the smooth numbers $n$ with $\operatorname{lv}(n) \ge X$ into two groups:
 
-* Bottoms contribute at most $X^{\sigma-1}\sum n^{-\sigma}\le X^{\sigma-1}S=uS/X$ by Lemma 12(b).
-* By Lemma 12(c), at most $|T_1^*|\le u^2$ tops have level below $e^{u^4}$, contributing at most $u^2/X$.
-* Any positive integer below $k$ composed of $T_1^*$ is determined by its prime exponents, each at most $\log k/\log 2\le 2u^8$; there are at most $(2u^8+1)^{u^2}\le e^{u^3}$ such integers. Tops of level at least $e^{u^4}$ therefore contribute at most $e^{u^3-u^4}\le e^{-u}\le 1/X$.
+1. **Numbers divisible by some $p \in T$ with $l_p \ge X$.** Fix such a prime $p \in T$ and consider its smooth multiples $n$ with $\operatorname{lv}(n) \ge X$. By Lemma 9(b), $\operatorname{lv}(n) \ge p$, so $m = \lfloor \operatorname{lv}(n) / p \rfloor \ge 1$. For each $1 \le m \le k/p$, at most two smooth multiples of $p$ yield this $m$:
+   * $n = mp$ (if $n$ is a bottom, since $p \mid n$ and $mp \le n < (m+1)p$), and
+   * $n = k - (mp + (k \bmod p))$ (if $n$ is a top, since $\operatorname{lv}(n) = k - n \equiv k \pmod p$ lies in $[mp, (m+1)p)$).
 
-Together these give $H\le (uS+u^2+1)/X\le 3u^2/X$.
+   In both cases $\operatorname{lv}(n) \ge mp$, so $\varphi(\operatorname{lv}(n)) \le \varphi(mp)$. Since $l_p \ge X$, we have $\log l_p \ge 320$ and $p \ge \gamma(l_p) = \tau(l_p)$ by (S2) and (3). Lemma 6 therefore bounds the total weight of all smooth multiples of $p$ by
+   $$2 \sum_{1 \le m \le k/p} \varphi(mp) \le \frac{1}{2}\,\varphi(l_p).$$
+   By (S1), the numbers $d_p$ ($p \in T$, $l_p \ge X$) are pairwise distinct smooth numbers of level $\ge X$, so summing over all $p \in T$ with $l_p \ge X$ contributes at most $\frac{1}{2}W$.
 
-Combining both groups yields $W\le\frac{1}{2}W+3A^{b+1}u^2/X$, proving the first bound. If $X\le\operatorname{lv}(n)\le l$, then $\varphi(\operatorname{lv}(n))\ge\varphi(l)\ge 1/(lA^{b+1})$, so the number of such $n$ is at most
-$$l\,A^{b+1}W\le\frac{6\,l\,A^{2b+2}u^2}{X}\le l\cdot 6\cdot 2^{2b+2}\,u^{16b+18-M}\le l\,u^2\cdot u^{-132}\le\frac{l}{u^{120}},$$
-using $A\le 2u^8$ and $6\cdot 2^{2b+2}\le 2u\le u^2$. $\square$
+2. **Remaining numbers (composed entirely of $T_1^*$).** By (6), their total weight is at most $A^{b+1} H$, where $H = \sum 1 / \operatorname{lv}(n)$ runs over all smooth numbers $n$ composed of $T_1^*$ with $\operatorname{lv}(n) \ge X$. Split $H$ into three sub-ranges:
+   * *Bottoms ($n \ge X$):* Since $n^{-1} \le X^{\sigma - 1} n^{-\sigma}$, Lemma 12(b) bounds their contribution by $X^{\sigma - 1} \sum n^{-\sigma} \le X^{\sigma - 1} S = uS / X$.
+   * *Mid-level tops ($X \le \operatorname{lv}(n) < e^{u^4}$):* By Lemma 12(c), at most $|T_1^*| \le u^2$ integers in $(k - e^{u^4}, k)$ are composed of $T_1^*$, contributing at most $u^2 / X$.
+   * *High-level tops ($\operatorname{lv}(n) \ge e^{u^4}$):* Every positive integer below $k$ composed of $T_1^*$ is uniquely determined by its $|T_1^*| \le u^2$ prime exponents, each in $\{0, 1, \dots, \lfloor \log k / \log 2 \rfloor\}$ (at most $2u^8 + 1$ choices per prime). Using $2u^8 + 1 \le e^u$, there are at most $(2u^8 + 1)^{u^2} \le e^{u^3}$ such integers in total, so their contribution to $H$ is at most $e^{u^3 - u^4} \le e^{-u} \le 1/X$.
+
+   Summing the three parts and using $u \ge S + 2$ gives
+   $$H \le \frac{uS + u^2 + 1}{X} \le \frac{3u^2}{X}.$$
+
+3. **Solving for $W$ and counting smooth numbers.** Combining Groups 1 and 2 yields
+   $$W \le \frac{1}{2}W + \frac{3A^{b+1} u^2}{X} \implies W \le \frac{6A^{b+1} u^2}{X},$$
+   proving the first claim. Finally, for any integer $X \le l \le k$, every smooth number $n$ with $X \le \operatorname{lv}(n) \le l$ satisfies $\varphi(\operatorname{lv}(n)) \ge \varphi(l) \ge 1 / (l\,A^{b+1})$ by (6). Using $A \le 2u^8$, $X = u^M$ with $M = 16b + 150$, and $6 \cdot 2^{2b+2} \le 2u \le u^2$, the number of such $n$ is at most
+   $$l\,A^{b+1} W \le \frac{6\,l\,A^{2b+2} u^2}{X} \le l \cdot 6 \cdot 2^{2b+2}\,u^{16b + 18 - M} \le l\,u^2 \cdot u^{-132} \le \frac{l}{u^{120}}. \qquad\square$$
+
+---
 
 ## 11. There are enough fresh primes
 
-**Lemma 14 (bounded levels).** *In any state, if $l<L_0$, then at most $\lfloor h(l)/2\rfloor$ smooth numbers have level at most $l$, and their levels are multiples of $q$.*
+We now put supply (Section 6) against demand (Sections 9–10 and Lemma 14 below) to show that every uncovered number at level $l < k/5$ can always receive a fresh prime.
 
-*Proof.* Let $n$ be smooth with $\operatorname{lv}(n)<L_0$. No prime $p\in T$ divides $n$, since otherwise $\operatorname{lv}(n)\ge p\ge L_0$. Likewise $p_0\nmid n$, since otherwise $n\ge p_0$ and $k-n\equiv k\pmod{p_0}$ would give $\operatorname{lv}(n)\ge k\bmod p_0\ge L_0$. Therefore $n$ is a power of $q$, so $q\mid n$, and since $q\mid k$ we also have $q\mid\operatorname{lv}(n)$.
+First, handle bounded levels $l < L_0$. Because every prime in $T$ is $\ge L_0$ and $k \bmod p_0 \ge L_0$, only powers of $q$ can have level $< L_0$; Størmer's theorem then shows no two of them can share a level, keeping the count at most $\lfloor h(l)/2 \rfloor$—matching Lemma 8!
 
-Distinct smooth numbers of level $<L_0$ have distinct levels. Suppose $n<n'$ had the same level. Then $n+n'=k$, $n=q^e$, and $n'=q^f$ with $e<f$, so $k=q^e(m+1)$ where $m=q^{f-e}$. Because $n=\operatorname{lv}(n)<L_0$, we have $m+1\ge k/L_0$, so $m(m+1)$ has a prime factor greater than $J$. Yet every prime factor of $m$ and of $m+1\mid k$ is at most $q\le\operatorname{lv}(n)<L_0\le J$, a contradiction.
+**Lemma 14 (bounded levels).** *In any state, if $l < L_0$, then at most $\lfloor h(l)/2 \rfloor$ smooth numbers have level at most $l$, and their levels are multiples of $q$.*
 
-The levels are therefore distinct multiples of $q$ in $[1,l]$. Assuming there is at least one, $l\ge q\ge 3$. If $k$ is even, both $n$ and $k-n$ are odd, so the levels are odd multiples of $q$; there are at most
-$$\lfloor(\lfloor l/q\rfloor+1)/2\rfloor\le\lfloor(\lfloor l/3\rfloor+1)/2\rfloor\le\lfloor\lfloor(l+1)/2\rfloor/2\rfloor=\lfloor h(l)/2\rfloor,$$
-since $(l+3)/6\le (l+1)/4$ for $l\ge 3$. If $k$ is odd, then $q>q'\ge 3$ gives $q\ge 4$, so there are at most $\lfloor l/4\rfloor=\lfloor\lfloor l/2\rfloor/2\rfloor=\lfloor h(l)/2\rfloor$ multiples. $\square$
+*Proof.* Let $n$ be smooth with $\operatorname{lv}(n) < L_0$.
 
-**Lemma 15 (fresh primes).** *In any state, let $n$ be an uncovered number of level $l<k/5$. Then there is a prime $p\in\Pi(l,\gamma(l))\setminus T^*$.*
+1. **$n$ must be a power of $q$, and $q \mid \operatorname{lv}(n)$.** No prime $p \in T$ can divide $n$, since otherwise Lemma 9(b) and (3) would give $\operatorname{lv}(n) \ge p \ge L_0$. Likewise $p_0 \nmid n$: if $p_0 \mid n$, then $n \ge p_0 > L_0$ and $k - n \equiv k \pmod{p_0}$ gives $k - n \ge k \bmod p_0 \ge L_0$, so $\operatorname{lv}(n) \ge L_0$, a contradiction. Therefore $n$ is a power of $q$. In particular $q \mid n$, and since $q \mid k$, we also have $q \mid (k - n)$, hence $q \mid \operatorname{lv}(n)$.
+2. **Distinct smooth numbers of level $< L_0$ have distinct levels.** Suppose $n < n'$ had $\operatorname{lv}(n) = \operatorname{lv}(n') < L_0$. Then $n + n' = k$, with $n = q^e$ and $n' = q^f$ ($e < f$). Setting $m = q^{f-e}$, we obtain $k = q^e(m + 1)$. Since $q^e = n = \operatorname{lv}(n) < L_0$, we have $m + 1 \ge k / L_0$, so our standing assumption from Lemma 2 guarantees that $m(m + 1)$ has a prime factor greater than $J$. Yet every prime factor of $m = q^{f-e}$ is $q$, and every prime factor of $m + 1 \mid k$ is at most $q$ (the largest prime factor of $k$), while $q \le \operatorname{lv}(n) < L_0 \le J$—a contradiction.
+3. **Counting the levels.** The levels of smooth numbers with level $\le l$ are therefore distinct multiples of $q$ in $[1, l]$. If there is none, the bound $0 \le \lfloor h(l)/2 \rfloor$ is trivial; otherwise $l \ge q \ge 3$.
+   * *If $k$ is even:* every smooth number $n$ is odd by Lemma 9(a), so $k - n$ is also odd, meaning $\operatorname{lv}(n)$ is an *odd* multiple of $q$ in $[1, l]$. The number of odd multiples of $q$ up to $l$ is at most
+     $$\left\lfloor \frac{\lfloor l/q \rfloor + 1}{2} \right\rfloor \le \left\lfloor \frac{\lfloor l/3 \rfloor + 1}{2} \right\rfloor \le \left\lfloor \frac{\lfloor (l + 1)/2 \rfloor}{2} \right\rfloor = \left\lfloor \frac{h(l)}{2} \right\rfloor,$$
+     using $(l + 3)/6 \le (l + 1)/4$ for all $l \ge 3$.
+   * *If $k$ is odd:* then $q > q' \ge 3$ forces $q \ge 4$, so the number of multiples of $q$ in $[1, l]$ is at most
+     $$\left\lfloor \frac{l}{4} \right\rfloor = \left\lfloor \frac{\lfloor l/2 \rfloor}{2} \right\rfloor = \left\lfloor \frac{h(l)}{2} \right\rfloor. \qquad\square$$
 
-*Proof.* Let $N$ be the number of smooth numbers of level at most $l$. By (S3), $l_p\le l$ for all $p\in T$. By (S1) and (5), $n$ and all $d_p$ ($p\in T$) are distinct smooth numbers of level at most $l$, so $|T|<N$. It therefore suffices to show that $\Pi(l,\gamma(l))$ contains at least $N$ primes other than $q$ and $p_0$.
+**Lemma 15 (fresh primes).** *In any state, let $n$ be an uncovered number of level $l < k/5$. Then there is a prime $p \in \Pi(l, \gamma(l)) \setminus T^*$.*
 
-If $l<L_0$, then $\gamma(l)=J$ and $l<L_0\le J$. For any $p\in\Pi(l,J)$, Lemma 14 implies $q\mid l$ and $l\ge 1$, so $p\ge J\ge L_0>l\ge q$ (hence $p\ne q$), and $k\bmod p<l<L_0\le k\bmod p_0$ (hence $p\ne p_0$). Lemmas 8 and 14 give $|\Pi(l,J)|\ge\lfloor h(l)/2\rfloor\ge N$.
+*Proof.* Let $N$ be the total number of smooth numbers of level at most $l$. By (S3), $l_p \le l$ for every $p \in T$. By (S1) and (5), the uncovered number $n$ and all $d_p$ ($p \in T$) are pairwise distinct smooth numbers of level at most $l$, so $|T| \le N - 1 < N$. It therefore suffices to show that $\Pi(l, \gamma(l))$ contains at least $N$ primes other than $q$ and $p_0$. Split into three regimes:
 
-If $l\ge L_0$, then $\gamma(l)=\tau(l)$, and Lemma 7 gives $|\Pi(l,\tau(l))|\ge\beta(l)$. It is enough to verify $N+1<\beta(l)$, which forces $|\Pi(l,\tau(l))|\ge N+2$. When $l<X$, we have $A-\log l\ge A/2$, and Lemma 12(e) plus the choice of $L_0$ give $N+1\le S\,l^\sigma+1<l/(2\cdot 10^4)\le\beta(l)$. When $l\ge X$, Lemmas 12(e) and 13 give $N\le SX^\sigma+l/u^{120}=Su+l/u^{120}$. Since $Su+1\le u^2=u^{120}/u^{118}\le X/u^{118}\le l/u^{118}$, we get $N+1\le 2l/u^{118}<l/(2\cdot 10^4u^8)\le\beta(l)$ (using $A-\log l\ge 1$ and $A\le 2u^8$). $\square$
+* **Regime 1: $l < L_0$.** Here $\gamma(l) = J$ and $l < L_0 \le J$. For any prime $p \in \Pi(l, J)$, note first that $n$ has level $l < L_0$, so Lemma 14 implies $q \mid l$ and hence $q \le l < L_0 \le J \le p$ (thus $p \ne q$); also $k \bmod p < l < L_0 \le k \bmod p_0$ (thus $p \ne p_0$). So neither $q$ nor $p_0$ lies in $\Pi(l, J)$, and Lemmas 8 and 14 give $|\Pi(l, J)| \ge \lfloor h(l)/2 \rfloor \ge N$.
+* **Regime 2: $L_0 \le l < X$.** Here $\gamma(l) = \tau(l)$, and Lemma 7 gives $|\Pi(l, \tau(l))| \ge \beta(l)$. To ensure at least $N$ primes other than $q$ and $p_0$, it suffices to show $N + 1 < \beta(l)$ (which implies $|\Pi(l, \tau(l))| \ge N + 2$). Because $l < X$, we have $A - \log l \ge A/2$, so $\beta(l) \ge l / (2 \cdot 10^4)$. By Lemma 12(e) and our choice of $L_0$,
+  $$N + 1 \le S\,l^\sigma + 1 < \frac{l}{2 \cdot 10^4} \le \beta(l).$$
+* **Regime 3: $X \le l < k/5$.** Again $\gamma(l) = \tau(l)$ and $|\Pi(l, \tau(l))| \ge \beta(l)$, and we verify $N + 1 < \beta(l)$. Combining Lemma 12(e) (for levels $< X$) and Lemma 13 (for levels in $[X, l]$) gives
+  $$N \le S\,X^\sigma + \frac{l}{u^{120}} = Su + \frac{l}{u^{120}}.$$
+  Using $Su + 1 \le u^2 = u^{120} / u^{118} \le X / u^{118} \le l / u^{118}$ together with $A - \log l \ge 1$, $A \le 2u^8$, and $4 \cdot 10^4 < u^{110}$, we obtain
+  $$N + 1 \le \frac{2l}{u^{118}} < \frac{l}{2 \cdot 10^4 u^8} \le \frac{l\,(A - \log l)}{10^4 A} = \beta(l). \qquad\square$$
+
+---
 
 ## 12. End of the proof
 
-**Lemma 16 (one step).** *In a state, let $n$ be an uncovered number of minimum level $l=\operatorname{lv}(n)$, and pick $p\in\Pi(l,\gamma(l))\setminus T^*$. Then $T\cup\{p\}$ with $d_p=n$ is also a state.*
+Everything is now in place: we step greedily from state to state by covering a minimum-level uncovered number, stop at a maximum-size state (where every uncovered number has level $\ge k/5$), and finish with the large primes from Lemma 5.
 
-*Proof.* We check the four conditions. For (S1), $n$ is smooth and differs from every $d_r$ ($r\in T$) by (5). Condition (S2) holds by assumption. For (S3), let $n'$ be uncovered with respect to $T\cup\{p\}$. If $p\nmid n'$, then $n'$ was already uncovered with respect to $T$, so $\operatorname{lv}(n')\ge l$ by minimality of $l$. If $p\mid n'$, then $n'$ is odd (since $p\ge\gamma(l)\ge 10$ and all primes in $T^*$ are odd), so $\operatorname{lv}(n')\ge p>l$ by Lemma 9(b) and (3); also $l\ge l_r$ for all $r\in T$ by (S3) for $T$. For (S4), $d_p=n$ and all $d_r$ ($r\in T$) are distinct numbers smooth with respect to $T$, so the sum in (S4) for $T\cup\{p\}$ is bounded by the sum in Lemma 12(d) for $T$, which is at most $S$. $\square$
+**Lemma 16 (one step).** *In a state, let $n$ be an uncovered number of minimum level $l = \operatorname{lv}(n)$, and pick $p \in \Pi(l, \gamma(l)) \setminus T^*$. Then $T \cup \{p\}$ with $d_p = n$ is also a state.*
+
+*Proof.* We verify all four state axioms for $T' = T \cup \{p\}$:
+
+* **(S1):** The number $d_p = n$ is smooth with respect to $T$ (hence also $T'$) and differs from every $d_r$ ($r \in T$) by (5).
+* **(S2):** Holds for $r \in T$ by assumption, and for $p$ because $p \in \Pi(l, \gamma(l))$ with $l_p = l$.
+* **(S3):** Let $n'$ be uncovered with respect to $T'$. By (S3) for $T$, we already know $l \ge l_r$ for all $r \in T$, so it suffices to check $\operatorname{lv}(n') \ge l$.
+  * If $p \nmid n'$, then $n'$ is composed of $T^*$, so $n'$ was already uncovered with respect to $T$; hence $\operatorname{lv}(n') \ge l$ by minimality of $l$.
+  * If $p \mid n'$, then $n'$ is odd (since $p \ge \gamma(l) \ge 10$ and all primes in $T^*$ are odd by Lemma 9(a)), so Lemma 9(b) and (3) give $\operatorname{lv}(n') \ge p > l$.
+* **(S4):** The numbers $d_p = n$ and $d_r$ ($r \in T$) are pairwise distinct numbers smooth with respect to $T$. Hence the sum $\sum_{r \in T',\, l_r < X} l_r^{-\sigma}$ is a subsum of $\sum \operatorname{lv}(m)^{-\sigma}$ over all $T$-smooth numbers $m$ of level $< X$, which is at most $S$ by Lemma 12(d) for $T$. $\square$
 
 **Lemma 17.** *There is a state in which every uncovered number has level at least $k/5$.*
 
-*Proof.* Every state $T$ is a subset of the primes up to $k$, so we can pick a state maximizing $|T|$. If some uncovered number had level less than $k/5$, taking one of minimum level $l$ and applying Lemmas 15 and 16 would give a larger state $T\cup\{p\}$, a contradiction. $\square$
+*Proof.* Every state $T$ is a subset of the finite set of primes $\le k$, and the empty set is a state. Pick a state $T$ maximizing $|T|$. If some uncovered number had level $< k/5$, choosing an uncovered number $n$ of minimum level $l < k/5$ and applying Lemmas 15 and 16 would produce a strictly larger state $T \cup \{p\}$, contradicting maximality. $\square$
 
 **Lemma 18.** *There exist residue classes $a_p$ satisfying the hypotheses of Lemma 1.*
 
-*Proof.* Take a state from Lemma 17, and let $U$ be its set of uncovered numbers. Every $n\in U$ has $\operatorname{lv}(n)\ge k/5\ge X$, so Lemma 13 (with $l=k$) gives $|U|\le k/u^{120}\le k/u^{112}=k/L^{14}$. By Lemma 5, we can assign distinct primes $P_n\in(k-\lfloor k/5\rfloor,k]$ to each $n\in U$ with $P_n\equiv c_0\pmod{p_0}$.
+*Proof.* Take a state $T$ from Lemma 17, and let $U$ be its set of uncovered numbers.
 
-None of the primes $P_n$ belongs to $T^*$: we have $P_n\ne p_0$ because $0<c_0<p_0$; $q\le k/2$ because $q\mid k$ and $q\ne k$ (as $q'\mid k$); and every $p\in T$ is an odd prime dividing the positive even number $k-(k\bmod p)$, so $p\le k/2$.
-
-Define $a_q=1$, $a_{p_0}=c_0$, $a_p=d_p\bmod p$ for $p\in T$, $a_{P_n}=n$ for $n\in U$, and $a_p=p$ for all remaining primes $p\le k$.
-
-First, these classes are admissible ($k\bmod p<a_p\le p$). This is clear for $q$, $p_0$, and the default primes, and follows from Lemma 9(c) for $p\in T$. For $P=P_n$, we have $k\bmod P=k-P<\lfloor k/5\rfloor\le\operatorname{lv}(n)\le n$ and $n\le k-\operatorname{lv}(n)\le k-\lfloor k/5\rfloor<P$.
-
-Second, these classes cover $1,\dots,k$. Take $1\le j\le k$. If $j$ has a prime factor $p$ outside $T^*\cup\{P_n:n\in U\}$, then $j\equiv 0\equiv a_p\pmod p$. If some $P_n$ divides $j$, then $2P_n>k$ forces $j=P_n\equiv c_0=a_{p_0}\pmod{p_0}$. Otherwise $j$ is composed of $T^*$. Then $j\ne k$, since $q'\mid k$ and $q'\notin T^*$ by Lemma 9(a). If $j=1$, then $j=a_q$. If $j\ge 2$, then $j$ is smooth, so either $j$ lies in the class of $q$, $p_0$, or some $p\in T$, or else $j\in U$ and $j=a_{P_j}$. $\square$
+1. **Assign a distinct large prime $P_n$ to each leftover $n \in U$.** Every $n \in U$ has $\operatorname{lv}(n) \ge k/5 \ge X$, so Lemma 13 (with $l = k$) bounds the number of leftovers by
+   $$|U| \le \frac{k}{u^{120}} \le \frac{k}{u^{112}} = \frac{k}{L^{14}}.$$
+   By Lemma 5, there are at least $k / L^{14}$ primes $P \in (k - \lfloor k/5 \rfloor, k]$ satisfying $P \equiv c_0 \pmod{p_0}$, so we can assign a distinct such prime $P_n$ to each $n \in U$.
+2. **None of the primes $P_n$ belongs to $T^*$.** Indeed:
+   * $P_n \ne p_0$, because $P_n \equiv c_0 \pmod{p_0}$ with $0 < c_0 < p_0$;
+   * $q \le k/2 < P_n$, because $q \mid k$ and $q \ne k$ (as $q' \mid k$ with $q' < q$);
+   * every $p \in T$ is an odd prime dividing the positive even integer $k - (k \bmod p)$, so $p \le k/2 < P_n$.
+3. **Define the covering classes.** Set
+   $$a_p = \begin{cases} 1 & \text{if } p = q, \\ c_0 & \text{if } p = p_0, \\ d_p \bmod p & \text{if } p \in T, \\ n & \text{if } p = P_n \text{ for some } n \in U, \\ p & \text{for all remaining primes } p \le k. \end{cases}$$
+4. **Check admissibility ($k \bmod p < a_p \le p$).** This is immediate for $q$ (since $k \bmod q = 0 < 1 < q$), for $p_0$ (since $k \bmod p_0 < c_0 < p_0$), and for the default primes ($k \bmod p < p = a_p$), and follows from Lemma 9(c) for $p \in T$. For $P = P_n$, since $k/2 < P \le k$, we have
+   $$k \bmod P = k - P < \lfloor k/5 \rfloor \le \operatorname{lv}(n) \le n \le k - \operatorname{lv}(n) \le k - \lfloor k/5 \rfloor < P,$$
+   so $k \bmod P < a_P < P$.
+5. **Check coverage of $\{1, \dots, k\}$.** Let $1 \le j \le k$.
+   * If $j$ has a prime factor $p \notin T^* \cup \{P_n : n \in U\}$, then $a_p = p$, so $j \equiv 0 \equiv a_p \pmod p$.
+   * If $P_n \mid j$ for some $n \in U$, then $2P_n > k$ forces $j = P_n \equiv c_0 = a_{p_0} \pmod{p_0}$.
+   * Otherwise $j$ is composed of $T^*$. Notice $j \ne k$, since $q' \mid k$ while $q' \notin T^*$ by Lemma 9(a). If $j = 1$, then $j = a_q$. If $2 \le j < k$, then $j$ is smooth, so either $j$ is already covered by $q$, $p_0$, or some $p \in T$, or else $j \in U$ and $j = a_{P_j}$. $\square$
 
 *Proof of the Theorem.* Combine Lemma 18 and Lemma 1. $\blacksquare$
+
+---
 
 ## What is new and what is borrowed
 
@@ -306,51 +509,61 @@ The header of `Erdos387.lean` gives a fuller bibliography, a list of unsearched 
 
 ### The statement
 
-The conjecture is Schinzel's Problem P 217 [1]. Earlier results showed that a valid $n$ exists for infinitely many $k$ (Erdős 1957, in a letter printed in [1]), for every non-prime-power $k$ from $35$ to $150$ (Burbacka and Piekarczyk, reported in [2]), and for at least $x^{1-o(1)}$ values of $k$ around $x$ as $x\to\infty$ (Bui, Naprienko, Pratt, and Zaharescu [3]).
+The conjecture is Schinzel's Problem P 217 [1]. Earlier results showed that a valid $n$ exists for infinitely many $k$ (Erdős 1957, in a letter printed in [1]), for every non-prime-power $k$ from $35$ to $150$ (Burbacka and Piekarczyk, reported in [2]), and for at least $x^{1-o(1)}$ values of $k$ around $x$ as $x \to \infty$ (Bui, Naprienko, Pratt, and Zaharescu [3]).
 
-As far as we know, the proof for all large $k$ is new: two independent searches up to 25 November 2026 found no earlier proof. That means only that none was found, not that none exists. Among the sources we did not consult are MathSciNet, Google Scholar, Guy's *Unsolved Problems* (B34), the problem list in Schinzel's *Selecta*, and the 1993 paper of Erdős, Lacampagne, and Selfridge. Erdős wrote in 1985 [4, pp. 358-359] that Lacampagne and Selfridge "probably can" find such $n$ for every $k\ne p^\alpha$, though we found no paper containing a proof. Because our threshold for $k$ is not explicit, nothing is proved for any particular $k$, and the explicit conjecture (every non-prime-power $k\ge 35$) remains open as far as we know.
+As far as we know, the proof for all large $k$ is new: two independent searches up to 25 November 2026 found no earlier proof. That means only that none was found, not that none exists. Among the sources we did not consult are MathSciNet, Google Scholar, Guy's *Unsolved Problems* (B34), the problem list in Schinzel's *Selecta*, and the 1993 paper of Erdős, Lacampagne, and Selfridge. Erdős wrote in 1985 [4, pp. 358-359] that Lacampagne and Selfridge "probably can" find such $n$ for every $k \ne p^\alpha$, though we found no paper containing a proof. Because our threshold for $k$ is not explicit, nothing is proved for any particular $k$, and the explicit conjecture (every non-prime-power $k \ge 35$) remains open as far as we know.
 
 ### What is borrowed
 
-Lemma 1 and the idea of moving a few primes off class zero are Schinzel's [1]. Putting a prime $q\mid k$ in class $1$ and using an auxiliary prime to free up large primes for leftover numbers come from Erdős's letter [1, pp. 203-204]; see also Naprienko [5] and [3, Section 3.2.1]. Covering a small $d$ by a large prime factor of $k-d+1$ appears in [3, Section 5.3]. Lemmas 2, 3, 4, and 10 are classical (Størmer, Chebyshev, Turán, Rankin), and counting prime factors of a binomial coefficient (Lemma 7) is standard. Lemma 11 is also a standard device from work on consecutive integers and Grimm's conjecture (recalled from memory; no exact reference was located).
+Lemma 1 and the idea of moving a few primes off class zero are Schinzel's [1]. Putting a prime $q \mid k$ in class $1$ and using an auxiliary prime to free up large primes for leftover numbers come from Erdős's letter [1, pp. 203-204]; see also Naprienko [5] and [3, Section 3.2.1]. Covering a small $d$ by a large prime factor of $k - d + 1$ appears in [3, Section 5.3]. Lemmas 2, 3, 4, and 10 are classical (Størmer, Chebyshev, Turán, Rankin), and counting prime factors of a binomial coefficient (Lemma 7) is standard. Lemma 11 is also a standard device from work on consecutive integers and Grimm's conjecture (recalled from memory; no exact reference was located).
 
 ### What appears to be new
 
 Produced by AI agents and not found in the sources we checked: processing uncovered numbers in level order with the parity lifting argument (Lemmas 9 and 16), using Størmer's theorem to handle bounded levels (Lemmas 8 and 14), finding $p_0$ for every large $k$ (Lemma 5), and the counting framework (Lemmas 6, 12, 13, and 15: the weight function and its combination with Lemmas 10 and 11). Here "new" means only that these ingredients were not seen in the sources we consulted.
 
-This is the second proof found in the project. The first, longer proof (not included in this repository) used Brun's sieve to find $p_0$ and several extra tools to control uncovered numbers. Here a second moment finds $p_0$, and each level-$l$ number gets a prime $p\ge\tau(l)$, where $\tau(l)$ is up to a constant factor the smaller of $l\log l$ and $l\log(k/l)$. With primes of that size, saving powers of $\log k$ suffices in every estimate.
+This is the second proof found in the project. The first, longer proof (not included in this repository) used Brun's sieve to find $p_0$ and several extra tools to control uncovered numbers. Here a second moment finds $p_0$, and each level-$l$ number gets a prime $p \ge \tau(l)$, where $\tau(l)$ is up to a constant factor the smaller of $l \log l$ and $l \log(k/l)$. With primes of that size, saving powers of $\log k$ suffices in every estimate.
 
 ### References
 
 1. A. Schinzel, *Sur un problème de P. Erdős*, Colloq. Math. 5 (1958) 198-204.
-2. *P 217, R 1*, Colloq. Math. 10 (1963) 365. (Reports results of A. Schinzel for $k=34$ and of E. Burbacka and J. Piekarczyk for $35\le k\le 150$.)
+2. *P 217, R 1*, Colloq. Math. 10 (1963) 365. (Reports results of A. Schinzel for $k = 34$ and of E. Burbacka and J. Piekarczyk for $35 \le k \le 150$.)
 3. H. M. Bui, S. Naprienko, K. Pratt, A. Zaharescu, *Binomial coefficients with divisors avoiding an interval*, arXiv:2605.21221 (v3, 2026).
 4. P. Erdős, *Problems and results on consecutive integers and prime factors of binomial coefficients*, Rocky Mountain J. Math. 15 (1985).
 5. S. Naprienko, *Unconditional covering construction for Erdős problem 387*, https://github.com/slavanaprienko/erdos-387 (2026).
 
+---
+
 ## Appendix: proofs of Lemmas 2 and 3
 
-*Proof of Lemma 2.* Suppose $m\ge 1$ and every prime factor of $m(m+1)$ is at most $J$ (so $J\ge 2$). Set $z=2m+1$ and write $z^2-1=4m(m+1)=st^2$ with $s$ squarefree. Let $g$ be the product of the distinct primes dividing $t$, and put $D=sg^2$ and $y=t/g$. Then $z^2-Dy^2=1$ and
-$$(*)\qquad p\mid y\implies p^2\mid D\qquad\text{for every prime }p.$$
-Because $s$ and $g$ are squarefree and composed of primes $\le J$, $D$ divides $\big(\prod_{p\le J}p\big)^3$, leaving only finitely many possible values for $D$. Since $z>1$, $D$ is not a square. We show that $(z,y)$ must be the fundamental solution of Pell's equation for this $D$, leaving only finitely many possible $z$ and proving the lemma.
+### Proof of Lemma 2 (Størmer's theorem)
 
-Every positive integer solution of $x^2-Dy^2=1$ is a power of the fundamental solution. If $(z,y)$ were not fundamental, there would exist a prime $r$ and a solution $x\ge 2$, $y_1\ge 1$ with $z+y\sqrt D=(x+y_1\sqrt D)^r$. Write $(x+y_1\sqrt D)^n=x_n+y_1e_n\sqrt D$. Then $(x_0,e_0)=(1,0)$ and, using $Dy_1^2=x^2-1$,
-$$x_{n+1}=x\,x_n+(x^2-1)e_n,\qquad e_{n+1}=x_n+x\,e_n.$$
-Induction gives $x_n\equiv x^n$ and $x\,e_n\equiv n\,x^n$ modulo $x^2-1$. Also $e_2=2x>2$ and $e_{n+1}>2e_n$ for $n\ge 1$, so $e_n>n$ for all $n\ge 2$. Set $e=e_r$; then $e>r$ and $e\mid y$. Let $p$ be any prime dividing $e$. By $(*)$, $p^2\mid D\mid (x^2-1)$, so $p\nmid x$. From $x\,e\equiv r\,x^r\pmod{x^2-1}$ we get $p\mid r\,x^r$, hence $p=r$. Thus $e$ is a power of $r$, and $e>r$ forces $r^2\mid e$. Since $r^2\mid (x^2-1)$, the same congruence yields $r^2\mid r\,x^r$, forcing $r\mid x$, a contradiction. $\square$
+Suppose $m \ge 1$ and every prime factor of $m(m + 1)$ is at most $J$ (so $J \ge 2$).
 
-*Proof of Lemma 3.* Let $\Lambda$ be the von Mangoldt function and $\psi(x)=\sum_{d\le x}\Lambda(d)$. From $\log N!=\sum_{d\le N}\Lambda(d)\lfloor N/d\rfloor$, any positive integer $m$ satisfies
-$$\log\frac{(30m)!\,m!}{(15m)!\,(10m)!\,(6m)!}=\sum_{d\le 30m}\Lambda(d)\,E(\lfloor 30m/d\rfloor),\qquad
-E(t)=t-\lfloor\tfrac{t}{2}\rfloor-\lfloor\tfrac{t}{3}\rfloor-\lfloor\tfrac{t}{5}\rfloor+\lfloor\tfrac{t}{30}\rfloor.$$
-Since $30-15-10-6+1=0$, $E$ has period $30$ on $\mathbb Z$. Checking $t=0,\dots,29$ shows that $E(t)\in\{0,1\}$ for all $t\ge 0$, and $E(t)=1$ for $1\le t<6$ (corresponding to $5m<d\le 30m$). By Stirling's formula, the left side is $\alpha m+O(1+\log m)$, where $\alpha=14\log 2+9\log 3+5\log 5=27.638\ldots$. Therefore
-$$\psi(30m)\ge\alpha m-O(1+\log m),\qquad\psi(30m)\le\psi(5m)+\alpha m+O(1+\log m).$$
+1. **Reduction to finitely many Pell equations.** Set $z = 2m + 1$, so $z^2 - 1 = 4m(m + 1)$. Write $4m(m + 1) = s t^2$ with $s$ squarefree. Let $g$ be the product of the distinct primes dividing $t$, and set $D = s g^2$ and $y = t / g$. Then $z^2 - D y^2 = 1$, and because any prime $p \mid y$ also divides $t$ (hence $g$),
+   $$(*) \qquad p \mid y \implies p^2 \mid D \qquad\text{for every prime } p.$$
+   Since $s$ and $g$ are squarefree and composed of primes $\le J$, $D$ divides $\big(\prod_{p \le J} p\big)^3$, leaving only finitely many possible values of $D$. Also $D$ is not a square (since $z > 1$ and $z^2 - D y^2 = 1$). We show that $(z, y)$ must be the *fundamental* positive solution of $x^2 - D y^2 = 1$ for this $D$, which leaves only finitely many possible values of $z$ and proves the lemma.
+2. **Ruling out non-fundamental solutions.** Every positive integer solution of $x^2 - D y^2 = 1$ is a power of the fundamental solution. If $(z, y)$ were not fundamental, there would exist a prime $r$ and a positive solution $(x, y_1)$ ($x \ge 2$, $y_1 \ge 1$) with $z + y\sqrt{D} = (x + y_1\sqrt{D})^r$. Write $(x + y_1\sqrt{D})^n = x_n + y_1 e_n\sqrt{D}$. Then $(x_0, e_0) = (1, 0)$ and, using $D y_1^2 = x^2 - 1$,
+   $$x_{n+1} = x\,x_n + (x^2 - 1)e_n, \qquad e_{n+1} = x_n + x\,e_n.$$
+   Induction on $n$ gives $x_n \equiv x^n$ and $x\,e_n \equiv n\,x^n \pmod{x^2 - 1}$. Also $e_2 = 2x > 2$ and $e_{n+1} > 2e_n$ for all $n \ge 1$, so $e_n > n$ for all $n \ge 2$.
+3. **Deriving a contradiction.** Set $e = e_r$; then $e > r$ and $e \mid y$ (since $y = y_1 e_r$). Let $p$ be any prime dividing $e$. By $(*)$, $p^2 \mid D \mid (x^2 - 1)$, so $p \nmid x$. From $x\,e \equiv r\,x^r \pmod{x^2 - 1}$ we get $p \mid r\,x^r$, hence $p = r$. Thus $e$ is a power of $r$, and $e > r$ forces $r^2 \mid e$. Since also $r^2 \mid (x^2 - 1)$, the same congruence yields $r^2 \mid r\,x^r$, forcing $r \mid x$, a contradiction. $\square$
 
-For the lower bound, let $x\ge 30$ and set $m=\lfloor x/30\rfloor$. Then $\psi(x)\ge\psi(30m)\ge\frac{\alpha}{30}x-O(\log x)$, with $\frac{\alpha}{30}>0.92$.
+### Proof of Lemma 3 (Chebyshev's bounds)
 
-For the upper bound, we show $\psi(n)\le 1.107\,n+c_1$ for all integers $n\ge 0$ and a constant $c_1$, which extends to all real $x\ge 0$ since $\psi(x)=\psi(\lfloor x\rfloor)$. Pick a large constant $n_0$ and set $c_1=\psi(n_0)$, making the bound true for $n\le n_0$. For $n>n_0$, choose $m$ with $n\le 30m\le n+29$ (so $5m<n$). By induction,
-$$\psi(n)\le\psi(30m)\le 1.107\cdot 5m+c_1+\alpha m+O(\log n)=\Big(\frac{1.107}{6}+\frac{\alpha}{30}\Big)30m+c_1+O(\log n).$$
-The implied constant in $O(\log n)$ comes from Stirling's formula and does not depend on $n_0$ or $c_1$. Since the parenthesized coefficient is less than $1.106$, the right side is at most $1.106\,(n+29)+c_1+O(\log n)\le 1.107\,n+c_1$ once $n_0$ is large enough.
+Let $\Lambda$ be the von Mangoldt function ($\Lambda(p^a) = \log p$ for prime powers $p^a$, and $0$ otherwise) and let $\psi(x) = \sum_{d \le x} \Lambda(d)$ be the second Chebyshev function.
 
-Finally, $0\le\psi(x)-\vartheta(x)=O(\sqrt x\log x)$ and $\pi(x)=\vartheta(x)/\log x+O(x/\log^2x)$. $\square$
+1. **Chebyshev's factorial identity.** From $\log N! = \sum_{d \le N} \Lambda(d)\lfloor N / d \rfloor$, any positive integer $m$ satisfies
+   $$\log\frac{(30m)!\,m!}{(15m)!\,(10m)!\,(6m)!} = \sum_{d \le 30m} \Lambda(d)\,E(\lfloor 30m / d \rfloor), \qquad E(t) = t - \left\lfloor \frac{t}{2} \right\rfloor - \left\lfloor \frac{t}{3} \right\rfloor - \left\lfloor \frac{t}{5} \right\rfloor + \left\lfloor \frac{t}{30} \right\rfloor.$$
+   Since $30 - 15 - 10 - 6 + 1 = 0$, the function $E$ has period $30$ on $\mathbb{Z}$. Checking $t = 0, \dots, 29$ directly shows that $E(t) \in \{0, 1\}$ for all $t \ge 0$, and $E(t) = 1$ for $1 \le t < 6$ (which corresponds to $5m < d \le 30m$). By Stirling's formula, the left side equals $\alpha m + O(1 + \log m)$, where
+   $$\alpha = 14\log 2 + 9\log 3 + 5\log 5 = 27.638\ldots$$
+   Since $E \le 1$ everywhere and $E = 1$ on $1 \le t < 6$, we obtain the pair of bounds
+   $$\psi(30m) \ge \alpha m - O(1 + \log m), \qquad \psi(30m) \le \psi(5m) + \alpha m + O(1 + \log m).$$
+2. **Lower bound on $\psi(x)$.** For $x \ge 30$, set $m = \lfloor x / 30 \rfloor$. Then $\psi(x) \ge \psi(30m) \ge \frac{\alpha}{30} x - O(\log x)$, where $\frac{\alpha}{30} > 0.92$.
+3. **Upper bound on $\psi(x)$.** We show $\psi(n) \le 1.107\,n + c_1$ for all integers $n \ge 0$ and a constant $c_1$, which extends to all real $x \ge 0$ because $\psi(x) = \psi(\lfloor x \rfloor)$. Pick a large constant $n_0$ and set $c_1 = \psi(n_0)$, making the bound true for all $n \le n_0$. For $n > n_0$, choose $m$ with $n \le 30m \le n + 29$ (so $5m < n$). By induction,
+   $$\psi(n) \le \psi(30m) \le 1.107 \cdot 5m + c_1 + \alpha m + O(\log n) = \left(\frac{1.107}{6} + \frac{\alpha}{30}\right) 30m + c_1 + O(\log n).$$
+   The implied constant in $O(\log n)$ comes from Stirling's formula and does not depend on $n_0$ or $c_1$. Since the parenthesized coefficient is less than $1.106$, the right side is at most $1.106\,(n + 29) + c_1 + O(\log n) \le 1.107\,n + c_1$ once $n_0$ is large enough.
+4. **Passing to $\vartheta(x)$ and $\pi(x)$.** Finally, $0 \le \psi(x) - \vartheta(x) = O(\sqrt{x}\log x)$ (from prime powers $p^a$ with $a \ge 2$) and $\pi(x) = \vartheta(x)/\log x + O(x/\log^2 x)$, which give $0.91\,x \le \vartheta(x) \le 1.11\,x$ and $\pi(x) \le 1.12\,x/\log x$ for all large $x$. $\square$
+
+---
 
 ## Correspondence with the Lean file
 
@@ -362,16 +575,16 @@ The sections and lemmas in `Erdos387.lean` follow the order of this text, aside 
 | Lemma 2 | `pellSeq`, `y_pow_eq`, `pellSeq_congr`, `lt_pellSeq`, `no_prime_pow`, `eq_fundamental`, `exists_decomp`, `stormer` |
 | Lemma 3 | `chebL_bounds`, `chebL_le_psi`, `psi_upper`, `theta_bounds`, `primeCounting_le` |
 | $\varepsilon_r$, $f_r$, Lemma 4 | `dens`, `dev`, `sum_dev_mul`, `abs_sum_le_period`, `sum_dev_dev_le`, `second_moment` |
-| Lemma 5 | `pow_five_le_primeCounting` ($\pi(t^6)\ge t^5$), `card_exceptional_le`, `exists_primes`, `card_primes_ge`, `card_good_primes_ge`, `exists_aux` |
+| Lemma 5 | `pow_five_le_primeCounting` ($\pi(t^6) \ge t^5$), `card_exceptional_le`, `exists_primes`, `card_primes_ge`, `card_good_primes_ge`, `exists_aux` |
 | $b$, $\varphi$, $\Phi$, $\tau$, Lemma 6 | `b`, `phi`, `Phi`, `thr`, `sum_phi_le`, `phi_le_eighth`, `weight` |
-| $\Pi(l,y)$, $h(l)$, (1) | `supply`, `half`, `mem_supply` |
+| $\Pi(l, y)$, $h(l)$, (1) | `supply`, `half`, `mem_supply` |
 | $\beta$, Lemma 7, inequality (2) | `beta`, `log_choose_le_supply`, `log_choose_half_ge`, `supply_arith`, `supply_ge` |
 | Lemma 8 | `supply_bounded` |
-| $M$, $\sigma$, $S$, $L_0$; $J\ge L_0$ | `M`, `σ`, `S`, `exists_L0`; S: `L0_le_J` |
+| $M$, $\sigma$, $S$, $L_0$; $J \ge L_0$ | `M`, `σ`, `S`, `exists_L0`; S: `L0_le_J` |
 | standing assumptions; they can be satisfied | `Setting`; `exists_prime_factors`, `exists_setting` |
 | $\operatorname{lv}$, $A$, $X$, $\gamma$ | `lv`; S: `A`, `X`, `gam` |
 | $T^*$, smooth, uncovered, state | S: `moved`, `smooth`, `uncovered`, `State` |
-| $A\le 2u^8$, $k\bmod p_0\ge L_0$, $2\log l\le A$ for $l<X$ | S: `A_bounds`, `L0_le`, `log_le_of_lt_X` |
+| $A \le 2u^8$, $k \bmod p_0 \ge L_0$, $2\log l \le A$ for $l < X$ | S: `A_bounds`, `L0_le`, `log_le_of_lt_X` |
 | (3), (4), (5) | S: `lt_gam` and `gam_eq`, `gam_ge`, `ne_of_uncovered` |
 | Lemma 9(a) | T: `prime_of_mem_moved`, `q'_notMem`; S: `odd_of_smooth` |
 | Lemma 9(b) | `E387.le_lv` (general form); T: `le_lv` (for a state) |
@@ -382,13 +595,13 @@ The sections and lemmas in `Erdos387.lean` follow the order of this text, aside 
 | Lemma 12(c), (d), (e) | T: `window_low`, `sum_small`, `card_small` |
 | (6) and the line before it | `phi_bounds`; S: `log_bounds` |
 | the numbers and the sum in $W$ | S: `large`, `W` |
-| Lemma 13: multiples of $p\in T$ with $l_p\ge X$ | T: `sum_multiples_le` |
+| Lemma 13: multiples of $p \in T$ with $l_p \ge X$ | T: `sum_multiples_le` |
 | Lemma 13: all other numbers | S: `rest`; `E387.card_smooth_le`; T: `sum_rest_bot`, `sum_rest_mid`, `sum_rest_top`, `sum_rest` |
 | Lemma 13: the two claims | T: `W_le`, `card_large` |
 | Lemma 14 | T: `prime_dvd_eq`, `q_dvd_lv`, `lv_inj`, `card_bounded` |
 | Lemma 15 | T: `card_le_of_small`, `card_le_of_large`, `exists_fresh` |
 | Lemma 16 | T: `lv_le_of_uncovered`, `add` |
 | Lemma 17 | S: `exists_state` |
-| Lemma 18: the primes $P_n$, $P_n\notin T^*$ | S: `Assigned`; T: `exists_assigned`, `notMem_moved` |
+| Lemma 18: the primes $P_n$, $P_n \notin T^*$ | S: `Assigned`; T: `exists_assigned`, `notMem_moved` |
 | Lemma 18: the classes $a_p$ | S: `cls`; T: `cls_mem`, `cls_cover`; S: `exists_cover` |
 | Theorem | `main` |

@@ -1,8 +1,8 @@
 # Tiling a rectangle with two copies of squares 1 through 21
 
-Take 42 squares: two of each integer side length from 1 to 21, with total area $2 \sum_{k=1}^{21} k^2 = 6{,}622$. Erich Friedman's Math Magic Open Problem 10 asks for the minimum number of copies of each square $1 \times 1, \ldots, n \times n$ needed to tile a rectangle. The two-copy case at $n = 21$ is open.
+Imagine you are handed 42 square tiles: two $1 \times 1$ squares, two $2 \times 2$ squares, and so on up to two $21 \times 21$ squares. Can you pack all 42 tiles—with no gaps and no overlaps—into a single solid rectangle? This is the two-copy, $n = 21$ case of Erich Friedman's *Math Magic* Open Problem 10, which asks for the fewest copies of each square $1 \times 1, \ldots, n \times n$ needed to tile a rectangle.
 
-The Lean 4 proof (`Squares42.exists_tiling_iff_77_by_86`) rules out both $22 \times 301$ and $43 \times 154$, leaving $77 \times 86$ (up to rotation) as the only rectangle these 42 squares could tile. Whether $77 \times 86$ can be tiled remains open.
+The total area of the 42 tiles is $2 \sum_{k=1}^{21} k^2 = 6{,}622 = 2 \cdot 7 \cdot 11 \cdot 43$, leaving only **three** candidate rectangle shapes wide enough to hold a $21 \times 21$ square: $22 \times 301$, $43 \times 154$, and $77 \times 86$. The Lean 4 proof here (`Squares42.exists_tiling_iff_77_by_86`) rules out both $22 \times 301$ and $43 \times 154$, leaving $77 \times 86$ (up to rotation) as the sole rectangle these 42 squares could possibly tile. Whether $77 \times 86$ admits a tiling remains open.
 
 | Field | Summary |
 | --- | --- |
@@ -14,14 +14,27 @@ The Lean 4 proof (`Squares42.exists_tiling_iff_77_by_86`) rules out both $22 \ti
 
 ## Proof overview
 
-The formal model places all 42 squares on an integer grid and requires every unit cell of the $w \times h$ rectangle to be covered once ([Squares.lean](Squares.lean)). Because the total area is $6{,}622 = 2 \cdot 7 \cdot 11 \cdot 43$ and each side must be at least 21, the only possible dimensions (with $w \le h$) are $22 \times 301$, $43 \times 154$, and $77 \times 86$:
+The formal model places all 42 squares on an integer grid and requires every unit cell of the $w \times h$ rectangle to be covered exactly once ([Squares.lean](Squares.lean)). Because $w \cdot h = 6{,}622 = 2 \cdot 7 \cdot 11 \cdot 43$ and every side must be at least $21$ to fit a $21 \times 21$ square, the only possible dimensions with $w \le h$ are $22 \times 301$, $43 \times 154$, and $77 \times 86$.
 
-* Ruling out $22 \times 301$ ([Squares.lean](Squares.lean)): placing a $21 \times 21$ square inside width 22 leaves a $1 \times 21$ strip alongside it, which would need 21 unit squares when only two are available.
-* Ruling out $43 \times 154$ ([Width43.lean](Width43.lean)): counting row intersections across the 154 rows forces every row to hit three squares. The two $1 \times 1$ squares then force the two $21 \times 21$ squares to overlap in 2 rows. Each of the two 19-row strips on opposite sides of that overlap then needs both $11 \times 11$ squares, a contradiction.
+### Ruling out $22 \times 301$ ([Squares.lean](Squares.lean))
+
+Placing a $21 \times 21$ square inside a strip of width 22 leaves a narrow $1 \times 21$ channel running along its side. Only $1 \times 1$ squares are thin enough to fit inside a channel of width 1, so filling it would require 21 unit squares—impossible when we only have two.
+
+### Ruling out $43 \times 154$ ([Width43.lean](Width43.lean))
+
+A tight row-counting argument forces the placement of the largest and smallest squares into a contradiction:
+
+1. **Every row hits exactly three squares.** Each $k \times k$ square spans $k$ horizontal rows, so summed over all 42 squares the total number of `(row, square)` incidences is
+   $$
+   2 \sum_{k=1}^{21} k = 462 = 3 \times 154.
+   $$
+   On the other hand, even the two largest squares have combined width $21 + 21 = 42 < 43$, so every row of width 43 must intersect *at least* 3 squares. Since the average across the 154 rows equals the minimum of 3, every row hits **exactly** 3 squares.
+2. **The two $21 \times 21$ squares overlap in 2 rows.** In any row containing a $1 \times 1$ square, the other two squares in that row must span the remaining width $43 - 1 = 42$, which forces both of them to be the two $21 \times 21$ squares (and prevents the two $1 \times 1$ squares from sharing a row, since $1 + 1 + 21 < 43$). Conversely, any row meeting both $21 \times 21$ squares leaves width $43 - 42 = 1$, forcing a $1 \times 1$ square. With two $1 \times 1$ squares available, the two $21 \times 21$ squares overlap in exactly 2 rows.
+3. **Both $11 \times 11$ squares are demanded twice.** Outside that 2-row overlap, each $21 \times 21$ square protrudes into a disjoint 19-row strip on opposite sides of the overlap. Lean proves that each of these two 19-row strips needs both $11 \times 11$ squares, a contradiction.
 
 ## Reproduce
 
-Run from this directory with Lean 4.36.0 (stdlib only):
+Run from this directory with Lean 4.36.0 (stdlib only; pure kernel proof across all six modules):
 
 ```sh
 lake build
@@ -29,6 +42,6 @@ lake build
 
 ## References
 
-* Erich Friedman, Math Magic: [Open Problem 10](https://erich-friedman.github.io/mathmagic/unsolved.html) and [results table (May 2005)](https://erich-friedman.github.io/mathmagic/0505.html)
-* [Bridge.lean](Bridge.lean), [Squares.lean](Squares.lean), and [Width43.lean](Width43.lean)
-* [Prior-art audit](../PRIOR_ART.md#two-squares-of-each-side-from-1-through-21)
+- Erich Friedman, *Math Magic*: [Open Problem 10](https://erich-friedman.github.io/mathmagic/unsolved.html) and [results table (May 2005)](https://erich-friedman.github.io/mathmagic/0505.html)
+- [Bridge.lean](Bridge.lean), [Squares.lean](Squares.lean), and [Width43.lean](Width43.lean)
+- [Prior-art audit](../PRIOR_ART.md#two-squares-of-each-side-from-1-through-21)

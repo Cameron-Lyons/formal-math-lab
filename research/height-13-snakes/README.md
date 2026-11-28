@@ -1,36 +1,105 @@
-# Longest snakes on a 13 × n board
+# Longest Snakes on a $13 \times n$ Grid
 
-A snake is a chain of distinct squares. Consecutive squares share an edge, and no other two squares in the chain share an edge. Let $L(n)$ be the greatest number of squares in a snake on a 13-row board of width $n$.
+On a rectangular grid of 13 rows and $n$ columns, a **snake** (in graph theory, an **induced path**) is a chain of distinct grid squares where consecutive squares share a horizontal or vertical edge, and **no two non-consecutive squares touch orthogonally** (touching diagonally at a corner is allowed, but sharing an edge is forbidden). For example, a C-shaped path leaves an empty "buffer" row between parallel segments so the snake never touches itself:
 
-For widths 1 through 6 the answers are **13, 20, 28, 36, 43, 51**. For every $n \ge 7$,
+```text
+# # #   <- valid 7-square snake (non-consecutive squares never share an edge)
+. . #      filling the middle-left or center square would create an illegal touch
+# # #
+```
+
+Let $L(n)$ be the maximum number of squares in a snake on a $13 \times n$ board.
+
+For widths $n = 1$ through $6$, the exact maxima are **13, 20, 28, 36, 43, 51**. For **every width $n \ge 7$**,
 
 $$
-L(n)=
+L(n) =
 \begin{cases}
-8n+4 & n\bmod 6\in\{0,4,5\},\\
-8n+3 & n\bmod 6\in\{1,2,3\}.
+8n + 4 & n \bmod 6 \in \{0, 4, 5\}, \\
+8n + 3 & n \bmod 6 \in \{1, 2, 3\}.
 \end{cases}
 $$
 
-## Proof
+In particular, adding 6 columns adds **exactly 48 squares** ($L(n + 6) = L(n) + 48$) for every $n \ge 7$ — packing $\frac{48}{13 \times 6} = \frac{8}{13} \approx 61.5\%$ of the grid in the limit.
 
-**Two partial snakes with the same boundary allow exactly the same endings.** Scan the board from left to right. At the last column record which squares are occupied, which already have two neighbors, and which are joined through the part already scanned.
+| | |
+| --- | --- |
+| **Result** | Exact closed-form formula for $L(n)$ on every $13 \times n$ grid ($n \ge 1$) |
+| **Periodicity** | $L(n + 6) = L(n) + 48$ for every $n \ge 7$ |
+| **Exhaustive verifiers** | Two independent C++ frontier/transfer-matrix checkers: [frontier.cpp](frontier.cpp) (514,021 states) and [alt_snake.cpp](alt_snake.cpp) (620,950 states) |
+| **Explicit construction** | [construct_snake.py](construct_snake.py) · [Interactive example for widths 4, 10, 16, 22, and 28](figures/repeating-snake.html) |
+| **Trust boundary** | Compiled C++17/C++23 exact integer arithmetic outside the Lean kernel |
 
-When a new square is filled, it joins every occupied neighbor. The degrees tell us whether this would give a square three neighbors. The connections tell us whether it would close a loop. If a component disappears behind the boundary, it can never join anything later; keep it only if it is the whole snake, in which case the remaining squares must stay empty. Every nonempty snake can be shifted left to meet the first column.
+---
 
-For each boundary keep the largest number of squares that can reach it. The finite check finds the same reachable boundaries at widths 53 and 59. For **every** reachable boundary, the best prefix at width 59 has exactly 48 more squares. The program compares all 514,021 entries, including the unreachable ones. [C++ verifier](frontier.cpp)
+## Proof: Why one finite computation locks down every width
 
-Now attach any $k$ more columns. For each boundary the same endings are available on both boards, so the best totals still differ by 48. Taking the maximum over boundaries gives $L(59+k)=L(53+k)+48$ for every $k\ge0$. The program also checks the formula directly at widths 1 through 59. Together these two finite checks prove the formula for every positive width.
+### The big idea
 
-The independent verifier uses an edge-crossing mate encoding with 620,950 boundary states and confirms the same exact period identity $V(59) = V(53) + 48$ in every coordinate (619,869 reachable) together with widths 1 through 59. [Independent verifier](alt_snake.cpp)
+Why does adding 6 columns eventually add a fixed 48 squares, no matter how wide the board becomes? Because the board has a **fixed height of 13 rows**. If you slice a snake vertically between columns $n$ and $n + 1$, only 13 squares sit on the cut — so there are only finitely many ways the left half of a partial snake can look at that boundary.
+
+Once we compute the best possible score for every boundary state column by column, if we ever reach two widths (here **53** and **59**) where *every* reachable boundary state has improved by the **exact same constant** (+48 squares), that constant shift propagates automatically to every wider board forever.
+
+### Frontier dynamic programming
+
+Scan the $13 \times n$ board from left to right, one column at a time. Because later columns can bridge separate pieces together, the left prefix of a snake may temporarily consist of several disconnected path segments.
+
+At the rightmost column scanned so far, record the prefix's **boundary** (frontier state):
+
+1. **Occupancy:** which of the 13 squares in the last column are occupied,
+2. **Degree saturation:** which occupied boundary squares already have **two** occupied neighbors (and therefore cannot accept another neighbor without branching), and
+3. **Connectivity:** which occupied boundary squares belong to the same connected component through the columns already scanned.
+
+**Key invariance property:** *Two partial snakes with the same boundary allow the exact same set of legal endings.*
+
+Indeed, whenever a new square is filled in the next column, it automatically gains an edge to every already-occupied orthogonal neighbor:
+
+- The **degree** data tell us whether adding that square would push any square to degree 3 (illegal branch).
+- The **connectivity** data tell us whether it would touch the same component twice (illegal loop/cycle).
+- If a component disappears behind the boundary (having no occupied square in the new column), it can never connect to anything later; we keep such a prefix **only** if that component is the entire snake, in which case every remaining square to the right must stay empty.
+- Because any nonempty snake can be shifted horizontally to touch column 1 without changing its length, we may restrict to snakes meeting the first column.
+
+### The exact period identity at widths 53 and 59
+
+For each boundary state $s$, track $V(n)[s]$: the maximum number of squares in any legal width-$n$ prefix ending in boundary $s$ (or unreachable). Appending one more column updates the vector of scores by a fixed max-plus rule, maximizing over legal transitions and adding the number of new occupied squares.
+
+The primary C++ verifier ([frontier.cpp](frontier.cpp)) runs this dynamic program and discovers two finite facts:
+
+1. **Direct base check:** The formula for $L(n)$ holds at every width $n = 1, 2, \dots, 59$.
+2. **Uniform shift:** Widths **53** and **59** have the **exact same set of reachable boundary states**, and for **every** reachable boundary state, the best prefix at width 59 has **exactly 48 more squares** than at width 53. (The program compares all **514,021** boundary-state entries, including unreachable ones.)
+
+Now attach *any* $k \ge 0$ additional columns to the right of both boards. For each boundary state $s$, the exact same legal endings are available on both the width-53 and width-59 boards, and any ending adds the exact same number of squares to both — so the best totals through boundary $s$ still differ by 48. Taking the maximum over all valid accepting boundaries yields
+
+$$
+L(59 + k) = L(53 + k) + 48 \qquad \text{for every } k \ge 0.
+$$
+
+Combined with the direct check for widths 1 through 59 (which already seeds all six residue classes modulo 6 at widths 53–58), this proves the formula for **every positive width $n$**.
+
+### Independent verification
+
+A second C++ program ([alt_snake.cpp](alt_snake.cpp)) re-derives the entire result using a completely different state representation — an **edge-crossing mate encoding** (tracking horizontal edges that cross the vertical cut between columns and pairing the exposed ends of each unfinished path). On its own state space of **620,950** boundary states (**619,869** reachable), it independently confirms widths 1 through 59 and the exact coordinate-wise identity
+
+$$
+V(59) = V(53) + 48.
+$$
+
+---
 
 ## Constructing an optimal snake
 
-The constructor gives explicit snakes for widths 1 through 14. For larger widths it chooses fixed ends with a combined width from 15 through 20, then inserts as many copies of a six-column block as needed. Each copy adds 48 squares and restores the same boundary. The Python checker verifies the six base snakes and the repeatable boundary directly from grid adjacency. [Constructor](construct_snake.py) · [Interactive example for widths 4, 10, 16, 22, and 28](figures/repeating-snake.html)
+To witness the lower bound constructively for every width $n \ge 1$, [construct_snake.py](construct_snake.py) provides:
+
+- **Individual optimal snakes** for widths 1 through 14, and
+- **A modular tiling for all widths $n \ge 15$:** six pairs of fixed left/right end caps (one pair per residue class modulo 6, with combined widths **15 through 20**), plus a single repeatable **6-column middle block**. Inserting as many copies of the 6-column block as needed between the ends adds **48 squares** per copy and restores the exact same boundary state.
+
+The Python script directly verifies the six base snakes and the repeatable boundary directly from raw grid adjacency (no reliance on the C++ code). You can also inspect the repeating motif visually in the [interactive example for widths 4, 10, 16, 22, and 28](figures/repeating-snake.html).
+
+---
 
 ## Reproduce
 
-Run these commands in this directory with a C++23 compiler (also valid C++17) and Python 3.10 or later.
+Run these commands from this directory with a C++23 compiler (also valid C++17) and Python 3.10 or later:
 
 ```sh
 build_dir=$(mktemp -d)
@@ -41,8 +110,17 @@ c++ -std=c++23 -O3 alt_snake.cpp -o "$build_dir/alt_snake"
 python3 construct_snake.py
 ```
 
-To obtain a particular snake, run `python3 construct_snake.py 100` with the desired width. It prints one integer per column. A set bit at position $r$, counting from zero, selects row $r+1$.
+To generate an explicit optimal snake at any width (for example, $n = 100$), run:
+
+```sh
+python3 construct_snake.py 100
+```
+
+It prints one integer bitmask per column: a set bit at position $r$ (counting from 0) selects row $r + 1$.
 
 Both finite computations use compiled C++ and exact integer arithmetic outside the Lean kernel.
 
-Niu proves the fixed-height problem through height 12 and identifies 13 as a next case in §8. The rectangular grid values are tabulated in OEIS A360917. [Niu, arXiv:2611.26640v1](https://arxiv.org/html/2611.26640v1#S8) · [OEIS A360917](https://oeis.org/A360917)
+## References
+
+- Tong Niu proves the fixed-height snake problem through height 12 and identifies height 13 as a next case in §8: [Niu, arXiv:2611.26640v1](https://arxiv.org/html/2611.26640v1#S8)
+- Rectangular grid values are tabulated in [OEIS A360917](https://oeis.org/A360917)

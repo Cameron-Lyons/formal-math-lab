@@ -1,11 +1,18 @@
 # Equation 677 at orders 9 and 10, and E677 -> E255
 
-Lean 4 proofs for Equation 677 (`E677`) at orders 9 and 10 from the [Equational Theories Project](https://teorth.github.io/equational_theories/):
+A **finite magma** of order $n$ is a set of $n$ elements with an $n \times n$ multiplication table $a \star b$, with no associativity or commutativity assumed. One of the remaining open questions in the [Equational Theories Project](https://teorth.github.io/equational_theories/) asks whether **Equation 677** implies **Equation 255** in every finite magma:
 
-* Order 9 (`Nine.eq677_implies_eq255` in [Nine.lean](Nine.lean)): every 9-element magma satisfying Equation 677 also satisfies Equation 255.
-* Order 10 (`Ten.no_model` and `Ten.eq677_implies_eq255` in [Ten.lean](Ten.lean)): no 10-element magma satisfies Equation 677, so `E677 => E255` holds vacuously at order 10.
+* **Equation 677 (`E677`):** $x = y \star \bigl(x \star ((y \star x) \star y)\bigr)$ — in ETP notation, `x = y ◇ (x ◇ ((y ◇ x) ◇ y))`.
+* **Equation 255 (`E255`):** $x = ((x \star x) \star x) \star x$ — in ETP notation, `x = ((x ◇ x) ◇ x) ◇ x`.
 
-Whether Equation 677 implies Equation 255 in every finite magma remains open. José Brox previously reported both the order-9 and order-10 results from unverified Mace4 searches (December 2024 and January 2025); this folder gives Lean 4 proofs for both.
+While the general finite implication `E677 -> E255` remains **open**, this Lean 4 project provides mechanically verified proofs for orders **9** and **10**:
+
+* **Order 9** (`Nine.eq677_implies_eq255` in [Nine.lean](Nine.lean)): every 9-element magma satisfying Equation 677 also satisfies Equation 255.
+* **Order 10** (`Ten.no_model` and `Ten.eq677_implies_eq255` in [Ten.lean](Ten.lean)): **no** 10-element magma satisfies Equation 677 at all, so `E677 => E255` holds vacuously at order 10.
+
+José Brox previously reported both results from unverified Mace4 searches (December 2024 and January 2025); this directory formalizes both in Lean 4 using kernel-checked reductions and verified SAT/LRAT refutations.
+
+## At a glance
 
 | Field | Summary |
 | --- | --- |
@@ -18,36 +25,38 @@ Whether Equation 677 implies Equation 255 in every finite magma remains open. Jo
 
 ## Order 9: E677 implies E255
 
-Suppose a 9-element magma satisfies Equation 677, $x = y \star (x \star ((y \star x) \star y))$, and breaks Equation 255, $x = ((x \star x) \star x) \star x$. Label a failing element $0$. Scan the first row from left to right: whenever column $i$ has an output larger than $i+1$, swap its label with $i+1$. Each swap fixes all earlier labels and outputs, so we can assume $0\star i \le i+1$.
+**Proof strategy.** Suppose for contradiction that a 9-element magma obeys Equation 677 while breaking Equation 255 at some element. We relabel the elements canonically to crush symmetry without discarding any counterexample, translate the table into a Boolean CNF formula, and check a SAT/LRAT refutation proving the formula has no solution.
 
-Represent the table by Boolean variables $T(r,c,v)$ meaning $r\star c=v$. Each cell has one value, and each value appears once per row because Equation 677 gives a preimage for every value and a surjection on a finite set is a permutation.
-
-The two equations become rules on triples of entries:
+1. **Canonical labeling:** Label a failing element of Equation 255 as $0$. Scan row $0$ from left to right: whenever column $i$ has $0 \star i > i + 1$, swap the labels $i + 1$ and $0 \star i$. Because both swapped labels exceed $i$ and every earlier entry $0 \star j$ ($j < i$) is already at most $j + 1 \le i$, each swap leaves all earlier labels and outputs intact. Afterward, $0 \star i \le i + 1$ for every $i$.
+2. **Permutation rows:** For any fixed row $y$, Equation 677 displays every element $x$ as $y \star (\text{something})$, so row $y$ is surjective. On a finite set, a surjection is a bijection—every row contains each value once.
+3. **Boolean encoding:** Introduce $9^3 = 729$ Boolean variables $T(r, c, v)$ meaning "$r \star c = v$". Add clauses enforcing unique cell values, permutation rows, the label bounds $0 \star i \le i + 1$, and the two equational laws:
 
 | If the table contains | What follows |
 | --- | --- |
-| $y\star x=a$, $a\star y=b$, $x\star b=c$ | Equation 677 forces $y\star c=x$. |
-| $0\star 0=a$, $a\star 0=b$, $b\star 0=0$ | Equation 255 holds at $0$, contradicting the choice of $0$. |
+| $y \star x = a$, $a \star y = b$, $x \star b = c$ | Equation 677 forces $y \star c = x$. |
+| $0 \star 0 = a$, $a \star 0 = b$, $b \star 0 = 0$ | Equation 255 holds at $0$, contradicting the choice of $0$. |
 
-Lean proves that any counterexample satisfies these clauses and label bounds. The resulting formula has 729 variables and 65,152 clauses. Lean verifies a refutation of that formula, finishing the proof.
+Lean's kernel proves that every normalized counterexample satisfies all **65,152 clauses** on these **729 variables**. Lean then verifies an LRAT refutation of the formula, completing `Nine.eq677_implies_eq255`.
 
 ## Order 10: no 10-element magma satisfies E677
 
-Suppose a 10-element table satisfies Equation 677. Equation 255 may hold everywhere, so we cannot pick $0$ as a failure of Equation 255. Instead, call an element $0$ if $x\star x\ne x$, or pick any element if every element satisfies $x\star x=x$. Normalize the first row to $0\star i\le i+1$ as before. The choice of $0$ adds one rule: if $0\star 0=0$, then $x\star x=x$ for every $x$.
+At order 10 we prove the stronger statement that *no* 10-element table satisfies Equation 677 at all.
 
-The formula has 1,000 variables and 309,246 clauses. They encode unique cell values, permutation rows, $0\star i\le i+1$, the rule for $0$, and Equation 677 in three forms. The extra two forms follow because rows are permutations and help the solver:
+**Adapting the normalization.** Because Equation 255 might hold everywhere in a hypothetical model, we can no longer pick $0$ as a failure of Equation 255. Instead, name an element $0$ if it is non-idempotent ($x \star x \ne x$), or pick any element if every element satisfies $x \star x = x$. Normalize row $0$ to $0 \star i \le i + 1$ exactly as before. Our choice of $0$ contributes one extra rule: if $0 \star 0 = 0$, then $x \star x = x$ for every $x$.
+
+**Three-way clauses from permutation rows.** Encoding the $10 \times 10$ table uses $10^3 = 1,000$ Boolean variables and **309,246 clauses**: unique cell values, permutation rows, $0 \star i \le i + 1$, the rule for $0$, and Equation 677 written in three equivalent forms. Because every row is a permutation (giving left cancellation), the two extra forms follow immediately from the law and substantially speed up SAT propagation:
 
 | If the table contains | What follows |
 | --- | --- |
-| $y\star x=a$, $a\star y=b$, $x\star b=c$ | $y\star c=x$, by Equation 677. |
-| $y\star x=a$, $a\star y=b$, $y\star c=x$ | $x\star b=c$, canceling row $y$. |
-| $y\star x=a$, $x\star b=c$, $y\star c=x$ | $a\star y=b$, canceling rows $y$ and $x$. |
+| $y \star x = a$, $a \star y = b$, $x \star b = c$ | $y \star c = x$, by Equation 677. |
+| $y \star x = a$, $a \star y = b$, $y \star c = x$ | $x \star b = c$, canceling row $y$. |
+| $y \star x = a$, $x \star b = c$, $y \star c = x$ | $a \star y = b$, canceling rows $y$ and $x$. |
 
-A single refutation would be too large to check (the solver needs roughly 15 million conflicts in total), so the work is split into 709 cases. Each case fixes the first row and, for harder rows, up to three entries of the first column. The cases live in [Ten/Cases.lean](Ten/Cases.lean) in 81 groups.
+**Case-split refutation (709 cases + 1 covering check).** A single refutation would be too large to replay (the solver needs roughly 15 million conflicts in total), so we split the search into **709 cases** stored in [Ten/Cases.lean](Ten/Cases.lean) across **81 groups**. Each case fixes the first row and, for harder rows, up to three entries of the first column.
 
-The case list is not trusted. Lean checks one certificate per case (no solution in that case) and one covering certificate (no solution outside all cases). [scripts/cases.py](scripts/cases.py) generated the split by refining each case until CaDiCaL refuted it in at most 60,000 conflicts, omitting easy cases refuted in under 1,000 conflicts so the covering certificate handles them.
+The case list is **not** trusted: Lean verifies one LRAT certificate per case (ruling out solutions inside that case) plus one covering certificate (ruling out solutions outside all 709 cases). [scripts/cases.py](scripts/cases.py) generated the split by refining each case until CaDiCaL refuted it in at most 60,000 conflicts, omitting easy cases refuted in under 1,000 conflicts so the covering certificate handles them automatically.
 
-The element naming, table encoding, and case-split machinery come from the neighboring [Equation 670 project](../E670-order-10/), which handles 10-element tables of the same shape. This directory imports them and adds only the parts specific to Equation 677.
+**Shared infrastructure.** The element naming, table encoding, and case-split machinery are imported directly from the neighboring [Equation 670 project](../E670-order-10/), which handles 10-element tables of the same shape; this directory adds only the parts specific to Equation 677.
 
 | File | Contents |
 | --- | --- |
@@ -62,7 +71,7 @@ The element naming, table encoding, and case-split machinery come from the neigh
 
 Run `lake build` in this directory with Lean 4.36.0. The [Equation 670 project](../E670-order-10/) must sit beside it, as it does in this repository.
 
-For order 9, Lean runs its bundled CaDiCaL solver to build an LRAT certificate and replays it with the standard library's verified checker. For order 10 it does the same for every case plus the covering certificate (710 checks in all). Certificates are not stored in the repository. Because replay uses `native_decide`, Lean's native compiler and runtime are inside the trust boundary; the algebra, relabeling, and CNF translation are kernel-checked.
+**Trust boundary.** During `lake build`, Lean runs its bundled CaDiCaL solver to generate LRAT certificates on the fly (1 for order 9; 710 for order 10, covering all 709 cases plus the covering check) and replays every certificate with the standard library's formally verified checker. Certificates are not stored in the repository. Because replay runs via `native_decide`, Lean's native compiler and runtime sit inside the trust boundary; the algebra, relabeling, and CNF translation are checked directly by Lean's kernel, and neither the solver nor the case split is trusted.
 
 On an 8-core machine the order-10 build took under 4 minutes and wrote about 3.7 GB under `.lake` (mostly certificate text). Lake builds the 81 case modules in parallel across available cores. Order 9 takes under a minute.
 

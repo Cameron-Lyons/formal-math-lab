@@ -1,6 +1,8 @@
 # Erdős Problem #211: refuting the constant 1/6
 
-In 1983, Beck, and also Szemerédi and Trotter, proved that any $n$ points in the plane with at most $n - k$ on any line determine at least $ckn$ lines, for an absolute constant $c > 0$. Erdős (1984) wondered whether $c = 1/6$ works and suggested looking for a counterexample first. Our Lean 4 proof gives one: there are arbitrarily large sets of $n$ points, with at most $O(n^{2/3})$ on any line, that determine at most $0.166\,n^2$ lines. Beck's theorem itself is unaffected.
+Take $n$ points in the plane and draw every line that passes through at least two of them. Provided the points are not almost all piled onto one line — specifically, at most $n - k$ lie on any single line — a 1983 theorem of Beck, and independently Szemerédi and Trotter, guarantees at least $ckn$ distinct lines for some absolute constant $c > 0$.
+
+In 1984, Erdős wondered whether $c = 1/6$ works and suggested looking for a counterexample first. Our Lean 4 proof supplies one: there are arbitrarily large sets of $n$ points, with at most $O(n^{2/3})$ points on any line, that determine at most $0.166\,n^2$ lines (strictly below $kn/6 \approx 0.16667\,n^2$). Beck's theorem itself is unaffected.
 
 | Field | Summary |
 | --- | --- |
@@ -20,7 +22,14 @@ In 1983, Beck, and also Szemerédi and Trotter, proved that any $n$ points in th
 
 ## Idea of the proof
 
-Take the points $(x/z, y/z)$ with $-R \le x, y < R$ and $1 \le z < R$. Charge each determined line to a spanning pair of integer vectors whose sum of heights $z$ is minimal. Any such pair must differ by at least $R$ in $x$ or $y$, and must be linearly independent modulo every prime. Counting pairs with these two properties modulo $30030 = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 13$ shows that the set determines fewer than $n^2/6$ lines.
+The counterexample is a projective grid of rational points — obtained by projecting a 3D integer box from the origin onto the plane $z = 1$:
+
+1. **The point set.** Take all integer vectors $(x, y, z)$ with $-R \le x, y < R$ and $1 \le z < R$, and project them to the planar points $(x/z, y/z)$. Distinct *primitive* vectors (those whose coordinates share no common prime factor) yield distinct points, giving about $4R^3/\zeta(3) \approx 3.33\,R^3$ points in all, with at most $2R^2 = O(n^{2/3})$ on any single line.
+2. **Charging each line to a minimal-height spanning pair.** A line determined by these points corresponds to a 2D plane through the origin in $\mathbb{R}^3$. Charge each line to a pair of integer vectors $(u, w)$ spanning it whose sum of heights $z(u) + z(w)$ is as small as possible.
+3. **Two strong filters on minimal pairs.** Apart from the negligible $O(R^5)$ pairs with $z(u) = z(w)$, any height-minimal pair with $z(u) > z(w)$ must pass two tests:
+   * *Far apart in $x$ or $y$:* $u - w$ cannot stay inside the box (otherwise $u - w$ would replace $u$ with smaller height), so $u$ and $w$ must differ by at least $R$ in $x$ or in $y$ — eliminating roughly $9/16$ of all pairs.
+   * *Linearly independent modulo every prime:* otherwise some integer combination $(au + bw)/p$ would lie inside the box with smaller height and replace one of the vectors.
+4. **Counting modulo $30030$.** Splitting coordinates into coarse quotients and fine residues modulo $30030 = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 13$ enforces both filters simultaneously (using only the first six primes) and already forces the line count below $0.166\,kn < kn/6$.
 
 ## Reproduce
 

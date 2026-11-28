@@ -1,8 +1,16 @@
 # Erdős Problem #556: three-color nine-cycle Ramsey number R_3(C_9)
 
-Erdős Problem #556 asks whether $R_3(C_n) \le 4n - 3$ for every odd $n \ge 5$. In Radziszowski's survey, $R_3(C_9) = 33$ is the first open case, and the unrestricted upper bound $R_3(C_9) \le 33$ is still open.
+Color every edge of the complete graph $K_N$ (where every pair of $N$ vertices is connected by an edge) with three colors. The **three-color cycle Ramsey number** $R_3(C_n)$ is the smallest $N$ that *forces* a monochromatic $n$-cycle $C_n$ (a closed loop of $n$ edges all in the same color), no matter how the edges are colored.
 
-This Lean 4 project checks the known lower bound $R_3(C_9) \ge 33$ using an explicit 3-edge-coloring of $K_{32}$. On $K_{33}$, it proves that any 3-coloring with a 15-vertex subset missing one color contains a monochromatic $C_9$, and it reduces the bound $R_3(C_9) \le 33$ to two remaining cases.
+**Erdős Problem #556** asks whether $R_3(C_n) \le 4n - 3$ for every odd $n \ge 5$ (matching the known lower bound $4n - 3$, which Kohayakawa, Simonovits, and Skokan proved tight for all sufficiently large odd $n$). In Radziszowski's survey (§6.3.1), **$R_3(C_9) = 33$** is the first open case.
+
+**What is proved here vs. what remains open:**
+
+* **Proved unconditionally in Lean 4:** the known lower bound $R_3(C_9) \ge 33$ (via an explicit 3-edge-coloring of $K_{32}$ avoiding monochromatic $C_9$), an exact 2-color Ramsey threshold for split graphs (`splitForcesC9_iff`), and the 15-vertex conditional theorem on $K_{33}$ (every 3-coloring of $K_{33}$ containing 15 vertices whose internal edges omit one color must contain a monochromatic $C_9$).
+* **Reduction proved in Lean 4:** the full upper bound $R_3(C_9) \le 33$ reduces cleanly to two remaining cases on $K_{33}$, depending on whether some 14-vertex subset omits a color (`k33_iff_final_two_cases`).
+* **Still open:** the unrestricted upper bound $R_3(C_9) \le 33$.
+
+## At a glance
 
 | Field | Summary |
 | --- | --- |
@@ -13,6 +21,8 @@ This Lean 4 project checks the known lower bound $R_3(C_9) \ge 33$ using an expl
 | Prior art | Checked 23 November 2026. The lower bound 33 is known, and Kohayakawa, Simonovits, and Skokan proved $R_3(C_n) = 4n - 3$ for all sufficiently large odd $n$. Priority for the 15-vertex conditional theorem is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-556-three-color-nine-cycle-ramsey-number). |
 
 ## Lean results
+
+Here a **split graph** joining an $m$-clique to an $(n - m)$-vertex independent set is the $n$-vertex graph containing every edge except pairs lying wholly outside the $m$-clique.
 
 | Lean declaration | File | Result |
 | --- | --- | --- |
@@ -29,7 +39,7 @@ Run from this directory with Lean 4.36.0 (stdlib only):
 lake build
 ```
 
-The default target imports all proofs and checks the included certificates ([Ramsey556.lean](Ramsey556.lean)). Two optional generators reproduce the finite witnesses:
+The default target imports all proofs and checks the included certificates ([Ramsey556.lean](Ramsey556.lean)). Two optional generators reproduce the finite witnesses from scratch:
 
 * [Dense 16-vertex $C_9$-free graph certificate (`Ramsey556.Certified16`)](research/cert16/README.md)
 * [Split-graph certificate generator](research/split17/generate_traces.py)

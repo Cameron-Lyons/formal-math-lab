@@ -1,6 +1,8 @@
 # Erdős Problem #387: Schinzel's conjecture for all large $k$
 
-If $k$ is large enough and not a prime power, there is an integer $n$ such that none of $n, n-1, \dots, n-k+1$ divides $\binom{n}{k}$. Schinzel (1958) proved that no such $n$ exists when $k$ is a prime power, and asked in Colloq. Math. Problem P 217 whether this failure happens for infinitely many other $k$, expecting the answer to be no. Our Lean 4 proof settles Schinzel's conjecture for all sufficiently large $k$. Because the threshold is not explicit, nothing is proved for any specific $k$. The headline problem is a separate question answered elsewhere.
+Look at the binomial coefficient $\binom{n}{k} = \frac{n(n-1)\cdots(n-k+1)}{k!}$. For a fixed integer $k$, can we find an integer $n$ such that **none** of the $k$ consecutive factors $n, n-1, \dots, n-k+1$ divides $\binom{n}{k}$?
+
+When $k$ is a prime power, Schinzel (1958) proved the answer is **no**: one of those $k$ factors must always divide $\binom{n}{k}$. In *Colloq. Math.* Problem P 217, he asked whether this failure can happen for infinitely many non-prime-powers $k$, expecting the answer to be no. This project gives a machine-checked Lean 4 proof of Schinzel's conjecture for all sufficiently large $k$: if $k$ is large enough and not a prime power, such an $n$ always exists. Because the lower bound on $k$ is not explicit, nothing is proved for any specific $k$. (The headline question of Erdős Problem #387 is a separate problem answered elsewhere.)
 
 | Field | Summary |
 | --- | --- |
@@ -11,13 +13,14 @@ If $k$ is large enough and not a prime power, there is an integer $n$ such that 
 | Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos387` (Lean 4.33.1 + Formal Conjectures) |
 | Prior art | Checked 25 November 2026: no earlier proof of the all-large-$k$ statement was found. Erdős wrote in 1985 that Lacampagne and Selfridge could probably prove it, though no paper was found. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k). |
 
-## Idea of the proof
+## How the proof works
 
-By Kummer's theorem and the Chinese remainder theorem, it is enough to choose for each prime $p \le k$ a residue class $a_p$ with $k \bmod p < a_p \le p$ so that these classes cover $1, \dots, k$ (Schinzel). Start with class zero for every prime. Move the largest prime factor of $k$ to class 1, and move one auxiliary prime to a class that contains many large primes.
+1. **Reduction to a covering problem (Schinzel).** By Kummer's theorem (the exponent of a prime $p$ in $\binom{n}{k}$ counts carries when adding $k$ and $n-k$ in base $p$) and the Chinese remainder theorem, it suffices to choose for each prime $p \le k$ an admissible residue class $a_p$ satisfying $k \bmod p < a_p \le p$ so that these classes cover every integer in $\{1, \dots, k\}$.
+2. **Default setup and two special primes.** Start by putting every prime $p \le k$ into class $0$ ($a_p = p$), which covers $2, \dots, k$ and leaves only $1$ uncovered. Move the largest prime factor $q$ of $k$ to class $1$ (covering $1$, while a second prime factor $q'$ of $k$—which exists because $k$ is not a prime power—stays in class $0$ to keep $k$ covered). Also move one auxiliary prime $p_0$, found via Turán's second moment, to a class $c_0$ containing at least $k/(\log k)^{14}$ large primes near $k$.
+3. **Greedy level-by-level covering with parity lifting.** Any remaining uncovered number must be composed entirely of moved primes. We process uncovered numbers in order of their **level** $\min(n, k-n)$ up to $k/5$, giving each a fresh odd prime $p$ that divides an even number $k - i$ ($i < l$). A parity argument shows that every newly uncovered multiple of $p$ lands at a strictly higher level ($\ge p$), preventing any backward cascade.
+4. **Controlling supply vs. demand, and cleanup.** Chebyshev's bounds and Størmer's theorem guarantee a steady supply of fresh primes, while Rankin's method, a short-window prime assignment, and a carefully tuned decreasing weight function prove that the number of uncovered smooth integers never catches up. At the end, only at most $k/(\log k)^{14}$ uncovered numbers remain—all at level $\ge k/5$—and we cover them with distinct large primes $P \equiv c_0 \pmod{p_0}$; moving such a $P$ uncovers only $P$ itself, which $p_0$ already covers.
 
-We then cover the remaining uncovered numbers $n$ one by one, in order of their level $\min(n, k-n)$, assigning each a fresh prime. A parity argument shows that moving a prime uncovers only numbers at higher levels. Chebyshev's bounds and Størmer's theorem ensure that fresh primes do not run out, and the few numbers left at the end are covered by large primes.
-
-The Lean proof is about 2,400 lines long.
+The Lean proof is about 2,400 lines long. For a complete, self-contained written proof with roadmap, motivation, and appendix proofs of Størmer's theorem and Chebyshev's bounds, see [Erdos387.md](Erdos387.md).
 
 ## Reproduce
 
@@ -29,9 +32,12 @@ lake build
 LEAN_NUM_THREADS=1 lake env leanchecker Erdos387
 ```
 
-`lake build` checks the proof, confirms that `main` matches the upstream statement type (via `type_of%`), and verifies that `main` uses only `propext`, `Classical.choice`, and `Quot.sound`. `leanchecker` replays the module in the Lean kernel. The first build also compiles the imported part of Formal Conjectures (pinned at commit `9097e2f9`). We use only its statements, definitions, and proved lemmas, never any theorem left as `sorry`.
+**Trust boundary and verification notes:**
 
-The mathematics, Lean proof, and literature searches were produced by AI agents. No human has reviewed this project.
+* `lake build` checks the proof, confirms that `main` matches the upstream statement type (via `type_of%`), and verifies that `main` uses only the standard axioms `propext`, `Classical.choice`, and `Quot.sound`.
+* `leanchecker` replays the compiled module independently in the Lean kernel.
+* The first build also compiles the imported part of Formal Conjectures (pinned at commit `9097e2f9`). We use only its statements, definitions, and proved lemmas, never any theorem left as `sorry`.
+* The mathematics, Lean proof, and literature searches were produced by AI agents. No human has reviewed this project.
 
 ## References and attribution
 

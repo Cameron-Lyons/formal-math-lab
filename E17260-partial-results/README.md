@@ -1,12 +1,16 @@
 # Equation 17260: partial finite-model obstructions
 
-Whether a nontrivial finite magma satisfies Equation 17260 (dual Equation 28740) of the [Equational Theories Project](https://teorth.github.io/equational_theories/) remains open. The law is
+A **finite magma** of order $n$ is a set of $n$ elements with an $n \times n$ multiplication table $a \star b$ (with no associativity or commutativity assumed). In the [Equational Theories Project](https://teorth.github.io/equational_theories/), **Equation 17260** (opposite-operation dual **Equation 28740**, obtained by transposing the table) is the law
 
 $$
 x = (y \star x) \star \bigl(z \star (x \star (z \star z))\bigr)
 $$
 
-for all $x, y, z$, or `x = (y ◇ x) ◇ (z ◇ (x ◇ (z ◇ z)))` in ETP notation. The Lean 4 proofs in this directory prove structural and counting restrictions that any nontrivial finite model must meet.
+for all $x, y, z$ — written in ETP notation as `x = (y ◇ x) ◇ (z ◇ (x ◇ (z ◇ z)))`.
+
+The trivial 1-element magma satisfies every law, and *infinite* models of Equation 17260 are known to exist (`arXiv:2609.05690`). Whether any **nontrivial finite magma** ($n \ge 2$) satisfies Equation 17260 remains **open**. This Lean 4 library narrows the search by giving pure kernel-checked proofs of structural and counting restrictions that any nontrivial finite model would have to satisfy.
+
+## At a glance
 
 | Field | Summary |
 | --- | --- |
@@ -19,17 +23,31 @@ for all $x, y, z$, or `x = (y ◇ x) ◇ (z ◇ (x ◇ (z ◇ z)))` in ETP notat
 
 ## Proved obstructions
 
-A magma satisfying Equation 17260 has at most one element (`Subsingleton`) if any of the following holds:
+In Lean, `Subsingleton` means the magma has at most one element (so no nontrivial model exists). A magma obeying Equation 17260 collapses to a `Subsingleton` if **any** of the following holds:
 
-* There is an idempotent element $e$ with $e \star e = e$.
-* Squaring is surjective: every element equals $x \star x$ for some $x$ (no finiteness assumption needed).
-* The squaring map has a 2-cycle: $a \star a = b$ and $b \star b = a$.
-* The operation satisfies left cancellation or right cancellation.
-* The operation is affine: $x \star y = A(x) + B(y) + c$, where $A, B$ are additive endomorphisms of a commutative additive monoid (no finiteness assumption needed).
+* **An idempotent element:** there exists $e$ with $e \star e = e$ (a diagonal entry equal to its own label).
+* **Surjective squaring:** every element appears on the diagonal as $x \star x$ for some $x$ (no finiteness assumption needed).
+* **A 2-cycle of squaring:** two elements swap under squaring, $a \star a = b$ and $b \star b = a$.
+* **Left or right cancellation:** every row has all distinct entries (left cancellation), or every column has all distinct entries (right cancellation).
+* **An affine operation:** $x \star y = A(x) + B(y) + c$, where $A, B$ are additive endomorphisms of a commutative additive monoid — generalizing linear tables $ax + by + c \pmod n$ (no finiteness assumption needed).
 
-So in any nontrivial finite model, the squaring map $x \mapsto x \star x$ must miss at least one element, map two distinct elements to the same square, and have no cycles of length 1 or 2. These constraints do not yet force a contradiction.
+**What this forces on any hypothetical finite model.** In any nontrivial finite magma satisfying Equation 17260, the squaring map $x \mapsto x \star x$ must simultaneously:
 
-For example, the right-cancellation proof takes two steps. Fix $x, z$ and set $t = z \star (x \star (z \star z))$. The law gives $(y \star x) \star t = (x \star x) \star t$ for every $y$. Canceling $t$ gives $y \star x = x \star x$, and canceling $x$ gives $y = x$.
+1. miss at least one element,
+2. send two distinct elements to the same square (a collision, forced on a finite set whenever a map is not surjective), and
+3. contain no cycles of length 1 or 2 (every cycle of squaring has length $\ge 3$).
+
+So far, these structural constraints do not yet force a contradiction.
+
+### A two-line taste of the algebra
+
+Right cancellation kills Equation 17260 in just two steps. Fix any $x, z$ and let $t = z \star (x \star (z \star z))$. Because the right-hand side of the law does not depend on $y$, we get
+
+$$
+(y \star x) \star t = x = (x \star x) \star t \quad \text{for every } y.
+$$
+
+Canceling $t$ on the right yields $y \star x = x \star x$, and canceling $x$ on the right yields $y = x$. Since $x$ and $y$ were arbitrary, the magma has at most one element.
 
 ## Main theorem endpoints
 
@@ -45,7 +63,7 @@ All declarations below live in the `Equation17260` namespace and assume `Law op`
 | `exists_square_collision`, `exists_not_square` | [Squares17260.lean](Squares17260.lean) | Every finite nontrivial model has a square collision and a missing square (`exists_not_square` holds without finiteness). |
 | `sum_column_card_le`, `card_le_row_card_sq` | [Finite17260.lean](Finite17260.lean) | Finite column-image and row-image cardinality bounds. |
 
-Start with [Cancellation17260.lean](Cancellation17260.lean) and [Squares17260.lean](Squares17260.lean). [Affine17260.lean](Affine17260.lean) rules out affine operations, and [Finite17260.lean](Finite17260.lean) proves the counting bounds. [TheoryNotes.txt](TheoryNotes.txt) has longer mathematical notes, and [ModelNotes.txt](ModelNotes.txt) records the search scripts and their limits (searches at sizes 11-20 were inconclusive and do not improve on the known order-10 exclusion).
+**Where to read next:** Start with [Cancellation17260.lean](Cancellation17260.lean) and [Squares17260.lean](Squares17260.lean). [Affine17260.lean](Affine17260.lean) rules out affine operations, and [Finite17260.lean](Finite17260.lean) proves the counting bounds. [TheoryNotes.txt](TheoryNotes.txt) has longer mathematical notes, and [ModelNotes.txt](ModelNotes.txt) records the search scripts and their limits (searches at sizes 11-20 were inconclusive and do not improve on the known order-10 exclusion).
 
 ## Check the proofs
 

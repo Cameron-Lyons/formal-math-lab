@@ -1,8 +1,10 @@
-# Book Ramsey number R(B_63, B_64)
+# Book Ramsey number $R(B_{63}, B_{64})$
 
-A book graph $B_k$ is $k$ triangles sharing one edge (the spine). The book Ramsey number $R(B_{63}, B_{64})$ is the smallest $N$ such that every red-blue edge coloring of $K_N$ contains a red $B_{63}$ or a blue $B_{64}$. A 254-vertex graph with no red $B_{63}$ and no blue $B_{64}$ would prove $R(B_{63}, B_{64}) = 255$, which Chung and Wesley (`arXiv:2610.36522`) list as open.
+A **book graph** $B_k$ consists of $k$ triangles all glued along a single shared edge—visualize a physical book whose binding is that shared edge (the **spine**) and whose $k$ triangles are its **pages**. In a red-blue coloring of the edges of the complete graph $K_N$, a red edge $uv$ serves as the spine of a red $B_k$ precisely when $u$ and $v$ have at least $k$ common neighbors joined to both of them by red edges.
 
-This package verifies Dai and Lin's 252-vertex lower-bound graph ($R(B_{63}, B_{64}) \ge 253$) and proves Rousseau and Sheehan's upper bound ($R(B_{63}, B_{64}) \le 255$). It also rules out 254-vertex graphs built from two identical circulant layers joined by a circulant cross-block. That covers both groups of order 254 and, via McKay and Praeger's classification, all vertex-transitive graphs of order 254. A compiled verifier for candidate graphs is also included. The exact value remains open between 253 and 255.
+The **book Ramsey number** $R(B_{63}, B_{64})$ is the smallest vertex count $N$ such that every red-blue edge coloring of $K_N$ forces either a red $B_{63}$ or a blue $B_{64}$. Constructing a 254-vertex coloring avoiding both a red $B_{63}$ and a blue $B_{64}$ would settle $R(B_{63}, B_{64}) = 255$, a question Chung and Wesley (`arXiv:2610.36522`) list as open.
+
+This Lean 4 package formally verifies the known tight window $253 \le R(B_{63}, B_{64}) \le 255$—checking Dai and Lin's 252-vertex witness for the lower bound and proving Rousseau and Sheehan's 255-vertex upper bound—and proves a strong symmetry obstruction at order 254 ruling out all vertex-transitive graphs. It also includes a compiled verifier for testing candidate graphs. Whether a 254-vertex witness exists (and thus whether $R(B_{63}, B_{64})$ is 253, 254, or 255) remains open.
 
 | Field | Summary |
 | --- | --- |
@@ -14,26 +16,28 @@ This package verifies Dai and Lin's 252-vertex lower-bound graph ($R(B_{63}, B_{
 
 ## Lean results
 
+*(Recall that a **circulant graph** on $m$ vertices places its vertices around a cycle $\mathbb{Z}/m\mathbb{Z}$ and connects pairs whose cyclic difference lies in a fixed set, and a **vertex-transitive graph** is one whose symmetries can map any vertex to any other vertex.)*
+
 | Lean declaration | File | What it proves |
 | --- | --- | --- |
-| `BookRamsey.Lower252.exists_252` | [Lower252.lean](Lower252.lean) | Checks a 252-vertex graph from Dai and Lin's conference-matrix construction (`witness252.txt`): every edge in either color has at most 62 common neighbors in its own color (`avoids_63_both` also proves no $B_{63}$ in either color). |
-| `BookRamsey.Upper255.upper` | [Upper255.lean](Upper255.lean) | Every graph on 255 vertices contains a red $B_{63}$ or a blue $B_{64}$ (avoiding both forces all 255 vertices to have red degree 127, breaking handshaking parity). |
-| `BookRamsey.DegreeObstruction.no_identical_circulant_layers` | [CayleyObstruction.lean](CayleyObstruction.lean) | Rules out 254-vertex graphs made of two identical 127-vertex circulant layers joined by a circulant cross-block. This covers both groups of order 254, and with McKay and Praeger's Theorem 1(b) for $2p$ ($p = 127 \equiv 3 \pmod 4$) rules out every vertex-transitive graph of order 254. |
+| `BookRamsey.Lower252.exists_252` | [Lower252.lean](Lower252.lean) | Verifies a 252-vertex graph from Dai and Lin's conference-matrix construction (`witness252.txt`): every edge in either color has at most 62 common neighbors in its own color (`avoids_63_both` in fact proves no $B_{63}$ in either color), establishing $R(B_{63}, B_{64}) \ge 253$. |
+| `BookRamsey.Upper255.upper` | [Upper255.lean](Upper255.lean) | Proves $R(B_{63}, B_{64}) \le 255$: avoiding both a red $B_{63}$ and a blue $B_{64}$ on 255 vertices forces every single vertex to have red degree 127. That breaks handshaking parity, since the sum of all red degrees would be $255 \times 127 = 32{,}385$ (odd), which can never equal twice the number of red edges. |
+| `BookRamsey.DegreeObstruction.no_identical_circulant_layers` | [CayleyObstruction.lean](CayleyObstruction.lean) | Rules out all 254-vertex graphs built from two identical 127-vertex circulant layers joined by a circulant cross-block. This covers both groups of order 254, and combined with McKay and Praeger's Theorem 1(b) for order $2p$ ($p = 127 \equiv 3 \pmod 4$), rules out **every** vertex-transitive graph of order 254. |
 
 ## Verification
 
-Run from this directory with Lean 4.36.0 (stdlib only):
+Run from this directory with Lean 4.36.0 (stdlib only; all theorems are pure kernel proofs):
 
 ```sh
 lake build
 lake exe verify witness252.txt 252 63 64
 ```
 
-To test a 254-vertex candidate graph, run `lake exe verify candidate.txt`. Give 254 rows of 254 binary digits (`1` for red edges, `0` on the diagonal, symmetric); the verifier prints the largest book and the number of violating spines in each color ([Verify.lean](Verify.lean), [witness252.txt](witness252.txt)).
+To test any 254-vertex candidate graph, run `lake exe verify candidate.txt`. Format the input as 254 lines of 254 binary digits (`1` for red edges, `0` on the diagonal, symmetric adjacency matrix); the verifier reports the largest book and the number of violating spines in each color ([Verify.lean](Verify.lean), [witness252.txt](witness252.txt)).
 
 ## References
 
-* [Chung and Wesley, `arXiv:2610.36522v1`, Introduction and Appendix A](https://arxiv.org/html/2610.36522v1)
-* [Dai and Lin, `arXiv:2606.07214v1`, Theorem 1.1](https://arxiv.org/html/2606.07214v1)
-* [McKay and Praeger, vertex-transitive graphs of order $2p$, Theorem 1(b)](https://users.cecs.anu.edu.au/~bdm/papers/cheryl1.pdf)
-* [Prior-art audit](../PRIOR_ART.md)
+- [Chung and Wesley, `arXiv:2610.36522v1`, Introduction and Appendix A](https://arxiv.org/html/2610.36522v1)
+- [Dai and Lin, `arXiv:2606.07214v1`, Theorem 1.1](https://arxiv.org/html/2606.07214v1)
+- [McKay and Praeger, vertex-transitive graphs of order $2p$, Theorem 1(b)](https://users.cecs.anu.edu.au/~bdm/papers/cheryl1.pdf)
+- [Prior-art audit](../PRIOR_ART.md)

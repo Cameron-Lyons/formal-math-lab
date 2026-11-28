@@ -10,7 +10,7 @@ How few chess queens can you place on a $48 \times 48$ chessboard so that every 
 | Status | Solved ($\gamma(Q_{48}) = 25$). A compiled Lean search rules out 24 queens and verifies a 25-queen cover. |
 | Entry point | `main` in [Main.lean](Main.lean) ([Local.lean](Local.lean), [Global.lean](Global.lean)) |
 | Verification | `lake exe queens48` (Lean 4.36.0, stdlib only; compiled exhaustive enumeration rather than a kernel proof term, see argument below) |
-| Prior art | Re-audited 26 November 2026: Aleksej Đukić published and certified $\gamma(Q_{48}) = 25$ on 22 November 2026 (OEIS A075458 rev. 125, `10.5281/zenodo.24537292`) using Davies' SAT frame method, two days before this folder. This program gives an independent non-SAT proof. See [PRIOR_ART.md](../PRIOR_ART.md). |
+| Prior art | Re-audited 26 November 2026: Aleksej Đukić published and certified $\gamma(Q_{48}) = 25$ on 22 November 2026 (OEIS A075458 rev. 125, `10.5281/zenodo.24537292`) using Davies' SAT frame method, two days before this folder. This program gives an independent non-SAT proof. |
 
 ## Proof that 24 queens cannot dominate the $48 \times 48$ board
 
@@ -82,4 +82,3 @@ The executable regenerates all data from scratch from the board size $n = 48$, c
 - [Östergård and Weakley (2001), *Values of Domination Numbers of the Queen's Graph*, pp. 10-11](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i1r29/pdf/)
 - [Davies (21 November 2026), §9 (`hexagonmath.org/pdf/2611.00830v1`)](https://hexagonmath.org/pdf/2611.00830v1#page=19)
 - [Đukić (22 November 2026), OEIS A075458 certificate (`a075458_1.txt`)](https://oeis.org/A075458/a075458_1.txt) and [Zenodo preprint (`10.5281/zenodo.24537292`)](https://zenodo.org/records/24537292)
-- [Prior-art audit](../PRIOR_ART.md)

@@ -16,7 +16,7 @@ This proves in Lean 4 the degree-6 polynomial conjectured by R. J. Mathar on 18 
 | Status | Proved in Lean 4 for all $n \ge 0$ (also follows from Adler and Ross 2001). |
 | Main theorems | `ThreeColumnMatrices.card_validMatrices`, `ThreeColumnMatrices.mathar_polynomial`, `ThreeColumnMatrices.count_correct` in [ThreeColumnMatrices.lean](ThreeColumnMatrices.lean) |
 | Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof) |
-| Prior art | Checked 22 November 2026: confirms Mathar's conjecture in OEIS A401159; implied by Adler and Ross (2001), Corollary 1, eq. (6); no earlier Lean formalization was found. See [PRIOR_ART.md](../PRIOR_ART.md#three-column-matrices). |
+| Prior art | Checked 22 November 2026: confirms Mathar's conjecture in OEIS A401159; implied by Adler and Ross (2001), Corollary 1, eq. (6); no earlier Lean formalization was found. |
 
 ## How the proof works
 
@@ -46,4 +46,3 @@ In namespace `ThreeColumnMatrices` ([ThreeColumnMatrices.lean](ThreeColumnMatric
 
 * [OEIS A401159](https://oeis.org/A401159) and [Mathar (2014), §2 and Table 2](https://oeis.org/A247158/a247158.pdf#page=2)
 * [Adler and Ross (2001), Corollary 1, equation (6)](https://adler.ieor.berkeley.edu/ilans_pubs/coupons_2001.pdf#page=2)
-* [Prior-art audit](../PRIOR_ART.md#three-column-matrices)

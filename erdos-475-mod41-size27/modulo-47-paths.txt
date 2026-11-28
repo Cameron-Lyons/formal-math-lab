@@ -1,3 +1,0 @@
-Sum-one subsets of the squares: 178481
-Sum-one subsets of the nonsquares with 1 adjoined: 356963
-Every subset passed in at least 8 of the 15 regions.

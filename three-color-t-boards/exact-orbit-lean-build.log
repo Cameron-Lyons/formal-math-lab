@@ -1,9 +1,0 @@
-ℹ [12/20] Replayed ColorSymmetry
-info: ColorSymmetry.lean:129:0: 'TBoards.valid_transform_colors' depends on axioms: [propext, Classical.choice, Quot.sound]
-info: ColorSymmetry.lean:131:0: 'TBoards.orbit_valid_of_valid_and_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [16/20] Replayed ExactSymmetry
-info: ExactSymmetry.lean:160:0: 'TBoards.ExactSymmetry.stabilizer_trivial' depends on axioms: [propext, Classical.choice, Quot.sound]
-ℹ [18/20] Built ExactOrbit (1.1s)
-info: ExactOrbit.lean:93:0: 'TBoards.ExactOrbit.twelve_distinct_images' depends on axioms: [propext, Classical.choice, Quot.sound]
-info: ExactOrbit.lean:94:0: 'TBoards.ExactOrbit.length_eq_twelve_mul_canonical' depends on axioms: [propext, Classical.choice, Quot.sound]
-Build completed successfully (20 jobs).

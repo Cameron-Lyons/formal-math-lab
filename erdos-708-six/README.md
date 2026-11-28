@@ -17,7 +17,7 @@ C. Bergström proved $g(6) = 8$ on 19 November 2026 (`10.5281/zenodo.24366897`).
 | Status | Case $n = 6$ proved in Lean 4 ($g(6) = 8$). General bound $g(n) \le 2n$ is still open. |
 | Main theorems | `Erdos708.isLeast_six`, `Erdos708.erdos_708.variants.g_six`, `IntervalSix.six_upper`, `IntervalSix.six_integer` in [Six.lean](Six.lean) |
 | Verification | `lake exe cache get && lake build && lake env lean Six.lean` (Lean 4.36.0 + mathlib + pinned Tripodo development) |
-| Prior art | Checked 23 November 2026: C. Bergström (19 November 2026, `10.5281/zenodo.24366897`) proved $g(6) = 8$. This Lean proof adapts Bergström's lower-bound witness and cumulative-gcd rule and imports John Tripodo's Lean bounds for $n = 4, 5$. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-708-interval-products-for-six-integers). |
+| Prior art | Checked 23 November 2026: C. Bergström (19 November 2026, `10.5281/zenodo.24366897`) proved $g(6) = 8$. This Lean proof adapts Bergström's lower-bound witness and cumulative-gcd rule and imports John Tripodo's Lean bounds for $n = 4, 5$. |
 
 ## Why seven can fail ($g(6) \ge 8$)
 
@@ -100,4 +100,3 @@ The last command prints the axioms for `Erdos708.isLeast_six` and `IntervalSix.s
 * [Erdős Problems #708](https://www.erdosproblems.com/708)
 * [C. Bergström (19 November 2026), Proposition 3 and Theorems 6 & 12](https://doi.org/10.5281/zenodo.24366897)
 * [John Tripodo, preprint (`g(4) = 5` and `g(5) = 6` in Lean)](https://hexagonmath.org/pdf/2611.00694v1)
-* [Prior-art audit](../PRIOR_ART.md#erdős-708-interval-products-for-six-integers)

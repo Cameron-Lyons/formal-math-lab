@@ -1,6 +1,0 @@
-{"order": 11, "cycle": 3, "vars": 5324, "clauses": 39395, "setup_seconds": 0.024897142000554595}
-{"order": 11, "result": "unknown", "seconds": 146.84403861499595, "stats": {"restarts": 27017, "conflicts": 1000001, "decisions": 1823200, "propagations": 307943384}}
-{"order": 12, "cycle": 3, "vars": 6912, "clauses": 54658, "setup_seconds": 0.04229741000017384}
-{"order": 12, "result": "unknown", "seconds": 158.7092777910002, "stats": {"restarts": 34856, "conflicts": 1000001, "decisions": 2341720, "propagations": 377921920}}
-{"order": 13, "cycle": 3, "vars": 8788, "clauses": 73948, "setup_seconds": 0.2597026809962699}
-{"order": 13, "result": "interrupted", "reason": "bounded research session ended; not an exclusion"}

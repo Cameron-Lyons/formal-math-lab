@@ -8,7 +8,7 @@ Suppose 14 people want to form 6-person committees so that **every possible 3-pe
 | --- | --- |
 | **Result** | $C(14, 6, 3) = 25$; 24 groups cover at most 363 of 364 trios |
 | **Upper bound (witness)** | 25 explicit 6-person groups in [groups.txt](groups.txt) (first 24 miss only $\{1, 4, 8\}$) |
-| **Lower bound (no 24-cover)** | Two independent, self-contained C++ verifiers: [verify_covering.cpp](verify_covering.cpp) and [verify_independent.cpp](verify_independent.cpp) |
+| **Lower bound (no 24-cover)** | Self-contained C++ verifier: [verify_covering.cpp](verify_covering.cpp) |
 | **Trust boundary** | Compiled C++20/C++23 exhaustive search with exact arithmetic (no external inputs; outside any proof-assistant kernel) |
 
 ---
@@ -84,18 +84,6 @@ No starting type survives, ruling out 24 groups completely ([verify_covering.cpp
 
 ---
 
-### Independent confirmation
-
-To guard against any bug in the pruning logic, a second, completely independent program ([verify_independent.cpp](verify_independent.cpp)) checks the lower bound by a different route:
-
-- It canonicalizes schedules using **individualization-refinement** (a standard algorithm for assigning unique canonical labels up to relabeling).
-- It explicitly enumerates **which 4 people** are allowed to use the spare places.
-- It runs exact backtracking over compatible schedules.
-
-Only **16 assignments** survive the compatibility search; each one uniquely forces all 24 groups — and every single one misses **two trios**. Both lower-bound verifiers are self-contained compiled C++ programs with no external inputs.
-
----
-
 ## Reproduce
 
 Run from this directory with a C++23 compiler (the code is also valid C++20):
@@ -104,8 +92,6 @@ Run from this directory with a C++23 compiler (the code is also valid C++20):
 build_dir=$(mktemp -d)
 c++ -std=c++23 -O3 verify_covering.cpp -o "$build_dir/verify_covering"
 "$build_dir/verify_covering"
-c++ -std=c++23 -O3 verify_independent.cpp -o "$build_dir/verify_independent"
-"$build_dir/verify_independent"
 ```
 
 The following Python snippet verifies the 25-group construction in [groups.txt](groups.txt) and confirms that its first 24 groups miss only `{1, 4, 8}`:

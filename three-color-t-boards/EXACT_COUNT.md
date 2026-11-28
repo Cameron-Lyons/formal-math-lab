@@ -24,7 +24,7 @@ Thus the stabilizer is always trivial, and the 12 symmetries produce 12 distinct
 lake build ExactSymmetry ExactOrbit
 ```
 
-The build logs [exact-symmetry-lean-build.log](exact-symmetry-lean-build.log) and [exact-orbit-lean-build.log](exact-orbit-lean-build.log) confirm clean builds using only `propext`, `Classical.choice`, and `Quot.sound`.
+Both modules build cleanly using only `propext`, `Classical.choice`, and `Quot.sound`.
 
 ## 2. Exact reduced system of pattern counts (marginals)
 
@@ -35,9 +35,9 @@ Write $N(a, b, c, d)$ for the number of times pattern $(a, b, c, d)$ appears on 
 
 By induction on the number of `2`s in a pattern, locating its first `2` determines its count from two counts with fewer `2`s and one selected margin summing to 3.
 
-[ExactMarginals.lean](ExactMarginals.lean) proves this exact equivalence to `TBoards.Valid` for every board ([exact-marginals-lean-build.log](exact-marginals-lean-build.log)).
+[ExactMarginals.lean](ExactMarginals.lean) proves this exact equivalence to `TBoards.Valid` for every board.
 
-**Sharpness (binary-cube conditions cannot be dropped).** Triple margins alone do not characterize validity: [MarginalCounterexample.lean](MarginalCounterexample.lean) verifies inside Lean's kernel an explicit well-formed board whose **108** triple margins all equal 3 and which satisfies 15 of the 16 binary-cube equations, yet doubles `(1, 1, 1, 1)` ([marginal-counterexample-lean-build.log](marginal-counterexample-lean-build.log)).
+**Sharpness (binary-cube conditions cannot be dropped).** Triple margins alone do not characterize validity: [MarginalCounterexample.lean](MarginalCounterexample.lean) verifies inside Lean's kernel an explicit well-formed board whose **108** triple margins all equal 3 and which satisfies 15 of the 16 binary-cube equations, yet doubles `(1, 1, 1, 1)`.
 
 ```sh
 lake build ExactMarginals MarginalCounterexample
@@ -47,7 +47,7 @@ lake build ExactMarginals MarginalCounterexample
 
 **A board is valid if and only if every one of the 81 patterns occurs an odd number of times** — and more generally, if and only if every count is $\equiv 1 \pmod m$ for any integer $m > 1$. Each congruence forces every count to be at least 1, and having only 81 placements forces all 81 counts to equal 1.
 
-[ExactParity.lean](ExactParity.lean) proves `TBoards.ExactParity.valid_iff_present`, `valid_iff_odd`, and `valid_iff_congruent_one` for arbitrary $m > 1$ ([exact-parity-lean-build.log](exact-parity-lean-build.log)).
+[ExactParity.lean](ExactParity.lean) proves `TBoards.ExactParity.valid_iff_present`, `valid_iff_odd`, and `valid_iff_congruent_one` for arbitrary $m > 1$.
 
 ```sh
 lake build ExactParity

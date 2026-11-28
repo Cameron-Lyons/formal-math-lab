@@ -9,14 +9,14 @@ By the [marked-set proof](rank-mark.md), any hypothetical admissible family $F$ 
 - **Large singleton root ($m \ge 8$):** Fix a marked member of maximum size $m$. Identifying sets with their reflections ($i \mapsto 17 - i$) gives **178** canonical cases. (Other marked sets of size up to $m$ remain eligible.)
 - **Seven-term quartet root ($m = 7$):** Every marked member is itself a seven-term progression; fix four distinct marked members. Among the 14 seven-term progressions, there are **248** pairwise-compatible quartets up to reflection.
 
-That gives $178 + 248 = \mathbf{426}$ canonical cases in total. Current status recorded in the [case ledger](full-root-status.txt):
+That gives $178 + 248 = \mathbf{426}$ canonical cases in total:
 
 | Status | Cases | How handled |
 | --- | ---: | --- |
 | Closed by private-triple search (`closed`) | 78 | Excluded directly by `small_root_search.cpp` |
 | Closed by large-member bound (`large`) | 13 | Root has size $\ge 13$, excluded by `large_members.cpp` |
 | **Total excluded** | **91** | — |
-| Pending (`open` / `budget`) | 335 | Recorded in `full-root-status.txt` for resumption |
+| Pending (`open` / `budget`) | 335 | Open cases |
 
 ## How the private-triple search works
 
@@ -42,7 +42,6 @@ Compile with a C++20 compiler from this directory. Each of the 426 canonical cas
 ```sh
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic small_root_search.cpp -o /tmp/erdos272-roots
 /tmp/erdos272-roots full rank.weights list
-/tmp/erdos272-roots full rank.weights replay full-root-status.txt
 /tmp/erdos272-roots full rank.weights 0 65535
 /tmp/erdos272-roots full rank.weights 1400
 ```
@@ -50,8 +49,7 @@ c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic small_root_search.cpp -o /tmp
 **Understanding the commands and output:**
 
 - `list` prints all 426 canonical case IDs.
-- `replay full-root-status.txt` validates that the ledger contains every canonical case exactly once and reruns every case marked `closed`.
-- A `large` entry in the ledger marks one of the 13 distinct root cases of size $\ge 13$, which are covered independently by the [large-member proof and verifier](README.md#excluding-large-members); the ledger checks the root size and counts these entries separately (run `large_members.cpp` to reproduce their exclusion).
+- The 13 root cases of size $\ge 13$ are covered independently by the [large-member proof and verifier](README.md#excluding-large-members) (`large_members.cpp`).
 - Passing a single numeric argument (like `1400`) or an inclusive range (`0 65535`) runs those case IDs directly. One *work unit* is one call to the private-triple bound; setting the work limit to `0` lets elimination run to completion.
 - Each result line prints the case ID, final state, work units used, and number of nonprogression triples removed:
   - `closed`: a 125-member family is ruled out in this case.

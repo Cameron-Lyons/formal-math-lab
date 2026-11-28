@@ -17,7 +17,7 @@ The general conjecture remains **open** for $r \ge 11$. This Lean 4 library sett
 | Status | Proved for $3 \le r \le 10$ and several structural families; $r \ge 11$ is still open. |
 | Main theorems | `Erdos617.missing_of_at_most_ten_colors`, `Erdos617.missing_of_all_but_two_parallel_rows`, `Erdos617.missing_of_almost_parallel_full_cliques`, `Erdos617.missing_of_degree_excess`, `Erdos617.counterexample_rank_window` |
 | Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib) |
-| Prior art | Erdős and Gyárfás proved $r = 3, 4$; a separate formal verification covers $r = 5$. Priority for $6 \le r \le 10$ and the structural obstructions is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-617-missing-colors-in-cliques). |
+| Prior art | Erdős and Gyárfás proved $r = 3, 4$; a separate formal verification covers $r = 5$. Priority for $6 \le r \le 10$ and the structural obstructions is unverified. |
 
 ## Main Lean results
 
@@ -50,4 +50,3 @@ lake build
 * [Formal Conjectures `ErdosProblems/617.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/617.lean)
 * [Erdős and Gyárfás (1999), *Split and balanced colorings of complete graphs*](https://doi.org/10.1016/S0012-365X(98)00323-9)
 * [Prior 5-color formal verification (`RamazanKara/erdos-617-r5-formal-verification`)](https://github.com/RamazanKara/erdos-617-r5-formal-verification)
-* [Prior-art audit](../PRIOR_ART.md#erdős-617-missing-colors-in-cliques)

@@ -10,7 +10,7 @@ Genkin (`10.5281/zenodo.24457907`, Theorem 5.1 and Question 8.1) built a 50-laye
 | Status | Solved in Lean 4 ($n = 52$, improving Genkin's 50-layer coloring to match the upper bound). |
 | Main theorem | `BoxFree.exists_boxFree_iff (n : Nat) : (∃ C : Coloring n, BoxFree C) ↔ n ≤ 52` in [BoxFree.lean](BoxFree.lean) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; pure kernel check) |
-| Prior art | Checked 24 November 2026: Genkin v2 built 50 layers, proved the upper bound 52, and asked in Question 8.1 whether 52 is possible. See [PRIOR_ART.md](../PRIOR_ART.md). |
+| Prior art | Checked 24 November 2026: Genkin v2 built 50 layers, proved the upper bound 52, and asked in Question 8.1 whether 52 is possible. |
 
 ## Proof overview
 
@@ -34,4 +34,3 @@ lake build
 
 - [Genkin, Theorem 5.1 and Question 8.1 (`10.5281/zenodo.24457907`)](https://zenodo.org/records/24457907)
 - [BoxFree.lean](BoxFree.lean) and [BoxFree/Construction.lean](BoxFree/Construction.lean)
-- [Prior-art audit](../PRIOR_ART.md)

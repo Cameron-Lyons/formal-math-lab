@@ -19,8 +19,8 @@ $$
 | Problem | OEIS A176755, R. J. Mathar's five-term linear recurrence conjecture for $a_{n+1} = \sum_{p=0}^n a_p a_{n-p} - 2$ |
 | Status | Proved in Lean 4 for all $n \ge 4$ (formalizing a result already covered by Georg Fischer's January 2020 recurrence and Artūras Dubickas's June 2026 paper). |
 | Main theorems | `A176755.mathar`, `A176755.mathar_of_recurrence` in [A176755.lean](A176755.lean) |
-| Verification | `lake exe cache get && lake build && lake env lean Check.lean` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
-| Prior art | Checked 23 November 2026 and re-audited 26 November 2026: covered by Georg Fischer (January 2020, OEIS A176604/A176755) and Artūras Dubickas (June 2026, general $k = 0$ Choulet sequences). No claim of mathematical novelty or first formalization. See [Prior work and attribution](#prior-work-and-attribution) and [PRIOR_ART.md](../PRIOR_ART.md#nonlinear-to-linear-recurrence-oeis-a176755). |
+| Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib v4.36.0; pure kernel proof, standard axioms only) |
+| Prior art | Checked 23 November 2026 and re-audited 26 November 2026: covered by Georg Fischer (January 2020, OEIS A176604/A176755) and Artūras Dubickas (June 2026, general $k = 0$ Choulet sequences). No claim of mathematical novelty or first formalization. See [Prior work and attribution](#prior-work-and-attribution). |
 
 ## Prior work and attribution
 
@@ -89,7 +89,6 @@ Since $H = H' = 0$, the right-hand side vanishes; and because $1 - 2xF$ has cons
 * [A176755/Differential.lean](A176755/Differential.lean): formal differentiation and polynomial elimination.
 * [A176755/Coefficients.lean](A176755/Coefficients.lean): coefficient extraction.
 * [A176755.lean](A176755.lean): final theorems combining the three steps.
-* [Check.lean](Check.lean): theorem signatures and axiom audit.
 
 ## Reproduce
 
@@ -98,7 +97,6 @@ Lean and mathlib are pinned to v4.36.0 (`lake-manifest.json` pins exact commits)
 ```sh
 lake exe cache get Mathlib.RingTheory.PowerSeries.Derivative Mathlib.Algebra.BigOperators.Fin Mathlib.Algebra.BigOperators.NatAntidiagonal Mathlib.Tactic.LinearCombination Mathlib.Tactic.NormNum
 lake build
-lake env lean Check.lean
 ```
 
-Both `lake build` and `lake env lean Check.lean` succeed. The axiom audit reports only `propext`, `Classical.choice`, and `Quot.sound`, with no `sorry`, custom axioms, or `native_decide`.
+The proof depends only on `propext`, `Classical.choice`, and `Quot.sound`, with no `sorry`, custom axioms, or `native_decide`.

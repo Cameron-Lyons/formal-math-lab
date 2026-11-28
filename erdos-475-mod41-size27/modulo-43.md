@@ -25,13 +25,3 @@ Run from this directory with a C++20 compiler (OpenMP is optional):
 c++ -std=c++20 -O3 -march=native -fopenmp -DGRAHAM_PRIME=43 verify_reciprocal.cpp -o /tmp/graham43
 /tmp/graham43
 ~~~
-
-## Independent rotation cross-check
-
-A completely independent verification uses multiplicative rotations — ordering $\mathbb{F}_{43}^\times$ by successive powers of the primitive root $3$, so scaling corresponds to cyclically rotating a 42-bit word (see [zero-sum.md](zero-sum.md) for the weighting argument). That check found **2,784,081,790** cycles and matched the exact expected count at every searched size.
-
-To reproduce the rotation search, compile [verify_zero_sum.cpp](verify_zero_sum.cpp) with the same compiler flags (including `-DGRAHAM_PRIME=43`) and run it with `--all`. The command below audits its saved per-size transcript ([modulo-43-counts.txt](modulo-43-counts.txt)):
-
-~~~sh
-python3 verify_counts.py --prime 43 modulo-43-counts.txt
-~~~

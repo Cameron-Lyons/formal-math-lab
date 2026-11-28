@@ -10,7 +10,7 @@ The total area of the 42 tiles is $2 \sum_{k=1}^{21} k^2 = 6{,}622 = 2 \cdot 7 \
 | Status | Dimension reduction proved in Lean 4: rules out $22 \times 301$ and $43 \times 154$. Whether $77 \times 86$ can be tiled remains open. |
 | Main theorems | `Squares42.exists_tiling_iff_77_by_86`, `Squares42.only_remaining_rectangle` ([Bridge.lean](Bridge.lean)); `Squares42.no_width_43` ([Width43.lean](Width43.lean)) |
 | Verification | `lake build` (Lean 4.36.0, stdlib only; pure kernel proof across all six modules) |
-| Prior art | Checked 24 November 2026: Friedman's 22 November revision keeps the two-copy $n = 21$ case open; no earlier proof ruling out $43 \times 154$ was found (priority unconfirmed). See [PRIOR_ART.md](../PRIOR_ART.md#two-squares-of-each-side-from-1-through-21). |
+| Prior art | Checked 24 November 2026: Friedman's 22 November revision keeps the two-copy $n = 21$ case open; no earlier proof ruling out $43 \times 154$ was found (priority unconfirmed). |
 
 ## Proof overview
 
@@ -44,4 +44,3 @@ lake build
 
 - Erich Friedman, *Math Magic*: [Open Problem 10](https://erich-friedman.github.io/mathmagic/unsolved.html) and [results table (May 2005)](https://erich-friedman.github.io/mathmagic/0505.html)
 - [Bridge.lean](Bridge.lean), [Squares.lean](Squares.lean), and [Width43.lean](Width43.lean)
-- [Prior-art audit](../PRIOR_ART.md#two-squares-of-each-side-from-1-through-21)

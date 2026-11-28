@@ -4,8 +4,6 @@ A collection of machine-checked Lean 4 proofs, explicit finite-case construction
 
 Each Lean project folder is a standalone [Lake](https://lean-lang.org/) package with its own pinned Lean toolchain and README. Every folder states the math problem in plain terms, explains how the proof works, links the source references (arXiv, DOI, OEIS, Erdős problem, or ETP equation), lists the exact Lean theorem names and build commands, and spells out its verification boundary.
 
-Literature and originality checks are tracked separately in [PRIOR_ART.md](PRIOR_ART.md) (updated 27 November 2026). When a note says no earlier proof was found, that covers only the sources checked and is not a claim of absolute historical priority.
-
 ---
 
 ## How to read the verification levels
@@ -42,8 +40,6 @@ Color $\{1, \ldots, N\}$ red or blue; $f_2(k)$ is the smallest $N$ forcing a mon
 | Problem | What is proved here | Prior art and status |
 | --- | --- | --- |
 | [All even $k \ge 4$: $f_2(k) = 3k^2$](even-unit-fractions/) (Gaiser–Ramezanpour Conjecture 1.3, `arXiv:2607.04373`) | Proves $f_2(k) = 3k^2$ for **every even $k \ge 4$** in pure Lean 4 stdlib with no `native_decide`. | Extends Gaiser and Ramezanpour's Theorem 3.3 ($k = 3 \cdot 2^m$) to all even $k \ge 4$ and settles Arevalo's Conjecture B. General odd $k$ remains open. [Conjecture 1.3](https://arxiv.org/html/2607.04373v1#S1.Thmtheorem3) |
-| [Case $k = 26$: $f_2(26) = 2028$](26-unit-fractions/) (`arXiv:2607.04373`) | Proves $f_2(26) = 2028 = 3 \cdot 26^2$ in pure Lean 4 via six explicit unit-fraction identities. | No earlier upper-bound proof at 26 terms found. Lower bound and initial identities come from Gaiser and Ramezanpour. |
-| [Case $k = 28$: $f_2(28) = 2352$](28-unit-fractions/) (`arXiv:2607.04373`) | Proves $f_2(28) = 2352 = 3 \cdot 28^2$ in pure Lean 4 using six explicit integer-sum identities and the matching lower-bound coloring. | Lower-bound coloring is due to Gaiser and Ramezanpour. [Conjecture 1.3](https://arxiv.org/html/2607.04373v1#S1.Thmtheorem3) |
 | [Case $k = 33$: $f_2(33) = 3267$](33-unit-fractions/) (`arXiv:2607.04373`) | Proves $f_2(33) = 3267 = 3 \cdot 33^2$ via fifteen identities on 14 denominators plus the matching lower bound. | Settles the odd case $k = 33$ of Gaiser and Ramezanpour's Conjecture 1.3. [Original paper, §3](https://arxiv.org/html/2607.04373v1#S3) |
 
 ### Equational Theories Project (finite magmas)
@@ -53,7 +49,7 @@ A *magma* of order $n$ is simply an $n \times n$ multiplication table $(a, b) \m
 | Problem | What is proved here | Prior art and status |
 | --- | --- | --- |
 | [Equation 1486 finite magma spectrum](E1486-order-15/) (`x = (y ◇ x) ◇ (x ◇ (z ◇ z))`, dual E2126) | Rules out orders $12, 14, 15$ (graph reduction + SAT/LRAT) and gives kernel-verified multiplication tables of orders $17$ and $26$, settling all five open orders in the ETP spectrum catalogue (ruled-out orders with the fork's bounds: `2, 3, 5, 6, 7, 8, 10, 12, 14, 15`). | No earlier proof or model found for these five orders in sources checked 22–24 November 2026. |
-| [Equation 670 at order 10](E670-order-10/) (`x = y ◇ (x ◇ ((x ◇ y) ◇ y))`, dual E2937) | Rules out 10-element magmas (SAT/LRAT refutation checked in Lean) and verifies affine models at orders `19, 29, 31, 41, 59, 61`. | No earlier proof at order 10 found; 10 was the smallest open order in the ETP spectrum catalogue checked on 23 November 2026. |
+| [Equation 670 at order 10](E670-order-10/) (`x = y ◇ (x ◇ ((x ◇ y) ◇ y))`, dual E2937) | Rules out 10-element magmas (SAT/LRAT refutation checked in Lean). | No earlier proof at order 10 found; 10 was the smallest open order in the ETP spectrum catalogue checked on 23 November 2026. |
 | [Equation 677 at orders 9 and 10, and E677 → E255](E677-E255-order-9/) (`x = y ◇ (x ◇ ((y ◇ x) ◇ y))`, `x = ((x ◇ x) ◇ x) ◇ x`) | Every 9-element E677 magma satisfies E255, and no 10-element E677 magma exists. | Formalizes José Brox's Mace4 reports (Dec 2024, Jan 2025). No earlier Lean proof at order 10 found. General finite `E677 -> E255` remains open. |
 
 ### Erdős problems and variants
@@ -120,10 +116,10 @@ These folders combine human-readable mathematical proofs with standalone C++ or 
 | **Erdős #272** on 13, 14, and 15 points (AP-intersecting sets) | The largest family of subsets whose pairwise intersections are nonempty arithmetic progressions has size **82 on 13 points**, **95 on 14 points**, and **109 on 15 points**. Lean checks all three constructions; rank bounds and direct C++ clique searches exclude larger families. The 14-point proof also proves Szabó's exact formula for every $N$ when at most $\lfloor (N - 1)/4 \rfloor$ members contain a seven-term progression. | [Thirteen-point proof](erdos-272-thirteen/) · [Fourteen-point proof and general bound](erdos-272-fourteen/) · [Fifteen-point proof](erdos-272-fifteen/) |
 | **Erdős #272** on 16 points (and short intersections) | On 16 points, the verified range is **124 to 132**, with exact maximum **124** whenever every intersection has at most 6 terms. For every ground-set size, Szabó's formula is exact when every intersection has at most 5 terms. | [Sixteen-point results and verifiers](erdos-272-sixteen/) |
 | **Erdős #311** (approximating $1$ by unit fractions) | Prime-by-prime congruence characterization of the closest miss $\delta(N)$, multi-stage grid upper bounds and maximal-grid/symmetric-gap asymptotics, $\liminf (-\log \delta(N))/N \le 190/(73 + \sqrt{25849}) \approx 0.812743$, near-saturation density bounds, and certified exact values for $58 \le N \le 200$. | [Analytic bounds, congruences, and verifiers](research/erdos-311/) |
-| **Covering design $C(14, 6, 3)$** | Covering every 3-person trio among 14 people requires exactly **25** six-person groups. Two independent C++20 verifiers rule out 24 groups, and an explicit 25-group list covers all 364 trios. | [Proof and group list](research/covering-14-6-3/) |
-| **Height-13 grid snakes** | The longest induced grid path ("snake") on a $13 \times n$ grid gains exactly **48** squares every 6 columns for all $n \ge 7$. Verified by two C++17 checkers and a Python constructor. | [Height-13 snakes](research/height-13-snakes/) |
-| **Height-14 grid snakes** | On a $14 \times n$ grid, 6 more columns add exactly **52** squares to the longest snake for all $n \ge 18$. Lean proves the lower bound and bounds every induced path (using `native_decide` for finite checks), backed by two C++17 verifiers and a Python constructor. | [Lean theorem](research/height-14-snakes/lean/Height14.lean) · [Formula and reproduction commands](research/height-14-snakes/) |
-| **Height-15 grid snakes** | On a $15 \times n$ grid, the longest snake has $\lfloor (28n + 10)/3 \rfloor$ cells for every $n \ge 1$, with eleven explicit exceptions (the last at $n = 25$). Two exhaustive C++ computations verify the 6-column shift on all boundary scores. | [Height-15 formula and proof](research/height-15-snakes/) |
+| **Covering design $C(14, 6, 3)$** | Covering every 3-person trio among 14 people requires exactly **25** six-person groups. A standalone C++20 verifier rules out 24 groups, and an explicit 25-group list covers all 364 trios. | [Proof and group list](research/covering-14-6-3/) |
+| **Height-13 grid snakes** | The longest induced grid path ("snake") on a $13 \times n$ grid gains exactly **48** squares every 6 columns for all $n \ge 7$. Verified by a C++17 frontier checker and a Python constructor. | [Height-13 snakes](research/height-13-snakes/) |
+| **Height-14 grid snakes** | On a $14 \times n$ grid, 6 more columns add exactly **52** squares to the longest snake for all $n \ge 18$. Lean proves the lower bound and bounds every induced path (using `native_decide` for finite checks). | [Lean theorem](research/height-14-snakes/lean/Height14.lean) · [Formula and reproduction commands](research/height-14-snakes/) |
+| **Height-15 grid snakes** | On a $15 \times n$ grid, the longest snake has $\lfloor (28n + 10)/3 \rfloor$ cells for every $n \ge 1$, with eleven explicit exceptions (the last at $n = 25$). An exhaustive C++ computation verifies the 6-column shift on all boundary scores. | [Height-15 formula and proof](research/height-15-snakes/) |
 
 ---
 
@@ -131,7 +127,7 @@ These folders combine human-readable mathematical proofs with standalone C++ or 
 
 With [`elan`](https://github.com/leanprover/elan) installed, `cd` into any project folder and run the command listed below. Lake automatically fetches the pinned Lean toolchain recorded in that folder's `lean-toolchain`:
 
-- **Lean 4.36.0 (stdlib only):** `26-unit-fractions`, `28-unit-fractions`, `33-unit-fractions`, `book-ramsey`, `box-free-5x8`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-272-fourteen`, `erdos-272-fifteen`, `erdos-272-sixteen`, `erdos-556-cycle-ramsey`, `even-unit-fractions`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-one`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
+- **Lean 4.36.0 (stdlib only):** `33-unit-fractions`, `book-ramsey`, `box-free-5x8`, `box-free-6x7`, `consecutive-squares-21`, `covering-61-25-3`, `E1486-order-15`, `E670-order-10`, `E677-E255-order-9`, `erdos-64-power-of-two-cycles`, `erdos-272-thirteen`, `erdos-272-fourteen`, `erdos-272-fifteen`, `erdos-272-sixteen`, `erdos-556-cycle-ramsey`, `even-unit-fractions`, `five-30-sided-dice`, `five-row-matchsticks`, `manabe-residue-one`, `manabe-residue-seven`, `nine-bit-snake`, `no-three-in-line-75`, `queen-domination-48`, `ramsey-3-10`, `seven-cycle`, `square-triples`, `three-color-t-boards`, `three-stacks`.
 - **Lean 4.36.0 + mathlib v4.36.0:** `a026019-binomial-recurrence`, `a176755-linear-recurrence`, `arctangent-sum`, `E17260-partial-results`, `erdos-617-missing-colors`, `erdos-677-equal-lcms`, `erdos-708-six` (with Tripodo's pinned development), `erdos-835-coloring-subsets`, `integer-cubic`, `queen-domination-48-sat`, `three-column-matrices`, `three-cubes-114`, `union-closed-sets`, `written-on-the-wall-133`.
 - **Lean 4.35.0 + mathlib v4.35.0:** `seven-slabs`.
 - **Lean 4.33.1 + mathlib (with unmodified Formal Conjectures statements):** `erdos-211-one-sixth`, `erdos-338-restricted-order`, `erdos-344-sqrt-two`, `erdos-387-schinzel`, `erdos-602-property-b`, `erdos-1066-higher-dimensions`.
@@ -168,8 +164,6 @@ With [`elan`](https://github.com/leanprover/elan) installed, `cd` into any proje
 | `integer-cubic` (Pell library) | `lake build SmallCubic` | `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`, `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` |
 | `three-cubes-114` | `lake exe cache get && lake build` | `ThreeCubes114.TernaryNorm.unbounded_normalized_moduli` |
 | `even-unit-fractions` | `lake build` | `EvenUnitFractions.forces_iff` |
-| `26-unit-fractions` | `lake build` | `UnitFractions.forces_iff` |
-| `28-unit-fractions` | `lake build` | `UnitFractions28.forces_iff` |
 | `33-unit-fractions` | `lake build` | `UnitFractions33.forces_iff` |
 | `erdos-64-power-of-two-cycles` | `lake build` ([order-41 replay](erdos-64-power-of-two-cycles/Order41.md#reproduction)) | `Erdos64.cycle_of_P15_plus_isolate_free`, `Erdos64.TrianglePacking.liftCycle` |
 | `erdos-556-cycle-ramsey` | `lake build` | `Ramsey556.monoC9_of_independent15`, `Ramsey556.k33_iff_final_two_cases` |
@@ -207,7 +201,7 @@ The `E670`, `E677`, and `E1486` proofs use Lean's native LRAT checker; see the t
 
 [lake-compat](https://github.com/Cameron-Lyons/lake-compat) is a separate repository for checking Lean dependency upgrades. A local checkout may sit beside these folders, though it is not a mathematical result.
 
-Problem references, known proofs, and literature-search notes live in [PRIOR_ART.md](PRIOR_ART.md). The T-board folder's [source attribution](three-color-t-boards/README.md#source-and-attribution) keeps Qiyuan Ma's licenses and credits. See [License](#license) for the collection's MIT license and third-party notices.
+The T-board folder's [source attribution](three-color-t-boards/README.md#source-and-attribution) keeps Qiyuan Ma's CC-BY-4.0 license and credits. See [License](#license) for the collection's MIT license and third-party notices.
 
 When adding a new result, record its assumptions, named proof endpoint, reproduction command, source problem identifier, and dated prior-art check. Search for general theorems and alternate phrasings as well as the exact title, since conjecture labels in catalogues can fall out of date.
 
@@ -221,7 +215,6 @@ Original collection material uses the [MIT License](LICENSE), except where separ
 - The Formal Conjectures interval definition in [UpstreamInterval.lean](erdos-677-equal-lcms/UpstreamInterval.lean) keeps its [Apache-2.0 license](erdos-677-equal-lcms/LICENSE-FormalConjectures) and copyright notice.
 - The four definitions from Formal Conjectures in [ArctanBridge.lean](arctangent-sum/ArctanBridge.lean) keep their Apache-2.0 license and copyright notice.
 - The Formal Conjectures statements quoted in the comments of [#211](erdos-211-one-sixth/Erdos211.lean), [#338](erdos-338-restricted-order/Erdos338.lean), [#344](erdos-344-sqrt-two/Erdos344.lean), [#387](erdos-387-schinzel/Erdos387.lean), and [#1066](erdos-1066-higher-dimensions/Erdos1066.lean) remain under that project's [Apache-2.0 license](https://github.com/google-deepmind/formal-conjectures/blob/main/LICENSE).
-- Qiyuan Ma's manuscript, certificate data, documentation, and recorded outputs in [three-color-t-boards/sources](three-color-t-boards/sources/LICENSE_SCOPE.txt) keep CC-BY-4.0. The included Python programs keep their MIT license and original copyright notice.
-- Ma's attribution also applies to the first five representatives and their symmetry images reused in the T-board data; see [source and attribution](three-color-t-boards/README.md#source-and-attribution).
+- Qiyuan Ma's attribution and [CC-BY-4.0 license notice](three-color-t-boards/sources/LICENSE_SCOPE.txt) apply to the first five representatives and their symmetry images reused in the T-board data; see [source and attribution](three-color-t-boards/README.md#source-and-attribution).
 
 The root MIT license does not replace these notices or relicense third-party material.

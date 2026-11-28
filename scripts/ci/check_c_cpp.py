@@ -20,7 +20,6 @@ THIRD_PARTY_FILES: frozenset[str] = frozenset()
 EXTERNAL_DEP_FILES: frozenset[str] = frozenset(
     {
         "erdos-64-power-of-two-cycles/scripts/geng_terminals.c",  # Linked into nauty's geng.
-        "erdos-556-cycle-ramsey/research/cert16/witnesses.cpp",
     }
 )
 

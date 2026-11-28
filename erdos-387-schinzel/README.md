@@ -9,9 +9,8 @@ When $k$ is a prime power, Schinzel (1958) proved the answer is **no**: one of t
 | Problem | Erdős Problem #387, Schinzel variant (`erdosproblems.com/387`), Colloq. Math. P 217, `erdos_387.variants.schinzel` in `FormalConjectures/ErdosProblems/387.lean` |
 | Status | Eventual form proved. The explicit form (every non-prime-power $k \ge 35$) remains open. |
 | Main theorem | `main : type_of% @Erdos387.erdos_387.variants.schinzel` in [Erdos387.lean](Erdos387.lean) |
-| Written proof | [Erdos387.md](Erdos387.md), with the same lemma numbers as the Lean file |
 | Verification | `lake exe cache get && lake build && LEAN_NUM_THREADS=1 lake env leanchecker Erdos387` (Lean 4.33.1 + Formal Conjectures) |
-| Prior art | Checked 25 November 2026: no earlier proof of the all-large-$k$ statement was found. Erdős wrote in 1985 that Lacampagne and Selfridge could probably prove it, though no paper was found. See [PRIOR_ART.md](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k). |
+| Prior art | Checked 25 November 2026: no earlier proof of the all-large-$k$ statement was found. Erdős wrote in 1985 that Lacampagne and Selfridge could probably prove it, though no paper was found. |
 
 ## How the proof works
 
@@ -20,7 +19,7 @@ When $k$ is a prime power, Schinzel (1958) proved the answer is **no**: one of t
 3. **Greedy level-by-level covering with parity lifting.** Any remaining uncovered number must be composed entirely of moved primes. We process uncovered numbers in order of their **level** $\min(n, k-n)$ up to $k/5$, giving each a fresh odd prime $p$ that divides an even number $k - i$ ($i < l$). A parity argument shows that every newly uncovered multiple of $p$ lands at a strictly higher level ($\ge p$), preventing any backward cascade.
 4. **Controlling supply vs. demand, and cleanup.** Chebyshev's bounds and Størmer's theorem guarantee a steady supply of fresh primes, while Rankin's method, a short-window prime assignment, and a carefully tuned decreasing weight function prove that the number of uncovered smooth integers never catches up. At the end, only at most $k/(\log k)^{14}$ uncovered numbers remain—all at level $\ge k/5$—and we cover them with distinct large primes $P \equiv c_0 \pmod{p_0}$; moving such a $P$ uncovers only $P$ itself, which $p_0$ already covers.
 
-The Lean proof is about 2,400 lines long. For a complete, self-contained written proof with roadmap, motivation, and appendix proofs of Størmer's theorem and Chebyshev's bounds, see [Erdos387.md](Erdos387.md).
+The Lean proof is about 2,400 lines long ([Erdos387.lean](Erdos387.lean)).
 
 ## Reproduce
 
@@ -44,5 +43,4 @@ LEAN_NUM_THREADS=1 lake env leanchecker Erdos387
 * A. Schinzel, [*Sur un problème de P. Erdős*](https://doi.org/10.4064/cm-5-2-198-204), Colloq. Math. 5 (1958) 198-204, with a letter of Erdős (5 February 1957); *P 217, R 1*, Colloq. Math. 10 (1963) 365.
 * [Erdős Problems #387](https://www.erdosproblems.com/387) and [Formal Conjectures statement](https://github.com/google-deepmind/formal-conjectures/blob/9097e2f90e66d2f6244209cb1c07f7120d17ec53/FormalConjectures/ErdosProblems/387.lean#L62)
 * H. M. Bui, S. Naprienko, K. Pratt, and A. Zaharescu, [arXiv:2605.21221](https://arxiv.org/abs/2605.21221), answered the headline problem and construct covers for many $k$, though not all large ones. P. Erdős, [Rocky Mountain J. Math. 15 (1985)](https://users.renyi.hu/~p_erdos/1985-27.pdf), pp. 358-359, has the remark on Lacampagne and Selfridge.
-* The reduction to a cover, default class zero, auxiliary prime, and large primes at the end are due to Schinzel and Erdős. Full credits are in [Erdos387.lean](Erdos387.lean) and [Erdos387.md](Erdos387.md#what-is-new-and-what-is-borrowed).
-* [Prior-art audit](../PRIOR_ART.md#erdős-387-schinzels-conjecture-for-large-k)
+* The reduction to a cover, default class zero, auxiliary prime, and large primes at the end are due to Schinzel and Erdős. Full credits are in [Erdos387.lean](Erdos387.lean).

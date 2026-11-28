@@ -13,13 +13,13 @@ This Lean 4 project classifies all equal LCMs for lengths $k = 2, 3, 4$ purely i
 | Classifications | For distinct starts $m > n$: $k = 2$, none; $k = 3$, only $(n, m) = (2, 3)$ ($\operatorname{lcm} = 60$, overlapping); $k = 4$, only $(1, 2)$ ($\operatorname{lcm} = 60$, overlapping); $k = 6$, only $(3, 4)$, $(5, 6)$, $(13, 15)$ (all overlapping). |
 | Main theorems | `Erdos677.erdos_677_two`, `erdos_677_three`, `erdos_677_four`, `three_collision_iff`, `four_collision_iff`, `six_collision_iff_three_of_affine_cover`, `no_collision_shift_le_52` |
 | Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib); see [cubic/LengthSix.md](cubic/LengthSix.md#reproduction) for length-6 elliptic-curve arithmetic |
-| Prior art | Checked 23-24 November 2026. The classifications at $k = 3, 4$, the three overlapping pairs at $k = 6$, and the four-cubic reduction were known earlier. No earlier Lean proof for $k = 3$ or $k = 4$, nor a complete integral-point proof for $k = 6$, was found (priority unverified). See [PRIOR_ART.md](../PRIOR_ART.md#erdős-677-equal-lcms-of-six-consecutive-integers). |
+| Prior art | Checked 23-24 November 2026. The classifications at $k = 3, 4$, the three overlapping pairs at $k = 6$, and the four-cubic reduction were known earlier. No earlier Lean proof for $k = 3$ or $k = 4$, nor a complete integral-point proof for $k = 6$, was found (priority unverified). |
 
 ## Results
 
-* **Length $k = 2$ (pure Lean 4):** Consecutive integers are coprime, so $M(n, 2) = (n+1)(n+2)$ strictly increases with $n$ and no collisions occur (`Erdos677.erdos_677_two`; [LengthTwoAndFive.md](LengthTwoAndFive.md)).
-* **Lengths $k = 3$ and $k = 4$ (pure Lean 4):** For distinct starts, the only equalities are $M(2, 3) = M(3, 3) = 60$ and $M(1, 4) = M(2, 4) = 60$. Both pairs overlap, so disjoint blocks of length 3 or 4 never share an LCM ([LengthThreeAndFour.md](LengthThreeAndFour.md)).
-* **Length $k = 5$ (partial results in Lean 4):** Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3 \cdot 10^{12}$, and classifies all four overlapping pairs ([LengthTwoAndFive.md](LengthTwoAndFive.md)).
+* **Length $k = 2$ (pure Lean 4):** Consecutive integers are coprime, so $M(n, 2) = (n+1)(n+2)$ strictly increases with $n$ and no collisions occur (`Erdos677.erdos_677_two`).
+* **Lengths $k = 3$ and $k = 4$ (pure Lean 4):** For distinct starts, the only equalities are $M(2, 3) = M(3, 3) = 60$ and $M(1, 4) = M(2, 4) = 60$. Both pairs overlap, so disjoint blocks of length 3 or 4 never share an LCM (`three_collision_iff`, `four_collision_iff`).
+* **Length $k = 5$ (partial results in Lean 4):** Lean rules out disjoint collisions for 87 of the 144 ordered residue pairs modulo 12 and for all reduced slopes of height at most $3 \cdot 10^{12}$, and classifies all four overlapping pairs.
 * **Length $k = 6$ (computer-assisted):** For distinct starts, the only equalities are the three overlapping pairs $(n, m) \in \{(3, 4), (5, 6), (13, 15)\}$. Lean verifies the reduction to four plane cubics, the finite LCM checks, and the disjoint-block conclusion given the affine bound. External scripts using elliptic logarithms, LLL lattice reduction, and David’s theorem prove the global affine bound and enumerate all integral points ([cubic/LengthSix.md](cubic/LengthSix.md)).
 * **General infinite families (pure Lean 4):** Lean proves $M(m, k) \ne M(n, k)$ for all adjacent disjoint blocks ($m = n + k$) of every length $k$, for every earlier block starting at $n = 0$ (the integers $1, \ldots, k$), and for every positive shift $m - n$ divisible by all integers $1, \ldots, k - 1$.
 
@@ -76,4 +76,3 @@ python -m unittest discover -s search
 * [Erdős Problems #677](https://www.erdosproblems.com/677) and [Erdős Problem a Day #677](https://erdosproblemaday.com/problem/677)
 * [Formal Conjectures `ErdosProblems/677.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/677.lean)
 * [UpstreamInterval.lean](UpstreamInterval.lean) reproduces the Formal Conjectures definition of `Finset.lcmInterval` under its [Apache-2.0 license](LICENSE-FormalConjectures) ([upstream source](https://github.com/google-deepmind/formal-conjectures/blob/78bc92237b4bcf5ec812a52d07364aa74773bfe2/FormalConjecturesForMathlib/Algebra/GCDMonoid/Finset.lean)). The rest of this folder uses the collection’s [MIT license](../LICENSE).
-* [Prior-art audit](../PRIOR_ART.md#erdős-677-equal-lcms-of-six-consecutive-integers)

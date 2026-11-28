@@ -12,7 +12,7 @@ The Lean 4 proofs here formally verify Prellberg's 148-point placement and estab
 | Status | Partial results ($148 \le \max \le 150$ and obstructions). Whether 149 or 150 points can be placed remains open. |
 | Main theorems | `Grid75.bounds` ([Grid75Results.lean](Grid75Results.lean)), `Grid75.maximum_in_range`, `witness_cannot_extend`, `no_quarterTurn_150` ([Grid75.lean](Grid75.lean)), `omitted_rows_separated` / `no_32_row_repair` ([StripBounds.lean](StripBounds.lean)), `achievable_150_of_halfTurn_extension` ([HalfTurn.lean](HalfTurn.lean)), `ModularCurve.CRT.one_curve_bound_50` / `two_curves_bound_100` ([PolynomialCRT.lean](PolynomialCRT.lean)) |
 | Verification | `lake build Grid75` (bounds only) or `lake build` (all theorems; Lean 4.36.0, stdlib only) |
-| Prior art | Checked 23 November 2026: the 148-point configuration is Prellberg's 20 July 2026 $74 \times 74$ solution; Flammenkamp's 28 October table leaves $n = 75$ blank. See [PRIOR_ART.md](../PRIOR_ART.md). |
+| Prior art | Checked 23 November 2026: the 148-point configuration is Prellberg's 20 July 2026 $74 \times 74$ solution; Flammenkamp's 28 October table leaves $n = 75$ blank. |
 
 ## Lean results
 
@@ -42,4 +42,3 @@ lake build
 ## References
 
 - Achim Flammenkamp's No-Three-in-Line [table](https://wwwhomes.uni-bielefeld.de/achim/no3in/table.html), [discovery notes](https://wwwhomes.uni-bielefeld.de/achim/no3in/readme.html#C), and [Prellberg's $74 \times 74$ data (`n74_rot4.few`)](https://wwwhomes.uni-bielefeld.de/achim/no3in/download/configurations/n74_rot4.few)
-- [Prior-art audit](../PRIOR_ART.md)

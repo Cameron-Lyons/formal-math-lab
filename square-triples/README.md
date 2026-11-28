@@ -16,7 +16,7 @@ The Lean 4 proof here (`SquareTriples.solution_ratio_1000`) proves that any solu
 | Status | Partial result (ratio lower bound $> 1000$). Unrestricted existence of six distinct positive integers remains open. |
 | Main theorems | `SquareTriples.solution_ratio_1000`, `SquareTriples.ordered_solution_ratio_1000` in [SquareTriples/Ratio.lean](SquareTriples/Ratio.lean) |
 | Verification | `lake build && lake env leanchecker SquareTriples.Determinant SquareTriples.Ratio` (Lean 4.36.0, stdlib only; pure kernel check) |
-| Prior art | Checked 24 November 2026: the $3 + 3$ case is listed as open by Dujella and by Batta, Hajdu, and Pongrácz; priority of the factor-1000 bound is unverified. See [PRIOR_ART.md](../PRIOR_ART.md#two-triples-producing-nine-squares). |
+| Prior art | Checked 24 November 2026: the $3 + 3$ case is listed as open by Dujella and by Batta, Hajdu, and Pongrácz; priority of the factor-1000 bound is unverified. |
 
 ## How the proof works
 
@@ -53,4 +53,3 @@ lake env leanchecker SquareTriples.Determinant SquareTriples.Ratio
 
 * [Andrej Dujella, *Open Problems*, Problem 1.4](https://web.math.pmf.unizg.hr/~duje/pdf/open2.pdf#page=2)
 * [Batta, Hajdu, and Pongrácz, `arXiv:2410.20120v1`, §6](https://arxiv.org/html/2410.20120v1#S6)
-* [Prior-art audit](../PRIOR_ART.md#two-triples-producing-nine-squares)

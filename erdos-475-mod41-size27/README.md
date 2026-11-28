@@ -10,10 +10,10 @@ This directory proves the conjecture completely for **$p = 41$, $43$, and $47$**
 
 | Result | Scope | Proof method | Write-up |
 | --- | --- | --- | --- |
-| Complete verification at $p = 47$ | All subsets of $\mathbb{F}_{47}^\times$ | Quadratic-residue split + 15-region pigeonhole gluing + C++ half-path verifier (plus independent splice check) | [modulo-47.md](modulo-47.md) |
-| Complete verification at $p = 43$ | All subsets of $\mathbb{F}_{43}^\times$ | Zero-sum & reciprocal-sum reduction + C++ meet-in-the-middle verifier (plus independent rotation check) | [modulo-43.md](modulo-43.md) |
-| Complete verification at $p = 41$ | All subsets of $\mathbb{F}_{41}^\times$ | Zero-sum & reciprocal-sum reduction + C++ meet-in-the-middle verifier (plus independent rotation & size-27 checks) | [Below](#the-finite-check-at-41) · [zero-sum.md](zero-sum.md) |
-| At most 4 omitted residues | Every prime $p$ | Explicit alternating decreasing-magnitude ordering (covers any opposite pairs plus 3 or 4 unpaired residues of sum zero) | [paired-quartet.md](paired-quartet.md) · [paired-triple.md](paired-triple.md) |
+| Complete verification at $p = 47$ | All subsets of $\mathbb{F}_{47}^\times$ | Quadratic-residue split + 15-region pigeonhole gluing + C++ half-path verifier | [modulo-47.md](modulo-47.md) |
+| Complete verification at $p = 43$ | All subsets of $\mathbb{F}_{43}^\times$ | Zero-sum & reciprocal-sum reduction + C++ meet-in-the-middle verifier | [modulo-43.md](modulo-43.md) |
+| Complete verification at $p = 41$ | All subsets of $\mathbb{F}_{41}^\times$ | Zero-sum & reciprocal-sum reduction + C++ meet-in-the-middle verifier | [Below](#the-finite-check-at-41) |
+| At most 4 omitted residues | Every prime $p$ | Explicit alternating decreasing-magnitude ordering (covers any opposite pairs plus 3 or 4 unpaired residues of sum zero) | [paired-quartet.md](paired-quartet.md) |
 
 ## Reduction to sets of sum zero
 
@@ -51,10 +51,7 @@ c++ -std=c++20 -O3 -march=native -fopenmp verify_reciprocal.cpp -o /tmp/graham41
 /tmp/graham41
 ~~~
 
-An independent full verification uses multiplicative rotations together with an exact per-size count audit, and the earlier size-27 computations also remain reproducible.
-
 * [Modulo-47 proof and reproduction commands](modulo-47.md)
 * [Modulo-43 verification](modulo-43.md)
-* [Constructive proof for at most 4 omissions](paired-quartet.md) · [Original edge-splitting proof for at most 3 omissions](paired-triple.md)
-* [Complete C++ verifier](verify_reciprocal.cpp) · [Rotation verifier](verify_zero_sum.cpp) · [Independent count checker](verify_counts.py) · [Size-27 checks](zero-sum.md)
-* [Prior-art notes](../PRIOR_ART.md#erdős-475-all-sizes-modulo-41-and-three-omitted-residues-at-every-prime)
+* [Constructive proof for at most 4 omissions](paired-quartet.md)
+* [Complete C++ verifier](verify_reciprocal.cpp)

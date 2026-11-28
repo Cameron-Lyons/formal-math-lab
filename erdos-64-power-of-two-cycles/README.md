@@ -10,7 +10,7 @@ The conjecture remains open in general, and no counterexample is known. This fol
 | Order bound | A written reduction and a C++ search using nauty exhaust all 103 starting configurations through 41 vertices. See [Order41.md](Order41.md) for the proof and replay commands. |
 | Main Lean theorems | `Erdos64.TrianglePacking.liftCycle` doubles the length of a quotient cycle when same-corner visits are isolated. `Erdos64.Terminals.terminalEquivalences` gives two reformulations of the unrestricted conjecture. `Erdos64.cycle_of_P15_plus_isolate_free` settles a forbidden-subgraph case. |
 | Verification | Run `lake --wfail build` and `lake env leanchecker --fresh Erdos64` with Lean 4.36.0 and its standard library. See [Verification](#verification). |
-| Prior art | Ducoffe and Dumitru verified the conjecture through 40 vertices; Hegde, Sandeep, and Shashank proved it for graphs with no induced $P_{13}$. See the [literature check from 25 November 2026](../PRIOR_ART.md#erdős-64-power-of-two-cycles). |
+| Prior art | Ducoffe and Dumitru verified the conjecture through 40 vertices; Hegde, Sandeep, and Shashank proved it for graphs with no induced $P_{13}$. |
 
 ---
 
@@ -66,7 +66,7 @@ The proof classifies every dyadic-cycle-free piece that can grow behind a three-
 
 **Theorem.** Every nonempty simple graph of minimum degree at least three with no induced $P_{15} \sqcup K_1$ contains a simple cycle of length $4$, $8$, or $16$ ([Erdos64.lean](Erdos64.lean)). Here $P_{15}$ is the 15-vertex path and $K_1$ is an extra vertex with no neighbors on the path. In particular, the theorem holds for every $P_{15}$-free graph regardless of order.
 
-Hegde, Sandeep, and Shashank previously proved the $P_{13}$-free case ([arXiv:2410.22842](https://arxiv.org/abs/2410.22842)), and an earlier theorem in this repository covered graphs forbidding an induced $P_{14} \sqcup K_1$ (see the [prior-art audit](../PRIOR_ART.md#erdős-64-power-of-two-cycles)). Including the isolated vertex is a strict generalization even at minimum degree three: adding three universal vertices (adjacent to everything) to $P_{14} \sqcup K_1$ keeps that induced pattern while preventing any induced path from having more than 14 vertices.
+Hegde, Sandeep, and Shashank previously proved the $P_{13}$-free case ([arXiv:2410.22842](https://arxiv.org/abs/2410.22842)), and an earlier theorem in this repository covered graphs forbidding an induced $P_{14} \sqcup K_1$. Including the isolated vertex is a strict generalization even at minimum degree three: adding three universal vertices (adjacent to everything) to $P_{14} \sqcup K_1$ keeps that induced pattern while preventing any induced path from having more than 14 vertices.
 
 | Hypothesis | Forced simple cycle lengths | Lean theorem |
 | --- | --- | --- |
@@ -126,20 +126,3 @@ The default target imports all Lean proofs in the package. Trust boundaries brea
 * The forbidden-path, pathwidth, and treewidth-profile proofs rely on `native_decide` for finite checks and therefore trust Lean's compiler for those evaluations.
 * The full [packing argument](DegreeComponents.md#contracting-disjoint-triangles) and the reduction from treewidth-three graphs to profiles in [TreewidthThree.md](TreewidthThree.md) are written proofs.
 * The unrestricted order-41 bound relies on the external C++ enumeration documented in [Order41.md](Order41.md#reproduction).
-
-To reproduce the forbidden-path search counts independently, compile and run the C++23 checker:
-
-```sh
-c++ -O3 -std=c++23 -Wall -Wextra -Wpedantic -Werror scripts/pfree_check.cpp -o /tmp/erdos64-pfree-check
-/tmp/erdos64-pfree-check
-```
-
-| Independent search | Partial graphs examined |
-| --- | ---: |
-| Longest-path cases $P_2$ through $P_{13}$ | 525,217 |
-| Longest-path case $P_{14}$ forcing $P_{15}$ | 580,562 |
-| Dominating $P_{15}$ | 214,585 |
-| Triangle-free longest-path cases $P_1$ through $P_{16}$ | 177,803 |
-| Triangle-free dominating $P_{17}$ | 104,690 |
-
-The checker also reruns the earlier dominating $P_{14}$ search (121,786 partial graphs) and exits with a nonzero status if any branch stays unresolved. These counts measure only the search tree; the resulting theorems hold for host graphs of arbitrary order.

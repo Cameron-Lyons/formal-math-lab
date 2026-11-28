@@ -9,8 +9,8 @@ Caleb Ashton published an explicit 27-block covering design, establishing $C(61,
 | Problem | Covering design $C(61, 25, 3)$ ($26 \le C(61, 25, 3) \le 27$), Caleb Ashton's 27-block construction (`covering-C61-25-3-27`) |
 | Status | Partial result (local-repair obstructions). Any 26-block cover keeps at most 20 of the 27 published blocks; unrestricted existence of a 26-block cover remains open. |
 | Main theorems | `Covering61.RepairSearch.published_six_for_five_screen` (plus `published_five_for_four_screen`, `published_four_for_three_screen`, `candidate_three_group_screen`) in [RepairSearch.lean](RepairSearch.lean); two-replacement proofs in [Repairs.lean](Repairs.lean) |
-| Verification | `lake build` (Lean 4.36.0, stdlib only; `native_decide` for the 296,010-case screen); independent C++ checker in [SixGroupSearch.cpp](SixGroupSearch.cpp) |
-| Prior art | Checked 23-24 November 2026: Caleb Ashton published the 27-block construction; unrestricted existence of a 26-block cover remains open. See [PRIOR_ART.md](../PRIOR_ART.md). |
+| Verification | `lake build` (Lean 4.36.0, stdlib only; `native_decide` for the 296,010-case screen) |
+| Prior art | Checked 23-24 November 2026: Caleb Ashton published the 27-block construction; unrestricted existence of a 26-block cover remains open. |
 
 ## What is proved
 
@@ -52,15 +52,7 @@ lake build
   - [RepairCount.lean](RepairCount.lean): implementation and soundness of the counting and forced-set screen.
   - [Repairs.lean](Repairs.lean): direct two-replacement proofs for the 84-triple candidate.
   - [Covering.lean](Covering.lean): the published 27-block cover and the 26-block near-miss candidate.
-- **Independent C++23 check:** An independent external C++23 program reproduces the intermediate surviving counts directly from `Covering.lean`:
-
-```sh
-c++ -std=c++23 -O3 -Wall -Wextra -Wpedantic -Werror SixGroupSearch.cpp -o six-group-search
-./six-group-search Covering.lean
-```
 
 ## References
 
 - [Caleb Ashton's published 27-block covering design `C(61, 25, 3) <= 27`](https://kaust-a-laut.github.io/results/covering-C61-25-3-27/README.md)
-- [SixGroupSearch.cpp](SixGroupSearch.cpp)
-- [Prior-art audit](../PRIOR_ART.md)

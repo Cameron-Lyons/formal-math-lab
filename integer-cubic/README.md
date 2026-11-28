@@ -34,7 +34,7 @@ The Lean 4 code and companion searches in this folder establish four partial res
 | Status | Partial results only; whether there are infinitely many integer solutions (and the $\lvert x\rvert > 10^{50}$ challenge) remains open. |
 | Main theorems | `IntegerCubic.infinitely_many_with_two_integer_coordinates` ([IntegerCubic.lean](IntegerCubic.lean)); `SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart` ([pell/MixedPellAmplification.lean](pell/MixedPellAmplification.lean)); `SmallCubic.QuinticSquareObstruction.no_negative_square_lift` ([pell/QuinticSquareObstruction.lean](pell/QuinticSquareObstruction.lean)); `SmallCubic.WitnessSearch.three_large_solutions` ([pell/WitnessSearch.lean](pell/WitnessSearch.lean)) |
 | Verification | `lake exe cache get && lake build && lake exe boundedSearch` (Lean 4.36.0 + mathlib v4.36.0; also `lake build SmallCubic`) |
-| Prior art | Checked 24 November 2026: infinitude remains open in Grechuk Table 6, and Epoch reports polynomial families for two related cubics. Priority of the local partial obstructions and families here is unverified. See [PRIOR_ART.md](../PRIOR_ART.md). |
+| Prior art | Checked 24 November 2026: infinitude remains open in Grechuk Table 6, and Epoch reports polynomial families for two related cubics. Priority of the local partial obstructions and families here is unverified. |
 
 ## Polynomial family degree bound: $\deg x \ge 6$
 
@@ -99,9 +99,9 @@ A natural upgrade from ordinary polynomials is to parametrize curves on the surf
   A^3 + B^2 J + J^2 = 2 L^{12}, \qquad (x, y, z) = \left(\frac{A}{L^4}, \frac{B}{L^3}, \frac{J}{L^6}\right),
   $$
 
-  with $\deg A \le 8$, $\deg B \le 6$, and $\deg J \le 12$. Lean proves (`SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`) that if $x$ is nonconstant and $(x, y, z)$ is integral at $t = 0$, then the Pell recurrence on $u^2 - 3v^2 = 1$ clears denominators along a subsequence and generates infinitely many integer solutions. Through the seed $(0, 1, 1)$, exact modular searches ruled out over $21$ million candidate first coordinates in each of two bases up to height $171$; see [pell/QuarticFreeMark.md](pell/QuarticFreeMark.md).
-* **Quintic Pell obstruction** ([pell/QuinticSquareObstruction.lean](pell/QuinticSquareObstruction.lean)): Lean rules out the quintic substitution $az = 2 - r^3$, $x = r - p^2 z$ for every nonzero rational $a$ on a nonsplit Pell conic whenever $r$ and $p$ have simple poles at the two conjugate ends and all coordinates are regular elsewhere, with no height bound (`SmallCubic.QuinticSquareObstruction.no_negative_square_lift`; see [pell/QuinticFactorSearch.md](pell/QuinticFactorSearch.md)).
-* **Verified integer witnesses** ([pell/WitnessSearch.lean](pell/WitnessSearch.lean)): Lean verifies three explicit integer solutions with distinct $x$ and $|x| > 30{,}000{,}000$ (`SmallCubic.WitnessSearch.three_large_solutions`; see [pell/WitnessSearch.md](pell/WitnessSearch.md)). Epoch's intermediate challenge ($|x| > 10^{50}$) remains open.
+  with $\deg A \le 8$, $\deg B \le 6$, and $\deg J \le 12$. Lean proves (`SmallCubic.MixedPell.infinite_of_nonconstant_quartic_chart`) that if $x$ is nonconstant and $(x, y, z)$ is integral at $t = 0$, then the Pell recurrence on $u^2 - 3v^2 = 1$ clears denominators along a subsequence and generates infinitely many integer solutions.
+* **Quintic Pell obstruction** ([pell/QuinticSquareObstruction.lean](pell/QuinticSquareObstruction.lean)): Lean rules out the quintic substitution $az = 2 - r^3$, $x = r - p^2 z$ for every nonzero rational $a$ on a nonsplit Pell conic whenever $r$ and $p$ have simple poles at the two conjugate ends and all coordinates are regular elsewhere, with no height bound (`SmallCubic.QuinticSquareObstruction.no_negative_square_lift`).
+* **Verified integer witnesses** ([pell/WitnessSearch.lean](pell/WitnessSearch.lean)): Lean verifies three explicit integer solutions with distinct $x$ and $|x| > 30{,}000{,}000$ (`SmallCubic.WitnessSearch.three_large_solutions`). Epoch's intermediate challenge ($|x| > 10^{50}$) remains open.
 
 ## Verification
 
@@ -116,10 +116,8 @@ lake exe boundedSearch
 * [IntegerCubic.lean](IntegerCubic.lean) contains the kernel-checked denominator-13 family, injectivity, and quadratic contact obstructions.
 * [BoundedSearch.lean](BoundedSearch.lean) implements `boundedSearch` for the $\mathbb{F}_{13}[T]$ degree $\le 5$ exhaustion, which combines with the valuation reduction above.
 * `lake build SmallCubic` builds the Pell library on its own.
-* Additional search scripts under [pell/](pell/) document their own commands (mostly Python with `python-flint==0.9.0` via `uv`, and where noted C++23, PARI/GP, or Z3).
 
 ## References
 
 * [Bogdan Grechuk, `arXiv:2404.08518v11`, Section 5 / Table 6](https://arxiv.org/html/2404.08518v11#S5)
 * [Epoch FrontierMath Open Problem: Small Diophantine Equations](https://epoch.ai/frontiermath/open-problems/small-diophantine) and [Epoch's two constructions](https://epoch.ai/files/open-problems/small-diophantine-two-families.pdf)
-* [Prior-art audit](../PRIOR_ART.md)

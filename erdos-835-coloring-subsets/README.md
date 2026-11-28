@@ -17,7 +17,7 @@ Whether such a coloring exists—at $k = 16$ or for general $k$—remains **open
 | Status | Partial results (symmetry obstructions). Existence at $k = 16$ and in general is still open. |
 | Main theorems | `Erdos835.no_regular_abelian_symmetry`, `involution_moves_at_least_thirty`, `no_order11_or_13`, `IsSteinerSystem.no_order11_or_13`, `TwentyPoint.order17_requires_concrete_seed` |
 | Verification | `lake exe cache get && lake build` (Lean 4.36.0 + mathlib; core symmetry theorems are kernel-checked, two order-17 SAT/LRAT sub-results use `native_decide`) |
-| Prior art | Checked 23 November 2026: earlier work rules out prime orders 19, 23, 29, 31 and two groups on a single Steiner system, and Kolotoğlu and Magliveras (2014) imply the order-11 and single 13-cycle cases. See [Relation to earlier work](#relation-to-earlier-work) and [PRIOR_ART.md](../PRIOR_ART.md#erdős-835-coloring-subsets). |
+| Prior art | Checked 23 November 2026: earlier work rules out prime orders 19, 23, 29, 31 and two groups on a single Steiner system, and Kolotoğlu and Magliveras (2014) imply the order-11 and single 13-cycle cases. See [Relation to earlier work](#relation-to-earlier-work). |
 
 ## Main symmetry exclusions in Lean
 
@@ -83,15 +83,13 @@ An order-17 symmetry on 32 points rotates 17 points in a single cycle and fixes 
 **Reduction to a 20-point cyclic seed.** Take the 17 rotating points plus 3 fixed points to form a 20-set $W$, and represent each 16-subset of $W$ by the 4 points it omits. Every triple in $W$ has a 17-point complement in $W$, so its 17 extensions to a quadruple must carry all 17 colors once each. Consequently, the quadruples of one color—a **cyclic seed**—must cover every triple in $W$ once and meet each cyclic orbit of quadruples once; conversely, developing such a family through its 17 cyclic translates produces the required coloring on $W$ ([Order17Coordinates.lean](Order17Coordinates.lean)).
 
 * **19-point seed (feasible):** The analogous 19-point problem has a solution: 57 seed triples cover all 171 pairs once and their translates partition all 969 triples ([certificates/order17-19.json](certificates/order17-19.json), [certificates/Order17On19.lean](certificates/Order17On19.lean)).
-* **Partial 20-point family and nonextension:** On 20 points, a 145-quadruple family keeps this 19-point seed at point 19 (covering all 460 triples meeting points 17, 18, or 19, plus 120 moving triples). Using exact-cover clauses and an LRAT refutation (`native_decide`), Lean proves that no cyclic seed contains these 145 blocks. An independent search visits 526,346 nodes, and `python search/order17_on20.py --extend certificates/order17-partial20.json` reproduces the residual CNF. Other choices of the 145 quadruples remain possible ([certificates/order17-partial20.json](certificates/order17-partial20.json), [certificates/Order17Partial20.lean](certificates/Order17Partial20.lean), [Order17BoundaryGeometry.lean](Order17BoundaryGeometry.lean), [Order17BoundaryObstruction.lean](Order17BoundaryObstruction.lean)).
+* **Partial 20-point family and nonextension:** On 20 points, a 145-quadruple family keeps this 19-point seed at point 19 (covering all 460 triples meeting points 17, 18, or 19, plus 120 moving triples). Using exact-cover clauses and an LRAT refutation (`native_decide`), Lean proves that no cyclic seed contains these 145 blocks. Other choices of the 145 quadruples remain possible ([certificates/order17-partial20.json](certificates/order17-partial20.json), [certificates/Order17Partial20.lean](certificates/Order17Partial20.lean), [Order17BoundaryGeometry.lean](Order17BoundaryGeometry.lean), [Order17BoundaryObstruction.lean](Order17BoundaryObstruction.lean)).
 * **Packings:** Lean kernel-checks packings of 257 quadruples (keeping all 145 boundary blocks) and 263 quadruples (covering 1,052 of 1,140 triples). Both stall at triple $\{0, 1, 15\}$ ([certificates/Order17Packings.lean](certificates/Order17Packings.lean), [257 blocks](certificates/order17-packing257.json), [263 blocks](certificates/order17-packing263.json)).
 * **Further order-17 obstructions proved in Lean:**
   * A full seed has 140 wholly moving quadruples; every moving pair lies in 6 or 7, and every moving point in 32 or 33 ([CoreCounts.lean](CoreCounts.lean)).
   * No Steiner quadruple system on 20 points can contain all 140 zero-sum moving quadruples mod 17 ([AdditiveCore.lean](AdditiveCore.lean)).
-  * No cyclic 20-point seed is invariant under multiplication by 9 mod 17 (order 8), even on wholly moving quadruples alone (Boolean clauses plus LRAT refutation via `native_decide`; [MultiplierCore.lean](MultiplierCore.lean), [MultiplierSAT.lean](MultiplierSAT.lean), [search/multiplier_core_certificate.py](search/multiplier_core_certificate.py)).
+  * No cyclic 20-point seed is invariant under multiplication by 9 mod 17 (order 8), even on wholly moving quadruples alone (Boolean clauses plus LRAT refutation via `native_decide`; [MultiplierCore.lean](MultiplierCore.lean), [MultiplierSAT.lean](MultiplierSAT.lean)).
   * Reflection on the 17 moving points fixing the 3 extra points individually cannot carry a seed to any translate ([Order17Reflection.lean](Order17Reflection.lean)).
-
-Generate the full 20-point SAT instance (4,845 variables, 1,140 triple constraints, 285 orbit constraints) with `python search/order17_on20.py > order17_on20.cnf` ([search/order17_on20.py](search/order17_on20.py)). Bounded CaDiCaL and CP-SAT searches did not decide the full instance; proving it unsatisfiable would rule out order-17 symmetry on 32 points.
 
 ## Verification
 
@@ -122,4 +120,3 @@ LEAN
 
 * [Erdős Problems #835](https://www.erdosproblems.com/835)
 * [Formal Conjectures `ErdosProblems/835.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/835.lean)
-* [Prior-art audit](../PRIOR_ART.md#erdős-835-coloring-subsets)

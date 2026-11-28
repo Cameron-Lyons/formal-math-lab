@@ -11,8 +11,8 @@ This Lean 4 package formally verifies the known tight window $253 \le R(B_{63}, 
 | Problem | Book Ramsey number $R(B_{63}, B_{64})$, Chung and Wesley (`arXiv:2610.36522`, Appendix A), Dai and Lin (`arXiv:2606.07214`, Theorem 1.1), Rousseau and Sheehan ($R(B_{n-1}, B_n) \le 4n - 1$) |
 | Status | $253 \le R(B_{63}, B_{64}) \le 255$ verified and circulant/Cayley obstruction at 254 proved; existence of a 254-vertex witness remains open. |
 | Main theorems | `BookRamsey.Lower252.exists_252` ([Lower252.lean](Lower252.lean)), `BookRamsey.Upper255.upper` ([Upper255.lean](Upper255.lean)), `BookRamsey.DegreeObstruction.no_identical_circulant_layers` ([CayleyObstruction.lean](CayleyObstruction.lean)) |
-| Verification | `lake build && lake exe verify witness252.txt 252 63 64` (Lean 4.36.0, stdlib only; pure kernel proofs) |
-| Prior art | Checked 23 November 2026: the 252-vertex lower bound follows Dai and Lin and the upper bound 255 follows Rousseau and Sheehan; Chung and Wesley list the 254-vertex construction as open. See [PRIOR_ART.md](../PRIOR_ART.md). |
+| Verification | `lake build` (Lean 4.36.0, stdlib only; pure kernel proofs) |
+| Prior art | Checked 23 November 2026: the 252-vertex lower bound follows Dai and Lin and the upper bound 255 follows Rousseau and Sheehan; Chung and Wesley list the 254-vertex construction as open. |
 
 ## Lean results
 
@@ -20,7 +20,7 @@ This Lean 4 package formally verifies the known tight window $253 \le R(B_{63}, 
 
 | Lean declaration | File | What it proves |
 | --- | --- | --- |
-| `BookRamsey.Lower252.exists_252` | [Lower252.lean](Lower252.lean) | Verifies a 252-vertex graph from Dai and Lin's conference-matrix construction (`witness252.txt`): every edge in either color has at most 62 common neighbors in its own color (`avoids_63_both` in fact proves no $B_{63}$ in either color), establishing $R(B_{63}, B_{64}) \ge 253$. |
+| `BookRamsey.Lower252.exists_252` | [Lower252.lean](Lower252.lean) | Verifies a 252-vertex graph from Dai and Lin's conference-matrix construction: every edge in either color has at most 62 common neighbors in its own color (`avoids_63_both` in fact proves no $B_{63}$ in either color), establishing $R(B_{63}, B_{64}) \ge 253$. |
 | `BookRamsey.Upper255.upper` | [Upper255.lean](Upper255.lean) | Proves $R(B_{63}, B_{64}) \le 255$: avoiding both a red $B_{63}$ and a blue $B_{64}$ on 255 vertices forces every single vertex to have red degree 127. That breaks handshaking parity, since the sum of all red degrees would be $255 \times 127 = 32{,}385$ (odd), which can never equal twice the number of red edges. |
 | `BookRamsey.DegreeObstruction.no_identical_circulant_layers` | [CayleyObstruction.lean](CayleyObstruction.lean) | Rules out all 254-vertex graphs built from two identical 127-vertex circulant layers joined by a circulant cross-block. This covers both groups of order 254, and combined with McKay and Praeger's Theorem 1(b) for order $2p$ ($p = 127 \equiv 3 \pmod 4$), rules out **every** vertex-transitive graph of order 254. |
 
@@ -30,14 +30,12 @@ Run from this directory with Lean 4.36.0 (stdlib only; all theorems are pure ker
 
 ```sh
 lake build
-lake exe verify witness252.txt 252 63 64
 ```
 
-To test any 254-vertex candidate graph, run `lake exe verify candidate.txt`. Format the input as 254 lines of 254 binary digits (`1` for red edges, `0` on the diagonal, symmetric adjacency matrix); the verifier reports the largest book and the number of violating spines in each color ([Verify.lean](Verify.lean), [witness252.txt](witness252.txt)).
+To test any 254-vertex candidate graph, run `lake exe verify candidate.txt`. Format the input as 254 lines of 254 binary digits (`1` for red edges, `0` on the diagonal, symmetric adjacency matrix); the verifier reports the largest book and the number of violating spines in each color ([Verify.lean](Verify.lean)).
 
 ## References
 
 - [Chung and Wesley, `arXiv:2610.36522v1`, Introduction and Appendix A](https://arxiv.org/html/2610.36522v1)
 - [Dai and Lin, `arXiv:2606.07214v1`, Theorem 1.1](https://arxiv.org/html/2606.07214v1)
 - [McKay and Praeger, vertex-transitive graphs of order $2p$, Theorem 1(b)](https://users.cecs.anu.edu.au/~bdm/papers/cheryl1.pdf)
-- [Prior-art audit](../PRIOR_ART.md)

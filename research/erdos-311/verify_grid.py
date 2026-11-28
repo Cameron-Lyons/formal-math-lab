@@ -9,7 +9,7 @@ from math import isqrt, prod
 
 @dataclass(frozen=True)
 class Grid:
-    """Represents m / denominator for every integer first <= m <= denominator."""
+    """Represents grid points from first / denominator through 3/2."""
 
     denominator: int
     first: int
@@ -35,7 +35,7 @@ class Grid:
         return Grid(denominator, first, self.bound * max(primes), self, primes)
 
     def represent(self, numerator: int) -> list[int]:
-        assert self.first <= numerator <= self.denominator
+        assert self.first <= numerator <= 3 * self.denominator // 2
         old = self.previous
         if old is None:
             # Each binary digit 2^k of m contributes 1 / (D / 2^k).
@@ -76,23 +76,23 @@ def main() -> None:
     base = Grid(denominator=16, first=8, bound=16)
     first = base.lift((5, 7))
     for grid in (base, first):
-        for numerator in range(grid.first, grid.denominator + 1):
+        last = 3 * grid.denominator // 2
+        for numerator in range(grid.first, last + 1):
             verify(grid, numerator)
-        count = grid.denominator - grid.first + 1
+        count = last - grid.first + 1
         print(
-            f"D={grid.denominator} verified all {count} numerators {grid.first}..{grid.denominator}"
+            f"D={grid.denominator} verified all {count} numerators {grid.first}..{last}"
         )
 
     second = first.lift((23, 29))
-    for numerator in (second.first, second.denominator - 1, second.denominator):
+    d = second.denominator
+    for numerator in (second.first, d - 1, d, d + 1, 3 * d // 2):
         terms = verify(second, numerator)
         print(
             f"{Fraction(numerator, second.denominator)} = "
             + " + ".join(f"1/{n}" for n in terms)
         )
-    print(
-        f"Two lifts give 1 - 1/{second.denominator} with denominators at most {second.bound}."
-    )
+    print(f"Two lifts give 1 ± 1/{d} with denominators at most {second.bound}.")
 
 
 if __name__ == "__main__":

@@ -11,9 +11,11 @@ Let $E_N$ consist of the sums $\sum_{n\in A}1/n$ over subsets $A\subseteq\{1,\ld
 
 ## Complete grids near 1
 
-The congruences identify the largest denominator $D_*$ whose every grid point in $[1/2,3/2]$ occurs. Its size satisfies $\log D_*=N/(\log N\,(\log\log N)^{1+o(1)})$. The construction below gives the lower estimate for $\log D_*$ and the corresponding upper bound on $\delta(N)$. [Maximal denominator and size estimates](largest-grid.md)
+The congruences identify the largest denominator $D_*$ whose every grid point in $[1/2,3/2]$ occurs. Its size satisfies $\log D_*=N/(\log N\,(\log\log N)^{1+o(1)})$. The same estimate holds for $-\log\delta_{\rm sym}(N)$, where $\delta_{\rm sym}(N)$ is the smallest positive $e$ for which both $1-e$ and $1+e$ are attainable. In particular this symmetric version has exponential rate zero. [Maximal grid denominator](largest-grid.md) · [Symmetric-gap proof](symmetric-gaps.md)
 
-**Upper bound.** Write $L_1(x)=\log x$ and $L_{j+1}(x)=\log L_j(x)$. There is an absolute $b>0$ such that for every sufficiently large $N$,
+For the original gap, let $B(N)$ be the product of the successive iterated logarithms of $N$ that are at least $2$. A grid built with a variable number of stages gives an approximation from below with $\delta(N)\le\exp(-aN/B(N))$ for an absolute $a>0$ and all sufficiently large $N$. [Variable-depth construction](iterated-grid.md)
+
+**Four-stage bound.** Write $L_1(x)=\log x$ and $L_{j+1}(x)=\log L_j(x)$. There is an absolute $b>0$ such that for every sufficiently large $N$,
 $$
 \delta(N)\le
 \exp\!\left(-\frac{bN}{L_1(N)L_2(N)L_3(N)^2}\right).
@@ -85,7 +87,7 @@ Thus $\log Q=o(N)$, and deciding the positive exponential rate in #311 is equiva
 
 ## Numerical replay and prior work
 
-The Python 3.10+ verifier constructs the sums by the lemma and checks their value using independent rational addition. It exhausts the 89 covered numerators for $D=560$, then checks the endpoints and $1-1/373520$ after a second application. The asymptotic estimate follows from the proof above. [Verifier](verify_grid.py)
+The Python 3.10+ verifier checks the construction by exact rational addition. It checks every numerator from 472 through 840 for $D=560$. After a second application it checks both endpoints, 1, and the symmetric pair $1\pm1/373520$. [Verifier](verify_grid.py) · [Extension through $3/2$](iterated-grid.md#adding-a-prime-interval)
 
 ~~~sh
 python3 research/erdos-311/verify_grid.py

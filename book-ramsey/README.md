@@ -4,7 +4,7 @@ A **book graph** $B_k$ consists of $k$ triangles all glued along a single shared
 
 The **book Ramsey number** $R(B_{63}, B_{64})$ is the smallest vertex count $N$ such that every red-blue edge coloring of $K_N$ forces either a red $B_{63}$ or a blue $B_{64}$. Constructing a 254-vertex coloring avoiding both a red $B_{63}$ and a blue $B_{64}$ would settle $R(B_{63}, B_{64}) = 255$, a question Chung and Wesley (`arXiv:2610.36522`) list as open.
 
-This Lean 4 package formally verifies the known tight window $253 \le R(B_{63}, B_{64}) \le 255$—checking Dai and Lin's 252-vertex witness for the lower bound and proving Rousseau and Sheehan's 255-vertex upper bound—and proves a strong symmetry obstruction at order 254 ruling out all vertex-transitive graphs. It also includes a compiled verifier for testing candidate graphs. Whether a 254-vertex witness exists (and thus whether $R(B_{63}, B_{64})$ is 253, 254, or 255) remains open.
+This Lean 4 package formally verifies the known tight window $253 \le R(B_{63}, B_{64}) \le 255$—checking Dai and Lin's 252-vertex witness for the lower bound and proving Rousseau and Sheehan's 255-vertex upper bound—and proves a strong symmetry obstruction at order 254 ruling out all vertex-transitive graphs. Whether a 254-vertex witness exists (and thus whether $R(B_{63}, B_{64})$ is 253, 254, or 255) remains open.
 
 | Field | Summary |
 | --- | --- |
@@ -31,8 +31,6 @@ Run from this directory with Lean 4.36.0 (stdlib only; all theorems are pure ker
 ```sh
 lake build
 ```
-
-To test any 254-vertex candidate graph, run `lake exe verify candidate.txt`. Format the input as 254 lines of 254 binary digits (`1` for red edges, `0` on the diagonal, symmetric adjacency matrix); the verifier reports the largest book and the number of violating spines in each color ([Verify.lean](Verify.lean)).
 
 ## References
 

@@ -1,11 +1,10 @@
 /-
 The CNF encoder of the frame method: a transcription of `code/frame/enc.py` (functions `atmost`,
-`exactly`, class `Base` with `use_amo=True`, `case_extra` with the default flags
-`use_F=use_V=use_H=True`, `use_P=use_M=use_S=False`, `debug=None`, and `dimacs`).
+`exactly`, class `Base` with `use_amo=True`, and `case_extra` with the default flags
+`use_F=use_V=use_H=True`, `use_P=use_M=use_S=False`, `debug=None`).
 
 The Lean functions produce the same clauses, in the same order, with the same variable numbers as the
-Python code, and `dimacs` produces the same text byte for byte (`scripts/compare_enc.py` compares the
-SHA-256 of the two texts on many cases).
+Python code.
 
 Style: total functional code over `List`, no mutable state.  Every fresh variable has a closed-form
 number relative to the value `nv` of the variable counter at the start of the clause group that
@@ -571,31 +570,6 @@ a, b, c, d = ml, n - 1 - mr, mb, n - 1 - mt
 def caseExtra (B : Base) (ml mr mb mt : Nat) : Array Clause × Nat :=
   let G := extraGroup B.n B.k B.dR B.dC B.dT B.dS ml (B.n - 1 - mr) mb (B.n - 1 - mt) B.nv
   (G.cls.toArray, B.nv + G.new)
-
-/-! ### DIMACS text -/
-
-/-- One clause in DIMACS: `' '.join(map(str, c)) + ' 0\n'` (the empty clause is `" 0\n"`). -/
-def clauseStr (c : Clause) : String := " ".intercalate (c.map fun l => toString l) ++ " 0\n"
-
-/-- `''.join(' '.join(map(str, c)) + ' 0\n' for c in cls)`. -/
-def clausesStr (cls : List Clause) : String := String.join (cls.map clauseStr)
-
-/-- `enc.dimacs` with `base.text` and `len(base.cls)` given (so that the text of a base formula can be
-shared between its cases):
-```
-'p cnf %d %d\n' % (nv, len(base.cls) + len(extra)) + base.text
-  + ''.join(' '.join(map(str, c)) + ' 0\n' for c in extra)
-``` -/
-def dimacsOfText (baseText : String) (baseSize : Nat) (extra : Array Clause) (nv : Nat) : String :=
-  "p cnf " ++ toString nv ++ " " ++ toString (baseSize + extra.size) ++ "\n" ++ baseText ++
-    clausesStr extra.toList
-
-/-- `Base.text`. -/
-def Base.text (B : Base) : String := clausesStr B.cls.toList
-
-/-- `enc.dimacs(base, extra, nv)`. -/
-def dimacs (B : Base) (extra : Array Clause) (nv : Nat) : String :=
-  dimacsOfText B.text B.cls.size extra nv
 
 /-! ### Conversion to `Std.Sat.CNF Nat`
 

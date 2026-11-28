@@ -1,9 +1,9 @@
 import TBoards
 
 /-! Uniform three-coordinate marginals do not characterize ternary T boards.
-The first six rows are adapted from splice_extension.json, group 6, cap 1;
-the remaining rows were found by a prescribed-multiplicity search. Original
-certificate provenance and licenses are recorded in sources/README.txt. -/
+The first six rows come from an extension splice cap; the remaining rows were
+found by a prescribed-multiplicity search. Original attribution and license
+terms are recorded in sources/LICENSE_SCOPE.txt. -/
 namespace TBoards.MarginalCounterexample
 
 abbrev Triple := Nat × Nat × Nat

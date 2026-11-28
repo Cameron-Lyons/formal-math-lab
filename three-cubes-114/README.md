@@ -66,7 +66,7 @@ lake build
 
 ### 2. Discriminant certificates
 
-[NormCertificates.lean](NormCertificates.lean) checks in Lean's kernel that each of the 8 surviving candidate discriminants lies strictly between two consecutive perfect squares (and hence yields no integer solution).
+[NormCertificates.lean](NormCertificates.lean) checks in Lean's kernel that each of the 73 surviving candidate discriminants (59 norm-search, 2 upper-band, 4 low-band, and 8 ternary-norm candidates) lies strictly between two consecutive perfect squares (and hence yields no integer solution), together with a positive control recovering a solution for $42$.
 
 ## References
 

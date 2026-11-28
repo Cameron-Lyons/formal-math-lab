@@ -21,7 +21,7 @@ hypotheses. The axioms are `propext`, `Classical.choice` and `Quot.sound`.
 
 ## Proof outline
 
-The human proof is in `Erdos387.md`, with the same lemma numbers. For every prime `p ≤ k` choose a
+For every prime `p ≤ k` choose a
 class `a p ∈ (k % p, p]` such that every `j ∈ [1, k]` lies in one of these classes. By Kummer's
 theorem (here Lucas's congruence is used instead) and the Chinese remainder theorem this gives `n`
 (Lemma 1).
@@ -157,7 +157,7 @@ none exists. The main devices of the proof are older; see "Credits for ideas".
 ## Checks
 
 The type of `main` is `type_of%` of the upstream statement, so it cannot drift. The file
-was also replayed with leanchecker. Reviewer agents re-derived the written proof in `Erdos387.md`
+was also replayed with leanchecker. Reviewer agents re-derived the proof
 and compared it with this file, for the version before the last edits. These edits rearranged the
 presentation and did not change the argument. The correctness of the theorem rests on the kernel
 check.

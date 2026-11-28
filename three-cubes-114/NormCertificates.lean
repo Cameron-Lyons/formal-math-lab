@@ -19,7 +19,7 @@ theorem norm_root {k a b d r : Int} (hn : d = a^3 + k*b^3)
   grind
 
 /-- Signed pair sum, third coordinate and lower square root for each
-    survivor of the finite congruence tests in NormSearch.py. -/
+    survivor of the finite congruence tests. -/
 private def normSurvivors : List (Int × Int × Int) :=
   [
    (-1527100547784802175, 148892303409017636279, 1697633224383940145037),
@@ -113,7 +113,7 @@ def lowBandSurvivors : List (Int × Int × Int) :=
 theorem low_band_survivors_between_squares :
     lowBandSurvivors.length = 4 ∧ lowBandSurvivors.all betweenSquares = true := by decide +kernel
 
-/-- Positive control recovered by `NormOtherRoots.py` from a distinct seed root. -/
+/-- Positive control recovered from a distinct seed root. -/
 theorem other_root_recovers_42 :
     let d : Int := 102980666258459
     let seed : Int := 28902416942381

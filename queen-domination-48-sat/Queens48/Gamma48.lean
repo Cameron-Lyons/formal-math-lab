@@ -1,8 +1,8 @@
 /-
 `γ(Q_48) = i(Q_48) = 25`, given that the formula of every case of the case list `L(48, 24)` is unsatisfiable.
 
-* Upper bound (unconditional): `q48i` (`data/frame/q48_25_indep.json`) is a dominating set of 25 pairwise
-  non-attacking queens; kernel computations.
+* Upper bound (unconditional): `q48i` is a dominating set of 25 pairwise non-attacking queens;
+  kernel computations.
 * Lower bound: `QueenDom.Sat.lt_gamma_of_formulas_unsat` for `(n, k) = (48, 24)`.
 
 Östergård and Weakley (Electron. J. Combin. 8 (2001) #R29) proved `i(Q_48), γ(Q_48) ∈ {24, 25}`.
@@ -44,7 +44,7 @@ theorem gamma_le_igamma (hD : Dominating D) (hI : Independent D) : gamma n ≤ i
 
 /-! ### Upper bound -/
 
-/-- The independent dominating set of `data/frame/q48_25_indep.json` (squares `(column, row)`). -/
+/-- An explicit 25-queen independent dominating set of `Q_48` (squares `(column, row)`). -/
 def q48i : Finset (Sq 48) :=
   {(1, 31), (3, 9), (5, 19), (7, 29), (9, 35), (11, 45), (13, 3), (15, 23), (17, 11), (19, 1),
    (21, 21), (23, 27), (25, 43), (27, 39), (29, 25), (31, 41), (33, 13), (35, 5), (36, 28), (37, 15),

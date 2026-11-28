@@ -41,7 +41,7 @@ the points `(x/z, y/z)`.
   `3`, `5`, `7` and the odd numbers from `11` on shows that there are at least `3.298 R³ - 7R²`.
 * Lemma 10. A line contains at most `2R²` points of `P`.
 
-The numbering agrees with the written proof in `Erdos211.md`. An earlier, longer proof by the
+An earlier, longer proof by the
 same agents (reduced bases, volumes; not included here) gives the better constant `0.1605`.
 With all primes in place of six, the present argument gives `7ζ(3)/(32ζ(2)) < 0.1599` (written proof
 only, not formalized).

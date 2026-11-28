@@ -579,7 +579,7 @@ In all three extremal words, **positions 18, 36 and 54 have the same color**. Ap
 20452363102656041316330552642544021201303144534635512260204165631026235413
 ```
 
-At length 76, zero or one transposed pair is excluded by the arbitrary-palette bound below. CaDiCaL 1.9.5 via PySAT exhaustively excludes both the two-pair and three-pair cases at 76. Removing equally many positions from each end preserves the symmetry, so this excludes all greater even lengths. Both cases were also separately excluded at 78. Together with the odd maximum of 71, this makes **74 the longest interval of either parity** whose seven-coloring is preserved by reversal up to renaming.
+At length 76, zero or one transposed pair is excluded by the arbitrary-palette bound below. CaDiCaL exhaustively excludes both the two-pair and three-pair cases at 76. Removing equally many positions from each end preserves the symmetry, so this excludes all greater even lengths. Both cases were also separately excluded at 78. Together with the odd maximum of 71, this makes **74 the longest interval of either parity** whose seven-coloring is preserved by reversal up to renaming.
 
 The separate maxima for each involution on a palette of seven are as follows. Unused colors are allowed.
 
@@ -607,18 +607,12 @@ lake build
 ```
 
 Run the commands below from this directory to replay the explicit colorings
-and finite searches with Python 3, Lean 4.36.0, and a C++20 compiler.
+and finite searches with Python 3 and a C++20 compiler.
 
 ```sh
 python3 verify_deletions.py
 python3 verify_progression_families.py
 python3 verify_growth.py
-lean ./Deletions.lean
-lean ./ProgressionFamilies.lean
-lean ./Critical54.lean
-mkdir -p /tmp/erdos160-lean
-lean -o /tmp/erdos160-lean/CyclicTransfer.olean ./CyclicTransfer.lean
-LEAN_PATH=/tmp/erdos160-lean lean -o /tmp/erdos160-lean/CyclicProduct.olean ./CyclicProduct.lean
 c++ -O3 -std=c++20 -Wall -Wextra -Werror -pedantic symmetric_bases.cpp -o /tmp/erdos160-symmetric
 /tmp/erdos160-symmetric
 c++ -O3 -std=c++20 -Wall -Wextra -Werror cyclic_block.cpp -o /tmp/erdos160-cyclic-block
